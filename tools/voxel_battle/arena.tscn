@@ -34,13 +34,6 @@ script = ExtResource("2_script")
 [node name="Environment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment")
 
-[node name="DuskSun" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.81915206, 0.46984634, -0.32898995, 0, 0.57357645, 0.81915206, 0.57357645, -0.6710101, 0.46984634, 0, 0, 0)
-light_color = Color(0.72, 0.8, 1, 1)
-light_energy = 1.2
-shadow_enabled = false
-directional_shadow_max_distance = 130.0
-
 [node name="Overview" type="Camera3D" parent="."]
 transform = Transform3D(0.7880108, -0.41988015, 0.45026633, 0, 0.7313537, 0.6819984, -0.6156615, -0.53742206, 0.57631457, 60, 90, 76)
 projection = 0

@@ -85,7 +85,10 @@ static func desktop_hand(left: bool, pitch: float, recoil: float, dual_pistols: 
 	return pivot+Basis(Vector3.RIGHT,pitch)*(grip-pivot)+Vector3(0,0,recoil*.035)
 
 static func weapon(id: int,filter_mode: int=2,rules: String="doom") -> Node3D:
-	if rules.begins_with("cq_"):return preload("res://deathmatch/conquest/classes/models.gd").weapon(id,rules)
+	if rules.begins_with("cq_"):
+		var model:Node3D=preload("res://deathmatch/conquest/classes/models.gd").weapon(id,rules)
+		preload("res://tools/voxel_battle/baked_lighting.gd").convert_node(model)
+		return model
 	var slot:=id
 	id=model_id(id,rules)
 	var root := Node3D.new()

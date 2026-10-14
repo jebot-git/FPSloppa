@@ -30,8 +30,8 @@ static func model_file(path: String,hash: String,directory: String,copy: bool=tr
 	if not FileAccess.file_exists(path) or FileAccess.get_sha256(path)!=hash:return {"error":"Model checksum failed."}
 	var info:=Models.inspect(path)
 	if info.has("error"):return info
-	var destination:=directory+hash+".vrm" if copy else path
-	if copy and not FileAccess.file_exists(destination) and not room(directory,"vrm",info.size,Models.CACHE_BUDGET):return {"error":"Avatar cache is full (1 GB)."}
+	var destination:=directory+hash+".utavatar" if copy else path
+	if copy and not FileAccess.file_exists(destination) and not room(directory,"utavatar",info.size,Models.CACHE_BUDGET):return {"error":"Avatar cache is full (1 GB)."}
 	DirAccess.make_dir_recursive_absolute(directory)
 	if publish(path,destination,hash)!=OK:return {"error":"Cannot save model."}
 	info.hash=hash;info.path=destination

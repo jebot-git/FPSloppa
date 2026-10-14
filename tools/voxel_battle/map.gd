@@ -19,7 +19,8 @@ var geometry: Array=[]
 var spawn_positions: Array[Vector3]=[]
 var routes: Array[Vector3]=[]
 var waterways
-func build(graphics: bool, physics: bool=true) -> void:
+var lighting
+func build(graphics: bool, physics: bool=true, baking:bool=false) -> void:
 	physics_enabled=physics
 	Landscape.Hydrology.prepare()
 	var meshes:=layout.generate()
@@ -48,6 +49,14 @@ func build(graphics: bool, physics: bool=true) -> void:
 		for entry in building.entries:routes.append(Landscape.CENTERS[building.kind]+entry)
 		for floor_index in building.floors:
 			routes.append(Landscape.CENTERS[building.kind]+building.center+Vector3(0,floor_index*Architecture.STOREY+.13,0))
+	if not baking:
+		lighting=preload("res://tools/voxel_battle/baked_lighting.gd").new();add_child(lighting);lighting.setup(self,graphics)
+		if graphics:
+			meshes=[]
+			for paths in lighting.metadata.meshes:
+				var levels:Array=[]
+				for path in paths:levels.append(load(path))
+				meshes.append(levels)
 	if graphics:
 		terrain=Stream.new();terrain.source=Landscape.new();terrain.coarse_segments=128;terrain.min_height=Landscape.MIN_HEIGHT;terrain.max_height=Landscape.MAX_HEIGHT;add_child(terrain);terrain.setup()
 		structures=Structures.new();structures.placements=Landscape.sites();structures.factory_base_offset=0
@@ -59,6 +68,11 @@ func build(graphics: bool, physics: bool=true) -> void:
 		environment=Scenery.new();add_child(environment);environment.setup(terrain)
 		grass=Grass.new();add_child(grass);grass.setup(terrain)
 	waterways=preload("res://tools/voxel_battle/waterways.gd").new();add_child(waterways);waterways.build(self,graphics,physics)
+	if graphics and not baking:
+		for variants in environment.variants.values():
+			for levels in variants:
+				for mesh in levels:lighting.convert_mesh(mesh)
+		lighting.convert_node(self);lighting.fixtures(self)
 func add_box(p: Vector3,size: Vector3) -> void:
 	var body:=StaticBody3D.new();body.position=p;add_child(body)
 	var shape:=BoxShape3D.new();shape.size=size
@@ -81,6 +95,7 @@ func seed_collision() -> void:
 				body.add_child(collider);environment_colliders+=1
 func update_view(camera: Camera3D) -> void:
 	if terrain!=null:terrain.tick(camera);structures.update(camera);environment.update(camera);grass.update(camera)
+	if lighting and structures:lighting.update_fixtures(structures)
 
 static func collision_cache_path() -> String:
 	var fingerprint:=FileAccess.get_sha256("res://tools/voxel_battle/landscape.gd")+FileAccess.get_sha256("res://tools/voxel_battle/architecture.gd")+FileAccess.get_sha256("res://tools/voxel_battle/outer_architecture.gd")+FileAccess.get_sha256("res://tools/voxel_battle/hydrology.gd")+FileAccess.get_sha256("res://tools/voxel_battle/waterways.gd")

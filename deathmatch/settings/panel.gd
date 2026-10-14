@@ -40,14 +40,8 @@ func setup(arena: Node) -> void:
 		if game.is_vr():game.xr_rig.turn_panel.open())
 	controls.gun_hand=button(input_page,"SWAP GUN HAND",func():
 		if game.is_vr():game.xr_rig.left_handed=not game.xr_rig.left_handed;refresh())
-	controls.recenter=button(tracking_page,"RECENTER VR",func():
+	controls.recenter=button(tracking_page,"RECENTER / CALIBRATE BODY",func():
 		if game.is_vr():game.xr_rig.recenter();refresh())
-	controls.calibrate=button(tracking_page,"CALIBRATE BODY",func():
-		if game.is_vr():game.xr_rig.tracking.calibrate();refresh())
-	controls.osc=button(tracking_page,"SLIMEVR OSC",func():
-		if game.is_vr():game.xr_rig.tracking.toggle_osc();refresh())
-	controls.body=button(tracking_page,"BODY TRACKING",func():
-		if game.is_vr():game.xr_rig.tracking.enabled=not game.xr_rig.tracking.enabled;refresh())
 	tracking_status=Label.new();tracking_status.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART;tracking_page.add_child(tracking_status)
 	audio_page=VBoxContainer.new();audio_page.add_theme_constant_override("separation",8);column.add_child(audio_page)
 	graphics_page=VBoxContainer.new();graphics_page.add_theme_constant_override("separation",8);column.add_child(graphics_page)
@@ -69,7 +63,6 @@ func setup(arena: Node) -> void:
 	controls.foveation_level=button(graphics_options,"",func():values.foveation_level=(int(values.foveation_level)+1)%4;save())
 	controls.fovea_size=button(graphics_options,"",func():values.fovea_size=(int(values.fovea_size)+1)%4;save())
 	foveation_status=Label.new();foveation_status.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART;graphics_options.add_child(foveation_status)
-	controls.spring_bones=button(graphics_options,"",func():values.spring_bones=not values.spring_bones;save())
 	controls.shadows=button(graphics_options,"",func():values.shadows=not values.shadows;save())
 	controls.fullscreen=button(graphics_options,"",func():values.fullscreen=not values.fullscreen;save())
 	stepper(graphics_options,"fov","Desktop field of view",5)
@@ -116,12 +109,10 @@ func save() -> void:
 	refresh()
 func refresh() -> void:
 	if book and book.current!=section:book.navigate(section)
-	for key in ["vr_controls","gun_hand","recenter","calibrate","osc","body"]:controls[key].disabled=not game.is_vr()
-	tracking_status.text=game.xr_rig.tracking.status+"\nLook down to inspect your live skeleton while calibrating." if game.is_vr() else "Connect a VR headset to configure tracking."
+	for key in ["vr_controls","gun_hand","recenter"]:controls[key].disabled=not game.is_vr()
+	tracking_status.text="Stand upright and hold a steady T-pose for 1.1 seconds to recenter your body. Lower your arms before repeating. Both controllers vibrate on completion." if game.is_vr() else "Connect a VR headset to configure tracking."
 	if game.is_vr():
 		controls.gun_hand.text="GUN HAND: "+("LEFT" if game.xr_rig.left_handed else "RIGHT")+" · SWAP"
-		controls.body.text="BODY TRACKING: "+("ON" if game.xr_rig.tracking.enabled else "OFF")
-		controls.osc.text="SLIMEVR OSC: "+("ON" if game.xr_rig.tracking.udp!=null else "OFF")
 	values.voice=game.voice.volume
 	for key in ["master","effects","voice","music","announcer","render_scale","controller_haptic_strength"]:controls[key].text="%d%%"%roundi(values[key]*100)
 	controls.fov.text="%d°"%roundi(values.fov);controls.fov.get_parent().visible=not game.is_vr()
@@ -131,7 +122,6 @@ func refresh() -> void:
 	controls.contrast_lighting.text="BAKED LIGHTING: "+("CONTRAST (EXPERIMENTAL)" if values.get("contrast_lighting",false) else "CLASSIC")
 	controls.msaa.text="ANTI-ALIASING: "+["OFF","2× MSAA","4× MSAA","8× MSAA"][int(values.msaa)]
 	refresh_foveation(XRServer.find_interface("OpenXR"))
-	controls.spring_bones.text="AVATAR SPRING BONES: "+("ON" if values.spring_bones else "OFF")
 	controls.shadows.text="SHADOWS: "+("ON" if values.shadows else "OFF")
 	controls.fullscreen.text="DISPLAY: "+("FULLSCREEN" if values.fullscreen else "WINDOWED");controls.fullscreen.visible=not game.is_vr() and not OS.has_feature("android")
 	controls.spatial_audio.text="SPATIAL AUDIO: "+("STEAM AUDIO HRTF (HEADPHONES)" if values.spatial_audio=="steam_audio" else "STANDARD STEREO")

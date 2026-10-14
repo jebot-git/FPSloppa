@@ -22,10 +22,12 @@ func _initialize():run.call_deferred()
 func run() -> void:
 	var world:=Node3D.new();root.add_child(world);Fixture.box(world,Vector3(0,-.5,0),Vector3(600,1,600))
 	actor=Fighter.new();actor.setup(1,"Jetpack",Color.WHITE);actor.quake_movement=true;world.add_child(actor)
-	await physics_frame;await physics_frame
+	await create_timer(.15,false,true).timeout;await physics_frame
+	# move_and_slide consumes the engine physics delta, not simulate()'s argument.
+	# Let the engine settle its new tick interval before running batched motion.
 	for hz in [30,60,120]:
 		Engine.physics_ticks_per_second=hz
-		await physics_frame;await physics_frame
+		await create_timer(.15,false,true).timeout;await physics_frame
 		var dt: float=1.0/hz;reset();press(Vector2.RIGHT,dt)
 		check(actor.jetpack_state.mode==1,"Double press starts moving flight at %d Hz"%hz)
 		var start: Vector3=actor.position;var top: float=actor.position.y;var last: Vector3=actor.position;var travel:=0.0;var duration:=0.0
@@ -40,7 +42,7 @@ func run() -> void:
 		for i in hz:actor.simulate(Vector2.ZERO,0,false,dt,false)
 		press(Vector2.RIGHT,dt);check(actor.jetpack_state.activation==activation+1,"Fresh double press works after 8 second cooldown at %d Hz"%hz)
 	Engine.physics_ticks_per_second=60
-	await physics_frame;await physics_frame
+	await create_timer(.15,false,true).timeout;await physics_frame
 	reset();actor.simulate(Vector2.ZERO,0,false,1.0/60,true)
 	for i in 90:actor.simulate(Vector2.ZERO,0,false,1.0/60,true)
 	check(actor.jetpack_state.activation==0,"Holding jump remains an ordinary jump")
@@ -113,7 +115,7 @@ func run() -> void:
 	check(copy.position.distance_to(actor.position+Vector3(0,0,20))<.001 and absf(copy.jetpack_state.cooldown-actor.jetpack_state.cooldown)<.001,"Transferred flight continues with the same trajectory and cooldown")
 	copy.free()
 	var wall:=Fixture.box(world,Vector3(8,8,0),Vector3(.3,16,30));var ceiling:=Fixture.box(world,Vector3(-30,3,0),Vector3(15,.3,15))
-	await physics_frame;await physics_frame
+	await create_timer(.15,false,true).timeout;await physics_frame
 	reset();press(Vector2.RIGHT,1.0/60)
 	for i in 150:actor.simulate(Vector2.RIGHT,0,false,1.0/60,false)
 	check(actor.position.x<7.56,"Boost collides with walls instead of tunnelling")

@@ -31,7 +31,9 @@ static func build() -> void:
 		else:
 			box(st,Vector3(0,.16,.168),Vector3(.16,.035,.025))
 			for side in [-1,1]:tube(st,Vector3(side*.18,-.315,.04),.061,.018)
-		shells.append(st.commit())
+		var mesh:=st.commit()
+		preload("res://tools/voxel_battle/baked_lighting.gd").convert_mesh(mesh)
+		shells.append(mesh)
 	plume=CylinderMesh.new();plume.top_radius=.06;plume.bottom_radius=.015;plume.height=.32;plume.radial_segments=8;plume.rings=1
 func _init() -> void:
 	name="CQJetpack";build()

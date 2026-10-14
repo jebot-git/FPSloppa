@@ -4,6 +4,8 @@ const Codec = preload("res://deathmatch/network/snapshot_codec.gd")
 var native_packer=preload("res://deathmatch/network/codec.gd").native_codec
 var native_packing_enabled=not OS.get_cmdline_user_args().has("--gdscript-network-packing")
 const BUDGET = 1100 # Leaves room for the Godot RPC and transport envelope.
+var async_encoder
+var async_token:=0
 var sequence := 0
 var epoch := -1
 var versions: Dictionary = {}
@@ -17,22 +19,14 @@ var membership_sequence := -1
 var stats: Dictionary = {"sent_bytes":0,"sent_packets":0,"large_records":0,"received_packets":0,"stale_records":0,"max_packet":0,"player_update_gaps":0,"player_updates":0}
 
 func reset() -> void:
+	async_token+=1
+	if async_encoder:async_encoder.shutdown();async_encoder=null
 	epoch = -1; sequence = 0; versions.clear(); player_rows.clear(); shot_rows.clear(); state.clear(); cached.clear(); dirty = false; membership.clear(); membership_sequence = -1
 
 func packets(snapshot: Array) -> Dictionary:
 	if epoch != snapshot[9]: reset(); epoch = snapshot[9]
 	sequence += 1
-	var records: Array = []
-	for index in [1,2,3,4,5,6,8,9,11,12,13]: records.append([0,index,snapshot[index]])
-	var mode: Dictionary = snapshot[10]
-	for key in mode:
-		if key not in ["locomotion","movement_ack","ordnance"]: records.append([1,key,mode[key]])
-	var ids: Array = []; var shots: Array = []
-	for row in snapshot[0]:
-		ids.append(row[0]); records.append([2,row[0],row,mode.get("locomotion",{}).get(row[0],{}),mode.get("movement_ack",{}).get(row[0],-1)])
-	for row in snapshot[7]:
-		shots.append(row[0]); records.append([3,row[0],row,mode.get("ordnance",{}).get(row[0],{})])
-	records.append([4,0,ids,shots,mode.keys()])
+	var records:Array=_records(snapshot)
 	var result:Dictionary={"normal":[],"large":[]};var encoded_records:Array=[]
 	var batch:Array=native_packer.encode_records(records) if native_packing_enabled and native_packer and native_packer.has_method("encode_records") else []
 	for index in records.size():
@@ -46,6 +40,45 @@ func packets(snapshot: Array) -> Dictionary:
 	_pack_records(encoded_records,[snapshot[9],sequence,snapshot[12]],result)
 	for bytes in result.normal+result.large:
 		stats.sent_bytes+=bytes.size();stats.sent_packets+=1;stats.max_packet=maxi(stats.max_packet,bytes.size())
+	return result
+
+func _records(snapshot:Array) -> Array:
+	var records: Array = []
+	for index in [1,2,3,4,5,6,8,9,11,12,13]: records.append([0,index,snapshot[index]])
+	var mode: Dictionary = snapshot[10]
+	for key in mode:
+		if key not in ["locomotion","movement_ack","ordnance"]: records.append([1,key,mode[key]])
+	var ids: Array = []; var shots: Array = []
+	for row in snapshot[0]:
+		ids.append(row[0]); records.append([2,row[0],row,mode.get("locomotion",{}).get(row[0],{}),mode.get("movement_ack",{}).get(row[0],-1)])
+	for row in snapshot[7]:
+		shots.append(row[0]); records.append([3,row[0],row,mode.get("ordnance",{}).get(row[0],{})])
+	records.append([4,0,ids,shots,mode.keys()])
+	return records
+
+func queue_packets(snapshot:Array) -> bool:
+	if epoch!=snapshot[9]:reset();epoch=snapshot[9]
+	if not async_encoder:
+		async_encoder=ClassDB.instantiate("FPSBackend")
+		async_encoder.set_workers(preload("res://deathmatch/native/runtime.gd").backend().get_workers())
+	sequence+=1
+	var accepted:bool=async_encoder.submit_snapshot(_records(snapshot),[snapshot[9],sequence,snapshot[12]],async_token)
+	stats["async_submitted"]=stats.get("async_submitted",0)+(1 if accepted else 0)
+	stats["async_busy"]=stats.get("async_busy",0)+(0 if accepted else 1)
+	return accepted
+
+func poll_packets() -> Array:
+	var result:Array=[]
+	if not async_encoder:return result
+	for packets in async_encoder.poll_snapshots():
+		if packets.token!=async_token or packets.epoch!=epoch:continue
+		if packets.invalid:push_error("Snapshot record exceeds codec limit");continue
+		stats["async_completed"]=stats.get("async_completed",0)+1
+		stats["async_encode_usec"]=stats.get("async_encode_usec",0)+packets.encode_usec
+		stats.large_records+=packets.large.size()
+		for bytes in packets.normal+packets.large:
+			stats.sent_bytes+=bytes.size();stats.sent_packets+=1;stats.max_packet=maxi(stats.max_packet,bytes.size())
+		result.append(packets)
 	return result
 
 func _pack_records(records: Array,header: Array,result: Dictionary) -> void:

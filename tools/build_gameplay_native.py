@@ -85,7 +85,9 @@ def main():
     # Never truncate a shared library mapped by a running game.
     with tempfile.TemporaryDirectory(dir=dest) as tmp:
         staged=Path(tmp)/name;shutil.copy2(built,staged);os.replace(staged,dest/name)
-    shutil.copy2(ADDON/'fps_native.gdextension.in',ADDON/'fps_native.gdextension')
+    extension=(ADDON/'fps_native.gdextension.in').read_text()
+    if args.server:extension=extension.replace('bin/libfpsloppa_native.so','bin/libfpsloppa_native.server.so')
+    (ADDON/'fps_native.gdextension').write_text(extension)
     shutil.copy2(bindings/'LICENSE.md',ADDON/'GODOT-CPP-LICENSE.md')
     receipt={'target':label,'bindings_revision':REVISION if not args.bindings else str(bindings),'portable_container':args.container,'sha256':hashlib.sha256((dest/name).read_bytes()).hexdigest(),'source_sha256':{p.relative_to(ADDON).as_posix():hashlib.sha256(p.read_bytes()).hexdigest() for p in sorted((ADDON/'src').glob('*')) if p.suffix in ('.cpp','.h')}}
     (dest/(label+'.json')).write_text(json.dumps(receipt,indent=2)+'\n')

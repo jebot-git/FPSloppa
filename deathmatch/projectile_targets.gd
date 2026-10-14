@@ -5,12 +5,23 @@ const Hits=preload("res://deathmatch/hit_detection.gd")
 const CELL_SIZE:=4.0
 const MAX_CELLS:=64
 const MAX_COORD:=1000000.0 # Keep cell conversion safely inside Vector2i's range.
+var native_grid
 var cells: Dictionary={}
 var overflow: Array=[]
 var all_ids: Array=[]
 var order: Dictionary={}
 func build(players: Dictionary,fighters: Dictionary,movement_start: Dictionary) -> void:
 	cells.clear();overflow.clear();all_ids.clear();order.clear()
+	if preload("res://deathmatch/native/runtime.gd").backend():
+		if not native_grid:native_grid=ClassDB.instantiate("FPSBackend")
+		var current:=PackedVector3Array();var previous:=PackedVector3Array()
+		for id in players:
+			var state:Dictionary=players[id]
+			if state.dead or state.spectator:continue
+			order[id]=all_ids.size();all_ids.append(id);current.append(fighters[id].position)
+			previous.append(movement_start[id].position if movement_start.has(id) and movement_start[id].serial==state.serial else fighters[id].position)
+		native_grid.build_targets(all_ids,current,previous);overflow=native_grid.get_target_overflow();return
+
 	for id in players:
 		var state: Dictionary=players[id]
 		if state.dead or state.spectator:continue
@@ -34,6 +45,7 @@ static func large_range(low: Vector2i,high: Vector2i) -> bool:
 static func grid_safe(position: Vector3) -> bool:
 	return position.is_finite() and absf(position.x)<=MAX_COORD and absf(position.z)<=MAX_COORD
 func candidates(start: Vector3,end: Vector3,radius: float) -> Array:
+	if native_grid:return native_grid.target_candidates(start,end,radius)
 	if not grid_safe(start) or not grid_safe(end) or not is_finite(radius) or radius>MAX_COORD:return all_ids
 	var pad:=maxf(0,radius)+.000001
 	var low:=Vector2i(floori((minf(start.x,end.x)-pad)/CELL_SIZE),floori((minf(start.z,end.z)-pad)/CELL_SIZE))

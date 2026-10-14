@@ -1,9 +1,9 @@
 extends RefCounted
 ## Server-authoritative DE utility. Separate equipment slots preserve gun IDs.
-const ITEMS=[110,111,112]
-const NAMES=["HE GRENADE","FLASHBANG","SMOKE GRENADE"]
-const LIMITS=[1,2,1]
-const PRICES=[300,200,300]
+const ITEMS=[110,111,112,113]
+const NAMES=["HE GRENADE","FLASHBANG","SMOKE GRENADE","HEALING GRENADE"]
+const LIMITS=[1,2,1,3]
+const PRICES=[300,200,300,100]
 const FUSE=1.5
 const SMOKE_TIME=20.0
 const SMOKE_RADIUS=3.6
@@ -21,17 +21,17 @@ var next_id:=0
 var visual
 func setup(value):rules_ref=weakref(value)
 func state(id: int) -> Dictionary:
-	if not states.has(id):states[id]={"counts":[0,0,0],"selected":-1,"shoulder":-1,"primed":false,"pressed":false,"ready":0.0,"release":false,"weapon":-1,"hand":Vector3.ZERO,"hand_time":-1.0,"velocity":Vector3.ZERO,"cooldown":0.0}
+	if not states.has(id):states[id]={"counts":[0,0,0,0],"selected":-1,"shoulder":-1,"primed":false,"pressed":false,"ready":0.0,"release":false,"weapon":-1,"hand":Vector3.ZERO,"hand_time":-1.0,"velocity":Vector3.ZERO,"cooldown":0.0}
 	return states[id]
 func selected(id: int) -> int:return int(states.get(id,{}).get("selected",-1)) if rules.enabled() else -1
 func shoulder_selected(id: int) -> int:
 	var u:=state(id);var kind: int=u.shoulder
 	if kind>=0 and u.counts[kind]>0:return kind
-	for k in 3:
+	for k in LIMITS.size():
 		if u.counts[k]>0:return k
 	return -1
 func select_shoulder(id: int,kind: int) -> bool:
-	if not rules.enabled() or not rules.alive(id) or rules.phase!="live" or kind not in [-1,0,1,2] or game.intermission>0 or state(id).primed or rules.busy(id):return false
+	if not rules.enabled() or not rules.alive(id) or rules.phase!="live" or kind not in [-1,0,1,2,3] or game.intermission>0 or state(id).primed or rules.busy(id):return false
 	if kind>=0 and state(id).counts[kind]<=0:return false
 	cancel(id);state(id).shoulder=kind
 	return true
@@ -47,28 +47,28 @@ func cancel(id: int):
 	var s:=state(id);s.selected=-1;s.primed=false;s.pressed=false;s.release=false;s.hand_time=-1.0;s.velocity=Vector3.ZERO
 	s.offhand=false;s.until=0.0
 func buy(id: int,kind: int) -> bool:
-	if kind<0 or kind>2 or state(id).counts[kind]>=LIMITS[kind]:return false
+	if kind<0 or kind>=LIMITS.size() or state(id).counts[kind]>=LIMITS[kind]:return false
 	state(id).counts[kind]+=1;return true
 func equip(id: int,kind: int) -> bool:
 	if game.players.get(id,{}).get("vr_device",false) and game.players[id].get("physical",false):return select_shoulder(id,kind)
 	return equip_hand(id,kind)
 func equip_hand(id: int,kind: int) -> bool:
-	if not rules.enabled() or not rules.alive(id) or rules.phase!="live" or kind not in [-1,0,1,2] or game.intermission>0:return false
+	if not rules.enabled() or not rules.alive(id) or rules.phase!="live" or kind not in [-1,0,1,2,3] or game.intermission>0:return false
 	if kind>=0 and (state(id).counts[kind]<=0 or rules.busy(id)):return false
 	cancel(id);var s:=state(id);s.selected=kind;s.weapon=game.players[id].weapon
 	return true
 func inventory(id: int) -> Array:
 	var rows: Array=[]
 	if not rules.enabled():return rows
-	for kind in 3:
+	for kind in LIMITS.size():
 		if state(id).counts[kind]>0:rows.append({"id":ITEMS[kind],"name":NAMES[kind],"ammo":state(id).counts[kind],"usable":true})
 	return rows
 func cycle(id: int,direction: int) -> bool:
 	if direction not in [-1,1] or state(id).primed:return false
 	var current: int=int(state(id).shoulder)
 	if current<0:current=-1 if direction>0 else 0
-	for offset in range(1,4):
-		var kind: int=posmod(current+direction*offset,3)
+	for offset in range(1,LIMITS.size()+1):
+		var kind: int=posmod(current+direction*offset,LIMITS.size())
 		if state(id).counts[kind]>0:return select_shoulder(id,kind)
 	return false
 func origin(id: int) -> Vector3:
@@ -118,7 +118,7 @@ func physical_request(id: int,action: String,pose: Dictionary,velocity: Vector3)
 	return false
 func throw_grenade(id: int,override_velocity: Variant=null,physical_pose: Dictionary={}) -> bool:
 	var u:=state(id);var kind: int=u.selected
-	if not rules.alive(id) or rules.phase!="live" or rules.busy(id) or kind<0 or kind>2 or u.counts[kind]<=0 or game.clock<u.cooldown:return false
+	if not rules.alive(id) or rules.phase!="live" or rules.busy(id) or kind<0 or kind>=LIMITS.size() or u.counts[kind]<=0 or game.clock<u.cooldown:return false
 	var s: Dictionary=game.players[id];var from:=origin(id)
 	if not physical_pose.is_empty():from=rules.base_pose(id)*(physical_pose.right.origin if physical_pose.left_handed else physical_pose.left.origin)
 	var direction: Vector3=game.W.direction(s.yaw,s.pitch)
@@ -139,7 +139,7 @@ func throw_grenade(id: int,override_velocity: Variant=null,physical_pose: Dictio
 	var wall: Dictionary=rules.ray_surface(from,from+direction*.25)
 	var pos: Vector3=wall.position+wall.normal*.07 if not wall.is_empty() else from+direction*.18
 	u.counts[kind]-=1;u.cooldown=game.clock+.6;cancel(id)
-	next_id+=1;flying[next_id]={"kind":kind,"owner":id,"position":pos,"velocity":velocity.limit_length(28 if physical_pose.is_empty() else preload("res://deathmatch/conquest/classes/throw_ballistics.gd").MAX_SPEED),"age":0.0,"ground":false}
+	next_id+=1;flying[next_id]={"kind":kind,"owner":id,"position":pos,"velocity":velocity.limit_length(28 if physical_pose.is_empty() else preload("res://deathmatch/conquest/classes/throw_ballistics.gd").MAX_SPEED),"age":0.0,"ground":false,"team":s.team}
 	game.server_log.record("de_grenade",{"peer":id,"kind":NAMES[kind],"round":rules.round_id},1)
 	return true
 func tick(delta: float):
@@ -169,8 +169,12 @@ func tick(delta: float):
 func detonate(id: int):
 	if not flying.has(id):return
 	var p: Dictionary=flying[id];flying.erase(id)
+	if p.kind==3:
+		game.healing_field.activate(p.owner,p.position,p.get("team",game.players.get(p.owner,{}).get("team",-1)));return
 	if p.kind==2:clouds[id]={"position":p.position+Vector3.UP*.8,"age":0.0};return
 	if p.kind==0:
+		game.turrets.blast(p.position,p.owner,100,350.0/32,false)
+		game.battery_tanks.blast(p.position,p.get("team",game.players.get(p.owner,{}).get("team",-1)),100,350.0/32,"grenade",false,-1,p.owner)
 		for victim in game.players:
 			if not rules.alive(victim):continue
 			var target: Vector3=game.fighters[victim].position+Vector3.UP*.9
@@ -214,7 +218,7 @@ func smoke_amount(at: Vector3) -> float:
 	for c in clouds.values():result=maxf(result,clampf((cloud_radius(c.age)-at.distance_to(c.position))*1.7,0,.985)*cloud_density(c.age))
 	return result
 func on_death(id: int):
-	cancel(id);state(id).counts=[0,0,0];flashes.erase(id)
+	cancel(id);state(id).counts=[0,0,0,0];flashes.erase(id)
 func bot_combat(id: int,brain: Dictionary) -> bool:
 	if not rules.enabled() or rules.phase!="live":return false
 	if flash_amount(id)>.35:return true
@@ -262,13 +266,13 @@ static func valid_snapshot(data: Variant) -> bool:
 	if not data.get("inventory") is Dictionary or data.inventory.size()>32 or not data.get("shots") is Array or data.shots.size()>128 or not data.get("smoke") is Array or data.smoke.size()>32 or not data.get("blind") is Dictionary or data.blind.size()>32:return false
 	for id in data.inventory:
 		var row=data.inventory[id]
-		if not id is int or not row is Array or row.size() not in [3,4,5] or not row[0] is Array or row[0].size()!=3 or not row[1] is int or row[1] not in [-1,0,1,2] or not row[2] is bool:return false
+		if not id is int or not row is Array or row.size() not in [3,4,5] or not row[0] is Array or row[0].size()!=LIMITS.size() or not row[1] is int or row[1] not in [-1,0,1,2,3] or not row[2] is bool:return false
 		if row.size()>=4 and not row[3] is bool:return false
-		if row.size()==5 and (not row[4] is int or row[4] not in [-1,0,1,2]):return false
-		for k in 3:
+		if row.size()==5 and (not row[4] is int or row[4] not in [-1,0,1,2,3]):return false
+		for k in LIMITS.size():
 			if not row[0][k] is int or row[0][k]<0 or row[0][k]>LIMITS[k]:return false
 	for row in data.shots:
-		if not row is Array or row.size()!=7 or not row[0] is int or row[0]<1 or not row[1] is int or row[1] not in [0,1,2] or not row[2] is int or not row[3] is Vector3 or not row[3].is_finite() or not row[4] is Vector3 or not row[4].is_finite() or row[4].length()>100 or not number(row[5],0,12.1) or not row[6] is bool:return false
+		if not row is Array or row.size()!=7 or not row[0] is int or row[0]<1 or not row[1] is int or row[1] not in [0,1,2,3] or not row[2] is int or not row[3] is Vector3 or not row[3].is_finite() or not row[4] is Vector3 or not row[4].is_finite() or row[4].length()>100 or not number(row[5],0,12.1) or not row[6] is bool:return false
 	for row in data.smoke:
 		if not row is Array or row.size()!=3 or not row[0] is int or row[0]<1 or not row[1] is Vector3 or not row[1].is_finite() or not number(row[2],0,20.1):return false
 	for id in data.blind:

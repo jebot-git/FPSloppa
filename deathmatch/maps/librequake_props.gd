@@ -3,8 +3,8 @@ static var meshes: Dictionary={}
 static func fixture(kind: String) -> ArrayMesh:
 	if meshes.has(kind):return meshes[kind]
 	var data: Dictionary=JSON.parse_string(FileAccess.get_file_as_string("res://deathmatch/maps/librequake-props/"+kind+".json"))
-	var texture:=ImageTexture.create_from_image(Image.create_from_data(int(data["size"][0]),int(data["size"][1]),false,Image.FORMAT_RGBA8,Marshalls.base64_to_raw(data.rgba)))
-	var glow:=ImageTexture.create_from_image(Image.create_from_data(int(data["size"][0]),int(data["size"][1]),false,Image.FORMAT_RGBA8,Marshalls.base64_to_raw(data.glow)))
+	var texture:=preload("res://deathmatch/textures.gd").create(Image.create_from_data(int(data["size"][0]),int(data["size"][1]),false,Image.FORMAT_RGBA8,Marshalls.base64_to_raw(data.rgba)))
+	var glow:=preload("res://deathmatch/textures.gd").create(Image.create_from_data(int(data["size"][0]),int(data["size"][1]),false,Image.FORMAT_RGBA8,Marshalls.base64_to_raw(data.glow)))
 	var material:=StandardMaterial3D.new();material.albedo_texture=texture;material.emission_enabled=true;material.emission_texture=glow;material.emission=Color.WHITE;material.roughness=1;material.cull_mode=BaseMaterial3D.CULL_DISABLED;material.texture_filter=BaseMaterial3D.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS_ANISOTROPIC
 	preload("res://deathmatch/maps/filtering.gd").new().material(material)
 	var tool:=SurfaceTool.new();tool.begin(Mesh.PRIMITIVE_TRIANGLES);tool.set_material(material)

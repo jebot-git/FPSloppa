@@ -1,0 +1,1 @@
+Original procedurally synthesized CC0 three-tone electronic recon detection warning; no external samples. Rebuild: `python3 tools/recon/bake_sound.py`. Mono 24 kHz PCM16, 0.9 seconds. The ascending radio alert plays locally for the newly spotted enemy, once per drone pass and player life.

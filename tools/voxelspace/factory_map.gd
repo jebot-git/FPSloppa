@@ -44,7 +44,7 @@ func generate(output: String) -> void:
 			for sx in [-46.0,-37.0]:
 				if Vector2(wx-sx,wz+24).length()<2.6:roof=BASE+30;material=2
 			solid_heights[i]=roof;solid_colors[i]=packed_color(color,material)
-	height_texture=ImageTexture.create_from_image(height_image);color_texture=ImageTexture.create_from_image(color_image)
+	height_texture=preload("res://deathmatch/textures.gd").create(height_image);color_texture=preload("res://deathmatch/textures.gd").create(color_image)
 	build_factory()
 	metadata={"seed":1977,"extent_m":EXTENT,"height_samples":[SIZE,SIZE],"height_range_m":[Array(heights).min(),Array(heights).max()],"factory_storeys":4,"floor_y_m":[BASE,BASE+4,BASE+8,BASE+12],"roof_y_m":BASE+16,"factory_boxes":boxes.size(),"factory_triangles":factory_mesh.surface_get_array_index_len(0)/3,"generation_ms":(Time.get_ticks_usec()-started)/1000.0}
 	DirAccess.make_dir_recursive_absolute(output)

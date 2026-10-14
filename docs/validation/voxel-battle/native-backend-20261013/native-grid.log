@@ -1,0 +1,15 @@
+Godot Engine v4.7.2.stable.fedora.ed1daf0bf - https://godotengine.org
+
+PASS 12,000 swept queries retain every exact hit, including fresh shots and spawn changes
+PASS Broad phase removes distant player candidates
+PASS Candidate lists preserve original hit tie order without duplicates
+PASS Tangent hits survive positive and negative grid boundaries
+PASS Huge player movement takes a bounded conservative fallback
+PASS Huge projectile sweep falls back to all targets
+PASS Extreme finite coordinates cannot overflow grid cell conversion
+PASS Non-finite sweep uses conservative fallback
+MAP_READY qsrc_dm1 spawns=7 pickups=25
+DM_HOST_READY port=0 practice=true
+PASS Broad and full authoritative traces produce identical impacts and target IDs
+Disconnected.
+PROJECTILE_TARGETS_RESULT {"culled_pairs":306370,"exact_hits":2963,"failures":[],"missed_hits":0}

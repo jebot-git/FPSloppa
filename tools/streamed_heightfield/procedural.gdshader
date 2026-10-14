@@ -1,4 +1,6 @@
 shader_type spatial;
+#include "res://tools/voxel_battle/baked_lighting.gdshaderinc"
+varying vec3 jungle_point;
 render_mode unshaded, cull_disabled;
 // Same deterministic landscape as landscape.gd, evaluated directly on the GPU.
 uniform sampler2D pages : filter_nearest, repeat_disable;
@@ -40,6 +42,7 @@ vec3 srgb_to_linear(vec3 color) {
 	return mix(color / 12.92, pow((color + .055) / 1.055, vec3(2.4)), step(vec3(.04045), color));
 }
 void vertex() {
+	jungle_point=(MODEL_MATRIX*vec4(VERTEX,1.0)).xyz;
 	world_xz = (MODEL_MATRIX * vec4(VERTEX, 1.0)).xz;
 	VERTEX.y = surface(world_xz).x - (coarse ? 0.0 : COLOR.a * 3.0);
 }
@@ -50,4 +53,6 @@ void fragment() {
 	}
 	// Match the source_color conversion used by the atlas renderer.
 	ALBEDO = srgb_to_linear(surface(world_xz).yzw);
+
+	ALBEDO *= jungle_baked_light(jungle_point);
 }

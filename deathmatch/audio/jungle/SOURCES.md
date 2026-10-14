@@ -1,0 +1,1 @@
+Original CC0 procedural leaf-brush noise. No external recording or copyrighted sample. Rebuild: `python3 tools/voxel_battle/bake_rustle.py`; NumPy seeds 8137–8139, mono 24 kHz PCM16, 0.48 seconds each.

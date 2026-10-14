@@ -9,11 +9,11 @@ var stats: Dictionary={"corrections":0,"resets":0,"max_error":0.0}
 func clear() -> void:
 	samples.clear();acknowledged=-1
 
-func remember(sequence: int,position: Vector3,velocity: Vector3,height: float=-1.0,jetpack: Dictionary={}) -> void:
-	samples[sequence]={"position":position,"velocity":velocity,"height":height,"jetpack":jetpack.duplicate(true)}
+func remember(sequence: int,position: Vector3,velocity: Vector3,height: float=-1.0,jetpack: Dictionary={},stamina:float=-1.0) -> void:
+	samples[sequence]={"position":position,"velocity":velocity,"height":height,"jetpack":jetpack.duplicate(true),"stamina":stamina}
 	while samples.size()>CAPACITY:samples.erase(samples.keys()[0])
 
-func reconcile(actor,sequence: int,position: Vector3,velocity: Vector3,height: float=-1.0,grounded: bool=false,jetpack: Dictionary={}) -> void:
+func reconcile(actor,sequence: int,position: Vector3,velocity: Vector3,height: float=-1.0,grounded: bool=false,jetpack: Dictionary={},stamina:float=-1.0) -> void:
 	if sequence<=acknowledged:return
 	acknowledged=sequence
 	if not samples.has(sequence):
@@ -23,6 +23,8 @@ func reconcile(actor,sequence: int,position: Vector3,velocity: Vector3,height: f
 			actor.position=position;actor.velocity=velocity;actor.reset_view()
 		return
 	var reference: Dictionary=samples[sequence]
+	if actor.cs16_enabled and stamina>=0 and reference.get("stamina",-1.0)>=0:
+		actor.cs16_stamina=clampf(actor.cs16_stamina+stamina-reference.stamina,0,actor.CS16.JUMP_STAMINA)
 	if not jetpack.is_empty():actor.Jetpack.reconcile(actor,jetpack,reference.get("jetpack",{}))
 	# Correct a server-denied stand-up at its acknowledged input. An older echo
 	# must not undo a newer local crouch/prone transition.

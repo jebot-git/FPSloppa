@@ -1,0 +1,696 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+DM_HOST_READY port=7777 practice=false
+SERVER_LOG {"data":{"allowed_modes":["tdm"],"bind":"*","friendly_fire":false,"hostname":"CQ Frontier · Classes Prototype","max_clients":64,"protocol":"fpsloppa-cq-frontier-16-poi-points","rotation":["voxel_jungle"],"score_limit":200,"version":"0.16v-cq-experimental","voice_backend":"builtin","weapon_rules":"ut99"},"epoch":0,"event":"server_started","map":"voxel_jungle","mode":"tdm","seq":1,"uptime_ms":6121,"utc":"2026-10-13T20:27:12Z"}
+SERVER_CONFIG name=CQ Frontier · Classes Prototype bind=* maxclients=64 voice=true map=voxel_jungle rotation=["voxel_jungle"] weapons=ut99 gametype=tdm limit=200 friendlyfire=false
+CQ_FRONTIER_SERVER_READY backend=monolithic players=64 physics_hz=30 movement=cs points=200
+SERVER_LOG {"data":{"address":"127.0.0.1","loss_percent":0.0,"peer":778792173,"port":56291,"rtt_ms":20.0},"epoch":0,"event":"peer_connected","map":"voxel_jungle","mode":"tdm","seq":2,"uptime_ms":8364,"utc":"2026-10-13T20:27:14Z"}
+SERVER_LOG {"data":{"elapsed_ms":0,"peer":778792173,"previous_stage":"transport","stage":"waiting_hello"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":3,"uptime_ms":8365,"utc":"2026-10-13T20:27:14Z"}
+SERVER_LOG {"data":{"capacity":64,"client_protocol":"fpsloppa-cq-frontier-16-poi-points","elapsed_ms":6,"peer":778792173,"players":0,"previous_stage":"waiting_hello","spectator":false,"stage":"map_offer"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":4,"uptime_ms":8371,"utc":"2026-10-13T20:27:14Z"}
+SERVER_LOG {"data":{"elapsed_ms":11,"peer":778792173,"previous_stage":"map_offer","stage":"models_offer"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":5,"uptime_ms":8382,"utc":"2026-10-13T20:27:14Z"}
+SERVER_LOG {"data":{"address":"127.0.0.1","loss_percent":0.0,"peer":1375372708,"port":32878,"rtt_ms":14.0},"epoch":0,"event":"peer_connected","map":"voxel_jungle","mode":"tdm","seq":6,"uptime_ms":8399,"utc":"2026-10-13T20:27:14Z"}
+SERVER_LOG {"data":{"elapsed_ms":0,"peer":1375372708,"previous_stage":"transport","stage":"waiting_hello"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":7,"uptime_ms":8399,"utc":"2026-10-13T20:27:14Z"}
+SERVER_LOG {"data":{"elapsed_ms":17,"peer":778792173,"previous_stage":"models_offer","stage":"ready"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":8,"uptime_ms":8399,"utc":"2026-10-13T20:27:14Z"}
+SERVER_LOG {"data":{"name":"Load 18","peer":778792173,"spectator":false,"team":0},"epoch":0,"event":"player_joined","map":"voxel_jungle","mode":"tdm","seq":9,"uptime_ms":8400,"utc":"2026-10-13T20:27:14Z"}
+SERVER_LOG {"data":{"message":"Load 18 joined the arena."},"epoch":0,"event":"match_event","map":"voxel_jungle","mode":"tdm","seq":10,"uptime_ms":8400,"utc":"2026-10-13T20:27:14Z"}
+DM_EVENT Load 18 joined the arena.
+SERVER_LOG {"data":{"capacity":64,"client_protocol":"fpsloppa-cq-frontier-16-poi-points","elapsed_ms":7,"peer":1375372708,"players":1,"previous_stage":"waiting_hello","spectator":false,"stage":"map_offer"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":11,"uptime_ms":8406,"utc":"2026-10-13T20:27:14Z"}
+SERVER_LOG {"data":{"elapsed_ms":12,"peer":1375372708,"previous_stage":"map_offer","stage":"models_offer"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":12,"uptime_ms":8418,"utc":"2026-10-13T20:27:14Z"}
+SERVER_LOG {"data":{"elapsed_ms":16,"peer":1375372708,"previous_stage":"models_offer","stage":"ready"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":13,"uptime_ms":8434,"utc":"2026-10-13T20:27:14Z"}
+SERVER_LOG {"data":{"name":"Load 2","peer":1375372708,"spectator":false,"team":1},"epoch":0,"event":"player_joined","map":"voxel_jungle","mode":"tdm","seq":14,"uptime_ms":8435,"utc":"2026-10-13T20:27:14Z"}
+SERVER_LOG {"data":{"message":"Load 2 joined the arena."},"epoch":0,"event":"match_event","map":"voxel_jungle","mode":"tdm","seq":15,"uptime_ms":8435,"utc":"2026-10-13T20:27:14Z"}
+DM_EVENT Load 2 joined the arena.
+SERVER_LOG {"data":{"address":"127.0.0.1","loss_percent":0.0,"peer":1359524043,"port":35531,"rtt_ms":17.0},"epoch":0,"event":"peer_connected","map":"voxel_jungle","mode":"tdm","seq":16,"uptime_ms":8510,"utc":"2026-10-13T20:27:14Z"}
+SERVER_LOG {"data":{"elapsed_ms":0,"peer":1359524043,"previous_stage":"transport","stage":"waiting_hello"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":17,"uptime_ms":8511,"utc":"2026-10-13T20:27:14Z"}
+SERVER_LOG {"data":{"capacity":64,"client_protocol":"fpsloppa-cq-frontier-16-poi-points","elapsed_ms":14,"peer":1359524043,"players":2,"previous_stage":"waiting_hello","spectator":false,"stage":"map_offer"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":18,"uptime_ms":8524,"utc":"2026-10-13T20:27:14Z"}
+SERVER_LOG {"data":{"elapsed_ms":7,"peer":1359524043,"previous_stage":"map_offer","stage":"models_offer"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":19,"uptime_ms":8531,"utc":"2026-10-13T20:27:14Z"}
+SERVER_LOG {"data":{"elapsed_ms":21,"peer":1359524043,"previous_stage":"models_offer","stage":"ready"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":20,"uptime_ms":8552,"utc":"2026-10-13T20:27:14Z"}
+SERVER_LOG {"data":{"name":"Load 6","peer":1359524043,"spectator":false,"team":0},"epoch":0,"event":"player_joined","map":"voxel_jungle","mode":"tdm","seq":21,"uptime_ms":8553,"utc":"2026-10-13T20:27:14Z"}
+SERVER_LOG {"data":{"message":"Load 6 joined the arena."},"epoch":0,"event":"match_event","map":"voxel_jungle","mode":"tdm","seq":22,"uptime_ms":8553,"utc":"2026-10-13T20:27:14Z"}
+DM_EVENT Load 6 joined the arena.
+SERVER_LOG {"data":{"address":"127.0.0.1","loss_percent":0.0,"peer":1712222529,"port":38061,"rtt_ms":12.0},"epoch":0,"event":"peer_connected","map":"voxel_jungle","mode":"tdm","seq":23,"uptime_ms":8600,"utc":"2026-10-13T20:27:14Z"}
+SERVER_LOG {"data":{"elapsed_ms":0,"peer":1712222529,"previous_stage":"transport","stage":"waiting_hello"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":24,"uptime_ms":8600,"utc":"2026-10-13T20:27:14Z"}
+SERVER_LOG {"data":{"capacity":64,"client_protocol":"fpsloppa-cq-frontier-16-poi-points","elapsed_ms":7,"peer":1712222529,"players":3,"previous_stage":"waiting_hello","spectator":false,"stage":"map_offer"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":25,"uptime_ms":8607,"utc":"2026-10-13T20:27:14Z"}
+SERVER_LOG {"data":{"address":"127.0.0.1","loss_percent":0.0,"peer":1532389996,"port":39588,"rtt_ms":29.0},"epoch":0,"event":"peer_connected","map":"voxel_jungle","mode":"tdm","seq":26,"uptime_ms":8630,"utc":"2026-10-13T20:27:14Z"}
+SERVER_LOG {"data":{"elapsed_ms":0,"peer":1532389996,"previous_stage":"transport","stage":"waiting_hello"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":27,"uptime_ms":8630,"utc":"2026-10-13T20:27:14Z"}
+SERVER_LOG {"data":{"capacity":64,"client_protocol":"fpsloppa-cq-frontier-16-poi-points","elapsed_ms":1,"peer":1532389996,"players":3,"previous_stage":"waiting_hello","spectator":false,"stage":"map_offer"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":28,"uptime_ms":8631,"utc":"2026-10-13T20:27:14Z"}
+SERVER_LOG {"data":{"elapsed_ms":24,"peer":1712222529,"previous_stage":"map_offer","stage":"models_offer"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":29,"uptime_ms":8631,"utc":"2026-10-13T20:27:14Z"}
+SERVER_LOG {"data":{"elapsed_ms":8,"peer":1712222529,"previous_stage":"models_offer","stage":"ready"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":30,"uptime_ms":8639,"utc":"2026-10-13T20:27:14Z"}
+SERVER_LOG {"data":{"name":"Load 0","peer":1712222529,"spectator":false,"team":1},"epoch":0,"event":"player_joined","map":"voxel_jungle","mode":"tdm","seq":31,"uptime_ms":8640,"utc":"2026-10-13T20:27:14Z"}
+SERVER_LOG {"data":{"message":"Load 0 joined the arena."},"epoch":0,"event":"match_event","map":"voxel_jungle","mode":"tdm","seq":32,"uptime_ms":8640,"utc":"2026-10-13T20:27:14Z"}
+DM_EVENT Load 0 joined the arena.
+SERVER_LOG {"data":{"elapsed_ms":29,"peer":1532389996,"previous_stage":"map_offer","stage":"models_offer"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":33,"uptime_ms":8660,"utc":"2026-10-13T20:27:14Z"}
+SERVER_LOG {"data":{"elapsed_ms":8,"peer":1532389996,"previous_stage":"models_offer","stage":"ready"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":34,"uptime_ms":8668,"utc":"2026-10-13T20:27:14Z"}
+SERVER_LOG {"data":{"name":"Load 4","peer":1532389996,"spectator":false,"team":0},"epoch":0,"event":"player_joined","map":"voxel_jungle","mode":"tdm","seq":35,"uptime_ms":8670,"utc":"2026-10-13T20:27:14Z"}
+SERVER_LOG {"data":{"message":"Load 4 joined the arena."},"epoch":0,"event":"match_event","map":"voxel_jungle","mode":"tdm","seq":36,"uptime_ms":8671,"utc":"2026-10-13T20:27:14Z"}
+DM_EVENT Load 4 joined the arena.
+SERVER_LOG {"data":{"address":"127.0.0.1","loss_percent":0.0,"peer":289023849,"port":42610,"rtt_ms":35.0},"epoch":0,"event":"peer_connected","map":"voxel_jungle","mode":"tdm","seq":37,"uptime_ms":8694,"utc":"2026-10-13T20:27:14Z"}
+SERVER_LOG {"data":{"elapsed_ms":0,"peer":289023849,"previous_stage":"transport","stage":"waiting_hello"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":38,"uptime_ms":8694,"utc":"2026-10-13T20:27:14Z"}
+SERVER_LOG {"data":{"capacity":64,"client_protocol":"fpsloppa-cq-frontier-16-poi-points","elapsed_ms":1,"peer":289023849,"players":5,"previous_stage":"waiting_hello","spectator":false,"stage":"map_offer"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":39,"uptime_ms":8695,"utc":"2026-10-13T20:27:14Z"}
+SERVER_LOG {"data":{"elapsed_ms":38,"peer":289023849,"previous_stage":"map_offer","stage":"models_offer"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":40,"uptime_ms":8733,"utc":"2026-10-13T20:27:14Z"}
+SERVER_LOG {"data":{"address":"127.0.0.1","loss_percent":0.0,"peer":252123159,"port":51264,"rtt_ms":26.0},"epoch":0,"event":"peer_connected","map":"voxel_jungle","mode":"tdm","seq":41,"uptime_ms":8758,"utc":"2026-10-13T20:27:14Z"}
+SERVER_LOG {"data":{"elapsed_ms":0,"peer":252123159,"previous_stage":"transport","stage":"waiting_hello"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":42,"uptime_ms":8758,"utc":"2026-10-13T20:27:14Z"}
+SERVER_LOG {"data":{"capacity":64,"client_protocol":"fpsloppa-cq-frontier-16-poi-points","elapsed_ms":1,"peer":252123159,"players":5,"previous_stage":"waiting_hello","spectator":false,"stage":"map_offer"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":43,"uptime_ms":8759,"utc":"2026-10-13T20:27:14Z"}
+SERVER_LOG {"data":{"elapsed_ms":27,"peer":289023849,"previous_stage":"models_offer","stage":"ready"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":44,"uptime_ms":8760,"utc":"2026-10-13T20:27:14Z"}
+SERVER_LOG {"data":{"name":"Load 1","peer":289023849,"spectator":false,"team":1},"epoch":0,"event":"player_joined","map":"voxel_jungle","mode":"tdm","seq":45,"uptime_ms":8761,"utc":"2026-10-13T20:27:14Z"}
+SERVER_LOG {"data":{"message":"Load 1 joined the arena."},"epoch":0,"event":"match_event","map":"voxel_jungle","mode":"tdm","seq":46,"uptime_ms":8761,"utc":"2026-10-13T20:27:14Z"}
+DM_EVENT Load 1 joined the arena.
+SERVER_LOG {"data":{"elapsed_ms":16,"peer":252123159,"previous_stage":"map_offer","stage":"models_offer"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":47,"uptime_ms":8775,"utc":"2026-10-13T20:27:14Z"}
+SERVER_LOG {"data":{"elapsed_ms":16,"peer":252123159,"previous_stage":"models_offer","stage":"ready"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":48,"uptime_ms":8791,"utc":"2026-10-13T20:27:14Z"}
+SERVER_LOG {"data":{"name":"Load 9","peer":252123159,"spectator":false,"team":0},"epoch":0,"event":"player_joined","map":"voxel_jungle","mode":"tdm","seq":49,"uptime_ms":8792,"utc":"2026-10-13T20:27:14Z"}
+SERVER_LOG {"data":{"message":"Load 9 joined the arena."},"epoch":0,"event":"match_event","map":"voxel_jungle","mode":"tdm","seq":50,"uptime_ms":8792,"utc":"2026-10-13T20:27:14Z"}
+DM_EVENT Load 9 joined the arena.
+SERVER_LOG {"data":{"address":"127.0.0.1","loss_percent":0.0,"peer":1439367613,"port":40829,"rtt_ms":427.0},"epoch":0,"event":"peer_connected","map":"voxel_jungle","mode":"tdm","seq":51,"uptime_ms":9257,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"elapsed_ms":0,"peer":1439367613,"previous_stage":"transport","stage":"waiting_hello"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":52,"uptime_ms":9257,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"capacity":64,"client_protocol":"fpsloppa-cq-frontier-16-poi-points","elapsed_ms":72,"peer":1439367613,"players":7,"previous_stage":"waiting_hello","spectator":false,"stage":"map_offer"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":53,"uptime_ms":9329,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"address":"127.0.0.1","loss_percent":0.0,"peer":1955323262,"port":60447,"rtt_ms":28.0},"epoch":0,"event":"peer_connected","map":"voxel_jungle","mode":"tdm","seq":54,"uptime_ms":9355,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"elapsed_ms":0,"peer":1955323262,"previous_stage":"transport","stage":"waiting_hello"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":55,"uptime_ms":9356,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"address":"127.0.0.1","loss_percent":0.0,"peer":72367464,"port":41338,"rtt_ms":42.0},"epoch":0,"event":"peer_connected","map":"voxel_jungle","mode":"tdm","seq":56,"uptime_ms":9369,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"elapsed_ms":0,"peer":72367464,"previous_stage":"transport","stage":"waiting_hello"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":57,"uptime_ms":9369,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"capacity":64,"client_protocol":"fpsloppa-cq-frontier-16-poi-points","elapsed_ms":13,"peer":1955323262,"players":7,"previous_stage":"waiting_hello","spectator":false,"stage":"map_offer"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":58,"uptime_ms":9369,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"address":"127.0.0.1","loss_percent":0.0,"peer":1461829207,"port":37269,"rtt_ms":42.0},"epoch":0,"event":"peer_connected","map":"voxel_jungle","mode":"tdm","seq":59,"uptime_ms":9369,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"elapsed_ms":0,"peer":1461829207,"previous_stage":"transport","stage":"waiting_hello"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":60,"uptime_ms":9369,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"capacity":64,"client_protocol":"fpsloppa-cq-frontier-16-poi-points","elapsed_ms":0,"peer":72367464,"players":7,"previous_stage":"waiting_hello","spectator":false,"stage":"map_offer"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":61,"uptime_ms":9369,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"address":"127.0.0.1","loss_percent":0.0,"peer":496190783,"port":52344,"rtt_ms":42.0},"epoch":0,"event":"peer_connected","map":"voxel_jungle","mode":"tdm","seq":62,"uptime_ms":9369,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"elapsed_ms":0,"peer":496190783,"previous_stage":"transport","stage":"waiting_hello"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":63,"uptime_ms":9370,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"capacity":64,"client_protocol":"fpsloppa-cq-frontier-16-poi-points","elapsed_ms":1,"peer":1461829207,"players":7,"previous_stage":"waiting_hello","spectator":false,"stage":"map_offer"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":64,"uptime_ms":9370,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"address":"127.0.0.1","loss_percent":0.0,"peer":639107352,"port":42282,"rtt_ms":49.0},"epoch":0,"event":"peer_connected","map":"voxel_jungle","mode":"tdm","seq":65,"uptime_ms":9376,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"elapsed_ms":0,"peer":639107352,"previous_stage":"transport","stage":"waiting_hello"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":66,"uptime_ms":9376,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"capacity":64,"client_protocol":"fpsloppa-cq-frontier-16-poi-points","elapsed_ms":6,"peer":496190783,"players":7,"previous_stage":"waiting_hello","spectator":false,"stage":"map_offer"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":67,"uptime_ms":9376,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"address":"127.0.0.1","loss_percent":0.0,"peer":528238135,"port":41158,"rtt_ms":66.0},"epoch":0,"event":"peer_connected","map":"voxel_jungle","mode":"tdm","seq":68,"uptime_ms":9393,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"elapsed_ms":0,"peer":528238135,"previous_stage":"transport","stage":"waiting_hello"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":69,"uptime_ms":9393,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"capacity":64,"client_protocol":"fpsloppa-cq-frontier-16-poi-points","elapsed_ms":17,"peer":639107352,"players":7,"previous_stage":"waiting_hello","spectator":false,"stage":"map_offer"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":70,"uptime_ms":9393,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"address":"127.0.0.1","loss_percent":0.0,"peer":615488990,"port":36655,"rtt_ms":66.0},"epoch":0,"event":"peer_connected","map":"voxel_jungle","mode":"tdm","seq":71,"uptime_ms":9393,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"elapsed_ms":0,"peer":615488990,"previous_stage":"transport","stage":"waiting_hello"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":72,"uptime_ms":9393,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"capacity":64,"client_protocol":"fpsloppa-cq-frontier-16-poi-points","elapsed_ms":0,"peer":528238135,"players":7,"previous_stage":"waiting_hello","spectator":false,"stage":"map_offer"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":73,"uptime_ms":9393,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"address":"127.0.0.1","loss_percent":0.0,"peer":1766973246,"port":52548,"rtt_ms":70.0},"epoch":0,"event":"peer_connected","map":"voxel_jungle","mode":"tdm","seq":74,"uptime_ms":9397,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"elapsed_ms":0,"peer":1766973246,"previous_stage":"transport","stage":"waiting_hello"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":75,"uptime_ms":9397,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"capacity":64,"client_protocol":"fpsloppa-cq-frontier-16-poi-points","elapsed_ms":4,"peer":615488990,"players":7,"previous_stage":"waiting_hello","spectator":false,"stage":"map_offer"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":76,"uptime_ms":9397,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"address":"127.0.0.1","loss_percent":0.0,"peer":1293427933,"port":37353,"rtt_ms":77.0},"epoch":0,"event":"peer_connected","map":"voxel_jungle","mode":"tdm","seq":77,"uptime_ms":9404,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"elapsed_ms":0,"peer":1293427933,"previous_stage":"transport","stage":"waiting_hello"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":78,"uptime_ms":9404,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"capacity":64,"client_protocol":"fpsloppa-cq-frontier-16-poi-points","elapsed_ms":7,"peer":1766973246,"players":7,"previous_stage":"waiting_hello","spectator":false,"stage":"map_offer"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":79,"uptime_ms":9404,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"address":"127.0.0.1","loss_percent":0.0,"peer":1777652641,"port":45256,"rtt_ms":84.0},"epoch":0,"event":"peer_connected","map":"voxel_jungle","mode":"tdm","seq":80,"uptime_ms":9411,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"elapsed_ms":0,"peer":1777652641,"previous_stage":"transport","stage":"waiting_hello"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":81,"uptime_ms":9411,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"capacity":64,"client_protocol":"fpsloppa-cq-frontier-16-poi-points","elapsed_ms":7,"peer":1293427933,"players":7,"previous_stage":"waiting_hello","spectator":false,"stage":"map_offer"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":82,"uptime_ms":9411,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"address":"127.0.0.1","loss_percent":0.0,"peer":1135584193,"port":56002,"rtt_ms":101.0},"epoch":0,"event":"peer_connected","map":"voxel_jungle","mode":"tdm","seq":83,"uptime_ms":9428,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"elapsed_ms":0,"peer":1135584193,"previous_stage":"transport","stage":"waiting_hello"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":84,"uptime_ms":9428,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"capacity":64,"client_protocol":"fpsloppa-cq-frontier-16-poi-points","elapsed_ms":17,"peer":1777652641,"players":7,"previous_stage":"waiting_hello","spectator":false,"stage":"map_offer"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":85,"uptime_ms":9428,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"address":"127.0.0.1","loss_percent":0.0,"peer":395694811,"port":42649,"rtt_ms":102.0},"epoch":0,"event":"peer_connected","map":"voxel_jungle","mode":"tdm","seq":86,"uptime_ms":9429,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"elapsed_ms":0,"peer":395694811,"previous_stage":"transport","stage":"waiting_hello"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":87,"uptime_ms":9429,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"capacity":64,"client_protocol":"fpsloppa-cq-frontier-16-poi-points","elapsed_ms":1,"peer":1135584193,"players":7,"previous_stage":"waiting_hello","spectator":false,"stage":"map_offer"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":88,"uptime_ms":9429,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"address":"127.0.0.1","loss_percent":0.0,"peer":242281678,"port":59589,"rtt_ms":104.0},"epoch":0,"event":"peer_connected","map":"voxel_jungle","mode":"tdm","seq":89,"uptime_ms":9431,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"elapsed_ms":0,"peer":242281678,"previous_stage":"transport","stage":"waiting_hello"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":90,"uptime_ms":9431,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"capacity":64,"client_protocol":"fpsloppa-cq-frontier-16-poi-points","elapsed_ms":2,"peer":395694811,"players":7,"previous_stage":"waiting_hello","spectator":false,"stage":"map_offer"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":91,"uptime_ms":9432,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"address":"127.0.0.1","loss_percent":0.0,"peer":362456009,"port":48980,"rtt_ms":111.0},"epoch":0,"event":"peer_connected","map":"voxel_jungle","mode":"tdm","seq":92,"uptime_ms":9438,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"elapsed_ms":0,"peer":362456009,"previous_stage":"transport","stage":"waiting_hello"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":93,"uptime_ms":9439,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"capacity":64,"client_protocol":"fpsloppa-cq-frontier-16-poi-points","elapsed_ms":8,"peer":242281678,"players":7,"previous_stage":"waiting_hello","spectator":false,"stage":"map_offer"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":94,"uptime_ms":9439,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"address":"127.0.0.1","loss_percent":0.0,"peer":1069364128,"port":35284,"rtt_ms":131.0},"epoch":0,"event":"peer_connected","map":"voxel_jungle","mode":"tdm","seq":95,"uptime_ms":9458,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"elapsed_ms":0,"peer":1069364128,"previous_stage":"transport","stage":"waiting_hello"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":96,"uptime_ms":9459,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"capacity":64,"client_protocol":"fpsloppa-cq-frontier-16-poi-points","elapsed_ms":21,"peer":362456009,"players":7,"previous_stage":"waiting_hello","spectator":false,"stage":"map_offer"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":97,"uptime_ms":9459,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"address":"127.0.0.1","loss_percent":0.0,"peer":370489709,"port":55129,"rtt_ms":132.0},"epoch":0,"event":"peer_connected","map":"voxel_jungle","mode":"tdm","seq":98,"uptime_ms":9459,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"elapsed_ms":0,"peer":370489709,"previous_stage":"transport","stage":"waiting_hello"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":99,"uptime_ms":9459,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"capacity":64,"client_protocol":"fpsloppa-cq-frontier-16-poi-points","elapsed_ms":0,"peer":1069364128,"players":7,"previous_stage":"waiting_hello","spectator":false,"stage":"map_offer"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":100,"uptime_ms":9459,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"address":"127.0.0.1","loss_percent":0.0,"peer":412328117,"port":43826,"rtt_ms":132.0},"epoch":0,"event":"peer_connected","map":"voxel_jungle","mode":"tdm","seq":101,"uptime_ms":9459,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"elapsed_ms":0,"peer":412328117,"previous_stage":"transport","stage":"waiting_hello"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":102,"uptime_ms":9459,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"capacity":64,"client_protocol":"fpsloppa-cq-frontier-16-poi-points","elapsed_ms":1,"peer":370489709,"players":7,"previous_stage":"waiting_hello","spectator":false,"stage":"map_offer"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":103,"uptime_ms":9460,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"address":"127.0.0.1","loss_percent":0.0,"peer":1270621517,"port":33972,"rtt_ms":139.0},"epoch":0,"event":"peer_connected","map":"voxel_jungle","mode":"tdm","seq":104,"uptime_ms":9466,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"elapsed_ms":0,"peer":1270621517,"previous_stage":"transport","stage":"waiting_hello"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":105,"uptime_ms":9466,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"capacity":64,"client_protocol":"fpsloppa-cq-frontier-16-poi-points","elapsed_ms":7,"peer":412328117,"players":7,"previous_stage":"waiting_hello","spectator":false,"stage":"map_offer"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":106,"uptime_ms":9466,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"address":"127.0.0.1","loss_percent":0.0,"peer":1010641460,"port":35555,"rtt_ms":146.0},"epoch":0,"event":"peer_connected","map":"voxel_jungle","mode":"tdm","seq":107,"uptime_ms":9473,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"elapsed_ms":0,"peer":1010641460,"previous_stage":"transport","stage":"waiting_hello"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":108,"uptime_ms":9473,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"capacity":64,"client_protocol":"fpsloppa-cq-frontier-16-poi-points","elapsed_ms":7,"peer":1270621517,"players":7,"previous_stage":"waiting_hello","spectator":false,"stage":"map_offer"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":109,"uptime_ms":9473,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"address":"127.0.0.1","loss_percent":0.0,"peer":832638440,"port":33418,"rtt_ms":166.0},"epoch":0,"event":"peer_connected","map":"voxel_jungle","mode":"tdm","seq":110,"uptime_ms":9493,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"elapsed_ms":0,"peer":832638440,"previous_stage":"transport","stage":"waiting_hello"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":111,"uptime_ms":9493,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"capacity":64,"client_protocol":"fpsloppa-cq-frontier-16-poi-points","elapsed_ms":20,"peer":1010641460,"players":7,"previous_stage":"waiting_hello","spectator":false,"stage":"map_offer"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":112,"uptime_ms":9493,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"address":"127.0.0.1","loss_percent":0.0,"peer":2083566151,"port":55007,"rtt_ms":167.0},"epoch":0,"event":"peer_connected","map":"voxel_jungle","mode":"tdm","seq":113,"uptime_ms":9494,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"elapsed_ms":0,"peer":2083566151,"previous_stage":"transport","stage":"waiting_hello"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":114,"uptime_ms":9494,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"capacity":64,"client_protocol":"fpsloppa-cq-frontier-16-poi-points","elapsed_ms":1,"peer":832638440,"players":7,"previous_stage":"waiting_hello","spectator":false,"stage":"map_offer"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":115,"uptime_ms":9494,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"address":"127.0.0.1","loss_percent":0.0,"peer":458916332,"port":33849,"rtt_ms":167.0},"epoch":0,"event":"peer_connected","map":"voxel_jungle","mode":"tdm","seq":116,"uptime_ms":9494,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"elapsed_ms":0,"peer":458916332,"previous_stage":"transport","stage":"waiting_hello"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":117,"uptime_ms":9494,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"capacity":64,"client_protocol":"fpsloppa-cq-frontier-16-poi-points","elapsed_ms":0,"peer":2083566151,"players":7,"previous_stage":"waiting_hello","spectator":false,"stage":"map_offer"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":118,"uptime_ms":9494,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"address":"127.0.0.1","loss_percent":0.0,"peer":2127548776,"port":53725,"rtt_ms":174.0},"epoch":0,"event":"peer_connected","map":"voxel_jungle","mode":"tdm","seq":119,"uptime_ms":9501,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"elapsed_ms":0,"peer":2127548776,"previous_stage":"transport","stage":"waiting_hello"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":120,"uptime_ms":9501,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"capacity":64,"client_protocol":"fpsloppa-cq-frontier-16-poi-points","elapsed_ms":7,"peer":458916332,"players":7,"previous_stage":"waiting_hello","spectator":false,"stage":"map_offer"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":121,"uptime_ms":9501,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"address":"127.0.0.1","loss_percent":0.0,"peer":1997318184,"port":50546,"rtt_ms":181.0},"epoch":0,"event":"peer_connected","map":"voxel_jungle","mode":"tdm","seq":122,"uptime_ms":9508,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"elapsed_ms":0,"peer":1997318184,"previous_stage":"transport","stage":"waiting_hello"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":123,"uptime_ms":9508,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"address":"127.0.0.1","loss_percent":0.0,"peer":1769070921,"port":43986,"rtt_ms":200.0},"epoch":0,"event":"peer_connected","map":"voxel_jungle","mode":"tdm","seq":124,"uptime_ms":9527,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"elapsed_ms":0,"peer":1769070921,"previous_stage":"transport","stage":"waiting_hello"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":125,"uptime_ms":9527,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"capacity":64,"client_protocol":"fpsloppa-cq-frontier-16-poi-points","elapsed_ms":26,"peer":2127548776,"players":7,"previous_stage":"waiting_hello","spectator":false,"stage":"map_offer"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":126,"uptime_ms":9527,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"capacity":64,"client_protocol":"fpsloppa-cq-frontier-16-poi-points","elapsed_ms":19,"peer":1997318184,"players":7,"previous_stage":"waiting_hello","spectator":false,"stage":"map_offer"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":127,"uptime_ms":9527,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"address":"127.0.0.1","loss_percent":0.0,"peer":33412980,"port":37878,"rtt_ms":201.0},"epoch":0,"event":"peer_connected","map":"voxel_jungle","mode":"tdm","seq":128,"uptime_ms":9528,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"elapsed_ms":0,"peer":33412980,"previous_stage":"transport","stage":"waiting_hello"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":129,"uptime_ms":9528,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"capacity":64,"client_protocol":"fpsloppa-cq-frontier-16-poi-points","elapsed_ms":1,"peer":1769070921,"players":7,"previous_stage":"waiting_hello","spectator":false,"stage":"map_offer"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":130,"uptime_ms":9528,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"address":"127.0.0.1","loss_percent":0.0,"peer":273347166,"port":53346,"rtt_ms":201.0},"epoch":0,"event":"peer_connected","map":"voxel_jungle","mode":"tdm","seq":131,"uptime_ms":9529,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"elapsed_ms":0,"peer":273347166,"previous_stage":"transport","stage":"waiting_hello"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":132,"uptime_ms":9529,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"capacity":64,"client_protocol":"fpsloppa-cq-frontier-16-poi-points","elapsed_ms":1,"peer":33412980,"players":7,"previous_stage":"waiting_hello","spectator":false,"stage":"map_offer"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":133,"uptime_ms":9529,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"address":"127.0.0.1","loss_percent":0.0,"peer":1478673522,"port":50979,"rtt_ms":208.0},"epoch":0,"event":"peer_connected","map":"voxel_jungle","mode":"tdm","seq":134,"uptime_ms":9535,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"elapsed_ms":0,"peer":1478673522,"previous_stage":"transport","stage":"waiting_hello"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":135,"uptime_ms":9535,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"capacity":64,"client_protocol":"fpsloppa-cq-frontier-16-poi-points","elapsed_ms":6,"peer":273347166,"players":7,"previous_stage":"waiting_hello","spectator":false,"stage":"map_offer"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":136,"uptime_ms":9535,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"address":"127.0.0.1","loss_percent":0.0,"peer":591111827,"port":49185,"rtt_ms":215.0},"epoch":0,"event":"peer_connected","map":"voxel_jungle","mode":"tdm","seq":137,"uptime_ms":9542,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"elapsed_ms":0,"peer":591111827,"previous_stage":"transport","stage":"waiting_hello"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":138,"uptime_ms":9542,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"capacity":64,"client_protocol":"fpsloppa-cq-frontier-16-poi-points","elapsed_ms":7,"peer":1478673522,"players":7,"previous_stage":"waiting_hello","spectator":false,"stage":"map_offer"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":139,"uptime_ms":9542,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"address":"127.0.0.1","loss_percent":0.0,"peer":542803573,"port":38757,"rtt_ms":235.0},"epoch":0,"event":"peer_connected","map":"voxel_jungle","mode":"tdm","seq":140,"uptime_ms":9563,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"elapsed_ms":0,"peer":542803573,"previous_stage":"transport","stage":"waiting_hello"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":141,"uptime_ms":9563,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"capacity":64,"client_protocol":"fpsloppa-cq-frontier-16-poi-points","elapsed_ms":21,"peer":591111827,"players":7,"previous_stage":"waiting_hello","spectator":false,"stage":"map_offer"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":142,"uptime_ms":9563,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"address":"127.0.0.1","loss_percent":0.0,"peer":428563421,"port":60927,"rtt_ms":236.0},"epoch":0,"event":"peer_connected","map":"voxel_jungle","mode":"tdm","seq":143,"uptime_ms":9563,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"elapsed_ms":0,"peer":428563421,"previous_stage":"transport","stage":"waiting_hello"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":144,"uptime_ms":9563,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"capacity":64,"client_protocol":"fpsloppa-cq-frontier-16-poi-points","elapsed_ms":0,"peer":542803573,"players":7,"previous_stage":"waiting_hello","spectator":false,"stage":"map_offer"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":145,"uptime_ms":9563,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"address":"127.0.0.1","loss_percent":0.0,"peer":1100692493,"port":41838,"rtt_ms":236.0},"epoch":0,"event":"peer_connected","map":"voxel_jungle","mode":"tdm","seq":146,"uptime_ms":9563,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"elapsed_ms":0,"peer":1100692493,"previous_stage":"transport","stage":"waiting_hello"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":147,"uptime_ms":9563,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"capacity":64,"client_protocol":"fpsloppa-cq-frontier-16-poi-points","elapsed_ms":0,"peer":428563421,"players":7,"previous_stage":"waiting_hello","spectator":false,"stage":"map_offer"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":148,"uptime_ms":9563,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"address":"127.0.0.1","loss_percent":0.0,"peer":1683730585,"port":43354,"rtt_ms":243.0},"epoch":0,"event":"peer_connected","map":"voxel_jungle","mode":"tdm","seq":149,"uptime_ms":9570,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"elapsed_ms":0,"peer":1683730585,"previous_stage":"transport","stage":"waiting_hello"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":150,"uptime_ms":9570,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"capacity":64,"client_protocol":"fpsloppa-cq-frontier-16-poi-points","elapsed_ms":7,"peer":1100692493,"players":7,"previous_stage":"waiting_hello","spectator":false,"stage":"map_offer"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":151,"uptime_ms":9570,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"address":"127.0.0.1","loss_percent":0.0,"peer":127622473,"port":53226,"rtt_ms":250.0},"epoch":0,"event":"peer_connected","map":"voxel_jungle","mode":"tdm","seq":152,"uptime_ms":9577,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"elapsed_ms":0,"peer":127622473,"previous_stage":"transport","stage":"waiting_hello"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":153,"uptime_ms":9577,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"capacity":64,"client_protocol":"fpsloppa-cq-frontier-16-poi-points","elapsed_ms":7,"peer":1683730585,"players":7,"previous_stage":"waiting_hello","spectator":false,"stage":"map_offer"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":154,"uptime_ms":9577,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"address":"127.0.0.1","loss_percent":0.0,"peer":1450164514,"port":59043,"rtt_ms":269.0},"epoch":0,"event":"peer_connected","map":"voxel_jungle","mode":"tdm","seq":155,"uptime_ms":9596,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"elapsed_ms":0,"peer":1450164514,"previous_stage":"transport","stage":"waiting_hello"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":156,"uptime_ms":9596,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"capacity":64,"client_protocol":"fpsloppa-cq-frontier-16-poi-points","elapsed_ms":19,"peer":127622473,"players":7,"previous_stage":"waiting_hello","spectator":false,"stage":"map_offer"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":157,"uptime_ms":9596,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"address":"127.0.0.1","loss_percent":0.0,"peer":1315377735,"port":54508,"rtt_ms":269.0},"epoch":0,"event":"peer_connected","map":"voxel_jungle","mode":"tdm","seq":158,"uptime_ms":9596,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"elapsed_ms":0,"peer":1315377735,"previous_stage":"transport","stage":"waiting_hello"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":159,"uptime_ms":9596,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"capacity":64,"client_protocol":"fpsloppa-cq-frontier-16-poi-points","elapsed_ms":0,"peer":1450164514,"players":7,"previous_stage":"waiting_hello","spectator":false,"stage":"map_offer"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":160,"uptime_ms":9596,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"address":"127.0.0.1","loss_percent":0.0,"peer":853626234,"port":59058,"rtt_ms":271.0},"epoch":0,"event":"peer_connected","map":"voxel_jungle","mode":"tdm","seq":161,"uptime_ms":9598,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"elapsed_ms":0,"peer":853626234,"previous_stage":"transport","stage":"waiting_hello"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":162,"uptime_ms":9598,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"capacity":64,"client_protocol":"fpsloppa-cq-frontier-16-poi-points","elapsed_ms":2,"peer":1315377735,"players":7,"previous_stage":"waiting_hello","spectator":false,"stage":"map_offer"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":163,"uptime_ms":9598,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"address":"127.0.0.1","loss_percent":0.0,"peer":1097711480,"port":48990,"rtt_ms":278.0},"epoch":0,"event":"peer_connected","map":"voxel_jungle","mode":"tdm","seq":164,"uptime_ms":9605,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"elapsed_ms":0,"peer":1097711480,"previous_stage":"transport","stage":"waiting_hello"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":165,"uptime_ms":9605,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"address":"127.0.0.1","loss_percent":0.0,"peer":1779919551,"port":48670,"rtt_ms":295.0},"epoch":0,"event":"peer_connected","map":"voxel_jungle","mode":"tdm","seq":166,"uptime_ms":9623,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"elapsed_ms":0,"peer":1779919551,"previous_stage":"transport","stage":"waiting_hello"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":167,"uptime_ms":9623,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"capacity":64,"client_protocol":"fpsloppa-cq-frontier-16-poi-points","elapsed_ms":25,"peer":853626234,"players":7,"previous_stage":"waiting_hello","spectator":false,"stage":"map_offer"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":168,"uptime_ms":9623,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"capacity":64,"client_protocol":"fpsloppa-cq-frontier-16-poi-points","elapsed_ms":18,"peer":1097711480,"players":7,"previous_stage":"waiting_hello","spectator":false,"stage":"map_offer"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":169,"uptime_ms":9623,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"address":"127.0.0.1","loss_percent":0.0,"peer":196819795,"port":34947,"rtt_ms":296.0},"epoch":0,"event":"peer_connected","map":"voxel_jungle","mode":"tdm","seq":170,"uptime_ms":9624,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"elapsed_ms":0,"peer":196819795,"previous_stage":"transport","stage":"waiting_hello"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":171,"uptime_ms":9624,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"capacity":64,"client_protocol":"fpsloppa-cq-frontier-16-poi-points","elapsed_ms":1,"peer":1779919551,"players":7,"previous_stage":"waiting_hello","spectator":false,"stage":"map_offer"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":172,"uptime_ms":9624,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"address":"127.0.0.1","loss_percent":0.0,"peer":335348883,"port":45368,"rtt_ms":298.0},"epoch":0,"event":"peer_connected","map":"voxel_jungle","mode":"tdm","seq":173,"uptime_ms":9625,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"elapsed_ms":0,"peer":335348883,"previous_stage":"transport","stage":"waiting_hello"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":174,"uptime_ms":9625,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"capacity":64,"client_protocol":"fpsloppa-cq-frontier-16-poi-points","elapsed_ms":1,"peer":196819795,"players":7,"previous_stage":"waiting_hello","spectator":false,"stage":"map_offer"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":175,"uptime_ms":9625,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"address":"127.0.0.1","loss_percent":0.0,"peer":1824075418,"port":51507,"rtt_ms":305.0},"epoch":0,"event":"peer_connected","map":"voxel_jungle","mode":"tdm","seq":176,"uptime_ms":9632,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"elapsed_ms":0,"peer":1824075418,"previous_stage":"transport","stage":"waiting_hello"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":177,"uptime_ms":9632,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"address":"127.0.0.1","loss_percent":0.0,"peer":1649884332,"port":41355,"rtt_ms":312.0},"epoch":0,"event":"peer_connected","map":"voxel_jungle","mode":"tdm","seq":178,"uptime_ms":9639,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"elapsed_ms":0,"peer":1649884332,"previous_stage":"transport","stage":"waiting_hello"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":179,"uptime_ms":9639,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"capacity":64,"client_protocol":"fpsloppa-cq-frontier-16-poi-points","elapsed_ms":14,"peer":335348883,"players":7,"previous_stage":"waiting_hello","spectator":false,"stage":"map_offer"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":180,"uptime_ms":9639,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"capacity":64,"client_protocol":"fpsloppa-cq-frontier-16-poi-points","elapsed_ms":8,"peer":1824075418,"players":7,"previous_stage":"waiting_hello","spectator":false,"stage":"map_offer"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":181,"uptime_ms":9640,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"address":"127.0.0.1","loss_percent":0.0,"peer":101717813,"port":44320,"rtt_ms":331.0},"epoch":0,"event":"peer_connected","map":"voxel_jungle","mode":"tdm","seq":182,"uptime_ms":9658,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"elapsed_ms":0,"peer":101717813,"previous_stage":"transport","stage":"waiting_hello"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":183,"uptime_ms":9658,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"capacity":64,"client_protocol":"fpsloppa-cq-frontier-16-poi-points","elapsed_ms":19,"peer":1649884332,"players":7,"previous_stage":"waiting_hello","spectator":false,"stage":"map_offer"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":184,"uptime_ms":9658,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"address":"127.0.0.1","loss_percent":0.0,"peer":1386457994,"port":44401,"rtt_ms":332.0},"epoch":0,"event":"peer_connected","map":"voxel_jungle","mode":"tdm","seq":185,"uptime_ms":9659,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"elapsed_ms":0,"peer":1386457994,"previous_stage":"transport","stage":"waiting_hello"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":186,"uptime_ms":9659,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"capacity":64,"client_protocol":"fpsloppa-cq-frontier-16-poi-points","elapsed_ms":1,"peer":101717813,"players":7,"previous_stage":"waiting_hello","spectator":false,"stage":"map_offer"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":187,"uptime_ms":9659,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"address":"127.0.0.1","loss_percent":0.0,"peer":533234681,"port":49674,"rtt_ms":333.0},"epoch":0,"event":"peer_connected","map":"voxel_jungle","mode":"tdm","seq":188,"uptime_ms":9660,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"elapsed_ms":0,"peer":533234681,"previous_stage":"transport","stage":"waiting_hello"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":189,"uptime_ms":9660,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"capacity":64,"client_protocol":"fpsloppa-cq-frontier-16-poi-points","elapsed_ms":1,"peer":1386457994,"players":7,"previous_stage":"waiting_hello","spectator":false,"stage":"map_offer"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":190,"uptime_ms":9660,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"address":"127.0.0.1","loss_percent":0.0,"peer":309340093,"port":51468,"rtt_ms":340.0},"epoch":0,"event":"peer_connected","map":"voxel_jungle","mode":"tdm","seq":191,"uptime_ms":9667,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"elapsed_ms":0,"peer":309340093,"previous_stage":"transport","stage":"waiting_hello"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":192,"uptime_ms":9667,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"capacity":64,"client_protocol":"fpsloppa-cq-frontier-16-poi-points","elapsed_ms":7,"peer":533234681,"players":7,"previous_stage":"waiting_hello","spectator":false,"stage":"map_offer"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":193,"uptime_ms":9667,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"address":"127.0.0.1","loss_percent":0.0,"peer":1552602992,"port":46895,"rtt_ms":347.0},"epoch":0,"event":"peer_connected","map":"voxel_jungle","mode":"tdm","seq":194,"uptime_ms":9674,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"elapsed_ms":0,"peer":1552602992,"previous_stage":"transport","stage":"waiting_hello"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":195,"uptime_ms":9674,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"capacity":64,"client_protocol":"fpsloppa-cq-frontier-16-poi-points","elapsed_ms":7,"peer":309340093,"players":7,"previous_stage":"waiting_hello","spectator":false,"stage":"map_offer"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":196,"uptime_ms":9674,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"address":"127.0.0.1","loss_percent":0.0,"peer":2051120061,"port":34100,"rtt_ms":366.0},"epoch":0,"event":"peer_connected","map":"voxel_jungle","mode":"tdm","seq":197,"uptime_ms":9694,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"elapsed_ms":0,"peer":2051120061,"previous_stage":"transport","stage":"waiting_hello"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":198,"uptime_ms":9694,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"capacity":64,"client_protocol":"fpsloppa-cq-frontier-16-poi-points","elapsed_ms":20,"peer":1552602992,"players":7,"previous_stage":"waiting_hello","spectator":false,"stage":"map_offer"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":199,"uptime_ms":9694,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"address":"127.0.0.1","loss_percent":0.0,"peer":1141745040,"port":37544,"rtt_ms":367.0},"epoch":0,"event":"peer_connected","map":"voxel_jungle","mode":"tdm","seq":200,"uptime_ms":9694,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"elapsed_ms":0,"peer":1141745040,"previous_stage":"transport","stage":"waiting_hello"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":201,"uptime_ms":9695,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"capacity":64,"client_protocol":"fpsloppa-cq-frontier-16-poi-points","elapsed_ms":1,"peer":2051120061,"players":7,"previous_stage":"waiting_hello","spectator":false,"stage":"map_offer"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":202,"uptime_ms":9695,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"elapsed_ms":366,"peer":1439367613,"previous_stage":"map_offer","stage":"models_offer"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":203,"uptime_ms":9695,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"address":"127.0.0.1","loss_percent":0.0,"peer":1974215427,"port":46665,"rtt_ms":368.0},"epoch":0,"event":"peer_connected","map":"voxel_jungle","mode":"tdm","seq":204,"uptime_ms":9695,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"elapsed_ms":0,"peer":1974215427,"previous_stage":"transport","stage":"waiting_hello"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":205,"uptime_ms":9695,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"capacity":64,"client_protocol":"fpsloppa-cq-frontier-16-poi-points","elapsed_ms":0,"peer":1141745040,"players":7,"previous_stage":"waiting_hello","spectator":false,"stage":"map_offer"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":206,"uptime_ms":9695,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"address":"127.0.0.1","loss_percent":0.0,"peer":1905578963,"port":36216,"rtt_ms":374.0},"epoch":0,"event":"peer_connected","map":"voxel_jungle","mode":"tdm","seq":207,"uptime_ms":9702,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"elapsed_ms":0,"peer":1905578963,"previous_stage":"transport","stage":"waiting_hello"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":208,"uptime_ms":9702,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"address":"127.0.0.1","loss_percent":0.0,"peer":1799829272,"port":51699,"rtt_ms":381.0},"epoch":0,"event":"peer_connected","map":"voxel_jungle","mode":"tdm","seq":209,"uptime_ms":9708,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"elapsed_ms":0,"peer":1799829272,"previous_stage":"transport","stage":"waiting_hello"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":210,"uptime_ms":9709,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"capacity":64,"client_protocol":"fpsloppa-cq-frontier-16-poi-points","elapsed_ms":14,"peer":1974215427,"players":7,"previous_stage":"waiting_hello","spectator":false,"stage":"map_offer"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":211,"uptime_ms":9709,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"capacity":64,"client_protocol":"fpsloppa-cq-frontier-16-poi-points","elapsed_ms":7,"peer":1905578963,"players":7,"previous_stage":"waiting_hello","spectator":false,"stage":"map_offer"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":212,"uptime_ms":9709,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"address":"127.0.0.1","loss_percent":0.0,"peer":1215902703,"port":53110,"rtt_ms":397.0},"epoch":0,"event":"peer_connected","map":"voxel_jungle","mode":"tdm","seq":213,"uptime_ms":9725,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"elapsed_ms":0,"peer":1215902703,"previous_stage":"transport","stage":"waiting_hello"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":214,"uptime_ms":9725,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"capacity":64,"client_protocol":"fpsloppa-cq-frontier-16-poi-points","elapsed_ms":16,"peer":1799829272,"players":7,"previous_stage":"waiting_hello","spectator":false,"stage":"map_offer"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":215,"uptime_ms":9725,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"address":"127.0.0.1","loss_percent":0.0,"peer":1591341736,"port":59700,"rtt_ms":398.0},"epoch":0,"event":"peer_connected","map":"voxel_jungle","mode":"tdm","seq":216,"uptime_ms":9725,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"elapsed_ms":0,"peer":1591341736,"previous_stage":"transport","stage":"waiting_hello"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":217,"uptime_ms":9725,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"capacity":64,"client_protocol":"fpsloppa-cq-frontier-16-poi-points","elapsed_ms":0,"peer":1215902703,"players":7,"previous_stage":"waiting_hello","spectator":false,"stage":"map_offer"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":218,"uptime_ms":9725,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"address":"127.0.0.1","loss_percent":0.0,"peer":1572000177,"port":39394,"rtt_ms":402.0},"epoch":0,"event":"peer_connected","map":"voxel_jungle","mode":"tdm","seq":219,"uptime_ms":9729,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"elapsed_ms":0,"peer":1572000177,"previous_stage":"transport","stage":"waiting_hello"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":220,"uptime_ms":9729,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"capacity":64,"client_protocol":"fpsloppa-cq-frontier-16-poi-points","elapsed_ms":4,"peer":1591341736,"players":7,"previous_stage":"waiting_hello","spectator":false,"stage":"map_offer"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":221,"uptime_ms":9729,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"capacity":64,"client_protocol":"fpsloppa-cq-frontier-16-poi-points","elapsed_ms":8,"peer":1572000177,"players":7,"previous_stage":"waiting_hello","spectator":false,"stage":"map_offer"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":222,"uptime_ms":9737,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"elapsed_ms":370,"peer":72367464,"previous_stage":"map_offer","stage":"models_offer"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":223,"uptime_ms":9739,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"elapsed_ms":369,"peer":1461829207,"previous_stage":"map_offer","stage":"models_offer"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":224,"uptime_ms":9739,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"elapsed_ms":363,"peer":496190783,"previous_stage":"map_offer","stage":"models_offer"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":225,"uptime_ms":9739,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"elapsed_ms":346,"peer":528238135,"previous_stage":"map_offer","stage":"models_offer"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":226,"uptime_ms":9739,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"elapsed_ms":342,"peer":615488990,"previous_stage":"map_offer","stage":"models_offer"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":227,"uptime_ms":9739,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"elapsed_ms":335,"peer":1766973246,"previous_stage":"map_offer","stage":"models_offer"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":228,"uptime_ms":9739,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"elapsed_ms":328,"peer":1293427933,"previous_stage":"map_offer","stage":"models_offer"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":229,"uptime_ms":9739,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"elapsed_ms":212,"peer":1769070921,"previous_stage":"map_offer","stage":"models_offer"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":230,"uptime_ms":9740,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"elapsed_ms":211,"peer":33412980,"previous_stage":"map_offer","stage":"models_offer"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":231,"uptime_ms":9740,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"elapsed_ms":205,"peer":273347166,"previous_stage":"map_offer","stage":"models_offer"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":232,"uptime_ms":9740,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"elapsed_ms":309,"peer":395694811,"previous_stage":"map_offer","stage":"models_offer"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":233,"uptime_ms":9740,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"elapsed_ms":311,"peer":1135584193,"previous_stage":"map_offer","stage":"models_offer"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":234,"uptime_ms":9740,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"elapsed_ms":45,"peer":2051120061,"previous_stage":"map_offer","stage":"models_offer"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":235,"uptime_ms":9740,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"elapsed_ms":45,"peer":1141745040,"previous_stage":"map_offer","stage":"models_offer"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":236,"uptime_ms":9740,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"elapsed_ms":371,"peer":1955323262,"previous_stage":"map_offer","stage":"models_offer"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":237,"uptime_ms":9740,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"elapsed_ms":348,"peer":639107352,"previous_stage":"map_offer","stage":"models_offer"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":238,"uptime_ms":9741,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"elapsed_ms":214,"peer":2127548776,"previous_stage":"map_offer","stage":"models_offer"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":239,"uptime_ms":9741,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"elapsed_ms":214,"peer":1997318184,"previous_stage":"map_offer","stage":"models_offer"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":240,"uptime_ms":9741,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"elapsed_ms":46,"peer":1439367613,"previous_stage":"models_offer","stage":"ready"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":241,"uptime_ms":9741,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"name":"Load 39","peer":1439367613,"spectator":false,"team":1},"epoch":0,"event":"player_joined","map":"voxel_jungle","mode":"tdm","seq":242,"uptime_ms":9742,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"message":"Load 39 joined the arena."},"epoch":0,"event":"match_event","map":"voxel_jungle","mode":"tdm","seq":243,"uptime_ms":9743,"utc":"2026-10-13T20:27:15Z"}
+DM_EVENT Load 39 joined the arena.
+SERVER_LOG {"data":{"elapsed_ms":30,"peer":2051120061,"previous_stage":"models_offer","stage":"ready"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":244,"uptime_ms":9770,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"name":"Load 50","peer":2051120061,"spectator":false,"team":0},"epoch":0,"event":"player_joined","map":"voxel_jungle","mode":"tdm","seq":245,"uptime_ms":9771,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"message":"Load 50 joined the arena."},"epoch":0,"event":"match_event","map":"voxel_jungle","mode":"tdm","seq":246,"uptime_ms":9772,"utc":"2026-10-13T20:27:15Z"}
+DM_EVENT Load 50 joined the arena.
+SERVER_LOG {"data":{"elapsed_ms":44,"peer":1591341736,"previous_stage":"map_offer","stage":"models_offer"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":247,"uptime_ms":9773,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"elapsed_ms":36,"peer":1572000177,"previous_stage":"map_offer","stage":"models_offer"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":248,"uptime_ms":9773,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"elapsed_ms":58,"peer":1141745040,"previous_stage":"models_offer","stage":"ready"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":249,"uptime_ms":9798,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"name":"Load 32","peer":1141745040,"spectator":false,"team":1},"epoch":0,"event":"player_joined","map":"voxel_jungle","mode":"tdm","seq":250,"uptime_ms":9799,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"message":"Load 32 joined the arena."},"epoch":0,"event":"match_event","map":"voxel_jungle","mode":"tdm","seq":251,"uptime_ms":9799,"utc":"2026-10-13T20:27:15Z"}
+DM_EVENT Load 32 joined the arena.
+SERVER_LOG {"data":{"elapsed_ms":342,"peer":362456009,"previous_stage":"map_offer","stage":"models_offer"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":252,"uptime_ms":9801,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"elapsed_ms":68,"peer":2127548776,"previous_stage":"models_offer","stage":"ready"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":253,"uptime_ms":9809,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"name":"Load 14","peer":2127548776,"spectator":false,"team":0},"epoch":0,"event":"player_joined","map":"voxel_jungle","mode":"tdm","seq":254,"uptime_ms":9810,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"message":"Load 14 joined the arena."},"epoch":0,"event":"match_event","map":"voxel_jungle","mode":"tdm","seq":255,"uptime_ms":9811,"utc":"2026-10-13T20:27:15Z"}
+DM_EVENT Load 14 joined the arena.
+SERVER_LOG {"data":{"elapsed_ms":97,"peer":1997318184,"previous_stage":"models_offer","stage":"ready"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":256,"uptime_ms":9838,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"name":"Load 22","peer":1997318184,"spectator":false,"team":1},"epoch":0,"event":"player_joined","map":"voxel_jungle","mode":"tdm","seq":257,"uptime_ms":9841,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"message":"Load 22 joined the arena."},"epoch":0,"event":"match_event","map":"voxel_jungle","mode":"tdm","seq":258,"uptime_ms":9842,"utc":"2026-10-13T20:27:15Z"}
+DM_EVENT Load 22 joined the arena.
+SERVER_LOG {"data":{"elapsed_ms":384,"peer":1069364128,"previous_stage":"map_offer","stage":"models_offer"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":259,"uptime_ms":9843,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"elapsed_ms":383,"peer":370489709,"previous_stage":"map_offer","stage":"models_offer"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":260,"uptime_ms":9843,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"elapsed_ms":377,"peer":412328117,"previous_stage":"map_offer","stage":"models_offer"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":261,"uptime_ms":9843,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"elapsed_ms":81,"peer":362456009,"previous_stage":"models_offer","stage":"ready"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":262,"uptime_ms":9882,"utc":"2026-10-13T20:27:15Z"}
+SERVER_LOG {"data":{"name":"Load 47","peer":362456009,"spectator":false,"team":0},"epoch":0,"event":"player_joined","map":"voxel_jungle","mode":"tdm","seq":263,"uptime_ms":9884,"utc":"2026-10-13T20:27:16Z"}
+SERVER_LOG {"data":{"message":"Load 47 joined the arena."},"epoch":0,"event":"match_event","map":"voxel_jungle","mode":"tdm","seq":264,"uptime_ms":9885,"utc":"2026-10-13T20:27:16Z"}
+DM_EVENT Load 47 joined the arena.
+SERVER_LOG {"data":{"elapsed_ms":413,"peer":1270621517,"previous_stage":"map_offer","stage":"models_offer"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":265,"uptime_ms":9886,"utc":"2026-10-13T20:27:16Z"}
+SERVER_LOG {"data":{"elapsed_ms":175,"peer":1769070921,"previous_stage":"models_offer","stage":"ready"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":266,"uptime_ms":9915,"utc":"2026-10-13T20:27:16Z"}
+SERVER_LOG {"data":{"name":"Load 53","peer":1769070921,"spectator":false,"team":1},"epoch":0,"event":"player_joined","map":"voxel_jungle","mode":"tdm","seq":267,"uptime_ms":9916,"utc":"2026-10-13T20:27:16Z"}
+SERVER_LOG {"data":{"message":"Load 53 joined the arena."},"epoch":0,"event":"match_event","map":"voxel_jungle","mode":"tdm","seq":268,"uptime_ms":9917,"utc":"2026-10-13T20:27:16Z"}
+DM_EVENT Load 53 joined the arena.
+SERVER_LOG {"data":{"elapsed_ms":426,"peer":1010641460,"previous_stage":"map_offer","stage":"models_offer"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":269,"uptime_ms":9919,"utc":"2026-10-13T20:27:16Z"}
+SERVER_LOG {"data":{"elapsed_ms":197,"peer":33412980,"previous_stage":"models_offer","stage":"ready"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":270,"uptime_ms":9937,"utc":"2026-10-13T20:27:16Z"}
+SERVER_LOG {"data":{"name":"Load 54","peer":33412980,"spectator":false,"team":0},"epoch":0,"event":"player_joined","map":"voxel_jungle","mode":"tdm","seq":271,"uptime_ms":9938,"utc":"2026-10-13T20:27:16Z"}
+SERVER_LOG {"data":{"message":"Load 54 joined the arena."},"epoch":0,"event":"match_event","map":"voxel_jungle","mode":"tdm","seq":272,"uptime_ms":9939,"utc":"2026-10-13T20:27:16Z"}
+DM_EVENT Load 54 joined the arena.
+SERVER_LOG {"data":{"elapsed_ms":446,"peer":832638440,"previous_stage":"map_offer","stage":"models_offer"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":273,"uptime_ms":9941,"utc":"2026-10-13T20:27:16Z"}
+SERVER_LOG {"data":{"elapsed_ms":447,"peer":2083566151,"previous_stage":"map_offer","stage":"models_offer"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":274,"uptime_ms":9941,"utc":"2026-10-13T20:27:16Z"}
+SERVER_LOG {"data":{"elapsed_ms":440,"peer":458916332,"previous_stage":"map_offer","stage":"models_offer"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":275,"uptime_ms":9941,"utc":"2026-10-13T20:27:16Z"}
+SERVER_LOG {"data":{"elapsed_ms":200,"peer":1591341736,"previous_stage":"models_offer","stage":"ready"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":276,"uptime_ms":9973,"utc":"2026-10-13T20:27:16Z"}
+SERVER_LOG {"data":{"name":"Load 21","peer":1591341736,"spectator":false,"team":1},"epoch":0,"event":"player_joined","map":"voxel_jungle","mode":"tdm","seq":277,"uptime_ms":9975,"utc":"2026-10-13T20:27:16Z"}
+SERVER_LOG {"data":{"message":"Load 21 joined the arena."},"epoch":0,"event":"match_event","map":"voxel_jungle","mode":"tdm","seq":278,"uptime_ms":9975,"utc":"2026-10-13T20:27:16Z"}
+DM_EVENT Load 21 joined the arena.
+SERVER_LOG {"data":{"elapsed_ms":228,"peer":1572000177,"previous_stage":"models_offer","stage":"ready"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":279,"uptime_ms":10001,"utc":"2026-10-13T20:27:16Z"}
+SERVER_LOG {"data":{"name":"Load 56","peer":1572000177,"spectator":false,"team":0},"epoch":0,"event":"player_joined","map":"voxel_jungle","mode":"tdm","seq":280,"uptime_ms":10003,"utc":"2026-10-13T20:27:16Z"}
+SERVER_LOG {"data":{"message":"Load 56 joined the arena."},"epoch":0,"event":"match_event","map":"voxel_jungle","mode":"tdm","seq":281,"uptime_ms":10003,"utc":"2026-10-13T20:27:16Z"}
+DM_EVENT Load 56 joined the arena.
+SERVER_LOG {"data":{"elapsed_ms":290,"peer":1955323262,"previous_stage":"models_offer","stage":"ready"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":282,"uptime_ms":10030,"utc":"2026-10-13T20:27:16Z"}
+SERVER_LOG {"data":{"name":"Load 23","peer":1955323262,"spectator":false,"team":1},"epoch":0,"event":"player_joined","map":"voxel_jungle","mode":"tdm","seq":283,"uptime_ms":10032,"utc":"2026-10-13T20:27:16Z"}
+SERVER_LOG {"data":{"message":"Load 23 joined the arena."},"epoch":0,"event":"match_event","map":"voxel_jungle","mode":"tdm","seq":284,"uptime_ms":10032,"utc":"2026-10-13T20:27:16Z"}
+DM_EVENT Load 23 joined the arena.
+SERVER_LOG {"data":{"elapsed_ms":192,"peer":1069364128,"previous_stage":"models_offer","stage":"ready"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":285,"uptime_ms":10035,"utc":"2026-10-13T20:27:16Z"}
+SERVER_LOG {"data":{"name":"Load 42","peer":1069364128,"spectator":false,"team":0},"epoch":0,"event":"player_joined","map":"voxel_jungle","mode":"tdm","seq":286,"uptime_ms":10037,"utc":"2026-10-13T20:27:16Z"}
+SERVER_LOG {"data":{"message":"Load 42 joined the arena."},"epoch":0,"event":"match_event","map":"voxel_jungle","mode":"tdm","seq":287,"uptime_ms":10037,"utc":"2026-10-13T20:27:16Z"}
+DM_EVENT Load 42 joined the arena.
+SERVER_LOG {"data":{"elapsed_ms":237,"peer":370489709,"previous_stage":"models_offer","stage":"ready"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":288,"uptime_ms":10080,"utc":"2026-10-13T20:27:16Z"}
+SERVER_LOG {"data":{"name":"Load 28","peer":370489709,"spectator":false,"team":1},"epoch":0,"event":"player_joined","map":"voxel_jungle","mode":"tdm","seq":289,"uptime_ms":10083,"utc":"2026-10-13T20:27:16Z"}
+SERVER_LOG {"data":{"message":"Load 28 joined the arena."},"epoch":0,"event":"match_event","map":"voxel_jungle","mode":"tdm","seq":290,"uptime_ms":10083,"utc":"2026-10-13T20:27:16Z"}
+DM_EVENT Load 28 joined the arena.
+SERVER_LOG {"data":{"elapsed_ms":543,"peer":1478673522,"previous_stage":"map_offer","stage":"models_offer"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":291,"uptime_ms":10085,"utc":"2026-10-13T20:27:16Z"}
+SERVER_LOG {"data":{"elapsed_ms":275,"peer":412328117,"previous_stage":"models_offer","stage":"ready"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":292,"uptime_ms":10118,"utc":"2026-10-13T20:27:16Z"}
+SERVER_LOG {"data":{"name":"Load 57","peer":412328117,"spectator":false,"team":0},"epoch":0,"event":"player_joined","map":"voxel_jungle","mode":"tdm","seq":293,"uptime_ms":10120,"utc":"2026-10-13T20:27:16Z"}
+SERVER_LOG {"data":{"message":"Load 57 joined the arena."},"epoch":0,"event":"match_event","map":"voxel_jungle","mode":"tdm","seq":294,"uptime_ms":10121,"utc":"2026-10-13T20:27:16Z"}
+DM_EVENT Load 57 joined the arena.
+SERVER_LOG {"data":{"elapsed_ms":257,"peer":1270621517,"previous_stage":"models_offer","stage":"ready"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":295,"uptime_ms":10143,"utc":"2026-10-13T20:27:16Z"}
+SERVER_LOG {"data":{"name":"Load 11","peer":1270621517,"spectator":false,"team":1},"epoch":0,"event":"player_joined","map":"voxel_jungle","mode":"tdm","seq":296,"uptime_ms":10145,"utc":"2026-10-13T20:27:16Z"}
+SERVER_LOG {"data":{"message":"Load 11 joined the arena."},"epoch":0,"event":"match_event","map":"voxel_jungle","mode":"tdm","seq":297,"uptime_ms":10146,"utc":"2026-10-13T20:27:16Z"}
+DM_EVENT Load 11 joined the arena.
+SERVER_LOG {"data":{"elapsed_ms":719,"peer":1777652641,"previous_stage":"map_offer","stage":"models_offer"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":298,"uptime_ms":10147,"utc":"2026-10-13T20:27:16Z"}
+SERVER_LOG {"data":{"elapsed_ms":265,"peer":1010641460,"previous_stage":"models_offer","stage":"ready"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":299,"uptime_ms":10184,"utc":"2026-10-13T20:27:16Z"}
+SERVER_LOG {"data":{"name":"Load 24","peer":1010641460,"spectator":false,"team":0},"epoch":0,"event":"player_joined","map":"voxel_jungle","mode":"tdm","seq":300,"uptime_ms":10187,"utc":"2026-10-13T20:27:16Z"}
+SERVER_LOG {"data":{"message":"Load 24 joined the arena."},"epoch":0,"event":"match_event","map":"voxel_jungle","mode":"tdm","seq":301,"uptime_ms":10187,"utc":"2026-10-13T20:27:16Z"}
+DM_EVENT Load 24 joined the arena.
+SERVER_LOG {"data":{"elapsed_ms":628,"peer":542803573,"previous_stage":"map_offer","stage":"models_offer"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":302,"uptime_ms":10191,"utc":"2026-10-13T20:27:16Z"}
+SERVER_LOG {"data":{"elapsed_ms":628,"peer":428563421,"previous_stage":"map_offer","stage":"models_offer"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":303,"uptime_ms":10191,"utc":"2026-10-13T20:27:16Z"}
+SERVER_LOG {"data":{"elapsed_ms":621,"peer":1100692493,"previous_stage":"map_offer","stage":"models_offer"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":304,"uptime_ms":10191,"utc":"2026-10-13T20:27:16Z"}
+SERVER_LOG {"data":{"elapsed_ms":91,"peer":1777652641,"previous_stage":"models_offer","stage":"ready"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":305,"uptime_ms":10238,"utc":"2026-10-13T20:27:16Z"}
+SERVER_LOG {"data":{"name":"Load 51","peer":1777652641,"spectator":false,"team":1},"epoch":0,"event":"player_joined","map":"voxel_jungle","mode":"tdm","seq":306,"uptime_ms":10240,"utc":"2026-10-13T20:27:16Z"}
+SERVER_LOG {"data":{"message":"Load 51 joined the arena."},"epoch":0,"event":"match_event","map":"voxel_jungle","mode":"tdm","seq":307,"uptime_ms":10241,"utc":"2026-10-13T20:27:16Z"}
+DM_EVENT Load 51 joined the arena.
+SERVER_LOG {"data":{"elapsed_ms":666,"peer":1683730585,"previous_stage":"map_offer","stage":"models_offer"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":308,"uptime_ms":10243,"utc":"2026-10-13T20:27:16Z"}
+SERVER_LOG {"data":{"elapsed_ms":680,"peer":591111827,"previous_stage":"map_offer","stage":"models_offer"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":309,"uptime_ms":10243,"utc":"2026-10-13T20:27:16Z"}
+SERVER_LOG {"data":{"elapsed_ms":458,"peer":832638440,"previous_stage":"models_offer","stage":"ready"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":310,"uptime_ms":10398,"utc":"2026-10-13T20:27:16Z"}
+SERVER_LOG {"data":{"name":"Load 45","peer":832638440,"spectator":false,"team":0},"epoch":0,"event":"player_joined","map":"voxel_jungle","mode":"tdm","seq":311,"uptime_ms":10400,"utc":"2026-10-13T20:27:16Z"}
+SERVER_LOG {"data":{"message":"Load 45 joined the arena."},"epoch":0,"event":"match_event","map":"voxel_jungle","mode":"tdm","seq":312,"uptime_ms":10400,"utc":"2026-10-13T20:27:16Z"}
+DM_EVENT Load 45 joined the arena.
+SERVER_LOG {"data":{"elapsed_ms":806,"peer":1450164514,"previous_stage":"map_offer","stage":"models_offer"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":313,"uptime_ms":10402,"utc":"2026-10-13T20:27:16Z"}
+SERVER_LOG {"data":{"elapsed_ms":807,"peer":127622473,"previous_stage":"map_offer","stage":"models_offer"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":314,"uptime_ms":10403,"utc":"2026-10-13T20:27:16Z"}
+SERVER_LOG {"data":{"elapsed_ms":590,"peer":2083566151,"previous_stage":"models_offer","stage":"ready"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":315,"uptime_ms":10531,"utc":"2026-10-13T20:27:16Z"}
+SERVER_LOG {"data":{"name":"Load 61","peer":2083566151,"spectator":false,"team":1},"epoch":0,"event":"player_joined","map":"voxel_jungle","mode":"tdm","seq":316,"uptime_ms":10533,"utc":"2026-10-13T20:27:16Z"}
+SERVER_LOG {"data":{"message":"Load 61 joined the arena."},"epoch":0,"event":"match_event","map":"voxel_jungle","mode":"tdm","seq":317,"uptime_ms":10534,"utc":"2026-10-13T20:27:16Z"}
+DM_EVENT Load 61 joined the arena.
+SERVER_LOG {"data":{"elapsed_ms":899,"peer":1824075418,"previous_stage":"map_offer","stage":"models_offer"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":318,"uptime_ms":10539,"utc":"2026-10-13T20:27:16Z"}
+SERVER_LOG {"data":{"elapsed_ms":900,"peer":335348883,"previous_stage":"map_offer","stage":"models_offer"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":319,"uptime_ms":10539,"utc":"2026-10-13T20:27:16Z"}
+SERVER_LOG {"data":{"elapsed_ms":817,"peer":458916332,"previous_stage":"models_offer","stage":"ready"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":320,"uptime_ms":10758,"utc":"2026-10-13T20:27:16Z"}
+SERVER_LOG {"data":{"name":"Load 59","peer":458916332,"spectator":false,"team":0},"epoch":0,"event":"player_joined","map":"voxel_jungle","mode":"tdm","seq":321,"uptime_ms":10760,"utc":"2026-10-13T20:27:16Z"}
+SERVER_LOG {"data":{"message":"Load 59 joined the arena."},"epoch":0,"event":"match_event","map":"voxel_jungle","mode":"tdm","seq":322,"uptime_ms":10760,"utc":"2026-10-13T20:27:16Z"}
+DM_EVENT Load 59 joined the arena.
+SERVER_LOG {"data":{"elapsed_ms":1355,"peer":273347166,"previous_stage":"models_offer","stage":"ready"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":323,"uptime_ms":11095,"utc":"2026-10-13T20:27:17Z"}
+SERVER_LOG {"data":{"name":"Load 38","peer":273347166,"spectator":false,"team":1},"epoch":0,"event":"player_joined","map":"voxel_jungle","mode":"tdm","seq":324,"uptime_ms":11098,"utc":"2026-10-13T20:27:17Z"}
+SERVER_LOG {"data":{"message":"Load 38 joined the arena."},"epoch":0,"event":"match_event","map":"voxel_jungle","mode":"tdm","seq":325,"uptime_ms":11098,"utc":"2026-10-13T20:27:17Z"}
+DM_EVENT Load 38 joined the arena.
+SERVER_LOG {"data":{"elapsed_ms":1388,"peer":1478673522,"previous_stage":"models_offer","stage":"ready"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":326,"uptime_ms":11473,"utc":"2026-10-13T20:27:17Z"}
+SERVER_LOG {"data":{"name":"Load 52","peer":1478673522,"spectator":false,"team":0},"epoch":0,"event":"player_joined","map":"voxel_jungle","mode":"tdm","seq":327,"uptime_ms":11475,"utc":"2026-10-13T20:27:17Z"}
+SERVER_LOG {"data":{"message":"Load 52 joined the arena."},"epoch":0,"event":"match_event","map":"voxel_jungle","mode":"tdm","seq":328,"uptime_ms":11476,"utc":"2026-10-13T20:27:17Z"}
+DM_EVENT Load 52 joined the arena.
+SERVER_LOG {"data":{"elapsed_ms":1564,"peer":591111827,"previous_stage":"models_offer","stage":"ready"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":329,"uptime_ms":11807,"utc":"2026-10-13T20:27:17Z"}
+SERVER_LOG {"data":{"name":"Load 10","peer":591111827,"spectator":false,"team":1},"epoch":0,"event":"player_joined","map":"voxel_jungle","mode":"tdm","seq":330,"uptime_ms":11808,"utc":"2026-10-13T20:27:17Z"}
+SERVER_LOG {"data":{"message":"Load 10 joined the arena."},"epoch":0,"event":"match_event","map":"voxel_jungle","mode":"tdm","seq":331,"uptime_ms":11809,"utc":"2026-10-13T20:27:17Z"}
+DM_EVENT Load 10 joined the arena.
+SERVER_LOG {"data":{"elapsed_ms":1963,"peer":542803573,"previous_stage":"models_offer","stage":"ready"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":332,"uptime_ms":12154,"utc":"2026-10-13T20:27:18Z"}
+SERVER_LOG {"data":{"name":"Load 34","peer":542803573,"spectator":false,"team":0},"epoch":0,"event":"player_joined","map":"voxel_jungle","mode":"tdm","seq":333,"uptime_ms":12156,"utc":"2026-10-13T20:27:18Z"}
+SERVER_LOG {"data":{"message":"Load 34 joined the arena."},"epoch":0,"event":"match_event","map":"voxel_jungle","mode":"tdm","seq":334,"uptime_ms":12156,"utc":"2026-10-13T20:27:18Z"}
+DM_EVENT Load 34 joined the arena.
+SERVER_LOG {"data":{"elapsed_ms":2010,"peer":335348883,"previous_stage":"models_offer","stage":"ready"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":335,"uptime_ms":12549,"utc":"2026-10-13T20:27:18Z"}
+SERVER_LOG {"data":{"name":"Load 44","peer":335348883,"spectator":false,"team":1},"epoch":0,"event":"player_joined","map":"voxel_jungle","mode":"tdm","seq":336,"uptime_ms":12551,"utc":"2026-10-13T20:27:18Z"}
+SERVER_LOG {"data":{"message":"Load 44 joined the arena."},"epoch":0,"event":"match_event","map":"voxel_jungle","mode":"tdm","seq":337,"uptime_ms":12552,"utc":"2026-10-13T20:27:18Z"}
+DM_EVENT Load 44 joined the arena.
+SERVER_LOG {"data":{"elapsed_ms":2895,"peer":1386457994,"previous_stage":"map_offer","stage":"models_offer"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":338,"uptime_ms":12555,"utc":"2026-10-13T20:27:18Z"}
+SERVER_LOG {"data":{"elapsed_ms":2688,"peer":428563421,"previous_stage":"models_offer","stage":"ready"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":339,"uptime_ms":12879,"utc":"2026-10-13T20:27:18Z"}
+SERVER_LOG {"data":{"name":"Load 27","peer":428563421,"spectator":false,"team":0},"epoch":0,"event":"player_joined","map":"voxel_jungle","mode":"tdm","seq":340,"uptime_ms":12881,"utc":"2026-10-13T20:27:18Z"}
+SERVER_LOG {"data":{"message":"Load 27 joined the arena."},"epoch":0,"event":"match_event","map":"voxel_jungle","mode":"tdm","seq":341,"uptime_ms":12881,"utc":"2026-10-13T20:27:18Z"}
+DM_EVENT Load 27 joined the arena.
+SERVER_LOG {"data":{"elapsed_ms":3159,"peer":1799829272,"previous_stage":"map_offer","stage":"models_offer"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":342,"uptime_ms":12884,"utc":"2026-10-13T20:27:18Z"}
+SERVER_LOG {"data":{"elapsed_ms":3007,"peer":1100692493,"previous_stage":"models_offer","stage":"ready"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":343,"uptime_ms":13198,"utc":"2026-10-13T20:27:19Z"}
+SERVER_LOG {"data":{"name":"Load 37","peer":1100692493,"spectator":false,"team":1},"epoch":0,"event":"player_joined","map":"voxel_jungle","mode":"tdm","seq":344,"uptime_ms":13200,"utc":"2026-10-13T20:27:19Z"}
+SERVER_LOG {"data":{"message":"Load 37 joined the arena."},"epoch":0,"event":"match_event","map":"voxel_jungle","mode":"tdm","seq":345,"uptime_ms":13201,"utc":"2026-10-13T20:27:19Z"}
+DM_EVENT Load 37 joined the arena.
+SERVER_LOG {"data":{"elapsed_ms":3361,"peer":1683730585,"previous_stage":"models_offer","stage":"ready"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":346,"uptime_ms":13604,"utc":"2026-10-13T20:27:19Z"}
+SERVER_LOG {"data":{"name":"Load 8","peer":1683730585,"spectator":false,"team":0},"epoch":0,"event":"player_joined","map":"voxel_jungle","mode":"tdm","seq":347,"uptime_ms":13607,"utc":"2026-10-13T20:27:19Z"}
+SERVER_LOG {"data":{"message":"Load 8 joined the arena."},"epoch":0,"event":"match_event","map":"voxel_jungle","mode":"tdm","seq":348,"uptime_ms":13608,"utc":"2026-10-13T20:27:19Z"}
+DM_EVENT Load 8 joined the arena.
+SERVER_LOG {"data":{"elapsed_ms":1166,"peer":1799829272,"previous_stage":"models_offer","stage":"ready"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":349,"uptime_ms":14050,"utc":"2026-10-13T20:27:20Z"}
+SERVER_LOG {"data":{"name":"Load 43","peer":1799829272,"spectator":false,"team":1},"epoch":0,"event":"player_joined","map":"voxel_jungle","mode":"tdm","seq":350,"uptime_ms":14052,"utc":"2026-10-13T20:27:20Z"}
+SERVER_LOG {"data":{"message":"Load 43 joined the arena."},"epoch":0,"event":"match_event","map":"voxel_jungle","mode":"tdm","seq":351,"uptime_ms":14052,"utc":"2026-10-13T20:27:20Z"}
+DM_EVENT Load 43 joined the arena.
+SERVER_LOG {"data":{"elapsed_ms":3544,"peer":1386457994,"previous_stage":"models_offer","stage":"ready"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":352,"uptime_ms":16099,"utc":"2026-10-13T20:27:22Z"}
+SERVER_LOG {"data":{"name":"Load 17","peer":1386457994,"spectator":false,"team":0},"epoch":0,"event":"player_joined","map":"voxel_jungle","mode":"tdm","seq":353,"uptime_ms":16101,"utc":"2026-10-13T20:27:22Z"}
+SERVER_LOG {"data":{"message":"Load 17 joined the arena."},"epoch":0,"event":"match_event","map":"voxel_jungle","mode":"tdm","seq":354,"uptime_ms":16101,"utc":"2026-10-13T20:27:22Z"}
+DM_EVENT Load 17 joined the arena.
+SERVER_LOG {"data":{"elapsed_ms":9929,"peer":615488990,"previous_stage":"models_offer","stage":"ready"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":355,"uptime_ms":19668,"utc":"2026-10-13T20:27:25Z"}
+SERVER_LOG {"data":{"name":"Load 30","peer":615488990,"spectator":false,"team":1},"epoch":0,"event":"player_joined","map":"voxel_jungle","mode":"tdm","seq":356,"uptime_ms":19671,"utc":"2026-10-13T20:27:25Z"}
+SERVER_LOG {"data":{"message":"Load 30 joined the arena."},"epoch":0,"event":"match_event","map":"voxel_jungle","mode":"tdm","seq":357,"uptime_ms":19671,"utc":"2026-10-13T20:27:25Z"}
+DM_EVENT Load 30 joined the arena.
+SERVER_LOG {"data":{"elapsed_ms":10603,"peer":1097711480,"previous_stage":"map_offer","stage":"models_offer"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":358,"uptime_ms":20226,"utc":"2026-10-13T20:27:26Z"}
+SERVER_LOG {"data":{"elapsed_ms":10704,"peer":528238135,"previous_stage":"models_offer","stage":"ready"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":359,"uptime_ms":20443,"utc":"2026-10-13T20:27:26Z"}
+SERVER_LOG {"data":{"name":"Load 7","peer":528238135,"spectator":false,"team":0},"epoch":0,"event":"player_joined","map":"voxel_jungle","mode":"tdm","seq":360,"uptime_ms":20446,"utc":"2026-10-13T20:27:26Z"}
+SERVER_LOG {"data":{"message":"Load 7 joined the arena."},"epoch":0,"event":"match_event","map":"voxel_jungle","mode":"tdm","seq":361,"uptime_ms":20447,"utc":"2026-10-13T20:27:26Z"}
+DM_EVENT Load 7 joined the arena.
+SERVER_LOG {"data":{"elapsed_ms":10947,"peer":395694811,"previous_stage":"models_offer","stage":"ready"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":362,"uptime_ms":20687,"utc":"2026-10-13T20:27:26Z"}
+SERVER_LOG {"data":{"name":"Load 13","peer":395694811,"spectator":false,"team":1},"epoch":0,"event":"player_joined","map":"voxel_jungle","mode":"tdm","seq":363,"uptime_ms":20689,"utc":"2026-10-13T20:27:26Z"}
+SERVER_LOG {"data":{"message":"Load 13 joined the arena."},"epoch":0,"event":"match_event","map":"voxel_jungle","mode":"tdm","seq":364,"uptime_ms":20689,"utc":"2026-10-13T20:27:26Z"}
+DM_EVENT Load 13 joined the arena.
+SERVER_LOG {"data":{"elapsed_ms":776,"peer":1097711480,"previous_stage":"models_offer","stage":"ready"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":365,"uptime_ms":21002,"utc":"2026-10-13T20:27:27Z"}
+SERVER_LOG {"data":{"name":"Load 41","peer":1097711480,"spectator":false,"team":0},"epoch":0,"event":"player_joined","map":"voxel_jungle","mode":"tdm","seq":366,"uptime_ms":21005,"utc":"2026-10-13T20:27:27Z"}
+SERVER_LOG {"data":{"message":"Load 41 joined the arena."},"epoch":0,"event":"match_event","map":"voxel_jungle","mode":"tdm","seq":367,"uptime_ms":21005,"utc":"2026-10-13T20:27:27Z"}
+DM_EVENT Load 41 joined the arena.
+SERVER_LOG {"data":{"elapsed_ms":11649,"peer":1461829207,"previous_stage":"models_offer","stage":"ready"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":368,"uptime_ms":21388,"utc":"2026-10-13T20:27:27Z"}
+SERVER_LOG {"data":{"name":"Load 15","peer":1461829207,"spectator":false,"team":1},"epoch":0,"event":"player_joined","map":"voxel_jungle","mode":"tdm","seq":369,"uptime_ms":21390,"utc":"2026-10-13T20:27:27Z"}
+SERVER_LOG {"data":{"message":"Load 15 joined the arena."},"epoch":0,"event":"match_event","map":"voxel_jungle","mode":"tdm","seq":370,"uptime_ms":21391,"utc":"2026-10-13T20:27:27Z"}
+DM_EVENT Load 15 joined the arena.
+SERVER_LOG {"data":{"elapsed_ms":12534,"peer":101717813,"previous_stage":"map_offer","stage":"models_offer"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":371,"uptime_ms":22193,"utc":"2026-10-13T20:27:28Z"}
+SERVER_LOG {"data":{"elapsed_ms":12804,"peer":533234681,"previous_stage":"map_offer","stage":"models_offer"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":372,"uptime_ms":22471,"utc":"2026-10-13T20:27:28Z"}
+SERVER_LOG {"data":{"elapsed_ms":12798,"peer":309340093,"previous_stage":"map_offer","stage":"models_offer"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":373,"uptime_ms":22472,"utc":"2026-10-13T20:27:28Z"}
+SERVER_LOG {"data":{"elapsed_ms":279,"peer":101717813,"previous_stage":"models_offer","stage":"ready"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":374,"uptime_ms":22472,"utc":"2026-10-13T20:27:28Z"}
+SERVER_LOG {"data":{"name":"Load 33","peer":101717813,"spectator":false,"team":0},"epoch":0,"event":"player_joined","map":"voxel_jungle","mode":"tdm","seq":375,"uptime_ms":22474,"utc":"2026-10-13T20:27:28Z"}
+SERVER_LOG {"data":{"message":"Load 33 joined the arena."},"epoch":0,"event":"match_event","map":"voxel_jungle","mode":"tdm","seq":376,"uptime_ms":22475,"utc":"2026-10-13T20:27:28Z"}
+DM_EVENT Load 33 joined the arena.
+SERVER_LOG {"data":{"elapsed_ms":627,"peer":533234681,"previous_stage":"models_offer","stage":"ready"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":377,"uptime_ms":23098,"utc":"2026-10-13T20:27:29Z"}
+SERVER_LOG {"data":{"name":"Load 49","peer":533234681,"spectator":false,"team":1},"epoch":0,"event":"player_joined","map":"voxel_jungle","mode":"tdm","seq":378,"uptime_ms":23100,"utc":"2026-10-13T20:27:29Z"}
+SERVER_LOG {"data":{"message":"Load 49 joined the arena."},"epoch":0,"event":"match_event","map":"voxel_jungle","mode":"tdm","seq":379,"uptime_ms":23101,"utc":"2026-10-13T20:27:29Z"}
+DM_EVENT Load 49 joined the arena.
+SERVER_LOG {"data":{"elapsed_ms":12884,"peer":1824075418,"previous_stage":"models_offer","stage":"ready"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":380,"uptime_ms":23423,"utc":"2026-10-13T20:27:29Z"}
+SERVER_LOG {"data":{"name":"Load 35","peer":1824075418,"spectator":false,"team":0},"epoch":0,"event":"player_joined","map":"voxel_jungle","mode":"tdm","seq":381,"uptime_ms":23426,"utc":"2026-10-13T20:27:29Z"}
+SERVER_LOG {"data":{"message":"Load 35 joined the arena."},"epoch":0,"event":"match_event","map":"voxel_jungle","mode":"tdm","seq":382,"uptime_ms":23426,"utc":"2026-10-13T20:27:29Z"}
+DM_EVENT Load 35 joined the arena.
+SERVER_LOG {"data":{"elapsed_ms":1933,"peer":309340093,"previous_stage":"models_offer","stage":"ready"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":383,"uptime_ms":24405,"utc":"2026-10-13T20:27:30Z"}
+SERVER_LOG {"data":{"name":"Load 36","peer":309340093,"spectator":false,"team":1},"epoch":0,"event":"player_joined","map":"voxel_jungle","mode":"tdm","seq":384,"uptime_ms":24407,"utc":"2026-10-13T20:27:30Z"}
+SERVER_LOG {"data":{"message":"Load 36 joined the arena."},"epoch":0,"event":"match_event","map":"voxel_jungle","mode":"tdm","seq":385,"uptime_ms":24407,"utc":"2026-10-13T20:27:30Z"}
+DM_EVENT Load 36 joined the arena.
+SERVER_LOG {"data":{"elapsed_ms":14688,"peer":1215902703,"previous_stage":"map_offer","stage":"models_offer"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":386,"uptime_ms":24413,"utc":"2026-10-13T20:27:30Z"}
+SERVER_LOG {"data":{"elapsed_ms":411,"peer":1215902703,"previous_stage":"models_offer","stage":"ready"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":387,"uptime_ms":24824,"utc":"2026-10-13T20:27:30Z"}
+SERVER_LOG {"data":{"name":"Load 29","peer":1215902703,"spectator":false,"team":0},"epoch":0,"event":"player_joined","map":"voxel_jungle","mode":"tdm","seq":388,"uptime_ms":24826,"utc":"2026-10-13T20:27:30Z"}
+SERVER_LOG {"data":{"message":"Load 29 joined the arena."},"epoch":0,"event":"match_event","map":"voxel_jungle","mode":"tdm","seq":389,"uptime_ms":24826,"utc":"2026-10-13T20:27:30Z"}
+DM_EVENT Load 29 joined the arena.
+SERVER_LOG {"data":{"elapsed_ms":21456,"peer":853626234,"previous_stage":"map_offer","stage":"models_offer"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":390,"uptime_ms":31079,"utc":"2026-10-13T20:27:37Z"}
+SERVER_LOG {"data":{"elapsed_ms":21133,"peer":1450164514,"previous_stage":"models_offer","stage":"ready"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":391,"uptime_ms":31535,"utc":"2026-10-13T20:27:37Z"}
+SERVER_LOG {"data":{"name":"Load 48","peer":1450164514,"spectator":false,"team":1},"epoch":0,"event":"player_joined","map":"voxel_jungle","mode":"tdm","seq":392,"uptime_ms":31538,"utc":"2026-10-13T20:27:37Z"}
+SERVER_LOG {"data":{"message":"Load 48 joined the arena."},"epoch":0,"event":"match_event","map":"voxel_jungle","mode":"tdm","seq":393,"uptime_ms":31539,"utc":"2026-10-13T20:27:37Z"}
+DM_EVENT Load 48 joined the arena.
+SERVER_LOG {"data":{"elapsed_ms":705,"peer":853626234,"previous_stage":"models_offer","stage":"ready"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":394,"uptime_ms":31784,"utc":"2026-10-13T20:27:37Z"}
+SERVER_LOG {"data":{"name":"Load 19","peer":853626234,"spectator":false,"team":0},"epoch":0,"event":"player_joined","map":"voxel_jungle","mode":"tdm","seq":395,"uptime_ms":31786,"utc":"2026-10-13T20:27:37Z"}
+SERVER_LOG {"data":{"message":"Load 19 joined the arena."},"epoch":0,"event":"match_event","map":"voxel_jungle","mode":"tdm","seq":396,"uptime_ms":31787,"utc":"2026-10-13T20:27:37Z"}
+DM_EVENT Load 19 joined the arena.
+SERVER_LOG {"data":{"admitted":true,"peer":778792173,"stage":{}},"epoch":0,"event":"peer_departure_stage","map":"voxel_jungle","mode":"tdm","seq":397,"uptime_ms":32628,"utc":"2026-10-13T20:27:38Z"}
+SERVER_LOG {"data":{"peer":778792173},"epoch":0,"event":"peer_disconnected","map":"voxel_jungle","mode":"tdm","seq":398,"uptime_ms":32629,"utc":"2026-10-13T20:27:38Z"}
+SERVER_LOG {"data":{"message":"Load 18 left the arena."},"epoch":0,"event":"match_event","map":"voxel_jungle","mode":"tdm","seq":399,"uptime_ms":32631,"utc":"2026-10-13T20:27:38Z"}
+DM_EVENT Load 18 left the arena.
+SERVER_LOG {"data":{"elapsed_ms":24073,"peer":1649884332,"previous_stage":"map_offer","stage":"models_offer"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":400,"uptime_ms":33731,"utc":"2026-10-13T20:27:39Z"}
+SERVER_LOG {"data":{"elapsed_ms":275,"peer":1649884332,"previous_stage":"models_offer","stage":"ready"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":401,"uptime_ms":34006,"utc":"2026-10-13T20:27:40Z"}
+SERVER_LOG {"data":{"name":"Load 58","peer":1649884332,"spectator":false,"team":0},"epoch":0,"event":"player_joined","map":"voxel_jungle","mode":"tdm","seq":402,"uptime_ms":34009,"utc":"2026-10-13T20:27:40Z"}
+SERVER_LOG {"data":{"message":"Load 58 joined the arena."},"epoch":0,"event":"match_event","map":"voxel_jungle","mode":"tdm","seq":403,"uptime_ms":34009,"utc":"2026-10-13T20:27:40Z"}
+DM_EVENT Load 58 joined the arena.
+SERVER_LOG {"data":{"admitted":true,"peer":1010641460,"stage":{}},"epoch":0,"event":"peer_departure_stage","map":"voxel_jungle","mode":"tdm","seq":404,"uptime_ms":35492,"utc":"2026-10-13T20:27:41Z"}
+SERVER_LOG {"data":{"peer":1010641460},"epoch":0,"event":"peer_disconnected","map":"voxel_jungle","mode":"tdm","seq":405,"uptime_ms":35493,"utc":"2026-10-13T20:27:41Z"}
+SERVER_LOG {"data":{"message":"Load 24 left the arena."},"epoch":0,"event":"match_event","map":"voxel_jungle","mode":"tdm","seq":406,"uptime_ms":35495,"utc":"2026-10-13T20:27:41Z"}
+DM_EVENT Load 24 left the arena.
+SERVER_LOG {"data":{"admitted":true,"peer":1069364128,"stage":{}},"epoch":0,"event":"peer_departure_stage","map":"voxel_jungle","mode":"tdm","seq":407,"uptime_ms":38842,"utc":"2026-10-13T20:27:44Z"}
+SERVER_LOG {"data":{"peer":1069364128},"epoch":0,"event":"peer_disconnected","map":"voxel_jungle","mode":"tdm","seq":408,"uptime_ms":38843,"utc":"2026-10-13T20:27:44Z"}
+SERVER_LOG {"data":{"message":"Load 42 left the arena."},"epoch":0,"event":"match_event","map":"voxel_jungle","mode":"tdm","seq":409,"uptime_ms":38846,"utc":"2026-10-13T20:27:44Z"}
+DM_EVENT Load 42 left the arena.
+SERVER_LOG {"data":{"admitted":false,"peer":242281678,"stage":{"at":9439,"stage":"map_offer"}},"epoch":0,"event":"peer_departure_stage","map":"voxel_jungle","mode":"tdm","seq":410,"uptime_ms":39107,"utc":"2026-10-13T20:27:45Z"}
+SERVER_LOG {"data":{"peer":242281678},"epoch":0,"event":"peer_disconnected","map":"voxel_jungle","mode":"tdm","seq":411,"uptime_ms":39108,"utc":"2026-10-13T20:27:45Z"}
+SERVER_LOG {"data":{"admitted":true,"peer":1532389996,"stage":{}},"epoch":0,"event":"peer_departure_stage","map":"voxel_jungle","mode":"tdm","seq":412,"uptime_ms":40033,"utc":"2026-10-13T20:27:46Z"}
+SERVER_LOG {"data":{"peer":1532389996},"epoch":0,"event":"peer_disconnected","map":"voxel_jungle","mode":"tdm","seq":413,"uptime_ms":40035,"utc":"2026-10-13T20:27:46Z"}
+SERVER_LOG {"data":{"message":"Load 4 left the arena."},"epoch":0,"event":"match_event","map":"voxel_jungle","mode":"tdm","seq":414,"uptime_ms":40036,"utc":"2026-10-13T20:27:46Z"}
+DM_EVENT Load 4 left the arena.
+SERVER_LOG {"data":{"elapsed_ms":32177,"peer":127622473,"previous_stage":"models_offer","stage":"ready"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":415,"uptime_ms":42580,"utc":"2026-10-13T20:27:48Z"}
+SERVER_LOG {"data":{"name":"Load 62","peer":127622473,"spectator":false,"team":0},"epoch":0,"event":"player_joined","map":"voxel_jungle","mode":"tdm","seq":416,"uptime_ms":42582,"utc":"2026-10-13T20:27:48Z"}
+SERVER_LOG {"data":{"message":"Load 62 joined the arena."},"epoch":0,"event":"match_event","map":"voxel_jungle","mode":"tdm","seq":417,"uptime_ms":42583,"utc":"2026-10-13T20:27:48Z"}
+DM_EVENT Load 62 joined the arena.
+SERVER_LOG {"data":{"admitted":true,"peer":2127548776,"stage":{}},"epoch":0,"event":"peer_departure_stage","map":"voxel_jungle","mode":"tdm","seq":418,"uptime_ms":49209,"utc":"2026-10-13T20:27:55Z"}
+SERVER_LOG {"data":{"peer":2127548776},"epoch":0,"event":"peer_disconnected","map":"voxel_jungle","mode":"tdm","seq":419,"uptime_ms":49210,"utc":"2026-10-13T20:27:55Z"}
+SERVER_LOG {"data":{"message":"Load 14 left the arena."},"epoch":0,"event":"match_event","map":"voxel_jungle","mode":"tdm","seq":420,"uptime_ms":49211,"utc":"2026-10-13T20:27:55Z"}
+DM_EVENT Load 14 left the arena.
+SERVER_LOG {"data":{"admitted":true,"peer":1777652641,"stage":{}},"epoch":0,"event":"peer_departure_stage","map":"voxel_jungle","mode":"tdm","seq":421,"uptime_ms":49577,"utc":"2026-10-13T20:27:55Z"}
+SERVER_LOG {"data":{"peer":1777652641},"epoch":0,"event":"peer_disconnected","map":"voxel_jungle","mode":"tdm","seq":422,"uptime_ms":49578,"utc":"2026-10-13T20:27:55Z"}
+SERVER_LOG {"data":{"message":"Load 51 left the arena."},"epoch":0,"event":"match_event","map":"voxel_jungle","mode":"tdm","seq":423,"uptime_ms":49579,"utc":"2026-10-13T20:27:55Z"}
+DM_EVENT Load 51 left the arena.
+SERVER_LOG {"data":{"admitted":true,"peer":289023849,"stage":{}},"epoch":0,"event":"peer_departure_stage","map":"voxel_jungle","mode":"tdm","seq":424,"uptime_ms":50378,"utc":"2026-10-13T20:27:56Z"}
+SERVER_LOG {"data":{"peer":289023849},"epoch":0,"event":"peer_disconnected","map":"voxel_jungle","mode":"tdm","seq":425,"uptime_ms":50379,"utc":"2026-10-13T20:27:56Z"}
+SERVER_LOG {"data":{"message":"Load 1 left the arena."},"epoch":0,"event":"match_event","map":"voxel_jungle","mode":"tdm","seq":426,"uptime_ms":50380,"utc":"2026-10-13T20:27:56Z"}
+DM_EVENT Load 1 left the arena.
+SERVER_LOG {"data":{"admitted":true,"peer":1997318184,"stage":{}},"epoch":0,"event":"peer_departure_stage","map":"voxel_jungle","mode":"tdm","seq":427,"uptime_ms":50405,"utc":"2026-10-13T20:27:56Z"}
+SERVER_LOG {"data":{"peer":1997318184},"epoch":0,"event":"peer_disconnected","map":"voxel_jungle","mode":"tdm","seq":428,"uptime_ms":50405,"utc":"2026-10-13T20:27:56Z"}
+SERVER_LOG {"data":{"message":"Load 22 left the arena."},"epoch":0,"event":"match_event","map":"voxel_jungle","mode":"tdm","seq":429,"uptime_ms":50406,"utc":"2026-10-13T20:27:56Z"}
+DM_EVENT Load 22 left the arena.
+SERVER_LOG {"data":{"admitted":true,"peer":1359524043,"stage":{}},"epoch":0,"event":"peer_departure_stage","map":"voxel_jungle","mode":"tdm","seq":430,"uptime_ms":54025,"utc":"2026-10-13T20:28:00Z"}
+SERVER_LOG {"data":{"peer":1359524043},"epoch":0,"event":"peer_disconnected","map":"voxel_jungle","mode":"tdm","seq":431,"uptime_ms":54026,"utc":"2026-10-13T20:28:00Z"}
+SERVER_LOG {"data":{"message":"Load 6 left the arena."},"epoch":0,"event":"match_event","map":"voxel_jungle","mode":"tdm","seq":432,"uptime_ms":54028,"utc":"2026-10-13T20:28:00Z"}
+DM_EVENT Load 6 left the arena.
+SERVER_LOG {"data":{"admitted":true,"peer":335348883,"stage":{}},"epoch":0,"event":"peer_departure_stage","map":"voxel_jungle","mode":"tdm","seq":433,"uptime_ms":56680,"utc":"2026-10-13T20:28:02Z"}
+SERVER_LOG {"data":{"peer":335348883},"epoch":0,"event":"peer_disconnected","map":"voxel_jungle","mode":"tdm","seq":434,"uptime_ms":56681,"utc":"2026-10-13T20:28:02Z"}
+SERVER_LOG {"data":{"message":"Load 44 left the arena."},"epoch":0,"event":"match_event","map":"voxel_jungle","mode":"tdm","seq":435,"uptime_ms":56682,"utc":"2026-10-13T20:28:02Z"}
+DM_EVENT Load 44 left the arena.
+SERVER_LOG {"data":{"admitted":true,"peer":1572000177,"stage":{}},"epoch":0,"event":"peer_departure_stage","map":"voxel_jungle","mode":"tdm","seq":436,"uptime_ms":56902,"utc":"2026-10-13T20:28:03Z"}
+SERVER_LOG {"data":{"peer":1572000177},"epoch":0,"event":"peer_disconnected","map":"voxel_jungle","mode":"tdm","seq":437,"uptime_ms":56902,"utc":"2026-10-13T20:28:03Z"}
+SERVER_LOG {"data":{"message":"Load 56 left the arena."},"epoch":0,"event":"match_event","map":"voxel_jungle","mode":"tdm","seq":438,"uptime_ms":56904,"utc":"2026-10-13T20:28:03Z"}
+DM_EVENT Load 56 left the arena.
+SERVER_LOG {"data":{"admitted":false,"peer":639107352,"stage":{"at":9741,"stage":"models_offer"}},"epoch":0,"event":"peer_departure_stage","map":"voxel_jungle","mode":"tdm","seq":439,"uptime_ms":57085,"utc":"2026-10-13T20:28:03Z"}
+SERVER_LOG {"data":{"peer":639107352},"epoch":0,"event":"peer_disconnected","map":"voxel_jungle","mode":"tdm","seq":440,"uptime_ms":57086,"utc":"2026-10-13T20:28:03Z"}
+SERVER_LOG {"data":{"admitted":false,"peer":72367464,"stage":{"at":9739,"stage":"models_offer"}},"epoch":0,"event":"peer_departure_stage","map":"voxel_jungle","mode":"tdm","seq":441,"uptime_ms":57105,"utc":"2026-10-13T20:28:03Z"}
+SERVER_LOG {"data":{"peer":72367464},"epoch":0,"event":"peer_disconnected","map":"voxel_jungle","mode":"tdm","seq":442,"uptime_ms":57106,"utc":"2026-10-13T20:28:03Z"}
+SERVER_LOG {"data":{"admitted":true,"peer":428563421,"stage":{}},"epoch":0,"event":"peer_departure_stage","map":"voxel_jungle","mode":"tdm","seq":443,"uptime_ms":57243,"utc":"2026-10-13T20:28:03Z"}
+SERVER_LOG {"data":{"peer":428563421},"epoch":0,"event":"peer_disconnected","map":"voxel_jungle","mode":"tdm","seq":444,"uptime_ms":57244,"utc":"2026-10-13T20:28:03Z"}
+SERVER_LOG {"data":{"message":"Load 27 left the arena."},"epoch":0,"event":"match_event","map":"voxel_jungle","mode":"tdm","seq":445,"uptime_ms":57246,"utc":"2026-10-13T20:28:03Z"}
+DM_EVENT Load 27 left the arena.
+SERVER_LOG {"data":{"admitted":false,"peer":1315377735,"stage":{"at":9598,"stage":"map_offer"}},"epoch":0,"event":"peer_departure_stage","map":"voxel_jungle","mode":"tdm","seq":446,"uptime_ms":57742,"utc":"2026-10-13T20:28:03Z"}
+SERVER_LOG {"data":{"peer":1315377735},"epoch":0,"event":"peer_disconnected","map":"voxel_jungle","mode":"tdm","seq":447,"uptime_ms":57742,"utc":"2026-10-13T20:28:03Z"}
+SERVER_LOG {"data":{"admitted":true,"peer":1591341736,"stage":{}},"epoch":0,"event":"peer_departure_stage","map":"voxel_jungle","mode":"tdm","seq":448,"uptime_ms":58879,"utc":"2026-10-13T20:28:04Z"}
+SERVER_LOG {"data":{"peer":1591341736},"epoch":0,"event":"peer_disconnected","map":"voxel_jungle","mode":"tdm","seq":449,"uptime_ms":58880,"utc":"2026-10-13T20:28:04Z"}
+SERVER_LOG {"data":{"message":"Load 21 left the arena."},"epoch":0,"event":"match_event","map":"voxel_jungle","mode":"tdm","seq":450,"uptime_ms":58881,"utc":"2026-10-13T20:28:04Z"}
+DM_EVENT Load 21 left the arena.
+SERVER_LOG {"data":{"admitted":true,"peer":412328117,"stage":{}},"epoch":0,"event":"peer_departure_stage","map":"voxel_jungle","mode":"tdm","seq":451,"uptime_ms":59700,"utc":"2026-10-13T20:28:05Z"}
+SERVER_LOG {"data":{"peer":412328117},"epoch":0,"event":"peer_disconnected","map":"voxel_jungle","mode":"tdm","seq":452,"uptime_ms":59700,"utc":"2026-10-13T20:28:05Z"}
+SERVER_LOG {"data":{"message":"Load 57 left the arena."},"epoch":0,"event":"match_event","map":"voxel_jungle","mode":"tdm","seq":453,"uptime_ms":59701,"utc":"2026-10-13T20:28:05Z"}
+DM_EVENT Load 57 left the arena.
+SERVER_LOG {"data":{"admitted":false,"peer":1779919551,"stage":{"at":9624,"stage":"map_offer"}},"epoch":0,"event":"peer_departure_stage","map":"voxel_jungle","mode":"tdm","seq":454,"uptime_ms":60546,"utc":"2026-10-13T20:28:06Z"}
+SERVER_LOG {"data":{"peer":1779919551},"epoch":0,"event":"peer_disconnected","map":"voxel_jungle","mode":"tdm","seq":455,"uptime_ms":60547,"utc":"2026-10-13T20:28:06Z"}
+SERVER_LOG {"data":{"admitted":true,"peer":615488990,"stage":{}},"epoch":0,"event":"peer_departure_stage","map":"voxel_jungle","mode":"tdm","seq":456,"uptime_ms":60579,"utc":"2026-10-13T20:28:06Z"}
+SERVER_LOG {"data":{"peer":615488990},"epoch":0,"event":"peer_disconnected","map":"voxel_jungle","mode":"tdm","seq":457,"uptime_ms":60579,"utc":"2026-10-13T20:28:06Z"}
+SERVER_LOG {"data":{"message":"Load 30 left the arena."},"epoch":0,"event":"match_event","map":"voxel_jungle","mode":"tdm","seq":458,"uptime_ms":60580,"utc":"2026-10-13T20:28:06Z"}
+DM_EVENT Load 30 left the arena.
+SERVER_LOG {"data":{"admitted":false,"peer":1293427933,"stage":{"at":9739,"stage":"models_offer"}},"epoch":0,"event":"peer_departure_stage","map":"voxel_jungle","mode":"tdm","seq":459,"uptime_ms":60595,"utc":"2026-10-13T20:28:06Z"}
+SERVER_LOG {"data":{"peer":1293427933},"epoch":0,"event":"peer_disconnected","map":"voxel_jungle","mode":"tdm","seq":460,"uptime_ms":60595,"utc":"2026-10-13T20:28:06Z"}
+SERVER_LOG {"data":{"message":"Load 13  →  Load 13   ·   BLEEDOUT"},"epoch":0,"event":"match_event","map":"voxel_jungle","mode":"tdm","seq":461,"uptime_ms":61120,"utc":"2026-10-13T20:28:07Z"}
+DM_EVENT Load 13  →  Load 13   ·   BLEEDOUT
+SERVER_LOG {"data":{"admitted":true,"peer":252123159,"stage":{}},"epoch":0,"event":"peer_departure_stage","map":"voxel_jungle","mode":"tdm","seq":462,"uptime_ms":61379,"utc":"2026-10-13T20:28:07Z"}
+SERVER_LOG {"data":{"peer":252123159},"epoch":0,"event":"peer_disconnected","map":"voxel_jungle","mode":"tdm","seq":463,"uptime_ms":61379,"utc":"2026-10-13T20:28:07Z"}
+SERVER_LOG {"data":{"message":"Load 9 left the arena."},"epoch":0,"event":"match_event","map":"voxel_jungle","mode":"tdm","seq":464,"uptime_ms":61381,"utc":"2026-10-13T20:28:07Z"}
+DM_EVENT Load 9 left the arena.
+SERVER_LOG {"data":{"message":"Load 35  →  Load 35   ·   BLEEDOUT"},"epoch":0,"event":"match_event","map":"voxel_jungle","mode":"tdm","seq":465,"uptime_ms":61650,"utc":"2026-10-13T20:28:07Z"}
+DM_EVENT Load 35  →  Load 35   ·   BLEEDOUT
+SERVER_LOG {"data":{"admitted":false,"peer":196819795,"stage":{"at":9625,"stage":"map_offer"}},"epoch":0,"event":"peer_departure_stage","map":"voxel_jungle","mode":"tdm","seq":466,"uptime_ms":62075,"utc":"2026-10-13T20:28:08Z"}
+SERVER_LOG {"data":{"peer":196819795},"epoch":0,"event":"peer_disconnected","map":"voxel_jungle","mode":"tdm","seq":467,"uptime_ms":62076,"utc":"2026-10-13T20:28:08Z"}
+SERVER_LOG {"data":{"admitted":false,"peer":1135584193,"stage":{"at":9740,"stage":"models_offer"}},"epoch":0,"event":"peer_departure_stage","map":"voxel_jungle","mode":"tdm","seq":468,"uptime_ms":62366,"utc":"2026-10-13T20:28:08Z"}
+SERVER_LOG {"data":{"peer":1135584193},"epoch":0,"event":"peer_disconnected","map":"voxel_jungle","mode":"tdm","seq":469,"uptime_ms":62366,"utc":"2026-10-13T20:28:08Z"}
+SERVER_LOG {"data":{"message":"Load 43  →  Load 43   ·   BLEEDOUT"},"epoch":0,"event":"match_event","map":"voxel_jungle","mode":"tdm","seq":470,"uptime_ms":62485,"utc":"2026-10-13T20:28:08Z"}
+DM_EVENT Load 43  →  Load 43   ·   BLEEDOUT
+SERVER_LOG {"data":{"admitted":true,"peer":1769070921,"stage":{}},"epoch":0,"event":"peer_departure_stage","map":"voxel_jungle","mode":"tdm","seq":471,"uptime_ms":62839,"utc":"2026-10-13T20:28:08Z"}
+SERVER_LOG {"data":{"peer":1769070921},"epoch":0,"event":"peer_disconnected","map":"voxel_jungle","mode":"tdm","seq":472,"uptime_ms":62840,"utc":"2026-10-13T20:28:08Z"}
+SERVER_LOG {"data":{"message":"Load 53 left the arena."},"epoch":0,"event":"match_event","map":"voxel_jungle","mode":"tdm","seq":473,"uptime_ms":62842,"utc":"2026-10-13T20:28:08Z"}
+DM_EVENT Load 53 left the arena.
+SERVER_LOG {"data":{"admitted":true,"peer":1270621517,"stage":{}},"epoch":0,"event":"peer_departure_stage","map":"voxel_jungle","mode":"tdm","seq":474,"uptime_ms":63480,"utc":"2026-10-13T20:28:09Z"}
+SERVER_LOG {"data":{"peer":1270621517},"epoch":0,"event":"peer_disconnected","map":"voxel_jungle","mode":"tdm","seq":475,"uptime_ms":63481,"utc":"2026-10-13T20:28:09Z"}
+SERVER_LOG {"data":{"message":"Load 11 left the arena."},"epoch":0,"event":"match_event","map":"voxel_jungle","mode":"tdm","seq":476,"uptime_ms":63482,"utc":"2026-10-13T20:28:09Z"}
+DM_EVENT Load 11 left the arena.
+SERVER_LOG {"data":{"admitted":true,"peer":370489709,"stage":{}},"epoch":0,"event":"peer_departure_stage","map":"voxel_jungle","mode":"tdm","seq":477,"uptime_ms":64576,"utc":"2026-10-13T20:28:10Z"}
+SERVER_LOG {"data":{"peer":370489709},"epoch":0,"event":"peer_disconnected","map":"voxel_jungle","mode":"tdm","seq":478,"uptime_ms":64577,"utc":"2026-10-13T20:28:10Z"}
+SERVER_LOG {"data":{"message":"Load 28 left the arena."},"epoch":0,"event":"match_event","map":"voxel_jungle","mode":"tdm","seq":479,"uptime_ms":64578,"utc":"2026-10-13T20:28:10Z"}
+DM_EVENT Load 28 left the arena.
+SERVER_LOG {"data":{"message":"Load 50  →  Load 50   ·   BLEEDOUT"},"epoch":0,"event":"match_event","map":"voxel_jungle","mode":"tdm","seq":480,"uptime_ms":64688,"utc":"2026-10-13T20:28:10Z"}
+DM_EVENT Load 50  →  Load 50   ·   BLEEDOUT
+SERVER_LOG {"data":{"admitted":true,"peer":2083566151,"stage":{}},"epoch":0,"event":"peer_departure_stage","map":"voxel_jungle","mode":"tdm","seq":481,"uptime_ms":66677,"utc":"2026-10-13T20:28:12Z"}
+SERVER_LOG {"data":{"peer":2083566151},"epoch":0,"event":"peer_disconnected","map":"voxel_jungle","mode":"tdm","seq":482,"uptime_ms":66677,"utc":"2026-10-13T20:28:12Z"}
+SERVER_LOG {"data":{"message":"Load 61 left the arena."},"epoch":0,"event":"match_event","map":"voxel_jungle","mode":"tdm","seq":483,"uptime_ms":66678,"utc":"2026-10-13T20:28:12Z"}
+DM_EVENT Load 61 left the arena.
+SERVER_LOG {"data":{"admitted":false,"peer":1766973246,"stage":{"at":9739,"stage":"models_offer"}},"epoch":0,"event":"peer_departure_stage","map":"voxel_jungle","mode":"tdm","seq":484,"uptime_ms":67167,"utc":"2026-10-13T20:28:13Z"}
+SERVER_LOG {"data":{"peer":1766973246},"epoch":0,"event":"peer_disconnected","map":"voxel_jungle","mode":"tdm","seq":485,"uptime_ms":67167,"utc":"2026-10-13T20:28:13Z"}
+SERVER_LOG {"data":{"admitted":true,"peer":1215902703,"stage":{}},"epoch":0,"event":"peer_departure_stage","map":"voxel_jungle","mode":"tdm","seq":486,"uptime_ms":67541,"utc":"2026-10-13T20:28:13Z"}
+SERVER_LOG {"data":{"peer":1215902703},"epoch":0,"event":"peer_disconnected","map":"voxel_jungle","mode":"tdm","seq":487,"uptime_ms":67541,"utc":"2026-10-13T20:28:13Z"}
+SERVER_LOG {"data":{"message":"Load 29 left the arena."},"epoch":0,"event":"match_event","map":"voxel_jungle","mode":"tdm","seq":488,"uptime_ms":67543,"utc":"2026-10-13T20:28:13Z"}
+DM_EVENT Load 29 left the arena.
+SERVER_LOG {"data":{"admitted":true,"peer":1461829207,"stage":{}},"epoch":0,"event":"peer_departure_stage","map":"voxel_jungle","mode":"tdm","seq":489,"uptime_ms":68197,"utc":"2026-10-13T20:28:14Z"}
+SERVER_LOG {"data":{"peer":1461829207},"epoch":0,"event":"peer_disconnected","map":"voxel_jungle","mode":"tdm","seq":490,"uptime_ms":68198,"utc":"2026-10-13T20:28:14Z"}
+SERVER_LOG {"data":{"message":"Load 15 left the arena."},"epoch":0,"event":"match_event","map":"voxel_jungle","mode":"tdm","seq":491,"uptime_ms":68199,"utc":"2026-10-13T20:28:14Z"}
+DM_EVENT Load 15 left the arena.
+SERVER_LOG {"data":{"admitted":true,"peer":1799829272,"stage":{}},"epoch":0,"event":"peer_departure_stage","map":"voxel_jungle","mode":"tdm","seq":492,"uptime_ms":68204,"utc":"2026-10-13T20:28:14Z"}
+SERVER_LOG {"data":{"peer":1799829272},"epoch":0,"event":"peer_disconnected","map":"voxel_jungle","mode":"tdm","seq":493,"uptime_ms":68205,"utc":"2026-10-13T20:28:14Z"}
+SERVER_LOG {"data":{"message":"Load 43 left the arena."},"epoch":0,"event":"match_event","map":"voxel_jungle","mode":"tdm","seq":494,"uptime_ms":68205,"utc":"2026-10-13T20:28:14Z"}
+DM_EVENT Load 43 left the arena.
+SERVER_LOG {"data":{"admitted":true,"peer":1955323262,"stage":{}},"epoch":0,"event":"peer_departure_stage","map":"voxel_jungle","mode":"tdm","seq":495,"uptime_ms":68543,"utc":"2026-10-13T20:28:14Z"}
+SERVER_LOG {"data":{"peer":1955323262},"epoch":0,"event":"peer_disconnected","map":"voxel_jungle","mode":"tdm","seq":496,"uptime_ms":68544,"utc":"2026-10-13T20:28:14Z"}
+SERVER_LOG {"data":{"message":"Load 23 left the arena."},"epoch":0,"event":"match_event","map":"voxel_jungle","mode":"tdm","seq":497,"uptime_ms":68545,"utc":"2026-10-13T20:28:14Z"}
+DM_EVENT Load 23 left the arena.
+SERVER_LOG {"data":{"admitted":false,"peer":496190783,"stage":{"at":9739,"stage":"models_offer"}},"epoch":0,"event":"peer_departure_stage","map":"voxel_jungle","mode":"tdm","seq":498,"uptime_ms":69932,"utc":"2026-10-13T20:28:16Z"}
+SERVER_LOG {"data":{"peer":496190783},"epoch":0,"event":"peer_disconnected","map":"voxel_jungle","mode":"tdm","seq":499,"uptime_ms":69932,"utc":"2026-10-13T20:28:16Z"}
+SERVER_LOG {"data":{"admitted":true,"peer":1100692493,"stage":{}},"epoch":0,"event":"peer_departure_stage","map":"voxel_jungle","mode":"tdm","seq":500,"uptime_ms":71097,"utc":"2026-10-13T20:28:17Z"}
+SERVER_LOG {"data":{"peer":1100692493},"epoch":0,"event":"peer_disconnected","map":"voxel_jungle","mode":"tdm","seq":501,"uptime_ms":71097,"utc":"2026-10-13T20:28:17Z"}
+SERVER_LOG {"data":{"message":"Load 37 left the arena."},"epoch":0,"event":"match_event","map":"voxel_jungle","mode":"tdm","seq":502,"uptime_ms":71098,"utc":"2026-10-13T20:28:17Z"}
+DM_EVENT Load 37 left the arena.
+SERVER_LOG {"data":{"admitted":true,"peer":542803573,"stage":{}},"epoch":0,"event":"peer_departure_stage","map":"voxel_jungle","mode":"tdm","seq":503,"uptime_ms":72495,"utc":"2026-10-13T20:28:18Z"}
+SERVER_LOG {"data":{"peer":542803573},"epoch":0,"event":"peer_disconnected","map":"voxel_jungle","mode":"tdm","seq":504,"uptime_ms":72496,"utc":"2026-10-13T20:28:18Z"}
+SERVER_LOG {"data":{"message":"Load 34 left the arena."},"epoch":0,"event":"match_event","map":"voxel_jungle","mode":"tdm","seq":505,"uptime_ms":72496,"utc":"2026-10-13T20:28:18Z"}
+DM_EVENT Load 34 left the arena.
+SERVER_LOG {"data":{"admitted":false,"peer":1552602992,"stage":{"at":9694,"stage":"map_offer"}},"epoch":0,"event":"peer_departure_stage","map":"voxel_jungle","mode":"tdm","seq":506,"uptime_ms":72897,"utc":"2026-10-13T20:28:19Z"}
+SERVER_LOG {"data":{"peer":1552602992},"epoch":0,"event":"peer_disconnected","map":"voxel_jungle","mode":"tdm","seq":507,"uptime_ms":72898,"utc":"2026-10-13T20:28:19Z"}
+SERVER_LOG {"data":{"message":"Load 2  →  Load 2   ·   BLEEDOUT"},"epoch":0,"event":"match_event","map":"voxel_jungle","mode":"tdm","seq":508,"uptime_ms":73420,"utc":"2026-10-13T20:28:19Z"}
+DM_EVENT Load 2  →  Load 2   ·   BLEEDOUT
+SERVER_LOG {"data":{"admitted":false,"peer":1974215427,"stage":{"at":9709,"stage":"map_offer"}},"epoch":0,"event":"peer_departure_stage","map":"voxel_jungle","mode":"tdm","seq":509,"uptime_ms":77163,"utc":"2026-10-13T20:28:23Z"}
+SERVER_LOG {"data":{"peer":1974215427},"epoch":0,"event":"peer_disconnected","map":"voxel_jungle","mode":"tdm","seq":510,"uptime_ms":77163,"utc":"2026-10-13T20:28:23Z"}
+SERVER_LOG {"data":{"admitted":true,"peer":1141745040,"stage":{}},"epoch":0,"event":"peer_departure_stage","map":"voxel_jungle","mode":"tdm","seq":511,"uptime_ms":77297,"utc":"2026-10-13T20:28:23Z"}
+SERVER_LOG {"data":{"peer":1141745040},"epoch":0,"event":"peer_disconnected","map":"voxel_jungle","mode":"tdm","seq":512,"uptime_ms":77297,"utc":"2026-10-13T20:28:23Z"}
+SERVER_LOG {"data":{"message":"Load 32 left the arena."},"epoch":0,"event":"match_event","map":"voxel_jungle","mode":"tdm","seq":513,"uptime_ms":77298,"utc":"2026-10-13T20:28:23Z"}
+DM_EVENT Load 32 left the arena.
+SERVER_LOG {"data":{"admitted":true,"peer":2051120061,"stage":{}},"epoch":0,"event":"peer_departure_stage","map":"voxel_jungle","mode":"tdm","seq":514,"uptime_ms":77364,"utc":"2026-10-13T20:28:23Z"}
+SERVER_LOG {"data":{"peer":2051120061},"epoch":0,"event":"peer_disconnected","map":"voxel_jungle","mode":"tdm","seq":515,"uptime_ms":77364,"utc":"2026-10-13T20:28:23Z"}
+SERVER_LOG {"data":{"message":"Load 50 left the arena."},"epoch":0,"event":"match_event","map":"voxel_jungle","mode":"tdm","seq":516,"uptime_ms":77365,"utc":"2026-10-13T20:28:23Z"}
+DM_EVENT Load 50 left the arena.
+SERVER_LOG {"data":{"admitted":false,"peer":1905578963,"stage":{"at":9709,"stage":"map_offer"}},"epoch":0,"event":"peer_departure_stage","map":"voxel_jungle","mode":"tdm","seq":517,"uptime_ms":77399,"utc":"2026-10-13T20:28:23Z"}
+SERVER_LOG {"data":{"peer":1905578963},"epoch":0,"event":"peer_disconnected","map":"voxel_jungle","mode":"tdm","seq":518,"uptime_ms":77399,"utc":"2026-10-13T20:28:23Z"}
+SERVER_LOG {"data":{"admitted":true,"peer":33412980,"stage":{}},"epoch":0,"event":"peer_departure_stage","map":"voxel_jungle","mode":"tdm","seq":519,"uptime_ms":77413,"utc":"2026-10-13T20:28:23Z"}
+SERVER_LOG {"data":{"peer":33412980},"epoch":0,"event":"peer_disconnected","map":"voxel_jungle","mode":"tdm","seq":520,"uptime_ms":77413,"utc":"2026-10-13T20:28:23Z"}
+SERVER_LOG {"data":{"message":"Load 54 left the arena."},"epoch":0,"event":"match_event","map":"voxel_jungle","mode":"tdm","seq":521,"uptime_ms":77414,"utc":"2026-10-13T20:28:23Z"}
+DM_EVENT Load 54 left the arena.
+SERVER_LOG {"data":{"admitted":true,"peer":528238135,"stage":{}},"epoch":0,"event":"peer_departure_stage","map":"voxel_jungle","mode":"tdm","seq":522,"uptime_ms":78576,"utc":"2026-10-13T20:28:24Z"}
+SERVER_LOG {"data":{"peer":528238135},"epoch":0,"event":"peer_disconnected","map":"voxel_jungle","mode":"tdm","seq":523,"uptime_ms":78577,"utc":"2026-10-13T20:28:24Z"}
+SERVER_LOG {"data":{"message":"Load 7 left the arena."},"epoch":0,"event":"match_event","map":"voxel_jungle","mode":"tdm","seq":524,"uptime_ms":78577,"utc":"2026-10-13T20:28:24Z"}
+DM_EVENT Load 7 left the arena.
+SERVER_LOG {"data":{"admitted":true,"peer":458916332,"stage":{}},"epoch":0,"event":"peer_departure_stage","map":"voxel_jungle","mode":"tdm","seq":525,"uptime_ms":80202,"utc":"2026-10-13T20:28:26Z"}
+SERVER_LOG {"data":{"peer":458916332},"epoch":0,"event":"peer_disconnected","map":"voxel_jungle","mode":"tdm","seq":526,"uptime_ms":80202,"utc":"2026-10-13T20:28:26Z"}
+SERVER_LOG {"data":{"message":"Load 59 left the arena."},"epoch":0,"event":"match_event","map":"voxel_jungle","mode":"tdm","seq":527,"uptime_ms":80203,"utc":"2026-10-13T20:28:26Z"}
+DM_EVENT Load 59 left the arena.
+SERVER_LOG {"data":{"admitted":true,"peer":362456009,"stage":{}},"epoch":0,"event":"peer_departure_stage","map":"voxel_jungle","mode":"tdm","seq":528,"uptime_ms":83895,"utc":"2026-10-13T20:28:30Z"}
+SERVER_LOG {"data":{"peer":362456009},"epoch":0,"event":"peer_disconnected","map":"voxel_jungle","mode":"tdm","seq":529,"uptime_ms":83896,"utc":"2026-10-13T20:28:30Z"}
+SERVER_LOG {"data":{"message":"Load 47 left the arena."},"epoch":0,"event":"match_event","map":"voxel_jungle","mode":"tdm","seq":530,"uptime_ms":83897,"utc":"2026-10-13T20:28:30Z"}
+DM_EVENT Load 47 left the arena.
+SERVER_LOG {"data":{"admitted":true,"peer":832638440,"stage":{}},"epoch":0,"event":"peer_departure_stage","map":"voxel_jungle","mode":"tdm","seq":531,"uptime_ms":84064,"utc":"2026-10-13T20:28:30Z"}
+SERVER_LOG {"data":{"peer":832638440},"epoch":0,"event":"peer_disconnected","map":"voxel_jungle","mode":"tdm","seq":532,"uptime_ms":84065,"utc":"2026-10-13T20:28:30Z"}
+SERVER_LOG {"data":{"message":"Load 45 left the arena."},"epoch":0,"event":"match_event","map":"voxel_jungle","mode":"tdm","seq":533,"uptime_ms":84065,"utc":"2026-10-13T20:28:30Z"}
+DM_EVENT Load 45 left the arena.
+SERVER_LOG {"data":{"admitted":true,"peer":395694811,"stage":{}},"epoch":0,"event":"peer_departure_stage","map":"voxel_jungle","mode":"tdm","seq":534,"uptime_ms":92777,"utc":"2026-10-13T20:28:38Z"}
+SERVER_LOG {"data":{"peer":395694811},"epoch":0,"event":"peer_disconnected","map":"voxel_jungle","mode":"tdm","seq":535,"uptime_ms":92777,"utc":"2026-10-13T20:28:38Z"}
+SERVER_LOG {"data":{"message":"Load 13 left the arena."},"epoch":0,"event":"match_event","map":"voxel_jungle","mode":"tdm","seq":536,"uptime_ms":92778,"utc":"2026-10-13T20:28:38Z"}
+DM_EVENT Load 13 left the arena.
+SERVER_LOG {"data":{"message":"Load 10  →  Load 10   ·   BLEEDOUT"},"epoch":0,"event":"match_event","map":"voxel_jungle","mode":"tdm","seq":537,"uptime_ms":102752,"utc":"2026-10-13T20:28:48Z"}
+DM_EVENT Load 10  →  Load 10   ·   BLEEDOUT
+SERVER_LOG {"data":{"admitted":true,"peer":1375372708,"stage":{}},"epoch":0,"event":"peer_departure_stage","map":"voxel_jungle","mode":"tdm","seq":538,"uptime_ms":183470,"utc":"2026-10-13T20:30:09Z"}
+SERVER_LOG {"data":{"peer":1375372708},"epoch":0,"event":"peer_disconnected","map":"voxel_jungle","mode":"tdm","seq":539,"uptime_ms":183470,"utc":"2026-10-13T20:30:09Z"}
+SERVER_LOG {"data":{"message":"Load 2 left the arena."},"epoch":0,"event":"match_event","map":"voxel_jungle","mode":"tdm","seq":540,"uptime_ms":183473,"utc":"2026-10-13T20:30:09Z"}
+DM_EVENT Load 2 left the arena.
+SERVER_LOG {"data":{"admitted":true,"peer":1712222529,"stage":{}},"epoch":0,"event":"peer_departure_stage","map":"voxel_jungle","mode":"tdm","seq":541,"uptime_ms":183671,"utc":"2026-10-13T20:30:09Z"}
+SERVER_LOG {"data":{"peer":1712222529},"epoch":0,"event":"peer_disconnected","map":"voxel_jungle","mode":"tdm","seq":542,"uptime_ms":183671,"utc":"2026-10-13T20:30:09Z"}
+SERVER_LOG {"data":{"message":"Load 0 left the arena."},"epoch":0,"event":"match_event","map":"voxel_jungle","mode":"tdm","seq":543,"uptime_ms":183674,"utc":"2026-10-13T20:30:09Z"}
+DM_EVENT Load 0 left the arena.
+SERVER_LOG {"data":{"admitted":true,"peer":1439367613,"stage":{}},"epoch":0,"event":"peer_departure_stage","map":"voxel_jungle","mode":"tdm","seq":544,"uptime_ms":184764,"utc":"2026-10-13T20:30:10Z"}
+SERVER_LOG {"data":{"peer":1439367613},"epoch":0,"event":"peer_disconnected","map":"voxel_jungle","mode":"tdm","seq":545,"uptime_ms":184764,"utc":"2026-10-13T20:30:10Z"}
+SERVER_LOG {"data":{"message":"Load 39 left the arena."},"epoch":0,"event":"match_event","map":"voxel_jungle","mode":"tdm","seq":546,"uptime_ms":184766,"utc":"2026-10-13T20:30:10Z"}
+DM_EVENT Load 39 left the arena.
+SERVER_LOG {"data":{"admitted":true,"peer":273347166,"stage":{}},"epoch":0,"event":"peer_departure_stage","map":"voxel_jungle","mode":"tdm","seq":547,"uptime_ms":186131,"utc":"2026-10-13T20:30:12Z"}
+SERVER_LOG {"data":{"peer":273347166},"epoch":0,"event":"peer_disconnected","map":"voxel_jungle","mode":"tdm","seq":548,"uptime_ms":186131,"utc":"2026-10-13T20:30:12Z"}
+SERVER_LOG {"data":{"message":"Load 38 left the arena."},"epoch":0,"event":"match_event","map":"voxel_jungle","mode":"tdm","seq":549,"uptime_ms":186132,"utc":"2026-10-13T20:30:12Z"}
+DM_EVENT Load 38 left the arena.
+SERVER_LOG {"data":{"admitted":true,"peer":1478673522,"stage":{}},"epoch":0,"event":"peer_departure_stage","map":"voxel_jungle","mode":"tdm","seq":550,"uptime_ms":186501,"utc":"2026-10-13T20:30:12Z"}
+SERVER_LOG {"data":{"peer":1478673522},"epoch":0,"event":"peer_disconnected","map":"voxel_jungle","mode":"tdm","seq":551,"uptime_ms":186501,"utc":"2026-10-13T20:30:12Z"}
+SERVER_LOG {"data":{"message":"Load 52 left the arena."},"epoch":0,"event":"match_event","map":"voxel_jungle","mode":"tdm","seq":552,"uptime_ms":186503,"utc":"2026-10-13T20:30:12Z"}
+DM_EVENT Load 52 left the arena.
+SERVER_LOG {"data":{"admitted":true,"peer":591111827,"stage":{}},"epoch":0,"event":"peer_departure_stage","map":"voxel_jungle","mode":"tdm","seq":553,"uptime_ms":186832,"utc":"2026-10-13T20:30:12Z"}
+SERVER_LOG {"data":{"peer":591111827},"epoch":0,"event":"peer_disconnected","map":"voxel_jungle","mode":"tdm","seq":554,"uptime_ms":186832,"utc":"2026-10-13T20:30:12Z"}
+SERVER_LOG {"data":{"message":"Load 10 left the arena."},"epoch":0,"event":"match_event","map":"voxel_jungle","mode":"tdm","seq":555,"uptime_ms":186833,"utc":"2026-10-13T20:30:12Z"}
+DM_EVENT Load 10 left the arena.
+SERVER_LOG {"data":{"admitted":true,"peer":1683730585,"stage":{}},"epoch":0,"event":"peer_departure_stage","map":"voxel_jungle","mode":"tdm","seq":556,"uptime_ms":188632,"utc":"2026-10-13T20:30:14Z"}
+SERVER_LOG {"data":{"peer":1683730585},"epoch":0,"event":"peer_disconnected","map":"voxel_jungle","mode":"tdm","seq":557,"uptime_ms":188633,"utc":"2026-10-13T20:30:14Z"}
+SERVER_LOG {"data":{"message":"Load 8 left the arena."},"epoch":0,"event":"match_event","map":"voxel_jungle","mode":"tdm","seq":558,"uptime_ms":188633,"utc":"2026-10-13T20:30:14Z"}
+DM_EVENT Load 8 left the arena.
+SERVER_LOG {"data":{"admitted":true,"peer":1386457994,"stage":{}},"epoch":0,"event":"peer_departure_stage","map":"voxel_jungle","mode":"tdm","seq":559,"uptime_ms":191440,"utc":"2026-10-13T20:30:17Z"}
+SERVER_LOG {"data":{"peer":1386457994},"epoch":0,"event":"peer_disconnected","map":"voxel_jungle","mode":"tdm","seq":560,"uptime_ms":191441,"utc":"2026-10-13T20:30:17Z"}
+SERVER_LOG {"data":{"message":"Load 17 left the arena."},"epoch":0,"event":"match_event","map":"voxel_jungle","mode":"tdm","seq":561,"uptime_ms":191442,"utc":"2026-10-13T20:30:17Z"}
+DM_EVENT Load 17 left the arena.
+SERVER_LOG {"data":{"admitted":true,"peer":1097711480,"stage":{}},"epoch":0,"event":"peer_departure_stage","map":"voxel_jungle","mode":"tdm","seq":562,"uptime_ms":196027,"utc":"2026-10-13T20:30:22Z"}
+SERVER_LOG {"data":{"peer":1097711480},"epoch":0,"event":"peer_disconnected","map":"voxel_jungle","mode":"tdm","seq":563,"uptime_ms":196027,"utc":"2026-10-13T20:30:22Z"}
+SERVER_LOG {"data":{"message":"Load 41 left the arena."},"epoch":0,"event":"match_event","map":"voxel_jungle","mode":"tdm","seq":564,"uptime_ms":196028,"utc":"2026-10-13T20:30:22Z"}
+DM_EVENT Load 41 left the arena.
+SERVER_LOG {"data":{"admitted":true,"peer":101717813,"stage":{}},"epoch":0,"event":"peer_departure_stage","map":"voxel_jungle","mode":"tdm","seq":565,"uptime_ms":197491,"utc":"2026-10-13T20:30:23Z"}
+SERVER_LOG {"data":{"peer":101717813},"epoch":0,"event":"peer_disconnected","map":"voxel_jungle","mode":"tdm","seq":566,"uptime_ms":197491,"utc":"2026-10-13T20:30:23Z"}
+SERVER_LOG {"data":{"message":"Load 33 left the arena."},"epoch":0,"event":"match_event","map":"voxel_jungle","mode":"tdm","seq":567,"uptime_ms":197492,"utc":"2026-10-13T20:30:23Z"}
+DM_EVENT Load 33 left the arena.
+SERVER_LOG {"data":{"admitted":true,"peer":533234681,"stage":{}},"epoch":0,"event":"peer_departure_stage","map":"voxel_jungle","mode":"tdm","seq":568,"uptime_ms":198122,"utc":"2026-10-13T20:30:24Z"}
+SERVER_LOG {"data":{"peer":533234681},"epoch":0,"event":"peer_disconnected","map":"voxel_jungle","mode":"tdm","seq":569,"uptime_ms":198122,"utc":"2026-10-13T20:30:24Z"}
+SERVER_LOG {"data":{"message":"Load 49 left the arena."},"epoch":0,"event":"match_event","map":"voxel_jungle","mode":"tdm","seq":570,"uptime_ms":198123,"utc":"2026-10-13T20:30:24Z"}
+DM_EVENT Load 49 left the arena.
+SERVER_LOG {"data":{"admitted":true,"peer":1824075418,"stage":{}},"epoch":0,"event":"peer_departure_stage","map":"voxel_jungle","mode":"tdm","seq":571,"uptime_ms":198458,"utc":"2026-10-13T20:30:24Z"}
+SERVER_LOG {"data":{"peer":1824075418},"epoch":0,"event":"peer_disconnected","map":"voxel_jungle","mode":"tdm","seq":572,"uptime_ms":198458,"utc":"2026-10-13T20:30:24Z"}
+SERVER_LOG {"data":{"message":"Load 35 left the arena."},"epoch":0,"event":"match_event","map":"voxel_jungle","mode":"tdm","seq":573,"uptime_ms":198459,"utc":"2026-10-13T20:30:24Z"}
+DM_EVENT Load 35 left the arena.
+SERVER_LOG {"data":{"admitted":true,"peer":309340093,"stage":{}},"epoch":0,"event":"peer_departure_stage","map":"voxel_jungle","mode":"tdm","seq":574,"uptime_ms":199423,"utc":"2026-10-13T20:30:25Z"}
+SERVER_LOG {"data":{"peer":309340093},"epoch":0,"event":"peer_disconnected","map":"voxel_jungle","mode":"tdm","seq":575,"uptime_ms":199424,"utc":"2026-10-13T20:30:25Z"}
+SERVER_LOG {"data":{"message":"Load 36 left the arena."},"epoch":0,"event":"match_event","map":"voxel_jungle","mode":"tdm","seq":576,"uptime_ms":199424,"utc":"2026-10-13T20:30:25Z"}
+DM_EVENT Load 36 left the arena.
+SERVER_LOG {"data":{"admitted":true,"peer":1450164514,"stage":{}},"epoch":0,"event":"peer_departure_stage","map":"voxel_jungle","mode":"tdm","seq":577,"uptime_ms":206557,"utc":"2026-10-13T20:30:32Z"}
+SERVER_LOG {"data":{"peer":1450164514},"epoch":0,"event":"peer_disconnected","map":"voxel_jungle","mode":"tdm","seq":578,"uptime_ms":206557,"utc":"2026-10-13T20:30:32Z"}
+SERVER_LOG {"data":{"message":"Load 48 left the arena."},"epoch":0,"event":"match_event","map":"voxel_jungle","mode":"tdm","seq":579,"uptime_ms":206558,"utc":"2026-10-13T20:30:32Z"}
+DM_EVENT Load 48 left the arena.
+SERVER_LOG {"data":{"admitted":true,"peer":853626234,"stage":{}},"epoch":0,"event":"peer_departure_stage","map":"voxel_jungle","mode":"tdm","seq":580,"uptime_ms":206805,"utc":"2026-10-13T20:30:32Z"}
+SERVER_LOG {"data":{"peer":853626234},"epoch":0,"event":"peer_disconnected","map":"voxel_jungle","mode":"tdm","seq":581,"uptime_ms":206805,"utc":"2026-10-13T20:30:32Z"}
+SERVER_LOG {"data":{"message":"Load 19 left the arena."},"epoch":0,"event":"match_event","map":"voxel_jungle","mode":"tdm","seq":582,"uptime_ms":206806,"utc":"2026-10-13T20:30:32Z"}
+DM_EVENT Load 19 left the arena.
+SERVER_LOG {"data":{"admitted":true,"peer":1649884332,"stage":{}},"epoch":0,"event":"peer_departure_stage","map":"voxel_jungle","mode":"tdm","seq":583,"uptime_ms":209041,"utc":"2026-10-13T20:30:35Z"}
+SERVER_LOG {"data":{"peer":1649884332},"epoch":0,"event":"peer_disconnected","map":"voxel_jungle","mode":"tdm","seq":584,"uptime_ms":209041,"utc":"2026-10-13T20:30:35Z"}
+SERVER_LOG {"data":{"message":"Load 58 left the arena."},"epoch":0,"event":"match_event","map":"voxel_jungle","mode":"tdm","seq":585,"uptime_ms":209042,"utc":"2026-10-13T20:30:35Z"}
+DM_EVENT Load 58 left the arena.

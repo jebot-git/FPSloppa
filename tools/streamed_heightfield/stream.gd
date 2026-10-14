@@ -1,5 +1,6 @@
 extends Node3D
 ## Bounded GPU array cache; two CPU jobs, two uploads/frame, coarse fallback throughout.
+const Mips=preload("res://deathmatch/textures.gd")
 const Landscape = preload("res://tools/streamed_heightfield/landscape.gd")
 signal tile_loaded(coord: Vector2i, data: Dictionary)
 signal tile_evicted(coord: Vector2i)
@@ -67,6 +68,7 @@ func setup() -> void:
 	var color_images: Array[Image] = []
 	var empty_height := Image.create(Landscape.SAMPLES, Landscape.SAMPLES, false, Image.FORMAT_RF)
 	var empty_color := Image.create(Landscape.SAMPLES, Landscape.SAMPLES, false, Image.FORMAT_RGBA8)
+	empty_height=Mips.image(empty_height);empty_color=Mips.image(empty_color)
 	for slot in CAPACITY:
 		height_images.append(empty_height)
 		color_images.append(empty_color)
@@ -74,10 +76,10 @@ func setup() -> void:
 	assert(height_tiles.create_from_images(height_images) == OK)
 	assert(color_tiles.create_from_images(color_images) == OK)
 	page_image = Image.create(grid, grid, false, Image.FORMAT_RF)
-	pages.set_image(page_image)
+	pages.set_image(Mips.image(page_image))
 	var coarse := source.coarse_images()
-	coarse_heights.set_image(coarse[0])
-	coarse_colors.set_image(coarse[1])
+	coarse_heights.set_image(Mips.image(coarse[0]))
+	coarse_colors.set_image(Mips.image(coarse[1]))
 	for segments in SEGMENTS:
 		var mesh := patch_mesh(segments, tile_side, true, min_height, max_height)
 		mesh.surface_set_material(0, material(false))
@@ -199,7 +201,9 @@ func select_tiles(camera: Camera3D) -> void:
 		if center.distance_to(p) > RETAIN_RADIUS + tile_side * .7072:
 			evict(key)
 			changed = true
-	if changed: pages.update(page_image)
+	if changed:
+		page_image.generate_mipmaps()
+		pages.update(page_image)
 
 func evict(key: Vector2i) -> void:
 	free_slots.append(resident[key])
@@ -240,7 +244,9 @@ func tick(camera: Camera3D) -> void:
 				loaded_total += 1
 				changed = true
 		peak_resident = maxi(peak_resident, resident.size())
-		if changed: pages.update(page_image); last_position = Vector3.INF
+		if changed:
+			page_image.generate_mipmaps()
+			pages.update(page_image); last_position = Vector3.INF
 		update_visibility(camera)
 		update_ms = (Time.get_ticks_usec() - start) / 1000.0
 		return
@@ -270,8 +276,8 @@ func tick(camera: Camera3D) -> void:
 		if free_slots.is_empty(): discarded_jobs += 1; continue
 		var upload_start := Time.get_ticks_usec()
 		var slot: int = free_slots.pop_back()
-		height_tiles.update_layer(Image.create_from_data(65, 65, false, Image.FORMAT_RF, data.heights), slot)
-		color_tiles.update_layer(Image.create_from_data(65, 65, false, Image.FORMAT_RGBA8, data.colors), slot)
+		height_tiles.update_layer(Mips.image(Image.create_from_data(65, 65, false, Image.FORMAT_RF, data.heights)), slot)
+		color_tiles.update_layer(Mips.image(Image.create_from_data(65, 65, false, Image.FORMAT_RGBA8, data.colors)), slot)
 		resident[key] = slot
 		var height_range: Vector2 = data.height_bounds
 		tile_bounds[key] = AABB(Vector3(key.x * tile_side - extent / 2, height_range.x - 3, key.y * tile_side - extent / 2), Vector3(tile_side, height_range.y - height_range.x + 3, tile_side))
@@ -283,7 +289,9 @@ func tick(camera: Camera3D) -> void:
 		upload_times.append((Time.get_ticks_usec() - upload_start) / 1000.0)
 		if upload_times.size() > 4096: upload_times.pop_front()
 		updated = true
-	if updated: pages.update(page_image)
+	if updated:
+		page_image.generate_mipmaps()
+		pages.update(page_image)
 	while running.size() < MAX_JOBS and not queue.is_empty():
 		var key: Vector2i = queue.pop_front()
 		if not desired.has(key) or resident.has(key) or running.has(key): continue
@@ -340,6 +348,7 @@ func reset_cache() -> void:
 	# Benchmark/control operation only; never wait for workers in normal tick().
 	shutdown()
 	for key in resident.keys(): evict(key)
+	page_image.generate_mipmaps()
 	pages.update(page_image)
 	queue.clear()
 	desired.clear()

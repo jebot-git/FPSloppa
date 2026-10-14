@@ -1,0 +1,47 @@
+Godot Engine v4.7.2.stable.fedora.ed1daf0bf - https://godotengine.org
+
+DM_HOST_READY port=28798 practice=false
+PASS T1 technician retains ammo box
+PASS Turret remains locked below level 15
+PASS T2 turret unlocks at 7500 technician XP
+PASS T2 replaces dispenser ability, retains placement slot and repair tool
+PASS Placement slot uses turret deployer name and handheld tool instead of ammo box
+PASS Existing placement action deploys turret on flat ground
+PASS Turret starts with 200 HP, twelve shots, stationary collision and two-minute cooldown
+PASS Cooldown prevents another deployment
+PASS Respawn retains turret and its cooldown
+PASS Visible vehicle is prioritized over nearer enemy infantry
+PASS Autonomous turret fires one ordnance projectile and consumes one reserved shot
+PASS Turret shot is unguided single ordnance using existing 100 direct / 120 splash rules
+PASS Moving vehicle cannot turn an already fired turret projectile
+PASS Moderate fire interval blocks early repeat
+PASS Turret fires again after 1.5-second interval
+PASS Friendly vehicle is ignored and enemy infantry acquired
+PASS Targets beyond 100 metres are ignored
+PASS Enemy at 100-metre boundary can be targeted
+PASS Solid world geometry blocks autonomous target acquisition
+PASS Turret removes itself immediately after its twelfth shot
+PASS New turret is available at two minutes
+PASS Invalid or obstructed placement preserves old turret and cooldown readiness
+PASS New placement replaces old turret, keeping one per owner
+PASS Friendly fire disabled protects turret from allied damage
+PASS Turret participates in real weapon collision traces
+PASS Real weapon map-hit path damages turret
+PASS Two hundred damage destroys turret
+PASS Destroyed turret may be redeployed when cooldown permits
+PASS Direct ordnance hit is not charged twice as splash
+PASS Independent rocket splash can destroy turret
+PASS Sloped floor fails flat-ground placement validation
+PASS Narrow ledge fails full-footprint support validation
+PASS Turret can be placed on an elevated structure floor
+PASS Deployed turret persists after owner death
+PASS Turret state is independently replicated
+PASS Client clock offsets and stationary collision placement match authority
+PASS Optimized requested turret imports within 1500-triangle budget
+PASS Round reset clears turret and collision state
+CQ_TURRET_RESULT []
+Disconnected.
+WARNING: 21 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 8 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

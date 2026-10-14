@@ -1,0 +1,67 @@
+{
+  "source": "default-fixed 64 fleet, October 14 evaluation",
+  "achieved_hz": 21.0701743071394,
+  "average_wall_tick_ms": 47.460452173913005,
+  "minimum_throughput_gain_to_30_hz_percent": 42.381356521739,
+  "minimum_wall_time_reduction_to_30_hz_percent": 29.766085642868667,
+  "central_window_cpu_samples": 126,
+  "cpu_window_description": "first and last 20 seconds of sampled candidate lifetime excluded; approximate full-population window",
+  "main_cpu_mean_percent_one_vcpu": 99.7832119174532,
+  "all_threads_cpu_mean_percent_one_vcpu": 107.84585903856839,
+  "main_share_of_cpu_percent": 92.55313731962492,
+  "max_sampled_rss_MiB": 496.3359375,
+  "aggregate_client_received_snapshot_payload_Mbps": 81.17644883247846,
+  "aggregate_client_received_snapshot_packets_per_second": 9544.236148499896,
+  "delivered_snapshot_batches_per_wall_second": 14.049559617511523,
+  "categories": {
+    "server_tick_ms": {
+      "max": 263.693,
+      "p50": 29.876,
+      "p95": 49.491,
+      "p99": 58.499,
+      "samples": 2530
+    },
+    "physics_callback_ms": {
+      "max": 281.853,
+      "p50": 41.353,
+      "p95": 67.985,
+      "p99": 84.812,
+      "samples": 2530
+    },
+    "snapshot_send_ms": {
+      "max": 12.989,
+      "p50": 5.964,
+      "p95": 8.276,
+      "p99": 10.8,
+      "samples": 1686
+    },
+    "snapshot_transport_ms": {
+      "max": 15.134,
+      "p50": 3.996,
+      "p95": 10.848,
+      "p99": 13.411,
+      "samples": 1687
+    },
+    "snapshot_worker_ms": {
+      "max": 4.564,
+      "p50": 1.659,
+      "p95": 2.738,
+      "p99": 3.378,
+      "samples": 1687
+    },
+    "projectiles_ms": {
+      "max": 17.623,
+      "p50": 0.005,
+      "p95": 11.287,
+      "p99": 14.45,
+      "samples": 2530
+    },
+    "history_ms": {
+      "max": 1.388,
+      "p50": 0.366,
+      "p95": 0.513,
+      "p99": 0.581,
+      "samples": 2530
+    }
+  }
+}

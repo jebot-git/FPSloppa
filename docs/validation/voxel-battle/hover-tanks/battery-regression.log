@@ -1,0 +1,57 @@
+Godot Engine v4.7.2.stable.fedora.ed1daf0bf - https://godotengine.org
+
+DM_HOST_READY port=28803 practice=false
+PASS Two original batteries plus six hover tanks available
+PASS Use boards nearby empty hull and disables player collider
+PASS Occupied tank cannot be boarded by another player
+PASS Seated crew cannot be damaged as exposed infantry
+PASS Infantry weapons cannot damage hull
+PASS Grenade damage is halved
+PASS Friendly fire policy protects allied hull
+PASS Existing technician repair service restores living allied hull
+PASS Actual infantry collision trace hits hull without damaging it
+PASS Projectile energy infantry weapon cannot damage hull
+PASS Actual grenade blast applies half damage at hull center
+PASS Held trigger launches eight shots and starts thirty-second reload after final shot
+PASS Battery uses ST mortar gravity, speed, arming, bounce and unguided flight
+PASS Aim follows weapon direction independently of hull yaw
+PASS Reload blocks repeated salvos
+PASS Unlimited ammunition allows another salvo at reload deadline
+PASS Motion joystick accelerates medium-speed hull forward
+PASS Horizontal motion joystick turns hull
+PASS Tracked weapon hand steers turret separately from motion joystick
+PASS Stale input cannot drive or start a salvo
+PASS Technician sees physically accurate scout-designated mortar solution
+PASS Other classes do not receive technician targeting aid
+PASS Enemy scout designations do not provide targeting aid
+PASS Both tank hulls and occupants have independent snapshot records
+PASS Client clock offset preserves reload and occupant state
+PASS Use safely dismounts outside hull and restores collider
+PASS Running over ground troops incapacitates without gibbing
+PASS Upper battery is part of the vehicle damage collider
+PASS Actual ordnance contact does full damage and releases crew
+PASS Destroyed battery cannot be boarded
+PASS Combined optimized model has independent battery pivot
+PASS west ridge relay spawn clears buildings, fixtures and primary road
+PASS west ridge relay footprint lies on level authored terrain
+PASS canyon crossing spawn clears buildings, fixtures and primary road
+PASS canyon crossing footprint lies on level authored terrain
+PASS military spawn clears buildings, fixtures and primary road
+PASS military footprint lies on level authored terrain
+PASS military spawn clears buildings, fixtures and primary road
+PASS military footprint lies on level authored terrain
+PASS west ridge relay spawn clears buildings, fixtures and primary road
+PASS west ridge relay footprint lies on level authored terrain
+PASS canopy outpost spawn clears buildings, fixtures and primary road
+PASS canopy outpost footprint lies on level authored terrain
+PASS military spawn clears buildings, fixtures and primary road
+PASS military footprint lies on level authored terrain
+PASS radar spawn clears buildings, fixtures and primary road
+PASS radar footprint lies on level authored terrain
+PASS Round reset restores all eight empty vehicles
+CQ_BATTERY_RESULT []
+Disconnected.
+WARNING: 21 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 8 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

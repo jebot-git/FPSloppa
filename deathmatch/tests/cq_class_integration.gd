@@ -47,12 +47,21 @@ func run() -> void:
 	check(mags.tick(3) and mags.loaded(3)==3,"Launcher starts with three loaded charges")
 	s.ammo[2]-=3;mags.consume(3,3)
 	check(mags.loaded(3)==0 and not mags.tick(3),"Launcher spends full pack and blocks fire during reload")
-	scene.clock+=2.71;s.last_input=scene.clock
+	scene.clock+=6.61;s.last_input=scene.clock
 	check(mags.tick(3) and mags.loaded(3)==3 and s.ammo[2]==6,"One reload seats all three charges without creating ammunition")
 	var Beam=preload("res://deathmatch/conquest/classes/beam.gd")
 	var clipped:=Beam.clipped(Vector3(-10,0,0),Vector3(10,0,0),Vector3.ZERO)
 	check(clipped.size()==2 and clipped[0].is_equal_approx(Vector3(-3,0,0)) and clipped[1].is_equal_approx(Vector3(3,0,0)),"Enemy designation beam limited to three metres")
 	check(Beam.clipped(Vector3(-10,4,0),Vector3(10,4,0),Vector3.ZERO).is_empty(),"Distant enemy beam invisible")
+	var full:=Beam.visible_segment(Vector3(-10,4,0),Vector3(10,4,0),Vector3.ZERO,true)
+	check(full==PackedVector3Array([Vector3(-10,4,0),Vector3(10,4,0)]),"NVG sees the complete distant enemy targeting laser")
+	check(Beam.visible_segment(Vector3(-10,4,0),Vector3(10,4,0),Vector3.ZERO,false).is_empty(),"Removing NVG restores unaided enemy beam visibility")
+	var visual:MeshInstance3D=scene.line_visual(full,Color(1,.15,.1,.12),null)
+	var bright:MeshInstance3D=scene.line_visual(full,Color(1,.15,.1,1),visual)
+	check(bright==visual and is_equal_approx(bright.material_override.albedo_color.a,1),"NVG brightens the reused beam material immediately")
+	scene.line_visual(clipped,Color(1,.15,.1,.12),visual)
+	check(is_equal_approx(visual.material_override.albedo_color.a,.12),"NVG off restores faded beam opacity on the same mesh")
+	visual.free()
 	check(scene.max_clients==32,"CQ host admits the district target of 32 players")
 	scene.players[3].team=1;s.fire=true;s.cooldown=0;s.last_input=scene.clock;scene.fighters[3].position=Vector3(8,3,0)
 	var before:int=scene.projectiles.size();scene.variant_combat.tick_input(3,.016)
@@ -67,7 +76,7 @@ func run() -> void:
 	for n in 2:scene.clock+=.151;s.last_input=scene.clock;scene.variant_combat.tick_input(3,.151)
 	check(scene.projectiles.size()==before+3 and s.ammo[2]==3 and mags.loaded(3)==0,"One launcher trigger emits three ordered blasts and spends one pack")
 	check(mags.states[3].reloading==5,"T1 starts empty-pack replacement after completing its salvo")
-	scene.clock+=2.71;s.last_input=scene.clock
+	scene.clock+=6.61;s.last_input=scene.clock
 	check(mags.tick(3) and mags.loaded(3)==3 and s.ammo[2]==3,"T1 reload seats a fresh three-charge pack without a cocking step")
 	var blue:Dictionary=scene.variant_combat.definition(3,5,{"cq_team":1})
 	check(blue.cq_effect=="ordnance" and blue.color.is_equal_approx(Color("3b8dff")),"Launcher blast and energy impact retain blue firing team")
@@ -87,10 +96,12 @@ func run() -> void:
 	for id in range(5,33):
 		scene._add_player(id,"CQ snapshot %d"%id);scene.classes.choose(id,scene.classes.CLASSES[id%4]);scene._spawn(id);scene.variant_combat.magazines.state(id);scene.classes.award(id,id*37)
 	for id in scene.players:
-		var role:String=scene.classes.role(id);scene.classes.award(id,3000)
+		var role:String=scene.classes.role(id);scene.classes.award(id,5000)
 		scene.classes.choose_equipment(id,role,scene.classes.progression.SECOND_PRIMARY[role],false);scene.classes.choose_equipment(id,role,0,true);scene._spawn(id);scene.variant_combat.magazines.state(id)
 		if role=="technician":scene.variant_combat.vehicle_lock.locks[id]={"target":"v:/root/Fixture/Hull_%d"%id,"position":Vector3(id,3,-25),"elapsed":1.5,"ready":true,"life":scene.players[id].serial}
-	for id in scene.players:scene.spotting.spotted[id]=[scene.clock+10,scene.clock+9]
+	for id in scene.players:
+		scene.spotting.spotted[id]=[scene.clock+10,scene.clock+9]
+		scene.classes.states[id]["nv"]=true;scene.classes.states[id]["nb"]=scene.clock+1.6
 	var rows:Array=[]
 	for id in scene.players:
 		var player:Dictionary=scene.players[id];var fighter=scene.fighters[id]
@@ -100,9 +111,48 @@ func run() -> void:
 	print("CQ_32_SNAPSHOT ",JSON.stringify(replication.stats))
 	check(packets.large.is_empty() and replication.stats.max_packet<=1100,"32 class players fit independent UDP snapshot packets")
 	for id in scene.players:
+		scene.classes.states[id]["drone_ready"]=scene.clock+120
+		scene.recon_drone.flights[id]={"owner":id,"team":id%2,"start":Vector3(id,400,1414),"direction":Vector3.FORWARD,"length":2828.0,"at":scene.clock,"until":scene.clock+23.5667}
+		scene.recon_drone.alerts[id]={"seq":id,"life":scene.players[id].serial,"until":scene.clock+10}
+		scene.recon_drone.marks[id]=[scene.clock+10,scene.clock+9]
+	wire[10]=scene.match_mode.snapshot();wire[12]+=.05
+	packets=replication.packets(wire)
+	print("CQ_32_RECON_SNAPSHOT ",JSON.stringify(replication.stats))
+	var recon_membership_only:=true
+	for packet in packets.large:
+		var message:Array=preload("res://deathmatch/network/snapshot_codec.gd").unpack(packet)
+		for record in message[3]:
+			var decoded:Array=preload("res://deathmatch/network/snapshot_codec.gd").decode(record)
+			print("RECON_LARGE_RECORD ",decoded[0]," ",decoded[1])
+			if decoded[0]!=4:recon_membership_only=false
+	for packet in packets.normal:
+		if packet.size()>1100:recon_membership_only=false
+	check(recon_membership_only and packets.large.size()<=1,"32 drone flights/warnings/cooldowns fit UDP; only membership uses reliable fallback")
+	for id in scene.players:
+		scene.classes.states[id]["airstrike_ready"]=scene.clock+300
+		scene.airstrike.flights[id]={"owner":id,"team":id%2,"start":Vector3(id,400,300),"direction":Vector3.FORWARD,"length":618.0,"target":Vector3(id,0,120),"step":18.0,"at":scene.clock,"impact_at":scene.clock+5,"until":scene.clock+12.3}
+		scene.airstrike.pending[id]={"at":scene.clock,"position":Vector3(id,0,-80),"direction":Vector3.FORWARD,"life":scene.players[id].serial}
+	wire[10]=scene.match_mode.snapshot();wire[12]+=.05;packets=replication.packets(wire)
+	var strike_membership_only:=true
+	for packet in packets.large:
+		var message:Array=preload("res://deathmatch/network/snapshot_codec.gd").unpack(packet)
+		for record in message[3]:
+			if preload("res://deathmatch/network/snapshot_codec.gd").decode(record)[0]!=4:strike_membership_only=false
+	for packet in packets.normal:
+		if packet.size()>1100:strike_membership_only=false
+	print("CQ_32_AIRSTRIKE_SNAPSHOT ",JSON.stringify(replication.stats))
+	check(strike_membership_only and packets.large.size()<=1,"32 bomber/targeting/cooldown records fit UDP; only membership uses reliable fallback")
+	for id in scene.players:
 		scene.classes.dispensers[id]={"owner":id,"team":id%2,"kind":"ammo" if id%2 else "health","position":Vector3(id*1.7,0,id*.9),"remaining":1000-id,"credit":.2,"xp_credit":.3}
 		scene.classes.downed[id]={"remaining":8.1+id*.01,"attacker":1,"weapon":"LASER CARBINE"}
 		scene.grenades.flying[id]={"kind":0,"owner":id,"position":Vector3(id*1.9,1,id*.8),"velocity":Vector3(id*.3,2,-10),"age":.1,"ground":false}
+	# Maximum initial medic carry: three independent active fields per player.
+	for id in scene.players:
+		for slot in 3:scene.healing_field.fields[id*3+slot]={"owner":id,"team":id%2,"position":Vector3(id,1,slot*4),"health":500,"energy":500.0,"until":scene.clock+10,"xp_credit":0.0,"hit_at":scene.clock}
+	for id in scene.players:scene.turrets.rows[id]={"owner":id,"team":id%2,"position":Vector3(id*4,0,-20),"direction":Vector3.FORWARD,"hp":200,"ammo":12,"fire_at":scene.clock+1.5,"shot_at":scene.clock,"target":"v:/root/Map/Vehicle_%d"%id};scene.classes.states[id]["turret_ready"]=scene.clock+120
+	# Three boxes per owner is the level-15 deployment ceiling.
+	for id in scene.players:
+		for extra in [32,64]:scene.classes.dispensers[id+extra]=scene.classes.dispensers[id].duplicate(true)
 	wire[10]=scene.match_mode.snapshot();wire[12]+=.05
 	packets=replication.packets(wire)
 	print("CQ_32_STRESS_SNAPSHOT ",JSON.stringify(replication.stats))
@@ -114,7 +164,7 @@ func run() -> void:
 			if Codec.decode(record)[0]!=4:only_membership=false
 	for packet in packets.normal:
 		if packet.size()>1100:only_membership=false
-	check(only_membership and packets.large.size()<=1,"32 ability records remain UDP sized; membership alone uses reliable fallback")
+	check(only_membership and packets.large.size()<=1,"32-player abilities, 32 turrets and 96 healing fields remain UDP sized; membership alone uses reliable fallback")
 	var Reload=preload("res://deathmatch/conquest/classes/reload_state.gd")
 	check(Reload.mag_direction(mags.geometry(5))==Vector3.LEFT and mags.geometry(4)==7,"Launcher reload enters from the side; carbine retains its magazine geometry")
 	var pack:Dictionary=Reload.make(3);pack.weapon=12;Reload.eject_mag(pack)

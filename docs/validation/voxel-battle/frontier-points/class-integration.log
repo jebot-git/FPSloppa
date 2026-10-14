@@ -1,0 +1,61 @@
+Godot Engine v4.7.2.stable.fedora.ed1daf0bf - https://godotengine.org
+
+DM_HOST_READY port=28782 practice=false
+PASS CQ prototype can host
+PASS Technician carries launcher plus two spare three-charge packs
+PASS Scout has five spare pistol magazines and designator
+PASS Energy primary has three spare cells; secondary has one spare magazine
+PASS Jetpack restricted to shocktroop
+PASS Real lethal damage incapacitates without awarding a death
+PASS Ordinary follow-up damage preserves the bleed timer
+DM_EVENT CQ integration  →  CQ integration   ·   DOBRYL P-1
+PASS Headshot finisher causes immediate death
+DM_EVENT CQ integration  →  CQ integration   ·   DOBRYL P-1
+PASS Lethal headshot never enters revive state
+DM_EVENT CQ integration  →  CQ integration   ·   MASSACRE GUN
+PASS Overkill retains gibbing and immediate death
+PASS Medic deploys health box
+PASS Health box budget counts actual restored health
+PASS Full-health ally cannot drain box or farm XP
+PASS Technician deploys ammo box
+PASS Ammo box refills class pouch capacity and counts rounds
+PASS Launcher starts with three loaded charges
+PASS Launcher spends full pack and blocks fire during reload
+PASS One reload seats all three charges without creating ammunition
+PASS Enemy designation beam limited to three metres
+PASS Distant enemy beam invisible
+PASS NVG sees the complete distant enemy targeting laser
+PASS Removing NVG restores unaided enemy beam visibility
+PASS NVG brightens the reused beam material immediately
+PASS NVG off restores faded beam opacity on the same mesh
+PASS CQ host admits the district target of 32 players
+PASS Launcher charge-up starts without launching or spending its pack
+PASS Releasing during ramp-up cancels without spending a pack
+PASS Stale input cancels pending launcher charge
+PASS One launcher trigger emits three ordered blasts and spends one pack
+PASS T1 starts empty-pack replacement after completing its salvo
+PASS T1 reload seats a fresh three-charge pack without a cocking step
+PASS Launcher blast and energy impact retain blue firing team
+PASS Carbine fires a travelling blaster bolt rather than a hitscan beam
+PASS Carbine bolt and impact retain red firing team
+PASS Repair kit vehicle component accepts only actual allied repair
+PASS Held repair tool repairs the allied hull through its own collision surface
+CQ_32_SNAPSHOT {"large_records":0,"max_packet":1098,"player_update_gaps":0,"player_updates":0,"received_packets":0,"sent_bytes":12320,"sent_packets":12,"stale_records":0}
+PASS 32 class players fit independent UDP snapshot packets
+CQ_32_RECON_SNAPSHOT {"large_records":1,"max_packet":1396,"player_update_gaps":0,"player_updates":0,"received_packets":0,"sent_bytes":24813,"sent_packets":24,"stale_records":0}
+RECON_LARGE_RECORD 4 0
+PASS 32 drone flights/warnings/cooldowns fit UDP; only membership uses reliable fallback
+CQ_32_AIRSTRIKE_SNAPSHOT {"large_records":2,"max_packet":1710,"player_update_gaps":0,"player_updates":0,"received_packets":0,"sent_bytes":38090,"sent_packets":36,"stale_records":0}
+PASS 32 bomber/targeting/cooldown records fit UDP; only membership uses reliable fallback
+CQ_32_STRESS_SNAPSHOT {"large_records":3,"max_packet":3052,"player_update_gaps":0,"player_updates":0,"received_packets":0,"sent_bytes":60362,"sent_packets":55,"stale_records":0}
+PASS 32-player abilities, 32 turrets and 96 healing fields remain UDP sized; membership alone uses reliable fallback
+PASS Launcher reload enters from the side; carbine retains its magazine geometry
+PASS Removing an ordnance pack cannot retain a chambered launcher charge
+PASS Scout zoom steps to 3x once per stick deflection
+PASS Scout zoom selects 1.5x, 3x and 6x with neutral rearming
+CQ_CLASS_INTEGRATION_RESULT []
+Disconnected.
+WARNING: 21 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 8 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

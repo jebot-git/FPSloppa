@@ -44,7 +44,6 @@ static func bus_volume(bus_name: String,amount: float) -> void:
 static func apply(game: Node,values: Dictionary) -> void:
 	if game.voice:game.voice.volume=values.voice
 	if game.headless:return
-	load("res://addons/vrm/vrm_secondary.gd").springs_enabled=bool(values.get("spring_bones",false))
 	game.get_tree().call_group("vrm_secondary_runtime","update_native_state")
 	var filtering:=int(values.get("texture_filter",2))
 	var contrast:=bool(values.get("contrast_lighting",false))
@@ -58,7 +57,8 @@ static func apply(game: Node,values: Dictionary) -> void:
 	if values.output in AudioServer.get_output_device_list() and AudioServer.output_device!=values.output:AudioServer.output_device=values.output
 	var viewport: Viewport=game.get_viewport()
 	viewport.msaa_3d=int(values.msaa)
-	game.get_node("DuskSun").shadow_enabled=values.shadows
+	var sun:=game.get_node_or_null("DuskSun")
+	if sun:sun.shadow_enabled=values.shadows
 	if game.is_vr():
 		game.xr_rig.apply_hud_preferences(values)
 		load("res://deathmatch/vr/foveation.gd").apply(viewport,XRServer.find_interface("OpenXR"),int(values.foveation_level),int(values.fovea_size))

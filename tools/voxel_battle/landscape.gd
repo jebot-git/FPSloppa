@@ -253,6 +253,13 @@ static func in_water(p:Vector3) -> bool:
 	if not p.is_finite():return false
 	var water:=water_sample(p.x,p.z)
 	return water.x>.5 and p.y<water.y and p.y>surface(p.x,p.z).x-.15
+static func is_road(x:float,z:float) -> bool:
+	# Same boundaries as painted asphalt and access-lane terrain; shoulders excluded.
+	prepare_roads()
+	var point:=Vector2(x,z);var nearest:=nearest_road(point,road_bins)
+	if not nearest.is_empty() and nearest.distance<nearest.road.width:return true
+	var access:=nearest_road(point,access_bins)
+	return not access.is_empty() and access.distance<.9
 static func surface(x: float,z: float) -> Vector4:
 	prepare_roads()
 	var point:=Vector2(x,z)

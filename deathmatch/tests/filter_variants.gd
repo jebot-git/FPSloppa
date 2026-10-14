@@ -55,7 +55,7 @@ void fragment() {
 	legacy.set_shader_parameter("base_texture",original);legacy.set_shader_parameter("bake_texture",original);legacy.set_shader_parameter("base_colour",Color.GREEN)
 	Filtering.new().material(legacy)
 	check(legacy.shader==Filtering.BAKED and legacy.get_shader_parameter("bake_texture")==original and legacy.get_shader_parameter("base_colour")==Color.GREEN,"Older embedded baked shaders upgrade without losing lighting or tint")
-	check(legacy.get_shader_parameter("base_nearest")==original and legacy.get_shader_parameter("base_linear")==original,"All baked filter samplers share the original prepared image")
+	check(legacy.get_shader_parameter("base_nearest")==legacy.get_shader_parameter("base_texture") and legacy.get_shader_parameter("base_linear")==legacy.get_shader_parameter("base_texture") and legacy.get_shader_parameter("base_texture").get_image().has_mipmaps(),"All baked filter samplers share their prepared color mipmap image")
 	var multi:=MultiMeshInstance3D.new();multi.multimesh=MultiMesh.new();multi.multimesh.mesh=BoxMesh.new();multi.multimesh.mesh.material=material;world.add_child(multi)
 	Filtering.new().apply(world,2,false)
 	check(material.texture_filter==Filtering.FILTERS[2],"MultiMesh map fixtures follow the selected filter")

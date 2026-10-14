@@ -1,0 +1,19 @@
+Godot Engine v4.7.2.stable.fedora.ed1daf0bf - https://godotengine.org
+
+Connecting to 127.0.0.1:28816…
+DM_EVENT Observer joined the arena.
+PASS Client joins with offset clock
+PASS Client defaults to CS prediction
+DM_EVENT Town captured by RED
+PASS Captured POI ownership replicates
+PASS Ten-second holding income replicates
+PASS Server Quake toggle changes client prediction
+PASS Server restores CS prediction
+DM_EVENT RED WINS · 200 : 0
+PASS First-to-200 result and winner replicate
+CQ_FRONTIER_NETWORK_RESULT client []
+Disconnected.
+WARNING: 21 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 8 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

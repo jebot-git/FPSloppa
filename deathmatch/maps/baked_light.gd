@@ -55,7 +55,7 @@ func open(path: String) -> void:
 	black_missing=quake_response or night_response or world.contains('"_fpsloppa_black_missing" "1"')
 	enabled=true
 	image=Image.create(atlas_size,atlas_size,false,Image.FORMAT_RGB8);image.fill(Color(.5,.5,.5));image.set_pixel(1,0,Color.BLACK)
-	texture=ImageTexture.create_from_image(image)
+	texture=preload("res://deathmatch/textures.gd").create(image)
 func face_uvs(uvs: PackedVector2Array, dimensions: Vector2, offset: int,face_id: int=-1,special: bool=false) -> PackedVector2Array:
 	var result:=PackedVector2Array()
 	if not enabled:return result
@@ -113,7 +113,8 @@ func finish(root: Node) -> void:
 	# The headless renderer does not retain ImageTexture.update() pixel changes
 	# for ResourceSaver. Publish a texture created from the finished atlas so
 	# console-generated scene caches contain the actual lightmap, not its grey fill.
-	texture=ImageTexture.create_from_image(image)
+	image.generate_mipmaps()
+	texture=preload("res://deathmatch/textures.gd").create(image)
 	for material in materials.values():material.set_shader_parameter("bake_texture",texture)
 	root.set_meta("night_lighting",night_response)
 	root.set_meta("quake_authored_light",quake_response)

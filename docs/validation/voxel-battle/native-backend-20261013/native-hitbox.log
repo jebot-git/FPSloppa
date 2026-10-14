@@ -1,0 +1,28 @@
+Godot Engine v4.7.2.stable.fedora.ed1daf0bf - https://godotengine.org
+
+PASS Outer boxy shoulder is hittable
+PASS Empty space outside shoulder misses
+PASS Square top corner of visible head is hittable
+PASS Old invisible capsule above the head no longer takes damage
+PASS Empty space beside narrow head misses
+PASS Boot outer edge is hittable
+PASS Gap between boots is not filled by a capsule
+PASS Empty space behind thin torso misses
+PASS Box anatomy follows player facing
+PASS Projectile radius does not square off rounded box corners
+PASS Projectile clips a corner within its true radius
+PASS Actual stand placeholder mesh: 351 body samples inside damage volumes, missed=0
+PASS Actual crouch placeholder mesh: 351 body samples inside damage volumes, missed=0
+PASS Actual prone placeholder mesh: 351 body samples inside damage volumes, missed=0
+PASS Lag compensation interpolates facing through angle wrap
+MAP_READY qsrc_dm1 spawns=7 pickups=25
+DM_HOST_READY port=0 practice=true
+PASS Shared weapon trace reaches shoulder with radius 0.0
+PASS Shared weapon trace reaches shoulder with radius 0.035
+PASS Shared weapon trace reaches shoulder with radius 0.045
+PASS Shared weapon trace reaches shoulder with radius 0.16
+PASS Head damage is classified by actual head box, not shoulder height
+PASS Desktop pistol follows centered crosshair, offhand=false
+PASS Desktop pistol follows centered crosshair, offhand=true
+PASS Authoritative rewind restores the target's historical facing
+PLAYER_HITBOX_RESULT []

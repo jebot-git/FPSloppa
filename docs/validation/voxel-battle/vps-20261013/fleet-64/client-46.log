@@ -1,0 +1,7 @@
+ERROR: Attempt to disconnect a nonexistent connection from 'VoxelBattle:<Node#29695673727>'. Signal: 'tree_exited', callable: ''.
+   at: _disconnect (core/object/object.cpp:1644)
+ERROR: Attempt to disconnect a nonexistent connection from 'MapNetwork:<Node#29997663619>'. Signal: 'tree_exited', callable: ''.
+   at: _disconnect (core/object/object.cpp:1644)
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+LOAD_CLIENTS_TIMEOUT 0/1 rejected=0

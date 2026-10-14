@@ -1,15 +1,19 @@
 extends RefCounted
 ## CQ class abilities. Only the authority mutates gameplay; snapshots drive visuals.
 const CLASSES=["shocktroop","scout","medic","technician"]
+const Progression=preload("res://deathmatch/conquest/classes/progression.gd")
+const UTILITIES={"shocktroop":[{"id":"jetpack","name":"JETPACK / HE GRENADE","tier":1},{"id":"airstrike","name":"AIRSTRIKE · DESIGNATOR / 300 s","tier":2,"xp":Progression.UTILITY_XP}],"scout":[{"id":"recon","name":"RECON KIT · CLOAK / DESIGNATOR","tier":1},{"id":"recon_drone","name":"RECON DRONE · 100 m / 120 s","tier":2,"xp":Progression.UTILITY_XP}],"medic":[{"id":"medical","name":"MEDICAL KIT · INJECTOR / HEALTH DISPENSER","tier":1},{"id":"healing_grenade","name":"HEALING GRENADE · 3 / 5 m FIELD","tier":2,"xp":Progression.UTILITY_XP}],"technician":[{"id":"engineering","name":"ENGINEERING KIT · REPAIR / AMMO DISPENSER","tier":1},{"id":"turret","name":"AUTONOMOUS TURRET · 12 SHOTS / 120 s","tier":2,"xp":Progression.UTILITY_XP}]}
 const CLOAK_SECONDS:=10.0
 const CLOAK_COOLDOWN:=30.0 # Measured from activation; cancelling never resets it.
 const BLEED_SECONDS:=10.0
 const INJECTION_SECONDS:=3.0
 const DISPENSER_CAPACITY:=1000
+const DISPENSER_COOLDOWN:=30.0
+const Supply=preload("res://deathmatch/conquest/classes/armory.gd")
 var host: WeakRef
 var game:
 	get:return host.get_ref() if host else null
-var progression=preload("res://deathmatch/conquest/classes/progression.gd").new()
+var progression=Progression.new()
 var states: Dictionary={}
 var downed: Dictionary={}
 var injecting: Dictionary={}
@@ -33,6 +37,15 @@ func choose_equipment(id:int,role_name:String,weapon:int,secondary:bool) -> bool
 	var key:="secondary_choices" if secondary else "primary_choices"
 	if not state.has(key):state[key]={}
 	state[key][role_name]=weapon;return true
+func choose_utility(id:int,role_name:String,utility:String) -> bool:
+	if not authority() or not game.players.has(id) or role_name not in CLASSES:return false
+	if not UTILITIES[role_name].any(func(row):return row.id==utility and row.get("xp",0)<=ensure(id).xp[role_name]):return false
+	var state:=ensure(id)
+	if not state.has("utility_choices"):state.utility_choices={}
+	state.utility_choices[role_name]=utility;return true
+func utility(id:int,role_name:String) -> String:
+	var state:=ensure(id);var chosen:String=state.get("utility_choices",{}).get(role_name,UTILITIES[role_name][0].id)
+	return chosen if UTILITIES[role_name].any(func(row):return row.id==chosen and row.get("xp",0)<=state.xp[role_name]) else UTILITIES[role_name][0].id
 func equipment(id:int,secondary:bool=false) -> int:
 	var state:=ensure(id);var role_name:String=state["class"]
 	var unlocked:Array=progression.unlocked(role_name,state.xp[role_name],secondary)
@@ -40,17 +53,19 @@ func equipment(id:int,secondary:bool=false) -> int:
 	return choice if choice in unlocked else unlocked[0]
 func spawn(id:int) -> void:
 	if not authority():return
-	var s:=ensure(id);s["class"]=s.next;s.cloak_until=0.0
+	var s:=ensure(id);s["class"]=s.next;s.cloak_until=0.0;s["equipped_utility"]=utility(id,s["class"])
+	s.erase("nv");s.erase("nb")
+	trim_boxes(id,0 if replaces_box(id) else dispenser_limit(id))
 	downed.erase(id);injecting.erase(id)
 	# Ability cooldowns persist through death and class changes.
 func cloak(id:int) -> bool:
 	if not authority() or not alive(id) or role(id)!="scout":return false
 	var s:=ensure(id)
-	if s.cloak_ready>game.clock or game.players[id].get("fire",false) or game.players[id].get("alt_fire",false):return false
+	if s.get("equipped_utility","recon")!="recon" or s.cloak_ready>game.clock or game.players[id].get("fire",false) or game.players[id].get("alt_fire",false):return false
 	s.cloak_until=game.clock+CLOAK_SECONDS;s.cloak_ready=game.clock+CLOAK_COOLDOWN
 	return true
 func cloaked(id:int) -> bool:
-	return alive(id) and role(id)=="scout" and states[id].cloak_until>game.clock
+	return alive(id) and role(id)=="scout" and states[id].get("equipped_utility","recon")=="recon" and states[id].cloak_until>game.clock
 func weapon_used(id:int) -> void:
 	if authority() and states.has(id):states[id].cloak_until=0.0
 func incapacitate(id:int,attacker:int,weapon:String,gibbed:bool,headshot:bool,bypass:bool) -> bool:
@@ -97,16 +112,49 @@ func status(id:int) -> String:
 	if not states.has(id):return ""
 	if downed.has(id):return " · INCAPACITATED %.1fs%s"%[downed[id].remaining," · REVIVING %.1f / 3s"%injecting[id].progress if injecting.has(id) else ""]
 	var s:Dictionary=states[id];var text:=" · %s · %d XP"%[s["class"].to_upper(),s.xp[s["class"]]]
-	if s["class"]=="scout":text+=" · CLOAK %.1fs"%maxf(0,s.cloak_until-game.clock) if cloaked(id) else " · CLOAK "+("READY" if s.cloak_ready<=game.clock else "%.1fs"%(s.cloak_ready-game.clock))
+	text+=" · LEVEL %d"%level(id)
+	if role(id) in ["medic","technician"] and not replaces_box(id):
+		var count:int=dispensers.values().filter(func(box):return box.owner==id).size()
+		text+=" · BOXES %d/%d · "%[count,dispenser_limit(id)]+("READY" if s.dispenser_ready<=game.clock else "%.1fs"%(s.dispenser_ready-game.clock))
+	if s["class"]=="scout" and s.get("equipped_utility","recon")=="recon_drone":
+		text+=" · DRONE "+("READY" if s.get("drone_ready",0.0)<=game.clock else "%.1fs"%(s.drone_ready-game.clock))
+	elif s["class"]=="scout":text+=" · CLOAK %.1fs"%maxf(0,s.cloak_until-game.clock) if cloaked(id) else " · CLOAK "+("READY" if s.cloak_ready<=game.clock else "%.1fs"%(s.cloak_ready-game.clock))
+	if role(id)=="shocktroop" and s.get("equipped_utility","jetpack")=="airstrike":
+		var lock:Dictionary=game.airstrike.pending.get(id,{})
+		text+=" · TARGETING %.1f / 5s"%(game.clock-lock.at) if not lock.is_empty() else " · AIRSTRIKE "+("READY" if s.get("airstrike_ready",0.0)<=game.clock else "%.1fs"%(s.airstrike_ready-game.clock))
+	if healing_grenades(id):text+=" · HEALING GRENADES %d/3"%game.grenades.state(id).counts[3]
+	if role(id)=="technician" and s.get("equipped_utility","engineering")=="turret":
+		var key:int=game.turrets.owner_key(id)
+		text+=" · TURRET "+("%d HP / %d SHOTS"%[game.turrets.rows[key].hp,game.turrets.rows[key].ammo] if key>=0 else "NONE")
+		text+=" · DEPLOY "+("READY" if s.get("turret_ready",0.0)<=game.clock else "%.1fs"%(s.turret_ready-game.clock))
 	return text
+func replaces_box(id:int) -> bool:return healing_grenades(id) or role(id)=="technician" and ensure(id).get("equipped_utility","engineering")=="turret"
+func healing_grenades(id:int) -> bool:return role(id)=="medic" and ensure(id).get("equipped_utility","medical")=="healing_grenade"
+func grenade_kind(id:int) -> int:return 3 if healing_grenades(id) else 0 if role(id)=="shocktroop" and ensure(id).get("equipped_utility","jetpack")!="airstrike" else -1
+func has_grenade(id:int) -> bool:return grenade_kind(id)>=0
+func level(id:int) -> int:return progression.level(states.get(id,{}).get("xp",{}).get(role(id),0))
+func dispenser_limit(id:int) -> int:return clampi(level(id)/5,1,3)
+func trim_boxes(id:int,limit:int) -> void:
+	var owned:Array=[]
+	for key in dispensers:
+		if dispensers[key].owner==id:owned.append(key)
+	owned.sort()
+	while owned.size()>limit:dispensers.erase(owned.pop_front())
 func deploy(id:int,position:Vector3) -> bool:
-	if not authority() or not alive(id) or role(id) not in ["medic","technician"] or not position.is_finite():return false
+	if not authority() or not alive(id) or role(id) not in ["medic","technician"] or replaces_box(id) or not position.is_finite():return false
 	var s:=ensure(id)
 	if s.dispenser_ready>game.clock:return false
-	for key in dispensers:
-		if dispensers[key].owner==id and dispensers[key].remaining>0:return false
+	trim_boxes(id,dispenser_limit(id)-1)
 	next_dispenser+=1;dispensers[next_dispenser]={"owner":id,"team":game.players[id].team,"kind":"health" if role(id)=="medic" else "ammo","position":position,"remaining":DISPENSER_CAPACITY,"credit":0.0,"xp_credit":0.0}
-	s.dispenser_ready=game.clock+60.0;return true
+	s.dispenser_ready=game.clock+DISPENSER_COOLDOWN;return true
+func needs_supply(key:int,target:int) -> bool:
+	var box:Dictionary=dispensers[key];var s:Dictionary=game.players[target]
+	if box.kind=="health":return s.hp<100
+	var limits:Array=game.armory.loadout_capacity(s)
+	for i in limits.size():
+		if limits[i]-s.ammo[i]>=(Supply.ORDNANCE_PACK_SIZE if i==2 else 1):return true
+	var kind:int=grenade_kind(target)
+	return kind>=0 and game.grenades.state(target).counts[kind]<(3 if kind==3 else 1)
 func transfer(key:int,target:int,requested:int) -> int:
 	if not authority() or not dispensers.has(key) or not alive(target) or requested<=0:return 0
 	var box:Dictionary=dispensers[key];var s:Dictionary=game.players[target]
@@ -117,9 +165,20 @@ func transfer(key:int,target:int,requested:int) -> int:
 		var limits:Array=game.armory.loadout_capacity(s)
 		var restored:=0
 		for i in limits.size():
-			var n:int=mini(amount-restored,maxi(0,limits[i]-s.ammo[i]));s.ammo[i]+=n;restored+=n
+			var missing:int=maxi(0,limits[i]-s.ammo[i])
+			if i==2:
+				var packs:int=mini((amount-restored)/Supply.ORDNANCE_PACK_COST,missing/Supply.ORDNANCE_PACK_SIZE)
+				s.ammo[i]+=packs*Supply.ORDNANCE_PACK_SIZE;restored+=packs*Supply.ORDNANCE_PACK_COST
+			else:
+				var n:int=mini(amount-restored,missing);s.ammo[i]+=n;restored+=n
+		if has_grenade(target) and amount-restored>=Supply.GRENADE_RESUPPLY_COST:
+			var grenades:Dictionary=game.grenades.state(target)
+			var kind:int=grenade_kind(target);var limit:int=3 if kind==3 else 1
+			var count:int=mini(limit-grenades.counts[kind],(amount-restored)/Supply.GRENADE_RESUPPLY_COST)
+			if count>0:grenades.counts[kind]+=count;grenades.shoulder=kind;restored+=count*Supply.GRENADE_RESUPPLY_COST
 		amount=restored
 	box.remaining-=amount
+	if box.remaining<=0:dispensers.erase(key)
 	if amount>0 and target!=box.owner:
 		box.xp_credit+=amount
 		var xp:int=int(box.xp_credit/10.0);box.xp_credit-=xp*10;award(box.owner,xp)

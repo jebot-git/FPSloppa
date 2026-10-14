@@ -1,5 +1,6 @@
 extends RefCounted
 ## Shared geometry descriptions feed render LODs, physics, and entry validation.
+const Fixtures=preload("res://tools/voxel_battle/light_fixtures.gd")
 const Outer=preload("res://tools/voxel_battle/outer_architecture.gd")
 const Builder=preload("res://tools/streamed_heightfield/structures.gd").Builder
 var boxes: Array=[]
@@ -16,6 +17,11 @@ func box(p: Vector3,size: Vector3,color: Color,solid: bool=true) -> void:
 	builder.box(p,size,color)
 	render_boxes.append({"kind":kind,"lod":level,"center":p,"size":size})
 	if level==0 and solid:boxes.append({"kind":kind,"center":p,"size":size})
+func roof(p:Vector3,size:Vector3,color:Color) -> void:
+	# Shared legacy roofs are double-sided; orient their bake normals outward.
+	var first:int=builder.indices.size();builder.roof(p,size,color)
+	for i in range(first,builder.indices.size(),3):
+		var previous:int=builder.indices[i+1];builder.indices[i+1]=builder.indices[i+2];builder.indices[i+2]=previous
 func building(p: Vector3,size: Vector2,floors: int,color: Color,role: String) -> void:
 	var w:=size.x;var d:=size.y;var h:=STOREY*floors
 	if level==2:
@@ -65,7 +71,7 @@ func building(p: Vector3,size: Vector2,floors: int,color: Color,role: String) ->
 				box(p+Vector3(w/2-1.5,y+(step+1)*.2-.1,-d/2+.5+step*.5),Vector3(2.4,.2,.52),Color(.55,.54,.47))
 			box(p+Vector3(w/2-1.5,y+3.1,-d/2+8.6),Vector3(2.4,.2,1.4),Color(.55,.54,.47))
 	# Pitched roofs are retained at near and middle detail.
-	if role!="observatory":builder.roof(p+Vector3(0,h+.11,0),Vector3(w+.5,1.3,d+.5),Color(.31,.34,.31) if kind else Color(.43,.25,.18))
+	if role!="observatory":roof(p+Vector3(0,h+.11,0),Vector3(w+.5,1.3,d+.5),Color(.31,.34,.31) if kind else Color(.43,.25,.18))
 func make(site_kind: int,lod: int) -> ArrayMesh:
 	kind=site_kind;level=lod;builder=Builder.new()
 	for spec in specifications():
@@ -96,6 +102,10 @@ func make(site_kind: int,lod: int) -> ArrayMesh:
 			box(Vector3(-23,.3,23),Vector3(16,.6,16),Color(.48,.49,.45))
 			box(Vector3(-23,5,23),Vector3(3,10,3),Color(.40,.45,.41))
 			box(Vector3(-23,10,23),Vector3(10,.5,7),Color(.61,.66,.60),false)
+			# Solid bearing and yoke join the dish bowl at y=14 to its y=10 platform.
+			box(Vector3(-23,12,23),Vector3(2.2,4,2.2),Color(.40,.45,.41))
+			for side in [-1,1]:box(Vector3(-23+side*2.6,12.5,23),Vector3(.5,5,1),Color(.47,.52,.46))
+			box(Vector3(-23,14,23),Vector3(6,.5,1),Color(.47,.52,.46),false)
 			dish(Vector3(-23,14,23),9.0,16 if level==0 else 10 if level==1 else 6)
 			box(Vector3(-23,17,23),Vector3(.35,5,.35),Color(.42,.48,.43),false)
 			box(Vector3(-23,19.5,23),Vector3(1.1,.8,1.1),Color(.72,.76,.66),false)
@@ -106,6 +116,7 @@ func make(site_kind: int,lod: int) -> ArrayMesh:
 						box(p+Vector3(0,f*STOREY+1.65,-.25),Vector3(1.7,.55,.18),Color(.22,.48,.42),false)
 				for x in [19.0,25.0]:box(Vector3(x,1,-27),Vector3(2,2,3),Color(.33,.40,.36))
 	Outer.decorate(self)
+	Fixtures.decorate(self)
 	return builder.finish()
 func generate() -> Array:
 	boxes.clear();render_boxes.clear();buildings.clear()
@@ -133,7 +144,7 @@ func dish(p: Vector3,radius: float,segments: int) -> void:
 				points.append(p+Vector3(cos(a)*r,r*r*.035,sin(a)*r))
 			var start: int=builder.vertices.size()
 			for point in points:builder.vertices.append(point);builder.colors.append(Color(.72,.77,.70).darkened(ring*.045))
-			builder.indices.append_array(PackedInt32Array([start,start+1,start+2,start,start+2,start+3]))
+			builder.indices.append_array(PackedInt32Array([start,start+2,start+1,start,start+3,start+2]))
 
 static func specifications() -> Array:
 	var rows: Array=[]

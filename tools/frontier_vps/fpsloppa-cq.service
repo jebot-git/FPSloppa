@@ -1,0 +1,22 @@
+[Unit]
+Description=FPSloppa Jungle Frontier CQ authority
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=exec
+User=blux
+Group=blux
+WorkingDirectory=/home/blux/fpsloppa-cq/current
+Environment=HOME=/home/blux
+ExecStart=/usr/bin/stdbuf -oL -eL /home/blux/fpsloppa-cq/current/cq-server --headless --xr-mode off -- --server --config /home/blux/fpsloppa-cq/server.cfg
+Restart=on-failure
+RestartSec=5
+KillSignal=SIGINT
+TimeoutStopSec=30
+UMask=0077
+NoNewPrivileges=true
+LimitNOFILE=65536
+
+[Install]
+WantedBy=multi-user.target

@@ -1,5 +1,7 @@
 extends RefCounted
-## Enemy observers see only a faded portion inside their three-metre sphere.
+## NVG resolves the entire targeting laser; unaided enemies see a nearby faded segment.
+static func visible_segment(start:Vector3,end:Vector3,eye:Vector3,nvg:bool) -> PackedVector3Array:
+	return PackedVector3Array([start,end]) if nvg else clipped(start,end,eye)
 static func clipped(start:Vector3,end:Vector3,eye:Vector3,radius:float=3.0) -> PackedVector3Array:
 	var d:=end-start;var a:=d.length_squared()
 	if a<.000001:return PackedVector3Array()

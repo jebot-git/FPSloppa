@@ -21,6 +21,11 @@ static func material(color: Color) -> StandardMaterial3D:
 static func mesh_part(parent: Node3D,mesh: Mesh,at: Vector3,mat: Material):
 	var node:=MeshInstance3D.new();node.mesh=mesh;node.position=at;node.material_override=mat;node.cast_shadow=GeometryInstance3D.SHADOW_CASTING_SETTING_OFF;parent.add_child(node);return node
 static func model(_kind:int) -> Node3D:
+	if _kind==3:
+		var result:Node3D=load("res://deathmatch/models/healing_grenade/grenade.glb").instantiate()
+		preload("res://deathmatch/conquest/classes/airstrike.gd").prepare_model(result)
+		preload("res://tools/voxel_battle/baked_lighting.gd").convert_node(result)
+		return result
 	return load("res://deathmatch/weapons/cq/grenade.glb").instantiate()
 func cloud() -> Node3D:
 	var root:=Node3D.new();var puff:=QuadMesh.new();puff.size=Vector2(2,2)

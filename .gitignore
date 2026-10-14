@@ -126,3 +126,18 @@ __pycache__/
 # Godot imports of archived benchmark CSVs and source snapshots.
 /docs/validation/**/*.translation
 /docs/validation/**/*.uid
+
+# Numeric lighting atlas must remain lossless and linear on fresh checkouts.
+!/experimental-assets/jungle/lighting/irradiance.png.import
+!/experimental-assets/jungle/lighting/dawn.png.import
+!/experimental-assets/jungle/lighting/skybox.png.import
+
+# Retain mipmapped low-spec recon fighter texture import policy.
+!/deathmatch/models/recon/fighter_fighter.png.import
+
+# Preserve mipmaps for the optimized turret diffuse atlas.
+!/deathmatch/models/turret/turret_diffuse.png.import
+
+!/deathmatch/models/battery_tank/*.png.import
+
+!/deathmatch/models/hover_tanks/*.png.import

@@ -77,3 +77,45 @@ openxr/extensions/meta/body_tracking=false
 openxr/extensions/meta/face_tracking=false
 openxr/extensions/automatically_request_runtime_permissions=false
 openxr/enabled.dedicated_server=false
+
+[shader_globals]
+
+jungle_baked_enabled={
+"type": "bool",
+"value": false
+}
+jungle_day_mix={
+"type": "float",
+"value": 1.0
+}
+jungle_extent={
+"type": "float",
+"value": 2828.427
+}
+jungle_light_atlas={
+"type": "sampler2D",
+"value": "res://experimental-assets/jungle/lighting/irradiance.png"
+}
+
+jungle_dawn_atlas={
+"type": "sampler2D",
+"value": "res://experimental-assets/jungle/lighting/dawn.png"
+}
+jungle_sun_mix={
+"type": "vec3",
+"value": Vector3(1,0,0)
+}
+jungle_sky_color={
+"type": "vec3",
+"value": Vector3(0.15,0.3,0.5)
+}
+jungle_sky_stage={
+"type": "vec3",
+"value": Vector3(0,0,0)
+}
+
+[importer_defaults]
+
+texture={
+"mipmaps/generate": true
+}

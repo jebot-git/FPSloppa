@@ -1,0 +1,104 @@
+{
+  "AI": false,
+  "achieved_tick_hz": 30.0455264714878,
+  "async_snapshots": true,
+  "bandwidth_realtime_bytes": 472390381,
+  "categories_overlap": true,
+  "engine_physics_ms": {
+    "max": 93.685,
+    "p50": 27.946,
+    "p95": 31.145,
+    "p99": 52.607,
+    "samples": 3606
+  },
+  "history_ms": {
+    "max": 0.427,
+    "p50": 0.195,
+    "p95": 0.258,
+    "p99": 0.293,
+    "samples": 3606
+  },
+  "input_counters": {},
+  "native_backend": true,
+  "physics_callback_ms": {
+    "max": 36.985,
+    "p50": 20.225,
+    "p95": 25.745,
+    "p99": 27.582,
+    "samples": 3606
+  },
+  "players": {
+    "max": 32,
+    "p50": 32,
+    "p95": 32,
+    "p99": 32,
+    "samples": 3606
+  },
+  "projectiles_ms": {
+    "max": 6.42,
+    "p50": 0.004,
+    "p95": 1.099,
+    "p99": 2.305,
+    "samples": 3606
+  },
+  "rendering": false,
+  "replication": {
+    "async_busy": 0,
+    "async_completed": 2513,
+    "async_encode_usec": 2524507,
+    "async_submitted": 2513,
+    "large_records": 501,
+    "max_packet": 2720,
+    "player_update_gaps": 0,
+    "player_updates": 0,
+    "received_packets": 0,
+    "sent_bytes": 14048329,
+    "sent_packets": 13852,
+    "stale_records": 0
+  },
+  "server_tick_ms": {
+    "max": 26.049,
+    "p50": 16.679,
+    "p95": 20.283,
+    "p99": 21.514,
+    "samples": 3606
+  },
+  "snapshot_age_ms": {
+    "max": 66.6666666666664,
+    "p50": 33.3333333333314,
+    "p95": 33.333333333335,
+    "p99": 33.333333333335,
+    "samples": 2404
+  },
+  "snapshot_send_ms": {
+    "max": 8.02,
+    "p50": 3.106,
+    "p95": 4.074,
+    "p99": 4.335,
+    "samples": 2404
+  },
+  "snapshot_transport_ms": {
+    "max": 7.691,
+    "p50": 1.729,
+    "p95": 2.433,
+    "p99": 2.832,
+    "samples": 2404
+  },
+  "snapshot_worker_ms": {
+    "max": 2.418,
+    "p50": 0.954,
+    "p95": 1.331,
+    "p99": 1.68,
+    "samples": 2404
+  },
+  "stress_infinite_ammo_invulnerable": true,
+  "tick_rate": 30,
+  "wall_seconds": 120.017862,
+  "wall_tick_interval_ms": {
+    "max": 59.767,
+    "p50": 33.573,
+    "p95": 37.994,
+    "p99": 39.438,
+    "samples": 3606
+  }
+}

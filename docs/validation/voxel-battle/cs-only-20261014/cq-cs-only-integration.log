@@ -1,0 +1,63 @@
+Godot Engine v4.7.2.stable.fedora.ed1daf0bf - https://godotengine.org
+
+DM_HOST_READY port=28814 practice=false
+PASS CS movement defaults independently of UT99 class weapons
+PASS CQ exposes no movement profile toggle
+PASS New players always use CS cylinders
+PASS Retired RCON command cannot enable Quake
+PASS RCON reports fixed CS movement
+PASS Legacy config loads without restoring retired option
+PASS Legacy movement snapshot cannot select Quake
+PASS All eleven jungle POIs have capture areas
+PASS Capture cylinder enclosed within covered room town
+PASS Capture center has human-sized clearance town
+PASS Capture cylinder enclosed within covered room factory
+PASS Capture center has human-sized clearance factory
+PASS Capture cylinder enclosed within covered room port
+PASS Capture center has human-sized clearance port
+PASS Capture cylinder enclosed within covered room military
+PASS Capture center has human-sized clearance military
+PASS Capture cylinder enclosed within covered room radar
+PASS Capture center has human-sized clearance radar
+PASS Capture cylinder enclosed within covered room west ridge relay
+PASS Capture center has human-sized clearance west ridge relay
+PASS Capture cylinder enclosed within covered room canyon crossing
+PASS Capture center has human-sized clearance canyon crossing
+PASS Capture cylinder enclosed within covered room river expedition camp
+PASS Capture center has human-sized clearance river expedition camp
+PASS Capture cylinder enclosed within covered room canopy outpost
+PASS Capture center has human-sized clearance canopy outpost
+PASS Capture cylinder enclosed within covered room summit observatory
+PASS Capture center has human-sized clearance summit observatory
+PASS Capture cylinder enclosed within covered room east ruins
+PASS Capture center has human-sized clearance east ruins
+PASS Living on-foot player can capture
+PASS Incapacitated player cannot capture
+PASS Seated crew cannot capture
+PASS Capture cannot pass through a wall
+DM_EVENT Town captured by RED
+PASS Authority captures covered POI after ten seconds
+PASS Authoritative holding income
+PASS One owned POI gives one enemy kill point
+PASS Suicide gives no territory points
+PASS Friendly kill gives no territory points
+PASS Configured time limit cannot end first-to-200 CQ
+DM_EVENT RED WINS · 200 : 0
+PASS Kill reaching 200 ends round with correct winner
+PASS Restart clears scores, capture progress and ownership
+PASS Dedicated CQ config accepts fixed CS movement
+PASS CQ defaults remain 32 slots
+PASS Explicit unsupported configuration accepts 64 slots
+PASS CQ configuration rejects more than 64 slots
+PASS 32-slot configuration has no unsupported notice
+PASS All capacities above 32 are explicitly unsupported
+Disconnected.
+DM_HOST_READY port=28814 practice=false
+PASS Dedicated frontier preserves explicitly selected 64-slot limit
+PASS RCON reports unsupported capacity and supported ceiling
+CQ_FRONTIER_INTEGRATION_RESULT []
+Disconnected.
+WARNING: 21 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 8 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

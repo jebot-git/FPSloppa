@@ -464,7 +464,7 @@ func _process(_delta: float) -> void:
 	ammo.text = game.variant_combat.charge_label(game.multiplayer.get_unique_id())+("∞" if d.ammo<0 else str(state.ammo[d.ammo]))+"  "+("ENERGY" if state.weapon==9 and d.ammo<0 else "MELEE" if d.ammo<0 else game.armory.ammo_names()[d.ammo])
 	match_status.text = "%s   ·   %02d:%02d   ·   %d FRAGS   ·   %d PLAYERS" % [game.map_title.to_upper(),int(game.round_left)/60,int(game.round_left)%60,game.frag_limit,game.players.values().filter(func(player):return not player.spectator).size()]
 	if game.match_mode.kind!="dm":
-		match_status.text=game.match_mode.status(viewed_id).replace(" · RED FLAG","\nRED FLAG").replace(" · HILL","\nHILL")+" · %02d:%02d"%[int(game.round_left)/60,int(game.round_left)%60]
+		match_status.text=game.match_mode.status(viewed_id).replace(" · RED FLAG","\nRED FLAG").replace(" · HILL","\nHILL")+(" · %02d:%02d"%[int(game.round_left)/60,int(game.round_left)%60] if game.time_limit_enabled() else " · FIRST TO 200")
 	var tactical: Dictionary=preload("res://deathmatch/ui/player_status.gd").read(game,viewed_id)
 	team_badge.text=tactical.team_text;team_badge.add_theme_color_override("font_color",Color("ff9c88") if tactical.team==0 else Color("91caff") if tactical.team==1 else Color("e5d5ad"))
 	ability_notice.text=tactical.ability;carrier_notice.text=tactical.carrier
@@ -533,6 +533,7 @@ func _import_bsp(path: String) -> void:
 
 func refresh_maps() -> void:
 	if game.has_method("draw_class_players"):
+		if is_instance_valid(frags):frags.max_value=200;frags.value=200;frags.editable=false;frags.get_parent().visible=false
 		if is_instance_valid(weapon_choice):weapon_choice.configure([{"id":"ut99","title":"CQ CLASSES"}],"LOADOUT");weapon_choice.choose("ut99");weapon_choice.trigger.disabled=true
 		map_choice.configure([{"id":"voxel_jungle","title":"Jungle Frontier"}],"CQ MAP");map_choice.choose("voxel_jungle");return
 	if game.cq_profile:
@@ -540,7 +541,7 @@ func refresh_maps() -> void:
 		map_choice.configure([{"id":game.selected_map,"title":"Vesper Megalopolis · CONQUEST"}],"CQ MAP")
 		map_choice.choose(game.selected_map);return
 	if is_instance_valid(minutes) and is_instance_valid(host_mode):
-		minutes.editable=host_mode.value!="tb"
+		minutes.editable=host_mode.value!="tb" and game.time_limit_enabled()
 		if host_mode.value=="tb":minutes.value=10
 	if is_instance_valid(weapon_choice):
 		var required: String=game.armory.MODE_RULES.get(host_mode.value,"")

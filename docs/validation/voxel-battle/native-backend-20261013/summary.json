@@ -1,0 +1,22 @@
+{
+  "live32": {
+    "achieved_hz": 30.0455264714878,
+    "callback_p95_ms": 25.745,
+    "worker_p50_ms": 0.954,
+    "snapshot_age_p50_ms": 33.3333333333314
+  },
+  "live64": {
+    "joined": 58,
+    "peak_admitted": 56,
+    "successful_clients": 29,
+    "total_clients": 64,
+    "full_population_profile": false
+  },
+  "isolated64": {
+    "native_hz": 26.0771603953911,
+    "reference_hz": 22.8574406144645,
+    "throughput_gain_percent": 14.086090543702934,
+    "native_encode_p50_ms": 2.683,
+    "reference_encode_p50_ms": 6.743
+  }
+}

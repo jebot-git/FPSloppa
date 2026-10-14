@@ -1,4 +1,6 @@
 shader_type spatial;
+#include "res://tools/voxel_battle/baked_lighting.gdshaderinc"
+varying vec3 jungle_point;
 render_mode unshaded, cull_disabled;
 uniform sampler2D positions : filter_nearest, repeat_disable;
 uniform sampler2D skin_atlas : source_color, filter_linear_mipmap, repeat_disable;
@@ -44,5 +46,6 @@ void vertex() {
         vec3 h=rotate_point(head_q,p)+head_t;
         VERTEX=mix(VERTEX,mix(n,h,weights.y),weights.z*ik_weight);
     }
+	jungle_point=(MODEL_MATRIX*vec4(VERTEX,1.0)).xyz;
 }
-void fragment() { ALBEDO = texture(skin_atlas, UV).rgb; }
+void fragment() { ALBEDO = texture(skin_atlas, UV).rgb*jungle_baked_light(jungle_point); }

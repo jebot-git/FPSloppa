@@ -24,5 +24,5 @@ static func load_model(path: String) -> Array:
 	var arrays:=[];arrays.resize(Mesh.ARRAY_MAX);arrays[Mesh.ARRAY_VERTEX]=rest;arrays[Mesh.ARRAY_TEX_UV]=uv;arrays[Mesh.ARRAY_INDEX]=indices
 	var mesh:=ArrayMesh.new();mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES,arrays)
 	var material:=ShaderMaterial.new();material.shader=preload("res://tools/vrm_to_mdl/frames.gdshader")
-	material.set_shader_parameter("vertex_frames",ImageTexture.create_from_image(frames));material.set_shader_parameter("skin",ImageTexture.create_from_image(Image.load_from_file(path.trim_suffix(".mdl")+"-skin.png")))
+	material.set_shader_parameter("vertex_frames",preload("res://deathmatch/textures.gd").create(frames));material.set_shader_parameter("skin",preload("res://deathmatch/textures.gd").create(Image.load_from_file(path.trim_suffix(".mdl")+"-skin.png")))
 	return [mesh,material]

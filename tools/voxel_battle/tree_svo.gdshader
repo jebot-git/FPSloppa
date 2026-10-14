@@ -1,4 +1,5 @@
 shader_type spatial;
+#include "res://tools/voxel_battle/baked_lighting.gdshaderinc"
 render_mode unshaded, cull_front;
 uniform sampler2D nodes : filter_nearest, repeat_disable;
 varying vec3 local_position;
@@ -38,4 +39,6 @@ void fragment(){
 	ALBEDO=pow(srgb,vec3(2.2));
 	vec4 clip=PROJECTION_MATRIX*VIEW_MATRIX*instance_model*vec4(point,1.0);
 	DEPTH=clip.z/clip.w;
+
+	ALBEDO *= jungle_baked_light((instance_model*vec4(point,1.0)).xyz);
 }

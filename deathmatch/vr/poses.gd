@@ -1,4 +1,5 @@
 extends RefCounted
+static var native_validation_enabled:=not OS.get_cmdline_user_args().has("--gdscript-pose-validation")
 const MIN_HEAD_HEIGHT:=.05 # A prone headset can sit only a few centimetres above the floor.
 static func held_weapon(grip: Transform3D, aim: Transform3D) -> Transform3D:
 	# Position at the palm, but preserve the runtime's independent aim direction.
@@ -12,6 +13,10 @@ static func valid_transform(value: Variant) -> bool:
 		if absf(axis.length()-1.0)>.02: return false
 	return absf(value.basis.x.dot(value.basis.y))<.02 and absf(value.basis.x.dot(value.basis.z))<.02 and absf(value.basis.y.dot(value.basis.z))<.02
 static func validate(data: Variant) -> Dictionary:
+	var backend=preload("res://deathmatch/native/runtime.gd").backend() if native_validation_enabled else null
+	return backend.validate_pose(data) if backend else validate_reference(data)
+
+static func validate_reference(data:Variant) -> Dictionary:
 	if not data is Dictionary or data.size()<5 or data.size()>7: return {}
 	for key in data:
 		if key not in ["head","left","right","weapon","left_handed","offhand_weapon","height"]: return {}

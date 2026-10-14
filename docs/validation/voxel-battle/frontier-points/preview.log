@@ -1,0 +1,17 @@
+Godot Engine v4.7.2.stable.fedora.ed1daf0bf - https://godotengine.org
+Vulkan 1.4.363 - Forward+ - Using Device #0: Intel - Intel(R) Arc(tm) A770 Graphics (DG2)
+
+DM_HOST_READY port=28818 practice=false
+CQ_OBJECTIVE_PREVIEW 0 TOWN · RED
+CQ_OBJECTIVE_PREVIEW 1 FACTORY · NEUTRAL · CAPTURING 5.0 / 10s
+CQ_OBJECTIVE_PREVIEW_RESULT PASS
+Disconnected.
+ERROR: PulseAudio: pa_stream_disconnect error: Bad state
+   at: finish_input_device (drivers/pulseaudio/audio_driver_pulseaudio.cpp:775)
+   GDScript backtrace (most recent call first):
+       [0] _exit_tree (res://deathmatch/voice/microphone.gd:36)
+       [1] run (res://tools/voxel_battle/preview_objectives.gd:20)
+WARNING: 7 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 3 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

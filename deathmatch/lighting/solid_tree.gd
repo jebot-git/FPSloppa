@@ -49,9 +49,10 @@ func pack() -> void:
 		var plane:=planes[i]
 		pixels.set_pixel((i*2)%width,(i*2)/width,Color(plane.normal.x,plane.normal.y,plane.normal.z,plane.d))
 		pixels.set_pixel((i*2+1)%width,(i*2+1)/width,Color(children[i].x,children[i].y,0,0))
+	pixels=preload("res://deathmatch/textures.gd").image(pixels)
 	if texture and texture.get_width()==width and texture.get_height()==height:texture.update(pixels)
-	else:texture=ImageTexture.create_from_image(pixels)
-	bytes=width*height*16
+	else:texture=preload("res://deathmatch/textures.gd").create(pixels)
+	bytes=pixels.get_data_size()
 func apply(material: ShaderMaterial,enabled: bool=true,brush_heads: PackedInt32Array=PackedInt32Array(),transforms: Array[Transform3D]=[]) -> void:
 	material.set_shader_parameter("weapon_occlusion_tree",texture)
 	material.set_shader_parameter("weapon_occlusion_nodes",planes.size())

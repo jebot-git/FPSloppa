@@ -13,7 +13,7 @@ func run() -> void:
 	game.set_process(false);game.set_physics_process(false)
 	game.hud=load("res://deathmatch/interface.gd").new();game.add_child(game.hud);game.hud.setup(game)
 	game.xr_rig=load("res://deathmatch/vr/rig.gd").new();game.add_child(game.xr_rig);game.xr_rig.setup(game,true)
-	var rig=game.xr_rig;rig.set_process(false);rig.calibration_pending=false;rig.tracking.enabled=false
+	var rig=game.xr_rig;rig.set_process(false);rig.calibration_pending=false
 	game._add_player(1,"Physical rig");game.active=true;game.menu_open=false;game.local_yaw=0;game.match_mode.kind="tf"
 	var tf=game.match_mode.fortress;game.players[1].tf_next="soldier";game._spawn(1);tf.cooldowns[1]=0
 	game.fighters[1].position=Fixture.point();game.fighters[1].velocity=Vector3.ZERO;rig.origin_offset=Vector3.ZERO;rig.head.position=Vector3(0,1.65,0)
@@ -61,8 +61,8 @@ func run() -> void:
 	check(game.fighters[1].collision_height==1.65,"Standing headset restores player collision")
 	rig.seated=true;rig.head.position.y=.85;rig._process(.02)
 	check(rig.command(12).xr.height==1.65,"Seated play does not accidentally crouch")
-	bindings.physical_crouch=false;bindings.face_expressions=false;bindings.save();loaded.load_settings()
-	check(not loaded.physical_crouch and not loaded.face_expressions,"Crouch and experimental expression options persist")
+	bindings.physical_crouch=false;bindings.save();loaded.load_settings()
+	check(not loaded.physical_crouch,"Physical crouch preference persists")
 	game.match_mode.kind="dm";game.armory.select("doom")
 	bindings.inputs={"fire":true};game.desired_weapon=0
 	check(not rig.command(99).fire,"VR fist trigger sends no shooting command")
@@ -77,14 +77,14 @@ func run() -> void:
 	game.players[1].team=0;game.players[1].dead=false;game.players[1].spectator=false;game.match_mode.kind="tf";game.voice.mode=1;game.voice_enabled=true
 	rig.focused=true;game.menu_open=false;rig.left_handed=false;rig.seated=false;rig.head.position=Vector3(0,1.65,0)
 	bindings.inputs={};rig.physical_actions.reset();rig.left.position=rig.shoulder_radio.shoulder();rig._process(.02)
-	check(rig.shoulder_radio.shoulder().x<rig.head.position.x,"Right gun hand puts radio on left shoulder")
+	check(rig.shoulder_radio.shoulder().x>rig.head.position.x,"Right gun hand puts radio on mainhand right shoulder")
 	bindings.inputs={"support":true,"offhand_fire":true};rig._process(.02)
 	check(rig.shoulder_radio.held and game.voice.radio_active and game.voice.team_channel(),"Fresh shoulder grab plus trigger activates team radio")
 	check(not rig.command(101).offhand_fire and not rig.command(101).physical and not rig.physical_actions.gesture.held,"Radio cannot fire offhand pistol or arm a grenade")
 	bindings.inputs={"support":true};rig._process(.02)
 	check(not game.voice.radio_active and rig.shoulder_radio.held,"Releasing trigger returns from team voice")
 	rig.left_handed=true;rig._process(.02)
-	check(not rig.shoulder_radio.held and rig.shoulder_radio.shoulder().x>rig.head.position.x,"Changing gun hand releases radio and moves it to right shoulder")
+	check(not rig.shoulder_radio.held and rig.shoulder_radio.shoulder().x<rig.head.position.x,"Changing gun hand releases radio and moves it to mainhand left shoulder")
 	bindings.inputs={};rig.right.position=rig.shoulder_radio.shoulder();rig._process(.02)
 	bindings.inputs={"support":true,"offhand_fire":true};rig._process(.02)
 	check(rig.shoulder_radio.held and game.voice.radio_active,"Mirrored radio can be grabbed by right offhand")

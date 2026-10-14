@@ -1,0 +1,40 @@
+{
+  "endpoint": "87.106.27.237:7777/UDP",
+  "deployment_capacity": 32,
+  "physics_hz": 30,
+  "corecu_shutdown": "save-and-exit succeeded, ExitStatus=0; databases and container retained/stopped; restart timer and boot target disabled",
+  "public_client_join": "full client validated map/model barrier and joined over WAN",
+  "32_live": {
+    "connections_completed": 32,
+    "connections_attempted": 32,
+    "measured_seconds": 120.059945,
+    "achieved_tick_hz": 29.9433741226779,
+    "cpu_percent_mean": 85.77237287349944,
+    "cpu_percent_p95": 95.89859117885723,
+    "rss_peak_mib": 486.34765625,
+    "udp_drops_during_profile": 1293,
+    "snapshot_fanout_mbps": 31.527870448383098
+  },
+  "64_live": {
+    "passed": false,
+    "players_admitted_total": 51,
+    "clients_completed": 16,
+    "clients_attempted": 64,
+    "full_population_profile": false
+  },
+  "64_isolated": {
+    "simulated_seconds": 120,
+    "wall_seconds_including_warmup": 151.238666,
+    "achieved_tick_hz": 24.3985223699439,
+    "simulation_p50_ms": 29.13,
+    "simulation_p95_ms": 39.588,
+    "rss_peak_mib": 609.45703125
+  },
+  "limitations": [
+    "Synthetic clients ran on VPS loopback; only final full-client join validated WAN.",
+    "AI, live XR and rendering were disabled; synthetic tracked head/hand transforms were sent.",
+    "Reserve refill does not simulate physical magazine reload; initial firing is followed by movement/pose workload.",
+    "Engine physics monitor includes callbacks and catch-up batches; overlapping percentile categories must not be added.",
+    "64-player live test never held all 64 seats; isolated probe bypasses transport admission."
+  ]
+}

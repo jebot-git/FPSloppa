@@ -1,0 +1,104 @@
+{
+  "AI": false,
+  "achieved_tick_hz": 24.112237191919,
+  "async_snapshots": true,
+  "bandwidth_realtime_bytes": 1304029630,
+  "categories_overlap": true,
+  "engine_physics_ms": {
+    "max": 628.894,
+    "p50": 50.348,
+    "p95": 77.227,
+    "p99": 134.585,
+    "samples": 2895
+  },
+  "history_ms": {
+    "max": 1.503,
+    "p50": 0.318,
+    "p95": 0.451,
+    "p99": 0.512,
+    "samples": 2895
+  },
+  "input_counters": {},
+  "native_backend": true,
+  "physics_callback_ms": {
+    "max": 626.014,
+    "p50": 36.19,
+    "p95": 54.844,
+    "p99": 72.136,
+    "samples": 2895
+  },
+  "players": {
+    "max": 64,
+    "p50": 58,
+    "p95": 64,
+    "p99": 64,
+    "samples": 2895
+  },
+  "projectiles_ms": {
+    "max": 16.119,
+    "p50": 0.004,
+    "p95": 7.97,
+    "p99": 12.727,
+    "samples": 2895
+  },
+  "rendering": false,
+  "replication": {
+    "async_busy": 0,
+    "async_completed": 2007,
+    "async_encode_usec": 3109112,
+    "async_submitted": 2008,
+    "large_records": 533,
+    "max_packet": 3568,
+    "player_update_gaps": 0,
+    "player_updates": 0,
+    "received_packets": 0,
+    "sent_bytes": 20857658,
+    "sent_packets": 19711,
+    "stale_records": 0
+  },
+  "server_tick_ms": {
+    "max": 615.234,
+    "p50": 26.629,
+    "p95": 40.458,
+    "p99": 51.732,
+    "samples": 2895
+  },
+  "snapshot_age_ms": {
+    "max": 66.6666666666664,
+    "p50": 33.3333333333314,
+    "p95": 33.333333333335,
+    "p99": 33.333333333335,
+    "samples": 1930
+  },
+  "snapshot_send_ms": {
+    "max": 11.684,
+    "p50": 5.116,
+    "p95": 7.323,
+    "p99": 8.425,
+    "samples": 1930
+  },
+  "snapshot_transport_ms": {
+    "max": 15.812,
+    "p50": 3.131,
+    "p95": 9.02,
+    "p99": 11.889,
+    "samples": 1930
+  },
+  "snapshot_worker_ms": {
+    "max": 5.562,
+    "p50": 1.462,
+    "p95": 2.29,
+    "p99": 3.014,
+    "samples": 1930
+  },
+  "stress_infinite_ammo_invulnerable": true,
+  "tick_rate": 30,
+  "wall_seconds": 120.063511,
+  "wall_tick_interval_ms": {
+    "max": 629.954,
+    "p50": 39.394,
+    "p95": 58.455,
+    "p99": 76.736,
+    "samples": 2895
+  }
+}

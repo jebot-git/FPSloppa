@@ -1,0 +1,53 @@
+{
+  "connection-only": {
+    "successful_clients": 64,
+    "clients": 64,
+    "client_seconds_min": 65.009,
+    "profile_wall_seconds": 30.001167,
+    "simulation_hz": null,
+    "rtt_median_ms_population_at_least_58": 13.0,
+    "max_physics_ticks_between_idle": 8
+  },
+  "no-fire": {
+    "successful_clients": 23,
+    "clients": 64,
+    "client_seconds_min": 65.009,
+    "profile_wall_seconds": 30.046831,
+    "simulation_hz": 26.4254121939965,
+    "rtt_median_ms_population_at_least_58": 283.0,
+    "max_physics_ticks_between_idle": 8
+  },
+  "poll-between-physics": {
+    "successful_clients": 58,
+    "clients": 64,
+    "client_seconds_min": 155.01,
+    "profile_wall_seconds": 120.063511,
+    "simulation_hz": 24.112237191919,
+    "rtt_median_ms_population_at_least_58": 34.0,
+    "max_physics_ticks_between_idle": 8
+  },
+  "poll-buffer": {
+    "successful_clients": 64,
+    "clients": 64,
+    "client_seconds_min": 155.01,
+    "profile_wall_seconds": 120.068297,
+    "simulation_hz": 21.8042562291275,
+    "rtt_median_ms_population_at_least_58": 37.0,
+    "max_physics_ticks_between_idle": 8
+  },
+  "default-fixed": {
+    "successful_clients": 64,
+    "clients": 64,
+    "client_seconds_min": 155.006,
+    "profile_wall_seconds": 120.074938,
+    "simulation_hz": 21.0701743071394,
+    "profile_players": {
+      "max": 64,
+      "p50": 64,
+      "p95": 64,
+      "p99": 64,
+      "samples": 2530
+    },
+    "socket_drops_last": 26951
+  }
+}

@@ -1,0 +1,18 @@
+Godot Engine v4.7.2.stable.fedora.ed1daf0bf - https://godotengine.org
+
+WARNING: UNSUPPORTED CQ CAPACITY: more than 32 slots is experimental. Sustained 64-player operation has not passed validation; tick overruns, packet loss and disconnections are possible.
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _start_dedicated (res://deathmatch/arena.gd:339)
+         [1] _start_dedicated (res://tools/voxel_battle/class_arena.gd:532)
+         [2] _ready (res://deathmatch/arena.gd:283)
+         [3] _ready (res://tools/voxel_battle/class_arena.gd:31)
+DM_HOST_READY port=7777 practice=false
+SERVER_LOG {"data":{"allowed_modes":["tdm"],"bind":"*","capacity_policy":{"maximum":64,"slots":64,"supported_limit":32,"unsupported":true,"warning":"UNSUPPORTED CQ CAPACITY: more than 32 slots is experimental. Sustained 64-player operation has not passed validation; tick overruns, packet loss and disconnections are possible."},"friendly_fire":false,"hostname":"CQ Frontier · UNSUPPORTED 64-player experiment","max_clients":64,"protocol":"fpsloppa-cq-frontier-16-poi-points","rotation":["voxel_jungle"],"score_limit":200,"version":"0.16v-cq-experimental","voice_backend":"builtin","weapon_rules":"ut99"},"epoch":0,"event":"server_started","map":"voxel_jungle","mode":"tdm","seq":1,"uptime_ms":7793,"utc":"2026-10-13T20:46:26Z"}
+SERVER_CONFIG name=CQ Frontier · UNSUPPORTED 64-player experiment bind=* maxclients=64 voice=true map=voxel_jungle rotation=["voxel_jungle"] weapons=ut99 gametype=tdm limit=200 friendlyfire=false
+CQ_FRONTIER_SERVER_READY backend=monolithic players=64 unsupported_capacity=true physics_hz=30 movement=cs points=200
+SERVER_LOG {"data":{"count":1,"file":"core/variant/variant_utility.cpp","function":"push_warning","line":1033,"message":"UNSUPPORTED CQ CAPACITY: more than 32 slots is experimental. Sustained 64-player operation has not passed validation; tick overruns, packet loss and disconnections are possible.","type":1},"epoch":0,"event":"engine_diagnostic","map":"voxel_jungle","mode":"tdm","seq":2,"uptime_ms":7948,"utc":"2026-10-13T20:46:26Z"}
+WARNING: 7 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 3 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

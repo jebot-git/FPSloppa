@@ -1,0 +1,52 @@
+Godot Engine v4.7.2.stable.fedora.ed1daf0bf - https://godotengine.org
+
+DM_HOST_READY port=28812 practice=false
+WARNING: res://addons/godot-xr-tools/hands/scenes/lowpoly/left_tac_glove_low.tscn:3 - ext_resource, invalid UID: uid://bnx4hithcij6y - using text path instead: res://addons/godot-xr-tools/hands/model/Hand_Glove_low_L.gltf
+     at: load (scene/resources/resource_format_text.cpp:501)
+     GDScript backtrace (most recent call first):
+         [0] setup (res://deathmatch/vr/rig.gd:81)
+         [1] run (res://deathmatch/tests/cq_avatar_mounts.gd:15)
+WARNING: res://addons/godot-xr-tools/hands/materials/glove_caucasian_green_camo.tres:3 - ext_resource, invalid UID: uid://dgkfppran5j1f - using text path instead: res://addons/godot-xr-tools/hands/textures/glove_caucasian_green_camo.png
+     at: load (scene/resources/resource_format_text.cpp:501)
+     GDScript backtrace (most recent call first):
+         [0] setup (res://deathmatch/vr/rig.gd:81)
+         [1] run (res://deathmatch/tests/cq_avatar_mounts.gd:15)
+WARNING: res://addons/godot-xr-tools/hands/materials/glove_caucasian_green_camo.tres:4 - ext_resource, invalid UID: uid://bw8rmigwt5pr4 - using text path instead: res://addons/godot-xr-tools/hands/textures/glove_fingerless_normal.png
+     at: load (scene/resources/resource_format_text.cpp:501)
+     GDScript backtrace (most recent call first):
+         [0] setup (res://deathmatch/vr/rig.gd:81)
+         [1] run (res://deathmatch/tests/cq_avatar_mounts.gd:15)
+WARNING: res://addons/godot-xr-tools/hands/materials/glove_caucasian_green_camo.tres:5 - ext_resource, invalid UID: uid://d2iocwfr47kqp - using text path instead: res://addons/godot-xr-tools/hands/textures/glove_fingerless_occlusionRoughnessMetallic.png
+     at: load (scene/resources/resource_format_text.cpp:501)
+     GDScript backtrace (most recent call first):
+         [0] setup (res://deathmatch/vr/rig.gd:81)
+         [1] run (res://deathmatch/tests/cq_avatar_mounts.gd:15)
+WARNING: res://addons/godot-xr-tools/hands/scenes/lowpoly/right_tac_glove_low.tscn:3 - ext_resource, invalid UID: uid://csgsp0wuw8ucy - using text path instead: res://addons/godot-xr-tools/hands/model/Hand_Glove_low_R.gltf
+     at: load (scene/resources/resource_format_text.cpp:501)
+     GDScript backtrace (most recent call first):
+         [0] setup (res://deathmatch/vr/rig.gd:81)
+         [1] run (res://deathmatch/tests/cq_avatar_mounts.gd:15)
+XR_READY simulated
+PASS Calibration menu explains T-pose without retired tracking controls
+PASS Hidden first person body still solves anatomical arm limits
+PASS First person gun shares constrained avatar wrist
+PASS Controller glove stays with gun at visual reach limit
+PASS Radio mounted on mainhand shoulder
+PASS Class utility mounted on offhand shoulder
+PASS Held calibration T-pose recenters body under headset
+PASS All physical movement controls remain exposed
+PASS Physical crouch reaches authoritative collision capsule
+PASS Physical prone reaches authoritative stance and capsule
+PASS Physical jump fixture has actual grounded contact
+PASS Physical headset jump reaches the input command
+PASS Dedicated server clamps tracked muzzle to native arm length without GPU avatars
+PASS Driver defaults to team radio without opening microphone
+PASS Driver ordinary PTT transmits on radio
+PASS Driver radio respects microphone off
+PASS Dismount restores proximity channel
+CQ_AVATAR_MOUNTS_RESULT []
+Disconnected.
+WARNING: 21 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 8 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

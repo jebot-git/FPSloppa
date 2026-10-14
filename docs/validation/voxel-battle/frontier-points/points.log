@@ -1,0 +1,17 @@
+Godot Engine v4.7.2.stable.fedora.ed1daf0bf - https://godotengine.org
+
+PASS Neutral start and no kill points with zero held POIs
+PASS Capture needs ten seconds, not occupancy count
+PASS Capture gives no immediate income or retroactive credit
+PASS Held income waits ten seconds
+PASS Each held POI pays one point per ten seconds
+PASS Enemy kill multiplier equals held POI count
+PASS Contesting pauses capture while held territory still earns income
+PASS Vacating capture area resets progress
+PASS Enemy takeover resets that POI's income clock
+PASS Large tick splits capture and subsequent income correctly
+PASS Earlier income threshold wins even during a long tick
+PASS Truly simultaneous threshold is a draw
+PASS Kill threshold ends and freezes scoring at 200
+PASS Rule state round trips
+CQ_FRONTIER_POINTS_RESULT []

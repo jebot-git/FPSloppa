@@ -124,9 +124,11 @@ func stream_svo_resources() -> void:
 				if not svo_resident.has(key):
 					if uploaded>=Stream.UPLOADS_PER_FRAME:dirty=true;continue
 					if not svo_sources.has(key):
-						var data:=SVO.new().build(kind,lod);svo_sources[key]=data
+						var data:=SVO.new().build(kind,lod)
+						data.image=preload("res://deathmatch/textures.gd").image(data.image);data.bytes=data.image.get_data_size()
+						svo_sources[key]=data
 						svo_stats.append({"kind":kind,"lod":lod,"nodes":data.nodes,"bytes":data.bytes,"resolution":data.resolution,"occupied":data.occupied})
-					var texture:=ImageTexture.create_from_image(svo_sources[key].image)
+					var texture:=preload("res://deathmatch/textures.gd").create(svo_sources[key].image)
 					variants.svo[kind][lod].surface_get_material(0).set_shader_parameter("nodes",texture)
 					svo_resident[key]=texture;svo_uploads+=1;uploaded+=1
 	peak_svo_uploads_per_frame=maxi(peak_svo_uploads_per_frame,uploaded)

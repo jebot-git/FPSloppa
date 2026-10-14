@@ -30,7 +30,7 @@ static func pack(level: Node,layout: Array) -> Dictionary:
   var r: Rect2i=rects[i].rect;image.blit_rect(old,r,rects[i].target)
   for y in range(r.position.y,r.end.y):
    for x in range(r.position.x,r.end.x):lookup[y*old.get_width()+x]=i
- var texture:=ImageTexture.create_from_image(image)
+ var texture:=preload("res://deathmatch/textures.gd").create(image)
  for mat in mats:mat.set_shader_parameter("bake_texture",texture)
  var count:=0
  for node in level.find_children("*","MeshInstance3D",true,false):

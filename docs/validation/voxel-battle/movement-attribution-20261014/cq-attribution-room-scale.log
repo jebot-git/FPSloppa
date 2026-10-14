@@ -1,0 +1,46 @@
+Godot Engine v4.7.2.stable.fedora.ed1daf0bf - https://godotengine.org
+
+PASS Small room-scale motion moves capsule with only 2 cm tolerance
+PASS Tracking displacement beyond fixed limit cannot move capsule
+PASS Room request cannot move away from headset or move vertically
+PASS Room request is capped to 2.4 metres per second
+MAP_READY qsrc_dm1 spawns=7 pickups=25
+WARNING: res://addons/godot-xr-tools/hands/scenes/lowpoly/left_tac_glove_low.tscn:3 - ext_resource, invalid UID: uid://bnx4hithcij6y - using text path instead: res://addons/godot-xr-tools/hands/model/Hand_Glove_low_L.gltf
+     at: load (scene/resources/resource_format_text.cpp:501)
+     GDScript backtrace (most recent call first):
+         [0] setup (res://deathmatch/vr/rig.gd:81)
+         [1] run (res://deathmatch/tests/room_scale.gd:19)
+WARNING: res://addons/godot-xr-tools/hands/materials/glove_caucasian_green_camo.tres:3 - ext_resource, invalid UID: uid://dgkfppran5j1f - using text path instead: res://addons/godot-xr-tools/hands/textures/glove_caucasian_green_camo.png
+     at: load (scene/resources/resource_format_text.cpp:501)
+     GDScript backtrace (most recent call first):
+         [0] setup (res://deathmatch/vr/rig.gd:81)
+         [1] run (res://deathmatch/tests/room_scale.gd:19)
+WARNING: res://addons/godot-xr-tools/hands/materials/glove_caucasian_green_camo.tres:4 - ext_resource, invalid UID: uid://bw8rmigwt5pr4 - using text path instead: res://addons/godot-xr-tools/hands/textures/glove_fingerless_normal.png
+     at: load (scene/resources/resource_format_text.cpp:501)
+     GDScript backtrace (most recent call first):
+         [0] setup (res://deathmatch/vr/rig.gd:81)
+         [1] run (res://deathmatch/tests/room_scale.gd:19)
+WARNING: res://addons/godot-xr-tools/hands/materials/glove_caucasian_green_camo.tres:5 - ext_resource, invalid UID: uid://d2iocwfr47kqp - using text path instead: res://addons/godot-xr-tools/hands/textures/glove_fingerless_occlusionRoughnessMetallic.png
+     at: load (scene/resources/resource_format_text.cpp:501)
+     GDScript backtrace (most recent call first):
+         [0] setup (res://deathmatch/vr/rig.gd:81)
+         [1] run (res://deathmatch/tests/room_scale.gd:19)
+WARNING: res://addons/godot-xr-tools/hands/scenes/lowpoly/right_tac_glove_low.tscn:3 - ext_resource, invalid UID: uid://csgsp0wuw8ucy - using text path instead: res://addons/godot-xr-tools/hands/model/Hand_Glove_low_R.gltf
+     at: load (scene/resources/resource_format_text.cpp:501)
+     GDScript backtrace (most recent call first):
+         [0] setup (res://deathmatch/vr/rig.gd:81)
+         [1] run (res://deathmatch/tests/room_scale.gd:19)
+XR_READY simulated
+PASS Authoritative movement aligns capsule below headset
+PASS Capsule alignment preserves physical headset horizontal position
+PASS Authoritative weapon pose is rebased with capsule movement
+PASS Damage capsule follows room-scale movement
+PASS Room-scale capsule cannot pass through wall
+PASS Blocked movement preserves tracking origin and activates head-wall fade
+PASS Smooth turn uses configured degrees per second
+PASS Snap angle is configurable and held stick turns once
+PASS Snap turn rearms after stick release
+PASS HUD floats in view independently of either hand
+PASS HUD handles melee ammunition and remaining match limits
+PASS HUD hides on headset focus loss
+ROOM_SCALE_RESULT []

@@ -1,4 +1,5 @@
 extends Node3D
+const Attribution=preload("res://deathmatch/server/attribution.gd")
 ## Bounded cosmetic effects. No effect body participates in damage or player collision.
 const Art=preload("res://deathmatch/art.gd")
 var game
@@ -95,7 +96,7 @@ func blood(pos: Vector3,direction: Vector3,seed_value: int) -> void:
 	rng.seed=seed_value
 	for d in [direction.normalized()*3+Vector3(0,-1,0),Vector3(rng.randf_range(-1,1),-4,rng.randf_range(-1,1))]:
 		var query:=PhysicsRayQueryParameters3D.create(pos,pos+d,1)
-		var hit_data:=get_world_3d().direct_space_state.intersect_ray(query)
+		var hit_data:=Attribution.ray(get_world_3d().direct_space_state,query,"query.combat.blood.ray")
 		if not hit_data.is_empty(): stain(hit_data.position,hit_data.normal,rng)
 func stain(pos: Vector3,normal: Vector3,rng: RandomNumberGenerator) -> void:
 	stains=stains.filter(is_instance_valid)
@@ -160,4 +161,4 @@ func _process(delta: float) -> void:
 			if steps[id]>(.3 if actor.visual_velocity.length()>6 else .48):
 				steps[id]=0.0
 				var query:=PhysicsRayQueryParameters3D.create(actor.position+Vector3.UP*.15,actor.position-Vector3.UP*.25,1)
-				if not get_world_3d().direct_space_state.intersect_ray(query).is_empty(): play("step",actor.position,-19)
+				if not Attribution.ray(get_world_3d().direct_space_state,query,"query.combat._process.ray").is_empty(): play("step",actor.position,-19)

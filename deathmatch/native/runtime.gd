@@ -14,3 +14,18 @@ static func pose():
 static func codec():
 	if OS.get_cmdline_user_args().has("--gdscript-codec") or not available("FPSCodec"):return null
 	return ClassDB.instantiate("FPSCodec")
+
+static var backend_instance
+static var backend_attempted:=false
+static func backend():
+	if backend_attempted:return backend_instance
+	backend_attempted=true
+	if OS.get_cmdline_user_args().has("--gdscript-backend") or not available("FPSBackend"):return null
+	if not backend_instance:
+		backend_instance=ClassDB.instantiate("FPSBackend")
+		var rows:Array=[]
+		for height in range(65,166):rows.append(preload("res://deathmatch/avatars/hit_body.gd").parts(height*.01))
+		backend_instance.configure_hitboxes(rows)
+		var args:=OS.get_cmdline_user_args();var index:=args.find("--native-workers")
+		backend_instance.set_workers(clampi(int(args[index+1]),1,10) if index>=0 and index+1<args.size() else 4)
+	return backend_instance

@@ -1,0 +1,88 @@
+{
+	"cases": [
+		{
+			"AI": false,
+			"XR": false,
+			"achieved_tick_hz": 22.8574406144645,
+			"active_projectiles": {
+				"max": 126,
+				"p50": 0,
+				"p95": 0,
+				"p99": 25,
+				"samples": 3600
+			},
+			"aggregate_snapshot_mbps": 59.7584768,
+			"engine_physics_ms": {
+				"max": 75.763,
+				"p50": 57.751,
+				"p95": 64.94,
+				"p99": 70.203,
+				"samples": 3600
+			},
+			"per_client_snapshot_mbps": 0.9337262,
+			"players": 64,
+			"projectiles_ms": {
+				"max": 8.693,
+				"p50": 0.002,
+				"p95": 0.004,
+				"p99": 1.907,
+				"samples": 3600
+			},
+			"reliable_packets": 154,
+			"rendering": false,
+			"rss_mb": {
+				"max": 610.58984375,
+				"p50": 610.5859375,
+				"p95": 610.58984375,
+				"p99": 610.58984375,
+				"samples": 60
+			},
+			"seconds": 120,
+			"simulation_ms": {
+				"max": 60.257,
+				"p50": 31.332,
+				"p95": 41.904,
+				"p99": 45.768,
+				"samples": 3600
+			},
+			"simulation_without_projectiles_ms": {
+				"max": 52.518,
+				"p50": 31.254,
+				"p95": 41.733,
+				"p99": 45.542,
+				"samples": 3600
+			},
+			"snapshot_build_ms": {
+				"max": 5.595,
+				"p50": 3.419,
+				"p95": 4.752,
+				"p99": 4.976,
+				"samples": 2400
+			},
+			"snapshot_encode_ms": {
+				"max": 11.435,
+				"p50": 6.743,
+				"p95": 10.059,
+				"p99": 10.549,
+				"samples": 2400
+			},
+			"static_mb": {
+				"max": 0.0,
+				"p50": 0.0,
+				"p95": 0.0,
+				"p99": 0.0,
+				"samples": 60
+			},
+			"synthetic_tracked_poses": true,
+			"tick_rate": 30,
+			"traffic": "20 Hz encoded snapshots; fanout estimate, not live transport",
+			"udp_max_bytes": 1100,
+			"wall_seconds": 161.435395
+		}
+	],
+	"environment_colliders": 90928,
+	"host": "87.106.27.237; AMD EPYC-Milan, Ubuntu 24.04, 12 vCPU",
+	"startup_seconds": 5.817731,
+	"target": "12 vCPU / 24 GB / 1 Gbps VPS",
+	"terrain_side": 1425
+}

@@ -1,4 +1,5 @@
 extends "res://deathmatch/experimental/combat.gd"
+const Attribution=preload("res://deathmatch/server/attribution.gd")
 var active_projectile:=-1
 var salvos:Dictionary={}
 var charges:Dictionary={}
@@ -8,6 +9,7 @@ var vehicle_lock=preload("res://deathmatch/conquest/classes/vehicle_lock.gd").ne
 var magazines=preload("res://deathmatch/conquest/classes/magazines.gd").new()
 func setup(arena) -> void:super.setup(arena);magazines.setup(arena)
 func tick_input(id:int,delta:float) -> void:
+	if game.battery_tanks.mounted(id):return
 	var s:Dictionary=game.players[id]
 	if s.weapon!=5:charges.erase(id)
 	if s.weapon!=0:bursts.erase(id);burst_held.erase(id)
@@ -17,6 +19,7 @@ func tick_input(id:int,delta:float) -> void:
 		else:
 			launch_blast(id);salvos[id].left-=1;salvos[id].at=game.clock+game.armory.data(5).salvo_interval
 			if salvos[id].left<=0:salvos.erase(id)
+	game.grenades.sample_player(id)
 	if game.grenades.selected(id)>=0:charges.erase(id);return
 	if s.fire or s.get("alt_fire",false):game.classes.weapon_used(id)
 	if s.weapon in [6,7,8]:
@@ -68,6 +71,11 @@ func fire(id:int,alternate:bool=false,_charge:float=0.0) -> bool:
 	if d.kind in ["hitscan","sniper"]:
 		var hit:Dictionary=game._trace(solution.origin,solution.origin+direction*d.range,id,game._shot_rewind(id))
 		var damage:int=int(d.get("head_damage",d.damage)) if hit.get("headshot",false) and not hit.get("vehicle",false) else int(d.damage)
+		if d.get("cq_beam",false):
+			var shield:Dictionary=game.healing_field.intercept(id,solution.origin,hit.position,float(d.damage),true)
+			if shield.damage<=0:
+				game._cq_beam_impacts.rpc(solution.origin,PackedVector3Array([shield.position]),w,s.team);return true
+			damage=roundi(damage*shield.damage/float(d.damage))
 		game._damage_map_hit(hit,id,damage)
 		if hit.id!=0:game._damage(hit.id,id,damage,d.name,false,hit.position,direction,false,hit.get("vehicle",false),false,hit.get("headshot",false))
 		if w==10:game._cq_beam_impacts.rpc(solution.origin,PackedVector3Array([hit.position]),w,s.team)
@@ -84,11 +92,12 @@ func launch_blast(id:int) -> void:
 	game._variant_shot_fx.rpc(id,5,false)
 func launch(owner_id:int,weapon:int,position:Vector3,direction:Vector3,extra:Dictionary={}) -> int:
 	if game.projectiles.size()>=MAX_PROJECTILES:return -1
-	var tagged:=extra.duplicate();tagged["cq_team"]=game.players.get(owner_id,{}).get("team",0)
+	var tagged:=extra.duplicate();tagged["cq_team"]=extra.get("cq_team",game.players.get(owner_id,{}).get("team",0))
 	game.projectile_id+=1
 	game._projectile_spawn.rpc(game.projectile_id,owner_id,weapon,position,direction,atan2(-direction.x,-direction.z),asin(clampf(direction.y,-1,1)),tagged)
 	return game.projectile_id
 func predict(id:int,command:Dictionary) -> void:
+	if game.battery_tanks.mounted(id):return
 	if game.headless or game.multiplayer.is_server() or not game.players.has(id) or command.weapon in [0,5,6,7,8,11] or game.classes.downed.has(id):return
 	var state:Dictionary=game.players[id];var weapon:int=state.weapon
 	if not command.fire or command.weapon!=weapon or command.get("input_blocked",false) or state.dead or state.spectator or game.visual_cooldown>0 or game.intermission>0 or game.lobby.active():return
@@ -108,6 +117,9 @@ func definition(owner_id:int,weapon:int,extra:Dictionary) -> Dictionary:
 		data.cq_effect="ordnance" if weapon in [5,11] else "energy"
 		var team:int=extra.get("cq_team",game.players.get(owner_id,{}).get("team",0))
 		data.color=Color("ff3c39") if team==0 else Color("3b8dff")
+	if extra.get("turret_shot",false):data.name="TURRET ORDNANCE";data.guided=false;data.gravity=0.0;data.speed=40.0;data.fuse=4.0
+	if extra.has("hover_shot"):data.name="%s TANK ORDNANCE"%str(extra.hover_shot).to_upper();data.inherit=.5
+	if extra.get("battery_shot",false):data.merge({"name":"BATTERY MORTAR","kind":"tribes_mortar","speed":sqrt(275.0*20),"gravity":20.0,"inherit":.5,"damage":152,"splash":152,"blast_radius":20.0,"radius":.3,"fuse":30.0,"arm":2.0,"bounce":.1,"guided":false,"quake_rocket":false,"direct_random":0,"cq_effect":"ordnance"},true)
 	if weapon==3:data.cq_bullet=true
 	return data
 
@@ -117,8 +129,9 @@ func explode(id:int,where:Vector3,ignore:int=0,hull_impact:int=0) -> void:
 	if game.projectiles.has(id):
 		var p:Dictionary=game.projectiles[id];var d:Dictionary=p.definition
 		if d.get("splash",0)>0:
+			game.night_vision.flash(where,maxf(30,d.blast_radius*8),2.2)
 			for vehicle in game.get_tree().get_nodes_in_group("cq_repairable_vehicles"):
-				if vehicle.hp<=0 or vehicle.get_meta("cq_direct_projectile",-1)==id:continue
+				if vehicle.hp<=0 or vehicle.get("service")==game.battery_tanks or vehicle.get_meta("cq_direct_projectile",-1)==id:continue
 				var distance:float=where.distance_to(vehicle.global_position)
 				if distance>d.blast_radius:continue
 				var target:Dictionary={"position":vehicle.global_position,"node":vehicle}
@@ -127,5 +140,28 @@ func explode(id:int,where:Vector3,ignore:int=0,hull_impact:int=0) -> void:
 
 func tick_projectile(id:int,delta:float,movement_start:Dictionary,targets) -> void:
 	active_projectile=id
-	super.tick_projectile(id,delta,movement_start,targets)
+	if game.projectiles.get(id,{}).get("extra",{}).get("battery_shot",false):tick_battery(id,delta,movement_start,targets)
+	else:super.tick_projectile(id,delta,movement_start,targets)
 	active_projectile=-1
+
+func blast(where:Vector3,owner_id:int,damage:int,radius:float,title:String,ignore:int=0,quake_falloff:bool=false,hull_impact:int=0,ignite:bool=false) -> void:
+	if game.multiplayer.is_server() and game.intermission<=0 and not game.lobby.active():game.turrets.blast(where,owner_id,damage,radius,quake_falloff)
+	var p:Dictionary=game.projectiles.get(active_projectile,{})
+	var kind:String="ordnance" if title=="AIRSTRIKE" or p.get("definition",{}).get("cq_effect","")=="ordnance" else "infantry"
+	game.battery_tanks.blast(where,p.get("extra",{}).get("cq_team",game.players.get(owner_id,{}).get("team",-1)),damage,radius,kind,quake_falloff,active_projectile,owner_id)
+	super.blast(where,owner_id,damage,radius,title,ignore,quake_falloff,hull_impact,ignite)
+
+func tick_battery(id:int,delta:float,movement_start:Dictionary,targets) -> void:
+	# Port of main ST combat's mortar arming/bounce path, on the shared projectile store.
+	var p:Dictionary=game.projectiles[id];var d:Dictionary=p.definition;p.life-=delta
+	var age:float=d.fuse-p.life
+	if p.life<=0 or p.stuck and age>=d.arm:explode(id,p.position);return
+	if p.stuck:return
+	var end:Vector3=p.position+p.velocity*delta-Vector3.UP*d.gravity*delta*delta*.5;p.velocity.y-=d.gravity*delta
+	var hit:Dictionary=game._trace(p.position,end,p.owner if age<.25 else 0,0,d.radius,{} if p.fresh else movement_start,targets.candidates(p.position,end,d.radius));p.fresh=false
+	if not hit.hit:p.position=end;p.direction=p.velocity.normalized();return
+	if age>=d.arm:explode(id,hit.position);return
+	var ray:Dictionary=Attribution.ray(game.get_world_3d().direct_space_state,PhysicsRayQueryParameters3D.create(p.position,end+p.velocity.normalized()*(d.radius+.2),1),"query.combat.tick_battery.ray")
+	var normal:Vector3=ray.get("normal",-p.velocity.normalized());p.position=hit.position+normal*(d.radius+.015);p.velocity=p.velocity.bounce(normal)*d.bounce
+	if p.velocity.length()<1.0:p.stuck=true;p.velocity=Vector3.ZERO
+	game._variant_bounce_fx.rpc(p.position,p.weapon)

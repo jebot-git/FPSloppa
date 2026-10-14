@@ -17,6 +17,7 @@ var ik_uniforms_active:=false
 var avatar_hash:=""
 var unarmed:=false
 var target_xr_pose:Dictionary={}
+var left_handed:=false
 var speed:=0.0
 var movement:=Vector3.ZERO
 var stance:="stand"
@@ -40,6 +41,12 @@ var tracked_arms_active:=false
 var arm_update_ms:=0.0
 var clips:Array=[]
 var clip_name:=""
+var animation_frames:=Vector3.ZERO
+var solved_arms:Dictionary={}
+var backpack:Node3D
+var carried_utility:Node3D
+var carried_radio:Node3D
+var utility_key:=""
 var time:=0.0
 var firing:=0.0
 var selected_sequence:="" # Preview can select any original clip.
@@ -84,6 +91,7 @@ func choose_clip() -> Dictionary:
 		if str(clip.name).to_lower()!="all":return clip
 	return clips[0]
 func _process(delta:float) -> void:
+	if target_xr_pose.has("left_handed"):left_handed=target_xr_pose.left_handed
 	firing=maxf(0,firing-delta)
 	if dead:death_time+=delta
 	if visual==null:return
@@ -93,35 +101,68 @@ func _process(delta:float) -> void:
 	var frame:=minf(time*float(clip.fps),float(clip.count)-1) if dead else fposmod(time*float(clip.fps),float(clip.count))
 	var a:=floori(frame);var b:=mini(a+1,int(clip.count)-1) if dead else (a+1)%int(clip.count)
 	var frames:=Vector3(int(clip.start)+a,int(clip.start)+b,frame-a)
+	animation_frames=frames
 	visual.set_instance_shader_parameter("animation_frames",frames)
 	update_lod(delta)
-	arm_update_ms=0.0
-	tracked_arms_active=false
-	if ik_weight>0:
-		var arm_start:=Time.get_ticks_usec()
-		tracked_arms_active=IK.update(visual,arm_profile,target_xr_pose,frames)
-		arm_update_ms=(Time.get_ticks_usec()-arm_start)/1000.0
-		ik_uniforms_active=true
-	elif ik_uniforms_active:
-		visual.set_instance_shader_parameter("tracked_arms",false)
-		visual.set_instance_shader_parameter("tracked_head",false)
-		ik_uniforms_active=false
 	visual.scale=Vector3.ONE
 	visual.rotation=Vector3.ZERO
 	if stance=="prone" and not dead:
 		visual.rotation.x=-PI/2;visual.position=Vector3(0,.3,.4)
 	else:visual.position=Vector3.ZERO
 	if not dead and stance=="crouch" and not (clip_name.to_lower().begins_with("duck") or clip_name.to_lower()=="crouch"):visual.scale.y=.65
+	arm_update_ms=0.0
+	tracked_arms_active=false
+	solved_arms.clear()
+	if ik_weight>0:
+		var arm_start:=Time.get_ticks_usec()
+		tracked_arms_active=IK.update(visual,arm_profile,target_xr_pose,frames,solved_arms,visual.transform)
+		arm_update_ms=(Time.get_ticks_usec()-arm_start)/1000.0
+		ik_uniforms_active=true
+	elif ik_uniforms_active:
+		visual.set_instance_shader_parameter("tracked_arms",false)
+		visual.set_instance_shader_parameter("tracked_head",false)
+		ik_uniforms_active=false
+	if is_instance_valid(backpack):backpack.global_transform=global_transform*back_socket()
+	update_equipment()
 	for held in [gun,offhand_gun]:
 		if not is_instance_valid(held):continue
 		held.visible=not unarmed and not dead
 		var offhand:bool=held==offhand_gun
 		var id:int=2 if offhand else weapon_id
-		var pose_key:="offhand_weapon" if offhand else "weapon"
-		var grip:=Transform3D(Basis(Vector3.RIGHT,aim_pitch),Art.desktop_hand(offhand,aim_pitch,0,offhand))
-		held.transform=Art.held_transform(grip,id,.48,weapon_rules)
-		if ik_weight>0 and target_xr_pose.has(pose_key):
-			held.transform=held.transform.interpolate_with(Art.held_transform(target_xr_pose[pose_key],id,Art.VR_SCALE,weapon_rules),ik_weight)
+		var grip:=hand_pose(offhand)
+		held.transform=Art.held_transform(grip,id,lerpf(.48,Art.VR_SCALE,ik_weight),weapon_rules)
+func sample_attachment(key:String) -> Vector3:
+	var data:Dictionary=arm_profile.get("attachments",{}).get(key,{})
+	if data.is_empty():return Vector3.ZERO
+	var samples:PackedVector3Array=data.samples
+	return samples[clampi(int(animation_frames.x),0,samples.size()-1)].lerp(samples[clampi(int(animation_frames.y),0,samples.size()-1)],animation_frames.z)
+func hand_pose(offhand:bool=false) -> Transform3D:
+	var left:bool=left_handed!=offhand
+	var side:="left" if left else "right"
+	var key:="offhand_weapon" if offhand else "weapon"
+	var native:=sample_attachment(side)
+	var basis:=visual.basis.inverse()*Basis(Vector3.RIGHT,aim_pitch)
+	if solved_arms.has(side):
+		var anchor:Dictionary=arm_profile.get("attachments",{}).get(side,{})
+		var solved:Vector3=solved_arms[side].fore*anchor.reference if not anchor.is_empty() else solved_arms[side].hand
+		native=native.lerp(solved,ik_weight)
+		if target_xr_pose.has(key):basis=visual.basis.inverse()*target_xr_pose[key].basis
+	return visual.transform*Transform3D(basis,native)
+func equipment_socket(mainhand:bool=false) -> Transform3D:
+	var left:bool=left_handed==mainhand
+	if not arm_profile.has("sockets"):return Transform3D(Basis.IDENTITY,Vector3(-.23 if left else .23,1.4,0))
+	var shoulder:=IK.socket(arm_profile,animation_frames,0 if left else 3)
+	return visual.transform*Transform3D(torso_basis(),shoulder+torso_basis()*Vector3(0,.035,0))
+func torso_basis() -> Basis:
+	if not arm_profile.has("sockets"):return Basis.IDENTITY
+	var left:=IK.socket(arm_profile,animation_frames,0);var right:=IK.socket(arm_profile,animation_frames,3)
+	var x:Vector3=(right-left).normalized()
+	var up:Vector3=IK.socket(arm_profile,animation_frames,6)-(left+right)*.5
+	var y:Vector3=(up-x*up.dot(x)).normalized()
+	if x.length_squared()<.5 or y.length_squared()<.5:return Basis.IDENTITY
+	return Basis(x,y,x.cross(y)).orthonormalized()
+func back_socket() -> Transform3D:
+	return visual.transform*Transform3D(torso_basis(),sample_attachment("back")+torso_basis()*Vector3(0,0,.10))
 func update_lod(delta:float) -> void:
 	var camera:=get_viewport().get_camera_3d()
 	effective_distance=LOD.effective_distance(global_position,camera)
@@ -138,3 +179,21 @@ func update_lod(delta:float) -> void:
 	var tier:=0 if detailed or not mesh_lod_enabled else LOD.choose_tier(mesh_tier,effective_distance)
 	if tier!=mesh_tier:
 		mesh_tier=tier;visual.mesh=lod_meshes[tier]
+
+func set_equipment(key:String) -> void:
+	if utility_key==key:return
+	utility_key=key
+	if is_instance_valid(carried_utility):carried_utility.free()
+	carried_utility=preload("res://deathmatch/avatars/equipment.gd").utility(key) if not key.is_empty() else null
+	if carried_utility:add_child(carried_utility)
+	if not is_instance_valid(carried_radio):
+		carried_radio=preload("res://deathmatch/avatars/equipment.gd").radio();add_child(carried_radio)
+func update_equipment() -> void:
+	if is_instance_valid(carried_radio):
+		carried_radio.visible=not dead and not unarmed
+		carried_radio.transform=equipment_socket(true)
+	if is_instance_valid(carried_utility):
+		carried_utility.visible=not dead and not unarmed
+		var size:Vector3=carried_utility.scale
+		carried_utility.transform=equipment_socket(false)
+		carried_utility.scale=size

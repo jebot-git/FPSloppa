@@ -12,6 +12,9 @@ var shoulder_radio=preload("res://deathmatch/vr/shoulder_radio.gd").new()
 var support_aim=preload("res://deathmatch/vr/aim_support.gd").new()
 var swim_detector=preload("res://deathmatch/vr/swim_strokes.gd").new()
 var swim_input:=Vector3.ZERO
+var shoulder_utility:Node3D
+var shoulder_utility_key:=""
+var calibration_pose=preload("res://deathmatch/vr/t_pose.gd").new()
 var crouch_detector=preload("res://deathmatch/vr/physical_crouch.gd").new()
 var crouch_height:=1.65
 var jump_detector=preload("res://deathmatch/vr/physical_jump.gd").new()
@@ -313,8 +316,15 @@ func _process(delta: float) -> void:
 			game.desired_weapon=W.next_owned(game.desired_weapon,1 if stick.y>0 else -1,game.local_state().get("owned",[2]))
 			cycle_latched=true
 		if absf(stick.y)<.3: cycle_latched=false
-	var mounted: bool=game.match_mode.fortress.walkers.mounted(mine)
+	var mounted: bool=game.match_mode.fortress.walkers.mounted(mine) or game.handle_vehicle_player(mine,0.0)
+	if calibration_pose.sample(head.transform,left.position,right.position,delta,living and tracked_hands and focused and not seated_active and not mounted and not game.menu_open and not scores and not game.player_incapacitated(mine)):
+		recenter();feedback(.5,.15);feedback(.5,.15,true)
+	if actor and is_instance_valid(actor.avatar) and actor.avatar.has_method("hand_pose"):
+		actor.xr_pose=sample_pose();actor.avatar.target_xr_pose=actor.xr_pose
+		actor.avatar.stance=actor.stance;actor.avatar.aim_pitch=game.local_state().get("pitch",0.0)
+		actor.avatar._process(delta if actor.avatar.process_mode==Node.PROCESS_MODE_DISABLED and not actor.frozen else 0.0)
 	shoulder_radio.update(not mounted and living and tracked_hands and focused and not game.menu_open and not scores and not blackout.visible)
+	update_shoulder_utility(living and not mounted)
 	physical_actions.update(delta,not mounted and not shoulder_radio.held and living and tracked_hands and focused and not game.menu_open and not scores)
 	var menu_visible: bool=game.menu_open or scores or (focused and game.bindings.pressed("scores")) or not game.active
 	var burning: bool=actor!=null and game.match_mode.fortress.burning(actor.peer_id)
@@ -359,17 +369,17 @@ func _process(delta: float) -> void:
 			(left_aim if left_handed else right_aim).add_child(gun)
 			gun_id=s.weapon;gun_rules=art_rules
 		if gun.get_parent()!=(left_aim if left_handed else right_aim): gun.reparent(left_aim if left_handed else right_aim,false)
-		gun.visible=not game.lobby.active() and not s.dead and not menu_visible and (simulated or ((left_aim if left_handed else right_aim).get_has_tracking_data() and (left if left_handed else right).get_has_tracking_data()))
+		gun.visible=not game.handle_vehicle_player(mine,0.0) and not game.lobby.active() and not s.dead and not menu_visible and (simulated or ((left_aim if left_handed else right_aim).get_has_tracking_data() and (left if left_handed else right).get_has_tracking_data()))
 		var grip: XRController3D=left if left_handed else right
 		var aim: XRController3D=left_aim if left_handed else right_aim
-		var visible_pose:=clear_weapon_pose(origin.global_transform*weapon_pose(),s.weapon)
+		var visible_pose:=attached_hand(false,origin.global_transform*weapon_pose())
 		gun.global_transform=Art.held_transform(visible_pose,s.weapon,Art.VR_SCALE,art_rules)
-		if s.weapon==1 and not game.armory.experimental():Art.clip_saw(gun)
+
 		if is_instance_valid(offhand_gun):
 			var other_grip: XRController3D=right if left_handed else left
 			var other_aim: XRController3D=right_aim if left_handed else left_aim
-			offhand_gun.visible=not game.match_mode.fortress.walkers.mounted(multiplayer.get_unique_id()) and not physical_actions.busy() and not shoulder_radio.held and not game.lobby.active() and not s.dead and not menu_visible and focused and (simulated or (other_grip.get_has_tracking_data() and other_aim.get_has_tracking_data()))
-			offhand_gun.global_transform=Art.held_transform(clear_weapon_pose(Poses.held_weapon(other_grip.global_transform,other_aim.global_transform),2),2)
+			offhand_gun.visible=not game.handle_vehicle_player(mine,0.0) and not game.match_mode.fortress.walkers.mounted(multiplayer.get_unique_id()) and not physical_actions.busy() and not shoulder_radio.held and not game.lobby.active() and not s.dead and not menu_visible and focused and (simulated or (other_grip.get_has_tracking_data() and other_aim.get_has_tracking_data()))
+			offhand_gun.global_transform=Art.held_transform(attached_hand(true,Poses.held_weapon(other_grip.global_transform,other_aim.global_transform)),2)
 		if aim_guides.is_empty():
 			for i in 2:
 				var guide=preload("res://deathmatch/vr/aim_guide.gd").new();add_child(guide);aim_guides.append(guide)
@@ -377,16 +387,22 @@ func _process(delta: float) -> void:
 		if is_instance_valid(offhand_gun):
 			var other_grip:XRController3D=right if left_handed else left
 			var other_aim:XRController3D=right_aim if left_handed else left_aim
-			aim_guides[1].update(clear_weapon_pose(Poses.held_weapon(other_grip.global_transform,other_aim.global_transform),2),2,offhand_gun.visible)
+			aim_guides[1].update(attached_hand(true,Poses.held_weapon(other_grip.global_transform,other_aim.global_transform)),2,offhand_gun.visible)
 		else:aim_guides[1].hide()
 		# Headset/controller poses control aiming; UT99 bodies use vertex animation.
 		var pose:=sample_pose()
 		actor.xr_pose=pose
 		actor.set_local_body(false)
-		for model in hand_models: model.visible=not actor.local_body_visible
+		for i in hand_models.size():
+			var model:Node3D=hand_models[i]
+			model.visible=not actor.local_body_visible and not mounted
+			var offhand:bool=(i==0)!=left_handed
+			var grip_pose:Transform3D=(left if i==0 else right).global_transform
+			grip_pose.origin=attached_hand(offhand,grip_pose).origin
+			model.global_transform=grip_pose
 		var from: Vector3=actor.position+Vector3.UP*actor.torso_height()
 		var wall:=PhysicsRayQueryParameters3D.create(from,head.global_position,1)
-		blackout.visible=not s.spectator and (not game.get_world_3d().direct_space_state.intersect_ray(wall).is_empty() or head.global_position.distance_to(from)>1.3)
+		blackout.visible=not game.handle_vehicle_player(mine,0.0) and not s.spectator and (not game.get_world_3d().direct_space_state.intersect_ray(wall).is_empty() or head.global_position.distance_to(from)>1.3)
 	else:
 		for guide in aim_guides:guide.hide()
 		for model in hand_models: model.visible=true
@@ -396,16 +412,17 @@ func _process(delta: float) -> void:
 	if not sniper_scope and is_instance_valid(gun) and gun.has_meta("scope_rear"):
 		sniper_scope=preload("res://deathmatch/vr/sniper_scope.gd").new();add_child(sniper_scope);sniper_scope.setup(self)
 	if sniper_scope:sniper_scope.update_rig()
-func clear_weapon_pose(pose: Transform3D,weapon: int) -> Transform3D:
-	if weapon<2:return pose
+func attached_hand(offhand:bool,fallback:Transform3D) -> Transform3D:
 	var actor=game.fighters.get(multiplayer.get_unique_id())
-	if not actor:return pose
-	var art_rules: String=game.match_mode.fortress.art_rules(multiplayer.get_unique_id(),weapon)
-	var muzzle: Vector3=Art.held_transform(pose,weapon,Art.VR_SCALE,art_rules)*Art.muzzle(weapon,art_rules)
-	var radius: float=float(game.armory.data(weapon).get("radius",.025)) if game.armory.experimental() else W.DATA[weapon].radius if weapon in [6,7,8] else .025
-	var solution=preload("res://deathmatch/vr/weapon_clearance.gd").solve(game.get_world_3d().direct_space_state,actor.render_position()+Vector3.UP*actor.torso_height(),pose.origin,muzzle,radius)
-	if not solution.blocked:pose.origin+=solution.origin-muzzle
-	return pose
+	if actor and is_instance_valid(actor.avatar) and actor.avatar.has_method("hand_pose"):
+		return actor.avatar.global_transform*actor.avatar.hand_pose(offhand)
+	return fallback
+func shoulder_mount(mainhand:bool) -> Transform3D:
+	var actor=game.fighters.get(multiplayer.get_unique_id())
+	if actor and is_instance_valid(actor.avatar) and actor.avatar.has_method("equipment_socket"):
+		return actor.avatar.global_transform*actor.avatar.equipment_socket(mainhand)
+	var side:float=(-1.0 if left_handed else 1.0)*(1.0 if mainhand else -1.0)
+	return origin.global_transform*Transform3D(Basis(Vector3.UP,head.rotation.y),head.position+Vector3(side*.23,-.25,.04))
 func compensate_room_move(shift: Vector3) -> void:
 	# Preserve the physical head/hand world positions, including when collision clips a move.
 	origin_offset-=shift
@@ -508,3 +525,19 @@ func scroll_dropdowns(delta: float,menu_visible: bool) -> void:
 		if viewport and absf(axis)>absf(float(targets.get(viewport,0.0))):targets[viewport]=axis
 	for viewport in targets:
 		preload("res://deathmatch/ui/choice.gd").scroll_active(viewport,targets[viewport],delta)
+
+func update_shoulder_utility(valid:bool) -> void:
+	if not game.has_method("class_throw"):return
+	var id:=multiplayer.get_unique_id()
+	var rules=game.classes
+	var row:Dictionary=rules.states.get(id,{})
+	var key:String=row.get("equipped_utility",rules.UTILITIES[rules.role(id)][0].id)
+	if key!=shoulder_utility_key:
+		shoulder_utility_key=key
+		if is_instance_valid(shoulder_utility):shoulder_utility.free()
+		shoulder_utility=preload("res://deathmatch/avatars/equipment.gd").utility(key);add_child(shoulder_utility)
+	if is_instance_valid(shoulder_utility):
+		shoulder_utility.visible=valid and not physical_actions.busy()
+		var size:Vector3=shoulder_utility.scale
+		shoulder_utility.global_transform=shoulder_mount(false)
+		shoulder_utility.scale=size

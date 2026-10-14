@@ -1,0 +1,38 @@
+{
+  "light": {
+    "source_triangles": 1080,
+    "triangles": 702,
+    "meshes": 3,
+    "materials": 1,
+    "atlas": 512,
+    "size": [
+      2.163,
+      4.8
+    ],
+    "pivot": [
+      -9.874149498045881e-08,
+      0.8804434537887573,
+      1.307870864868164
+    ],
+    "barrel_length": 3.4683828353881836,
+    "barrel_offset": 0
+  },
+  "heavy": {
+    "source_triangles": 6864,
+    "triangles": 2229,
+    "meshes": 3,
+    "materials": 1,
+    "atlas": 512,
+    "size": [
+      3.181,
+      5.8
+    ],
+    "pivot": [
+      0.0,
+      1.067276954650879,
+      1.3012111186981201
+    ],
+    "barrel_length": 3.7984437942504883,
+    "barrel_offset": 0.2347813993692398
+  }
+}

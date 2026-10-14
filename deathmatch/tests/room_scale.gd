@@ -17,7 +17,7 @@ func run():
  game.set_process(false);game.set_physics_process(false)
  game.hud=load("res://deathmatch/interface.gd").new();game.add_child(game.hud);game.hud.setup(game)
  game.xr_rig=load("res://deathmatch/vr/rig.gd").new();game.add_child(game.xr_rig);game.xr_rig.setup(game,true)
- var rig=game.xr_rig;rig.set_process(false);rig.calibration_pending=false;rig.tracking.enabled=false
+ var rig=game.xr_rig;rig.set_process(false);rig.calibration_pending=false
  game._add_player(1,"Room");game.active=true;game.menu_open=false;game.local_yaw=0
  var actor=game.fighters[1];actor.position=Fixture.point();actor.velocity=Vector3.ZERO
  rig.origin_offset=Vector3.ZERO;rig.head.position=Vector3(.3,1.65,0);rig._process(0)

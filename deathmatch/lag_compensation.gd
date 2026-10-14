@@ -26,3 +26,15 @@ static func positions(history: Array,now: float,rewind: float,current: Dictionar
 			result[id]=lerp_angle(a.get("yaw",current[id].get("yaw",0.0)),b.get("yaw",current[id].get("yaw",0.0)),weight);continue
 		result[id]=lerpf(a.get("height",1.65),b.get("height",1.65),weight) if heights else a.position.lerp(b.position,weight)
 	return result
+
+static func combined(history:Array,now:float,rewind:float,current:Dictionary) -> Dictionary:
+	var empty:Dictionary={"positions":{},"heights":{},"yaws":{}}
+	if rewind<=0 or history.is_empty():return empty
+	var backend=preload("res://deathmatch/native/runtime.gd").backend()
+	if not backend:return {"positions":positions(history,now,rewind,current),"heights":positions(history,now,rewind,current,true),"yaws":positions(history,now,rewind,current,false,true)}
+	var at:=now-clampf(rewind,0,MAX_REWIND)
+	var before:Dictionary=history[0];var after:Dictionary={"time":now,"positions":current}
+	for sample in history:
+		if sample.time<=at:before=sample
+		else:after=sample;break
+	return backend.rewind(before.positions,after.positions,current,clampf((at-before.time)/maxf(after.time-before.time,.000001),0,1))

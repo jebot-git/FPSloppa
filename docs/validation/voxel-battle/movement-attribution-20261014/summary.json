@@ -1,0 +1,601 @@
+{
+  "ticks": 2418,
+  "players_min": 64,
+  "players_max": 64,
+  "scope_errors": 0,
+  "achieved_hz": 20.1361275505262,
+  "hot_tick_cutoff_ms": 61.064,
+  "hot_ticks": 121,
+  "scopes_by_exclusive_mean": [
+    {
+      "scope": "query.movement.slide",
+      "calls": 152515,
+      "mean_calls_per_tick": 63.07485525227461,
+      "mean_inclusive_ms_per_tick": 12.301809760132342,
+      "mean_self_ms_per_tick": 12.301809760132342,
+      "mean_call_ms": 0.19503508507359932,
+      "mean_hot_tick_self_ms": 13.263380165289256
+    },
+    {
+      "scope": "simulation.player_loop",
+      "calls": 2418,
+      "mean_calls_per_tick": 1.0,
+      "mean_inclusive_ms_per_tick": 25.005942100909845,
+      "mean_self_ms_per_tick": 6.592589743589744,
+      "mean_call_ms": 25.005942100909845,
+      "mean_hot_tick_self_ms": 12.242082644628098
+    },
+    {
+      "scope": "snapshot.prepare",
+      "calls": 1612,
+      "mean_calls_per_tick": 0.6666666666666666,
+      "mean_inclusive_ms_per_tick": 3.9984222497932174,
+      "mean_self_ms_per_tick": 3.9984222497932174,
+      "mean_call_ms": 5.997633374689826,
+      "mean_hot_tick_self_ms": 5.456173553719008
+    },
+    {
+      "scope": "input.accept",
+      "calls": 225600,
+      "mean_calls_per_tick": 93.30024813895781,
+      "mean_inclusive_ms_per_tick": 3.961799834574028,
+      "mean_self_ms_per_tick": 3.961799834574028,
+      "mean_call_ms": 0.04246290780141844,
+      "mean_hot_tick_self_ms": 4.565768595041322
+    },
+    {
+      "scope": "snapshot.transport",
+      "calls": 1612,
+      "mean_calls_per_tick": 0.6666666666666666,
+      "mean_inclusive_ms_per_tick": 2.833519023986766,
+      "mean_self_ms_per_tick": 2.833519023986766,
+      "mean_call_ms": 4.250278535980149,
+      "mean_hot_tick_self_ms": 7.944148760330578
+    },
+    {
+      "scope": "query.vehicle.slide",
+      "calls": 19344,
+      "mean_calls_per_tick": 8.0,
+      "mean_inclusive_ms_per_tick": 2.437425971877585,
+      "mean_self_ms_per_tick": 2.437425971877585,
+      "mean_call_ms": 0.3046782464846981,
+      "mean_hot_tick_self_ms": 2.5381900826446278
+    },
+    {
+      "scope": "simulation.match_mode",
+      "calls": 2418,
+      "mean_calls_per_tick": 1.0,
+      "mean_inclusive_ms_per_tick": 2.2097981803143094,
+      "mean_self_ms_per_tick": 2.2097981803143094,
+      "mean_call_ms": 2.2097981803143094,
+      "mean_hot_tick_self_ms": 2.2574628099173557
+    },
+    {
+      "scope": "query.movement.step_obstacle",
+      "calls": 148743,
+      "mean_calls_per_tick": 61.51488833746898,
+      "mean_inclusive_ms_per_tick": 1.7895665839536805,
+      "mean_self_ms_per_tick": 1.7895665839536805,
+      "mean_call_ms": 0.029091600949288365,
+      "mean_hot_tick_self_ms": 1.8370743801652893
+    },
+    {
+      "scope": "network.physics_poll",
+      "calls": 2418,
+      "mean_calls_per_tick": 1.0,
+      "mean_inclusive_ms_per_tick": 5.0838544251447475,
+      "mean_self_ms_per_tick": 1.581674110835401,
+      "mean_call_ms": 5.0838544251447475,
+      "mean_hot_tick_self_ms": 3.276280991735537
+    },
+    {
+      "scope": "movement.cs",
+      "calls": 154442,
+      "mean_calls_per_tick": 63.87179487179487,
+      "mean_inclusive_ms_per_tick": 16.47194582299421,
+      "mean_self_ms_per_tick": 1.1945330851943754,
+      "mean_call_ms": 0.25789076158039914,
+      "mean_hot_tick_self_ms": 1.262115702479339
+    },
+    {
+      "scope": "query.movement.room_scale_zero",
+      "calls": 152935,
+      "mean_calls_per_tick": 63.248552522746074,
+      "mean_inclusive_ms_per_tick": 1.159556658395368,
+      "mean_self_ms_per_tick": 1.159556658395368,
+      "mean_call_ms": 0.018333331153758133,
+      "mean_hot_tick_self_ms": 1.15599173553719
+    },
+    {
+      "scope": "simulation.total",
+      "calls": 2418,
+      "mean_calls_per_tick": 1.0,
+      "mean_inclusive_ms_per_tick": 33.59662448304384,
+      "mean_self_ms_per_tick": 0.7464305210918114,
+      "mean_call_ms": 33.59662448304384,
+      "mean_hot_tick_self_ms": 0.7678595041322314
+    },
+    {
+      "scope": "simulation.projectiles",
+      "calls": 2418,
+      "mean_calls_per_tick": 1.0,
+      "mean_inclusive_ms_per_tick": 0.9376836228287841,
+      "mean_self_ms_per_tick": 0.6691220016542597,
+      "mean_call_ms": 0.9376836228287841,
+      "mean_hot_tick_self_ms": 7.564842975206612
+    },
+    {
+      "scope": "movement.simulate",
+      "calls": 154442,
+      "mean_calls_per_tick": 63.87179487179487,
+      "mean_inclusive_ms_per_tick": 17.121939205955336,
+      "mean_self_ms_per_tick": 0.6499933829611249,
+      "mean_call_ms": 0.2680672938708383,
+      "mean_hot_tick_self_ms": 0.6646776859504132
+    },
+    {
+      "scope": "simulation.spotting",
+      "calls": 2418,
+      "mean_calls_per_tick": 1.0,
+      "mean_inclusive_ms_per_tick": 0.677186517783292,
+      "mean_self_ms_per_tick": 0.5246186931348221,
+      "mean_call_ms": 0.677186517783292,
+      "mean_hot_tick_self_ms": 0.575198347107438
+    },
+    {
+      "scope": "query.cs16.near_edge.ray",
+      "calls": 148543,
+      "mean_calls_per_tick": 61.43217535153019,
+      "mean_inclusive_ms_per_tick": 0.5141294458229942,
+      "mean_self_ms_per_tick": 0.5141294458229942,
+      "mean_call_ms": 0.008369058117851396,
+      "mean_hot_tick_self_ms": 0.5295454545454545
+    },
+    {
+      "scope": "simulation.tick_class_tools",
+      "calls": 2418,
+      "mean_calls_per_tick": 1.0,
+      "mean_inclusive_ms_per_tick": 0.4615856079404467,
+      "mean_self_ms_per_tick": 0.4615856079404467,
+      "mean_call_ms": 0.4615856079404467,
+      "mean_hot_tick_self_ms": 0.649297520661157
+    },
+    {
+      "scope": "movement.step",
+      "calls": 148743,
+      "mean_calls_per_tick": 61.51488833746898,
+      "mean_inclusive_ms_per_tick": 2.4580235732009927,
+      "mean_self_ms_per_tick": 0.42508560794044664,
+      "mean_call_ms": 0.03995818962909179,
+      "mean_hot_tick_self_ms": 0.3900330578512397
+    },
+    {
+      "scope": "simulation.history",
+      "calls": 2418,
+      "mean_calls_per_tick": 1.0,
+      "mean_inclusive_ms_per_tick": 0.41084325889164597,
+      "mean_self_ms_per_tick": 0.41084325889164597,
+      "mean_call_ms": 0.41084325889164597,
+      "mean_hot_tick_self_ms": 0.41768595041322315
+    },
+    {
+      "scope": "callback.total",
+      "calls": 2418,
+      "mean_calls_per_tick": 1.0,
+      "mean_inclusive_ms_per_tick": 46.12844582299421,
+      "mean_self_ms_per_tick": 0.20518238213399503,
+      "mean_call_ms": 46.12844582299421,
+      "mean_hot_tick_self_ms": 0.2613553719008264
+    },
+    {
+      "scope": "simulation.battery_tanks_tick",
+      "calls": 2418,
+      "mean_calls_per_tick": 1.0,
+      "mean_inclusive_ms_per_tick": 3.2020909842845326,
+      "mean_self_ms_per_tick": 0.20044334160463192,
+      "mean_call_ms": 3.2020909842845326,
+      "mean_hot_tick_self_ms": 0.21223140495867768
+    },
+    {
+      "scope": "vehicle.water_contact",
+      "calls": 19344,
+      "mean_calls_per_tick": 8.0,
+      "mean_inclusive_ms_per_tick": 0.1998221670802316,
+      "mean_self_ms_per_tick": 0.1998221670802316,
+      "mean_call_ms": 0.02497777088502895,
+      "mean_hot_tick_self_ms": 0.20717355371900828
+    },
+    {
+      "scope": "vehicle.clearance",
+      "calls": 19344,
+      "mean_calls_per_tick": 8.0,
+      "mean_inclusive_ms_per_tick": 0.2698019023986766,
+      "mean_self_ms_per_tick": 0.19458519437551697,
+      "mean_call_ms": 0.03372523779983457,
+      "mean_hot_tick_self_ms": 0.20514876033057852
+    },
+    {
+      "scope": "query.hit_detection.world_fraction.cast",
+      "calls": 34781,
+      "mean_calls_per_tick": 14.384201819685691,
+      "mean_inclusive_ms_per_tick": 0.18967328370554176,
+      "mean_self_ms_per_tick": 0.18967328370554176,
+      "mean_call_ms": 0.01318622236278428,
+      "mean_hot_tick_self_ms": 2.628776859504132
+    },
+    {
+      "scope": "simulation.variant_combat_vehicle_lock_tick",
+      "calls": 2418,
+      "mean_calls_per_tick": 1.0,
+      "mean_inclusive_ms_per_tick": 0.1854727047146402,
+      "mean_self_ms_per_tick": 0.1854727047146402,
+      "mean_call_ms": 0.1854727047146402,
+      "mean_hot_tick_self_ms": 0.19366942148760333
+    },
+    {
+      "scope": "query.spotting.tick.ray",
+      "calls": 65421,
+      "mean_calls_per_tick": 27.055831265508687,
+      "mean_inclusive_ms_per_tick": 0.1525678246484698,
+      "mean_self_ms_per_tick": 0.1525678246484698,
+      "mean_call_ms": 0.005638999709573379,
+      "mean_hot_tick_self_ms": 0.11123140495867768
+    },
+    {
+      "scope": "movement.posture",
+      "calls": 154453,
+      "mean_calls_per_tick": 63.876344086021504,
+      "mean_inclusive_ms_per_tick": 0.11813151364764268,
+      "mean_self_ms_per_tick": 0.11813151364764268,
+      "mean_call_ms": 0.0018493781279742057,
+      "mean_hot_tick_self_ms": 0.11761983471074379
+    },
+    {
+      "scope": "query.movement.step_landing",
+      "calls": 2262,
+      "mean_calls_per_tick": 0.9354838709677419,
+      "mean_inclusive_ms_per_tick": 0.10317080231596361,
+      "mean_self_ms_per_tick": 0.10317080231596361,
+      "mean_call_ms": 0.11028603006189214,
+      "mean_hot_tick_self_ms": 0.002644628099173554
+    },
+    {
+      "scope": "vehicle.terrain_mobility",
+      "calls": 19344,
+      "mean_calls_per_tick": 8.0,
+      "mean_inclusive_ms_per_tick": 0.09459760132340778,
+      "mean_self_ms_per_tick": 0.09459760132340778,
+      "mean_call_ms": 0.011824700165425972,
+      "mean_hot_tick_self_ms": 0.1040495867768595
+    },
+    {
+      "scope": "query.battery_tank.update_clearance.ray",
+      "calls": 19344,
+      "mean_calls_per_tick": 8.0,
+      "mean_inclusive_ms_per_tick": 0.07521670802315963,
+      "mean_self_ms_per_tick": 0.07521670802315963,
+      "mean_call_ms": 0.009402088502894954,
+      "mean_hot_tick_self_ms": 0.08457851239669421
+    },
+    {
+      "scope": "query.movement.step_ceiling",
+      "calls": 5600,
+      "mean_calls_per_tick": 2.315963606286187,
+      "mean_inclusive_ms_per_tick": 0.07150827129859388,
+      "mean_self_ms_per_tick": 0.07150827129859388,
+      "mean_call_ms": 0.03087625,
+      "mean_hot_tick_self_ms": 0.02456198347107438
+    },
+    {
+      "scope": "query.movement.step_forward",
+      "calls": 5598,
+      "mean_calls_per_tick": 2.315136476426799,
+      "mean_inclusive_ms_per_tick": 0.0678899917287014,
+      "mean_self_ms_per_tick": 0.0678899917287014,
+      "mean_call_ms": 0.029324401571989994,
+      "mean_hot_tick_self_ms": 0.028487603305785123
+    },
+    {
+      "scope": "simulation.grenades_tick",
+      "calls": 2418,
+      "mean_calls_per_tick": 1.0,
+      "mean_inclusive_ms_per_tick": 0.06646443341604633,
+      "mean_self_ms_per_tick": 0.06646443341604633,
+      "mean_call_ms": 0.06646443341604633,
+      "mean_hot_tick_self_ms": 0.07076033057851239
+    },
+    {
+      "scope": "query.hit_detection.world_fraction.shape",
+      "calls": 34785,
+      "mean_calls_per_tick": 14.385856079404466,
+      "mean_inclusive_ms_per_tick": 0.050011993382961126,
+      "mean_self_ms_per_tick": 0.050011993382961126,
+      "mean_call_ms": 0.0034764697427051893,
+      "mean_hot_tick_self_ms": 0.6595371900826447
+    },
+    {
+      "scope": "query.arena._trace.ray",
+      "calls": 32616,
+      "mean_calls_per_tick": 13.488833746898264,
+      "mean_inclusive_ms_per_tick": 0.04082299421009098,
+      "mean_self_ms_per_tick": 0.04082299421009098,
+      "mean_call_ms": 0.003026428746627422,
+      "mean_hot_tick_self_ms": 0.5431818181818181
+    },
+    {
+      "scope": "simulation.variant_combat_vehicle_lock_guide",
+      "calls": 2418,
+      "mean_calls_per_tick": 1.0,
+      "mean_inclusive_ms_per_tick": 0.040041356492969395,
+      "mean_self_ms_per_tick": 0.040041356492969395,
+      "mean_call_ms": 0.040041356492969395,
+      "mean_hot_tick_self_ms": 0.10336363636363637
+    },
+    {
+      "scope": "simulation.airstrike_turrets",
+      "calls": 2418,
+      "mean_calls_per_tick": 1.0,
+      "mean_inclusive_ms_per_tick": 0.03653225806451613,
+      "mean_self_ms_per_tick": 0.03653225806451613,
+      "mean_call_ms": 0.03653225806451613,
+      "mean_hot_tick_self_ms": 0.039008264462809916
+    },
+    {
+      "scope": "simulation.night_vision_tick",
+      "calls": 2418,
+      "mean_calls_per_tick": 1.0,
+      "mean_inclusive_ms_per_tick": 0.016645574855252275,
+      "mean_self_ms_per_tick": 0.016645574855252275,
+      "mean_call_ms": 0.016645574855252275,
+      "mean_hot_tick_self_ms": 0.019173553719008262
+    },
+    {
+      "scope": "simulation.healing_field_tick",
+      "calls": 2418,
+      "mean_calls_per_tick": 1.0,
+      "mean_inclusive_ms_per_tick": 0.005891232423490488,
+      "mean_self_ms_per_tick": 0.005891232423490488,
+      "mean_call_ms": 0.005891232423490488,
+      "mean_hot_tick_self_ms": 0.005991735537190082
+    },
+    {
+      "scope": "simulation.recon_drone_tick",
+      "calls": 2418,
+      "mean_calls_per_tick": 1.0,
+      "mean_inclusive_ms_per_tick": 0.004859387923904053,
+      "mean_self_ms_per_tick": 0.004859387923904053,
+      "mean_call_ms": 0.004859387923904053,
+      "mean_hot_tick_self_ms": 0.0051074380165289255
+    },
+    {
+      "scope": "query.movement.floor_snap",
+      "calls": 86,
+      "mean_calls_per_tick": 0.03556658395368073,
+      "mean_inclusive_ms_per_tick": 0.003449958643507031,
+      "mean_self_ms_per_tick": 0.003449958643507031,
+      "mean_call_ms": 0.097,
+      "mean_hot_tick_self_ms": 0.0006198347107438016
+    },
+    {
+      "scope": "query.class_arena._trace.ray",
+      "calls": 1126,
+      "mean_calls_per_tick": 0.46567411083540117,
+      "mean_inclusive_ms_per_tick": 0.0016985111662531018,
+      "mean_self_ms_per_tick": 0.0016985111662531018,
+      "mean_call_ms": 0.0036474245115452933,
+      "mean_hot_tick_self_ms": 0.024826446280991735
+    },
+    {
+      "scope": "query.fighter.step_up.ray",
+      "calls": 295,
+      "mean_calls_per_tick": 0.12200165425971878,
+      "mean_inclusive_ms_per_tick": 0.0008023159636062862,
+      "mean_self_ms_per_tick": 0.0008023159636062862,
+      "mean_call_ms": 0.006576271186440678,
+      "mean_hot_tick_self_ms": 0.0
+    },
+    {
+      "scope": "query.movement.room_scale",
+      "calls": 6,
+      "mean_calls_per_tick": 0.0024813895781637717,
+      "mean_inclusive_ms_per_tick": 5.293631100082713e-05,
+      "mean_self_ms_per_tick": 5.293631100082713e-05,
+      "mean_call_ms": 0.021333333333333333,
+      "mean_hot_tick_self_ms": 0.0
+    },
+    {
+      "scope": "query.spawn_clearance.clear.shape",
+      "calls": 5,
+      "mean_calls_per_tick": 0.0020678246484698098,
+      "mean_inclusive_ms_per_tick": 2.6881720430107527e-05,
+      "mean_self_ms_per_tick": 2.6881720430107527e-05,
+      "mean_call_ms": 0.013000000000000001,
+      "mean_hot_tick_self_ms": 0.0
+    }
+  ],
+  "queries": [
+    {
+      "scope": "query.movement.slide",
+      "calls": 152515,
+      "mean_calls_per_tick": 63.07485525227461,
+      "mean_inclusive_ms_per_tick": 12.301809760132342,
+      "mean_self_ms_per_tick": 12.301809760132342,
+      "mean_call_ms": 0.19503508507359932,
+      "mean_hot_tick_self_ms": 13.263380165289256
+    },
+    {
+      "scope": "query.vehicle.slide",
+      "calls": 19344,
+      "mean_calls_per_tick": 8.0,
+      "mean_inclusive_ms_per_tick": 2.437425971877585,
+      "mean_self_ms_per_tick": 2.437425971877585,
+      "mean_call_ms": 0.3046782464846981,
+      "mean_hot_tick_self_ms": 2.5381900826446278
+    },
+    {
+      "scope": "query.movement.step_obstacle",
+      "calls": 148743,
+      "mean_calls_per_tick": 61.51488833746898,
+      "mean_inclusive_ms_per_tick": 1.7895665839536805,
+      "mean_self_ms_per_tick": 1.7895665839536805,
+      "mean_call_ms": 0.029091600949288365,
+      "mean_hot_tick_self_ms": 1.8370743801652893
+    },
+    {
+      "scope": "query.movement.room_scale_zero",
+      "calls": 152935,
+      "mean_calls_per_tick": 63.248552522746074,
+      "mean_inclusive_ms_per_tick": 1.159556658395368,
+      "mean_self_ms_per_tick": 1.159556658395368,
+      "mean_call_ms": 0.018333331153758133,
+      "mean_hot_tick_self_ms": 1.15599173553719
+    },
+    {
+      "scope": "query.cs16.near_edge.ray",
+      "calls": 148543,
+      "mean_calls_per_tick": 61.43217535153019,
+      "mean_inclusive_ms_per_tick": 0.5141294458229942,
+      "mean_self_ms_per_tick": 0.5141294458229942,
+      "mean_call_ms": 0.008369058117851396,
+      "mean_hot_tick_self_ms": 0.5295454545454545
+    },
+    {
+      "scope": "query.hit_detection.world_fraction.cast",
+      "calls": 34781,
+      "mean_calls_per_tick": 14.384201819685691,
+      "mean_inclusive_ms_per_tick": 0.18967328370554176,
+      "mean_self_ms_per_tick": 0.18967328370554176,
+      "mean_call_ms": 0.01318622236278428,
+      "mean_hot_tick_self_ms": 2.628776859504132
+    },
+    {
+      "scope": "query.spotting.tick.ray",
+      "calls": 65421,
+      "mean_calls_per_tick": 27.055831265508687,
+      "mean_inclusive_ms_per_tick": 0.1525678246484698,
+      "mean_self_ms_per_tick": 0.1525678246484698,
+      "mean_call_ms": 0.005638999709573379,
+      "mean_hot_tick_self_ms": 0.11123140495867768
+    },
+    {
+      "scope": "query.movement.step_landing",
+      "calls": 2262,
+      "mean_calls_per_tick": 0.9354838709677419,
+      "mean_inclusive_ms_per_tick": 0.10317080231596361,
+      "mean_self_ms_per_tick": 0.10317080231596361,
+      "mean_call_ms": 0.11028603006189214,
+      "mean_hot_tick_self_ms": 0.002644628099173554
+    },
+    {
+      "scope": "query.battery_tank.update_clearance.ray",
+      "calls": 19344,
+      "mean_calls_per_tick": 8.0,
+      "mean_inclusive_ms_per_tick": 0.07521670802315963,
+      "mean_self_ms_per_tick": 0.07521670802315963,
+      "mean_call_ms": 0.009402088502894954,
+      "mean_hot_tick_self_ms": 0.08457851239669421
+    },
+    {
+      "scope": "query.movement.step_ceiling",
+      "calls": 5600,
+      "mean_calls_per_tick": 2.315963606286187,
+      "mean_inclusive_ms_per_tick": 0.07150827129859388,
+      "mean_self_ms_per_tick": 0.07150827129859388,
+      "mean_call_ms": 0.03087625,
+      "mean_hot_tick_self_ms": 0.02456198347107438
+    },
+    {
+      "scope": "query.movement.step_forward",
+      "calls": 5598,
+      "mean_calls_per_tick": 2.315136476426799,
+      "mean_inclusive_ms_per_tick": 0.0678899917287014,
+      "mean_self_ms_per_tick": 0.0678899917287014,
+      "mean_call_ms": 0.029324401571989994,
+      "mean_hot_tick_self_ms": 0.028487603305785123
+    },
+    {
+      "scope": "query.hit_detection.world_fraction.shape",
+      "calls": 34785,
+      "mean_calls_per_tick": 14.385856079404466,
+      "mean_inclusive_ms_per_tick": 0.050011993382961126,
+      "mean_self_ms_per_tick": 0.050011993382961126,
+      "mean_call_ms": 0.0034764697427051893,
+      "mean_hot_tick_self_ms": 0.6595371900826447
+    },
+    {
+      "scope": "query.arena._trace.ray",
+      "calls": 32616,
+      "mean_calls_per_tick": 13.488833746898264,
+      "mean_inclusive_ms_per_tick": 0.04082299421009098,
+      "mean_self_ms_per_tick": 0.04082299421009098,
+      "mean_call_ms": 0.003026428746627422,
+      "mean_hot_tick_self_ms": 0.5431818181818181
+    },
+    {
+      "scope": "query.movement.floor_snap",
+      "calls": 86,
+      "mean_calls_per_tick": 0.03556658395368073,
+      "mean_inclusive_ms_per_tick": 0.003449958643507031,
+      "mean_self_ms_per_tick": 0.003449958643507031,
+      "mean_call_ms": 0.097,
+      "mean_hot_tick_self_ms": 0.0006198347107438016
+    },
+    {
+      "scope": "query.class_arena._trace.ray",
+      "calls": 1126,
+      "mean_calls_per_tick": 0.46567411083540117,
+      "mean_inclusive_ms_per_tick": 0.0016985111662531018,
+      "mean_self_ms_per_tick": 0.0016985111662531018,
+      "mean_call_ms": 0.0036474245115452933,
+      "mean_hot_tick_self_ms": 0.024826446280991735
+    },
+    {
+      "scope": "query.fighter.step_up.ray",
+      "calls": 295,
+      "mean_calls_per_tick": 0.12200165425971878,
+      "mean_inclusive_ms_per_tick": 0.0008023159636062862,
+      "mean_self_ms_per_tick": 0.0008023159636062862,
+      "mean_call_ms": 0.006576271186440678,
+      "mean_hot_tick_self_ms": 0.0
+    },
+    {
+      "scope": "query.movement.room_scale",
+      "calls": 6,
+      "mean_calls_per_tick": 0.0024813895781637717,
+      "mean_inclusive_ms_per_tick": 5.293631100082713e-05,
+      "mean_self_ms_per_tick": 5.293631100082713e-05,
+      "mean_call_ms": 0.021333333333333333,
+      "mean_hot_tick_self_ms": 0.0
+    },
+    {
+      "scope": "query.spawn_clearance.clear.shape",
+      "calls": 5,
+      "mean_calls_per_tick": 0.0020678246484698098,
+      "mean_inclusive_ms_per_tick": 2.6881720430107527e-05,
+      "mean_self_ms_per_tick": 2.6881720430107527e-05,
+      "mean_call_ms": 0.013000000000000001,
+      "mean_hot_tick_self_ms": 0.0
+    }
+  ],
+  "query_total_ms_per_tick": {
+    "mean": 18.95938089330025,
+    "p50": 18.481,
+    "p95": 22.636,
+    "p99": 25.532,
+    "max": 28.878
+  },
+  "query_calls_per_tick": {
+    "mean": 340.7795698924731,
+    "p50": 282,
+    "p95": 661,
+    "p99": 1097,
+    "max": 1204
+  },
+  "mean_query_calls_per_tick": 340.77956989247315,
+  "mean_query_self_ms_per_tick": 18.95938089330025,
+  "mean_hot_tick_query_self_ms": 23.432628099173552,
+  "note": "Query counts are engine API calls, not internal broadphase/narrowphase operations. Self time excludes instrumented children; inclusive categories overlap. Idle inputs carry into the following tick.",
+  "recording_disabled_hz": 20.9560512042954,
+  "enabled_vs_disabled_wall_interval_change_percent": 4.071903357345241,
+  "control_note": "Consecutive shared-VPS runs, enabled first. Difference includes host/workload variation and is not a calibrated profiler overhead measurement. Both use the instrumented source; disabled still has wrapper branches."
+}

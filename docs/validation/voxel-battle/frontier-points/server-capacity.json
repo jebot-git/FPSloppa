@@ -1,0 +1,313 @@
+{
+	"cases": [
+		{
+			"AI": false,
+			"XR": false,
+			"active_projectiles": {
+				"max": 124,
+				"p50": 61,
+				"p95": 108,
+				"p99": 117,
+				"samples": 1800
+			},
+			"aggregate_snapshot_mbps": 48.9493418666667,
+			"engine_physics_ms": {
+				"max": 37.918,
+				"p50": 29.887,
+				"p95": 36.428,
+				"p99": 37.918,
+				"samples": 1800
+			},
+			"per_client_snapshot_mbps": 1.52966693333333,
+			"players": 32,
+			"projectiles_ms": {
+				"max": 8.5,
+				"p50": 2.857,
+				"p95": 5.098,
+				"p99": 6.561,
+				"samples": 1800
+			},
+			"reliable_packets": 455,
+			"rendering": false,
+			"rss_mb": {
+				"max": 674.16796875,
+				"p50": 674.15234375,
+				"p95": 674.1640625,
+				"p99": 674.16796875,
+				"samples": 30
+			},
+			"seconds": 30,
+			"simulation_ms": {
+				"max": 30.655,
+				"p50": 16.705,
+				"p95": 22.748,
+				"p99": 26.66,
+				"samples": 1800
+			},
+			"simulation_without_projectiles_ms": {
+				"max": 25.709,
+				"p50": 14.011,
+				"p95": 18.684,
+				"p99": 21.434,
+				"samples": 1800
+			},
+			"snapshot_build_ms": {
+				"max": 3.529,
+				"p50": 1.779,
+				"p95": 2.417,
+				"p99": 2.68,
+				"samples": 600
+			},
+			"snapshot_encode_ms": {
+				"max": 7.277,
+				"p50": 3.935,
+				"p95": 5.408,
+				"p99": 6.248,
+				"samples": 600
+			},
+			"static_mb": {
+				"max": 412.594697952271,
+				"p50": 412.072885513306,
+				"p95": 412.501470565796,
+				"p99": 412.594697952271,
+				"samples": 30
+			},
+			"tick_rate": 60,
+			"traffic": "20 Hz encoded snapshots; fanout estimate, not live transport",
+			"udp_max_bytes": 1100
+		},
+		{
+			"AI": false,
+			"XR": false,
+			"active_projectiles": {
+				"max": 210,
+				"p50": 103,
+				"p95": 185,
+				"p99": 200,
+				"samples": 1800
+			},
+			"aggregate_snapshot_mbps": 164.078267733333,
+			"engine_physics_ms": {
+				"max": 81.822,
+				"p50": 48.975,
+				"p95": 68.927,
+				"p99": 81.822,
+				"samples": 1800
+			},
+			"per_client_snapshot_mbps": 2.56372293333333,
+			"players": 64,
+			"projectiles_ms": {
+				"max": 15.43,
+				"p50": 4.803,
+				"p95": 8.415,
+				"p99": 10.279,
+				"samples": 1800
+			},
+			"reliable_packets": 541,
+			"rendering": false,
+			"rss_mb": {
+				"max": 674.91015625,
+				"p50": 674.91015625,
+				"p95": 674.91015625,
+				"p99": 674.91015625,
+				"samples": 30
+			},
+			"seconds": 30,
+			"simulation_ms": {
+				"max": 64.5,
+				"p50": 28.586,
+				"p95": 40.883,
+				"p99": 47.22,
+				"samples": 1800
+			},
+			"simulation_without_projectiles_ms": {
+				"max": 50.027,
+				"p50": 23.643,
+				"p95": 34.293,
+				"p99": 40.248,
+				"samples": 1800
+			},
+			"snapshot_build_ms": {
+				"max": 8.264,
+				"p50": 3.131,
+				"p95": 4.161,
+				"p99": 4.728,
+				"samples": 600
+			},
+			"snapshot_encode_ms": {
+				"max": 12.794,
+				"p50": 6.981,
+				"p95": 9.092,
+				"p99": 10.999,
+				"samples": 600
+			},
+			"static_mb": {
+				"max": 418.023626327515,
+				"p50": 417.312193870544,
+				"p95": 417.867402076721,
+				"p99": 418.023626327515,
+				"samples": 30
+			},
+			"tick_rate": 60,
+			"traffic": "20 Hz encoded snapshots; fanout estimate, not live transport",
+			"udp_max_bytes": 1100
+		},
+		{
+			"AI": false,
+			"XR": false,
+			"active_projectiles": {
+				"max": 103,
+				"p50": 49,
+				"p95": 85,
+				"p99": 93,
+				"samples": 900
+			},
+			"aggregate_snapshot_mbps": 41.6501674666667,
+			"engine_physics_ms": {
+				"max": 34.191,
+				"p50": 28.399,
+				"p95": 32.783,
+				"p99": 34.191,
+				"samples": 900
+			},
+			"per_client_snapshot_mbps": 1.30156773333333,
+			"players": 32,
+			"projectiles_ms": {
+				"max": 6.523,
+				"p50": 2.295,
+				"p95": 4.476,
+				"p99": 5.282,
+				"samples": 900
+			},
+			"reliable_packets": 406,
+			"rendering": false,
+			"rss_mb": {
+				"max": 674.91015625,
+				"p50": 674.91015625,
+				"p95": 674.91015625,
+				"p99": 674.91015625,
+				"samples": 15
+			},
+			"seconds": 30,
+			"simulation_ms": {
+				"max": 26.199,
+				"p50": 15.594,
+				"p95": 21.646,
+				"p99": 23.421,
+				"samples": 900
+			},
+			"simulation_without_projectiles_ms": {
+				"max": 21.544,
+				"p50": 13.602,
+				"p95": 17.868,
+				"p99": 19.708,
+				"samples": 900
+			},
+			"snapshot_build_ms": {
+				"max": 3.669,
+				"p50": 1.502,
+				"p95": 1.89,
+				"p99": 2.195,
+				"samples": 600
+			},
+			"snapshot_encode_ms": {
+				"max": 6.527,
+				"p50": 3.29,
+				"p95": 4.275,
+				"p99": 4.957,
+				"samples": 600
+			},
+			"static_mb": {
+				"max": 413.933394432068,
+				"p50": 413.795712471008,
+				"p95": 413.933394432068,
+				"p99": 413.933394432068,
+				"samples": 15
+			},
+			"tick_rate": 30,
+			"traffic": "20 Hz encoded snapshots; fanout estimate, not live transport",
+			"udp_max_bytes": 1100
+		},
+		{
+			"AI": false,
+			"XR": false,
+			"active_projectiles": {
+				"max": 231,
+				"p50": 119,
+				"p95": 198,
+				"p99": 218,
+				"samples": 900
+			},
+			"aggregate_snapshot_mbps": 174.4308224,
+			"engine_physics_ms": {
+				"max": 57.873,
+				"p50": 50.389,
+				"p95": 57.044,
+				"p99": 57.873,
+				"samples": 900
+			},
+			"per_client_snapshot_mbps": 2.7254816,
+			"players": 64,
+			"projectiles_ms": {
+				"max": 11.57,
+				"p50": 5.216,
+				"p95": 9.246,
+				"p99": 10.184,
+				"samples": 900
+			},
+			"reliable_packets": 535,
+			"rendering": false,
+			"rss_mb": {
+				"max": 675.00390625,
+				"p50": 674.94921875,
+				"p95": 675.00390625,
+				"p99": 675.00390625,
+				"samples": 15
+			},
+			"seconds": 30,
+			"simulation_ms": {
+				"max": 47.627,
+				"p50": 28.924,
+				"p95": 39.612,
+				"p99": 44.659,
+				"samples": 900
+			},
+			"simulation_without_projectiles_ms": {
+				"max": 37.889,
+				"p50": 23.786,
+				"p95": 31.587,
+				"p99": 35.64,
+				"samples": 900
+			},
+			"snapshot_build_ms": {
+				"max": 4.066,
+				"p50": 2.624,
+				"p95": 3.144,
+				"p99": 3.423,
+				"samples": 600
+			},
+			"snapshot_encode_ms": {
+				"max": 9.317,
+				"p50": 6.047,
+				"p95": 7.15,
+				"p99": 8.104,
+				"samples": 600
+			},
+			"static_mb": {
+				"max": 417.944834709167,
+				"p50": 417.635016441345,
+				"p95": 417.944834709167,
+				"p99": 417.944834709167,
+				"samples": 15
+			},
+			"tick_rate": 30,
+			"traffic": "20 Hz encoded snapshots; fanout estimate, not live transport",
+			"udp_max_bytes": 1100
+		}
+	],
+	"environment_colliders": 90928,
+	"host": "Intel i7-12700, Fedora, Godot 4.7.2; not target VPS",
+	"startup_seconds": 7.96041,
+	"target": "12 vCPU / 24 GB / 1 Gbps VPS",
+	"terrain_side": 1425
+}

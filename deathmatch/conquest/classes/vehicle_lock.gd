@@ -1,4 +1,5 @@
 extends RefCounted
+const Attribution=preload("res://deathmatch/server/attribution.gd")
 ## Stinger-style acquisition: a fresh weapon aim, enemy hull, clear LOS and continuous dwell.
 const RANGE:=200.0
 const DWELL:=1.5
@@ -14,7 +15,7 @@ func targets(game) -> Dictionary:
 		if row.pilot!=0 and game.players.has(row.pilot) and not game.players[row.pilot].dead:result["w:"+str(key)]={"position":row.position+Vector3.UP*3.0,"team":row.team,"node":walkers.bodies.get(key)}
 	return result
 func clear_line(game,origin:Vector3,target:Dictionary) -> bool:
-	var hit:Dictionary=game.get_world_3d().direct_space_state.intersect_ray(PhysicsRayQueryParameters3D.create(origin,target.position,1))
+	var hit:Dictionary=Attribution.ray(game.get_world_3d().direct_space_state,PhysicsRayQueryParameters3D.create(origin,target.position,1),"query.vehicle_lock.clear_line.ray")
 	if hit.is_empty():return true
 	var node=target.node
 	return is_instance_valid(node) and (node.owns_collider(hit.collider) if node.has_method("owns_collider") else hit.collider==node)

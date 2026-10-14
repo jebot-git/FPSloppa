@@ -1,39 +1,56 @@
 extends "res://tools/voxel_battle/arena.gd"
 ## Standalone playable class prototype; historical rendering benchmarks keep their own arena.
+var battery_tanks=preload("res://deathmatch/conquest/classes/battery_tank.gd").new()
+var grass_audio
+var turrets=preload("res://deathmatch/conquest/classes/turrets.gd").new()
+var healing_field=preload("res://deathmatch/conquest/classes/healing_field.gd").new()
+var airstrike=preload("res://deathmatch/conquest/classes/airstrike.gd").new()
+var recon_drone=preload("res://deathmatch/conquest/classes/recon_drone.gd").new()
+var night_vision=preload("res://deathmatch/conquest/classes/night_vision.gd").new()
+var loadout_menu
+var revival_timers=preload("res://deathmatch/conquest/classes/revival_timers.gd").new()
 var spotting=preload("res://deathmatch/conquest/classes/spotting.gd").new()
 var classes=preload("res://deathmatch/conquest/classes/rules.gd").new()
 func _ready() -> void:
-	classes.setup(self);grenade_adapter.setup(self);grenades.setup(grenade_adapter)
+	var startup:=OS.get_cmdline_user_args()
+	if startup.has("--cq-worker") or startup.has("--cluster-worker") or startup.has("--cq-external-workers"):
+		set_process(false);set_physics_process(false)
+		push_error("Unified jungle CQ runs one authority; district worker arguments are unsupported.");get_tree().quit(2);return
+	add_child(recon_drone);recon_drone.setup(self)
+	add_child(airstrike);airstrike.setup(self)
+	add_child(healing_field);healing_field.setup(self)
+	add_child(turrets);turrets.setup(self)
+	add_child(battery_tanks);battery_tanks.setup(self)
+	night_vision.setup(self);classes.setup(self);grenade_adapter.setup(self);grenades.setup(grenade_adapter)
 	match_mode=preload("res://deathmatch/conquest/classes/match.gd").new()
 	variant_combat=preload("res://deathmatch/conquest/classes/combat.gd").new()
 	armory=preload("res://deathmatch/conquest/classes/armory.gd").new()
 	map_catalog=[{"id":"voxel_jungle","title":"Jungle Frontier","modes":["tdm"],"sha256":map_identity(),"size":0,"path":"res://tools/voxel_battle/map.gd","source_name":"cq-frontier-procedural-v2"}]
 	selected_map="voxel_jungle"
 	super._ready()
+	if not headless:
+		var visor=preload("res://deathmatch/conquest/classes/night_vision_view.gd").new();add_child(visor);visor.setup(self)
+		grass_audio=preload("res://tools/voxel_battle/grass_audio.gd").new();add_child(grass_audio);grass_audio.setup(self)
 	if hud:
 		hud.host_mode.configure([{"id":"tdm","title":"CQ · CLASS PROTOTYPE"}],"MODE");hud.host_mode.choose("tdm")
 		hud.menu_pages.titles.home="CQ"
 		hud.menu_pages.navigate("home")
-		var page=hud.menu_pages.pages.get("player")
-		if page:
-			for role in classes.CLASSES:hud.button(page,"CQ CLASS: "+role.to_upper(),func():request_class(role))
-			for role in classes.CLASSES:
-				for secondary in [false,true]:
-					for row in (classes.progression.secondaries if secondary else classes.progression.tracks)[role]:
-						var weapon:int=row.weapon
-						var button:Button=hud.button(page,armory.data(weapon).name,func():request_equipment(role,weapon,secondary))
-						equipment_buttons.append({"button":button,"role":role,"weapon":weapon,"secondary":secondary,"xp":row.xp})
+		loadout_menu=preload("res://deathmatch/conquest/classes/loadout_menu.gd").new();add_child(loadout_menu);loadout_menu.setup(self,hud)
 func start_host(player_name:String,port:int,frags:int,minutes:int,training:bool,mode:String="tdm",weapon_rules:String="ut99") -> void:
 	super.start_host(player_name,port,frags,minutes,training,mode,weapon_rules)
 	votes.allowed_modes=["tdm"]
 func maps_for_mode(_mode:String) -> Array:return ["voxel_jungle"]
 func host_player_limit() -> int:return 32
 func practice_bots_count() -> int:return 0
-func network_player_limit() -> int:return 32
+func network_player_limit() -> int:return preload("res://deathmatch/server/config.gd").FRONTIER_MAX_CLIENTS
+
+func capacity_policy() -> Dictionary:return preload("res://deathmatch/server/config.gd").frontier_capacity(max_clients)
 func _spawn(id:int) -> void:
-	spotting.spotted.erase(id)
+	battery_tanks.leave(id,true)
+	spotting.spotted.erase(id);recon_drone.marks.erase(id);recon_drone.alerts.erase(id)
+	airstrike.cancel(id)
 	classes.spawn(id)
-	grenades.cancel(id);grenades.state(id).counts=[1 if classes.role(id)=="shocktroop" else 0,0,0];grenades.state(id).shoulder=0 if classes.role(id)=="shocktroop" else -1
+	grenades.cancel(id);grenades.state(id).counts=[1 if classes.grenade_kind(id)==0 else 0,0,0,3 if classes.healing_grenades(id) else 0];grenades.state(id).shoulder=classes.grenade_kind(id)
 	players[id].cq_class=classes.role(id);players[id].cq_id=id
 	super._spawn(id)
 	fighters[id].jetpack_attach_raise=.10
@@ -62,39 +79,68 @@ func _accept_input(id:int,command:Dictionary) -> void:
 		var s:Dictionary=players[id];s.move=Vector2.ZERO;s.room=Vector3.ZERO;s.fire=false;s.alt_fire=false;s.offhand_fire=false;s.jump=false;s.swim=Vector3.ZERO;s.melee=false;s.fire_pending=[];s.jump_pending=false;s.xr={}
 func _use_for(id:int) -> void:
 	if not players.has(id) or player_incapacitated(id) or players[id].dead or lobby.active() or intermission>0:return
-	if classes.role(id)=="scout":classes.cloak(id);return
+	if battery_tanks.use(id):return
+	if battery_tanks.mounted(id):return
+	if classes.role(id)=="scout":
+		if classes.ensure(id).get("equipped_utility","recon")=="recon_drone":recon_drone.activate(id)
+		else:classes.cloak(id)
+		return
 	if classes.role(id) in ["medic","technician"] and players[id].weapon==6:deploy_class_box(id);return
 	super._use_for(id)
 func defer_lethal(victim:int,attacker:int,weapon:String,gibbed:bool,headshot:bool,bypass:bool) -> bool:
-	if weapon=="BLEEDOUT":return false
+	if weapon=="BATTERY RUNOVER":return classes.incapacitate(victim,attacker,weapon,false,false,false)
+	if weapon in ["BLEEDOUT","VEHICLE DESTROYED","VEHICLE DROWNED"]:return false
 	if classes.downed.has(victim) and not gibbed and not headshot:players[victim].hp=1;return true
 	return classes.incapacitate(victim,attacker,weapon,gibbed,headshot,false)
 func _server_tick(delta:float) -> void:
 	if active and not lobby.active() and intermission<=0:
+		var service_scope_1:=Attribution.begin("simulation.battery_tanks_tick")
+		battery_tanks.tick(delta)
+		Attribution.end(service_scope_1)
+		var service_scope_2:=Attribution.begin("simulation.tick_class_tools")
 		tick_class_tools(delta)
+		Attribution.end(service_scope_2)
+		var service_scope_3:=Attribution.begin("simulation.grenades_tick")
 		grenades.tick(delta)
+		Attribution.end(service_scope_3)
+		var service_scope_4:=Attribution.begin("simulation.healing_field_tick")
+		healing_field.tick(delta)
+		Attribution.end(service_scope_4)
+		var service_scope_5:=Attribution.begin("simulation.night_vision_tick")
+		night_vision.tick()
+		Attribution.end(service_scope_5)
+		var service_scope_6:=Attribution.begin("simulation.recon_drone_tick")
+		recon_drone.tick()
+		Attribution.end(service_scope_6)
 		spotting.tick(self)
+		var service_scope_7:=Attribution.begin("simulation.variant_combat_vehicle_lock_tick")
 		variant_combat.vehicle_lock.tick(self,delta)
+		Attribution.end(service_scope_7)
+		var service_scope_8:=Attribution.begin("simulation.variant_combat_vehicle_lock_guide")
 		variant_combat.vehicle_lock.guide(self,delta)
+		Attribution.end(service_scope_8)
 		for medic in players:
-			if not classes.alive(medic) or classes.role(medic)!="medic":continue
+			if battery_tanks.mounted(medic) or not classes.alive(medic) or classes.role(medic)!="medic":continue
 			var s:Dictionary=players[medic]
 			if s.weapon!=7 or not s.fire or clock-s.last_input>.35 or s.get("input_blocked",false):continue
 			var tip:Vector3=_weapon_transform(medic)*Vector3(0,0,-.12)
 			for victim in classes.downed.keys():
 				var chest:Vector3=fighters[victim].position+Vector3.UP*.35
 				if tip.distance_to(chest)>.25:continue
-				if not get_world_3d().direct_space_state.intersect_ray(PhysicsRayQueryParameters3D.create(tip,chest,1)).is_empty():continue
+				if not Attribution.ray(get_world_3d().direct_space_state,PhysicsRayQueryParameters3D.create(tip,chest,1),"query.class_arena._server_tick.ray").is_empty():continue
 				classes.injection(medic,victim,delta);break
 		for row in classes.tick(delta):
 			players[row.id].armor=0;_damage(row.id,row.attacker,1,"BLEEDOUT",true)
 	super._server_tick(delta)
+	if active and not lobby.active() and intermission<=0:
+		var tools_scope:=Attribution.begin("simulation.airstrike_turrets")
+		airstrike.tick();turrets.tick();Attribution.end(tools_scope)
 func _end_round() -> void:
 	if intermission<=0:classes.round_awards(-1 if match_mode.scores[0]==match_mode.scores[1] else 0 if match_mode.scores[0]>match_mode.scores[1] else 1)
 	super._end_round()
 func draw_class_players() -> void:
 	if headless:return
-	draw_class_tools();grenades.draw()
+	draw_class_tools();grenades.draw();revival_timers.draw(self)
 	var mine:int=multiplayer.get_unique_id()
 	for id in fighters:
 		var reload_view:Dictionary=variant_combat.magazines.states.get(id,{}).get("physical",{}).get(players[id].weapon,{})
@@ -136,58 +182,77 @@ func _cq_class(role:String) -> void:
 	if multiplayer.is_server():classes.choose(multiplayer.get_remote_sender_id(),role)
 var designations:Dictionary={}
 var class_visuals:Dictionary={}
+var supply_budgets:Dictionary={}
 var beam_mesh:MeshInstance3D
 var arc_mesh:MeshInstance3D
 var helper_next:=0.0
 var helper_points:=PackedVector3Array()
 func _local_command() -> Dictionary:
 	var command:=super._local_command()
+	night_vision.local_input(command)
 	command.reload=bindings.vr_pressed(xr_rig,"reload") if is_vr() else bindings.pressed("reload")
 	command.reload_grip=bindings.vr_pressed(xr_rig,"support") if is_vr() else false
 	command.cq_drag=command.reload_grip if is_vr() else bindings.pressed("use")
+	if battery_tanks.mounted(multiplayer.get_unique_id()):
+		if is_vr():
+			var stick:Vector2=bindings.axis(xr_rig,"move") if not command.input_blocked else Vector2.ZERO
+			command.move=Vector2(stick.x,-stick.y).limit_length(1) if stick.length()>=.18 else Vector2.ZERO
+			command.fire=bindings.vr_pressed(xr_rig,"fire") and not command.input_blocked and not xr_rig.wheel_open()
+		command.reload=false;command.reload_grip=false;command.cq_drag=false;command.physical=false;command.melee=false;command.offhand_fire=false;command.alt_fire=false;command.jump=false;command.room=Vector3.ZERO
+
 	return command
 func deploy_class_box(id:int) -> bool:
+	if battery_tanks.mounted(id):return false
+	if turrets.equipped(id):return turrets.deploy(id)
 	if not classes.alive(id):return false
 	var pose:=_weapon_transform(id)
 	var start:Vector3=fighters[id].position+Vector3.UP*.6
 	var at:Vector3=pose.origin-pose.basis.z*1.0
-	if not get_world_3d().direct_space_state.intersect_ray(PhysicsRayQueryParameters3D.create(start,at,1)).is_empty():return false
-	var hit:=get_world_3d().direct_space_state.intersect_ray(PhysicsRayQueryParameters3D.create(at+Vector3.UP*.4,at-Vector3.UP*2,1))
+	if not Attribution.ray(get_world_3d().direct_space_state,PhysicsRayQueryParameters3D.create(start,at,1),"query.class_arena.deploy_class_box.ray").is_empty():return false
+	var hit:=Attribution.ray(get_world_3d().direct_space_state,PhysicsRayQueryParameters3D.create(at+Vector3.UP*.4,at-Vector3.UP*2,1),"query.class_arena.deploy_class_box.ray")
 	if hit.is_empty() or hit.normal.dot(Vector3.UP)<.7 or hit.position.distance_to(start)>2.5:return false
 	return classes.deploy(id,hit.position+Vector3.UP*.005)
 func designate(id:int) -> void:
-	if classes.role(id)!="scout" or not classes.alive(id):return
+	if battery_tanks.mounted(id):return
+	if not airstrike.targeting(id) or (classes.role(id)!="scout" and not airstrike.equipped(id)):airstrike.cancel(id);return
 	var s:Dictionary=players[id]
 	if s.cooldown>0:return
 	s.cooldown=.1
 	var solution:Dictionary=_shot_solution(id)
-	if solution.blocked:designations.erase(id);return
-	var start:Vector3=solution.origin;var hit:Dictionary=_trace(start,start-_weapon_transform(id).basis.z*200,id,_shot_rewind(id))
-	if not hit.hit:designations.erase(id);return
+	if solution.blocked:airstrike.cancel(id);return
+	var direction:Vector3=-_weapon_transform(id).basis.z
+	var start:Vector3=solution.origin;var hit:Dictionary=_trace(start,start+direction*200,id,_shot_rewind(id))
+	if not hit.hit:airstrike.cancel(id);return
 	designations[id]={"team":s.team,"start":start,"position":hit.position,"target":hit.id,"until":clock+.45,"life":s.serial}
+	if airstrike.equipped(id):airstrike.designate(id,hit,direction);return
 	if hit.id!=0 and not match_mode.same_team(id,hit.id) and clock>=float(classes.states[id].get("designation_xp_at",0)):
 		classes.award(id,10);classes.states[id].designation_xp_at=clock+5
 func tick_class_tools(delta:float) -> void:
-	for key in class_visuals:
-		if str(key).begins_with("box") and not classes.dispensers.has(str(key).trim_prefix("box").to_int()):class_visuals[key].visible=false
-	for key in classes.dispensers:
+	var contacts:Dictionary={}
+	for key in classes.dispensers.keys():
 		var box:Dictionary=classes.dispensers[key]
-		box.credit+=delta*20.0;var amount:=int(box.credit);box.credit-=amount
-		if amount<=0 or box.remaining<=0:continue
+		if box.remaining<=0:continue
 		for id in players:
 			if not classes.alive(id) or players[id].team!=box.team:continue
 			var chest:Vector3=fighters[id].position+Vector3.UP*.9
-			if chest.distance_to(box.position)>4:continue
-			if get_world_3d().direct_space_state.intersect_ray(PhysicsRayQueryParameters3D.create(box.position+Vector3.UP*.15,chest,1)).is_empty():classes.transfer(key,id,amount)
+			if chest.distance_to(box.position)>4 or not classes.needs_supply(key,id):continue
+			if not Attribution.ray(get_world_3d().direct_space_state,PhysicsRayQueryParameters3D.create(box.position+Vector3.UP*.15,chest,1),"query.class_arena.tick_class_tools.ray").is_empty():continue
+			var contact:=Vector2i(key,id);contacts[contact]=true
+			# Weighted items are atomic: retain contact credit until a full pack fits.
+			supply_budgets[contact]=minf(300,float(supply_budgets.get(contact,0.0))+delta*20)
+			var spent:int=classes.transfer(key,id,int(supply_budgets[contact]))
+			supply_budgets[contact]-=spent
+	for contact in supply_budgets.keys():
+		if not contacts.has(contact):supply_budgets.erase(contact)
 	for technician in players:
 		var state:Dictionary=players[technician]
-		if not classes.alive(technician) or classes.role(technician)!="technician" or state.weapon!=7 or not state.fire or state.get("input_blocked",false) or clock-state.last_input>.35:continue
+		if battery_tanks.mounted(technician) or not classes.alive(technician) or classes.role(technician)!="technician" or state.weapon!=7 or not state.fire or state.get("input_blocked",false) or clock-state.last_input>.35:continue
 		state.cq_repair_credit=float(state.get("cq_repair_credit",0))+delta*30
 		var amount:int=int(state.cq_repair_credit);state.cq_repair_credit-=amount
 		if amount<=0:continue
 		var tip:Vector3=_weapon_transform(technician)*Vector3(0,0,-.15)
 		for vehicle in get_tree().get_nodes_in_group("cq_repairable_vehicles"):
-			var hit:Dictionary=get_world_3d().direct_space_state.intersect_ray(PhysicsRayQueryParameters3D.create(tip,vehicle.global_position,1))
+			var hit:Dictionary=Attribution.ray(get_world_3d().direct_space_state,PhysicsRayQueryParameters3D.create(tip,vehicle.global_position,1),"query.class_arena.tick_class_tools.ray")
 			if not hit.is_empty() and not vehicle.owns_collider(hit.collider):continue
 			if tip.distance_to(hit.get("position",vehicle.global_position))>1.5:continue
 			var restored:int=vehicle.repair(state.team,amount)
@@ -195,7 +260,7 @@ func tick_class_tools(delta:float) -> void:
 			var xp:int=int(state.cq_repair_xp/10);state.cq_repair_xp-=xp*10;classes.award(technician,xp)
 			break
 	for medic in players:
-		if not classes.alive(medic) or classes.role(medic)!="medic" or not players[medic].get("cq_drag",false) or clock-players[medic].last_input>.35:continue
+		if battery_tanks.mounted(medic) or not classes.alive(medic) or classes.role(medic)!="medic" or not players[medic].get("cq_drag",false) or clock-players[medic].last_input>.35:continue
 		var s:Dictionary=players[medic];var pose:Transform3D=Transform3D(Basis(Vector3.UP,s.yaw),fighters[medic].position)
 		var hand:Vector3=pose*(s.xr.right.origin if s.xr.left_handed else s.xr.left.origin) if not s.xr.is_empty() else pose*Vector3(0,.4,-.6)
 		for victim in classes.downed:
@@ -221,6 +286,8 @@ func line_visual(points:PackedVector3Array,color:Color,existing:MeshInstance3D) 
 	if not is_instance_valid(node):
 		node=MeshInstance3D.new();$Map.add_child(node);node.cast_shadow=GeometryInstance3D.SHADOW_CASTING_SETTING_OFF;node.mesh=ImmediateMesh.new()
 		var material:=StandardMaterial3D.new();material.shading_mode=BaseMaterial3D.SHADING_MODE_UNSHADED;material.albedo_color=color;material.transparency=BaseMaterial3D.TRANSPARENCY_ALPHA;node.material_override=material
+	# The same mesh is reused when the wearer toggles NVG.
+	node.material_override.albedo_color=color
 	var mesh:ImmediateMesh=node.mesh;mesh.clear_surfaces()
 	if not points.is_empty():
 		mesh.surface_begin(Mesh.PRIMITIVE_LINES)
@@ -231,26 +298,29 @@ func draw_class_tools() -> void:
 	if headless:return
 	var mine:int=multiplayer.get_unique_id()
 	var eye:Vector3=xr_rig.head.global_position if is_vr() else camera.global_position if camera else Vector3.ZERO
+	var nvg:bool=night_vision.enabled_for(mine)
 	var ally:=PackedVector3Array();var enemy:=PackedVector3Array()
 	for row in designations.values():
 		if row.until<clock:continue
 		if players.get(mine,{}).get("team",-1)==row.team:ally.append_array(PackedVector3Array([row.start,row.position]))
-		else:enemy.append_array(preload("res://deathmatch/conquest/classes/beam.gd").clipped(row.start,row.position,eye))
-	beam_mesh=line_visual(ally,Color(1,.15,.1,.85),beam_mesh)
+		else:enemy.append_array(preload("res://deathmatch/conquest/classes/beam.gd").visible_segment(row.start,row.position,eye,nvg))
+	beam_mesh=line_visual(ally,Color(1,.15,.1,1.0 if nvg else .85),beam_mesh)
 	var faded:MeshInstance3D=class_visuals.get("enemy_beam")
-	class_visuals.enemy_beam=line_visual(enemy,Color(1,.15,.1,.12),faded)
-	for key in class_visuals:
-		if str(key).begins_with("box") and not classes.dispensers.has(str(key).trim_prefix("box").to_int()):class_visuals[key].visible=false
+	class_visuals.enemy_beam=line_visual(enemy,Color(1,.15,.1,1.0 if nvg else .12),faded)
+	for key in class_visuals.keys():
+		if str(key).begins_with("box") and not classes.dispensers.has(str(key).trim_prefix("box").to_int()):
+			if is_instance_valid(class_visuals[key]):class_visuals[key].queue_free()
+			class_visuals.erase(key)
 	for key in classes.dispensers:
 		var box:Dictionary=classes.dispensers[key];var name:="box"+str(key)
 		if not class_visuals.has(name):
-			var model:Node3D=load("res://deathmatch/weapons/cq/"+("health_box" if box.kind=="health" else "ammo_box")+".glb").instantiate();$Map.add_child(model);class_visuals[name]=model
+			var model:Node3D=load("res://deathmatch/weapons/cq/"+("health_box" if box.kind=="health" else "ammo_box")+".glb").instantiate();$Map.add_child(model);preload("res://tools/voxel_battle/baked_lighting.gd").convert_node(model);class_visuals[name]=model
 		class_visuals[name].position=box.position;class_visuals[name].visible=box.remaining>0
 	if clock<helper_next:
 		arc_mesh=line_visual(helper_points,Color(.4,1,.8,.6),arc_mesh);return
 	helper_next=clock+.1
 	var points:=PackedVector3Array()
-	if classes.role(mine)=="technician" and players.get(mine,{}).get("weapon",-1)==5 and classes.alive(mine):
+	if classes.role(mine)=="technician" and not battery_tanks.mounted(mine) and players.get(mine,{}).get("weapon",-1)==5 and classes.alive(mine):
 		var shot:Dictionary=_shot_solution(mine)
 		for row in designations.values():
 			if row.until<clock or row.team!=players[mine].team:continue
@@ -271,14 +341,21 @@ var grenade_adapter=preload("res://deathmatch/conquest/classes/grenade_adapter.g
 var grenades=preload("res://deathmatch/conquest/classes/grenades.gd").new()
 var throw_sequence:Dictionary={}
 func _unhandled_input(event:InputEvent) -> void:
+	if event is InputEventKey and event.pressed and not event.echo and event.physical_keycode==KEY_N and active and not menu_open and not is_vr():
+		night_vision.request();return
 	if event is InputEventKey and event.pressed and not event.echo and event.physical_keycode==KEY_G and active and not menu_open:
+		if airstrike.equipped(multiplayer.get_unique_id()):desired_weapon=8
 		if multiplayer.is_server():equip_he(multiplayer.get_unique_id())
 		else:_cq_he_equip.rpc_id(1)
 		return
 	super._unhandled_input(event)
 func equip_he(id:int) -> void:
-	if not classes.alive(id) or classes.role(id)!="shocktroop":return
-	grenades.equip_hand(id,-1 if grenades.selected(id)>=0 else 0)
+	if not classes.alive(id) or (not classes.has_grenade(id) and not airstrike.equipped(id)):return
+	if airstrike.equipped(id):
+		players[id].weapon=8;players[id].cooldown=maxf(players[id].cooldown,.28)
+		if id==multiplayer.get_unique_id():desired_weapon=8
+		return
+	grenades.equip_hand(id,-1 if grenades.selected(id)>=0 else classes.grenade_kind(id))
 @rpc("any_peer","call_remote","reliable",0)
 func _cq_he_equip() -> void:
 	if multiplayer.is_server():equip_he(multiplayer.get_remote_sender_id())
@@ -289,7 +366,7 @@ func class_throw(action:String,pose:Dictionary,_velocity:Vector3,seq:int) -> voi
 func _cq_throw(action:String,pose:Dictionary,seq:int) -> void:
 	if multiplayer.is_server():accept_class_throw(multiplayer.get_remote_sender_id(),action,pose,seq)
 func accept_class_throw(id:int,action:String,pose:Dictionary,seq:int) -> void:
-	if not classes.alive(id) or classes.role(id)!="shocktroop" or seq<=throw_sequence.get(id,-1) or action not in ["arm","throw","cancel"]:return
+	if not classes.alive(id) or not classes.has_grenade(id) or seq<=throw_sequence.get(id,-1) or action not in ["arm","throw","cancel"]:return
 	throw_sequence[id]=seq
 	var checked:Dictionary=VRPoses.validate(pose);var current:Dictionary=players[id].xr
 	if checked.is_empty() or current.is_empty() or checked.left_handed!=current.left_handed:return
@@ -298,6 +375,7 @@ func accept_class_throw(id:int,action:String,pose:Dictionary,seq:int) -> void:
 	grenades.physical_request(id,action,checked,players[id].get("cq_throw_velocity",Vector3.ZERO))
 @rpc("authority","call_local","reliable",1)
 func _de_grenade_fx(position:Vector3,_kind:int) -> void:
+	night_vision.flash(position,40,2.3 if _kind==0 else 3.5)
 	if effects:effects.play("explosion",position,-3)
 func _weapon_visuals():
 	if not is_instance_valid(variant_visuals):
@@ -312,6 +390,7 @@ func shot_emission(id:int,weapon:int) -> Dictionary:
 	if weapon==9:recipe.radius=.4;recipe.energy=.12
 	return recipe
 func _play_variant_shot_fx(id:int,weapon:int,alternate:bool) -> void:
+	if weapon not in [6,7,8] and players.has(id):night_vision.flash(_weapon_transform(id)*preload("res://deathmatch/conquest/classes/models.gd").muzzle(weapon,"cq_"+classes.role(id)),18,.12 if weapon==9 else .65)
 	_play_shot_fx(id,weapon,false,alternate)
 	if headless:return
 	if id==multiplayer.get_unique_id():visual_cooldown=armory.data(weapon,alternate).cycle
@@ -324,58 +403,67 @@ func _play_variant_shot_fx(id:int,weapon:int,alternate:bool) -> void:
 		var sound:=AudioStreamPlayer3D.new();sound.stream=load("res://deathmatch/audio/cq_weapons/"+("pistol_suppressed" if weapon==9 else "pistol")+".wav");sound.bus="ArenaEffects";sound.volume_db=-12 if weapon==9 else -4;sound.max_distance=18 if weapon==9 else 90;add_child(sound);sound.position=_weapon_transform(id).origin;sound.finished.connect(sound.queue_free);sound.play()
 	elif weapon in [0,1,4,10]:spatial.play("ut99_weapon_7",_weapon_transform(id).origin,-5)
 	elif weapon in [5,11]:spatial.play("weapon_8",_weapon_transform(id).origin,-6)
-const CLASS_PROTOCOL:="fpsloppa-cq-frontier-3-pack-launchers"
+const CLASS_PROTOCOL:="fpsloppa-cq-frontier-16-poi-points-cs-only1"
 func connection_protocol() -> String:return CLASS_PROTOCOL
 func _collect(_id:int) -> void:pass # CQ resupplies through its class dispensers.
 func on_player_died(id:int) -> void:
+	battery_tanks.leave(id,true)
+	airstrike.cancel(id)
 	classes.downed.erase(id);classes.injecting.erase(id);classes.weapon_used(id)
 	grenades.on_death(id);variant_combat.cancel_player(id)
 
 static func map_identity() -> String:
 	var digest:=HashingContext.new();digest.start(HashingContext.HASH_SHA256)
-	for file in ["landscape","architecture","outer_architecture","hydrology","waterways","map","water_contents"]:
+	for file in ["landscape","architecture","outer_architecture","hydrology","waterways","map","water_contents","baked_lighting","jungle_sky","light_fixtures"]:
 		digest.update(FileAccess.get_file_as_bytes("res://tools/voxel_battle/"+file+".gd"))
+	for path in ["res://experimental-assets/jungle/lighting/bake.json","res://experimental-assets/jungle/lighting/irradiance.png","res://experimental-assets/jungle/lighting/dawn.png","res://experimental-assets/jungle/lighting/skybox.png","res://tools/voxel_battle/baked_lighting.gdshaderinc","res://tools/voxel_battle/jungle_sky.gdshader"]:
+		digest.update(FileAccess.get_file_as_bytes(path))
 	return digest.finish().hex_encode()
 func _load_map(map_id:String) -> bool:
+	recon_drone.reset();airstrike.reset();healing_field.reset();turrets.reset();battery_tanks.reset()
 	var loaded:bool=super._load_map(map_id)
-	if loaded:map_sha=map_identity()
+	if loaded:map_sha=map_identity();battery_tanks.configure()
 	return loaded
 func _peer_left(id:int) -> void:
+	battery_tanks.leave(id,true)
+	var turret:int=turrets.owner_key(id)
+	if turret>=0:turrets.remove(turret)
 	super._peer_left(id)
+	airstrike.cancel(id)
+	night_vision.forget(id);recon_drone.alerts.erase(id);recon_drone.marks.erase(id);recon_drone.heard.erase(id)
 	classes.states.erase(id);classes.downed.erase(id);classes.injecting.erase(id);designations.erase(id);throw_sequence.erase(id)
 	variant_combat.magazines.states.erase(id);variant_combat.charges.erase(id);variant_combat.vehicle_lock.locks.erase(id);spotting.spotted.erase(id)
 
 func _trace(start:Vector3,end:Vector3,exclude:int,rewind:float=0.0,radius:float=0.0,movement_start:Dictionary={},candidates:Variant=null) -> Dictionary:
-	var hit:Dictionary=super._trace(start,end,exclude,rewind,radius,movement_start,candidates)
+	var filtered:Array=players.keys().filter(func(id):return not battery_tanks.mounted(id)) if candidates==null else candidates.filter(func(id):return not battery_tanks.mounted(id))
+	var hit:Dictionary=super._trace(start,end,exclude,rewind,radius,movement_start,filtered)
 	if not hit.hit:return hit
-	var contact:Dictionary=get_world_3d().direct_space_state.intersect_ray(PhysicsRayQueryParameters3D.create(start,hit.position+(end-start).normalized()*.05,1))
+	var contact:Dictionary=Attribution.ray(get_world_3d().direct_space_state,PhysicsRayQueryParameters3D.create(start,hit.position+(end-start).normalized()*.05,1),"query.class_arena._trace.ray")
 	if not contact.is_empty():
+		if contact.collider.has_meta("cq_turret"):hit["cq_turret"]=contact.collider.get_meta("cq_turret")
 		for vehicle in get_tree().get_nodes_in_group("cq_repairable_vehicles"):
 			if vehicle.hp>0 and vehicle.owns_collider(contact.collider):hit["cq_vehicle"]=vehicle;break
 	return hit
-func _damage_map_hit(hit:Dictionary,id:int,amount:float) -> void:
+func _damage_map_hit(hit:Dictionary,id:int,amount:float,kind:String="") -> void:
+	if hit.has("cq_turret"):turrets.damage(hit.cq_turret,id,amount,variant_combat.active_projectile)
 	if multiplayer.is_server() and hit.has("cq_vehicle"):
 		var vehicle=hit.cq_vehicle
-		vehicle.damage(players.get(id,{}).get("team",-1),int(amount))
+		if vehicle.get("service")==battery_tanks:
+			var p:Dictionary=projectiles.get(variant_combat.active_projectile,{})
+			battery_tanks.damage(vehicle.key,p.get("extra",{}).get("cq_team",players.get(id,{}).get("team",-1)),int(amount),kind if not kind.is_empty() else "ordnance" if not p.is_empty() and p.definition.get("cq_effect","")=="ordnance" else "infantry",id)
+		else:vehicle.damage(players.get(id,{}).get("team",-1),int(amount))
 		if variant_combat.active_projectile>=0:vehicle.set_meta("cq_direct_projectile",variant_combat.active_projectile)
 	super._damage_map_hit(hit,id,amount)
-var equipment_buttons:Array=[]
 func request_equipment(role_name:String,weapon:int,secondary:bool) -> void:
 	if multiplayer.is_server():classes.choose_equipment(multiplayer.get_unique_id(),role_name,weapon,secondary)
 	else:_cq_equipment.rpc_id(1,role_name,weapon,secondary)
 @rpc("any_peer","call_remote","reliable",0)
 func _cq_equipment(role_name:String,weapon:int,secondary:bool) -> void:
 	if multiplayer.is_server():classes.choose_equipment(multiplayer.get_remote_sender_id(),role_name,weapon,secondary)
-func equipment_menu() -> void:
-	var state:Dictionary=classes.states.get(multiplayer.get_unique_id(),{})
-	for row in equipment_buttons:
-		var xp:int=state.get("xp",{}).get(row.role,0)
-		row.button.disabled=state.is_empty() or xp<row.xp
-		var choice:int=state.get("secondary_choices" if row.secondary else "primary_choices",{}).get(row.role,8 if row.role=="scout" else 2) if row.secondary else state.get("primary_choices",{}).get(row.role,classes.progression.STARTERS[row.role][0])
-		row.button.text=("✓ " if choice==row.weapon else "")+row.role.to_upper()+" "+("SECONDARY: " if row.secondary else "PRIMARY: ")+armory.data(row.weapon).name+(" · %d / %d XP"%[xp,row.xp] if xp<row.xp else "")
 func _process(delta:float) -> void:
 	super._process(delta)
-	if menu_open:equipment_menu()
+	if not headless and active:battery_tanks.draw()
+	if menu_open and loadout_menu:loadout_menu.refresh()
 	if headless or not active:return
 	var state:Dictionary=local_state()
 	if not is_vr() and not state.is_empty() and state.weapon in [1,9,10]:
@@ -406,3 +494,51 @@ func _cq_beam_impacts(start:Vector3,ends:PackedVector3Array,weapon:int,team:int)
 	if headless:return
 	var definition:Dictionary=armory.data(weapon).duplicate();definition.color=Color("ff3c39") if team==0 else Color("3b8dff")
 	_weapon_visuals().impacts("ut99",start,ends,weapon,definition)
+
+func request_utility(role_name:String,utility:String) -> void:
+	if multiplayer.is_server():classes.choose_utility(multiplayer.get_unique_id(),role_name,utility)
+	else:_cq_utility.rpc_id(1,role_name,utility)
+@rpc("any_peer","call_remote","reliable",0)
+func _cq_utility(role_name:String,utility:String) -> void:
+	if multiplayer.is_server():classes.choose_utility(multiplayer.get_remote_sender_id(),role_name,utility)
+
+@rpc("any_peer","call_remote","reliable",0)
+func _cq_nvg(serial:int,epoch:int,seq:int,pose:Dictionary) -> void:
+	if multiplayer.is_server():night_vision.toggle(multiplayer.get_remote_sender_id(),serial,epoch,seq,pose)
+
+@rpc("authority","call_local","reliable",1)
+func _cq_airstrike_fx(where:Vector3) -> void:
+	night_vision.flash(where,RADIUS_AIRSTRIKE*8,2.2)
+	if headless:return
+	if effects:effects.play("explosion",where,-3)
+	_weapon_visuals().burst("ut99",where,5,"rocket",{"cq_effect":"ordnance","color":Color("ffba62")})
+const RADIUS_AIRSTRIKE:=18.75
+
+@rpc("authority","call_local","reliable",1)
+func _cq_turret_shot(where:Vector3,direction:Vector3,team:int) -> void:
+	night_vision.flash(where,12,.15)
+	if headless:return
+	if spatial:spatial.play("weapon_8",where,-6)
+	_weapon_visuals().burst("ut99",where,11,"energy",{"cq_effect":"energy","color":Color("ff3c39") if team==0 else Color("3b8dff")})
+
+func handle_vehicle_player(id:int,_delta:float) -> bool:return battery_tanks.mounted(id)
+func _damage(victim:int,attacker:int,amount:int,weapon_name:String,bypass:bool=false,impact:Vector3=Vector3.INF,direction:Vector3=Vector3.ZERO,blast:bool=false,hull_contact:bool=false,heavy_automatic:bool=false,headshot:bool=false) -> void:
+	if battery_tanks.mounted(victim) and not bypass:return
+	super._damage(victim,attacker,amount,weapon_name,bypass,impact,direction,blast,hull_contact,heavy_automatic,headshot)
+@rpc("authority","call_local","reliable",0)
+func _projectile_spawn(id:int,owner_id:int,weapon:int,pos:Vector3,direction:Vector3,yaw:float,pitch:float,extra:Dictionary={}) -> void:
+	super._projectile_spawn(id,owner_id,weapon,pos,direction,yaw,pitch,extra)
+	if extra.has("launch_velocity") and projectiles.has(id):projectiles[id].velocity=extra.launch_velocity
+
+func world_view_camera() -> Camera3D:
+	if battery_tanks.mounted(multiplayer.get_unique_id()) and battery_tanks.view and battery_tanks.view.viewport and not menu_open:return battery_tanks.view.sensor
+	return super.world_view_camera()
+
+func time_limit_enabled() -> bool:return false
+func _create_fighter(id:int) -> void:
+	super._create_fighter(id)
+	fighters[id].quake_movement=false;fighters[id].configure_cs16(true)
+
+func _start_dedicated(args:PackedStringArray) -> void:
+	super._start_dedicated(args)
+	if active:print("CQ_FRONTIER_SERVER_READY backend=monolithic players=",max_clients," unsupported_capacity=",capacity_policy().unsupported," physics_hz=",Engine.physics_ticks_per_second," movement=cs points=200")

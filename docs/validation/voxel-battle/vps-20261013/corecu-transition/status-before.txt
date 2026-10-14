@@ -1,0 +1,30 @@
+● swgxr.target - SWGXR isolated remote test stack
+     Loaded: loaded (/etc/systemd/system/swgxr.target; enabled; preset: enabled)
+     Active: active since Fri 2026-10-09 22:24:37 UTC; 3 days ago
+
+Oct 09 22:24:37 ubuntu systemd[1]: Reached target swgxr.target - SWGXR isolated remote test stack.
+
+● swgxr-core3.service - SWGXR CoreCU ground-world server
+     Loaded: loaded (/etc/systemd/system/swgxr-core3.service; static)
+    Drop-In: /etc/systemd/system/swgxr-core3.service.d
+             └─90-ground-combat.conf
+     Active: active (running) since Tue 2026-10-13 05:01:06 UTC; 15h ago
+    Process: 1548597 ExecStartPre=/usr/bin/python3 /home/blux/swgxr/tools/deploy/runtime.py prepare-core (code=exited, status=0/SUCCESS)
+    Process: 1548674 ExecStartPost=/usr/bin/python3 /home/blux/swgxr/tools/deploy/runtime.py ready-core (code=exited, status=0/SUCCESS)
+   Main PID: 1548673 (podman)
+      Tasks: 18 (limit: 28644)
+     Memory: 10.3M (peak: 30.3M)
+        CPU: 1min 47.697s
+     CGroup: /system.slice/swgxr-core3.service
+             ├─1548673 /usr/bin/podman exec --env SWGXR_ACTION_COMBAT_PROTOTYPE=0 --env SWGXR_GROUND_ACTIONS=global swgxr-core3-build python3 /workspace/tools/deploy/runtime.py child-core
+             └─1548692 /usr/bin/conmon --api-version 1 -c 1a906b49b321a10fc0bf6cbfbd54901df355feefefe62e6cb5632987553000ef -u 99744e936741036829a3395ada864117757b3735f1bf0160e0876d3d7c562ed9 -r /usr/bin/crun -b /var/lib/containers/storage/overlay-containers/1a906b49b321a10fc0bf6cbfbd54901df355feefefe62e6cb5632987553000ef/userdata/99744e936741036829a3395ada864117757b3735f1bf0160e0876d3d7c562ed9 -p /var/lib/containers/storage/overlay-containers/1a906b49b321a10fc0bf6cbfbd54901df355feefefe62e6cb5632987553000ef/userdata/99744e936741036829a3395ada864117757b3735f1bf0160e0876d3d7c562ed9/exec_pid -n swgxr-core3-build --exit-dir /var/lib/containers/storage/overlay-containers/1a906b49b321a10fc0bf6cbfbd54901df355feefefe62e6cb5632987553000ef/userdata/99744e936741036829a3395ada864117757b3735f1bf0160e0876d3d7c562ed9/exit --full-attach -s -l none --log-level warning --syslog --runtime-arg --log-format=json --runtime-arg --log --runtime-arg=/var/lib/containers/storage/overlay-containers/1a906b49b321a10fc0bf6cbfbd54901df355feefefe62e6cb5632987553000ef/userdata/99744e936741036829a3395ada864117757b3735f1bf0160e0876d3d7c562ed9/oci-log -e --exec-attach --exec-process-spec /var/lib/containers/storage/overlay-containers/1a906b49b321a10fc0bf6cbfbd54901df355feefefe62e6cb5632987553000ef/userdata/99744e936741036829a3395ada864117757b3735f1bf0160e0876d3d7c562ed9/exec-process-3632937139 --exit-command /usr/bin/podman --exit-command-arg --root --exit-command-arg /var/lib/containers/storage --exit-command-arg --runroot --exit-command-arg /run/containers/storage --exit-command-arg --log-level --exit-command-arg warning --exit-command-arg --cgroup-manager --exit-command-arg systemd --exit-command-arg --tmpdir --exit-command-arg /run/libpod --exit-command-arg --network-config-dir --exit-command-arg "" --exit-command-arg --network-backend --exit-command-arg cni --exit-command-arg --volumepath --exit-command-arg /var/lib/containers/storage/volumes --exit-command-arg --db-backend --exit-command-arg sqlite --exit-command-arg --transient-store=false --exit-command-arg --runtime --exit-command-arg crun --exit-command-arg --events-backend --exit-command-arg journald --exit-command-arg container --exit-command-arg cleanup --exit-command-arg --exec --exit-command-arg 99744e936741036829a3395ada864117757b3735f1bf0160e0876d3d7c562ed9 --exit-command-arg 1a906b49b321a10fc0bf6cbfbd54901df355feefefe62e6cb5632987553000ef
+
+Oct 13 05:00:45 ubuntu systemd[1]: Starting swgxr-core3.service - SWGXR CoreCU ground-world server...
+Oct 13 05:00:45 ubuntu podman[1548600]: 2026-10-13 05:00:45.17210423 +0000 UTC m=+0.042203087 container exec 1a906b49b321a10fc0bf6cbfbd54901df355feefefe62e6cb5632987553000ef (image=localhost/swgxr-runtime:20261004, name=swgxr-core3-build, io.buildah.version=1.33.7, swgxr.remote=swgxr-isolated-remote-v1)
+Oct 13 05:00:45 ubuntu podman[1548621]: 2026-10-13 05:00:45.230260912 +0000 UTC m=+0.050618547 container exec_died 1a906b49b321a10fc0bf6cbfbd54901df355feefefe62e6cb5632987553000ef (image=localhost/swgxr-runtime:20261004, name=swgxr-core3-build, io.buildah.version=1.33.7, swgxr.remote=swgxr-isolated-remote-v1)
+Oct 13 05:00:45 ubuntu podman[1548600]: 2026-10-13 05:00:45.233409924 +0000 UTC m=+0.103508751 container exec_died 1a906b49b321a10fc0bf6cbfbd54901df355feefefe62e6cb5632987553000ef (image=localhost/swgxr-runtime:20261004, name=swgxr-core3-build, io.buildah.version=1.33.7, swgxr.remote=swgxr-isolated-remote-v1)
+Oct 13 05:00:45 ubuntu podman[1548636]: 2026-10-13 05:00:45.288351213 +0000 UTC m=+0.043164927 container exec 1a906b49b321a10fc0bf6cbfbd54901df355feefefe62e6cb5632987553000ef (image=localhost/swgxr-runtime:20261004, name=swgxr-core3-build, io.buildah.version=1.33.7, swgxr.remote=swgxr-isolated-remote-v1)
+Oct 13 05:00:45 ubuntu podman[1548658]: 2026-10-13 05:00:45.342216475 +0000 UTC m=+0.046782563 container exec_died 1a906b49b321a10fc0bf6cbfbd54901df355feefefe62e6cb5632987553000ef (image=localhost/swgxr-runtime:20261004, name=swgxr-core3-build, swgxr.remote=swgxr-isolated-remote-v1, io.buildah.version=1.33.7)
+Oct 13 05:00:45 ubuntu podman[1548636]: 2026-10-13 05:00:45.345623271 +0000 UTC m=+0.100436975 container exec_died 1a906b49b321a10fc0bf6cbfbd54901df355feefefe62e6cb5632987553000ef (image=localhost/swgxr-runtime:20261004, name=swgxr-core3-build, io.buildah.version=1.33.7, swgxr.remote=swgxr-isolated-remote-v1)
+Oct 13 05:00:45 ubuntu podman[1548673]: 2026-10-13 05:00:45.427820069 +0000 UTC m=+0.036704999 container exec 1a906b49b321a10fc0bf6cbfbd54901df355feefefe62e6cb5632987553000ef (image=localhost/swgxr-runtime:20261004, name=swgxr-core3-build, swgxr.remote=swgxr-isolated-remote-v1, io.buildah.version=1.33.7)
+Oct 13 05:01:06 ubuntu systemd[1]: Started swgxr-core3.service - SWGXR CoreCU ground-world server.

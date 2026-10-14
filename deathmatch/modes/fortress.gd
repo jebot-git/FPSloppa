@@ -112,7 +112,7 @@ func select_class(id: int,class_id: String,tool: String="sentry") -> bool:
 func weapon_data(id: int,weapon: int) -> Dictionary:
 	if game.has_method("draw_class_players"):
 		var cq_data:Dictionary=game.armory.data(weapon).duplicate()
-		if weapon==6:cq_data.name="HEALING DISPENSER" if game.classes.role(id)=="medic" else "AMMO DISPENSER"
+		if weapon==6:cq_data.name="TURRET DEPLOYER" if game.turrets.equipped(id) else "HEALING DISPENSER" if game.classes.role(id)=="medic" else "AMMO DISPENSER"
 		if weapon==7:cq_data.name="REVIVAL INJECTOR" if game.classes.role(id)=="medic" else "VEHICLE REPAIR TOOL"
 		return cq_data
 	if weapon==0 and walkers.mounted(id):return game.W.DATA[0]
@@ -575,7 +575,7 @@ func ability_state(id: int) -> Dictionary:
 	return {"label":labels[role],"remaining":remaining,"fraction":1-clampf(remaining/total,0,1),"active":active_left,"ready":remaining<=0}
 
 func art_rules(id: int,weapon: int) -> String:
-	if game.has_method("draw_class_players"):return "cq_"+game.classes.role(id)
+	if game.has_method("draw_class_players"):return "cq_turret" if weapon==6 and game.turrets.equipped(id) else "cq_"+game.classes.role(id)
 	if weapon==0 and walkers.mounted(id):return "doom"
 	if enabled() and weapon==9 and game.players.get(id,{}).get("tf_class","")=="sniper":return "tf_sniper"
 	if enabled() and weapon==7 and game.players.get(id,{}).get("tf_class","")=="pyro":return "tf_flame"

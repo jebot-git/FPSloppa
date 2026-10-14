@@ -98,7 +98,9 @@ static func inspect(path:String) -> Dictionary:
 	var decoded:=read(path)
 	if decoded.has("error"):return decoded
 	var m:Dictionary=decoded.manifest
-	return {"size":decoded.size,"title":m.title,"author":m.author,"license":m.license,"version":"UT99 vertex 1","vertices":m.vertices,"frames":m.frames,"triangles":int(m.corners.size()/3),"base_model":m.get("base_model","")}
+	var reach:Dictionary=m.get("ik_profile",{}).duplicate(true)
+	if reach.has("sockets"):reach.sockets=[reach.sockets[int(m.reference)]]
+	return {"size":decoded.size,"title":m.title,"author":m.author,"license":m.license,"version":"UT99 vertex 1","vertices":m.vertices,"frames":m.frames,"triangles":int(m.corners.size()/3),"base_model":m.get("base_model",""),"reach_profile":reach}
 
 static func valid_ik_point(value:Variant) -> bool:
 	if not value is Array or value.size()!=3:return false

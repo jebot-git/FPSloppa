@@ -1,0 +1,67 @@
+{
+	"AI": false,
+	"achieved_tick_hz": 29.9433741226779,
+	"bandwidth_realtime_bytes": 473154299,
+	"categories_overlap": true,
+	"engine_physics_ms": {
+		"max": 505.199,
+		"p50": 32.003,
+		"p95": 36.383,
+		"p99": 176.588,
+		"samples": 3595
+	},
+	"history_ms": {
+		"max": 0.464,
+		"p50": 0.178,
+		"p95": 0.234,
+		"p99": 0.257,
+		"samples": 3595
+	},
+	"input_counters": {},
+	"physics_callback_ms": {
+		"max": 503.816,
+		"p50": 21.967,
+		"p95": 29.727,
+		"p99": 32.13,
+		"samples": 3595
+	},
+	"players": {
+		"max": 32,
+		"p50": 32,
+		"p95": 32,
+		"p99": 32,
+		"samples": 3595
+	},
+	"projectiles_ms": {
+		"max": 2.88,
+		"p50": 0.004,
+		"p95": 1.192,
+		"p99": 1.812,
+		"samples": 3595
+	},
+	"rendering": false,
+	"server_tick_ms": {
+		"max": 503.607,
+		"p50": 16.84,
+		"p95": 21.118,
+		"p99": 22.942,
+		"samples": 3595
+	},
+	"snapshot_send_ms": {
+		"max": 10.958,
+		"p50": 6.497,
+		"p95": 9.149,
+		"p99": 9.962,
+		"samples": 2397
+	},
+	"stress_infinite_ammo_invulnerable": true,
+	"tick_rate": 30,
+	"wall_seconds": 120.059945,
+	"wall_tick_interval_ms": {
+		"max": 520.684,
+		"p50": 33.537,
+		"p95": 38.523,
+		"p99": 39.936,
+		"samples": 3595
+	}
+}

@@ -1,4 +1,5 @@
 extends RefCounted
+const Attribution=preload("res://deathmatch/server/attribution.gd")
 ## Shared ballistic aiming. Solves the real launch velocity, including inheritance.
 static func solve(start: Vector3,target: Vector3,speed: float,gravity: float,inherited:=Vector3.ZERO,high: bool=false) -> Dictionary:
 	if speed<=0 or gravity<=0 or not start.is_finite() or not target.is_finite():return {}
@@ -27,7 +28,7 @@ static func clear(space,start: Vector3,solution: Dictionary,gravity: float,margi
 		var t: float=solution.time*i/count;var point: Vector3=start+solution.velocity*t-Vector3.UP*gravity*t*t*.5
 		var side: Vector3=(point-previous).normalized().cross(Vector3.UP)*margin
 		for offset in [Vector3.ZERO,side,-side]:
-			var hit: Dictionary=space.intersect_ray(PhysicsRayQueryParameters3D.create(previous+offset,point+offset,1))
+			var hit: Dictionary=Attribution.ray(space,PhysicsRayQueryParameters3D.create(previous+offset,point+offset,1),"query.ballistics.clear.ray")
 			if not hit.is_empty() and hit.position.distance_to(start+solution.velocity*solution.time-Vector3.UP*gravity*solution.time*solution.time*.5)>1.5:return false
 		previous=point
 	return true

@@ -57,15 +57,14 @@ func run() -> void:
 	actor.update_height(.9);game.players[1].xr=Poses.neutral();game.players[1].xr.height=.9;game._send_snapshot()
 	check(game.fighters[1].xr_pose.height==.9,"Authoritative crouch height is included in snapshots")
 	game.players[1].xr.head.origin.y=.8
-	game.players[1].xr.face={"look":Vector2.ZERO,"blink":Vector2.ZERO,"gaze":false,"lids":true,"expression":PackedFloat32Array([.7,0,0,0,0])}
-	var demo_path: String="/tmp/fpsloppa-crouch-face-%d.fpsdemo"%Time.get_ticks_usec()
-	check(game.demos.start_record(demo_path),"VR crouch and expression demo recording starts")
+	var demo_path: String="/tmp/fpsloppa-crouch-%d.fpsdemo"%Time.get_ticks_usec()
+	check(game.demos.start_record(demo_path),"VR crouch demo recording starts")
 	game._send_snapshot();game.demos.stop_record();game.demos.input=FileAccess.open(demo_path,FileAccess.READ);game.demos.input.seek(8)
 	var recorded: Dictionary=game.demos.read_frame()
 	check(not recorded.is_empty(),"New VR data survives production demo frame validation")
 	if not recorded.is_empty():
 		var recorded_pose: Dictionary=recorded.snapshot[0][0][18]
-		check(recorded_pose.height==.9 and recorded_pose.face.expression[0]>.5,"Demo preserves crouch and expression values")
+		check(is_equal_approx(recorded_pose.height,.9) and is_equal_approx(recorded_pose.head.origin.y,.8),"Demo preserves crouch height and headset pose")
 		actor.update_height(1.65,true);game.demos.apply_frame(recorded,false)
 		check(actor.collision_height==.9,"Demo playback restores the crouched collider")
 	game.demos.input.close();game.demos.input=null

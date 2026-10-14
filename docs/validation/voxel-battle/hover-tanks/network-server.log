@@ -1,0 +1,16 @@
+Godot Engine v4.7.2.stable.fedora.ed1daf0bf - https://godotengine.org
+
+DM_HOST_READY port=28809 practice=false
+DM_EVENT Remote medic joined the arena.
+PASS Observer joins authority
+PASS Authority boards light
+PASS Authority exhausts magazine light
+PASS Authority boards heavy
+PASS Authority exhausts magazine heavy
+DM_EVENT Remote medic left the arena.
+CQ_HOVER_NETWORK_RESULT server []
+Disconnected.
+WARNING: 21 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 8 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

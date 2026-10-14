@@ -1,0 +1,18 @@
+ERROR: Attempt to disconnect a nonexistent connection from 'VoxelBattle:<Node#29695673727>'. Signal: 'tree_exited', callable: ''.
+   at: _disconnect (core/object/object.cpp:1644)
+ERROR: Attempt to disconnect a nonexistent connection from 'MapNetwork:<Node#29997663619>'. Signal: 'tree_exited', callable: ''.
+   at: _disconnect (core/object/object.cpp:1644)
+ERROR: Attempt to disconnect a nonexistent connection from 'Loading:<Node#30282876294>'. Signal: 'tree_exited', callable: ''.
+   at: _disconnect (core/object/object.cpp:1644)
+ERROR: Attempt to disconnect a nonexistent connection from 'AvatarNetwork:<Node#30568088968>'. Signal: 'tree_exited', callable: ''.
+   at: _disconnect (core/object/object.cpp:1644)
+ERROR: Attempt to disconnect a nonexistent connection from 'VoiceChat:<Node#30853301642>'. Signal: 'tree_exited', callable: ''.
+   at: _disconnect (core/object/object.cpp:1644)
+ERROR: Attempt to disconnect a nonexistent connection from 'Announcer:<Node#31138514316>'. Signal: 'tree_exited', callable: ''.
+   at: _disconnect (core/object/object.cpp:1644)
+ERROR: Attempt to disconnect a nonexistent connection from 'PlayerVotes:<Node#31423726990>'. Signal: 'tree_exited', callable: ''.
+   at: _disconnect (core/object/object.cpp:1644)
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+LOAD_CLIENTS_READY players=1 join_seconds=8.674
+LOAD_CLIENTS_RESULT {"XR":"synthetic tracked head/hands","admitted":0,"assets":"cached-asset barrier acknowledged; no downloads","input_batches":5511,"players":1,"rejected":0,"rendering":false,"seconds":175.009,"snapshot_bytes_received":2659042,"snapshot_packets_received":2329}

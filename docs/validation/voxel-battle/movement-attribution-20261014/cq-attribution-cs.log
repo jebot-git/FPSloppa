@@ -1,0 +1,34 @@
+Godot Engine v4.7.2.stable.fedora.ed1daf0bf - https://godotengine.org
+
+PASS Stock ground acceleration adds 12.5 units/s in a 10 ms command
+PASS Stock ground friction removes 10 units/s in a 10 ms command
+PASS Low-speed friction uses the 75-unit stop threshold
+PASS Edge friction doubles ground braking
+PASS VR analog speed 1.0
+PASS VR analog speed 0.5
+PASS VR analog speed 0.1
+PASS Diagonal commands do not exceed weapon speed
+PASS Air coasting preserves momentum
+PASS Air wish cap prevents forward acceleration past 30 units/s
+PASS Air acceleration uses uncapped wish speed but caps directional gain
+PASS Second air command saturates the 30-unit projection
+PASS Bunny-hop limit permits exactly 120 percent
+PASS Overspeed jump crops to 96 percent of weapon speed
+PASS Fresh jump fatigue gives 75 percent jump power
+PASS Real collision movement reaches 250 units/s
+PASS Walking reaches 52 percent speed
+PASS Crouching reaches 33.3 percent speed
+PASS Jump apex is 45 GoldSrc units
+PASS Holding jump cannot auto-hop
+PASS A press while airborne is consumed instead of queued for landing
+PASS Rapid second jump has reduced takeoff speed
+PASS Snapshot includes authoritative jump fatigue
+PASS CS swimming reaches 80 percent of running speed
+PASS Held jump swims upward at CS water speed
+PASS Shallow wall input slides tangentially without a 15-degree dead zone
+PASS Respawn/reset clears fatigue and jump latch
+PASS Leaving CS profile restores arena movement
+PASS Prone keeps its crawl limit and cannot jump
+PASS Shocktroop double-tap jetpack works with CS movement
+PASS Prediction corrects fatigue at acknowledged input without rewinding newer time
+CQ_CS_MOVEMENT_RESULT hz=60 checks=31 []

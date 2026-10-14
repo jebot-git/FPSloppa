@@ -39,3 +39,11 @@ func water_view_raise(actor,eye_height:float) -> float:
 	if not actor.underwater:return 0.0
 	var water:=BattleMap.Landscape.water_sample(actor.position.x,actor.position.z)
 	return maxf(0,water.y+.12-(actor.render_position().y+eye_height)) if water.x>.5 else 0.0
+
+func _process(delta:float) -> void:
+	super._process(delta)
+	if headless or not is_instance_valid(battle_map):return
+	var eye:Camera3D=world_view_camera()
+	if eye:battle_map.update_view(eye)
+
+func world_view_camera() -> Camera3D:return xr_rig.head if is_vr() else camera

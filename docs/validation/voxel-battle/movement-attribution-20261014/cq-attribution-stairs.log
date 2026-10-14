@@ -1,0 +1,34 @@
+Godot Engine v4.7.2.stable.fedora.ed1daf0bf - https://godotengine.org
+
+PASS Low analog input keeps climbing: 60 Hz, boxes, 0 degree approach
+PASS Step consumes at most one frame of horizontal movement: 60 Hz, boxes, 0 degree approach
+PASS Low analog input keeps climbing: 60 Hz, boxes, 55 degree approach
+PASS Step consumes at most one frame of horizontal movement: 60 Hz, boxes, 55 degree approach
+PASS Low analog input keeps climbing: 60 Hz, triangles, 0 degree approach
+PASS Step consumes at most one frame of horizontal movement: 60 Hz, triangles, 0 degree approach
+PASS Low analog input keeps climbing: 60 Hz, triangles, 55 degree approach
+PASS Step consumes at most one frame of horizontal movement: 60 Hz, triangles, 55 degree approach
+PASS Low analog input keeps climbing: 90 Hz, boxes, 0 degree approach
+PASS Step consumes at most one frame of horizontal movement: 90 Hz, boxes, 0 degree approach
+PASS Low analog input keeps climbing: 90 Hz, boxes, 55 degree approach
+PASS Step consumes at most one frame of horizontal movement: 90 Hz, boxes, 55 degree approach
+PASS Low analog input keeps climbing: 90 Hz, triangles, 0 degree approach
+PASS Step consumes at most one frame of horizontal movement: 90 Hz, triangles, 0 degree approach
+PASS Low analog input keeps climbing: 90 Hz, triangles, 55 degree approach
+PASS Step consumes at most one frame of horizontal movement: 90 Hz, triangles, 55 degree approach
+PASS Low analog input keeps climbing: 144 Hz, boxes, 0 degree approach
+PASS Step consumes at most one frame of horizontal movement: 144 Hz, boxes, 0 degree approach
+PASS Low analog input keeps climbing: 144 Hz, boxes, 55 degree approach
+PASS Step consumes at most one frame of horizontal movement: 144 Hz, boxes, 55 degree approach
+PASS Low analog input keeps climbing: 144 Hz, triangles, 0 degree approach
+PASS Step consumes at most one frame of horizontal movement: 144 Hz, triangles, 0 degree approach
+PASS Low analog input keeps climbing: 144 Hz, triangles, 55 degree approach
+PASS Step consumes at most one frame of horizontal movement: 144 Hz, triangles, 55 degree approach
+PASS Small riser fits below ceiling that blocks full maximum lift
+PASS Insufficient headroom remains blocking
+PASS A 0.6 m ledge cannot be ratcheted above 0.55 m step limit
+PASS Capsule edge contact retains grounded state
+PASS Fresh jump from a tread edge is not cancelled by stepping
+PASS Respawn/teleport clears remembered step support
+SKIP Solstice traversal: install the base assets to run map regressions
+STAIR_CONTACT_RESULT {"failures":[],"metrics":[{"angle":0.0,"end":"(-2.0, 1.995834, -4.156372)","hz":60,"max_travel":0.0156831741333008,"triangles":false},{"angle":55.0,"end":"(1.815441, 1.48451, -2.168161)","hz":60,"max_travel":0.0156676713377237,"triangles":false},{"angle":0.0,"end":"(-2.0, 1.995798, -4.158411)","hz":60,"max_travel":0.0157036781311035,"triangles":true},{"angle":55.0,"end":"(1.815617, 1.486846, -2.168986)","hz":60,"max_travel":0.0156963225454092,"triangles":true},{"angle":0.0,"end":"(-2.0, 1.995834, -4.150584)","hz":90,"max_travel":0.0104629993438721,"triangles":false},{"angle":55.0,"end":"(1.810553, 1.480449, -2.156486)","hz":90,"max_travel":0.0104451142251492,"triangles":false},{"angle":0.0,"end":"(-2.0, 1.995799, -4.148763)","hz":90,"max_travel":0.0105023384094238,"triangles":true},{"angle":55.0,"end":"(1.81102, 1.48133, -2.158695)","hz":90,"max_travel":0.010448238812387,"triangles":true},{"angle":0.0,"end":"(-2.0, 1.995115, -4.134511)","hz":144,"max_travel":0.00655317306518555,"triangles":false},{"angle":55.0,"end":"(1.807171, 1.474212, -2.14177)","hz":144,"max_travel":0.00652860384434462,"triangles":false},{"angle":0.0,"end":"(-2.0, 1.995434, -4.140413)","hz":144,"max_travel":0.00656247138977051,"triangles":true},{"angle":55.0,"end":"(1.808323, 1.478472, -2.150008)","hz":144,"max_travel":0.00652860384434462,"triangles":true}]}

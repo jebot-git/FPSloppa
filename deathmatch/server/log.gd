@@ -25,7 +25,7 @@ func transport(peer: int) -> Dictionary:
 	if not game or not game.multiplayer.multiplayer_peer is ENetMultiplayerPeer:return {}
 	if not peer in game.multiplayer.get_peers():return {}
 	var packet=game.multiplayer.multiplayer_peer.get_peer(peer)
-	return {"address":packet.get_remote_address(),"port":packet.get_remote_port(),"rtt_ms":packet.get_statistic(ENetPacketPeer.PEER_ROUND_TRIP_TIME),"loss_percent":packet.get_statistic(ENetPacketPeer.PEER_PACKET_LOSS)*100.0/ENetPacketPeer.PACKET_LOSS_SCALE}
+	return {"address":packet.get_remote_address(),"port":packet.get_remote_port(),"state":packet.get_state(),"throttle":packet.get_statistic(ENetPacketPeer.PEER_PACKET_THROTTLE),"rtt_ms":packet.get_statistic(ENetPacketPeer.PEER_ROUND_TRIP_TIME),"loss_percent":packet.get_statistic(ENetPacketPeer.PEER_PACKET_LOSS)*100.0/ENetPacketPeer.PACKET_LOSS_SCALE}
 func setup(arena: Node,settings: Dictionary) -> bool:
 	redactions=[str(settings.get("rcon_password",""))]
 	game=arena;level={"off":0,"normal":1,"verbose":2}.get(settings.get("sv_log_level","normal"),1)

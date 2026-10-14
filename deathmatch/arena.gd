@@ -1,4 +1,5 @@
 extends Node3D
+const Attribution=preload("res://deathmatch/server/attribution.gd")
 const RoomScale=preload("res://deathmatch/vr/room_scale.gd")
 const W = preload("res://deathmatch/weapons.gd")
 var armory=preload("res://deathmatch/experimental/weapon_rules.gd").new()
@@ -117,6 +118,7 @@ var spatial
 var sounds: Array = []
 const LagCompensation=preload("res://deathmatch/lag_compensation.gd")
 var history: Array = []
+var native_history
 var remote_view_time:=-1.0
 var snapshot_view_time:=-1.0
 var projectile_watermark:=-1
@@ -322,6 +324,8 @@ func _start_dedicated(args: PackedStringArray) -> void:
 		get_tree().quit(2)
 		return
 	var settings: Dictionary=result.values
+	if has_method("draw_class_players") and settings.sv_cq_backend!="monolithic":
+		push_error("Unified jungle CQ requires sv_cq_backend monolithic; district workers use the legacy maps.");get_tree().quit(2);return
 	if cq_maps.enabled and settings.sv_cq_backend!="districts":push_error("Independent district maps require the districts backend.");get_tree().quit(2);return
 	if args.has("--cq-external-workers") and (not cq_profile or settings.sv_cq_backend!="districts"):
 		push_error("External workers require CQ with sv_cq_backend districts.");get_tree().quit(2);return
@@ -332,9 +336,9 @@ func _start_dedicated(args: PackedStringArray) -> void:
 	if not server_log.setup(self,settings):push_error(server_log.last_error);get_tree().quit(2);return
 	server_name=settings.sv_hostname
 	bind_address=settings.net_ip
-	max_clients=settings.sv_cq_maxclients if cq_profile else settings.sv_maxclients
+	max_clients=settings.sv_cq_maxclients if cq_profile or has_method("draw_class_players") else settings.sv_maxclients
 	bot_population.target=settings.sv_cq_bot_fill if cq_profile else settings.sv_bot_fill;bot_population.count_target=-1
-	if not cq_profile and max_clients>16:push_warning(preload("res://deathmatch/server/config.gd").CAPACITY_WARNING)
+	if not capacity_policy().warning.is_empty():push_warning(capacity_policy().warning)
 	voice_backend=settings.sv_voice_backend if settings.sv_voice==1 else "builtin";mumble_url=settings.sv_mumble_url if settings.sv_voice==1 else ""
 	voice_enabled=settings.sv_voice==1 and voice_backend=="builtin"
 	announcer.policy(settings.sv_announcer==1)
@@ -383,8 +387,12 @@ func _start_dedicated(args: PackedStringArray) -> void:
 		return
 	rcon=preload("res://deathmatch/server/rcon.gd").new();add_child(rcon)
 	if not rcon.setup(self,settings):push_error(rcon.last_error);get_tree().quit(2);return
-	server_log.record("server_started",{"hostname":server_name,"bind":bind_address,"max_clients":max_clients,"protocol":connection_protocol(),"weapon_rules":armory.kind,"version":ProjectSettings.get_setting("application/config/version"),"rotation":map_rotation,"allowed_modes":votes.allowed_modes,"voice_backend":voice_backend,"friendly_fire":match_mode.friendly_fire,"score_limit":match_mode.limit()})
+	server_log.record("server_started",{"hostname":server_name,"bind":bind_address,"max_clients":max_clients,"capacity_policy":capacity_policy(),"protocol":connection_protocol(),"weapon_rules":armory.kind,"version":ProjectSettings.get_setting("application/config/version"),"rotation":map_rotation,"allowed_modes":votes.allowed_modes,"voice_backend":voice_backend,"friendly_fire":match_mode.friendly_fire,"score_limit":match_mode.limit()})
 	print("SERVER_CONFIG name=",server_name," bind=",bind_address," maxclients=",max_clients," voice=",voice_enabled," map=",current_map," rotation=",map_rotation," weapons=",armory.kind," gametype=",match_mode.kind," limit=",match_mode.limit()," friendlyfire=",match_mode.friendly_fire)
+
+func capacity_policy() -> Dictionary:
+	var limit:=64 if cq_profile else 16
+	return {"slots":max_clients,"supported_limit":limit,"maximum":network_player_limit(),"unsupported":max_clients>limit,"warning":preload("res://deathmatch/server/config.gd").CAPACITY_WARNING if max_clients>limit else ""}
 
 func network_player_limit() -> int:return 64 if cq_profile else SERVER_MAX_PLAYERS
 
@@ -456,7 +464,7 @@ func start_host(player_name: String,port: int,frags: int,minutes: int,training: 
 		var hills: Array=maps_for_mode(match_mode.kind)
 		if hills.is_empty():status("No compatible arenas installed.");return
 		selected_map=hills[0]
-	max_clients=clampi(max_clients,2,64) if cq_profile else clampi(max_clients,1,SERVER_MAX_PLAYERS) if dedicated else host_player_limit()
+	max_clients=clampi(max_clients,2,64) if cq_profile or has_method("draw_class_players") and dedicated else clampi(max_clients,1,SERVER_MAX_PLAYERS) if dedicated else host_player_limit()
 	if not _load_map(selected_map):
 		status("Could not load the selected map.")
 		return
@@ -475,12 +483,17 @@ func start_host(player_name: String,port: int,frags: int,minutes: int,training: 
 			status("Cannot host: UDP port is unavailable (%s)." % error_string(err))
 			return
 		multiplayer.multiplayer_peer=peer
+		if dedicated and not OS.get_cmdline_user_args().has("--network-default-buffer"):
+			var backend=preload("res://deathmatch/native/runtime.gd").backend()
+			if backend:
+				var socket_buffer:Dictionary=backend.tune_udp_buffer(peer.host.get_local_port(),4194304)
+				server_log.record("network_receive_buffer",socket_buffer)
 	practice = training
 	frag_limit = clampi(frags,1,100)
 	time_limit = clampi(minutes,1,60)*60.0
 	round_left = time_limit
 	round_message = ""
-	history.clear()
+	_clear_history()
 	remote_view_time=-1.0;snapshot_view_time=-1.0;projectile_watermark=-1;snapshot_projectiles.clear();ended_projectiles.clear()
 	for pickup in pickups:
 		pickup.available = not match_mode.fixed_loadout()
@@ -622,7 +635,7 @@ func _finish_join(id: int) -> void:
 	voice.policy.rpc_id(id,voice_enabled,server_name,voice_backend,mumble_url)
 	announcer.policy.rpc_id(id,announcer.allowed)
 	votes.offer(id)
-	if dedicated and not cq_profile and max_clients>16:_announcement.rpc_id(id,preload("res://deathmatch/server/config.gd").CAPACITY_WARNING)
+	if dedicated and not capacity_policy().warning.is_empty():_announcement.rpc_id(id,capacity_policy().warning)
 	_announcement.rpc(player_name+(" joined as spectator." if spectator else " joined the arena."))
 
 @rpc("authority","call_remote","reliable",0)
@@ -636,6 +649,7 @@ func create_bot_controller() -> Node:
 	return preload("res://deathmatch/bots.gd").new()
 
 func jetpack_allowed_for(_id:int) -> bool:return jetpack_allowed()
+func time_limit_enabled() -> bool:return true
 func player_incapacitated(_id:int) -> bool:return false
 func on_player_died(_id:int) -> void:pass
 func defer_lethal(_victim:int,_attacker:int,_weapon:String,_gibbed:bool,_headshot:bool,_bypass:bool) -> bool:return false
@@ -795,7 +809,7 @@ func disconnect_game(reason: String = "Disconnected.") -> void:
 	players.clear()
 	for projectile in projectiles.values():
 		if is_instance_valid(projectile.node): projectile.node.queue_free()
-	projectiles.clear();history.clear()
+	projectiles.clear();_clear_history()
 	if is_instance_valid(variant_visuals):variant_visuals.queue_free();variant_visuals=null
 	var weapon_pool=get_node_or_null("Map/MapRuntime/WeaponLighting")
 	if weapon_pool:weapon_pool.clear()
@@ -1042,6 +1056,13 @@ func _physics_process(delta: float) -> void:
 	if connect_address_deadline>0 and clock>connect_address_deadline and connect_address_index<connect_addresses.size():_next_connect_address()
 	if connect_deadline>0 and clock>connect_deadline: disconnect_game("Connection timed out. Check host, firewall and UDP port forwarding.")
 	if not active: return
+	# Physics catch-up can run eight ticks before the next idle-frame poll.
+	# Service ENet between ticks so reliable ACKs and joins do not starve.
+	if dedicated and multiplayer.is_server() and not OS.get_cmdline_user_args().has("--network-poll-idle-only"):
+		var poll_scope:=Attribution.begin("network.physics_poll")
+		multiplayer.poll();Attribution.end(poll_scope)
+	if multiplayer.is_server():
+		for packets in replication.poll_packets():_send_snapshot_packets(packets)
 	if cq_maps.enabled:cq_maps.pump()
 	if not multiplayer.is_server() and cq_client.waiting():cq_client.waiting_room.tick(delta);return
 	if not multiplayer.is_server() and (clock<input_paused_until or cq_client.frozen):return
@@ -1071,7 +1092,7 @@ func _physics_process(delta: float) -> void:
 				_move_spectator(mine,command.move,command.fly,command.yaw,command.slow,delta)
 			if match_mode.special.frozen.has(mine) and intermission<=0:
 				fighters[mine].simulate_frozen(delta)
-			elif not players[mine].dead and not player_incapacitated(mine) and not match_mode.special.blocked(mine) and not match_mode.fortress.walkers.mounted(mine) and intermission<=0:
+			elif not players[mine].dead and not player_incapacitated(mine) and not match_mode.special.blocked(mine) and not match_mode.fortress.walkers.mounted(mine) and not handle_vehicle_player(mine,0.0) and intermission<=0:
 				var room:=RoomScale.validate(command.get("room"),command.get("xr",{}))
 				var speed: float=(5.2 if command.slow else 9.4)*(1.0 if lobby.active() else match_mode.fortress.speed(mine))
 				fighters[mine].speed_multiplier=1.0 if lobby.active() else match_mode.fortress.speed(mine)
@@ -1081,7 +1102,7 @@ func _physics_process(delta: float) -> void:
 				if is_vr():
 					var actual:=RoomScale.move_capsule(fighters[mine],room,local_yaw,delta)
 					xr_rig.compensate_room_move(actual)
-			fighters[mine].prediction.remember(sequence,fighters[mine].position,fighters[mine].velocity,fighters[mine].collision_height,fighters[mine].jetpack_state if fighters[mine].jetpack_enabled else {})
+			fighters[mine].prediction.remember(sequence,fighters[mine].position,fighters[mine].velocity,fighters[mine].collision_height,fighters[mine].jetpack_state if fighters[mine].jetpack_enabled else {},fighters[mine].cs16_stamina if fighters[mine].cs16_enabled else -1.0)
 			_predict_shots(mine,command)
 
 	if multiplayer.is_server():
@@ -1174,8 +1195,8 @@ func _server_tick(delta: float) -> void:
 			else:_restart_round()
 		return
 	var match_delta: float=match_mode.titanball.advance_time(delta) if match_mode.kind=="tb" else delta
-	round_left = maxf(0,round_left-match_delta)
-	if round_left<=0:
+	if time_limit_enabled():round_left = maxf(0,round_left-match_delta)
+	if time_limit_enabled() and round_left<=0:
 		if match_mode.kind=="as":match_mode.assault.timeout()
 		elif match_mode.kind=="tb":match_mode.titanball.timeout()
 		else:_end_round()
@@ -1184,6 +1205,7 @@ func _server_tick(delta: float) -> void:
 	var movement_start: Dictionary = {}
 	for id in fighters:
 		movement_start[id]={"position":fighters[id].position,"serial":players[id].serial,"height":fighters[id].collision_height,"yaw":fighters[id].damage_yaw()}
+	var player_scope:=Attribution.begin("simulation.player_loop")
 	for id in players:
 		var s: Dictionary = players[id]
 		if is_instance_valid(district_worker) and s.get("cq_wait_input",false):continue
@@ -1210,6 +1232,7 @@ func _server_tick(delta: float) -> void:
 			s.offhand_fire=false;s.alt_fire=false;s.input_blocked=true
 			s.melee = false
 		var jump: bool=input_delivery.consume(s,fighters[id])
+		if handle_vehicle_player(id,delta):continue
 		if match_mode.fortress.walkers.handle_player(id,jump):continue
 		_update_crouch(id,s.xr)
 		fighters[id].speed_multiplier=match_mode.fortress.speed(id)
@@ -1238,8 +1261,11 @@ func _server_tick(delta: float) -> void:
 		if not s.fire: s.held = false
 		fire_delivery.end_attempt(s,trigger_state)
 		_collect(id)
+	Attribution.end(player_scope)
 	_update_projectiles(delta,movement_start)
+	var mode_scope:=Attribution.begin("simulation.match_mode")
 	match_mode.tick(delta)
+	Attribution.end(mode_scope)
 	_respawn_pickups()
 	for gate in gates:
 		if gate.open and clock>gate.until:
@@ -1400,10 +1426,10 @@ func _update_melee_hand(id: int,offhand: bool) -> void:
 	for segment in segments:
 		var start: Vector3=frame*segment[0]
 		var end: Vector3=frame*segment[1]
-		if not get_world_3d().direct_space_state.intersect_ray(PhysicsRayQueryParameters3D.create(body,start,1)).is_empty(): continue
+		if not Attribution.ray(get_world_3d().direct_space_state,PhysicsRayQueryParameters3D.create(body,start,1),"query.arena._update_melee_hand.ray").is_empty(): continue
 		var hit:=_trace(start,end,id,0,Melee.RADIUS)
 		if hit.id==0 and not (axe and hit.has("building")): continue
-		if not get_world_3d().direct_space_state.intersect_ray(PhysicsRayQueryParameters3D.create(body,hit.position,1)).is_empty(): continue
+		if not Attribution.ray(get_world_3d().direct_space_state,PhysicsRayQueryParameters3D.create(body,hit.position,1),"query.arena._update_melee_hand.ray").is_empty(): continue
 		state.hit=true
 		s.cooldown=maxf(s.cooldown,.3);s.offhand_cooldown=maxf(s.offhand_cooldown,.3)
 		var damage: int=armory.data(s.weapon).damage if axe else Melee.DAMAGE
@@ -1455,9 +1481,10 @@ func _fire(id: int, offhand: bool=false) -> void:
 			var hull_pilot: int=match_mode.fortress.walkers.trace_pilot(start,end,0.,wall)
 			end=start.lerp(end,minf(1.0,wall))
 			if hull_pilot!=0 and hull_pilot!=id:_damage(hull_pilot,id,d.damage,"RAILGUN",false,end,(end-start).normalized(),false,true)
-			var rewound:=_rewound_positions(_shot_rewind(id))
-			var heights:=_rewound_heights(_shot_rewind(id))
-			var yaws:=_rewound_yaws(_shot_rewind(id))
+			var rewound_state:=_rewound_state(_shot_rewind(id))
+			var rewound:Dictionary=rewound_state.positions
+			var heights:Dictionary=rewound_state.heights
+			var yaws:Dictionary=rewound_state.yaws
 			for target in players:
 				if target==id or players[target].dead or players[target].spectator or match_mode.fortress.walkers.mounted(target):continue
 				var target_pos: Vector3=rewound.get(target,fighters[target].position)
@@ -1467,7 +1494,7 @@ func _fire(id: int, offhand: bool=false) -> void:
 				if fraction<=1.0:
 					var impact:=start.lerp(end,fraction)
 					var axis:=target_pos+HitDetection.player_axis(impact-target_pos,height,yaw)
-					if get_world_3d().direct_space_state.intersect_ray(PhysicsRayQueryParameters3D.create(impact,axis,1)).is_empty():
+					if Attribution.ray(get_world_3d().direct_space_state,PhysicsRayQueryParameters3D.create(impact,axis,1),"query.arena._fire.ray").is_empty():
 						_damage(target,id,d.damage,"RAILGUN",false,impact,(end-start).normalized())
 			var structure: Dictionary=match_mode.fortress.trace(start,end,1.0)
 			if not structure.is_empty():match_mode.fortress.damage_building(structure.key,id,d.damage)
@@ -1503,9 +1530,10 @@ func _trace(start: Vector3,end: Vector3,exclude: int,rewind: float = 0.0,radius:
 	var point := start.lerp(end,minf(1.0,nearest))
 	var hull_pilot: int=match_mode.fortress.walkers.trace_pilot(start,end,radius,wall_fraction)
 	var target := hull_pilot if hull_pilot!=exclude else 0
-	var old:=_rewound_positions(rewind)
-	var heights:=_rewound_heights(rewind)
-	var yaws:=_rewound_yaws(rewind)
+	var rewound_state:=_rewound_state(rewind)
+	var old:Dictionary=rewound_state.positions
+	var heights:Dictionary=rewound_state.heights
+	var yaws:Dictionary=rewound_state.yaws
 	var head_hit:=false
 	for id in (players if candidates==null else candidates):
 		if id==exclude or players[id].dead or players[id].spectator or match_mode.fortress.walkers.mounted(id): continue
@@ -1523,7 +1551,7 @@ func _trace(start: Vector3,end: Vector3,exclude: int,rewind: float = 0.0,radius:
 			var target_at := previous.lerp(position,fraction)
 			var axis := target_at+HitDetection.player_axis(impact-target_at,height,yaw)
 			# Expanded damage volumes must not reach through thin walls/corners.
-			if not space.intersect_ray(PhysicsRayQueryParameters3D.create(impact,axis,1)).is_empty(): continue
+			if not Attribution.ray(space,PhysicsRayQueryParameters3D.create(impact,axis,1),"query.arena._trace.ray").is_empty(): continue
 			nearest=fraction
 			point=impact
 			target=id
@@ -1534,7 +1562,7 @@ func _trace(start: Vector3,end: Vector3,exclude: int,rewind: float = 0.0,radius:
 	# Shootable trigger volumes participate in damage traces, without blocking movement.
 	var query:=PhysicsRayQueryParameters3D.create(start,point+(end-start).normalized()*.04,1)
 	query.collide_with_areas=true
-	var contact:=space.intersect_ray(query)
+	var contact:=Attribution.ray(space,query,"query.arena._trace.ray")
 	if not contact.is_empty() and (target==0 or start.distance_to(contact.position)<start.distance_to(point)):
 		var runtime=get_node_or_null("Map/MapRuntime")
 		if runtime and runtime.triggers.rows.has(contact.collider):
@@ -1583,7 +1611,7 @@ func _projectile_spawn(id: int,owner_id: int,weapon: int,pos: Vector3,direction:
 	projectiles[id].previous_position=pos
 	if multiplayer.is_server() and owner_id==multiplayer.get_unique_id() and is_vr() and xr_rig.gun_id==weapon:
 		var visible_start: Vector3=xr_rig.gun.global_transform*Art.muzzle(weapon,match_mode.fortress.art_rules(owner_id,weapon))
-		if visible_start.distance_to(pos)<.75 and get_world_3d().direct_space_state.intersect_ray(PhysicsRayQueryParameters3D.create(visible_start,pos,1)).is_empty():
+		if visible_start.distance_to(pos)<.75 and Attribution.ray(get_world_3d().direct_space_state,PhysicsRayQueryParameters3D.create(visible_start,pos,1),"query.arena._projectile_spawn.ray").is_empty():
 			projectiles[id].previous_position=visible_start
 	if not definition.is_empty():projectiles[id].merge({"definition":definition,"extra":extra,"velocity":direction*definition.speed,"life":definition.fuse,"stuck":false},true)
 
@@ -1638,7 +1666,7 @@ func _blast(pos: Vector3,owner_id: int,damage: int,radius: float,weapon_name: St
 		var distance := maxf(0,pos.distance_to(target)-.3)
 		if distance>=radius: continue
 		var query := PhysicsRayQueryParameters3D.create(pos+(target-pos).normalized()*.06,target,1)
-		if not match_mode.fortress.walkers.blast_reaches(id,get_world_3d().direct_space_state.intersect_ray(query)):continue
+		if not match_mode.fortress.walkers.blast_reaches(id,Attribution.ray(get_world_3d().direct_space_state,query,"query.arena._blast.ray")):continue
 		var falloff:=1.0-distance/radius
 		var push:Vector3=(target-pos).normalized()
 		if push.length_squared()<.01:push=Vector3.UP
@@ -1747,7 +1775,7 @@ func _restart_round() -> void:
 		_spawn(id)
 	for p in pickups: p.available = not match_mode.fixed_loadout()
 	for id in projectiles.keys(): _projectile_end.rpc(id,projectiles[id].position,7)
-	history.clear()
+	_clear_history()
 	remote_view_time=-1.0;snapshot_view_time=-1.0;projectile_watermark=-1;snapshot_projectiles.clear();ended_projectiles.clear()
 	if is_instance_valid(district_gateway):district_gateway.reset_round()
 	_announcement.rpc("New round · "+match_mode.status())
@@ -1756,20 +1784,24 @@ func _history_positions() -> Dictionary:
 	var positions: Dictionary={}
 	for id in players:positions[id]={"position":fighters[id].position,"serial":players[id].serial,"height":fighters[id].collision_height,"yaw":fighters[id].damage_yaw()}
 	return positions
+func _clear_history() -> void:
+	history.clear()
+	if native_history:native_history.clear_history()
 func _record_history() -> void:
+	if preload("res://deathmatch/native/runtime.gd").backend():
+		if not native_history:native_history=ClassDB.instantiate("FPSBackend")
+		native_history.record_history(clock,_history_positions());return
 	history.append({"time":clock,"positions":_history_positions()})
 	while history.size()>2 and history[1].time<clock-LagCompensation.MAX_REWIND-.05:history.pop_front()
-func _rewound_positions(rewind: float) -> Dictionary:
-	# Projectiles and local shots use current positions. Avoid building a complete
-	# player-history dictionary only for LagCompensation to immediately discard it.
-	if rewind<=0 or history.is_empty():return {}
-	return LagCompensation.positions(history,clock,rewind,_history_positions())
-func _rewound_heights(rewind: float) -> Dictionary:
-	if rewind<=0 or history.is_empty():return {}
-	return LagCompensation.positions(history,clock,rewind,_history_positions(),true)
-func _rewound_yaws(rewind: float) -> Dictionary:
-	if rewind<=0 or history.is_empty():return {}
-	return LagCompensation.positions(history,clock,rewind,_history_positions(),false,true)
+func _rewound_state(rewind:float) -> Dictionary:
+	if rewind<=0:return {"positions":{},"heights":{},"yaws":{}}
+	# Explicit fixture histories still exercise the reference-compatible path.
+	if not history.is_empty():return LagCompensation.combined(history,clock,rewind,_history_positions())
+	if native_history:return native_history.history_state(clock,rewind,_history_positions())
+	return {"positions":{},"heights":{},"yaws":{}}
+func _rewound_positions(rewind:float) -> Dictionary:return _rewound_state(rewind).positions
+func _rewound_heights(rewind:float) -> Dictionary:return _rewound_state(rewind).heights
+func _rewound_yaws(rewind:float) -> Dictionary:return _rewound_state(rewind).yaws
 func _shot_rewind(id: int) -> float:
 	if id<=1:return 0.0 # Local host and bots see the authoritative world.
 	var s: Dictionary=players[id]
@@ -1831,11 +1863,21 @@ func _send_snapshot() -> void:
 	if is_instance_valid(district_gateway):district_gateway.replicate(state);return
 	callv("_snapshot",state)
 	if not multiplayer.get_peers().is_empty():
-		var packets: Dictionary = replication.packets(state)
-		for bytes in packets.normal:
-			bandwidth.reserve((bytes.size()+64)*multiplayer.get_peers().size(),clock); _state_packet.rpc(bytes)
-		for bytes in packets.large:
-			bandwidth.reserve((bytes.size()+64)*multiplayer.get_peers().size(),clock); _state_large.rpc(bytes)
+		if dedicated and replication.native_packing_enabled and replication.native_packer and not OS.get_cmdline_user_args().has("--sync-snapshots") and not OS.get_cmdline_user_args().has("--gdscript-backend") and preload("res://deathmatch/native/runtime.gd").available("FPSBackend"):
+			replication.queue_packets(state)
+		else:_send_snapshot_packets(replication.packets(state))
+
+func _send_snapshot_packets(packets:Dictionary) -> void:
+	# Asset readiness must finish before expensive world replication begins.
+	var recipients:Array=[]
+	for id in multiplayer.get_peers():
+		if players.has(id):recipients.append(id)
+	for bytes in packets.normal:
+		bandwidth.reserve((bytes.size()+64)*recipients.size(),clock)
+		for id in recipients:_state_packet.rpc_id(id,bytes)
+	for bytes in packets.large:
+		bandwidth.reserve((bytes.size()+64)*recipients.size(),clock)
+		for id in recipients:_state_large.rpc_id(id,bytes)
 
 @rpc("authority","call_remote","unreliable",1)
 func _state_packet(bytes: PackedByteArray) -> void:
@@ -1901,13 +1943,15 @@ func _snapshot(data: Array,items: PackedByteArray,remaining: float,pause: float,
 			if id!=mine:
 				remote_interpolation.push(id,float(mode_state.get("sample_time",{}).get(id,server_time)),row[1],row[2],row[3],row[14],clock)
 			if id==mine and actor.spawn_serial==row[14]:
-				if not was_frozen and match_mode.special.frozen.has(id):
+				if handle_vehicle_player(id,0.0):
+					actor.position=row[1];actor.velocity=Vector3.ZERO;actor.reset_view()
+				elif not was_frozen and match_mode.special.frozen.has(id):
 					# Begin passive falling at the freeze location, discarding pre-hit
 					# movement history so reconciliation cannot restore a jump.
 					actor.position=row[1];actor.velocity=row[2];actor.reset_view()
 				else:
 					var locomotion: Dictionary=mode_state.get("locomotion",{}).get(id,{})
-					actor.prediction.reconcile(actor,int(mode_state.get("movement_ack",{}).get(id,-1)),row[1],row[2],float(locomotion.get("height",-1.0)),locomotion.get("grounded",false),locomotion.get("jetpack",{}))
+					actor.prediction.reconcile(actor,int(mode_state.get("movement_ack",{}).get(id,-1)),row[1],row[2],float(locomotion.get("height",-1.0)),locomotion.get("grounded",false),locomotion.get("jetpack",{}),float(locomotion.get("cs16_stamina",-1.0)))
 		if actor.spawn_serial!=row[14]:
 			actor.spawn_serial = row[14]
 			actor.gibbed=false
@@ -2036,7 +2080,7 @@ func _gate_state(index: int,opened: bool) -> void:
 	# permanent self-occlusion by the panel it belongs to.
 	var sound_position: Vector3=gate.get("center",gate.node.global_position)
 	if not headless and is_instance_valid(camera):
-		var hit:=get_world_3d().direct_space_state.intersect_ray(PhysicsRayQueryParameters3D.create(camera.global_position,sound_position,1))
+		var hit:=Attribution.ray(get_world_3d().direct_space_state,PhysicsRayQueryParameters3D.create(camera.global_position,sound_position,1),"query.arena._gate_state.ray")
 		if not hit.is_empty() and hit.collider==gate.node:sound_position=hit.position+hit.normal*.08
 	effects.play("door_open" if opened else "door_close",sound_position,-7)
 	if gate.has("secret_first"):
@@ -2165,7 +2209,7 @@ func _impacts(start: Vector3,ends: PackedVector3Array,weapon: int) -> void:
 	for end in ends:
 		if impact_budget>0:
 			var direction: Vector3=(end-start).normalized()
-			var hit:=get_world_3d().direct_space_state.intersect_ray(PhysicsRayQueryParameters3D.create(end-direction*.08,end+direction*.08,1))
+			var hit:=Attribution.ray(get_world_3d().direct_space_state,PhysicsRayQueryParameters3D.create(end-direction*.08,end+direction*.08,1),"query.arena._impacts.ray")
 			if not hit.is_empty():
 				spatial.play("impact",hit.position+hit.normal*.02,-17)
 				impact_budget-=1
@@ -2294,7 +2338,8 @@ func _load_map(map_id: String) -> bool:
 		$Overview.position=spawn_points[0]+Vector3(0,1.48,0)
 		$Overview.rotation=Vector3(0,spawn_yaws[0],0)
 		$Overview.fov=85
-		$DuskSun.light_energy=.25
+		var sun:=get_node_or_null("DuskSun")
+		if sun:sun.light_energy=.25
 	print("MAP_READY ",current_map," spawns=",spawn_points.size()," pickups=",pickups.size())
 	return true
 
@@ -2318,8 +2363,16 @@ func _weapon_transform(id: int, offhand: bool=false) -> Transform3D:
 	var s: Dictionary=players[id]
 	if id==multiplayer.get_unique_id() and not multiplayer.is_server() and is_vr() and not demos.playing:
 		var pose: Dictionary=xr_rig.sample_pose()
-		if not pose.is_empty():return Transform3D(Basis(Vector3.UP,local_yaw),fighters[id].render_position())*pose.get("offhand_weapon" if offhand else "weapon",Transform3D.IDENTITY)
-	if not s.xr.is_empty(): return Transform3D(Basis(Vector3.UP,s.yaw),fighters[id].position)*s.xr.get("offhand_weapon" if offhand else "weapon",Transform3D.IDENTITY)
+		if not pose.is_empty():return xr_rig.attached_hand(offhand,Transform3D(Basis(Vector3.UP,local_yaw),fighters[id].render_position())*pose.get("offhand_weapon" if offhand else "weapon",Transform3D.IDENTITY))
+	if not s.xr.is_empty():
+		var actor=fighters[id]
+		if is_instance_valid(actor.avatar) and actor.avatar.has_method("hand_pose"):
+			return actor.avatar.global_transform*actor.avatar.hand_pose(offhand)
+		# Dedicated servers enforce native model reach without allocating avatar meshes.
+		var hash:String=avatars.choices.get(id,{}).get("hash","")
+		var profile:Dictionary=avatars.library.entries.get(hash,{}).get("reach_profile",{})
+		var grip:=preload("res://deathmatch/avatars/controller_arms.gd").weapon_pose(profile,s.xr,offhand)
+		return Transform3D(Basis(Vector3.UP,s.yaw),actor.position)*grip
 	var aim:=Basis(Vector3.UP,s.yaw)*Basis(Vector3.RIGHT,s.pitch)
 	# Desktop weapons share the crosshair ray. Parallel left/right pistol rays
 	# missed the visible head despite a centered crosshair; XR keeps tracked muzzles.
@@ -2347,7 +2400,7 @@ func _shot_solution(id: int, offhand: bool=false) -> Dictionary:
 	var chest: Vector3=fighters[id].position+Vector3.UP*fighters[id].torso_height()
 	if players[id].xr.is_empty() and not local_tracking:
 		var blocked:=false
-		if players[id].weapon==2:blocked=not get_world_3d().direct_space_state.intersect_ray(PhysicsRayQueryParameters3D.create(chest,transform_here.origin,1)).is_empty()
+		if players[id].weapon==2:blocked=not Attribution.ray(get_world_3d().direct_space_state,PhysicsRayQueryParameters3D.create(chest,transform_here.origin,1),"query.arena._shot_solution.ray").is_empty()
 		return {"origin":transform_here.origin,"blocked":blocked,"clipped":false}
 	var weapon: int=players[id].weapon
 	var art_rules: String=match_mode.fortress.art_rules(id,weapon)
@@ -2390,7 +2443,7 @@ func _clear_map_players() -> void:
 	fighters.clear();players.clear()
 	for shot in projectiles.values():
 		if is_instance_valid(shot.node): shot.node.free()
-	projectiles.clear();history.clear()
+	projectiles.clear();_clear_history()
 	if is_instance_valid(variant_visuals):variant_visuals.queue_free();variant_visuals=null
 	var weapon_pool=get_node_or_null("Map/MapRuntime/WeaponLighting")
 	if weapon_pool:weapon_pool.clear()
@@ -2556,3 +2609,5 @@ func _cq_capacity(epoch: int,counts: Array,revision: int) -> void:
 
 ## Visual comfort offset only; authority, hitboxes and breath retain physical depth.
 func water_view_raise(_actor,_eye_height:float) -> float:return 0.0
+
+func handle_vehicle_player(_id:int,_delta:float) -> bool:return false

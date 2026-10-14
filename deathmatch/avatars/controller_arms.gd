@@ -63,7 +63,7 @@ static func write_transform(mesh:MeshInstance3D,name:String,value:Transform3D) -
 	var q:=value.basis.get_rotation_quaternion()
 	mesh.set_instance_shader_parameter(name+"_q",Vector4(q.x,q.y,q.z,q.w))
 	mesh.set_instance_shader_parameter(name+"_t",value.origin)
-static func update(mesh:MeshInstance3D,profile:Dictionary,pose:Dictionary,frames:Vector3=Vector3.ZERO) -> bool:
+static func update(mesh:MeshInstance3D,profile:Dictionary,pose:Dictionary,frames:Vector3=Vector3.ZERO,results:Dictionary={},body:Transform3D=Transform3D.IDENTITY) -> bool:
 	var head_active:=profile.has("sockets") and pose.has("head")
 	var arms_active:bool=head_active and pose.has("left") and pose.has("right")
 	mesh.set_instance_shader_parameter("tracked_arms",arms_active)
@@ -77,7 +77,20 @@ static func update(mesh:MeshInstance3D,profile:Dictionary,pose:Dictionary,frames
 	var rest_eye:=vec(profile.eye)
 	for side in ["left","right"]:
 		var shoulder:=socket(profile,frames,0 if side=="left" else 3)
-		var desired:Vector3=head_result.eye+pose[side].origin-pose.head.origin
+		var desired:Vector3=body.affine_inverse()*(head_result.eye+pose[side].origin-pose.head.origin)
 		var solved:=solve_arm(profile[side],shoulder,desired,side)
+		results[side]=solved
 		write_transform(mesh,side+"_upper",solved.upper);write_transform(mesh,side+"_fore",solved.fore)
 	return true
+
+static func weapon_pose(profile:Dictionary,pose:Dictionary,offhand:bool=false) -> Transform3D:
+	var key:="offhand_weapon" if offhand else "weapon"
+	var result:Transform3D=pose.get(key,Transform3D.IDENTITY)
+	if not profile.has("sockets") or not pose.has("head"):return result
+	var left:bool=bool(pose.get("left_handed",false))!=offhand
+	var side:="left" if left else "right"
+	if not pose.has(side):return result
+	var head:=solve_head(profile,socket(profile,Vector3.ZERO,6),pose.head)
+	var solved:=solve_arm(profile[side],socket(profile,Vector3.ZERO,0 if left else 3),head.eye+pose[side].origin-pose.head.origin,side)
+	result.origin=solved.hand
+	return result

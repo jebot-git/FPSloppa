@@ -1,0 +1,29 @@
+Godot Engine v4.7.2.stable.fedora.ed1daf0bf - https://godotengine.org
+
+Connecting to 127.0.0.1:28809…
+DM_EVENT Remote medic joined the arena.
+PASS Client joins at different clock
+PASS Crew reservation replicates 2
+PASS All eight profiles and starting health replicate
+PASS Magazine and reload replicate 2
+PASS Reload deadline adjusts to client clock 2
+PASS Limited pitch and ride height replicate
+PASS Exact unguided round count on remote client 2
+PASS Half grenade damage replicates
+PASS Dismount restores crew remotely
+PASS Crew reservation replicates 6
+PASS All eight profiles and starting health replicate
+PASS Magazine and reload replicate 6
+PASS Reload deadline adjusts to client clock 6
+PASS Limited pitch and ride height replicate
+PASS Exact unguided round count on remote client 6
+PASS Half grenade damage replicates
+PASS Dismount restores crew remotely
+PASS Revival state replicates to remote medic
+PASS Remote pie uses server remaining time
+CQ_HOVER_NETWORK_RESULT client []
+Disconnected.
+WARNING: 21 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 8 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

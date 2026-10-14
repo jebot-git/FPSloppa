@@ -1,10 +1,12 @@
 #include <godot_cpp/godot.hpp>
 #include <godot_cpp/core/class_db.hpp>
 #include "codec.h"
+#include "backend.h"
 using namespace godot;
 static void initialize(ModuleInitializationLevel level) {
  if(level!=MODULE_INITIALIZATION_LEVEL_SCENE)return;
  GDREGISTER_CLASS(FPSCodec);
+ GDREGISTER_CLASS(FPSBackend);
 }
 static void terminate(ModuleInitializationLevel) {}
 extern "C" GDExtensionBool GDE_EXPORT fpsloppa_native_init(GDExtensionInterfaceGetProcAddress get_proc,GDExtensionClassLibraryPtr library,GDExtensionInitialization *initialization) {

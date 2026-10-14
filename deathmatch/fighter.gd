@@ -1,6 +1,11 @@
 extends CharacterBody3D
+const Attribution=preload("res://deathmatch/server/attribution.gd")
 signal movement_sound(kind: String,where: Vector3)
 const Art = preload("res://deathmatch/art.gd")
+const CS16=preload("res://deathmatch/movement/cs16.gd")
+var cs16_enabled:=false
+var cs16_max_speed:=250.0/32.0
+var cs16_stamina:=0.0
 const QuakeMovement = preload("res://deathmatch/movement/quake.gd")
 const Jetpack=preload("res://deathmatch/conquest/jetpack.gd")
 var jetpack_state: Dictionary=Jetpack.fresh()
@@ -94,6 +99,37 @@ var speed_multiplier:=1.0
 func is_supported() -> bool:
 	return is_on_floor() or stepped_last_frame
 
+func configure_cs16(enabled: bool,max_speed: float=250.0/32.0) -> void:
+	if cs16_enabled!=enabled:
+		cs16_enabled=enabled
+		configure_player_hull()
+		velocity=Vector3.ZERO;blast_velocity=Vector2.ZERO;reset_view()
+	cs16_max_speed=max_speed
+	floor_snap_length=2.0/32.0 if enabled else .6
+	floor_max_angle=acos(.7) if enabled else deg_to_rad(50)
+	# GoldSrc clips into walls without Godot's 15-degree all-motion stop.
+	wall_min_slide_angle=0.0 if enabled else deg_to_rad(15)
+
+func configure_player_hull() -> void:
+	if not is_instance_valid(body_shape):return
+	# DE uses flat feet and head surfaces so players can stand and jump on
+	# each other. Preserve the circular VR footprint through doorways and turns.
+	if cs16_enabled:
+		var cylinder:=CylinderShape3D.new();cylinder.radius=.30;cylinder.height=collision_height;body_shape.shape=cylinder
+	else:
+		var capsule:=CapsuleShape3D.new();capsule.radius=.30;capsule.height=collision_height;body_shape.shape=capsule
+
+func movement_speed(slow: bool=false) -> float:
+	if cs16_enabled:return cs16_max_speed*speed_multiplier*(CS16.WALK_SCALE if slow else 1.0)*(PRONE_SPEED if stance=="prone" else CS16.DUCK_SCALE if stance=="crouch" else 1.0)
+	return (5.2 if slow else 9.4)*speed_multiplier
+
+func jump_speed() -> float:
+	return CS16.JUMP_SPEED*CS16.stamina_ratio(cs16_stamina) if cs16_enabled else 7.4
+
+func movement_gravity() -> float:return CS16.GRAVITY if cs16_enabled else 20.0
+
+func emit_movement_sound(kind:String,where:Vector3) -> void:movement_sound.emit(kind,where)
+
 func torso_height() -> float:return maxf(.25,minf(1.25,collision_height-.40))
 func damage_yaw() -> float:
 	return rotation.y+preload("res://deathmatch/vr/body_basis.gd").head_yaw(xr_pose)
@@ -109,12 +145,18 @@ func reset_jetpack() -> void:
 	jetpack_state=Jetpack.fresh();jetpack_requested=false
 func locomotion_state() -> Dictionary:
 	var state:={"height":collision_height,"grounded":is_supported()}
+	if cs16_enabled:state.cs16_stamina=cs16_stamina
 	if jetpack_enabled:state.jetpack=jetpack_state.duplicate(true)
 	return state
 func receive_locomotion(state: Dictionary) -> void:
 	update_height(float(state.get("height",xr_pose.get("height",1.65))),true)
 	visual_grounded=state.get("grounded",absf(visual_velocity.y)<.5)==true
-func update_height(requested: float,force: bool=false) -> void:
+func update_height(requested:float,force:bool=false) -> void:
+	var token:=Attribution.begin("movement.posture")
+	_attributed_update_height(requested,force)
+	Attribution.end(token)
+
+func _attributed_update_height(requested: float,force: bool=false) -> void:
 	if not is_instance_valid(body_shape) or not is_finite(requested):return
 	requested=clampf(requested,.65,1.65)
 	# Derive posture from the actual collider, including blocked stand-up requests.
@@ -124,10 +166,15 @@ func update_height(requested: float,force: bool=false) -> void:
 		var query:=PhysicsShapeQueryParameters3D.new();var capsule:=CapsuleShape3D.new();capsule.radius=.30;capsule.height=requested-collision_height+.60
 		# Test only the added upper volume; the existing feet may touch the floor.
 		query.shape=capsule;query.transform=global_transform*Transform3D(Basis.IDENTITY,Vector3.UP*((collision_height+requested)*.5-.30+.005));query.collision_mask=3;query.exclude=[get_rid()];query.margin=.001
-		if not get_world_3d().direct_space_state.intersect_shape(query,1).is_empty():return
+		if not Attribution.shape(get_world_3d().direct_space_state,query,1,"query.fighter.update_height.shape").is_empty():return
 	collision_height=requested;body_shape.shape.height=requested;body_shape.position.y=requested*.5+.005
 	stance="prone" if collision_height<.80 else "crouch" if collision_height<1.60 else "stand"
-func simulate(input: Vector2, yaw: float, slow: bool, delta: float, jump: bool = false, swim: Vector3=Vector3.ZERO) -> void:
+func simulate(input:Vector2,yaw:float,slow:bool,delta:float,jump:bool=false,swim:Vector3=Vector3.ZERO) -> void:
+	var token:=Attribution.begin("movement.simulate")
+	_attributed_simulate(input,yaw,slow,delta,jump,swim)
+	Attribution.end(token)
+
+func _attributed_simulate(input: Vector2, yaw: float, slow: bool, delta: float, jump: bool = false, swim: Vector3=Vector3.ZERO) -> void:
 	rotation.y = yaw
 	water_boost=maxf(0,water_boost-delta)
 	water_exit_grace=maxf(0,water_exit_grace-delta)
@@ -147,8 +194,11 @@ func simulate(input: Vector2, yaw: float, slow: bool, delta: float, jump: bool =
 	if Jetpack.tick(self,direction,delta,raw_jump):
 		jump_held=raw_jump
 		var before:=position;var impact_speed:=velocity.y
-		move_and_slide();Jetpack.moved(self,before)
+		_attribution_slide();Jetpack.moved(self,before)
 		if is_on_floor() and impact_speed < -3.2:movement_sound.emit("land",global_position+Vector3.UP*.2)
+		return
+	if cs16_enabled:
+		CS16.simulate(self,direction,slow,delta,jump and stance!="prone",swim)
 		return
 	if stance=="prone":jump=false;jump_queued=false
 	if jump and not jump_held:jump_queued=true
@@ -197,10 +247,10 @@ func simulate(input: Vector2, yaw: float, slow: bool, delta: float, jump: bool =
 	stepped_last_frame=stepping and step_up(travel,step)
 	var impact_speed:=velocity.y
 	# The successful sweep already consumed this frame's horizontal motion.
-	if not stepped_last_frame:move_and_slide()
+	if not stepped_last_frame:_attribution_slide()
 	if jumping and velocity.y>0:movement_sound.emit("jump",global_position+Vector3.UP*.65)
 	elif not was_grounded and is_on_floor() and impact_speed < -3.2 and not in_water:movement_sound.emit("land",global_position+Vector3.UP*.2)
-	if stepping and not is_supported() and velocity.y<=0:apply_floor_snap()
+	if stepping and not is_supported() and velocity.y<=0:_attribution_snap()
 	if stepping and is_supported() and absf(position.y-previous_y)<=step+.05:
 		view_offset=clampf(view_offset+previous_y-position.y,-.55,.55)
 
@@ -209,7 +259,7 @@ func simulate_frozen(delta: float) -> void:
 	blast_velocity=Vector2.ZERO;jump_held=false;jump_queued=false
 	stepped_last_frame=false;floor_grace=0
 	velocity=Vector3(0,maxf(minf(velocity.y,0.0)-20.0*delta,-30.0),0)
-	move_and_slide()
+	_attribution_slide()
 
 func apply_blast(impulse: Vector3) -> void:
 	if not impulse.is_finite() or spectator:return
@@ -218,12 +268,18 @@ func apply_blast(impulse: Vector3) -> void:
 	velocity.x+=blast_velocity.x-previous.x;velocity.z+=blast_velocity.y-previous.y
 	velocity.y=clampf(velocity.y+impulse.y,-30.0,20.0)
 
-func step_up(travel: Vector3,height: float) -> bool:
+func step_up(travel:Vector3,height:float) -> bool:
+	var token:=Attribution.begin("movement.step")
+	var result:bool=_attributed_step_up(travel,height)
+	Attribution.end(token)
+	return result
+
+func _attributed_step_up(travel: Vector3,height: float) -> bool:
 	if travel.length()<.001:return false
 	# Match move_and_slide's recovery contacts. Without these, very small
 	# inward motions look clear here but are stopped by its wall recovery.
 	var obstacle:=KinematicCollision3D.new()
-	if not test_move(global_transform,travel,obstacle,safe_margin,true,4):return false
+	if not _attribution_test("query.movement.step_obstacle",global_transform,travel,obstacle,safe_margin,true,4):return false
 	var blocked:=false
 	for i in obstacle.get_collision_count():
 		if obstacle.get_normal(i).dot(travel)<-.0000001:blocked=true;break
@@ -231,13 +287,13 @@ func step_up(travel: Vector3,height: float) -> bool:
 	var raised:=global_transform
 	var ceiling:=KinematicCollision3D.new()
 	# A low ceiling may still leave enough room for this particular riser.
-	if test_move(raised,Vector3.UP*height,ceiling):height=maxf(0,ceiling.get_travel().y)
+	if _attribution_test("query.movement.step_ceiling",raised,Vector3.UP*height,ceiling):height=maxf(0,ceiling.get_travel().y)
 	if height<.001:return false
 	raised.origin.y+=height
-	if test_move(raised,travel):return false
+	if _attribution_test("query.movement.step_forward",raised,travel):return false
 	raised.origin+=travel
 	var landing:=KinematicCollision3D.new()
-	if not test_move(raised,Vector3.DOWN*(height+.05),landing):return false
+	if not _attribution_test("query.movement.step_landing",raised,Vector3.DOWN*(height+.05),landing):return false
 	if landing.get_collider() is CharacterBody3D:return false
 	var tread_height:=landing.get_position().y
 	if landing.get_normal().dot(Vector3.UP)<cos(floor_max_angle):
@@ -245,7 +301,7 @@ func step_up(travel: Vector3,height: float) -> bool:
 		# tread. Validate the real surface just inside the edge, not that normal.
 		var into_step:=-landing.get_normal().slide(Vector3.UP).normalized()
 		var edge:=landing.get_position()+into_step*.02
-		var support:=get_world_3d().direct_space_state.intersect_ray(PhysicsRayQueryParameters3D.create(edge+Vector3.UP*.05,edge-Vector3.UP*.1,1))
+		var support:=Attribution.ray(get_world_3d().direct_space_state,PhysicsRayQueryParameters3D.create(edge+Vector3.UP*.05,edge-Vector3.UP*.1,1),"query.fighter.step_up.ray")
 		if support.is_empty() or support.normal.dot(Vector3.UP)<cos(floor_max_angle):return false
 		tread_height=support.position.y
 	# Capsule bottom is 0.005 m above the body origin. Check the actual tread
@@ -259,7 +315,7 @@ func step_up(travel: Vector3,height: float) -> bool:
 	return true
 
 func reset_view() -> void:
-	prediction.clear();prediction_view_offset=Vector3.ZERO
+	prediction.clear();prediction_view_offset=Vector3.ZERO;cs16_stamina=0.0;jump_held=false;jump_queued=false
 	water_jump_used=false;water_deep_time=0;water_exit_grace=0;water_boost=0;was_in_water=false
 	view_offset=0;floor_grace=0;stepped_last_frame=false
 	reset_physics_interpolation()
@@ -294,13 +350,13 @@ func show_alive(alive: bool, is_local: bool) -> void:
 	if alive_state and not alive:reset_jetpack()
 	alive_state = alive
 	local_player = is_local
-	collision_layer = 2 if alive else 0
+	collision_layer = 2 if alive and not vehicle_seated else 0
 	collision_mask=0 if spectator else 3
 	if avatar:
 		avatar.dead = not alive
 		if not avatar_hash.is_empty():
 			avatar.process_mode = Node.PROCESS_MODE_DISABLED if frozen or is_local and not local_body_visible else Node.PROCESS_MODE_INHERIT
-			avatar.set_first_person(is_local and local_body_visible)
+			avatar.set_first_person(is_local)
 		avatar.visible = alive and (not is_local or local_body_visible)
 	if label: label.visible = alive and not is_local
 
@@ -326,6 +382,10 @@ func _process(_delta: float) -> void:
 	prediction_view_offset*=exp(-12.0*_delta)
 	view_offset*=exp(-18.0*_delta)
 	_update_jetpack_visual()
+	if vehicle_seated:
+		if avatar:avatar.hide()
+		if label:label.hide()
+		return
 	if not avatar:return
 	var unarmed: bool=get_parent().lobby.active()
 	if avatar:
@@ -343,6 +403,10 @@ func _process(_delta: float) -> void:
 		if alive_state:avatar.rotation.y=load("res://deathmatch/vr/body_basis.gd").head_yaw(xr_pose,avatar.rotation.y)
 		avatar.animate(_delta,avatar.global_basis.inverse()*displayed_velocity,stance,collision_height,is_supported() if local_player or get_parent().multiplayer.is_server() else visual_grounded,{},false)
 		return
+	if get_parent().has_method("class_throw"):
+		var rules=get_parent().classes
+		var row:Dictionary=rules.states.get(peer_id,{})
+		avatar.set_equipment(row.get("equipped_utility",rules.UTILITIES[rules.role(peer_id)][0].id))
 	avatar.target_xr_pose=xr_pose
 	avatar.speed = Vector2(displayed_velocity.x,displayed_velocity.z).length()
 	avatar.movement = basis.inverse()*displayed_velocity
@@ -407,6 +471,7 @@ var cloak_material: ShaderMaterial
 var cloak_meshes: Array=[]
 var jetpack_attach_raise:=0.0
 var cloak_active:=false
+var vehicle_seated:=false
 var cloak_visibility:=1.0
 var cloak_avatar: Node3D
 func set_cloak_visual(active: bool,friendly: bool,tint: Color,delta: float) -> void:
@@ -466,5 +531,16 @@ func _update_jetpack_visual() -> void:
 	var pose:=Transform3D(Basis(Vector3.RIGHT,-deg_to_rad(77) if stance=="prone" else 0.0),Vector3(0,maxf(.30,.78-(1.65-collision_height)),0))
 	if avatar_hash.is_empty() and is_instance_valid(avatar):pose=avatar.transform*avatar.get_node("Upper").transform
 	else:pose=Transform3D(Basis(Vector3.UP,preload("res://deathmatch/vr/body_basis.gd").head_yaw(xr_pose)),Vector3.ZERO)*pose
-	jetpack_model.transform=pose*Transform3D(Basis.IDENTITY,Vector3(0,.24+jetpack_attach_raise,.25))
+	jetpack_model.transform=avatar.transform*avatar.back_socket() if is_instance_valid(avatar) and avatar.has_method("back_socket") else pose*Transform3D(Basis.IDENTITY,Vector3(0,.24+jetpack_attach_raise,.15))
+	if is_instance_valid(avatar) and avatar.has_method("back_socket"):avatar.backpack=jetpack_model
 	jetpack_model.set_exhaust(jetpack_state.mode!=0 and jetpack_state.age<(1.5 if jetpack_state.mode==2 else Jetpack.BURN_TIME))
+
+func _attribution_slide() -> bool:
+	var token:=Attribution.begin("query.movement.slide")
+	var result:=move_and_slide();Attribution.end(token);return result
+func _attribution_snap() -> void:
+	var token:=Attribution.begin("query.movement.floor_snap")
+	apply_floor_snap();Attribution.end(token)
+func _attribution_test(label:String,where:Transform3D,motion:Vector3,collision:KinematicCollision3D=null,margin:float=.001,recovery:bool=false,maximum:int=1) -> bool:
+	var token:=Attribution.begin(label)
+	var result:=test_move(where,motion,collision,margin,recovery,maximum);Attribution.end(token);return result

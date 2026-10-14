@@ -244,3 +244,13 @@ sampling, so it cannot supply a false dry head position to breath or networking.
 Real headset comfort and multiplayer underwater combat still need playtesting.
 
 See [landmark and swimming receipts](validation/outer-sites/README.md).
+
+## Baked day/night, spotting and loadouts
+
+Map illumination now uses offline day/night irradiance atlases and structure
+vertex bakes, blended over a synchronized 20-minute cycle. Nights are deliberately
+dark outside lit POI interiors and entrance vicinity. The preview offers
+cycle/day/night choices. Enemy spotting ranges are 75 m, or 150 m for scouts;
+Player → Class and Loadout leads to class-specific next-spawn equipment. Moving
+through grass produces nearby spatial rustling. Details, bake commands, reuse
+requirements and validation are in [JUNGLE-LIGHTING-LOADOUT.md](JUNGLE-LIGHTING-LOADOUT.md).

@@ -18,13 +18,13 @@ func run() -> void:
 		if id!=1:scene._add_player(id,role)
 		scene.classes.choose(id,role);scene._spawn(id)
 		var primary:int=scene.classes.progression.SECOND_PRIMARY[role]
-		check(not scene.classes.choose_equipment(id,role,primary,false),role+" primary locked below 1000 XP")
-		scene.classes.award(id,999);check(not scene.classes.choose_equipment(id,role,primary,false),role+" rejects 999 XP")
-		scene.classes.award(id,1);check(scene.classes.choose_equipment(id,role,primary,false),role+" unlocks at 1000 XP")
+		check(not scene.classes.choose_equipment(id,role,primary,false),role+" primary locked below 2500 XP")
+		scene.classes.award(id,2499);check(not scene.classes.choose_equipment(id,role,primary,false),role+" rejects 2499 XP")
+		scene.classes.award(id,1);check(scene.classes.choose_equipment(id,role,primary,false),role+" unlocks at 2500 XP")
 		check(scene.players[id].weapon!=primary,role+" choice waits for respawn")
 		scene._spawn(id);check(scene.players[id].weapon==primary,role+" selected primary equipped on respawn")
-		check(not scene.classes.choose_equipment(id,role,0,true),role+" burst pistol locked at 1000 XP")
-		scene.classes.award(id,500);check(scene.classes.choose_equipment(id,role,0,true),role+" burst pistol unlocks at 1500 XP")
+		check(not scene.classes.choose_equipment(id,role,0,true),role+" burst pistol locked at 2500 XP")
+		scene.classes.award(id,2500);check(scene.classes.choose_equipment(id,role,0,true),role+" burst pistol unlocks at 5000 XP")
 		scene._spawn(id);check(scene.players[id].owned[1]==0 and scene.players[id].ammo[3]==36,role+" burst pistol has loaded cell plus one spare")
 	check(scene.players[1].ammo[1]==144 and scene.players[2].ammo[1]==40 and scene.players[3].ammo[1]==160 and scene.players[4].ammo[2]==9,"Selected primary capacities: 3 spare magazines/cells, 2 ordnance packs")
 	check(not scene.classes.choose_equipment(3,"medic",11,false) and not scene.classes.choose_equipment(99,"scout",10,false),"Authority rejects another class's weapon and unknown player")
@@ -72,7 +72,7 @@ func run() -> void:
 		check(scene.variant_combat.magazines.loaded(4)==remaining and tech.ammo[2]==6+remaining,"Each guided shot consumes exactly one pack charge")
 		check(not scene.variant_combat.magazines.tick(4),"Guided launcher blocks firing during charge or empty-pack reload")
 		if remaining==0:check(scene.variant_combat.magazines.states[4].reloading==11 and scene.variant_combat.magazines.states[4].cycling==-1,"Third shot empties the pack and starts replacement instead of internal cycling")
-		scene.clock+=2.71;tech.last_input=scene.clock
+		scene.clock+=2.71 if remaining>0 else 6.61;tech.last_input=scene.clock
 		check(scene.variant_combat.magazines.tick(4) and scene.variant_combat.magazines.loaded(4)==(remaining if remaining>0 else 3) and tech.ammo[2]==6+remaining,"Reload retains remaining charges or seats a fresh three-charge pack")
 	var guided:Dictionary=scene.projectiles.values()[-1];guided.velocity=Vector3(10,0,-30)
 	var desired:Vector3=(vehicle.global_position-guided.position).normalized();var angle:float=guided.velocity.angle_to(desired);locking.guide(scene,.1)

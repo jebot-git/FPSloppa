@@ -1,0 +1,104 @@
+{
+  "AI": false,
+  "achieved_tick_hz": 21.0701743071394,
+  "async_snapshots": true,
+  "bandwidth_realtime_bytes": 1358254350,
+  "categories_overlap": true,
+  "engine_physics_ms": {
+    "max": 284.316,
+    "p50": 55.728,
+    "p95": 89.171,
+    "p99": 100.454,
+    "samples": 2530
+  },
+  "history_ms": {
+    "max": 1.388,
+    "p50": 0.366,
+    "p95": 0.513,
+    "p99": 0.581,
+    "samples": 2530
+  },
+  "input_counters": {},
+  "native_backend": true,
+  "physics_callback_ms": {
+    "max": 281.853,
+    "p50": 41.353,
+    "p95": 67.985,
+    "p99": 84.812,
+    "samples": 2530
+  },
+  "players": {
+    "max": 64,
+    "p50": 64,
+    "p95": 64,
+    "p99": 64,
+    "samples": 2530
+  },
+  "projectiles_ms": {
+    "max": 17.623,
+    "p50": 0.005,
+    "p95": 11.287,
+    "p99": 14.45,
+    "samples": 2530
+  },
+  "rendering": false,
+  "replication": {
+    "async_busy": 0,
+    "async_completed": 1740,
+    "async_encode_usec": 3042410,
+    "async_submitted": 1740,
+    "large_records": 562,
+    "max_packet": 3489,
+    "player_update_gaps": 0,
+    "player_updates": 0,
+    "received_packets": 0,
+    "sent_bytes": 20179554,
+    "sent_packets": 18849,
+    "stale_records": 0
+  },
+  "server_tick_ms": {
+    "max": 263.693,
+    "p50": 29.876,
+    "p95": 49.491,
+    "p99": 58.499,
+    "samples": 2530
+  },
+  "snapshot_age_ms": {
+    "max": 33.333333333335,
+    "p50": 33.3333333333314,
+    "p95": 33.333333333335,
+    "p99": 33.333333333335,
+    "samples": 1687
+  },
+  "snapshot_send_ms": {
+    "max": 12.989,
+    "p50": 5.964,
+    "p95": 8.276,
+    "p99": 10.8,
+    "samples": 1686
+  },
+  "snapshot_transport_ms": {
+    "max": 15.134,
+    "p50": 3.996,
+    "p95": 10.848,
+    "p99": 13.411,
+    "samples": 1687
+  },
+  "snapshot_worker_ms": {
+    "max": 4.564,
+    "p50": 1.659,
+    "p95": 2.738,
+    "p99": 3.378,
+    "samples": 1687
+  },
+  "stress_infinite_ammo_invulnerable": true,
+  "tick_rate": 30,
+  "wall_seconds": 120.074938,
+  "wall_tick_interval_ms": {
+    "max": 283.886,
+    "p50": 44.961,
+    "p95": 71.351,
+    "p99": 89.129,
+    "samples": 2530
+  }
+}

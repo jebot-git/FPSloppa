@@ -3,6 +3,7 @@ const Base=preload("res://tools/voxel_battle/class_arena.gd")
 class TestArena extends Base:
 	func _load_map(_id:String)->bool:
 		spawn_points=[Vector3(0,1,0),Vector3(8,1,0)];spawn_yaws=[0,PI];current_map="voxel_jungle";map_sha=map_identity()
+		battle_map=BattleMap.new();$Map.add_child(battle_map);battle_map.lighting=preload("res://tools/voxel_battle/baked_lighting.gd").new();battle_map.add_child(battle_map.lighting);battle_map.lighting.synchronize(357.0)
 		var ground:=StaticBody3D.new();var shape:=CollisionShape3D.new();var box:=BoxShape3D.new();box.size=Vector3(40,1,40);shape.shape=box;ground.add_child(shape);$Map.add_child(ground);return true
 var failures:Array=[]
 var game
@@ -22,13 +23,16 @@ func run()->void:
 	if role=="server":
 		game.dedicated=true;game.match_mode.configure({});game.start_host("CQ network",28779,100,10,false)
 		check(await wait_for(func():return game.players.size()==1 and game.classes.states.values().any(func(s):return s.next=="scout")),"Authenticated client chooses scout")
+		check(await wait_for(func():return game.classes.states.values().any(func(state):return state.get("utility_choices",{}).get("scout","")=="recon")),"Authenticated client selects tier-one utility kit")
 		if game.players.size()==1:
 			var id:int=game.players.keys()[0];game._spawn(id);game.players[id].fire=false;game.players[id].alt_fire=false
 			check(game.classes.cloak(id),"Authority activates cloak")
 			game.spotting.spotted[id]=[game.clock+10.0,game.clock+10.0]
 			game._send_snapshot()
+			check(await wait_for(func():return game.classes.states[id].get("nv",false)),"Authenticated client toggles NVG via reliable RPC")
+			game.classes.states[id]["nb"]=game.clock+2.0;game._send_snapshot()
 			await create_timer(5).timeout
-			game.classes.weapon_used(id);game.classes.award(id,1500)
+			game.classes.weapon_used(id);game.classes.award(id,5000)
 			check(await wait_for(func():return game.classes.states[id].get("primary_choices",{}).get("scout",-1)==10 and game.classes.states[id].get("secondary_choices",{}).get("scout",-1)==0),"Authenticated client selects unlocked progression weapons")
 			game._spawn(id);game._send_snapshot();await create_timer(3).timeout
 	else:
@@ -36,11 +40,16 @@ func run()->void:
 		game.start_join("Scout network","127.0.0.1",28779)
 		check(await wait_for(func():return game.active and not game.local_state().is_empty()),"Client joins packaged procedural CQ map")
 		if game.active:
-			game.request_class("scout")
+			game.request_class("scout");game.request_utility("scout","recon")
 			await create_timer(1).timeout
 			var id:int=game.multiplayer.get_unique_id()
 			check(await wait_for(func():return game.classes.role(id)=="scout" and game.classes.cloaked(id)),"Class and cloak replicate despite clock offset")
+			check(game.classes.states[id].get("equipped_utility","")=="recon","Chosen utility kit replicates on spawn")
+			check(game.battle_map.lighting.cycle_time()>350 and game.battle_map.lighting.cycle_time()<380,"Day/night phase follows server clock despite client clock offset")
 			check(game.classes.states.get(id,{}).get("cloak_ready",0.0)-game.clock>20,"Client receives relative cloak cooldown")
+			game.night_vision.request()
+			check(await wait_for(func():return game.classes.states.get(id,{}).get("nv",false)),"NVG visor activation replicates")
+			check(await wait_for(func():return game.classes.states.get(id,{}).get("nb",0)-game.clock>0.8),"NVG glare deadline replicates with client clock offset")
 			check(game.local_state().ammo[0]==42,"Class pouch ammunition replicates")
 			check(game.spotting.spotted.get(id,[0,0])[0]-game.clock>5 and game.spotting.spotted[id][0]-game.clock<=10,"Team spotting deadline replicates with client clock offset")
 			check(await wait_for(func():return game.classes.role(id)=="scout" and not game.classes.cloaked(id)),"Weapon reveal replicates")

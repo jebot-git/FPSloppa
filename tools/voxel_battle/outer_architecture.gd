@@ -75,7 +75,7 @@ static func tent(a,p:Vector3) -> void:
  for side in [-1.0,1.0]:a.box(p+Vector3(side*5,1.3,0),Vector3(.16,2.6,13),CANVAS)
  for z in [-6.5,6.5]:
   for side in [-1.0,1.0]:a.box(p+Vector3(side*3,1.3,z),Vector3(4,2.6,.16),CANVAS)
- a.builder.roof(p+Vector3(0,2.6,0),Vector3(10.4,2.6,13.4),CANVAS)
+ a.roof(p+Vector3(0,2.6,0),Vector3(10.4,2.6,13.4),CANVAS)
  if a.level==0:
   for x in [-3.0,3.0]:a.box(p+Vector3(x,.45,0),Vector3(1.3,.7,2.4),Color(.36,.41,.30))
 static func camp(a) -> void:
@@ -102,7 +102,7 @@ static func outpost(a) -> void:
  # A separate open shelter and log stockpile keep the fourth quadrant distinctive.
  for x in [-27.0,-17.0]:
   for z in [16.0,29.0]:a.box(Vector3(x,2.2,z),Vector3(.5,4.4,.5),TIMBER)
- a.builder.roof(Vector3(-22,4.4,22.5),Vector3(13,2,16),Color(.26,.34,.24))
+ a.roof(Vector3(-22,4.4,22.5),Vector3(13,2,16),Color(.26,.34,.24))
  for z in [19.0,23.0,27.0]:a.box(Vector3(-22,.6,z),Vector3(8,1.2,1.3),TIMBER)
  if a.level==0:
   for x in [16.0,28.0]:a.box(Vector3(x,9.3,21),Vector3(.7,.7,4),Color(.20,.28,.28),false)

@@ -1,4 +1,5 @@
 extends RefCounted
+const Attribution=preload("res://deathmatch/server/attribution.gd")
 ## Shared placeholder damage volumes, independent of cosmetic avatars and locomotion.
 const PLAYER_RADIUS := .40 # Legacy capsule primitive (also used for buildings).
 const PLAYER_REACH := 1.5 # Conservative horizontal bound, including prone limbs.
@@ -81,6 +82,11 @@ static func box_fraction(start: Vector3,end: Vector3,half: Vector3,radius: float
 	return INF
 
 static func player_fraction(start: Vector3,end: Vector3,height: float=1.65,yaw: float=0.0,radius: float=0.0) -> float:
+	var backend=preload("res://deathmatch/native/runtime.gd").backend()
+	if backend:return backend.player_fraction(start,end,height,yaw,radius)
+	return player_fraction_reference(start,end,height,yaw,radius)
+
+static func player_fraction_reference(start: Vector3,end: Vector3,height: float=1.65,yaw: float=0.0,radius: float=0.0) -> float:
 	var inverse:=Basis(Vector3.UP,-yaw)
 	start=inverse*start;end=inverse*end
 	if not is_finite(box_fraction(start-Vector3.UP*.80,end-Vector3.UP*.80,Vector3(PLAYER_REACH,.90,PLAYER_REACH),radius)):return INF
@@ -91,6 +97,11 @@ static func player_fraction(start: Vector3,end: Vector3,height: float=1.65,yaw: 
 	return first
 
 static func player_axis(impact: Vector3,height: float,yaw: float) -> Vector3:
+	var backend=preload("res://deathmatch/native/runtime.gd").backend()
+	if backend:return backend.player_axis(impact,height,yaw)
+	return player_axis_reference(impact,height,yaw)
+
+static func player_axis_reference(impact: Vector3,height: float,yaw: float) -> Vector3:
 	# Cover rays reach the body axis at the struck part's height. This prevents
 	# a shoulder protruding through thin cover from making its owner hittable.
 	var basis:=Basis(Vector3.UP,yaw);var local:=basis.inverse()*impact
@@ -103,6 +114,11 @@ static func player_axis(impact: Vector3,height: float,yaw: float) -> Vector3:
 	return Vector3(0,closest.y,0) # Keep protruding limbs behind cover when the body is behind it.
 
 static func player_head(point: Vector3,height: float,yaw: float,radius: float=0.0) -> bool:
+	var backend=preload("res://deathmatch/native/runtime.gd").backend()
+	if backend:return backend.player_head(point,height,yaw,radius)
+	return player_head_reference(point,height,yaw,radius)
+
+static func player_head_reference(point: Vector3,height: float,yaw: float,radius: float=0.0) -> bool:
 	var head: Dictionary=Body.parts(height)[1]
 	var local: Vector3=head.pose.affine_inverse()*(Basis(Vector3.UP,-yaw)*point)
 	return local.distance_squared_to(local.clamp(-head.size*.5,head.size*.5))<=radius*radius+1e-8
@@ -111,7 +127,7 @@ static func world_fraction(space: PhysicsDirectSpaceState3D, start: Vector3, end
 	if radius<=0:
 		var ray := PhysicsRayQueryParameters3D.create(start,end,1)
 		ray.hit_from_inside=true
-		var wall := space.intersect_ray(ray)
+		var wall := Attribution.ray(space,ray,"query.hit_detection.world_fraction.ray")
 		return start.distance_to(wall.position)/maxf(start.distance_to(end),.00001) if not wall.is_empty() else INF
 	var query := PhysicsShapeQueryParameters3D.new()
 	var sphere := SphereShape3D.new()
@@ -121,7 +137,7 @@ static func world_fraction(space: PhysicsDirectSpaceState3D, start: Vector3, end
 	query.collision_mask=1
 	query.margin=.001
 	# cast_motion ignores initial overlaps; catch a muzzle already touching a wall.
-	if not space.intersect_shape(query,1).is_empty(): return 0.0
+	if not Attribution.shape(space,query,1,"query.hit_detection.world_fraction.shape").is_empty(): return 0.0
 	query.motion=end-start
-	var fractions := space.cast_motion(query)
+	var fractions := Attribution.cast(space,query,"query.hit_detection.world_fraction.cast")
 	return fractions[0] if fractions[0]<1.0 else INF

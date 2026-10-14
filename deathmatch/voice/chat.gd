@@ -98,11 +98,15 @@ func set_radio(value: bool) -> void:
 	radio_active=value
 	if is_instance_valid(radio_audio):radio_audio.cue(value,volume)
 
+func driving() -> bool:
+	var id:=multiplayer.get_unique_id()
+	return game.players.has(id) and (game.match_mode.fortress.walkers.mounted(id) or game.handle_vehicle_player(id,0.0))
+
 func team_channel() -> bool:
-	return game.voice_enabled and mode>0 and team_available() and (radio_active or not game.is_vr() and game.bindings.pressed("team_ptt"))
+	return game.voice_enabled and mode>0 and team_available() and (driving() or radio_active or not game.is_vr() and game.bindings.pressed("team_ptt"))
 
 func push_to_talk() -> bool:
-	if team_channel():return true
+	if radio_active or not game.is_vr() and game.bindings.pressed("team_ptt"):return true
 	if game.is_vr():
 		var rig=game.xr_rig
 		return rig.focused and not rig.shoulder_radio.held and game.bindings.vr_pressed(rig,"ptt")

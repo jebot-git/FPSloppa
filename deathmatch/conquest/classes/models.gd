@@ -1,6 +1,7 @@
 extends RefCounted
 static var manifest:Dictionary={}
 static func entry(id:int,rules:String) -> String:
+	if id==6 and rules=="cq_turret":return "designator"
 	if id==6:return "health_box" if rules=="cq_medic" else "ammo_box"
 	if id==7:return "injector" if rules=="cq_medic" else "repair_kit"
 	return {0:"burst_pistol",1:"assault_rifle",2:"pistol",3:"smg",4:"carbine",5:"massacre",8:"designator",9:"scout_pistol",10:"beam_pistol",11:"guided_launcher"}.get(id,"pistol")
