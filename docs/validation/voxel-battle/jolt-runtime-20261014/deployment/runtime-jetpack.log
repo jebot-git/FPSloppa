@@ -1,0 +1,47 @@
+Godot Engine v4.7.2.stable.fedora.ed1daf0bf - https://godotengine.org
+
+PASS Double press starts moving flight at 30 Hz
+PASS Flight lands normally at 30 Hz
+PASS Curved boost rises and travels under 50 m at 30 Hz
+PASS Cooldown denies another boost at 30 Hz
+PASS Fresh double press works after 8 second cooldown at 30 Hz
+PASS Double press starts moving flight at 60 Hz
+PASS Flight lands normally at 60 Hz
+PASS Curved boost rises and travels under 50 m at 60 Hz
+PASS Cooldown denies another boost at 60 Hz
+PASS Fresh double press works after 8 second cooldown at 60 Hz
+PASS Double press starts moving flight at 120 Hz
+PASS Flight lands normally at 120 Hz
+PASS Curved boost rises and travels under 50 m at 120 Hz
+PASS Cooldown denies another boost at 120 Hz
+PASS Fresh double press works after 8 second cooldown at 120 Hz
+PASS Holding jump remains an ordinary jump
+PASS Separate jumps beyond 300 ms do not activate
+PASS Stationary boost lifts and briefly hovers
+PASS Hover remains in place without movement input
+PASS Hover allows gentle diagonal movement without losing altitude
+PASS Hover steering accelerates smoothly instead of reversing instantly
+PASS Releasing hover steering brakes drift
+PASS Diagonal hover and descent stay capped at 2 m/s
+PASS Opening a menu brakes hover steering
+PASS Hover descent respects the shared horizontal range budget
+PASS Air control cannot instantly reverse the launch direction
+PASS High ledge does not turn boost into unlimited horizontal flight
+PASS Actual path budget stops thrust at the range cap
+PASS Lost press/release packets still deliver exactly one boost
+PASS Retransmission cannot queue a second boost
+PASS Old-life boost cannot replay after respawn
+PASS Boost rejected while mode
+PASS Boost rejected while blocked
+PASS Boost rejected while water
+PASS Boost rejected while prone
+PASS Boost rejected while spectator
+PASS Boost rejected while frozen
+PASS Delayed pre-launch snapshot preserves newer predicted boost
+PASS Authority can deny an acknowledged predicted boost
+PASS Worker transfer schema includes boost and cooldown
+PASS Transferred flight continues with the same trajectory and cooldown
+PASS Boost collides with walls instead of tunnelling
+PASS Low ceiling stops lift safely and hover still ends
+PASS Leaving CQ clears flight state
+CQ_JETPACK_RESULT {"checks":44,"failures":[],"flights":[{"air_seconds":2.03333333333334,"apex_metres":6.80688142776489,"horizontal_metres":32.4933172464371,"hz":30},{"air_seconds":2.05,"apex_metres":6.72691488265991,"horizontal_metres":32.7666471004486,"hz":60},{"air_seconds":2.05,"apex_metres":6.7251124382019,"horizontal_metres":32.7766502201557,"hz":120}]}

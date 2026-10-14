@@ -62,6 +62,12 @@ Do not force-kill CoreCU if its save-and-exit fails.
 
 ## Capacity tests
 
+For the Jolt migration's deployable regression suite, see
+[the isolated test bundle](../collision_service/DEPLOYMENT.md). Its runtime tests
+use packaged resources and private user data; its optional capacity tools use a
+separate candidate port. Preparing or staging this bundle does not activate it
+as the production release.
+
 For real ENet tests, temporarily append `--profile-players 32` (or 64),
 `--profile-seconds 120 --stress-test` to the service command. Select a test
 config with matching `sv_cq_maxclients`. `metered_arena.gd` records the actual

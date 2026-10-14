@@ -1,0 +1,51 @@
+Godot Engine v4.7.2.stable.fedora.ed1daf0bf - https://godotengine.org
+
+PASS Jolt explicitly selected before physics server startup
+PASS Runtime replaces 304 stair treads with 19 ramps
+PASS Authored stair render geometry preserved
+PASS Uphill floor probe does not mistake a ramp for a ledge
+PASS Flight 0 uphill without stair assist
+PASS Flight 1 uphill without stair assist
+PASS Flight 2 uphill without stair assist
+PASS Flight 3 uphill without stair assist
+PASS Flight 4 uphill without stair assist
+PASS Flight 5 uphill without stair assist
+PASS Flight 6 uphill without stair assist
+PASS Flight 7 uphill without stair assist
+PASS Flight 8 uphill without stair assist
+PASS Flight 9 uphill without stair assist
+PASS Flight 10 uphill without stair assist
+PASS Flight 11 uphill without stair assist
+PASS Flight 12 uphill without stair assist
+PASS Flight 13 uphill without stair assist
+PASS Flight 14 uphill without stair assist
+PASS Flight 15 uphill without stair assist
+PASS Flight 16 uphill without stair assist
+PASS Flight 17 uphill without stair assist
+PASS Flight 18 uphill without stair assist
+PASS Flight 0 downhill without stair assist
+PASS Flight 1 downhill without stair assist
+PASS Flight 2 downhill without stair assist
+PASS Flight 3 downhill without stair assist
+PASS Flight 4 downhill without stair assist
+PASS Flight 5 downhill without stair assist
+PASS Flight 6 downhill without stair assist
+PASS Flight 7 downhill without stair assist
+PASS Flight 8 downhill without stair assist
+PASS Flight 9 downhill without stair assist
+PASS Flight 10 downhill without stair assist
+PASS Flight 11 downhill without stair assist
+PASS Flight 12 downhill without stair assist
+PASS Flight 13 downhill without stair assist
+PASS Flight 14 downhill without stair assist
+PASS Flight 15 downhill without stair assist
+PASS Flight 16 downhill without stair assist
+PASS Flight 17 downhill without stair assist
+PASS Flight 18 downhill without stair assist
+PASS Players support a standing player without overlap
+PASS Flat supported ground does not enable edge friction
+PASS Actual unsupported ledge still enables edge friction
+PASS Prone and standing hull updates remain usable on support
+PASS 32 converging players preserve cylinder separation
+PASS 64 converging players preserve cylinder separation
+CQ_JOLT_RUNTIME_RESULT {"checks":48,"engine":"Jolt Physics","failures":[],"movement_only":{"32":{"minimum_horizontal_separation_m":0.585505306720734,"movement_batch_p50_ms":3.151,"movement_batch_p95_ms":3.373,"samples":180},"64":{"minimum_horizontal_separation_m":0.597324848175049,"movement_batch_p50_ms":5.348,"movement_batch_p95_ms":5.764,"samples":180}},"tick_hz":30}

@@ -1,6 +1,6 @@
 # CS-only collision replacement and OpenNova review
 
-October 14, 2026. Design assessment, not an implemented replacement engine. The CS-only movement restriction described below is implemented. [Measured attribution](validation/voxel-battle/movement-attribution-20261014/REPORT.md) remains the performance baseline.
+October 14, 2026. The branch now defaults to Godot’s integrated Jolt backend and ramp colliders. The standalone collision services below remain experimental; their performance is not the runtime’s performance. See the current integration section below. The CS-only movement restriction described below is implemented. [Measured attribution](validation/voxel-battle/movement-attribution-20261014/REPORT.md) remains the performance baseline.
 
 ## Recommendation and scope
 
@@ -89,4 +89,100 @@ Correctness gates: no missed thin-wall/terrain hits, stable earliest-hit orderin
 - Frontier integration, 31 CS movement checks and paired real ENet server/client tests pass, including ignoring the retired snapshot field. Existing fixture cleanup warnings remain.
 - New portable package built locally. Production VPS was not changed or restarted.
 
-Evidence: [CS-only test logs](validation/voxel-battle/cs-only-20261014/). No collision engine implementation or OpenNova code import was made in this change.
+Evidence: [CS-only test logs](validation/voxel-battle/cs-only-20261014/). No collision engine implementation or OpenNova code import was made in that earlier CS-only change.
+
+
+## Isolated implementation and measured gates
+
+The proposed first milestone now has a standalone C++17 service and real-map
+Godot comparison harness in [tools/collision_service](../tools/collision_service/README.md).
+It implements immutable primitive/heightfield collision, continuous translational
+sweeps, overlap recovery and a prototype cylinder slide/step/snap controller,
+with 32/64-command batches on 1/2/4 workers. It has no live server binding.
+
+[The recorded experiment](validation/voxel-battle/collision-service-20261014/REPORT.md)
+passes 534 native checks but fails 26 of 2,368 engine comparisons. Four workers
+reduce a 64-command slide/snap batch from 1.341 to 0.423 ms median locally;
+these timings are not server tick measurements. Buried terrain exits, grazing
+casts and controller velocity/position require compatibility work. Dynamic
+islands, moving supports, gameplay integration and client prediction remain
+outstanding. A subsequent direct Jolt comparison is documented below. Promotion is explicitly disabled.
+
+
+## Direct Jolt comparison implemented
+
+The optional direct backend now links pinned Jolt 5.6.0 and runs the same
+exported world, traces, pool and batch harness as the custom service. It uses
+native narrow-phase queries and a cylinder `CharacterVirtual` adapter.
+[The comparison report](validation/voxel-battle/jolt-direct-20261014/REPORT.md)
+records 284 passing Jolt regression checks and 18/2,368 failed engine cases,
+compared with 26 failures for the custom backend. All 64 isolated movement
+comparisons pass for Jolt. Release and full-library sanitizer checks pass.
+
+For 64 commands on one worker, movement takes 0.279 ms median with Jolt versus
+1.333 ms custom, and cylinder sweeps take 0.179 versus 3.792 ms. Small sphere
+and capsule workloads offer little benefit, and worker scheduling affects tails.
+These remain local kernel/controller measurements with frozen static geometry,
+not evidence of sustained 64-player server performance. Jolt is the stronger
+next candidate for a shadow integration experiment; collision semantics, dynamic
+islands and gameplay/client prediction parity still need validation before any
+live switch.
+
+
+## Jolt blocker triage and ramp experiment
+
+[The follow-up experiment](validation/voxel-battle/jolt-blockers-20261014/REPORT.md)
+adds 305 passing blocker checks. It tests front-face terrain rays, precise
+cylinder-ray intervals, nominal sweep radii, tighter cast tolerance, CS blocking
+without horizontal player shoving, support carry and bounded contact handling.
+Three legacy cast-distance differences remain visible, while independent analytic
+fixtures validate Jolt's physical results. Full release and sanitizer suites pass.
+
+The opt-in test exporter replaces 304 authored tread colliders with 19 thin ramp
+slabs while preserving render geometry. Every flight passes both directions
+with Jolt stair assistance disabled. This supports omitting per-tread collision
+and special stair solving for those authored flights, not removing all CS
+small-obstacle stepping or publishing the map change yet. Dense 64-character
+blocking islands remain separated with side pushing disabled; vertical stacking
+and support transport still pass.
+
+Live server/client bindings, prediction manifest parity, dynamic lifecycle and
+mixed rotating-compound islands, typed gameplay integration, and off-host
+network/capacity validation remain real gates. A generic rigid-body/joint/soft-body
+service and reproduction of observed legacy numerical errors are unnecessary
+scope for this kinematic gameplay service. Production remains unchanged.
+
+
+## Jolt is now the branch runtime default
+
+The runtime selects `Jolt Physics` explicitly in `project.godot`, with enhanced
+internal-edge removal for simulation, queries and motion queries. Existing
+`CharacterBody3D` movement, vehicle compound bodies, collision layers, exclusions,
+space queries and prediction use Godot’s shared Jolt world. There is no second
+collision world and no live binding of the standalone `CharacterVirtual` adapter.
+Its precision shims, worker batching and contact policy are not implicitly part
+of this integration. No separate-thread physics switch has been enabled.
+
+CQ refuses startup if Jolt is unavailable or another backend is selected.
+Both endpoints must restart with a Jolt-enabled Godot 4.7 build. Normal client
+exports and the dedicated package retain these project settings; custom export
+binaries must include the Jolt module. The CQ protocol is now
+`fpsloppa-cq-frontier-17-jolt-ramps1`, and the map identity includes the ramp source.
+Synthetic load clients use the same protocol constant. Existing VPS processes
+and installed packages have not been redeployed.
+
+The runtime map substitutes all 304 tread bodies with 19 thin ramps using
+`tools/voxel_battle/stair_ramps.gd`. Visual stairs and baked meshes remain
+unchanged; the accepted visual/foot offset remains. The historical exporter can
+still disable substitution to reproduce tread geometry. Small-obstacle stepping
+remains available for other CS obstacles. CS floor probes now start above the
+uphill support plane instead of inside ramp geometry, preventing false ledge
+friction; supported uphill tangent motion retains ground acceleration.
+
+[Integrated runtime acceptance and measurements](validation/voxel-battle/jolt-runtime-20261014/REPORT.md)
+cover all 19 flights in both directions without stair assistance, player stacks,
+32/64-player convergence, prediction, stance/water/jump/jetpack behavior, vehicles,
+ordnance, local ENet replication and real-map terrain/bridge queries. This makes
+Jolt the branch default, but does not promote 64 slots beyond unsupported status
+or establish sustained VPS performance. The earlier direct-native integration
+and off-host capacity gates still apply to that separate experiment.

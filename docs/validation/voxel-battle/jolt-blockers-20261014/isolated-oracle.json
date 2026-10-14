@@ -1,0 +1,1668 @@
+[
+	{
+		"index": 77.0,
+		"local": false,
+		"ray": {
+			"fraction": 1.0,
+			"hit": false
+		}
+	},
+	{
+		"index": 77.0,
+		"local": true,
+		"ray": {
+			"fraction": 1.0,
+			"hit": false
+		}
+	},
+	{
+		"hit": false,
+		"index": 1251.0,
+		"local": false,
+		"margin": 0.0,
+		"safe": 1.0,
+		"segments": 1,
+		"unsafe": 1.0
+	},
+	{
+		"hit": false,
+		"index": 1251.0,
+		"local": false,
+		"margin": 0.0,
+		"safe": 1.0,
+		"segments": 16,
+		"unsafe": 1.0
+	},
+	{
+		"hit": false,
+		"index": 1251.0,
+		"local": false,
+		"margin": 0.0,
+		"safe": 1.0,
+		"segments": 256,
+		"unsafe": 1.0
+	},
+	{
+		"index": 1251.0,
+		"local": false,
+		"margin": 0.0,
+		"overlap_at_native_hit": false,
+		"sample_offset_m": -0.0001
+	},
+	{
+		"index": 1251.0,
+		"local": false,
+		"margin": 0.0,
+		"overlap_at_native_hit": false,
+		"sample_offset_m": 0.0
+	},
+	{
+		"index": 1251.0,
+		"local": false,
+		"margin": 0.0,
+		"overlap_at_native_hit": false,
+		"sample_offset_m": 0.0001
+	},
+	{
+		"index": 1251.0,
+		"local": false,
+		"margin": 0.0,
+		"overlap_at_native_hit": false,
+		"sample_offset_m": 0.001
+	},
+	{
+		"hit": false,
+		"index": 1251.0,
+		"local": false,
+		"margin": 0.001,
+		"safe": 1.0,
+		"segments": 1,
+		"unsafe": 1.0
+	},
+	{
+		"hit": false,
+		"index": 1251.0,
+		"local": false,
+		"margin": 0.001,
+		"safe": 1.0,
+		"segments": 16,
+		"unsafe": 1.0
+	},
+	{
+		"hit": false,
+		"index": 1251.0,
+		"local": false,
+		"margin": 0.001,
+		"safe": 1.0,
+		"segments": 256,
+		"unsafe": 1.0
+	},
+	{
+		"index": 1251.0,
+		"local": false,
+		"margin": 0.001,
+		"overlap_at_native_hit": true,
+		"sample_offset_m": -0.0001
+	},
+	{
+		"index": 1251.0,
+		"local": false,
+		"margin": 0.001,
+		"overlap_at_native_hit": true,
+		"sample_offset_m": 0.0
+	},
+	{
+		"index": 1251.0,
+		"local": false,
+		"margin": 0.001,
+		"overlap_at_native_hit": true,
+		"sample_offset_m": 0.0001
+	},
+	{
+		"index": 1251.0,
+		"local": false,
+		"margin": 0.001,
+		"overlap_at_native_hit": true,
+		"sample_offset_m": 0.001
+	},
+	{
+		"hit": false,
+		"index": 1251.0,
+		"local": false,
+		"margin": 0.01,
+		"safe": 1.0,
+		"segments": 1,
+		"unsafe": 1.0
+	},
+	{
+		"hit": false,
+		"index": 1251.0,
+		"local": false,
+		"margin": 0.01,
+		"safe": 1.0,
+		"segments": 16,
+		"unsafe": 1.0
+	},
+	{
+		"hit": true,
+		"index": 1251.0,
+		"local": false,
+		"margin": 0.01,
+		"safe": 0.01171875,
+		"segments": 256,
+		"unsafe": 0.01171875
+	},
+	{
+		"index": 1251.0,
+		"local": false,
+		"margin": 0.01,
+		"overlap_at_native_hit": true,
+		"sample_offset_m": -0.0001
+	},
+	{
+		"index": 1251.0,
+		"local": false,
+		"margin": 0.01,
+		"overlap_at_native_hit": true,
+		"sample_offset_m": 0.0
+	},
+	{
+		"index": 1251.0,
+		"local": false,
+		"margin": 0.01,
+		"overlap_at_native_hit": true,
+		"sample_offset_m": 0.0001
+	},
+	{
+		"index": 1251.0,
+		"local": false,
+		"margin": 0.01,
+		"overlap_at_native_hit": true,
+		"sample_offset_m": 0.001
+	},
+	{
+		"hit": false,
+		"index": 1251.0,
+		"local": true,
+		"margin": 0.0,
+		"safe": 1.0,
+		"segments": 1,
+		"unsafe": 1.0
+	},
+	{
+		"hit": false,
+		"index": 1251.0,
+		"local": true,
+		"margin": 0.0,
+		"safe": 1.0,
+		"segments": 16,
+		"unsafe": 1.0
+	},
+	{
+		"hit": false,
+		"index": 1251.0,
+		"local": true,
+		"margin": 0.0,
+		"safe": 1.0,
+		"segments": 256,
+		"unsafe": 1.0
+	},
+	{
+		"index": 1251.0,
+		"local": true,
+		"margin": 0.0,
+		"overlap_at_native_hit": false,
+		"sample_offset_m": -0.0001
+	},
+	{
+		"index": 1251.0,
+		"local": true,
+		"margin": 0.0,
+		"overlap_at_native_hit": false,
+		"sample_offset_m": 0.0
+	},
+	{
+		"index": 1251.0,
+		"local": true,
+		"margin": 0.0,
+		"overlap_at_native_hit": false,
+		"sample_offset_m": 0.0001
+	},
+	{
+		"index": 1251.0,
+		"local": true,
+		"margin": 0.0,
+		"overlap_at_native_hit": false,
+		"sample_offset_m": 0.001
+	},
+	{
+		"hit": false,
+		"index": 1251.0,
+		"local": true,
+		"margin": 0.001,
+		"safe": 1.0,
+		"segments": 1,
+		"unsafe": 1.0
+	},
+	{
+		"hit": false,
+		"index": 1251.0,
+		"local": true,
+		"margin": 0.001,
+		"safe": 1.0,
+		"segments": 16,
+		"unsafe": 1.0
+	},
+	{
+		"hit": false,
+		"index": 1251.0,
+		"local": true,
+		"margin": 0.001,
+		"safe": 1.0,
+		"segments": 256,
+		"unsafe": 1.0
+	},
+	{
+		"index": 1251.0,
+		"local": true,
+		"margin": 0.001,
+		"overlap_at_native_hit": false,
+		"sample_offset_m": -0.0001
+	},
+	{
+		"index": 1251.0,
+		"local": true,
+		"margin": 0.001,
+		"overlap_at_native_hit": false,
+		"sample_offset_m": 0.0
+	},
+	{
+		"index": 1251.0,
+		"local": true,
+		"margin": 0.001,
+		"overlap_at_native_hit": true,
+		"sample_offset_m": 0.0001
+	},
+	{
+		"index": 1251.0,
+		"local": true,
+		"margin": 0.001,
+		"overlap_at_native_hit": true,
+		"sample_offset_m": 0.001
+	},
+	{
+		"hit": false,
+		"index": 1251.0,
+		"local": true,
+		"margin": 0.01,
+		"safe": 1.0,
+		"segments": 1,
+		"unsafe": 1.0
+	},
+	{
+		"hit": false,
+		"index": 1251.0,
+		"local": true,
+		"margin": 0.01,
+		"safe": 1.0,
+		"segments": 16,
+		"unsafe": 1.0
+	},
+	{
+		"hit": true,
+		"index": 1251.0,
+		"local": true,
+		"margin": 0.01,
+		"safe": 0.01171875,
+		"segments": 256,
+		"unsafe": 0.01171875
+	},
+	{
+		"index": 1251.0,
+		"local": true,
+		"margin": 0.01,
+		"overlap_at_native_hit": true,
+		"sample_offset_m": -0.0001
+	},
+	{
+		"index": 1251.0,
+		"local": true,
+		"margin": 0.01,
+		"overlap_at_native_hit": true,
+		"sample_offset_m": 0.0
+	},
+	{
+		"index": 1251.0,
+		"local": true,
+		"margin": 0.01,
+		"overlap_at_native_hit": true,
+		"sample_offset_m": 0.0001
+	},
+	{
+		"index": 1251.0,
+		"local": true,
+		"margin": 0.01,
+		"overlap_at_native_hit": true,
+		"sample_offset_m": 0.001
+	},
+	{
+		"hit": true,
+		"index": 1278.0,
+		"local": false,
+		"margin": 0.0,
+		"safe": 0.25,
+		"segments": 1,
+		"unsafe": 0.25390625
+	},
+	{
+		"hit": true,
+		"index": 1278.0,
+		"local": false,
+		"margin": 0.0,
+		"safe": 0.163818359375,
+		"segments": 16,
+		"unsafe": 0.1640625
+	},
+	{
+		"hit": true,
+		"index": 1278.0,
+		"local": false,
+		"margin": 0.0,
+		"safe": 0.155120849609375,
+		"segments": 256,
+		"unsafe": 0.155136108398438
+	},
+	{
+		"index": 1278.0,
+		"local": false,
+		"margin": 0.0,
+		"overlap_at_native_hit": false,
+		"sample_offset_m": -0.0001
+	},
+	{
+		"index": 1278.0,
+		"local": false,
+		"margin": 0.0,
+		"overlap_at_native_hit": false,
+		"sample_offset_m": 0.0
+	},
+	{
+		"index": 1278.0,
+		"local": false,
+		"margin": 0.0,
+		"overlap_at_native_hit": false,
+		"sample_offset_m": 0.0001
+	},
+	{
+		"index": 1278.0,
+		"local": false,
+		"margin": 0.0,
+		"overlap_at_native_hit": false,
+		"sample_offset_m": 0.001
+	},
+	{
+		"hit": true,
+		"index": 1278.0,
+		"local": false,
+		"margin": 0.001,
+		"safe": 0.25,
+		"segments": 1,
+		"unsafe": 0.25390625
+	},
+	{
+		"hit": true,
+		"index": 1278.0,
+		"local": false,
+		"margin": 0.001,
+		"safe": 0.163818359375,
+		"segments": 16,
+		"unsafe": 0.1640625
+	},
+	{
+		"hit": true,
+		"index": 1278.0,
+		"local": false,
+		"margin": 0.001,
+		"safe": 0.155120849609375,
+		"segments": 256,
+		"unsafe": 0.155136108398438
+	},
+	{
+		"index": 1278.0,
+		"local": false,
+		"margin": 0.001,
+		"overlap_at_native_hit": true,
+		"sample_offset_m": -0.0001
+	},
+	{
+		"index": 1278.0,
+		"local": false,
+		"margin": 0.001,
+		"overlap_at_native_hit": true,
+		"sample_offset_m": 0.0
+	},
+	{
+		"index": 1278.0,
+		"local": false,
+		"margin": 0.001,
+		"overlap_at_native_hit": true,
+		"sample_offset_m": 0.0001
+	},
+	{
+		"index": 1278.0,
+		"local": false,
+		"margin": 0.001,
+		"overlap_at_native_hit": true,
+		"sample_offset_m": 0.001
+	},
+	{
+		"hit": true,
+		"index": 1278.0,
+		"local": false,
+		"margin": 0.01,
+		"safe": 0.25,
+		"segments": 1,
+		"unsafe": 0.25390625
+	},
+	{
+		"hit": true,
+		"index": 1278.0,
+		"local": false,
+		"margin": 0.01,
+		"safe": 0.163818359375,
+		"segments": 16,
+		"unsafe": 0.1640625
+	},
+	{
+		"hit": true,
+		"index": 1278.0,
+		"local": false,
+		"margin": 0.01,
+		"safe": 0.155120849609375,
+		"segments": 256,
+		"unsafe": 0.155136108398438
+	},
+	{
+		"index": 1278.0,
+		"local": false,
+		"margin": 0.01,
+		"overlap_at_native_hit": true,
+		"sample_offset_m": -0.0001
+	},
+	{
+		"index": 1278.0,
+		"local": false,
+		"margin": 0.01,
+		"overlap_at_native_hit": true,
+		"sample_offset_m": 0.0
+	},
+	{
+		"index": 1278.0,
+		"local": false,
+		"margin": 0.01,
+		"overlap_at_native_hit": true,
+		"sample_offset_m": 0.0001
+	},
+	{
+		"index": 1278.0,
+		"local": false,
+		"margin": 0.01,
+		"overlap_at_native_hit": true,
+		"sample_offset_m": 0.001
+	},
+	{
+		"hit": true,
+		"index": 1278.0,
+		"local": true,
+		"margin": 0.0,
+		"safe": 0.150390625,
+		"segments": 1,
+		"unsafe": 0.15625
+	},
+	{
+		"hit": true,
+		"index": 1278.0,
+		"local": true,
+		"margin": 0.0,
+		"safe": 0.155029296875,
+		"segments": 16,
+		"unsafe": 0.1552734375
+	},
+	{
+		"hit": true,
+		"index": 1278.0,
+		"local": true,
+		"margin": 0.0,
+		"safe": 0.15509033203125,
+		"segments": 256,
+		"unsafe": 0.155105590820312
+	},
+	{
+		"index": 1278.0,
+		"local": true,
+		"margin": 0.0,
+		"overlap_at_native_hit": false,
+		"sample_offset_m": -0.0001
+	},
+	{
+		"index": 1278.0,
+		"local": true,
+		"margin": 0.0,
+		"overlap_at_native_hit": false,
+		"sample_offset_m": 0.0
+	},
+	{
+		"index": 1278.0,
+		"local": true,
+		"margin": 0.0,
+		"overlap_at_native_hit": false,
+		"sample_offset_m": 0.0001
+	},
+	{
+		"index": 1278.0,
+		"local": true,
+		"margin": 0.0,
+		"overlap_at_native_hit": false,
+		"sample_offset_m": 0.001
+	},
+	{
+		"hit": true,
+		"index": 1278.0,
+		"local": true,
+		"margin": 0.001,
+		"safe": 0.150390625,
+		"segments": 1,
+		"unsafe": 0.15625
+	},
+	{
+		"hit": true,
+		"index": 1278.0,
+		"local": true,
+		"margin": 0.001,
+		"safe": 0.155029296875,
+		"segments": 16,
+		"unsafe": 0.1552734375
+	},
+	{
+		"hit": true,
+		"index": 1278.0,
+		"local": true,
+		"margin": 0.001,
+		"safe": 0.15509033203125,
+		"segments": 256,
+		"unsafe": 0.155105590820312
+	},
+	{
+		"index": 1278.0,
+		"local": true,
+		"margin": 0.001,
+		"overlap_at_native_hit": false,
+		"sample_offset_m": -0.0001
+	},
+	{
+		"index": 1278.0,
+		"local": true,
+		"margin": 0.001,
+		"overlap_at_native_hit": false,
+		"sample_offset_m": 0.0
+	},
+	{
+		"index": 1278.0,
+		"local": true,
+		"margin": 0.001,
+		"overlap_at_native_hit": true,
+		"sample_offset_m": 0.0001
+	},
+	{
+		"index": 1278.0,
+		"local": true,
+		"margin": 0.001,
+		"overlap_at_native_hit": true,
+		"sample_offset_m": 0.001
+	},
+	{
+		"hit": true,
+		"index": 1278.0,
+		"local": true,
+		"margin": 0.01,
+		"safe": 0.150390625,
+		"segments": 1,
+		"unsafe": 0.15625
+	},
+	{
+		"hit": true,
+		"index": 1278.0,
+		"local": true,
+		"margin": 0.01,
+		"safe": 0.155029296875,
+		"segments": 16,
+		"unsafe": 0.1552734375
+	},
+	{
+		"hit": true,
+		"index": 1278.0,
+		"local": true,
+		"margin": 0.01,
+		"safe": 0.15509033203125,
+		"segments": 256,
+		"unsafe": 0.155105590820312
+	},
+	{
+		"index": 1278.0,
+		"local": true,
+		"margin": 0.01,
+		"overlap_at_native_hit": true,
+		"sample_offset_m": -0.0001
+	},
+	{
+		"index": 1278.0,
+		"local": true,
+		"margin": 0.01,
+		"overlap_at_native_hit": true,
+		"sample_offset_m": 0.0
+	},
+	{
+		"index": 1278.0,
+		"local": true,
+		"margin": 0.01,
+		"overlap_at_native_hit": true,
+		"sample_offset_m": 0.0001
+	},
+	{
+		"index": 1278.0,
+		"local": true,
+		"margin": 0.01,
+		"overlap_at_native_hit": true,
+		"sample_offset_m": 0.001
+	},
+	{
+		"hit": true,
+		"index": 1457.0,
+		"local": false,
+		"margin": 0.0,
+		"safe": 0.12109375,
+		"segments": 1,
+		"unsafe": 0.126953125
+	},
+	{
+		"hit": true,
+		"index": 1457.0,
+		"local": false,
+		"margin": 0.0,
+		"safe": 0.1123046875,
+		"segments": 16,
+		"unsafe": 0.1126708984375
+	},
+	{
+		"hit": true,
+		"index": 1457.0,
+		"local": false,
+		"margin": 0.0,
+		"safe": 0.112373352050781,
+		"segments": 256,
+		"unsafe": 0.112396240234375
+	},
+	{
+		"index": 1457.0,
+		"local": false,
+		"margin": 0.0,
+		"overlap_at_native_hit": false,
+		"sample_offset_m": -0.0001
+	},
+	{
+		"index": 1457.0,
+		"local": false,
+		"margin": 0.0,
+		"overlap_at_native_hit": false,
+		"sample_offset_m": 0.0
+	},
+	{
+		"index": 1457.0,
+		"local": false,
+		"margin": 0.0,
+		"overlap_at_native_hit": false,
+		"sample_offset_m": 0.0001
+	},
+	{
+		"index": 1457.0,
+		"local": false,
+		"margin": 0.0,
+		"overlap_at_native_hit": false,
+		"sample_offset_m": 0.001
+	},
+	{
+		"hit": true,
+		"index": 1457.0,
+		"local": false,
+		"margin": 0.001,
+		"safe": 0.12109375,
+		"segments": 1,
+		"unsafe": 0.126953125
+	},
+	{
+		"hit": true,
+		"index": 1457.0,
+		"local": false,
+		"margin": 0.001,
+		"safe": 0.1123046875,
+		"segments": 16,
+		"unsafe": 0.1126708984375
+	},
+	{
+		"hit": true,
+		"index": 1457.0,
+		"local": false,
+		"margin": 0.001,
+		"safe": 0.112373352050781,
+		"segments": 256,
+		"unsafe": 0.112396240234375
+	},
+	{
+		"index": 1457.0,
+		"local": false,
+		"margin": 0.001,
+		"overlap_at_native_hit": false,
+		"sample_offset_m": -0.0001
+	},
+	{
+		"index": 1457.0,
+		"local": false,
+		"margin": 0.001,
+		"overlap_at_native_hit": true,
+		"sample_offset_m": 0.0
+	},
+	{
+		"index": 1457.0,
+		"local": false,
+		"margin": 0.001,
+		"overlap_at_native_hit": true,
+		"sample_offset_m": 0.0001
+	},
+	{
+		"index": 1457.0,
+		"local": false,
+		"margin": 0.001,
+		"overlap_at_native_hit": true,
+		"sample_offset_m": 0.001
+	},
+	{
+		"hit": true,
+		"index": 1457.0,
+		"local": false,
+		"margin": 0.01,
+		"safe": 0.12109375,
+		"segments": 1,
+		"unsafe": 0.126953125
+	},
+	{
+		"hit": true,
+		"index": 1457.0,
+		"local": false,
+		"margin": 0.01,
+		"safe": 0.1123046875,
+		"segments": 16,
+		"unsafe": 0.1126708984375
+	},
+	{
+		"hit": true,
+		"index": 1457.0,
+		"local": false,
+		"margin": 0.01,
+		"safe": 0.109375,
+		"segments": 256,
+		"unsafe": 0.109375
+	},
+	{
+		"index": 1457.0,
+		"local": false,
+		"margin": 0.01,
+		"overlap_at_native_hit": true,
+		"sample_offset_m": -0.0001
+	},
+	{
+		"index": 1457.0,
+		"local": false,
+		"margin": 0.01,
+		"overlap_at_native_hit": true,
+		"sample_offset_m": 0.0
+	},
+	{
+		"index": 1457.0,
+		"local": false,
+		"margin": 0.01,
+		"overlap_at_native_hit": true,
+		"sample_offset_m": 0.0001
+	},
+	{
+		"index": 1457.0,
+		"local": false,
+		"margin": 0.01,
+		"overlap_at_native_hit": true,
+		"sample_offset_m": 0.001
+	},
+	{
+		"hit": true,
+		"index": 1457.0,
+		"local": true,
+		"margin": 0.0,
+		"safe": 0.109375,
+		"segments": 1,
+		"unsafe": 0.115234375
+	},
+	{
+		"hit": true,
+		"index": 1457.0,
+		"local": true,
+		"margin": 0.0,
+		"safe": 0.1123046875,
+		"segments": 16,
+		"unsafe": 0.1126708984375
+	},
+	{
+		"hit": true,
+		"index": 1457.0,
+		"local": true,
+		"margin": 0.0,
+		"safe": 0.112579345703125,
+		"segments": 256,
+		"unsafe": 0.112602233886719
+	},
+	{
+		"index": 1457.0,
+		"local": true,
+		"margin": 0.0,
+		"overlap_at_native_hit": false,
+		"sample_offset_m": -0.0001
+	},
+	{
+		"index": 1457.0,
+		"local": true,
+		"margin": 0.0,
+		"overlap_at_native_hit": false,
+		"sample_offset_m": 0.0
+	},
+	{
+		"index": 1457.0,
+		"local": true,
+		"margin": 0.0,
+		"overlap_at_native_hit": false,
+		"sample_offset_m": 0.0001
+	},
+	{
+		"index": 1457.0,
+		"local": true,
+		"margin": 0.0,
+		"overlap_at_native_hit": false,
+		"sample_offset_m": 0.001
+	},
+	{
+		"hit": true,
+		"index": 1457.0,
+		"local": true,
+		"margin": 0.001,
+		"safe": 0.109375,
+		"segments": 1,
+		"unsafe": 0.115234375
+	},
+	{
+		"hit": true,
+		"index": 1457.0,
+		"local": true,
+		"margin": 0.001,
+		"safe": 0.1123046875,
+		"segments": 16,
+		"unsafe": 0.1126708984375
+	},
+	{
+		"hit": true,
+		"index": 1457.0,
+		"local": true,
+		"margin": 0.001,
+		"safe": 0.112579345703125,
+		"segments": 256,
+		"unsafe": 0.112602233886719
+	},
+	{
+		"index": 1457.0,
+		"local": true,
+		"margin": 0.001,
+		"overlap_at_native_hit": false,
+		"sample_offset_m": -0.0001
+	},
+	{
+		"index": 1457.0,
+		"local": true,
+		"margin": 0.001,
+		"overlap_at_native_hit": false,
+		"sample_offset_m": 0.0
+	},
+	{
+		"index": 1457.0,
+		"local": true,
+		"margin": 0.001,
+		"overlap_at_native_hit": true,
+		"sample_offset_m": 0.0001
+	},
+	{
+		"index": 1457.0,
+		"local": true,
+		"margin": 0.001,
+		"overlap_at_native_hit": true,
+		"sample_offset_m": 0.001
+	},
+	{
+		"hit": true,
+		"index": 1457.0,
+		"local": true,
+		"margin": 0.01,
+		"safe": 0.109375,
+		"segments": 1,
+		"unsafe": 0.115234375
+	},
+	{
+		"hit": true,
+		"index": 1457.0,
+		"local": true,
+		"margin": 0.01,
+		"safe": 0.1123046875,
+		"segments": 16,
+		"unsafe": 0.1126708984375
+	},
+	{
+		"hit": true,
+		"index": 1457.0,
+		"local": true,
+		"margin": 0.01,
+		"safe": 0.109375,
+		"segments": 256,
+		"unsafe": 0.109375
+	},
+	{
+		"index": 1457.0,
+		"local": true,
+		"margin": 0.01,
+		"overlap_at_native_hit": true,
+		"sample_offset_m": -0.0001
+	},
+	{
+		"index": 1457.0,
+		"local": true,
+		"margin": 0.01,
+		"overlap_at_native_hit": true,
+		"sample_offset_m": 0.0
+	},
+	{
+		"index": 1457.0,
+		"local": true,
+		"margin": 0.01,
+		"overlap_at_native_hit": true,
+		"sample_offset_m": 0.0001
+	},
+	{
+		"index": 1457.0,
+		"local": true,
+		"margin": 0.01,
+		"overlap_at_native_hit": true,
+		"sample_offset_m": 0.001
+	},
+	{
+		"hit": true,
+		"index": 1470.0,
+		"local": false,
+		"margin": 0.0,
+		"safe": 0.00244140625,
+		"segments": 1,
+		"unsafe": 0.003173828125
+	},
+	{
+		"hit": true,
+		"index": 1470.0,
+		"local": false,
+		"margin": 0.0,
+		"safe": 0.00262451171875,
+		"segments": 16,
+		"unsafe": 0.0028076171875
+	},
+	{
+		"hit": true,
+		"index": 1470.0,
+		"local": false,
+		"margin": 0.0,
+		"safe": 0.0026397705078125,
+		"segments": 256,
+		"unsafe": 0.002655029296875
+	},
+	{
+		"index": 1470.0,
+		"local": false,
+		"margin": 0.0,
+		"overlap_at_native_hit": false,
+		"sample_offset_m": -0.0001
+	},
+	{
+		"index": 1470.0,
+		"local": false,
+		"margin": 0.0,
+		"overlap_at_native_hit": false,
+		"sample_offset_m": 0.0
+	},
+	{
+		"index": 1470.0,
+		"local": false,
+		"margin": 0.0,
+		"overlap_at_native_hit": false,
+		"sample_offset_m": 0.0001
+	},
+	{
+		"index": 1470.0,
+		"local": false,
+		"margin": 0.0,
+		"overlap_at_native_hit": false,
+		"sample_offset_m": 0.001
+	},
+	{
+		"hit": true,
+		"index": 1470.0,
+		"local": false,
+		"margin": 0.001,
+		"safe": 0.00244140625,
+		"segments": 1,
+		"unsafe": 0.003173828125
+	},
+	{
+		"hit": true,
+		"index": 1470.0,
+		"local": false,
+		"margin": 0.001,
+		"safe": 0.00262451171875,
+		"segments": 16,
+		"unsafe": 0.0028076171875
+	},
+	{
+		"hit": true,
+		"index": 1470.0,
+		"local": false,
+		"margin": 0.001,
+		"safe": 0.0026397705078125,
+		"segments": 256,
+		"unsafe": 0.002655029296875
+	},
+	{
+		"index": 1470.0,
+		"local": false,
+		"margin": 0.001,
+		"overlap_at_native_hit": false,
+		"sample_offset_m": -0.0001
+	},
+	{
+		"index": 1470.0,
+		"local": false,
+		"margin": 0.001,
+		"overlap_at_native_hit": false,
+		"sample_offset_m": 0.0
+	},
+	{
+		"index": 1470.0,
+		"local": false,
+		"margin": 0.001,
+		"overlap_at_native_hit": true,
+		"sample_offset_m": 0.0001
+	},
+	{
+		"index": 1470.0,
+		"local": false,
+		"margin": 0.001,
+		"overlap_at_native_hit": true,
+		"sample_offset_m": 0.001
+	},
+	{
+		"hit": true,
+		"index": 1470.0,
+		"local": false,
+		"margin": 0.01,
+		"safe": 0.00244140625,
+		"segments": 1,
+		"unsafe": 0.003173828125
+	},
+	{
+		"hit": true,
+		"index": 1470.0,
+		"local": false,
+		"margin": 0.01,
+		"safe": 0.00262451171875,
+		"segments": 16,
+		"unsafe": 0.0028076171875
+	},
+	{
+		"hit": true,
+		"index": 1470.0,
+		"local": false,
+		"margin": 0.01,
+		"safe": 0.0026397705078125,
+		"segments": 256,
+		"unsafe": 0.002655029296875
+	},
+	{
+		"index": 1470.0,
+		"local": false,
+		"margin": 0.01,
+		"overlap_at_native_hit": true,
+		"sample_offset_m": -0.0001
+	},
+	{
+		"index": 1470.0,
+		"local": false,
+		"margin": 0.01,
+		"overlap_at_native_hit": true,
+		"sample_offset_m": 0.0
+	},
+	{
+		"index": 1470.0,
+		"local": false,
+		"margin": 0.01,
+		"overlap_at_native_hit": true,
+		"sample_offset_m": 0.0001
+	},
+	{
+		"index": 1470.0,
+		"local": false,
+		"margin": 0.01,
+		"overlap_at_native_hit": true,
+		"sample_offset_m": 0.001
+	},
+	{
+		"hit": true,
+		"index": 1470.0,
+		"local": true,
+		"margin": 0.0,
+		"safe": 0.00244140625,
+		"segments": 1,
+		"unsafe": 0.003173828125
+	},
+	{
+		"hit": true,
+		"index": 1470.0,
+		"local": true,
+		"margin": 0.0,
+		"safe": 0.00262451171875,
+		"segments": 16,
+		"unsafe": 0.0028076171875
+	},
+	{
+		"hit": true,
+		"index": 1470.0,
+		"local": true,
+		"margin": 0.0,
+		"safe": 0.0026397705078125,
+		"segments": 256,
+		"unsafe": 0.002655029296875
+	},
+	{
+		"index": 1470.0,
+		"local": true,
+		"margin": 0.0,
+		"overlap_at_native_hit": false,
+		"sample_offset_m": -0.0001
+	},
+	{
+		"index": 1470.0,
+		"local": true,
+		"margin": 0.0,
+		"overlap_at_native_hit": false,
+		"sample_offset_m": 0.0
+	},
+	{
+		"index": 1470.0,
+		"local": true,
+		"margin": 0.0,
+		"overlap_at_native_hit": false,
+		"sample_offset_m": 0.0001
+	},
+	{
+		"index": 1470.0,
+		"local": true,
+		"margin": 0.0,
+		"overlap_at_native_hit": false,
+		"sample_offset_m": 0.001
+	},
+	{
+		"hit": true,
+		"index": 1470.0,
+		"local": true,
+		"margin": 0.001,
+		"safe": 0.00244140625,
+		"segments": 1,
+		"unsafe": 0.003173828125
+	},
+	{
+		"hit": true,
+		"index": 1470.0,
+		"local": true,
+		"margin": 0.001,
+		"safe": 0.00262451171875,
+		"segments": 16,
+		"unsafe": 0.0028076171875
+	},
+	{
+		"hit": true,
+		"index": 1470.0,
+		"local": true,
+		"margin": 0.001,
+		"safe": 0.0026397705078125,
+		"segments": 256,
+		"unsafe": 0.002655029296875
+	},
+	{
+		"index": 1470.0,
+		"local": true,
+		"margin": 0.001,
+		"overlap_at_native_hit": false,
+		"sample_offset_m": -0.0001
+	},
+	{
+		"index": 1470.0,
+		"local": true,
+		"margin": 0.001,
+		"overlap_at_native_hit": false,
+		"sample_offset_m": 0.0
+	},
+	{
+		"index": 1470.0,
+		"local": true,
+		"margin": 0.001,
+		"overlap_at_native_hit": true,
+		"sample_offset_m": 0.0001
+	},
+	{
+		"index": 1470.0,
+		"local": true,
+		"margin": 0.001,
+		"overlap_at_native_hit": true,
+		"sample_offset_m": 0.001
+	},
+	{
+		"hit": true,
+		"index": 1470.0,
+		"local": true,
+		"margin": 0.01,
+		"safe": 0.00244140625,
+		"segments": 1,
+		"unsafe": 0.003173828125
+	},
+	{
+		"hit": true,
+		"index": 1470.0,
+		"local": true,
+		"margin": 0.01,
+		"safe": 0.00262451171875,
+		"segments": 16,
+		"unsafe": 0.0028076171875
+	},
+	{
+		"hit": true,
+		"index": 1470.0,
+		"local": true,
+		"margin": 0.01,
+		"safe": 0.0026397705078125,
+		"segments": 256,
+		"unsafe": 0.002655029296875
+	},
+	{
+		"index": 1470.0,
+		"local": true,
+		"margin": 0.01,
+		"overlap_at_native_hit": true,
+		"sample_offset_m": -0.0001
+	},
+	{
+		"index": 1470.0,
+		"local": true,
+		"margin": 0.01,
+		"overlap_at_native_hit": true,
+		"sample_offset_m": 0.0
+	},
+	{
+		"index": 1470.0,
+		"local": true,
+		"margin": 0.01,
+		"overlap_at_native_hit": true,
+		"sample_offset_m": 0.0001
+	},
+	{
+		"index": 1470.0,
+		"local": true,
+		"margin": 0.01,
+		"overlap_at_native_hit": true,
+		"sample_offset_m": 0.001
+	},
+	{
+		"hit": true,
+		"index": 1290.0,
+		"local": false,
+		"margin": 0.0,
+		"safe": 0.28515625,
+		"segments": 1,
+		"unsafe": 0.2890625
+	},
+	{
+		"hit": false,
+		"index": 1290.0,
+		"local": false,
+		"margin": 0.0,
+		"safe": 1.0,
+		"segments": 16,
+		"unsafe": 1.0
+	},
+	{
+		"hit": false,
+		"index": 1290.0,
+		"local": false,
+		"margin": 0.0,
+		"safe": 1.0,
+		"segments": 256,
+		"unsafe": 1.0
+	},
+	{
+		"index": 1290.0,
+		"local": false,
+		"margin": 0.0,
+		"overlap_at_native_hit": true,
+		"sample_offset_m": -0.0001
+	},
+	{
+		"index": 1290.0,
+		"local": false,
+		"margin": 0.0,
+		"overlap_at_native_hit": true,
+		"sample_offset_m": 0.0
+	},
+	{
+		"index": 1290.0,
+		"local": false,
+		"margin": 0.0,
+		"overlap_at_native_hit": true,
+		"sample_offset_m": 0.0001
+	},
+	{
+		"index": 1290.0,
+		"local": false,
+		"margin": 0.0,
+		"overlap_at_native_hit": true,
+		"sample_offset_m": 0.001
+	},
+	{
+		"hit": true,
+		"index": 1290.0,
+		"local": false,
+		"margin": 0.001,
+		"safe": 0.28515625,
+		"segments": 1,
+		"unsafe": 0.2890625
+	},
+	{
+		"hit": false,
+		"index": 1290.0,
+		"local": false,
+		"margin": 0.001,
+		"safe": 1.0,
+		"segments": 16,
+		"unsafe": 1.0
+	},
+	{
+		"hit": false,
+		"index": 1290.0,
+		"local": false,
+		"margin": 0.001,
+		"safe": 1.0,
+		"segments": 256,
+		"unsafe": 1.0
+	},
+	{
+		"index": 1290.0,
+		"local": false,
+		"margin": 0.001,
+		"overlap_at_native_hit": true,
+		"sample_offset_m": -0.0001
+	},
+	{
+		"index": 1290.0,
+		"local": false,
+		"margin": 0.001,
+		"overlap_at_native_hit": true,
+		"sample_offset_m": 0.0
+	},
+	{
+		"index": 1290.0,
+		"local": false,
+		"margin": 0.001,
+		"overlap_at_native_hit": true,
+		"sample_offset_m": 0.0001
+	},
+	{
+		"index": 1290.0,
+		"local": false,
+		"margin": 0.001,
+		"overlap_at_native_hit": true,
+		"sample_offset_m": 0.001
+	},
+	{
+		"hit": true,
+		"index": 1290.0,
+		"local": false,
+		"margin": 0.01,
+		"safe": 0.28515625,
+		"segments": 1,
+		"unsafe": 0.2890625
+	},
+	{
+		"hit": false,
+		"index": 1290.0,
+		"local": false,
+		"margin": 0.01,
+		"safe": 1.0,
+		"segments": 16,
+		"unsafe": 1.0
+	},
+	{
+		"hit": false,
+		"index": 1290.0,
+		"local": false,
+		"margin": 0.01,
+		"safe": 1.0,
+		"segments": 256,
+		"unsafe": 1.0
+	},
+	{
+		"index": 1290.0,
+		"local": false,
+		"margin": 0.01,
+		"overlap_at_native_hit": true,
+		"sample_offset_m": -0.0001
+	},
+	{
+		"index": 1290.0,
+		"local": false,
+		"margin": 0.01,
+		"overlap_at_native_hit": true,
+		"sample_offset_m": 0.0
+	},
+	{
+		"index": 1290.0,
+		"local": false,
+		"margin": 0.01,
+		"overlap_at_native_hit": true,
+		"sample_offset_m": 0.0001
+	},
+	{
+		"index": 1290.0,
+		"local": false,
+		"margin": 0.01,
+		"overlap_at_native_hit": true,
+		"sample_offset_m": 0.001
+	},
+	{
+		"hit": true,
+		"index": 1290.0,
+		"local": true,
+		"margin": 0.0,
+		"safe": 0.197265625,
+		"segments": 1,
+		"unsafe": 0.203125
+	},
+	{
+		"hit": false,
+		"index": 1290.0,
+		"local": true,
+		"margin": 0.0,
+		"safe": 1.0,
+		"segments": 16,
+		"unsafe": 1.0
+	},
+	{
+		"hit": true,
+		"index": 1290.0,
+		"local": true,
+		"margin": 0.0,
+		"safe": 0.14678955078125,
+		"segments": 256,
+		"unsafe": 0.146804809570312
+	},
+	{
+		"index": 1290.0,
+		"local": true,
+		"margin": 0.0,
+		"overlap_at_native_hit": false,
+		"sample_offset_m": -0.0001
+	},
+	{
+		"index": 1290.0,
+		"local": true,
+		"margin": 0.0,
+		"overlap_at_native_hit": false,
+		"sample_offset_m": 0.0
+	},
+	{
+		"index": 1290.0,
+		"local": true,
+		"margin": 0.0,
+		"overlap_at_native_hit": false,
+		"sample_offset_m": 0.0001
+	},
+	{
+		"index": 1290.0,
+		"local": true,
+		"margin": 0.0,
+		"overlap_at_native_hit": false,
+		"sample_offset_m": 0.001
+	},
+	{
+		"hit": true,
+		"index": 1290.0,
+		"local": true,
+		"margin": 0.001,
+		"safe": 0.197265625,
+		"segments": 1,
+		"unsafe": 0.203125
+	},
+	{
+		"hit": false,
+		"index": 1290.0,
+		"local": true,
+		"margin": 0.001,
+		"safe": 1.0,
+		"segments": 16,
+		"unsafe": 1.0
+	},
+	{
+		"hit": true,
+		"index": 1290.0,
+		"local": true,
+		"margin": 0.001,
+		"safe": 0.14678955078125,
+		"segments": 256,
+		"unsafe": 0.146804809570312
+	},
+	{
+		"index": 1290.0,
+		"local": true,
+		"margin": 0.001,
+		"overlap_at_native_hit": true,
+		"sample_offset_m": -0.0001
+	},
+	{
+		"index": 1290.0,
+		"local": true,
+		"margin": 0.001,
+		"overlap_at_native_hit": true,
+		"sample_offset_m": 0.0
+	},
+	{
+		"index": 1290.0,
+		"local": true,
+		"margin": 0.001,
+		"overlap_at_native_hit": true,
+		"sample_offset_m": 0.0001
+	},
+	{
+		"index": 1290.0,
+		"local": true,
+		"margin": 0.001,
+		"overlap_at_native_hit": true,
+		"sample_offset_m": 0.001
+	},
+	{
+		"hit": true,
+		"index": 1290.0,
+		"local": true,
+		"margin": 0.01,
+		"safe": 0.197265625,
+		"segments": 1,
+		"unsafe": 0.203125
+	},
+	{
+		"hit": false,
+		"index": 1290.0,
+		"local": true,
+		"margin": 0.01,
+		"safe": 1.0,
+		"segments": 16,
+		"unsafe": 1.0
+	},
+	{
+		"hit": true,
+		"index": 1290.0,
+		"local": true,
+		"margin": 0.01,
+		"safe": 0.14678955078125,
+		"segments": 256,
+		"unsafe": 0.146804809570312
+	},
+	{
+		"index": 1290.0,
+		"local": true,
+		"margin": 0.01,
+		"overlap_at_native_hit": true,
+		"sample_offset_m": -0.0001
+	},
+	{
+		"index": 1290.0,
+		"local": true,
+		"margin": 0.01,
+		"overlap_at_native_hit": true,
+		"sample_offset_m": 0.0
+	},
+	{
+		"index": 1290.0,
+		"local": true,
+		"margin": 0.01,
+		"overlap_at_native_hit": true,
+		"sample_offset_m": 0.0001
+	},
+	{
+		"index": 1290.0,
+		"local": true,
+		"margin": 0.01,
+		"overlap_at_native_hit": true,
+		"sample_offset_m": 0.001
+	}
+]

@@ -1,0 +1,47 @@
+Godot Engine v4.7.2.stable.fedora.ed1daf0bf - https://godotengine.org
+
+PASS Standing calibrates physical crouch
+PASS Small head motion does not crouch
+PASS Lowered headset requests shorter capsule
+PASS Held crouch never becomes the standing baseline
+PASS Crouch threshold has release hysteresis
+PASS Physical jumps cannot raise standing calibration
+PASS Disabled/seated/untracked crouch requests standing
+PASS Invalid headset height is rejected
+PASS Floor-level prone headset retains prone stance
+PASS Floor-level prone pose survives network validation
+PASS Below-floor headset is still rejected
+PASS Network height is bounded
+PASS Nonfinite crouch height invalidates pose
+MAP_READY qsrc_dm1 spawns=7 pickups=25
+DM_HOST_READY port=0 practice=true
+PASS Standing capsule cannot enter low tunnel
+PASS Crouch shrinks collision from the feet upward
+PASS Physical crouch permits walking into low tunnel
+PASS Standing cannot expand capsule through a ceiling
+PASS Standing clearance is restored after leaving tunnel
+PASS Tall headset pose cannot spoof a tiny collider
+PASS Crouched damage capsule no longer extends above head
+PASS Lag compensation retains the earlier standing hitbox
+PASS Rewound crouch differs correctly from current standing hitbox
+PASS Authoritative crouch height is included in snapshots
+PASS VR crouch demo recording starts
+PASS New VR data survives production demo frame validation
+PASS Demo preserves crouch height and headset pose
+PASS Demo playback restores the crouched collider
+PASS Respawn restores full collision height
+PASS Stroke thrust follows view pitch 0.00
+PASS Stroke thrust follows view pitch 0.79
+PASS Stroke thrust follows view pitch -0.79
+PASS Level arm strokes move forward while allowing passive sinking
+PASS Jump cannot create an unrelated midair jump
+SHORE_PROBE false (1000.0, 11.96759, 999.2815) velocity=(0.0, 1.166666, -0.560857) boosts=0 used=true
+SHORE_PROBE true (1000.0, 12.19591, 995.7633) velocity=(0.0, 0.0, -5.2) boosts=1 used=true
+PASS Emerging grants exactly one surface boost with jump held
+PASS One surface jump clears a shore ledge that ordinary swimming cannot reach
+PASS Surface bobbing cannot repeat an already spent boost
+PASS A fresh sustained submersion rearms the surface jump
+PASS Short exit grace catches crossing the surface between physics samples
+PASS AS display name matches the current uppercase menu style
+Disconnected.
+VR_CROUCH_WATER_RESULT []

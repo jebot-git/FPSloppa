@@ -1,0 +1,17 @@
+Godot Engine v4.7.2.stable.fedora.ed1daf0bf - https://godotengine.org
+
+PASS Delayed grounded snapshot preserves newer jump at 33 ms
+PASS Delayed grounded snapshot preserves newer jump at 100 ms
+PASS Delayed grounded snapshot preserves newer jump at 200 ms
+PASS Delayed grounded snapshot preserves newer jump at 400 ms
+PASS Unpredicted server impulse is added without removing pending jump
+PASS Repeated acknowledgement cannot apply impulse twice
+PASS Landing acknowledgement neither bounces nor boosts a newer jump (false)
+PASS Landing acknowledgement neither bounces nor boosts a newer jump (true)
+PASS Server collision correction preserves visual origin for smooth convergence
+PASS Large divergence resets authority, visual offset and history
+PASS Prediction history remains bounded under missing snapshots
+PASS Respawn/teleport clears old-life prediction
+PASS Local spring simulation exits before touching uninitialized skeleton
+PASS Remote spring simulation can be restored
+LOCAL_PREDICTION_RESULT []

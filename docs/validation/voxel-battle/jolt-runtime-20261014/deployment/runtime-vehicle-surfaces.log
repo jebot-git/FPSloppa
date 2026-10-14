@@ -1,0 +1,44 @@
+Godot Engine v4.7.2.stable.fedora.ed1daf0bf - https://godotengine.org
+
+DM_HOST_READY port=28810 practice=false
+PASS Terrain road classification agrees with painted main roads and excludes offroad pad
+PASS Road gets 25 percent mobility; offroad and elevated floor retain defaults
+PASS Painted building access lane also receives road bonus
+PASS Road accelerates and turns rocket 25 percent faster
+PASS Road forward top speed rocket
+PASS Road reverse top speed rocket
+PASS Offroad preserves original mobility rocket
+DM_EVENT Attacker  →  Vehicle surfaces   ·   VEHICLE DESTROYED
+PASS Destroyed rocket instantly gibs crew despite armor/protection
+PASS Destruction credits attacker and restores crew state rocket
+PASS Road accelerates and turns light 25 percent faster
+PASS Road forward top speed light
+PASS Road reverse top speed light
+PASS Offroad preserves original mobility light
+DM_EVENT Attacker  →  Vehicle surfaces   ·   VEHICLE DESTROYED
+PASS Destroyed light instantly gibs crew despite armor/protection
+PASS Destruction credits attacker and restores crew state light
+PASS Road accelerates and turns heavy 25 percent faster
+PASS Road forward top speed heavy
+PASS Road reverse top speed heavy
+PASS Offroad preserves original mobility heavy
+DM_EVENT Attacker  →  Vehicle surfaces   ·   VEHICLE DESTROYED
+PASS Destroyed heavy instantly gibs crew despite armor/protection
+PASS Destruction credits attacker and restores crew state heavy
+PASS Chosen test point is actual river killzone
+DM_EVENT Vehicle surfaces  →  Vehicle surfaces   ·   VEHICLE DROWNED
+PASS Water destroys rocket, gibs crew and cancels firing/movement
+DM_EVENT Vehicle surfaces  →  Vehicle surfaces   ·   VEHICLE DROWNED
+PASS Water destroys light, gibs crew and cancels firing/movement
+DM_EVENT Vehicle surfaces  →  Vehicle surfaces   ·   VEHICLE DROWNED
+PASS Water destroys heavy, gibs crew and cancels firing/movement
+PASS Unoccupied vehicle in water also becomes disabled wreck
+DM_EVENT Vehicle surfaces  →  Vehicle surfaces   ·   VEHICLE DROWNED
+PASS Physical shoreline crossing moves into water and destroys occupied hull
+PASS Bridge or floor above water doesn't count as submerged
+CQ_VEHICLE_SURFACE_RESULT []
+Disconnected.
+WARNING: 21 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 8 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

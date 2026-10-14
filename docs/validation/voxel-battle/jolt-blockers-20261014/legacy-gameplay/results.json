@@ -1,0 +1,27 @@
+[
+  {
+    "name": "cq_cs_movement",
+    "status": "passed",
+    "pass_lines": 31
+  },
+  {
+    "name": "cq_jetpack",
+    "status": "passed",
+    "pass_lines": 44
+  },
+  {
+    "name": "cq_vehicle_surface",
+    "status": "blocked_environment",
+    "reason": "Sandbox denies UDP socket creation; host setup failed before gameplay assertions"
+  },
+  {
+    "name": "cq_hover_tanks",
+    "status": "not_run",
+    "reason": "Same UDP host prerequisite; avoided repeating known environment failure"
+  },
+  {
+    "name": "cq_frontier_integration",
+    "status": "not_run",
+    "reason": "Same UDP host prerequisite; avoided repeating known environment failure"
+  }
+]

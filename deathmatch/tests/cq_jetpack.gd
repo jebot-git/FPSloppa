@@ -124,6 +124,6 @@ func run() -> void:
 	check(max_height<1.3 and actor.is_supported(),"Low ceiling stops lift safely and hover still ends")
 	actor.configure_jetpack(false);check(actor.jetpack_state.mode==0 and actor.jetpack_state.cooldown==0,"Leaving CQ clears flight state")
 	world.free();await process_frame
-	DirAccess.make_dir_recursive_absolute("res://test-results/cq-jetpack")
-	var report:={"checks":checks,"failures":failures,"flights":measurements};FileAccess.open("res://test-results/cq-jetpack/physics.json",FileAccess.WRITE).store_string(JSON.stringify(report,"  "))
+	DirAccess.make_dir_recursive_absolute("user://test-results/cq-jetpack")
+	var report:={"checks":checks,"failures":failures,"flights":measurements};FileAccess.open("user://test-results/cq-jetpack/physics.json",FileAccess.WRITE).store_string(JSON.stringify(report,"  "))
 	print("CQ_JETPACK_RESULT ",JSON.stringify(report));quit(0 if failures.is_empty() else 1)

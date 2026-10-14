@@ -12,6 +12,13 @@ var revival_timers=preload("res://deathmatch/conquest/classes/revival_timers.gd"
 var spotting=preload("res://deathmatch/conquest/classes/spotting.gd").new()
 var classes=preload("res://deathmatch/conquest/classes/rules.gd").new()
 func _ready() -> void:
+	# Client prediction and authority must select the same backend at startup.
+	var jolt_available:=false
+	for property in ProjectSettings.get_property_list():
+		if property.name=="physics/3d/physics_engine":jolt_available="Jolt Physics" in str(property.hint_string).split(",")
+	if ProjectSettings.get_setting("physics/3d/physics_engine","")!="Jolt Physics" or not jolt_available:
+		push_error("CQ requires a Godot build with Jolt Physics selected; restart after changing the physics backend.")
+		get_tree().quit(2);return
 	var startup:=OS.get_cmdline_user_args()
 	if startup.has("--cq-worker") or startup.has("--cluster-worker") or startup.has("--cq-external-workers"):
 		set_process(false);set_physics_process(false)
@@ -403,7 +410,7 @@ func _play_variant_shot_fx(id:int,weapon:int,alternate:bool) -> void:
 		var sound:=AudioStreamPlayer3D.new();sound.stream=load("res://deathmatch/audio/cq_weapons/"+("pistol_suppressed" if weapon==9 else "pistol")+".wav");sound.bus="ArenaEffects";sound.volume_db=-12 if weapon==9 else -4;sound.max_distance=18 if weapon==9 else 90;add_child(sound);sound.position=_weapon_transform(id).origin;sound.finished.connect(sound.queue_free);sound.play()
 	elif weapon in [0,1,4,10]:spatial.play("ut99_weapon_7",_weapon_transform(id).origin,-5)
 	elif weapon in [5,11]:spatial.play("weapon_8",_weapon_transform(id).origin,-6)
-const CLASS_PROTOCOL:="fpsloppa-cq-frontier-16-poi-points-cs-only1"
+const CLASS_PROTOCOL:="fpsloppa-cq-frontier-17-jolt-ramps1"
 func connection_protocol() -> String:return CLASS_PROTOCOL
 func _collect(_id:int) -> void:pass # CQ resupplies through its class dispensers.
 func on_player_died(id:int) -> void:
@@ -414,7 +421,7 @@ func on_player_died(id:int) -> void:
 
 static func map_identity() -> String:
 	var digest:=HashingContext.new();digest.start(HashingContext.HASH_SHA256)
-	for file in ["landscape","architecture","outer_architecture","hydrology","waterways","map","water_contents","baked_lighting","jungle_sky","light_fixtures"]:
+	for file in ["landscape","architecture","outer_architecture","hydrology","waterways","map","stair_ramps","water_contents","baked_lighting","jungle_sky","light_fixtures"]:
 		digest.update(FileAccess.get_file_as_bytes("res://tools/voxel_battle/"+file+".gd"))
 	for path in ["res://experimental-assets/jungle/lighting/bake.json","res://experimental-assets/jungle/lighting/irradiance.png","res://experimental-assets/jungle/lighting/dawn.png","res://experimental-assets/jungle/lighting/skybox.png","res://tools/voxel_battle/baked_lighting.gdshaderinc","res://tools/voxel_battle/jungle_sky.gdshader"]:
 		digest.update(FileAccess.get_file_as_bytes(path))

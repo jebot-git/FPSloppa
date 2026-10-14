@@ -1,0 +1,13 @@
+STAIR rise=0.2 ceiling=0 peak=0.195002 z=-2.6 steps=1
+STAIR rise=0.2 ceiling=1 peak=0.195 z=-2.6 steps=1
+STAIR rise=0.55 ceiling=0 peak=0.545 z=-2.599 steps=1
+STAIR rise=0.55 ceiling=1 peak=-0.004 z=-0.299 steps=0
+STAIR rise=0.8 ceiling=0 peak=-0.004 z=-0.299 steps=0
+STAIR rise=0.8 ceiling=1 peak=-0.004 z=-0.299 steps=0
+RAMP people=32 ticks=240 p50_ms=0.115591 p95_ms=0.200352 maximum_foot_lift=0.142194
+RAMP people=64 ticks=240 p50_ms=0.240318 p95_ms=0.405414 maximum_foot_lift=0.142207
+ISLAND side_push=1 people=32 ticks=90 p50_ms=0.343195 p95_ms=0.428523 min_distance=0.491106
+ISLAND side_push=1 people=64 ticks=90 p50_ms=0.894101 p95_ms=1.0429 min_distance=0.355527
+ISLAND side_push=0 people=32 ticks=90 p50_ms=0.15165 p95_ms=0.180942 min_distance=0.601738
+ISLAND side_push=0 people=64 ticks=90 p50_ms=0.385667 p95_ms=0.495788 min_distance=0.601738
+{"checks":305,"failures":0}

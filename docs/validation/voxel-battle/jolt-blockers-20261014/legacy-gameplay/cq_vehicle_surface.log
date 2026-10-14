@@ -1,0 +1,25 @@
+Godot Engine v4.7.2.stable.fedora.ed1daf0bf - https://godotengine.org
+
+ERROR: Condition "_sock == -1" is true. Returning: FAILED
+   at: _inet_open (drivers/unix/net_socket_unix.cpp:288)
+   GDScript backtrace (most recent call first):
+       [0] start_host (res://deathmatch/arena.gd:481)
+       [1] start_host (res://tools/voxel_battle/class_arena.gd:40)
+       [2] run (res://deathmatch/tests/cq_vehicle_surface.gd:11)
+ERROR: Condition "!is_open()" is true. Returning: ERR_UNCONFIGURED
+   at: bind (drivers/unix/net_socket_unix.cpp:429)
+   GDScript backtrace (most recent call first):
+       [0] start_host (res://deathmatch/arena.gd:481)
+       [1] start_host (res://tools/voxel_battle/class_arena.gd:40)
+       [2] run (res://deathmatch/tests/cq_vehicle_surface.gd:11)
+ERROR: Couldn't create an ENet host.
+   at: _create (modules/enet/enet_connection.cpp:319)
+   GDScript backtrace (most recent call first):
+       [0] start_host (res://deathmatch/arena.gd:481)
+       [1] start_host (res://tools/voxel_battle/class_arena.gd:40)
+       [2] run (res://deathmatch/tests/cq_vehicle_surface.gd:11)
+Cannot host: UDP port is unavailable (Can't create).
+SCRIPT ERROR: Invalid access to property or key '1' on a base object of type 'Dictionary'.
+          at: run (res://deathmatch/tests/cq_vehicle_surface.gd:12)
+          GDScript backtrace (most recent call first):
+              [0] run (res://deathmatch/tests/cq_vehicle_surface.gd:12)

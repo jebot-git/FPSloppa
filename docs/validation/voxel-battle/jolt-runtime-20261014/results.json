@@ -1,0 +1,125 @@
+{
+  "godot": "4.7.2.stable.fedora.ed1daf0bf",
+  "cpu": "Intel Core i7-12700",
+  "runtime": {
+    "checks": 48,
+    "engine": "Jolt Physics",
+    "failures": [],
+    "movement_only": {
+      "32": {
+        "minimum_horizontal_separation_m": 0.585505306720734,
+        "movement_batch_p50_ms": 3.141,
+        "movement_batch_p95_ms": 3.528,
+        "samples": 180
+      },
+      "64": {
+        "minimum_horizontal_separation_m": 0.597324848175049,
+        "movement_batch_p50_ms": 5.251,
+        "movement_batch_p95_ms": 5.764,
+        "samples": 180
+      }
+    },
+    "tick_hz": 30
+  },
+  "tests": [
+    {
+      "test": "runtime",
+      "exit_code": 0,
+      "checks": 48,
+      "cleanup_resource_diagnostic": false,
+      "log_sha256": "007338821086813650592c5a2d050f067fc104888c5977d7401eff25cb9b3c93"
+    },
+    {
+      "test": "cq_cs_movement",
+      "exit_code": 0,
+      "checks": 31,
+      "cleanup_resource_diagnostic": false,
+      "log_sha256": "d8e7dd94f761ecfa0f24ee8ee7c9302596febdaa0db2ad70f8ddb5ed7d1458c3"
+    },
+    {
+      "test": "cq_jetpack",
+      "exit_code": 0,
+      "checks": 44,
+      "cleanup_resource_diagnostic": false,
+      "log_sha256": "f868b86c857ee7a4cd4a159ea82f21de55fa9c1185d23fd551c79bf3b37768ef"
+    },
+    {
+      "test": "cq_battery_tank",
+      "exit_code": 0,
+      "checks": 58,
+      "cleanup_resource_diagnostic": true,
+      "log_sha256": "a2d21e8ce489c2f1cc6ddb75ce0cc078d61b07493adb70ce61170779960f80ce"
+    },
+    {
+      "test": "cq_hover_tanks",
+      "exit_code": 0,
+      "checks": 44,
+      "cleanup_resource_diagnostic": true,
+      "log_sha256": "d0ddf1c259223c8341368411d727a143e1e3733073a7230c5b93441bdce87b7b"
+    },
+    {
+      "test": "cq_vehicle_surface",
+      "exit_code": 0,
+      "checks": 28,
+      "cleanup_resource_diagnostic": true,
+      "log_sha256": "2992c91899e10a116df3e7435cd25b48b16f30b39473afadce19e83609489150"
+    },
+    {
+      "test": "cq_barrage_ballistics",
+      "exit_code": 0,
+      "checks": 0,
+      "cleanup_resource_diagnostic": false,
+      "log_sha256": "81b74c719101dc3f5f6c99627c2e7c2ad68d95155ee72f4d85c21fad491c0acd"
+    },
+    {
+      "test": "cq_frontier_integration",
+      "exit_code": 0,
+      "checks": 50,
+      "cleanup_resource_diagnostic": true,
+      "log_sha256": "a57e924208b3e0a6cb8f5263942e66f645fd1b3146ee98ee6580995b9e3f77c5"
+    },
+    {
+      "test": "local_prediction",
+      "exit_code": 0,
+      "checks": 14,
+      "cleanup_resource_diagnostic": false,
+      "log_sha256": "0f736be91ff286b21580d838b1b564f9abfe54ab0f6f59e7a4e8eb3963e608da"
+    },
+    {
+      "test": "vr_crouch_water",
+      "exit_code": 0,
+      "checks": 39,
+      "cleanup_resource_diagnostic": false,
+      "log_sha256": "16d9231928c28cd1965117bd7056b7523554be58a6de73ffb1609dbdfee0b823"
+    },
+    {
+      "test": "network-server",
+      "exit_code": 0,
+      "checks": 3,
+      "cleanup_resource_diagnostic": true,
+      "log_sha256": "6a07939145db053b5d181d0bbe5e2bcbd161d77f4895516f03e926c0eb4dce17"
+    },
+    {
+      "test": "network-client",
+      "exit_code": 0,
+      "checks": 7,
+      "cleanup_resource_diagnostic": true,
+      "log_sha256": "97ec3e6a35707d3283b914ef8cc826759a6cf9a79ae3a3d9296ef9a570f16715"
+    },
+    {
+      "test": "terrain",
+      "exit_code": 0,
+      "checks": 0,
+      "cleanup_resource_diagnostic": false,
+      "log_sha256": "9578d91cfd645e124fe496ebec62b9627044e4c980c64dd2b9e0f2cc8cab9a75"
+    },
+    {
+      "test": "legacy-cleanup",
+      "exit_code": 0,
+      "checks": 58,
+      "cleanup_resource_diagnostic": true,
+      "log_sha256": "a2d21e8ce489c2f1cc6ddb75ce0cc078d61b07493adb70ce61170779960f80ce"
+    }
+  ],
+  "native_ctest": "3/3 passed; 534 custom, 284 Jolt, 305 blocker checks; prebuilt unchanged native suites"
+}

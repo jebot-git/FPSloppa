@@ -8,6 +8,9 @@ const Grass=preload("res://tools/voxel_battle/grass.gd")
 const LIMIT:=Landscape.EXTENT/2
 const COLLISION_SIDE:=1425
 var physics_enabled:=true
+# Disabled only by the historical collision benchmark exporter.
+var stair_ramps_enabled:=true
+var stair_ramps:Dictionary={}
 var environment
 var grass
 var environment_colliders:=0
@@ -33,6 +36,9 @@ func build(graphics: bool, physics: bool=true, baking:bool=false) -> void:
 		for row in layout.boxes:
 			var p: Vector3=Landscape.CENTERS[row.kind]+row.center
 			add_box(p,row.size)
+		if stair_ramps_enabled:
+			stair_ramps=preload("res://tools/voxel_battle/stair_ramps.gd").apply(self)
+			assert(not stair_ramps.is_empty(),"Authored stair collision generation failed")
 		seed_collision()
 		# Boundary lies outside the terrain, clear of all authored road endpoints.
 		for side in [-1,1]:

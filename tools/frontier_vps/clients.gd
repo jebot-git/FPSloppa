@@ -29,7 +29,7 @@ func run() -> void:
 			var child=load("res://tools/frontier_vps/clients/"+child_name+".gd").new();child.name=child_name;arena.add_child(child)
 		api.server_disconnected.connect(func():print("LOAD_CLIENT_TRANSPORT_LOST ",JSON.stringify({"uptime_ms":Time.get_ticks_msec()-started,"last":last_transport})))
 		api.connection_failed.connect(func():print("LOAD_CLIENT_TRANSPORT_FAILED uptime_ms=",Time.get_ticks_msec()-started))
-		api.connected_to_server.connect(func():arena._hello.rpc_id(1,"Load "+value("--client-label",str(i)),"fpsloppa-cq-frontier-16-poi-points-cs-only1",false))
+		api.connected_to_server.connect(func():arena._hello.rpc_id(1,"Load "+value("--client-label",str(i)),preload("res://tools/voxel_battle/class_arena.gd").CLASS_PROTOCOL,false))
 		var peer:=ENetMultiplayerPeer.new();var err:=peer.create_client(address,port);api.multiplayer_peer=peer
 		if err!=OK:push_error("ENet client creation failed");get_tree().quit(1);return
 		clients.append(arena)

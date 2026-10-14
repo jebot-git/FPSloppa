@@ -42,7 +42,14 @@ static func jump_limit(velocity: Vector2,max_speed: float) -> Vector2:
 
 static func near_edge(actor,velocity: Vector2) -> bool:
 	if velocity.is_zero_approx():return false
-	var ahead: Vector3=actor.global_position+Vector3(velocity.x,0,velocity.y).normalized()*(16.0/UNITS)+Vector3.UP*.02
+	var offset:=Vector3(velocity.x,0,velocity.y).normalized()*(16.0/UNITS)
+	# The flat cylinder's leading foot rests above its origin on an incline.
+	# Start above that plane so the ledge ray cannot begin inside a ramp.
+	var rise:=0.0
+	if actor.is_on_floor():
+		var normal:Vector3=actor.get_floor_normal()
+		if normal.y>.7:rise=maxf(0,-normal.dot(offset)/normal.y)
+	var ahead: Vector3=actor.global_position+offset+Vector3.UP*(rise+.02)
 	var query:=PhysicsRayQueryParameters3D.create(ahead,ahead-Vector3.UP*(34.0/UNITS),3,[actor.get_rid()])
 	return Attribution.ray(actor.get_world_3d().direct_space_state,query,"query.cs16.near_edge.ray").is_empty()
 
@@ -91,7 +98,9 @@ static func _attributed_simulate(actor,direction: Vector3,slow: bool,delta: floa
 	if not actor.stepped_last_frame:actor._attribution_slide()
 	if stepping and not actor.is_supported():actor._attribution_snap()
 	if not actor.in_water:
-		if actor.is_supported() and actor.velocity.y<=0:actor.velocity.y=0
+		# move_and_slide returns an upward tangent velocity on walkable ramps.
+		# It is floor motion, not a takeoff: retain ground acceleration next tick.
+		if actor.is_supported() and (not jumping or actor.velocity.y<=0):actor.velocity.y=0
 		else:actor.velocity.y=maxf(-MAX_VELOCITY,actor.velocity.y-GRAVITY*delta*.5)
 	if jumping and actor.velocity.y>0:actor.emit_movement_sound("jump",actor.global_position+Vector3.UP*.65)
 	elif not grounded and actor.is_supported() and impact < -250.0/UNITS and not actor.in_water:actor.emit_movement_sound("land",actor.global_position+Vector3.UP*.2)

@@ -84,8 +84,8 @@ func run() -> void:
 		report.navigation={"polygons":polygons,"chunks":chunks.get_meta("chunks"),"seam_links":chunks.get_meta("seam_links"),"seconds":(Time.get_ticks_msec()-start)/1000.0,"cache":preload("res://tools/voxel_battle/jungle_navigation.gd").cache_path(map),"water_vertices":submerged}
 
 	report.checks=checks;report.errors=errors
-	DirAccess.make_dir_recursive_absolute("res://test-results/jungle-terrain")
-	FileAccess.open("res://test-results/jungle-terrain/physics.json",FileAccess.WRITE).store_string(JSON.stringify(report,"\t"));print(JSON.stringify(report));map.free();await process_frame;quit(0 if errors.is_empty() else 1)
+	DirAccess.make_dir_recursive_absolute("user://test-results/jungle-terrain")
+	FileAccess.open("user://test-results/jungle-terrain/physics.json",FileAccess.WRITE).store_string(JSON.stringify(report,"\t"));print(JSON.stringify(report));map.free();await process_frame;quit(0 if errors.is_empty() else 1)
 
 func full_path(map: RID,start: Vector3,end: Vector3) -> PackedVector3Array:
 	var query:=NavigationPathQueryParameters3D.new();query.map=map;query.start_position=start;query.target_position=end
