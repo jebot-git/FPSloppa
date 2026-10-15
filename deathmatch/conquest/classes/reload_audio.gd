@@ -1,18 +1,22 @@
 extends Node3D
 ## Accepted reload state edges; late joins and weapon changes are silent.
-const CLIPS={"magazine_out":"res://deathmatch/audio/equipment/magazine_out.wav","magazine_in":"res://deathmatch/audio/equipment/magazine_in.wav","bolt_pull":"res://deathmatch/audio/equipment/bolt_pull.wav","bolt_release":"res://deathmatch/audio/equipment/bolt_release.wav"}
+const CLIPS={"magazine_out":"res://deathmatch/audio/cq_field/magazine_out.wav","magazine_in":"res://deathmatch/audio/cq_field/magazine_in.wav","bolt_pull":"res://deathmatch/audio/cq_field/bolt_pull.wav","bolt_release":"res://deathmatch/audio/cq_field/bolt_release.wav","cell_cycle":"res://deathmatch/audio/cq_field/supply.wav"}
 var game
 var seen:Dictionary={}
 var voices:Array=[]
 var streams:Dictionary={}
 var elapsed:=0.
 func setup(arena)->void:game=arena
-func observe(id:int,life:int,weapon:int,state:Dictionary)->Array:
+func observe(id:int,life:int,weapon:int,state:Dictionary,automatic:Dictionary={})->Array:
  var old:Dictionary=seen.get(id,{})
- var current:Dictionary=state.duplicate();current.life=life;current.weapon=weapon;seen[id]=current
+ var current:Dictionary=state.duplicate();current.life=life;current.weapon=weapon;current.auto_reload=automatic.get("reloading",-1)==weapon;current.cycling=automatic.get("cycling",-1)==weapon;current.loaded=automatic.get("clips",{}).get(weapon,0);seen[id]=current
  if old.is_empty() or old.life!=life or old.weapon!=weapon:return []
  var cues:Array=[]
  if old.get("mag",true)!=current.get("mag",true):cues.append("magazine_in" if current.get("mag",true) else "magazine_out")
+ if not state.has("mag"):
+  if not old.auto_reload and current.auto_reload:cues.append("magazine_out")
+  elif old.auto_reload and not current.auto_reload and current.loaded>old.loaded:cues.append("magazine_in")
+ if old.cycling and not current.cycling:cues.append("cell_cycle")
  var before:float=maxf(old.get("stroke",0.),.7 if old.get("locked",false) else 0.)
  var after:float=maxf(current.get("stroke",0.),.7 if current.get("locked",false) else 0.)
  if before<.6 and after>=.6:cues.append("bolt_pull")
@@ -34,7 +38,8 @@ func _process(delta:float)->void:
   if not game.players.has(id):seen.erase(id)
  for id in game.players:
   var player:Dictionary=game.players[id];var weapon:int=player.weapon
-  var state:Dictionary=game.variant_combat.magazines.states.get(id,{}).get("physical",{}).get(weapon,{})
-  var cues:=observe(id,player.serial,weapon,state)
+  var automatic:Dictionary=game.variant_combat.magazines.states.get(id,{})
+  var state:Dictionary=automatic.get("physical",{}).get(weapon,{})
+  var cues:=observe(id,player.serial,weapon,state,automatic)
   if player.dead or not game.fighters.has(id):continue
   for cue in cues:play_cue(cue,game._weapon_transform(id).origin)

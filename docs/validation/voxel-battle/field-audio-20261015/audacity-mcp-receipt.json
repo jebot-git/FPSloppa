@@ -1,0 +1,784 @@
+[
+  {
+    "tool": "project_new",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "project_import_audio",
+    "arguments": {
+      "path": "/home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/blacklodge/50-Free-SciFi-SFX-blacklodgegames.com/blg_beam_01.wav"
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_all",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_region",
+    "arguments": {
+      "start": 0.0,
+      "end": 0.32
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "edit_trim",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_all",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "effect_high_pass_filter",
+    "arguments": {
+      "frequency": 110,
+      "rolloff": "dB12"
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "effect_low_pass_filter",
+    "arguments": {
+      "frequency": 12500,
+      "rolloff": "dB12"
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "normalize",
+    "arguments": {
+      "peak_level_db": -3,
+      "remove_dc": true
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "project_export_audio",
+    "arguments": {
+      "path": "/home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/edited/carbine.wav",
+      "num_channels": 1
+    },
+    "result": {
+      "raw": "Exported to WAV format: /home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/edited/carbine.wav\nBatchCommand finished: OK",
+      "success": true,
+      "message": "Exported to WAV format: /home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/edited/carbine.wav",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_all",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "track_remove",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "project_import_audio",
+    "arguments": {
+      "path": "/home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/blacklodge/50-Free-SciFi-SFX-blacklodgegames.com/blg_beam_03.wav"
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_all",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_region",
+    "arguments": {
+      "start": 0.0,
+      "end": 0.75
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "edit_trim",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_all",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "effect_high_pass_filter",
+    "arguments": {
+      "frequency": 80,
+      "rolloff": "dB12"
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "effect_low_pass_filter",
+    "arguments": {
+      "frequency": 14000,
+      "rolloff": "dB12"
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "normalize",
+    "arguments": {
+      "peak_level_db": -3,
+      "remove_dc": true
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "project_export_audio",
+    "arguments": {
+      "path": "/home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/edited/beam.wav",
+      "num_channels": 1
+    },
+    "result": {
+      "raw": "Exported to WAV format: /home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/edited/beam.wav\nBatchCommand finished: OK",
+      "success": true,
+      "message": "Exported to WAV format: /home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/edited/beam.wav",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_all",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "track_remove",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "project_import_audio",
+    "arguments": {
+      "path": "/home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/blacklodge/50-Free-SciFi-SFX-blacklodgegames.com/blg_beam_02.wav"
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_all",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_region",
+    "arguments": {
+      "start": 0.0,
+      "end": 0.23
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "edit_trim",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_all",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "effect_high_pass_filter",
+    "arguments": {
+      "frequency": 140,
+      "rolloff": "dB12"
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "effect_low_pass_filter",
+    "arguments": {
+      "frequency": 11000,
+      "rolloff": "dB12"
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "normalize",
+    "arguments": {
+      "peak_level_db": -3,
+      "remove_dc": true
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "project_export_audio",
+    "arguments": {
+      "path": "/home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/edited/assault.wav",
+      "num_channels": 1
+    },
+    "result": {
+      "raw": "Exported to WAV format: /home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/edited/assault.wav\nBatchCommand finished: OK",
+      "success": true,
+      "message": "Exported to WAV format: /home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/edited/assault.wav",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_all",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "track_remove",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "project_import_audio",
+    "arguments": {
+      "path": "/home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/scifi/rocket_01.ogg"
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_all",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_region",
+    "arguments": {
+      "start": 0,
+      "end": 1.4
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "edit_trim",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_all",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "effect_high_pass_filter",
+    "arguments": {
+      "frequency": 60,
+      "rolloff": "dB12"
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "effect_low_pass_filter",
+    "arguments": {
+      "frequency": 10000,
+      "rolloff": "dB12"
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "normalize",
+    "arguments": {
+      "peak_level_db": -3,
+      "remove_dc": true
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "project_export_audio",
+    "arguments": {
+      "path": "/home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/edited/ordnance.wav",
+      "num_channels": 1
+    },
+    "result": {
+      "raw": "Exported to WAV format: /home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/edited/ordnance.wav\nBatchCommand finished: OK",
+      "success": true,
+      "message": "Exported to WAV format: /home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/edited/ordnance.wav",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_all",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "track_remove",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "project_import_audio",
+    "arguments": {
+      "path": "/home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/scifi/rocket_01.ogg"
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_all",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_region",
+    "arguments": {
+      "start": 0,
+      "end": 0.38
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "edit_trim",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_all",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "effect_high_pass_filter",
+    "arguments": {
+      "frequency": 100,
+      "rolloff": "dB12"
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "effect_low_pass_filter",
+    "arguments": {
+      "frequency": 8500,
+      "rolloff": "dB12"
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "normalize",
+    "arguments": {
+      "peak_level_db": -3,
+      "remove_dc": true
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "project_export_audio",
+    "arguments": {
+      "path": "/home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/edited/jet_ignite.wav",
+      "num_channels": 1
+    },
+    "result": {
+      "raw": "Exported to WAV format: /home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/edited/jet_ignite.wav\nBatchCommand finished: OK",
+      "success": true,
+      "message": "Exported to WAV format: /home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/edited/jet_ignite.wav",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_all",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "track_remove",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "project_import_audio",
+    "arguments": {
+      "path": "/home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/motor_loop.flac"
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_all",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_region",
+    "arguments": {
+      "start": 0,
+      "end": 1.8
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "edit_trim",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_all",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "effect_high_pass_filter",
+    "arguments": {
+      "frequency": 120,
+      "rolloff": "dB12"
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "effect_low_pass_filter",
+    "arguments": {
+      "frequency": 6500,
+      "rolloff": "dB12"
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "normalize",
+    "arguments": {
+      "peak_level_db": -3,
+      "remove_dc": true
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "project_export_audio",
+    "arguments": {
+      "path": "/home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/edited/repair.wav",
+      "num_channels": 1
+    },
+    "result": {
+      "raw": "Exported to WAV format: /home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/edited/repair.wav\nBatchCommand finished: OK",
+      "success": true,
+      "message": "Exported to WAV format: /home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/edited/repair.wav",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_all",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "track_remove",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "project_close",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  }
+]

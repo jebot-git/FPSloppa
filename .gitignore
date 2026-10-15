@@ -141,3 +141,6 @@ __pycache__/
 !/deathmatch/models/battery_tank/*.png.import
 
 !/deathmatch/models/hover_tanks/*.png.import
+
+# Download cache and Audacity intermediates (runtime assets carry source manifests).
+/tools/audio-sources/cq-field/

@@ -8,8 +8,8 @@ var ignition:AudioStream
 var thrust:AudioStreamWAV
 func setup(arena)->void:
  game=arena
- ignition=load("res://deathmatch/audio/equipment/jetpack_ignite.wav")
- thrust=load("res://deathmatch/audio/equipment/jetpack_thrust.wav").duplicate();thrust.loop_mode=AudioStreamWAV.LOOP_FORWARD;thrust.loop_begin=0;thrust.loop_end=24000
+ ignition=load("res://deathmatch/audio/cq_field/jetpack_ignite.wav")
+ thrust=load("res://deathmatch/audio/cq_field/jetpack_thrust.wav").duplicate();thrust.loop_mode=AudioStreamWAV.LOOP_FORWARD;thrust.loop_begin=0;thrust.loop_end=roundi(thrust.get_length()*thrust.mix_rate)
 func burning(actor)->bool:
  var state:Dictionary=actor.jetpack_state
  return actor.alive_state and not actor.spectator and actor.jetpack_enabled and state.mode!=0 and state.age<(1.5 if state.mode==2 else 2.)

@@ -2332,7 +2332,7 @@ func _projectile_end(id: int,pos: Vector3,weapon: int) -> void:
 	if headless: return
 	if armory.experimental():
 		var explosive: bool=float(projectile_definition.get("splash",0))>0 if not projectile_definition.is_empty() else weapon in ([4,6] if armory.kind=="quake" else [1,3,4,6,8,10])
-		spatial.play(armory.kind+("_explosion" if explosive else "_bounce"),pos,-8 if explosive else -18)
+		spatial.play(projectile_sound(explosive,weapon),pos,-8 if explosive else -18)
 		_weapon_visuals().burst(armory.kind,pos,weapon,projectile_kind,projectile_definition)
 		return
 	elif weapon==6 or weapon==8: effects.play("explosion",pos,-3)
@@ -2711,3 +2711,6 @@ func _cq_capacity(epoch: int,counts: Array,revision: int) -> void:
 func water_view_raise(_actor,_eye_height:float) -> float:return 0.0
 
 func handle_vehicle_player(_id:int,_delta:float) -> bool:return false
+
+func projectile_sound(explosive:bool,_weapon:int)->String:
+	return armory.kind+("_explosion" if explosive else "_bounce")

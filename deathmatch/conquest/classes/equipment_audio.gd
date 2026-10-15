@@ -2,7 +2,7 @@ extends Node3D
 ## Accepted state edges only; proximity cues carry no extra network packets/RPCs.
 const RANGE:=8.
 const MAX_VOICES:=12
-const CLIPS={"nvg":"res://deathmatch/audio/equipment/nvg_toggle.wav","cloak":"res://deathmatch/audio/equipment/cloak_on.wav"}
+const CLIPS={"nvg":"res://deathmatch/audio/cq_field/nvg_toggle.wav","cloak":"res://deathmatch/audio/cq_field/cloak_on.wav"}
 const LEVELS={"nvg":-18.,"cloak":-20.}
 var game
 var seen:Dictionary={}

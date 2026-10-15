@@ -1,0 +1,19 @@
+{
+  "repository": "https://github.com/xDarkzx/Audacity-MCP",
+  "commit": "9068b227488ff5163ffc5081bc88df3a1caae604",
+  "version": "0.1.24",
+  "audacity_version": "3.7.7",
+  "mcp_name": "audacity",
+  "tools_exposed": 144,
+  "successful_authoring_calls": 68,
+  "masters": [
+    "carbine",
+    "beam",
+    "assault",
+    "ordnance",
+    "jet_ignite",
+    "repair"
+  ],
+  "config_backup": "~/.config/audacity/audacity.cfg.pre-cq-audio.bak",
+  "connection": "Registered with Codex; stdio MCP client used in this session"
+}

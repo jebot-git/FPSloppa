@@ -70,6 +70,6 @@ func run():
  check(reload.observe(1,1,2,{"mag":true,"stroke":1.})==["bolt_pull"],"charging stroke produces bolt sound")
  check(reload.observe(1,1,2,{"mag":true,"stroke":0.})==["bolt_release"],"charging return produces release sound")
  check(reload.observe(1,2,2,{"mag":true,"stroke":1.}).is_empty(),"late join/new life does not replay reload sounds")
- game.queue_free();await process_frame;await process_frame
+ game.queue_free();await process_frame;await process_frame;await create_timer(.4).timeout
  for name in owned:AudioServer.remove_bus(AudioServer.get_bus_index(name))
  print("CQ_LIVE_AUDIO_RESULT ",JSON.stringify({"checks":checks,"failures":failures}));quit(0 if failures.is_empty() else 1)

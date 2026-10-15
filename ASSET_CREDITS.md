@@ -196,3 +196,7 @@ The four mixed jungle undergrowth meshes and their baked billboard atlas are
 original procedural project assets. `tools/voxel_battle/undergrowth_assets.gd`
 authors curved upright grass and compound bush crowns;
 `bake_undergrowth.gd` renders their atlas. No external foliage package is used.
+
+## CQ Frontier field recordings and sound effects
+
+The jungle, weather, weapon, equipment and vehicle audio edits are credited with source links, licenses and modifications in [CQ Frontier sound sources](deathmatch/audio/cq_field/SOURCES.md). Sources include Thimras, florianreichelt, hdfreema, denalwa, rubberduck, BLACK LODGE GAMES, jwiese, Brian MacIntosh, SpringySpringo and Tabasco (CC0), plus Nayckron and qubodup’s heavy-engine recording (CC BY 3.0).

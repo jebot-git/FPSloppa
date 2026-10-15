@@ -1,0 +1,633 @@
+{
+  "forest_day": {
+    "file": "forest_day.ogg",
+    "sources": [
+      "birds"
+    ],
+    "loop": true,
+    "seconds": 49.0,
+    "rate": 24000,
+    "channels": 2,
+    "peak_dbfs": -7.958800173440752,
+    "rms_dbfs": -27.831351174849406,
+    "sha256": "059ae5acae8de14a9c02012ac20cd86315d59fa28724f1ce03edcfe2897d0d01",
+    "edit": "trim, DC removal, band-limit, peak/RMS trim, short edge fades; end-to-start crossfade"
+  },
+  "forest_night": {
+    "file": "forest_night.ogg",
+    "sources": [
+      "night"
+    ],
+    "loop": true,
+    "seconds": 53.0,
+    "rate": 24000,
+    "channels": 2,
+    "peak_dbfs": -12.30263435835199,
+    "rms_dbfs": -26.935749724493125,
+    "sha256": "16625d3c57e1c544c1a6c7763e1a58b445292fdcfd49fb1ff39cb162db8b575f",
+    "edit": "trim, DC removal, band-limit, peak/RMS trim, short edge fades; end-to-start crossfade"
+  },
+  "river": {
+    "file": "river.ogg",
+    "sources": [
+      "river"
+    ],
+    "loop": true,
+    "seconds": 39.0,
+    "rate": 24000,
+    "channels": 2,
+    "peak_dbfs": -7.958800173440752,
+    "rms_dbfs": -23.254675082896902,
+    "sha256": "da145f9b5a884d6b8ace8fc260966511a08b600c0ce7840ea2e35057fc67ed0c",
+    "edit": "trim, DC removal, band-limit, peak/RMS trim, short edge fades; end-to-start crossfade"
+  },
+  "rain": {
+    "file": "rain.wav",
+    "sources": [
+      "rain"
+    ],
+    "loop": true,
+    "seconds": 39.0,
+    "rate": 24000,
+    "channels": 1,
+    "peak_dbfs": -7.958800173440752,
+    "rms_dbfs": -29.68946376808376,
+    "sha256": "26ea23d534e74dd2e3e284860c90512a016c6fee930d7f5a08d8c0160e1a0869",
+    "edit": "trim, DC removal, band-limit, peak/RMS trim, short edge fades; end-to-start crossfade"
+  },
+  "thunder": {
+    "file": "thunder.wav",
+    "sources": [
+      "thunder"
+    ],
+    "loop": false,
+    "seconds": 16.324708333333334,
+    "rate": 24000,
+    "channels": 1,
+    "peak_dbfs": -1.7237229347229004,
+    "rms_dbfs": -32.635772705078125,
+    "sha256": "7eb20597a7b346956602b320e5384e3a6f3859d571cb5143879b9ef70224610d",
+    "edit": "trim, DC removal, band-limit, peak/RMS trim, short edge fades"
+  },
+  "engine_heavy": {
+    "file": "engine_heavy.wav",
+    "sources": [
+      "heavy_engine"
+    ],
+    "loop": true,
+    "seconds": 8.480625,
+    "rate": 24000,
+    "channels": 1,
+    "peak_dbfs": -6.020599913279624,
+    "rms_dbfs": -16.828588490994424,
+    "sha256": "51916b2a94d8b35130ff15039a188a822e453f72ac7b6b5fc9223d5932b01af9",
+    "edit": "trim, DC removal, band-limit, peak/RMS trim, short edge fades; end-to-start crossfade"
+  },
+  "engine_transport": {
+    "file": "engine_transport.wav",
+    "sources": [
+      "heavy_engine"
+    ],
+    "loop": true,
+    "seconds": 6.174125,
+    "rate": 24000,
+    "channels": 1,
+    "peak_dbfs": -6.020599913279624,
+    "rms_dbfs": -16.850994806269945,
+    "sha256": "ca35c3c584add643f585231173983a82b0a20199e816a193e5a194edbfe233c4",
+    "edit": "trim, DC removal, band-limit, peak/RMS trim, short edge fades; end-to-start crossfade"
+  },
+  "engine_hover": {
+    "file": "engine_hover.wav",
+    "sources": [
+      "motor_loop"
+    ],
+    "loop": true,
+    "seconds": 4.034875,
+    "rate": 24000,
+    "channels": 1,
+    "peak_dbfs": -6.377684517180312,
+    "rms_dbfs": -15.917600346881503,
+    "sha256": "10544ea34b595fa44063855e8615f93513cd2645c5965d802fb2554d2592c7ff",
+    "edit": "trim, DC removal, band-limit, peak/RMS trim, short edge fades; end-to-start crossfade"
+  },
+  "engine_start": {
+    "file": "engine_start.wav",
+    "sources": [
+      "motor_start"
+    ],
+    "loop": false,
+    "seconds": 1.8010416666666667,
+    "rate": 24000,
+    "channels": 1,
+    "peak_dbfs": -6.499044895172119,
+    "rms_dbfs": -20.889493942260742,
+    "sha256": "c58098a978b26850390320936aad548b22933048c02d9d871efc0ec730699a94",
+    "edit": "trim, DC removal, band-limit, peak/RMS trim, short edge fades"
+  },
+  "engine_stop": {
+    "file": "engine_stop.wav",
+    "sources": [
+      "motor_end"
+    ],
+    "loop": false,
+    "seconds": 1.8010416666666667,
+    "rate": 24000,
+    "channels": 1,
+    "peak_dbfs": -3.7417330741882324,
+    "rms_dbfs": -19.23357391357422,
+    "sha256": "e0fe4acf6736f4ac8d5b42413207d21ad3eb42009cb3516764e42eb9e7e6cbb2",
+    "edit": "trim, DC removal, band-limit, peak/RMS trim, short edge fades"
+  },
+  "carbine": {
+    "file": "carbine.wav",
+    "sources": [
+      "blacklodge"
+    ],
+    "loop": false,
+    "seconds": 0.32,
+    "rate": 24000,
+    "channels": 1,
+    "peak_dbfs": -3.2073888778686523,
+    "rms_dbfs": -18.8721866607666,
+    "sha256": "cce6286bcfcb3bb241d65037d15fe7ec956ee259252456ca74b912737604ce81",
+    "edit": "Audacity MCP trim, high/low-pass and normalize; resample/pitch, DC removal, edge fade"
+  },
+  "assault": {
+    "file": "assault.wav",
+    "sources": [
+      "blacklodge"
+    ],
+    "loop": false,
+    "seconds": 0.3913333333333333,
+    "rate": 24000,
+    "channels": 1,
+    "peak_dbfs": -4.247066974639893,
+    "rms_dbfs": -15.19091510772705,
+    "sha256": "f6266cb8b11b8e68f1b4771e63c93effab5f834554761dc7220ea2fd85e46c3e",
+    "edit": "Audacity MCP trim, high/low-pass and normalize; resample/pitch, DC removal, edge fade"
+  },
+  "beam": {
+    "file": "beam.wav",
+    "sources": [
+      "blacklodge"
+    ],
+    "loop": false,
+    "seconds": 0.75,
+    "rate": 24000,
+    "channels": 1,
+    "peak_dbfs": -3.098039388656616,
+    "rms_dbfs": -16.408306121826172,
+    "sha256": "33e5a882a896c5f64219e62a0d61a67431458ff6df369ee5984ad21d9d37996a",
+    "edit": "Audacity MCP trim, high/low-pass and normalize; resample/pitch, DC removal, edge fade"
+  },
+  "burst_pistol": {
+    "file": "burst_pistol.wav",
+    "sources": [
+      "blacklodge"
+    ],
+    "loop": false,
+    "seconds": 0.47041666666666665,
+    "rate": 24000,
+    "channels": 1,
+    "peak_dbfs": -3.098039388656616,
+    "rms_dbfs": -18.487239837646484,
+    "sha256": "c0c5b2ed0577dba2c417e10de513908e77f06828e4ec3819bc0f2a8a4161c53f",
+    "edit": "Audacity MCP trim, high/low-pass and normalize; resample/pitch, DC removal, edge fade"
+  },
+  "launcher": {
+    "file": "launcher.wav",
+    "sources": [
+      "scifi"
+    ],
+    "loop": false,
+    "seconds": 3.0265,
+    "rate": 24000,
+    "channels": 1,
+    "peak_dbfs": -3.098039388656616,
+    "rms_dbfs": -18.229297637939453,
+    "sha256": "2764c978c96cb74e011eecd93016dfa77fe96c7792e590137567c509ccde0c62",
+    "edit": "Audacity MCP trim, high/low-pass and normalize; resample/pitch, DC removal, edge fade"
+  },
+  "guided_launcher": {
+    "file": "guided_launcher.wav",
+    "sources": [
+      "scifi"
+    ],
+    "loop": false,
+    "seconds": 2.3386666666666667,
+    "rate": 24000,
+    "channels": 1,
+    "peak_dbfs": -3.098039388656616,
+    "rms_dbfs": -18.228519439697266,
+    "sha256": "208e3402a850505ec3f300c9bd81bf1072fd2f23f0614fcaaa490ad32e484677",
+    "edit": "Audacity MCP trim, high/low-pass and normalize; resample/pitch, DC removal, edge fade"
+  },
+  "jetpack_ignite": {
+    "file": "jetpack_ignite.wav",
+    "sources": [
+      "scifi"
+    ],
+    "loop": false,
+    "seconds": 0.38,
+    "rate": 24000,
+    "channels": 1,
+    "peak_dbfs": -3.783627510070801,
+    "rms_dbfs": -17.298288345336914,
+    "sha256": "1c9512622821e441f47ede309d88db1d5cda81dc9ca44fac5bd3497a3b11bd17",
+    "edit": "Audacity MCP trim, high/low-pass and normalize; resample/pitch, DC removal, edge fade"
+  },
+  "pistol": {
+    "file": "pistol.wav",
+    "sources": [
+      "tabasco_existing"
+    ],
+    "loop": false,
+    "seconds": 0.38,
+    "rate": 24000,
+    "channels": 1,
+    "peak_dbfs": -2.8533496856689453,
+    "rms_dbfs": -17.131994247436523,
+    "sha256": "ffe7e98a3d4f9dd84c446bb415912a72d0719e1904b24516f169a8e1b160cc27",
+    "edit": "trim, DC removal, band-limit, peak/RMS trim, short edge fades"
+  },
+  "smg": {
+    "file": "smg.wav",
+    "sources": [
+      "tabasco_existing"
+    ],
+    "loop": false,
+    "seconds": 0.14,
+    "rate": 24000,
+    "channels": 1,
+    "peak_dbfs": -3.8764004707336426,
+    "rms_dbfs": -14.042350769042969,
+    "sha256": "3e11d6a37e4e665778a7f5f26d1707d0c22b4a7b390b515f4e11f0e7a4e44670",
+    "edit": "trim, DC removal, band-limit, peak/RMS trim, short edge fades"
+  },
+  "pistol_suppressed": {
+    "file": "pistol_suppressed.wav",
+    "sources": [
+      "tabasco_existing"
+    ],
+    "loop": false,
+    "seconds": 0.19,
+    "rate": 24000,
+    "channels": 1,
+    "peak_dbfs": -7.535014629364014,
+    "rms_dbfs": -18.248966217041016,
+    "sha256": "c1705e456d448c22cf901f3ba576c43e4b98b72f271c38df619fef3ec5bdcab3",
+    "edit": "trim, DC removal, band-limit, peak/RMS trim, short edge fades"
+  },
+  "jetpack_thrust": {
+    "file": "jetpack_thrust.wav",
+    "sources": [
+      "motor_loop",
+      "scifi"
+    ],
+    "loop": true,
+    "seconds": 1.65,
+    "rate": 24000,
+    "channels": 1,
+    "peak_dbfs": -3.741732867142888,
+    "rms_dbfs": -17.15507193844069,
+    "sha256": "7455dfb874505a1bd7a7274ae3eed49a98b29d2c9ce03bcf935fcaf56e127609",
+    "edit": "trim, DC removal, band-limit, peak/RMS trim, short edge fades; end-to-start crossfade"
+  },
+  "repair": {
+    "file": "repair.wav",
+    "sources": [
+      "motor_loop"
+    ],
+    "loop": true,
+    "seconds": 1.65,
+    "rate": 24000,
+    "channels": 1,
+    "peak_dbfs": -7.2218731405839,
+    "rms_dbfs": -17.07743928643524,
+    "sha256": "65238347d79da59b6e2c363822004331eab43514dea74a152b34d58011f4586c",
+    "edit": "trim, DC removal, band-limit, peak/RMS trim, short edge fades; end-to-start crossfade"
+  },
+  "magazine_out": {
+    "file": "magazine_out.wav",
+    "sources": [
+      "clip2"
+    ],
+    "loop": false,
+    "seconds": 0.45179166666666665,
+    "rate": 24000,
+    "channels": 1,
+    "peak_dbfs": -3.7417330741882324,
+    "rms_dbfs": -28.51120948791504,
+    "sha256": "690878fe3d066bddd0460dff6c7005d35d40dc2bc3e6a172cc4a8d886b900bdf",
+    "edit": "trim, DC removal, band-limit, peak/RMS trim, short edge fades"
+  },
+  "magazine_in": {
+    "file": "magazine_in.wav",
+    "sources": [
+      "clip1"
+    ],
+    "loop": false,
+    "seconds": 0.2554166666666667,
+    "rate": 24000,
+    "channels": 1,
+    "peak_dbfs": -3.7417330741882324,
+    "rms_dbfs": -20.219524383544922,
+    "sha256": "9fcce9a3e0a638adc56e06d9bb7fa9ebd4db67094af17992f4ff374f5ab41281",
+    "edit": "trim, DC removal, band-limit, peak/RMS trim, short edge fades"
+  },
+  "bolt_pull": {
+    "file": "bolt_pull.wav",
+    "sources": [
+      "bolt"
+    ],
+    "loop": false,
+    "seconds": 1.0124166666666667,
+    "rate": 24000,
+    "channels": 1,
+    "peak_dbfs": -3.7417330741882324,
+    "rms_dbfs": -16.909330368041992,
+    "sha256": "040deb0df370609356aa53661d22a4819e2f0b2777e27dca974902cb1af4ac65",
+    "edit": "trim, DC removal, band-limit, peak/RMS trim, short edge fades"
+  },
+  "bolt_release": {
+    "file": "bolt_release.wav",
+    "sources": [
+      "bolt"
+    ],
+    "loop": false,
+    "seconds": 0.66975,
+    "rate": 24000,
+    "channels": 1,
+    "peak_dbfs": -3.7417330741882324,
+    "rms_dbfs": -16.977680206298828,
+    "sha256": "03467863a2ad67e2b3c59d2591a4199ae5c9c3435ad9f85531dbb1a2ac4b55c2",
+    "edit": "trim, DC removal, band-limit, peak/RMS trim, short edge fades"
+  },
+  "deploy": {
+    "file": "deploy.wav",
+    "sources": [
+      "clip1"
+    ],
+    "loop": false,
+    "seconds": 0.6902083333333333,
+    "rate": 24000,
+    "channels": 1,
+    "peak_dbfs": -3.7417330741882324,
+    "rms_dbfs": -19.929710388183594,
+    "sha256": "ce8f862139ebaf0eeced46629b83c8137c1a305d271166544b9a4a4c01f552a8",
+    "edit": "trim, DC removal, band-limit, peak/RMS trim, short edge fades"
+  },
+  "nvg_toggle": {
+    "file": "nvg_toggle.wav",
+    "sources": [
+      "clip2"
+    ],
+    "loop": false,
+    "seconds": 0.21333333333333335,
+    "rate": 24000,
+    "channels": 1,
+    "peak_dbfs": -6.9357500076293945,
+    "rms_dbfs": -31.41921615600586,
+    "sha256": "fba70a375c9f100230baecc9a988ff09cc5daab72a5b20c094356d84cb9c57c6",
+    "edit": "trim, DC removal, band-limit, peak/RMS trim, short edge fades"
+  },
+  "cloak_on": {
+    "file": "cloak_on.wav",
+    "sources": [
+      "scifi"
+    ],
+    "loop": false,
+    "seconds": 0.38,
+    "rate": 24000,
+    "channels": 1,
+    "peak_dbfs": -6.020600318908691,
+    "rms_dbfs": -22.698871612548828,
+    "sha256": "693580a2325fd7260b8fd0330eb345309f0b730040d73fd6e3390104f64a523a",
+    "edit": "trim, DC removal, band-limit, peak/RMS trim, short edge fades"
+  },
+  "cloak_off": {
+    "file": "cloak_off.wav",
+    "sources": [
+      "scifi"
+    ],
+    "loop": false,
+    "seconds": 0.4,
+    "rate": 24000,
+    "channels": 1,
+    "peak_dbfs": -6.935749530792236,
+    "rms_dbfs": -23.618953704833984,
+    "sha256": "4193ec06726e77097a654d07aff9269cd94706982a8cee3c93f2de4486c07001",
+    "edit": "trim, DC removal, band-limit, peak/RMS trim, short edge fades"
+  },
+  "inject_start": {
+    "file": "inject_start.wav",
+    "sources": [
+      "scifi"
+    ],
+    "loop": false,
+    "seconds": 0.3,
+    "rate": 24000,
+    "channels": 1,
+    "peak_dbfs": -6.375175476074219,
+    "rms_dbfs": -24.431459426879883,
+    "sha256": "a9c566e50fe0a50b97d339bbe9f741f9b43baa3dbc285975f6f2496657ff0ddf",
+    "edit": "trim, DC removal, band-limit, peak/RMS trim, short edge fades"
+  },
+  "revive": {
+    "file": "revive.wav",
+    "sources": [
+      "scifi"
+    ],
+    "loop": false,
+    "seconds": 0.4109583333333333,
+    "rate": 24000,
+    "channels": 1,
+    "peak_dbfs": -4.43697452545166,
+    "rms_dbfs": -16.617834091186523,
+    "sha256": "e77000ed8f7c64be2957cd750ed5cce8b6a052ce09d0636396c99c7ef1561e94",
+    "edit": "trim, DC removal, band-limit, peak/RMS trim, short edge fades"
+  },
+  "supply": {
+    "file": "supply.wav",
+    "sources": [
+      "scifi"
+    ],
+    "loop": false,
+    "seconds": 0.252625,
+    "rate": 24000,
+    "channels": 1,
+    "peak_dbfs": -6.020600318908691,
+    "rms_dbfs": -24.696653366088867,
+    "sha256": "b618d493f2528848acc026dab4fce96816cd5e87ef67fa810479b77b681d93c3",
+    "edit": "trim, DC removal, band-limit, peak/RMS trim, short edge fades"
+  },
+  "empty": {
+    "file": "empty.wav",
+    "sources": [
+      "scifi"
+    ],
+    "loop": false,
+    "seconds": 0.255625,
+    "rate": 24000,
+    "channels": 1,
+    "peak_dbfs": -6.9357500076293945,
+    "rms_dbfs": -23.719541549682617,
+    "sha256": "e5394cbf75ade21b97ea8c59208e96b4dbe4499fc9a7e6c3cf58e928cb403d68",
+    "edit": "trim, DC removal, band-limit, peak/RMS trim, short edge fades"
+  },
+  "lock_acquire": {
+    "file": "lock_acquire.wav",
+    "sources": [
+      "scifi"
+    ],
+    "loop": false,
+    "seconds": 0.23520833333333332,
+    "rate": 24000,
+    "channels": 1,
+    "peak_dbfs": -5.192746162414551,
+    "rms_dbfs": -20.578075408935547,
+    "sha256": "d0825416df18816f98e4a6268c6fff564299fcbff979186dc0b4d122a8e06b90",
+    "edit": "trim, DC removal, band-limit, peak/RMS trim, short edge fades"
+  },
+  "lock_ready": {
+    "file": "lock_ready.wav",
+    "sources": [
+      "scifi"
+    ],
+    "loop": false,
+    "seconds": 0.4109583333333333,
+    "rate": 24000,
+    "channels": 1,
+    "peak_dbfs": -4.43697452545166,
+    "rms_dbfs": -16.617834091186523,
+    "sha256": "e77000ed8f7c64be2957cd750ed5cce8b6a052ce09d0636396c99c7ef1561e94",
+    "edit": "trim, DC removal, band-limit, peak/RMS trim, short edge fades"
+  },
+  "charge": {
+    "file": "charge.wav",
+    "sources": [
+      "scifi"
+    ],
+    "loop": false,
+    "seconds": 0.35,
+    "rate": 24000,
+    "channels": 1,
+    "peak_dbfs": -6.577062606811523,
+    "rms_dbfs": -20.600505828857422,
+    "sha256": "2393c94d5b03f30ed881399e375673227fd34235c36b2076c6e4805e0e2b6034",
+    "edit": "trim, DC removal, band-limit, peak/RMS trim, short edge fades"
+  },
+  "energy_impact": {
+    "file": "energy_impact.wav",
+    "sources": [
+      "scifi"
+    ],
+    "loop": false,
+    "seconds": 0.14883333333333335,
+    "rate": 24000,
+    "channels": 1,
+    "peak_dbfs": -3.7417330741882324,
+    "rms_dbfs": -21.740787506103516,
+    "sha256": "4b88aca957bb89a52e697011ebc8e6e7317b4fe982115a128b6c39f62a19108c",
+    "edit": "trim, DC removal, band-limit, peak/RMS trim, short edge fades"
+  },
+  "ordnance_impact": {
+    "file": "ordnance_impact.wav",
+    "sources": [
+      "scifi"
+    ],
+    "loop": false,
+    "seconds": 1.8402083333333332,
+    "rate": 24000,
+    "channels": 1,
+    "peak_dbfs": -2.158108949661255,
+    "rms_dbfs": -25.369979858398438,
+    "sha256": "fc34930240c83e68f81e0ff0849932a52571a83c52712ec30cbcbc96b009f407",
+    "edit": "trim, DC removal, band-limit, peak/RMS trim, short edge fades"
+  },
+  "inject_loop": {
+    "file": "inject_loop.wav",
+    "sources": [
+      "scifi"
+    ],
+    "loop": true,
+    "seconds": 4.513458333333333,
+    "rate": 24000,
+    "channels": 1,
+    "peak_dbfs": -12.549458579064016,
+    "rms_dbfs": -25.19274621011512,
+    "sha256": "27193d6d76629ec30c49ae64bd54a61d6af393b635d900f841d5489f069877e0",
+    "edit": "trim, DC removal, band-limit, peak/RMS trim, short edge fades; end-to-start crossfade"
+  },
+  "water_enter": {
+    "file": "water_enter.wav",
+    "sources": [
+      "river"
+    ],
+    "loop": false,
+    "seconds": 0.48,
+    "rate": 24000,
+    "channels": 1,
+    "peak_dbfs": -5.192746162414551,
+    "rms_dbfs": -17.536148071289062,
+    "sha256": "78edd5761cd7f3d1c25b8accc6d5b9c2dce0df957766cc9c80a4c208d3b18649",
+    "edit": "trim, DC removal, band-limit, peak/RMS trim, short edge fades"
+  },
+  "water_exit": {
+    "file": "water_exit.wav",
+    "sources": [
+      "river"
+    ],
+    "loop": false,
+    "seconds": 0.48,
+    "rate": 24000,
+    "channels": 1,
+    "peak_dbfs": -5.192746162414551,
+    "rms_dbfs": -18.084562301635742,
+    "sha256": "b4c67d674f7452fbd67da5a840a885878fdd9cb2a6bfae6473a68e31b899c7ae",
+    "edit": "trim, DC removal, band-limit, peak/RMS trim, short edge fades"
+  },
+  "swim": {
+    "file": "swim.wav",
+    "sources": [
+      "river"
+    ],
+    "loop": false,
+    "seconds": 0.35,
+    "rate": 24000,
+    "channels": 1,
+    "peak_dbfs": -5.192746162414551,
+    "rms_dbfs": -17.257644653320312,
+    "sha256": "f78582fb3720e957cf27c3a4dc17872be5ea4485550a37d50544cd25ec7bb01f",
+    "edit": "trim, DC removal, band-limit, peak/RMS trim, short edge fades"
+  },
+  "submerged": {
+    "file": "submerged.ogg",
+    "sources": [
+      "river"
+    ],
+    "loop": true,
+    "seconds": 7.85,
+    "rate": 24000,
+    "channels": 1,
+    "peak_dbfs": -10.457574905606752,
+    "rms_dbfs": -24.09660147957261,
+    "sha256": "e84d104f277b0c9d51363c6ea58889b180140cf65ddc4819d430aa05b0a43cb3",
+    "edit": "trim, DC removal, band-limit, peak/RMS trim, short edge fades; end-to-start crossfade"
+  },
+  "industrial": {
+    "file": "industrial.ogg",
+    "sources": [
+      "motor_loop"
+    ],
+    "loop": true,
+    "seconds": 14.326,
+    "rate": 24000,
+    "channels": 1,
+    "peak_dbfs": -19.48533979597771,
+    "rms_dbfs": -29.118639112994487,
+    "sha256": "016feeb9ef23b7f6965b839d6cc99d116745fdb35ddf14cf5e6c9a92739e3231",
+    "edit": "trim, DC removal, band-limit, peak/RMS trim, short edge fades; end-to-start crossfade"
+  }
+}

@@ -9,6 +9,7 @@ var jungle_ambience
 var equipment_audio
 var reload_audio
 var jetpack_audio
+var field_audio
 var remote_holsters
 var turrets=preload("res://deathmatch/conquest/classes/turrets.gd").new()
 var healing_field=preload("res://deathmatch/conquest/classes/healing_field.gd").new()
@@ -51,6 +52,7 @@ func _ready() -> void:
 	super._ready()
 	if music:music.stop()
 	if not headless:
+		field_audio=preload("res://deathmatch/conquest/classes/field_audio.gd").new();add_child(field_audio);field_audio.setup(self)
 		jetpack_audio=preload("res://deathmatch/conquest/classes/jetpack_audio.gd").new();add_child(jetpack_audio);jetpack_audio.setup(self)
 		reload_audio=preload("res://deathmatch/conquest/classes/reload_audio.gd").new();add_child(reload_audio);reload_audio.setup(self)
 		equipment_audio=preload("res://deathmatch/conquest/classes/equipment_audio.gd").new();add_child(equipment_audio);equipment_audio.setup(self)
@@ -465,7 +467,7 @@ func accept_class_throw(id:int,action:String,pose:Dictionary,seq:int) -> void:
 @rpc("authority","call_local","reliable",1)
 func _de_grenade_fx(position:Vector3,_kind:int) -> void:
 	night_vision.flash(position,70,.65,2.5,1.2)
-	if effects:effects.play("explosion",position,-3)
+	if effects:effects.play("cq_field_ordnance_impact",position,-3)
 func _weapon_visuals():
 	if not is_instance_valid(variant_visuals):
 		variant_visuals=preload("res://deathmatch/conquest/classes/visuals.gd").new();variant_visuals.name="CQWeaponEffects";add_child(variant_visuals);variant_visuals.illumination.connect(_weapon_illumination);variant_visuals.nvg_flash.connect(night_vision.flash)
@@ -486,10 +488,7 @@ func _play_variant_shot_fx(id:int,weapon:int,alternate:bool) -> void:
 	_play_shot_fx(id,weapon,false,alternate)
 	if headless:return
 	if id==multiplayer.get_unique_id():visual_cooldown=armory.data(weapon,alternate).cycle
-	if weapon in [2,3,9]:
-		var sound:=AudioStreamPlayer3D.new();sound.stream=load("res://deathmatch/audio/cq_weapons/"+("pistol_suppressed" if weapon==9 else "pistol")+".wav");sound.bus="ArenaEffects";sound.volume_db=-12 if weapon==9 else -4;sound.max_distance=18 if weapon==9 else 90;add_child(sound);sound.position=_weapon_transform(id).origin;sound.finished.connect(sound.queue_free);sound.play()
-	elif weapon in [0,1,4,10]:spatial.play("ut99_weapon_7",_weapon_transform(id).origin,-5)
-	elif weapon in [5,11]:spatial.play("weapon_8",_weapon_transform(id).origin,-6)
+	if field_audio:field_audio.shot(weapon,_weapon_transform(id).origin)
 const CLASS_PROTOCOL:="fpsloppa-cq-frontier-23-weather"
 func connection_protocol() -> String:return CLASS_PROTOCOL
 func _collect(_id:int) -> void:pass # CQ resupplies through its class dispensers.
@@ -586,6 +585,7 @@ func _cq_beam_impacts(start:Vector3,ends:PackedVector3Array,weapon:int,team:int)
 	if headless:return
 	var definition:Dictionary=armory.data(weapon).duplicate();definition.color=Color("ff3c39") if team==0 else Color("3b8dff")
 	_weapon_visuals().impacts("ut99",start,ends,weapon,definition)
+	if field_audio and not ends.is_empty():field_audio.play_cue("energy_impact",ends[0],-18,35)
 
 func request_utility(role_name:String,utility:String) -> void:
 	if resident.serving():resident.utility(multiplayer.get_unique_id(),role_name,utility)
@@ -604,14 +604,14 @@ func _cq_nvg(serial:int,epoch:int,seq:int,pose:Dictionary) -> void:
 @rpc("authority","call_local","reliable",1)
 func _cq_airstrike_fx(where:Vector3) -> void:
 	if headless:return
-	if effects:effects.play("explosion",where,-3)
+	if effects:effects.play("cq_field_ordnance_impact",where,-3)
 	_weapon_visuals().burst("ut99",where,5,"rocket",{"cq_effect":"ordnance","color":Color("ffba62")})
 const RADIUS_AIRSTRIKE:=18.75
 
 @rpc("authority","call_local","reliable",1)
 func _cq_turret_shot(where:Vector3,direction:Vector3,team:int) -> void:
 	if headless:return
-	if spatial:spatial.play("weapon_8",where,-6)
+	if field_audio:field_audio.shot(11,where)
 	_weapon_visuals().burst("ut99",where,11,"energy",{"cq_effect":"energy","color":Color("ff3c39") if team==0 else Color("3b8dff")})
 
 func handle_vehicle_player(id:int,_delta:float) -> bool:return battery_tanks.mounted(id)
@@ -654,3 +654,7 @@ func _weapon_transform(id:int,offhand:bool=false) -> Transform3D:
 			return xr_rig.global_transform*pose.get("offhand_weapon" if offhand else "weapon",Transform3D.IDENTITY)
 		return Transform3D(Basis(Vector3.UP,players[id].yaw),fighters[id].position)*players[id].xr.get("offhand_weapon" if offhand else "weapon",Transform3D.IDENTITY)
 	return super._weapon_transform(id,offhand)
+
+func projectile_sound(explosive:bool,weapon:int)->String:
+	if weapon==3 and not explosive:return "impact"
+	return "cq_field_ordnance_impact" if explosive else "cq_field_energy_impact"

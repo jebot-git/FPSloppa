@@ -6,7 +6,7 @@ p=argparse.ArgumentParser();p.add_argument('--template',type=Path,required=True)
 with tempfile.TemporaryDirectory(prefix='cq-frontier-package-') as tmp:
  stage=Path(tmp)
  for folder in ['deathmatch','addons','experimental-assets','tools']:
-  shutil.copytree(ROOT/folder,stage/folder,ignore=shutil.ignore_patterns('__pycache__','*.log','offline-base.zip','*.os','.sconsign.*','build-scons','build-linux','build-linux-server'))
+  shutil.copytree(ROOT/folder,stage/folder,ignore=shutil.ignore_patterns('__pycache__','*.log','offline-base.zip','*.os','.sconsign.*','build-scons','build-linux','build-linux-server','cq-field'))
  # LPMAC authoring/source files are not runtime assets; ship its optimized GLB/manifest only.
  shutil.rmtree(stage/'tools/ground_transport',ignore_errors=True)
  shutil.rmtree(stage/'tools/cloak_device',ignore_errors=True)

@@ -235,11 +235,11 @@ func effects(frame:Dictionary)->void:
    1,2:
     if not game.headless:
      var definition:Dictionary=game.variant_combat.definition(event.actor,event.detail,{"battery_shot":event.detail==5 and event.value>10})
-     game.spatial.play("ut99_explosion" if event.kind==2 else "ut99_bounce",event.position,-8 if event.kind==2 else -18)
+     game.spatial.play(game.projectile_sound(event.kind==2,event.detail),event.position,-8 if event.kind==2 else -18)
      game._weapon_visuals().burst("ut99",event.position,event.detail,definition.get("kind",""),definition)
    4:game._cq_airstrike_fx(event.position)
    5:
-    if not game.headless and game.effects:game.effects.play("explosion",event.position,-3)
+    if not game.headless and game.effects:game.effects.play("cq_field_ordnance_impact",event.position,-3)
    3:
     if event.actor==game.multiplayer.get_unique_id():game.recon_drone.alerts[event.actor]={"seq":seq,"life":event.life,"until":game.clock+event.value}
    6:game._melee_fx(event.actor,false)

@@ -109,8 +109,8 @@ func create_effects()->void:
  mesh.material=material;rain.draw_pass_1=mesh;add_child(rain)
  collider=GPUParticlesCollisionHeightField3D.new();collider.size=Vector3(48,192,48);collider.resolution=GPUParticlesCollisionHeightField3D.RESOLUTION_256
  collider.update_mode=GPUParticlesCollisionHeightField3D.UPDATE_MODE_WHEN_MOVED;add_child(collider)
- rain_sound=AudioStreamPlayer.new();rain_sound.stream=load("res://deathmatch/audio/weather/rain.wav");rain_sound.stream.loop_mode=AudioStreamWAV.LOOP_FORWARD;rain_sound.stream.loop_begin=0;rain_sound.stream.loop_end=int(rain_sound.stream.get_length()*rain_sound.stream.mix_rate);rain_sound.bus="ArenaAmbience" if AudioServer.get_bus_index("ArenaAmbience")>=0 else "Master";rain_sound.volume_db=-80;add_child(rain_sound);rain_sound.play()
- thunder_sound=AudioStreamPlayer3D.new();thunder_sound.stream=load("res://deathmatch/audio/weather/thunder.wav");thunder_sound.bus=rain_sound.bus;thunder_sound.unit_size=300;thunder_sound.max_distance=1600;add_child(thunder_sound)
+ rain_sound=AudioStreamPlayer.new();rain_sound.stream=load("res://deathmatch/audio/cq_field/rain.wav");rain_sound.stream.loop_mode=AudioStreamWAV.LOOP_FORWARD;rain_sound.stream.loop_begin=0;rain_sound.stream.loop_end=int(rain_sound.stream.get_length()*rain_sound.stream.mix_rate);rain_sound.bus="ArenaAmbience" if AudioServer.get_bus_index("ArenaAmbience")>=0 else "Master";rain_sound.volume_db=-80;add_child(rain_sound);rain_sound.play()
+ thunder_sound=AudioStreamPlayer3D.new();thunder_sound.stream=load("res://deathmatch/audio/cq_field/thunder.wav");thunder_sound.bus=rain_sound.bus;thunder_sound.unit_size=300;thunder_sound.max_distance=1600;add_child(thunder_sound)
 func lightning_source(eye:Vector3)->Dictionary:
  if current_lightning.is_empty() or not lighting() or lighting().weather_flash<=.001:return {}
  var distance:float=current_lightning.distance
