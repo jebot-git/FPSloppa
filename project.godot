@@ -84,6 +84,40 @@ openxr/enabled.dedicated_server=false
 
 [shader_globals]
 
+cq_lamp_position0={
+"type": "vec4",
+"value": Vector4(0, 0, 0, 0)
+}
+cq_lamp_position1={
+"type": "vec4",
+"value": Vector4(0, 0, 0, 0)
+}
+cq_lamp_position2={
+"type": "vec4",
+"value": Vector4(0, 0, 0, 0)
+}
+cq_lamp_position3={
+"type": "vec4",
+"value": Vector4(0, 0, 0, 0)
+}
+cq_lamp_axis0={
+"type": "vec4",
+"value": Vector4(0, 0, 0, 0)
+}
+cq_lamp_axis1={
+"type": "vec4",
+"value": Vector4(0, 0, 0, 0)
+}
+cq_lamp_axis2={
+"type": "vec4",
+"value": Vector4(0, 0, 0, 0)
+}
+cq_lamp_axis3={
+"type": "vec4",
+"value": Vector4(0, 0, 0, 0)
+}
+
+
 jungle_weather={
 "type": "vec3",
 "value": Vector3(0,0,0)

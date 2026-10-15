@@ -2,7 +2,7 @@ extends RefCounted
 const Format=preload("res://deathmatch/avatars/ut_format.gd")
 const Rig=preload("res://deathmatch/avatars/rig.gd")
 static var frame_textures:Dictionary={} # Weak references let inactive models release GPU memory.
-const AnimationShader=preload("res://deathmatch/avatars/vertex_animation.gdshader")
+const AnimationShader=preload("res://deathmatch/avatars/vertex_lighting.gdshader")
 static func prepare_avatar(library:Node,hash:String,_wait:bool=false) -> bool:
 	if not library.entries.has(hash):return false
 	if library.scenes.has(hash):library.touch_scene(hash);return true

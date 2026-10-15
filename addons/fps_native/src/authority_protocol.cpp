@@ -158,7 +158,7 @@ bool validate_frame(const uint8_t *data, size_t length, int expected,
         break;
       case 9:
         ok = integer(at, 8) && data[at + 8] < 32 && data[at + 9] < 4 &&
-             data[at + 11] <= 1 && floats(24, 96);
+             data[at + 11] <= 3 && floats(24, 96);
         break;
       case 10:
         ok = integer(at, 8) && floats(21, 49) && finite(at + 50);

@@ -43,6 +43,26 @@ void transport_tests() {
  c->damage_vehicle(key,1,10000,DamageKind::ORDNANCE,enemy,world);
  for(int i:{0,1,2,4,5,7})check(c->resolve(riders[i])->dead&&c->resolve(riders[i])->vehicle<0,"wreck releases every remaining occupant");
  c->request_restart();c->advance(world);check(c->vehicles()[index].hp==100&&!c->vehicles()[index].pilot.id,"round reset restores full transport");for(auto seat:c->vehicles()[index].seats)check(!seat.id,"reset clears every seat generation");
+ // Headlights are server-owned, driver-only and toggled once per release/press.
+ {
+  TransportWorld w;auto lights=std::make_unique<Core>();lights->configure_cq(cfg);
+  int vi=lights->add_vehicle(VehicleKind::TRANSPORT,{},0,0);
+  auto driver=lights->join(301,0,transport_pods[6].entry,1<<4,{100,100,100,100});
+  auto passenger=lights->join(302,0,transport_pods[0].entry,1<<4,{100,100,100,100});
+  input(*lights,driver,0);use(*lights,driver);lights->advance(w);
+  input(*lights,passenger,0);use(*lights,passenger);lights->advance(w);
+  int seq=1;
+  auto trigger=[&](Handle h,bool down,bool blocked=false){Command cmd;cmd.life=h.life;cmd.seq=seq++;cmd.weapon=4;cmd.offhand_fire=down;cmd.blocked=blocked;check(lights->submit(h,cmd),"headlight input admitted");lights->advance(w);};
+  trigger(passenger,true);check(!lights->vehicles()[vi].headlights,"passenger cannot toggle headlights");
+  trigger(driver,true);check(lights->vehicles()[vi].headlights,"driver press enables headlights");
+  trigger(driver,true);check(lights->vehicles()[vi].headlights,"held trigger does not repeatedly toggle");
+  check(validate_frame(lights->frame().data(),lights->frame().size()),"lit vehicle flags pass wire validation");
+  trigger(driver,false);trigger(driver,true);check(!lights->vehicles()[vi].headlights,"release then press disables headlights");
+  trigger(driver,false);trigger(driver,true,true);check(!lights->vehicles()[vi].headlights,"blocked trigger cannot toggle");
+  trigger(driver,true);check(!lights->vehicles()[vi].headlights,"focus recovery with held trigger requires release");
+  trigger(driver,false);trigger(driver,true);check(lights->vehicles()[vi].headlights,"fresh press after focus recovery works");
+  lights->request_restart();lights->advance(w);check(!lights->vehicles()[vi].headlights,"round reset switches lights off");
+ }
  // Every authored vehicle keeps its identity and placement across destruction.
  {
   TransportWorld w;auto timer=std::make_unique<Core>();timer->configure_cq(cfg);

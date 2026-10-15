@@ -153,7 +153,7 @@ struct VehicleProfile {
 };
 const VehicleProfile &vehicle_profile(VehicleKind);
 struct Vehicle {
-  bool active = false, grounded = false, stable_ground = false;
+  bool active = false, grounded = false, stable_ground = false, headlights = false, headlight_held = true;
   uint64_t key = 0;
   VehicleKind kind = VehicleKind::ROCKET;
   V spawn, position, velocity, direction{0, 0, -1}, normal{0, 1, 0},

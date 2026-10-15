@@ -41,6 +41,14 @@ func run():
   check(tanks.seat_index(i+1,key)==i and game.fighters[i+1].vehicle_seated,"script occupant occupies authored pod")
  check(not tanks.bodies[key].has_node("TurretCollision"),"transport has no phantom turret collider")
  check(not tanks.start_salvo(key),"script driver cannot start weapon salvo")
+ game.players[7].last_input=game.clock;game.players[7].vr_device=false;game.players[7].offhand_fire=false;tanks.tick(1./30)
+ game.players[1].offhand_fire=true;tanks.tick(1./30);check(not row.headlights,"script passenger cannot toggle lights")
+ game.players[7].offhand_fire=true;tanks.tick(1./30);check(row.headlights,"script driver toggles headlights")
+ tanks.tick(1./30);check(row.headlights,"script held trigger toggles only once")
+ tanks.draw();check(tanks.models[key].get_node("HeadlightLenses").visible,"gameplay draw enables real vehicle lamp faces")
+ game.players[7].offhand_fire=false;tanks.tick(1./30);game.players[7].offhand_fire=true;tanks.tick(1./30);check(not row.headlights,"script fresh press switches headlights off")
+ game.players[7].offhand_fire=false;game.players[1].offhand_fire=false
+
  var view=load("res://deathmatch/conquest/classes/battery_view.gd").new();game.add_child(view);view.setup(game,tanks)
  var mask:int=game.camera.cull_mask;var env=game.camera.environment;view.update()
  check(view.viewport==null and game.camera.cull_mask==mask and game.camera.environment==env,"transport keeps direct world view without tank scope isolation")

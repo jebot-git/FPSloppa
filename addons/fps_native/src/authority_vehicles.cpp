@@ -40,7 +40,7 @@ bool Core::vehicle_use(Player &p, Host &host) {
     if (v.kind == VehicleKind::TRANSPORT) {
       if (p.vehicle_seat != 6 && !v.seats[6].id) {
         v.seats[size_t(p.vehicle_seat)] = {};
-        v.seats[6] = p.handle;v.pilot=p.handle;p.vehicle_seat=6;
+        v.seats[6] = p.handle;v.pilot=p.handle;v.headlight_held=true;p.vehicle_seat=6;
         p.position=transport_seat(v,6);host.seat(p.handle,p.position,true);
         p.use_ready=time_+.5;return true;
       }
@@ -82,6 +82,7 @@ bool Core::vehicle_use(Player &p, Host &host) {
     v.seats[size_t(chosen_seat)]=p.handle;
     if (chosen_seat==6) v.pilot=p.handle;
   } else {v.pilot=p.handle;v.team=p.team;}
+  if(v.pilot==p.handle)v.headlight_held=true;
   p.vehicle_seat=chosen_seat;
   p.vehicle = chosen;
   p.position = chosen_seat>=0 ? transport_seat(v,chosen_seat) : v.position;
@@ -274,6 +275,9 @@ void Core::tick_vehicles(Host &host) {
     bool valid = pilot && !pilot->input.blocked &&
                  time_ - pilot->last_input <= .35 &&
                  (!pilot->input.vr || pilot->pose.tracked);
+    bool light_trigger = valid && pilot->input.offhand_fire;
+    if (light_trigger && !v.headlight_held) v.headlights = !v.headlights;
+    v.headlight_held = !valid || light_trigger;
     double x = valid ? pilot->input.x : 0, z = valid ? pilot->input.z : 0;
     V old = v.position;
     double mobility = terrain.road(v.position) ? 1.25 : 1;

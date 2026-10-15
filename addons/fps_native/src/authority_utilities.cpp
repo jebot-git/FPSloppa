@@ -15,7 +15,7 @@ bool Core::queue_action(Handle h, const Action &a) {
 }
 void Core::actions(Player &p, Host &host) {
   if (p.nvg_pending) {
-    toggle_nvg(p.handle);
+    if(p.vehicle<0)toggle_nvg(p.handle);
     p.nvg_pending = false;
   }
   while (p.action_count) {

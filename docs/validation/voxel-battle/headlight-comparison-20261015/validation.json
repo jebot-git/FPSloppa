@@ -1,0 +1,9 @@
+{
+  "headlights": "CQ_HEADLIGHTS_RESULT {\"checks\":7,\"failures\":[],\"image_delta\":547.674524027854}",
+  "transport_script": "CQ_TRANSPORT_RESULT {\"checks\":60,\"failures\":[]}",
+  "transport_native": "AUTHORITY_TRANSPORT_FUNCTIONAL {\"checks\":481,\"failures\":[]}",
+  "ut99_lod": "UT99_LOD {\"checks\":107,\"failures\":[],\"models\":[{\"animation_vertices\":504.0,\"frames\":700.0,\"model\":\"soldier\",\"triangles\":[595,296,148]},{\"animation_vertices\":487.0,\"frames\":700.0,\"model\":\"commando\",\"triangles\":[642,316,158]},{\"animation_vertices\":507.0,\"frames\":681.0,\"model\":\"sgirl\",\"triangles\":[599,298,146]},{\"animation_vertices\":537.0,\"frames\":681.0,\"model\":\"fcommando\",\"triangles\":[674,336,165]},{\"animation_vertices\":446.0,\"frames\":700.0,\"model\":\"boss\",\"triangles\":[582,290,144]}]}",
+  "ut99_ik": "UT99_IK_RESULT {\"arm_cases\":62316,\"failures\":[],\"models\":5}",
+  "native_core": "{\"checks\":264755,\"ok\":true,\"collision_legacy_misses\":0,\"collision_legacy_late\":0,\"replay_players\":64,\"replay_ticks\":3600}",
+  "native_build": "Local Linux client native library rebuilt with tools/build_gameplay_native.py --target linux -j 4; no deployment."
+}

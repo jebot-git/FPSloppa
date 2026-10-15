@@ -9,5 +9,5 @@ void fragment(){
  // The source cockpit glass was baked into the opaque hull. Open a real
  // windshield aperture while retaining the roof, pillars and lower armour.
  if(local_point.z < -2.70 && abs(local_point.x)<1.22 && local_point.y>1.60 && local_point.y<2.35)discard;
- ALBEDO=texture(albedo,UV).rgb*jungle_baked_light(world_point);
+ ALBEDO=texture(albedo,UV).rgb*(jungle_baked_light(world_point)+cq_headlight(world_point));
 }

@@ -17,7 +17,7 @@ void Core::snapshot_entities() {
       append(frame_, uint8_t(i));
       append(frame_, uint8_t(v.kind));
       append(frame_, int8_t(v.team));
-      append(frame_, uint8_t(v.grounded));
+      append(frame_, uint8_t(v.grounded | (v.headlights << 1)));
       append(frame_, v.pilot.id);
       append(frame_, v.pilot.life);
       vec(frame_, v.position);

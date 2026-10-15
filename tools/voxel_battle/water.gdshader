@@ -12,5 +12,5 @@ void fragment() {
  METALLIC=.08;
  ALPHA=.72;
 
-	ALBEDO *= jungle_baked_light(jungle_point);
+	ALBEDO *= jungle_baked_light(jungle_point)+cq_headlight(world_point);
 }

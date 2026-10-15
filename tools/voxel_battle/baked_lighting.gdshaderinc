@@ -1,3 +1,4 @@
+#include "res://tools/voxel_battle/headlights.gdshaderinc"
 global uniform bool jungle_baked_enabled;
 global uniform vec3 jungle_weather;
 global uniform float jungle_day_mix;

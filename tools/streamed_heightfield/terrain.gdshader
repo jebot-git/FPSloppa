@@ -1,6 +1,7 @@
 shader_type spatial;
 #include "res://tools/voxel_battle/baked_lighting.gdshaderinc"
 varying vec3 jungle_point;
+varying vec3 cq_terrain_lamp;
 render_mode unshaded, cull_disabled;
 uniform sampler2DArray height_tiles : filter_linear, repeat_disable;
 uniform sampler2DArray color_tiles : source_color, filter_linear_mipmap_anisotropic, repeat_disable;
@@ -25,6 +26,8 @@ void vertex() {
 		UV = (UV * 64.0 + vec2(.5)) / 65.0;
 		VERTEX.y = textureLod(height_tiles, vec3(UV, tile_layer), 0.0).r - COLOR.a * 3.0;
 	}
+ jungle_point=(MODEL_MATRIX*vec4(VERTEX,1.0)).xyz;
+ cq_terrain_lamp=cq_headlight(jungle_point);
 }
 void fragment() {
 	if (coarse) {
@@ -36,5 +39,5 @@ void fragment() {
 		ALBEDO = texture(color_tiles, vec3(UV, tile_layer)).rgb;
 	}
 
-	ALBEDO *= jungle_baked_light(jungle_point);
+	ALBEDO *= jungle_baked_light(jungle_point)+cq_terrain_lamp;
 }

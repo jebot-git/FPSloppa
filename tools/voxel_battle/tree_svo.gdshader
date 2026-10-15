@@ -40,5 +40,5 @@ void fragment(){
 	vec4 clip=PROJECTION_MATRIX*VIEW_MATRIX*instance_model*vec4(point,1.0);
 	DEPTH=clip.z/clip.w;
 
-	ALBEDO *= jungle_baked_light((instance_model*vec4(point,1.0)).xyz);
+	ALBEDO *= jungle_baked_light((instance_model*vec4(point,1.0)).xyz)+cq_headlight((instance_model*vec4(point,1.0)).xyz);
 }

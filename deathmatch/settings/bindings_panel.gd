@@ -41,7 +41,7 @@ func setup(arena: Node) -> void:
 		var group_page=group_column("desktop",group)
 		section(group_page,group)
 		for action in DESKTOP_GROUPS[group]:
-			if game.has_method("draw_class_players") and action in ["next_weapon","previous_weapon","offhand_fire"]:continue
+			if game.has_method("draw_class_players") and action in ["next_weapon","previous_weapon"]:continue
 			var row:=binding_row(group_page,action_label(action));var button:=Button.new();button.custom_minimum_size.y=48;button.size_flags_horizontal=Control.SIZE_EXPAND_FILL;row.add_child(button);buttons[action]=button
 			button.pressed.connect(func():begin_capture(action))
 	var sticks=group_column("vr","STICKS & MOVEMENT")
@@ -53,7 +53,7 @@ func setup(arena: Node) -> void:
 	var weapons=group_column("vr","WEAPON ACTIONS")
 	var communication=group_column("vr","MENUS & COMMUNICATION")
 	for action in game.bindings.VR:
-		if game.has_method("draw_class_players") and action in ["offhand_fire","weapon_wheel"]:continue
+		if game.has_method("draw_class_players") and action in ["weapon_wheel"]:continue
 		var row:=binding_row(communication if action in ["menu","scores","chat","team_chat","ptt","team_ptt","weapon_wheel"] else weapons,action_label(action));var hand=selector(row,ROLES);var input=selector(row,INPUT_LABELS);vr_choices[action]=[hand,input]
 		hand.selected.connect(func(value):set_vr_binding(action,0,value))
 		input.selected.connect(func(value):set_vr_binding(action,1,value))
@@ -140,5 +140,6 @@ func action_label(action:String)->String:
 		if action=="team_ptt":return "Squad / team radio"
 		if action=="jump":return "Jump / dismount"
 		if action=="alt_fire":return "Aim / secondary trigger"
+		if action=="offhand_fire":return "Vehicle headlights (driver)"
 		if action=="use":return "Use / board vehicle"
 	return LABELS[action]

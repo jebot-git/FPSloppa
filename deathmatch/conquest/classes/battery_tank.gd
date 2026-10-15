@@ -39,6 +39,7 @@ var helper_points:=PackedVector3Array()
 var previous_render:Dictionary={}
 var rendered_rows:Dictionary={}
 var last_render_receive:=0.
+var headlights=preload("res://deathmatch/conquest/classes/vehicle_headlights.gd").new()
 var helper_mesh:MeshInstance3D
 func setup(arena) -> void:game=arena
 static func placements() -> Array:
@@ -54,6 +55,7 @@ static func placements() -> Array:
 		result.append({"poi":Landscape.TYPES[spec[0]],"position":at,"yaw":PI*.5 if spec[1]==0 else -PI*.5,"team":spec[1],"kind":"transport"})
 	return result
 func reset() -> void:
+	if not game.headless:headlights.clear()
 	for row in rows.values():
 		for id in occupants(row):unlock(id)
 	for node in bodies.values()+models.values():
@@ -67,7 +69,7 @@ func configure() -> void:
 		rows[i]=spawn_row(p)
 		body(i)
 func spawn_row(p:Dictionary) -> Dictionary:
-	return {"spawn":p.duplicate(),"respawn_at":0.0,"poi":p.poi,"position":p.position,"yaw":p.yaw,"team":p.team,"kind":p.kind,"hp":PROFILES[p.kind].hp,"pilot":0,"life":-1,"seats":[0,0,0,0,0,0,0,0],"seat_lives":[0,0,0,0,0,0,0,0],"jump_edges":{},"direction":Basis(Vector3.UP,p.yaw)*Vector3.FORWARD,"speed":0.0,"velocity":Vector3.ZERO,"left":0,"rounds":PROFILES[p.kind].capacity,"next":0.0,"reload_at":0.0,"shot_at":-100.0,"normal":Vector3.UP,"visual_y":p.position.y+(0.0 if p.kind in ["rocket","transport"] else HOVER_HEIGHT)}
+	return {"spawn":p.duplicate(),"respawn_at":0.0,"poi":p.poi,"position":p.position,"yaw":p.yaw,"team":p.team,"kind":p.kind,"hp":PROFILES[p.kind].hp,"pilot":0,"life":-1,"seats":[0,0,0,0,0,0,0,0],"seat_lives":[0,0,0,0,0,0,0,0],"jump_edges":{},"headlights":false,"headlight_held":true,"direction":Basis(Vector3.UP,p.yaw)*Vector3.FORWARD,"speed":0.0,"velocity":Vector3.ZERO,"left":0,"rounds":PROFILES[p.kind].capacity,"next":0.0,"reload_at":0.0,"shot_at":-100.0,"normal":Vector3.UP,"visual_y":p.position.y+(0.0 if p.kind in ["rocket","transport"] else HOVER_HEIGHT)}
 func body(key:int):
 	if bodies.has(key):return bodies[key]
 	var node:=Hull.new();node.name="BatteryTank_%d"%key;node.service=self;node.key=key;node.collision_layer=1;node.collision_mask=1;node.floor_max_angle=deg_to_rad(30);node.floor_snap_length=.5;node.safe_margin=.02
@@ -129,7 +131,7 @@ func use(id:int) -> bool:
 		if aboard.kind=="transport":
 			var current:=seat_index(id,key)
 			if current!=6 and aboard.seats[6]==0:
-				aboard.seats[current]=0;aboard.seat_lives[current]=0;aboard.seats[6]=id;aboard.seat_lives[6]=game.players[id].serial;aboard.pilot=id;aboard.life=game.players[id].serial;seat(id,key);game.players[id].use_at=game.clock+.5;return true
+				aboard.seats[current]=0;aboard.seat_lives[current]=0;aboard.seats[6]=id;aboard.seat_lives[6]=game.players[id].serial;aboard.pilot=id;aboard.headlight_held=true;aboard.life=game.players[id].serial;seat(id,key);game.players[id].use_at=game.clock+.5;return true
 			return false
 		if not leave(id):return false
 		game.players[id].use_at=game.clock+.5;return true
@@ -157,6 +159,7 @@ func use(id:int) -> bool:
 		row.seats[pod]=id;row.seat_lives[pod]=game.players[id].serial;row.jump_edges[id]=game.players[id].get("jump",false)
 		if pod==6:row.pilot=id;row.life=game.players[id].serial
 	else:row.pilot=id;row.life=game.players[id].serial;row.team=game.players[id].team
+	if row.pilot==id:row.headlight_held=true
 	game.classes.weapon_used(id);game.airstrike.cancel(id);game.grenades.cancel(id);game.variant_combat.cancel_player(id)
 	game.players[id]["battery_saved_layer"]=game.fighters[id].collision_layer
 	game.fighters[id].collision_layer=0;seat(id,chosen);game.players[id].use_at=game.clock+.5;return true
@@ -341,6 +344,9 @@ func tick(delta:float) -> void:
 		if id!=0:
 			var s:Dictionary=game.players[id];valid=not s.get("input_blocked",false) and game.clock-s.last_input<=.35 and (not s.vr_device or not s.xr.is_empty())
 			if valid:move=s.move
+		var light_trigger:bool=valid and game.players[id].get("offhand_fire",false)
+		if light_trigger and not row.get("headlight_held",true):row.headlights=not row.get("headlights",false)
+		row.headlight_held=not valid or light_trigger
 		var old:Vector3=row.position;var node=bodies[key];var mobility:=mobility_at(row.position)
 		row.speed=move_toward(row.speed,-move.y*(config.forward if move.y<0 else config.reverse)*mobility,delta*config.acceleration*mobility)
 		row.yaw-=move.x*config.turn*mobility*delta
@@ -437,8 +443,10 @@ func draw() -> void:
 		if not models.has(key):
 			var node:=Node3D.new();node.physics_interpolation_mode=Node.PHYSICS_INTERPOLATION_MODE_OFF;var hull:Node3D=load(profile(row).model).instantiate();node.add_child(hull);normalise_model(hull);add_child(node);preload("res://tools/voxel_battle/baked_lighting.gd").convert_node(node);preload("res://deathmatch/conquest/classes/recon_drone.gd").prepare_model(node)
 			if row.kind=="transport":Transport.prepare_windows(node);Transport.prepare_seats(node)
+			headlights.prepare(node,row,profile(row).size)
 			models[key]=node
 		models[key].position=visual_origin(row);models[key].basis=visual_basis(row);models[key].visible=row.hp>0
+		models[key].get_node("HeadlightLenses").visible=row.hp>0 and row.get("headlights",false)
 		pose_turret(models[key],row)
 	for id in game.fighters:
 		if mounted(id) and is_instance_valid(game.fighters[id].avatar):game.fighters[id].avatar.hide()
@@ -447,7 +455,7 @@ func draw() -> void:
 	# Seat it on the same rendered hull now, preserving head/controller orientation.
 	var mine:int=game.multiplayer.get_unique_id();var seated:=key_for(mine)
 	if seated>=0 and game.is_vr() and is_instance_valid(game.xr_rig):game.xr_rig.global_position=render_passenger_position(mine,seated)
-	draw_helper();view.update()
+	draw_helper();view.update();headlights.update(self)
 static func pose_turret(model:Node3D,row:Dictionary)->void:
 	var yaw_node:Node3D=model.find_child("Yaw",true,false)
 	if yaw_node:

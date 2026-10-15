@@ -13,5 +13,5 @@ vec3 linear_color(vec3 color) {return mix(color/12.92,pow((color+0.055)/1.055,ve
 void vertex() {point=(MODEL_MATRIX*vec4(VERTEX,1.0)).xyz;light_pair=CUSTOM0;dawn=CUSTOM1.r;}
 void fragment() {
 	vec3 base=tint.rgb*(textured?texture(albedo,UV).rgb:vec3(1.0))*(vertex_tint?linear_color(COLOR.rgb):vec3(1.0));
-	ALBEDO=base*(baked_vertices && jungle_baked_enabled ? jungle_irradiance(light_pair,dawn):jungle_baked_light(point));
+	ALBEDO=base*((baked_vertices && jungle_baked_enabled ? jungle_irradiance(light_pair,dawn):jungle_baked_light(point))+cq_headlight(point));
 }

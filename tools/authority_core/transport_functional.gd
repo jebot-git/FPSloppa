@@ -32,9 +32,14 @@ func run():
  for tick_number in range(1,45):
   for i in 8:check(authority.submit_packet(i+1,Codec.encode_input(command(i+1,tick_number,-1 if i==6 else 1))),"passenger drive/fire packet")
   await tick()
+ var light_command:Dictionary=command(7,45);light_command.offhand_fire=true
+ check(authority.submit_packet(7,Codec.encode_input(light_command)),"driver headlight packet")
+ await tick();await tick()
  var frame:Dictionary=Codec.decode_frame(authority.snapshot());check(not frame.is_empty(),"transport frame decode")
  if not frame.is_empty():
   var vehicle:Dictionary=frame.vehicles.values()[0];check(vehicle.kind==3 and vehicle.team==0 and vehicle.hp==100,"transport wire kind, team and 100 HP")
+  check(vehicle.headlights and vehicle.grounded,"headlight and grounded bits decode independently")
+  check(not frame.players[7].nvg,"headlight press does not toggle driver NVG")
   var projected:Array=Presentation.project(frame,0.,1,120.);check(not projected.is_empty(),"transport projection")
   # Explicit seat byte carries all eight seats.
   for i in 8:
@@ -48,7 +53,9 @@ func run():
   for part in projected:
    if part is Dictionary:
     for key in part:
-     if str(key).begins_with("ctk:"):check(part[key].seats==[1,2,3,4,5,6,7,8],"eight occupant IDs projected for remote presentation")
+     if str(key).begins_with("ctk:"):
+      check(part[key].seats==[1,2,3,4,5,6,7,8],"eight occupant IDs projected for remote presentation")
+      check(part[key].headlights,"headlights survive remote presentation projection")
  check(authority.submit_packet(4,Codec.encode_input(command(4,45,0,true))),"passenger jump packet")
  await tick();await tick()
  frame=Codec.decode_frame(authority.snapshot());check(frame.players[4].vehicle==-1 and frame.players[4].vehicle_seat==-1,"jump exits transport on native server")

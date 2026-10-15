@@ -109,6 +109,7 @@ func _accept_input(id:int,command:Dictionary) -> void:
 		var hand:String="right" if pose.left_handed else "left"
 		players[id].cq_throw_velocity=((pose[hand].origin-pose.head.origin)-(old_pose[hand].origin-old_pose.head.origin))/(clock-old_stamp)
 		players[id].cq_throw_velocity=players[id].cq_throw_velocity.limit_length(12)
+	if battery_tanks.mounted(id):players[id].offhand_fire=command.get("offhand_fire",false)==true and not players[id].input_blocked
 	players[id].reload=command.get("reload",false)==true
 	players[id].reload_grip=command.get("reload_grip",false)==true
 	players[id].cq_drag=command.get("cq_drag",false)==true
@@ -266,7 +267,7 @@ var helper_next:=0.0
 var helper_points:=PackedVector3Array()
 func _local_command() -> Dictionary:
 	var command:=super._local_command()
-	night_vision.local_input(command)
+	if not battery_tanks.mounted(multiplayer.get_unique_id()):night_vision.local_input(command)
 	command.reload=bindings.vr_pressed(xr_rig,"reload") and xr_rig.cq_hands.holding if is_vr() else bindings.pressed("reload")
 	command.reload_grip=bindings.vr_pressed(xr_rig,"support") and xr_rig.cq_hands.holding if is_vr() else false
 	command.reload_trigger=bindings.vr_pressed(xr_rig,"offhand_fire") and xr_rig.cq_hands.holding if is_vr() else false
@@ -278,6 +279,7 @@ func _local_command() -> Dictionary:
 			command.move=Vector2(stick.x,-stick.y).limit_length(1) if stick.length()>=.18 else Vector2.ZERO
 			command.fire=bindings.vr_pressed(xr_rig,"fire") and not command.input_blocked and not xr_rig.wheel_open()
 		command.reload=false;command.reload_grip=false;command.reload_trigger=false;command.cq_drag=false;command.physical=false;command.melee=false;command.offhand_fire=false;command.alt_fire=false;command.room=Vector3.ZERO
+		command.offhand_fire=not command.input_blocked and (bindings.vr_pressed(xr_rig,"offhand_fire") if is_vr() else bindings.pressed("offhand_fire"))
 		if transport:command.fire=false
 		else:command.jump=false
 
@@ -480,7 +482,7 @@ func _play_variant_shot_fx(id:int,weapon:int,alternate:bool) -> void:
 	if headless:return
 	if id==multiplayer.get_unique_id():visual_cooldown=armory.data(weapon,alternate).cycle
 	if field_audio:field_audio.shot(weapon,_weapon_transform(id).origin)
-const CLASS_PROTOCOL:="fpsloppa-cq-frontier-27-collapse-cover"
+const CLASS_PROTOCOL:="fpsloppa-cq-frontier-28-headlights"
 func connection_protocol() -> String:return CLASS_PROTOCOL
 func _collect(_id:int) -> void:pass # CQ resupplies through its class dispensers.
 func on_player_died(id:int) -> void:
@@ -654,6 +656,7 @@ func _start_dedicated(args:PackedStringArray) -> void:
 	if active:print("CQ_FRONTIER_SERVER_READY backend=monolithic players=",max_clients," unsupported_capacity=",capacity_policy().unsupported," physics_hz=",Engine.physics_ticks_per_second," movement=cs points=200")
 
 func _exit_tree() -> void:
+	if not headless:battery_tanks.headlights.clear()
 	resident.reset_instance()
 
 func request_cq_use() -> void:

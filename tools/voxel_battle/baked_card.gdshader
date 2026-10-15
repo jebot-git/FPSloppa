@@ -11,4 +11,4 @@ void vertex() {
 	MODELVIEW_MATRIX=VIEW_MATRIX*mat4(vec4(right*length(MODEL_MATRIX[0].xyz),0.0),vec4(up*length(MODEL_MATRIX[1].xyz),0.0),vec4(facing*length(MODEL_MATRIX[2].xyz),0.0),MODEL_MATRIX[3]);
 	point=(INV_VIEW_MATRIX*MODELVIEW_MATRIX*vec4(VERTEX,1.0)).xyz;
 }
-void fragment() {vec4 color=texture(albedo,UV);ALBEDO=color.rgb*tint.rgb*jungle_baked_light(point);ALPHA=color.a*tint.a;ALPHA_SCISSOR_THRESHOLD=alpha_cutoff;}
+void fragment() {vec4 color=texture(albedo,UV);ALBEDO=color.rgb*tint.rgb*(jungle_baked_light(point)+cq_headlight(point));ALPHA=color.a*tint.a;ALPHA_SCISSOR_THRESHOLD=alpha_cutoff;}

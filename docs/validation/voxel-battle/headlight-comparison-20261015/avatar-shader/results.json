@@ -1,0 +1,100 @@
+{
+  "adapter": "Intel(R) Graphics (ADL-N)",
+  "avatar": "UT99 Malcolm, 595 triangles each, frozen pose, no physics/animation/IK updates",
+  "resolution": [
+    1280,
+    720
+  ],
+  "scope": "Isolated avatars on black background at night with two production per-pixel headlight cones. Same geometry, camera, skin, GPU animation fetch and headlight formula; only baked-light atlas sampling frequency differs.",
+  "summaries": {
+    "1": {
+      "pixel_bake": {
+        "gpu_ms": {
+          "median": 0.888000011444092,
+          "p95": 1.06299996376038
+        },
+        "wall_ms": {
+          "median": 1.366,
+          "p95": 3.206
+        },
+        "render_cpu_ms": {
+          "median": 0.229500003159046,
+          "p95": 0.522000014781952
+        },
+        "triangles": [
+          595.0
+        ]
+      },
+      "vertex_bake": {
+        "gpu_ms": {
+          "median": 0.862999975681305,
+          "p95": 1.03699994087219
+        },
+        "wall_ms": {
+          "median": 1.3490000000000002,
+          "p95": 3.156
+        },
+        "render_cpu_ms": {
+          "median": 0.238000005483627,
+          "p95": 0.514999985694885
+        },
+        "triangles": [
+          595.0
+        ]
+      },
+      "image_difference_8bit": {
+        "mean_rgb": [
+          8.198302469135803e-05,
+          5.907600308641975e-05,
+          1.5673225308641976e-05
+        ],
+        "maximum": 1
+      }
+    },
+    "32": {
+      "pixel_bake": {
+        "gpu_ms": {
+          "median": 1.975499987602235,
+          "p95": 2.22900009155273
+        },
+        "wall_ms": {
+          "median": 2.522,
+          "p95": 4.662
+        },
+        "render_cpu_ms": {
+          "median": 0.4100000113248825,
+          "p95": 0.782999992370605
+        },
+        "triangles": [
+          19040.0
+        ]
+      },
+      "vertex_bake": {
+        "gpu_ms": {
+          "median": 1.818499982357025,
+          "p95": 2.06599998474121
+        },
+        "wall_ms": {
+          "median": 2.3994999999999997,
+          "p95": 4.215
+        },
+        "render_cpu_ms": {
+          "median": 0.441000014543533,
+          "p95": 0.757000029087067
+        },
+        "triangles": [
+          19040.0
+        ]
+      },
+      "image_difference_8bit": {
+        "mean_rgb": [
+          0.0007896894290123457,
+          0.0006233121141975309,
+          0.0002158082561728395
+        ],
+        "maximum": 1
+      }
+    }
+  },
+  "frames": 1440
+}
