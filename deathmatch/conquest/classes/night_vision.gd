@@ -11,6 +11,7 @@ var request_sequence:=0
 var next_scan:=0.0
 var cells:Dictionary={}
 var local_flashes:Array=[]
+var lightning_flash:Dictionary={}
 var visual_sources:Array=[]
 var next_visual_scan:=0.
 var indexed_map
@@ -61,7 +62,7 @@ func clear_line(a:Vector3,b:Vector3) -> bool:return Attribution.ray(game.get_wor
 func visual_eye()->Transform3D:
 	var camera:Camera3D=game.world_view_camera()
 	return camera.global_transform if camera else eye(game.multiplayer.get_unique_id())
-func clear_local_effects()->void:local_flashes.clear();visual_sources.clear();next_visual_scan=0.
+func clear_local_effects()->void:local_flashes.clear();lightning_flash.clear();visual_sources.clear();next_visual_scan=0.
 func flash(position:Vector3,radius:float,duration:float,size:float=.12,energy:float=1.) -> void:
 	# Presentation only: no shared blindness timer or server-wide player scan.
 	var id:int=game.multiplayer.get_unique_id()
@@ -78,13 +79,27 @@ func flash(position:Vector3,radius:float,duration:float,size:float=.12,energy:fl
 	local_flashes.append({"position":position,"radius":maxf(.01,size),"strength":strength,"priority":priority,"at":Time.get_ticks_msec()/1000.,"life":clampf(duration,.04,.8)})
 func flash_samples(view:Transform3D,now:float=-1.)->Array:
 	if now<0:now=Time.get_ticks_msec()/1000.
-	var samples:Array=[]
+	var samples:Array=lightning_samples(view,now)
 	for i in range(local_flashes.size()-1,-1,-1):
 		var row:Dictionary=local_flashes[i];var age:float=(now-row.at)/row.life
 		if age>=1:local_flashes.remove_at(i);continue
 		if (-view.basis.z).dot(row.position-view.origin)<=0:continue
 		samples.append({"position":row.position,"radius":row.radius,"strength":row.strength*pow(1-clampf(age,0.,1.),2)})
 	return samples
+func lightning_samples(view:Transform3D,now:float)->Array:
+	# Visor view calls this only while worn; the normal clear path removes afterimages.
+	var weather=game.get("weather") if game else null
+	var source:Dictionary=weather.lightning_source(view.origin) if weather else {}
+	if not source.is_empty() and (-view.basis.z).dot(source.position-view.origin)>0 and clear_line(view.origin,source.position):
+		var retained:=0.
+		if not lightning_flash.is_empty():retained=lightning_flash.strength*pow(maxf(0,1-(now-lightning_flash.at)/.65),2)
+		if source.strength>=retained:
+			lightning_flash={"position":source.position,"radius":source.radius,"strength":source.strength,"at":now}
+	if lightning_flash.is_empty():return []
+	var age:float=(now-lightning_flash.at)/.65
+	if age>=1:lightning_flash.clear();return []
+	if (-view.basis.z).dot(lightning_flash.position-view.origin)<=0:return []
+	return [{"position":lightning_flash.position,"radius":lightning_flash.radius,"strength":lightning_flash.strength*pow(1-clampf(age,0.,1.),2)}]
 func index_lamps(map)->void:
 	if indexed_map==map:return
 	indexed_map=map;cells.clear()

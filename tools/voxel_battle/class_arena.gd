@@ -4,6 +4,7 @@ var squads=preload("res://deathmatch/conquest/classes/squads.gd").new()
 var resident=preload("res://deathmatch/native/cq_authority.gd").new()
 var battery_tanks=preload("res://deathmatch/conquest/classes/battery_tank.gd").new()
 var grass_audio
+var weather=preload("res://tools/voxel_battle/weather.gd").new()
 var jungle_ambience
 var equipment_audio
 var reload_audio
@@ -21,6 +22,7 @@ var classes=preload("res://deathmatch/conquest/classes/rules.gd").new()
 func _ready() -> void:
 	add_child(squads);squads.setup(self)
 	resident.name="ResidentCQ";add_child(resident);resident.setup(self)
+	weather.name="Weather";add_child(weather);weather.setup(self)
 	# Client prediction and authority must select the same backend at startup.
 	var jolt_available:=false
 	for property in ProjectSettings.get_property_list():
@@ -137,7 +139,7 @@ func _restart_round() -> void:
 	if resident.serving() and resident.core:resident.core.request_restart();return
 	super._restart_round()
 func start_join(player_name:String,address:String,port:int,spectator:bool=false) -> void:
-	resident.reset_client();super.start_join(player_name,address,port,spectator)
+	weather.reset();resident.reset_client();super.start_join(player_name,address,port,spectator)
 func disconnect_game(reason:String="Disconnected.") -> void:
 	resident.reset();super.disconnect_game(reason)
 func refresh_resident_roster() -> void:
@@ -488,7 +490,7 @@ func _play_variant_shot_fx(id:int,weapon:int,alternate:bool) -> void:
 		var sound:=AudioStreamPlayer3D.new();sound.stream=load("res://deathmatch/audio/cq_weapons/"+("pistol_suppressed" if weapon==9 else "pistol")+".wav");sound.bus="ArenaEffects";sound.volume_db=-12 if weapon==9 else -4;sound.max_distance=18 if weapon==9 else 90;add_child(sound);sound.position=_weapon_transform(id).origin;sound.finished.connect(sound.queue_free);sound.play()
 	elif weapon in [0,1,4,10]:spatial.play("ut99_weapon_7",_weapon_transform(id).origin,-5)
 	elif weapon in [5,11]:spatial.play("weapon_8",_weapon_transform(id).origin,-6)
-const CLASS_PROTOCOL:="fpsloppa-cq-frontier-22-live-fixes"
+const CLASS_PROTOCOL:="fpsloppa-cq-frontier-23-weather"
 func connection_protocol() -> String:return CLASS_PROTOCOL
 func _collect(_id:int) -> void:pass # CQ resupplies through its class dispensers.
 func on_player_died(id:int) -> void:
@@ -499,7 +501,7 @@ func on_player_died(id:int) -> void:
 
 static func map_identity() -> String:
 	var digest:=HashingContext.new();digest.start(HashingContext.HASH_SHA256)
-	for file in ["landscape","architecture","outer_architecture","hydrology","waterways","map","stair_ramps","water_contents","baked_lighting","jungle_sky","light_fixtures"]:
+	for file in ["landscape","architecture","outer_architecture","hydrology","waterways","map","stair_ramps","water_contents","baked_lighting","jungle_sky","light_fixtures","weather_schedule","weather"]:
 		digest.update(FileAccess.get_file_as_bytes("res://tools/voxel_battle/"+file+".gd"))
 	for path in ["res://experimental-assets/jungle/lighting/bake.json","res://experimental-assets/jungle/lighting/irradiance.png","res://experimental-assets/jungle/lighting/dawn.png","res://experimental-assets/jungle/lighting/skybox.png","res://tools/voxel_battle/baked_lighting.gdshaderinc","res://tools/voxel_battle/jungle_sky.gdshader"]:
 		digest.update(FileAccess.get_file_as_bytes(path))

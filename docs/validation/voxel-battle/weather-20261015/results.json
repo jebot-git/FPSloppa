@@ -1,0 +1,46 @@
+{
+	"cases": [
+		{
+			"density": 0.00116435182280838,
+			"mode": 2,
+			"p50_ms": 13.302,
+			"p95_ms": 24.534,
+			"rain_intensity": 0.651217699050903,
+			"rain_particles": 1536,
+			"reduced": false,
+			"weather": "Rain"
+		},
+		{
+			"density": 0.000211037462577224,
+			"mode": 0,
+			"p50_ms": 13.315,
+			"p95_ms": 27.719,
+			"rain_intensity": 0.0,
+			"rain_particles": 1536,
+			"reduced": false,
+			"weather": "Clear"
+		},
+		{
+			"density": 0.00534493010491133,
+			"mode": 1,
+			"p50_ms": 13.302,
+			"p95_ms": 28.862,
+			"rain_intensity": 0.0,
+			"rain_particles": 1536,
+			"reduced": false,
+			"weather": "Fog"
+		},
+		{
+			"density": 0.00367371016182005,
+			"mode": 3,
+			"p50_ms": 13.291,
+			"p95_ms": 29.261,
+			"rain_intensity": 0.923169314861298,
+			"rain_particles": 1536,
+			"reduced": false,
+			"weather": "Thunderstorm"
+		}
+	],
+	"gpu": "Intel(R) Graphics (ADL-N)",
+	"renderer": "forward_plus"
+}

@@ -2,12 +2,18 @@ extends Node
 ## Offline ray-tested atlas/vertex bakes; runtime blends daylight, dusk, dawn and static night fixtures.
 const ROOT="res://experimental-assets/jungle/lighting/"
 const SkySource=preload("res://tools/voxel_battle/jungle_sky.gd")
-const CYCLE_SECONDS:=1200.0
+const CYCLE_SECONDS:=preload("res://tools/voxel_battle/weather_schedule.gd").DAY_SECONDS
 const Landscape=preload("res://tools/voxel_battle/landscape.gd")
 var phase_override:=-1.0
 var reference_clock:=0.0
 var reference_usec:=0
 var daylight:=1.0
+var weather_cloud:=0.0
+var weather_flash:=0.0
+var weather_lightning:=Vector2.ZERO
+var applied_sky_weather:=Vector3.INF
+var applied_sky_lightning:=Vector2.INF
+var applied_sky_stage:=Vector3.INF
 var sky_environment:Environment
 var metadata:Dictionary={}
 static var converted:Dictionary={}
@@ -47,13 +53,27 @@ func _process(_delta:float) -> void:
 func sky_time() -> float:return cycle_time() if phase_override<0 else (0.0 if phase_override>.5 else CYCLE_SECONDS*.5)
 func apply() -> void:
 	daylight=light_fraction()
+	RenderingServer.global_shader_parameter_set("jungle_weather",Vector3(weather_cloud,weather_flash,0))
 	RenderingServer.global_shader_parameter_set("jungle_day_mix",daylight)
 	var seconds:=sky_time()
 	var pair:=SkySource.stage_pair(seconds,CYCLE_SECONDS);var colors:Array=metadata.sky_average
+	apply_sky(pair)
 	var a:Array=colors[int(pair.x)];var b:Array=colors[int(pair.y)]
 	RenderingServer.global_shader_parameter_set("jungle_sky_stage",pair)
 	RenderingServer.global_shader_parameter_set("jungle_sky_color",Vector3(a[0],a[1],a[2]).lerp(Vector3(b[0],b[1],b[2]),pair.z))
 	RenderingServer.global_shader_parameter_set("jungle_sun_mix",SkySource.sun_weights(seconds,CYCLE_SECONDS))
+func apply_sky(pair:Vector3)->void:
+	if not sky_environment or not sky_environment.sky:return
+	var material:=sky_environment.sky.sky_material as ShaderMaterial
+	if not material:return
+	# Material uniforms invalidate the sky cache. Quantize slow blends, keeping
+	# lightning frame-accurate, and avoid rebaking an unchanged sky each frame.
+	var weather:=Vector3(snappedf(weather_cloud,.005),weather_flash,0)
+	var lightning:=weather_lightning if weather_flash>.001 else Vector2.ZERO
+	var stage:=Vector3(pair.x,pair.y,snappedf(pair.z,.005))
+	if weather!=applied_sky_weather:material.set_shader_parameter("weather_state",weather);applied_sky_weather=weather
+	if lightning!=applied_sky_lightning:material.set_shader_parameter("lightning_state",lightning);applied_sky_lightning=lightning
+	if stage!=applied_sky_stage:material.set_shader_parameter("sky_stage",stage);applied_sky_stage=stage
 static func source_fingerprint() -> String:
 	var files=["landscape.gd","architecture.gd","outer_architecture.gd","hydrology.gd","waterways.gd","environment.gd","bake_lighting.gd","jungle_sky.gd","light_fixtures.gd"]
 	var fingerprint:=""
@@ -108,4 +128,6 @@ func update_fixtures(structures) -> void:
 	for kind in fixture_groups.size():fixture_groups[kind].visible=structures.counts.size()>kind and (structures.counts[kind][0]+structures.counts[kind][1]+structures.counts[kind][2]>0)
 
 func _exit_tree() -> void:
-	if DisplayServer.get_name()!="headless":RenderingServer.global_shader_parameter_set("jungle_baked_enabled",false)
+	if DisplayServer.get_name()!="headless":
+		RenderingServer.global_shader_parameter_set("jungle_baked_enabled",false)
+		RenderingServer.global_shader_parameter_set("jungle_weather",Vector3.ZERO)

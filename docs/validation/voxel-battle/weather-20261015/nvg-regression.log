@@ -1,0 +1,39 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+DM_HOST_READY port=0 practice=false
+STAGE 0.0 day -> day 0.0
+STAGE 0.24 golden -> dusk 0.66363531351089
+STAGE 0.29 dusk -> twilight 0.90771466493607
+STAGE 0.33 twilight -> night 0.94748765230179
+STAGE 0.5 night -> night 0.48660856485367
+STAGE 0.67 night -> night 0.99997347593307
+STAGE 0.71 dawn_twilight -> dawn 0.01123034302145
+STAGE 0.76 dawn -> morning 0.21829532086849
+STAGE 0.9 day -> day 0.39167839288712
+PASS Dusk and dawn pass through their distinct stages
+PASS Spotting light fraction falls through dusk and rises through dawn smoothly
+PASS Day limits 75/150m
+PASS Night limits 15/25m
+PASS Desktop wearer activates visor
+PASS NVG night limits 50/100m
+PASS NVG ranges interpolate through dusk and dawn
+PASS Switch debounce
+PASS Replay rejected
+PASS Stale life and map rejected
+PASS Offhand trigger gesture above forehead toggles VR visor
+PASS Hand below forehead rejected
+PASS Left handed offhand gesture accepted
+PASS Forehead region follows head rotation
+PASS Stale XR pose rejected
+PASS Flash behind observer does not blind or paint the view
+PASS Solid cover blocks NVG flash spots
+PASS Visible muzzle flash creates a local spot without global blindness
+PASS Transient spots expire without a spotting penalty
+PASS Looking at baked fixture blinds without dynamic lights
+PASS Direct visible lamp gives full local whiteout
+PASS Turning away clears local whiteout immediately, without waiting for a timer
+PASS Peripheral fixture does not blind authoritative spotting
+PASS Looking away clears authoritative fixture glare
+PASS Respawn resets visor and glare
+Disconnected.
+CQ_NVG_RESULT {"checks":25,"failures":[]}
