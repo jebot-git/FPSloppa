@@ -1,0 +1,45 @@
+{
+  "passed": true,
+  "requested_mode": "adaptive_default",
+  "requested_hz": 60,
+  "destruction": true,
+  "client_exit_code": 0,
+  "client": {
+    "failures": [],
+    "observed": {
+      "dead": true,
+      "destruction": true,
+      "gibbed": true,
+      "grenade_flying": true,
+      "grenade_selected": true,
+      "jetpack": true,
+      "native": true,
+      "nvg": true,
+      "poses": false,
+      "respawn": true,
+      "squad": true,
+      "team_change": true
+    },
+    "shots": 17,
+    "tick": 2019,
+    "tracked": false,
+    "warmup_seconds": 8.0
+  },
+  "ready": [
+    {
+      "adaptive_tick": true,
+      "destruction": true,
+      "map_epoch": 0,
+      "max_clients": 64,
+      "physics_hz": 60,
+      "players": 0
+    }
+  ],
+  "diagnostics": [
+    "WARNING: UNSUPPORTED CQ CAPACITY: more than 32 slots is experimental. Sustained 64-player operation has not passed validation; tick overruns, packet loss and disconnections are possible."
+  ],
+  "expected_capacity_warnings": [
+    "WARNING: UNSUPPORTED CQ CAPACITY: more than 32 slots is experimental. Sustained 64-player operation has not passed validation; tick overruns, packet loss and disconnections are possible."
+  ],
+  "unexpected_diagnostics": []
+}

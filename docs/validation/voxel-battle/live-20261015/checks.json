@@ -1,0 +1,22 @@
+{
+  "native_core": {
+    "checks": 264867,
+    "ok": true,
+    "collision_legacy_misses": 0,
+    "collision_legacy_late": 0,
+    "replay_players": 64,
+    "replay_ticks": 3600
+  },
+  "script_vehicle": {
+    "checks": 64,
+    "failures": []
+  },
+  "native_destruction": {
+    "checks": 28,
+    "failures": []
+  },
+  "deployment_tool_tests": {
+    "tests": 4,
+    "passed": true
+  }
+}

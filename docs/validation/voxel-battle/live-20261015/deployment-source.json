@@ -1,0 +1,11 @@
+{
+  "source_commit": "b7de5c2ec3dba2add081f2fa2b340fbf7017a799",
+  "settings": {
+    "max_clients": 64,
+    "adaptive_tick": true,
+    "initial_hz": 60,
+    "fallback_hz": 30,
+    "destruction": true
+  },
+  "release": "20261015-cq-headlights-destruction64"
+}

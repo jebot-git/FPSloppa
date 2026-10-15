@@ -5,6 +5,15 @@ The live target is `blux@87.106.27.237` (Ubuntu 24.04, AMD EPYC-Milan, 12 vCPU,
 4.7.2, CS movement, resident native authority, adaptive 60/30 Hz physics, 200-point CQ and a
 32-player default. It does not deploy the legacy district worker stack.
 
+The live release as of **2026-10-15** is `20261015-cq-headlights-destruction64`,
+from `b7de5c2` on `experimental/cq-voxelspace`. It explicitly uses **64 player
+slots**, adaptive **60 Hz / 30 Hz fallback**, and `--cq-destruction`. The live
+systemd override is `90-live-options.conf`; normal source defaults remain
+unchanged. Both local and isolated VPS package admission tests passed, including
+the replicated destruction flag. [Deployment records](../../docs/validation/voxel-battle/live-20261015/)
+include activation settings, checksums, source commit and smoke results.
+
+
 Ordinary `--server --config server.cfg` startup selects native authority and starts
 at 60 Hz, falling back to 30 Hz under pressure and recovering after sustained
 headroom. No extra flags are needed. Set `sv_cq_adaptive_tick "0"` and
@@ -15,9 +24,9 @@ already running deployment. See [the governor policy](../authority_core/README.m
 
 Runtime layout:
 
-- `~/fpsloppa-cq/releases/20261013-frontier/cq-server{,.pck}`: versioned runtime and resource pack.
+- `~/fpsloppa-cq/releases/20261015-cq-headlights-destruction64/cq-server{,.pck}`: versioned runtime and resource pack.
 - `~/fpsloppa-cq/current`: active release symlink.
-- `~/fpsloppa-cq/server.cfg`: production settings, `set sv_cq_maxclients "32"`.
+- `~/fpsloppa-cq/server.cfg`: production settings, `set sv_cq_maxclients "64"`, `set sv_cq_adaptive_tick "1"`, `set sv_cq_tick_rate "60"`.
 - `fpsloppa-cq.service`: system service running as `blux`; logs in journald.
 - `~/.local/share/godot/app_userdata/FPSloppa/`: persistent CQ profiles, imported skins, collision cache and validation output.
 
@@ -110,7 +119,7 @@ for external players; a permissive host firewall alone is insufficient.
 
 ## Unsupported 64-slot configuration
 
-Keep production at 32 slots. Explicitly setting `sv_cq_maxclients "64"` enables the unsupported option; the updated package reports the capacity policy at startup, through RCON status and to joining players. See [capacity assessment](../../docs/validation/voxel-battle/vps-20261013/CAPACITY-64.md) for the sample configuration, measured limits and validation gate.
+The normal default remains 32 slots; this live release explicitly opts into 64 at the operator’s request. Explicitly setting `sv_cq_maxclients "64"` enables the unsupported option; the updated package reports the capacity policy at startup, through RCON status and to joining players. See [capacity assessment](../../docs/validation/voxel-battle/vps-20261013/CAPACITY-64.md) for the sample configuration, measured limits and validation gate.
 
 ## Native backend candidate
 

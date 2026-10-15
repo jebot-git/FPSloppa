@@ -1,0 +1,23 @@
+{
+  "service": {
+    "MainPID": "1664887",
+    "NRestarts": "0",
+    "ActiveState": "active",
+    "SubState": "running"
+  },
+  "ready": [
+    {
+      "adaptive_tick": true,
+      "destruction": true,
+      "map_epoch": 0,
+      "max_clients": 64,
+      "physics_hz": 60,
+      "players": 0
+    }
+  ],
+  "errors": [],
+  "udp_7777": [
+    "UNCONN 0      0                       *:7777            *:*    users:((\"cq-server\",pid=1664887,fd=7))"
+  ],
+  "passed": true
+}
