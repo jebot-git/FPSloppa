@@ -1,0 +1,53 @@
+{
+  "cases": [
+    {
+      "players": 32,
+      "strategy": "native",
+      "exit_code": 0,
+      "functional_pass": true,
+      "errors": [],
+      "snapshot_ms": {
+        "max": 6.812,
+        "p50": 2.593,
+        "p95": 3.624,
+        "p99": 4.968,
+        "samples": 2400
+      },
+      "achieved_tick_hz": 30.0043705060987,
+      "worker_ms": {
+        "max": 3.396,
+        "p50": 1.265,
+        "p95": 1.744,
+        "p99": 2.714,
+        "samples": 2401
+      }
+    },
+    {
+      "players": 64,
+      "strategy": "native",
+      "exit_code": 0,
+      "functional_pass": true,
+      "errors": [],
+      "snapshot_ms": {
+        "max": 9.506,
+        "p50": 4.855,
+        "p95": 6.371,
+        "p99": 7.285,
+        "samples": 2349
+      },
+      "achieved_tick_hz": 29.3468902471537,
+      "worker_ms": {
+        "max": 4.38,
+        "p50": 2.121,
+        "p95": 2.868,
+        "p99": 3.383,
+        "samples": 2349
+      }
+    }
+  ],
+  "functional_pass": true,
+  "population_seconds": 120,
+  "clients_location": "same VPS loopback",
+  "attribute_movement": true,
+  "production_changed": false
+}

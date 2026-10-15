@@ -1,10 +1,11 @@
 shader_type spatial;
-render_mode unshaded, cull_disabled, shadows_disabled;
-uniform float aperture = 0.016;
+render_mode unshaded, cull_disabled, shadows_disabled, depth_draw_never;
 void fragment() {
-	vec3 eye = (inverse(MODEL_MATRIX) * vec4(CAMERA_POSITION_WORLD, 1.0)).xyz;
-	vec2 dot_center = vec2(0.5) + vec2(eye.x, -eye.y) / aperture;
-	if (eye.z <= 0.0 || length(UV - dot_center) > 0.055) discard;
-	ALBEDO = vec3(1.0, 0.04, 0.02);
-	EMISSION = ALBEDO * 2.0;
+ vec3 eye=(inverse(MODEL_MATRIX)*vec4(CAMERA_POSITION_WORLD,1.0)).xyz;
+ // Bounded optical parallax keeps a small bright dot visible across the sight window.
+ vec2 center=vec2(.5);
+ float radius=length(UV-center);
+ if(eye.z<=0.0 || radius>.075)discard;
+ ALBEDO=vec3(1.0,.015,.005);EMISSION=ALBEDO*5.0;
+ ALPHA=1.0-smoothstep(.035,.075,radius);
 }

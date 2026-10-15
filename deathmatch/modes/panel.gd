@@ -11,10 +11,10 @@ var call_map: Button
 var call_loadout:Button
 var notice: Label
 func setup(arena: Node) -> void:
-	game=arena;hide();set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT);theme=preload("res://deathmatch/ui/iron_theme.gd").theme()
-	add_theme_stylebox_override("panel",preload("res://deathmatch/ui/iron_theme.gd").panel(24))
+	game=arena;hide();set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT);theme=preload("res://deathmatch/ui/iron_theme.gd").for_game(game)
+	add_theme_stylebox_override("panel",preload("res://deathmatch/ui/iron_theme.gd").surface_for(game,24))
 	var column:=VBoxContainer.new();column.add_theme_constant_override("separation",6);add_child(column)
-	var title:=Label.new();title.text="TEAMS & PLAYER VOTES";title.add_theme_font_override("font",preload("res://deathmatch/ui/BebasNeue-Regular.ttf"));title.add_theme_font_size_override("font_size",26);column.add_child(title)
+	var title:=Label.new();title.text="TEAMS & PLAYER VOTES";title.add_theme_font_override("font",preload("res://deathmatch/ui/iron_theme.gd").font_for(game));title.add_theme_font_size_override("font_size",26);column.add_child(title)
 	summary=Label.new();summary.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART;column.add_child(summary)
 	var teams:=HBoxContainer.new();column.add_child(teams)
 	red=button(teams,"JOIN RED",func():game.votes.switch_team(0));blue=button(teams,"JOIN BLUE",func():game.votes.switch_team(1))
@@ -49,7 +49,7 @@ func refresh() -> void:
 	blue.disabled=not allowed or s.get("team",-1)==1 or counts[1]>=counts[0]
 	balance.disabled=not allowed or not game.votes.enabled
 	call_map.disabled=not allowed or not game.votes.enabled or not selector.ready_to_vote() or selector.modes.value==game.match_mode.kind and selector.maps.value==game.current_map and selector.loadouts.value==game.armory.effective()
-	call_loadout.visible=game.armory.selectable(game.match_mode.kind)
+	call_loadout.visible=not game.has_method("draw_class_players") and game.armory.selectable(game.match_mode.kind)
 	call_loadout.disabled=not allowed or not game.votes.enabled or selector.modes.value!=game.match_mode.kind or selector.loadouts.value.is_empty() or selector.loadouts.value==game.armory.effective()
 	var vote: Dictionary=game.votes.snapshot() if game.multiplayer.is_server() else game.votes.view
 	if not vote.is_empty():call_map.disabled=true;call_loadout.disabled=true;balance.disabled=true

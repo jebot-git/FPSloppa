@@ -4,7 +4,7 @@ func setup(arena: Node) -> void:
 	region=NavigationRegion3D.new();add_child(region)
 	NavigationServer3D.map_set_cell_size(region.get_navigation_map(),.3)
 	NavigationServer3D.map_set_use_edge_connections(region.get_navigation_map(),false)
-	NavigationServer3D.map_set_merge_rasterizer_cell_scale(region.get_navigation_map(),.001)
+	NavigationServer3D.map_set_merge_rasterizer_cell_scale(region.get_navigation_map(),.0001)
 	navigation=preload("res://tools/voxel_battle/jungle_routing.gd").new();navigation.map_source=game.battle_map
 	navigation.setup(game,region);map_triggers.setup(self)
 	for id in game.players:

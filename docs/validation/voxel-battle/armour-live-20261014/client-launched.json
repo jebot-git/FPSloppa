@@ -1,0 +1,26 @@
+{
+  "client_pid": 171821,
+  "collector_pid": 171822,
+  "server": "87.106.27.237:7777",
+  "runtime": "/home/blux/.local/opt/wivrn-pro/share/openxr/1/openxr_wivrn_pro.json",
+  "args": [
+    "godot",
+    "--path",
+    "/home/blux/Documents/FPSloppa/.worktrees/cq-voxelspace",
+    "--xr-mode",
+    "on",
+    "--rendering-method",
+    "forward_plus",
+    "--script",
+    "res://tools/voxel_battle/live_client.gd",
+    "--",
+    "--connect",
+    "87.106.27.237",
+    "--port",
+    "7777",
+    "--frame-stats",
+    "--analytics-output",
+    "/tmp/cq-armour-live-analytics-20261014/client-gameplay.jsonl"
+  ],
+  "started": 1792008909.10461
+}

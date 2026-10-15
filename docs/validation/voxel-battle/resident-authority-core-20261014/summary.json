@@ -1,0 +1,132 @@
+{
+  "scope": "native infantry fixture, not full CQ",
+  "source_sha256": {
+    "addons/fps_native/src/authority.cpp": "c6680cadac6a41c8e7dc091c9ccb2fecd69f5de5af2212bc172dfc1d6a05af68",
+    "addons/fps_native/src/authority.h": "c64a1ef9c527f7477412b792e8c85742d8342cc500a9c5bb51a6640cc009ba54",
+    "addons/fps_native/src/authority.os": "959045df3c1b06d431a99603219dd24f428671aae4d700b53f2b9550a8efb6e7",
+    "addons/fps_native/src/authority_core.cpp": "1a824296d8007ec4e81662a15c4925d15cc71fa41c3dd55c2a1e088cea12decc",
+    "addons/fps_native/src/authority_core.h": "00823c305bb3db85a0b79bf6b98151ea00dfd7eef61e56dc9b3c5b75ade12ef8",
+    "addons/fps_native/src/authority_core.os": "e7e7e00c48b61ed1127b2af507964a7fff6ecf037a18cd63bb43224dcdc4d452",
+    "tools/authority_core/driver.gd": "e233b91329af1ebb65b5e6d882b8cc9f0d4eea4b04eaa98c8c49e725977fc8d3",
+    "tools/authority_core/functional.gd": "3cf9008ae8d807d19d9b77500d00a9c8019839231df535d2e1078e62de535231",
+    "tools/authority_core/host.gd": "07562463d1ee132cf18128799e2ad2b9ecf4ecbe96a63c5caf90d81b90b77d6b"
+  },
+  "cases": [
+    {
+      "callback_us": {
+        "max": 2605.0,
+        "mean": 1005.99,
+        "p50": 1038.0,
+        "p95": 1324.0
+      },
+      "combat_and_queries_us": {
+        "max": 686.859985351562,
+        "mean": 114.711162754695,
+        "p50": 110.533996582031,
+        "p95": 226.203994750977
+      },
+      "disconnected": 0,
+      "fixture": "native-infantry-jolt-enet",
+      "frame_encoding_us": {
+        "max": 26.6450004577637,
+        "mean": 2.191718612231,
+        "p50": 2.98600006103516,
+        "p95": 4.04699993133545
+      },
+      "hz": 29.9990000333322,
+      "movement_and_collision_us": {
+        "max": 1654.84497070312,
+        "mean": 705.291145642599,
+        "p50": 728.664978027344,
+        "p95": 939.010986328125
+      },
+      "native": {
+        "accepted": 111612,
+        "combat_us": 9.768,
+        "damage": 4,
+        "deaths": 0,
+        "movement_us": 665.695,
+        "overflow": 0,
+        "projectile_full": 0,
+        "rejected": 0,
+        "shots": 12352,
+        "snapshot_us": 3.187,
+        "tick": 3639,
+        "time": 121.3
+      },
+      "physics": "Godot Jolt",
+      "players": 32,
+      "production_cq": false,
+      "seconds": 120.004,
+      "ticks": 3600,
+      "xr": false,
+      "clients": {
+        "admitted": 32,
+        "bad_frames": 0,
+        "disconnected": 0,
+        "frames": 76789,
+        "minimum_frames": 2391,
+        "minimum_inputs_sent": 3600,
+        "players": 32
+      }
+    },
+    {
+      "callback_us": {
+        "max": 4975.0,
+        "mean": 1988.95416666667,
+        "p50": 2083.0,
+        "p95": 2532.0
+      },
+      "combat_and_queries_us": {
+        "max": 1434.53601074219,
+        "mean": 226.59352337016,
+        "p50": 217.785003662109,
+        "p95": 453.147003173828
+      },
+      "disconnected": 0,
+      "fixture": "native-infantry-jolt-enet",
+      "frame_encoding_us": {
+        "max": 82.3870010375977,
+        "mean": 3.99302416618344,
+        "p50": 5.59700012207031,
+        "p95": 6.1230001449585
+      },
+      "hz": 29.9985000749963,
+      "movement_and_collision_us": {
+        "max": 3007.2548828125,
+        "mean": 1319.19840475718,
+        "p50": 1380.18505859375,
+        "p95": 1614.92504882812
+      },
+      "native": {
+        "accepted": 223487,
+        "combat_us": 10.503,
+        "damage": 10,
+        "deaths": 0,
+        "movement_us": 1453.99,
+        "overflow": 0,
+        "projectile_full": 0,
+        "rejected": 0,
+        "shots": 24704,
+        "snapshot_us": 5.696,
+        "tick": 3660,
+        "time": 122.0
+      },
+      "physics": "Godot Jolt",
+      "players": 64,
+      "production_cq": false,
+      "seconds": 120.006,
+      "ticks": 3600,
+      "xr": false,
+      "clients": {
+        "admitted": 64,
+        "bad_frames": 0,
+        "disconnected": 0,
+        "frames": 153589,
+        "minimum_frames": 2393,
+        "minimum_inputs_sent": 3600,
+        "players": 64
+      }
+    }
+  ]
+}

@@ -4,7 +4,7 @@ const Bounds=preload("res://deathmatch/vr/preferences.gd")
 const ALWAYS_ENABLED=["train_motion","surface_animation","surface_variation"]
 const MUSIC_TRIM_DB := -12.0
 static func defaults() -> Dictionary:
-	return {"train_motion":true,"spatial_audio":"steam_audio","master":1.0,"music":.3,"effects":1.0,"voice":.8,"announcer":.8,"output":"Default","render_scale":1.0,"msaa":1 if OS.has_feature("android") else 2,"foveation_level":2 if OS.has_feature("android") else 0,"fovea_size":2 if OS.has_feature("android") else 0,"texture_filter":2,"contrast_lighting":false,"surface_animation":true,"surface_variation":true,"spring_bones":false,"controller_haptic_strength":1.0,"shadows":false,"fullscreen":false,"fov":85.0,"hud_scale":1.0,"hud_y":-.46}
+	return {"train_motion":true,"spatial_audio":"steam_audio","master":1.0,"music":.3,"effects":1.0,"ambience":.6,"voice":.8,"announcer":.8,"output":"Default","render_scale":1.0,"msaa":1 if OS.has_feature("android") else 2,"foveation_dynamic":true,"foveation_level":2 if OS.has_feature("android") else 0,"fovea_size":2 if OS.has_feature("android") else 0,"texture_filter":2,"contrast_lighting":false,"surface_animation":true,"surface_variation":true,"spring_bones":false,"controller_haptic_strength":1.0,"shadows":false,"fullscreen":false,"fov":85.0,"hud_scale":1.0,"hud_y":-.46}
 static func limits(key: String) -> Array:
 	return [0,2] if key=="texture_filter" else [.7,1.4] if key=="hud_scale" else [-.65,.55] if key=="hud_y" else [.5,1.25] if key=="render_scale" else [0,3] if key in ["msaa","foveation_level","fovea_size"] else [60,110] if key=="fov" else [0,1]
 static func read_settings(path: String="") -> Dictionary:
@@ -53,7 +53,7 @@ static func apply(game: Node,values: Dictionary) -> void:
 		game.set_meta("contrast_lighting",contrast)
 	var surfaces:=game.get_node_or_null("Map/MapRuntime/SurfaceMotion")
 	if surfaces:surfaces.apply(values)
-	bus_volume("Master",values.master);bus_volume("ArenaEffects",values.effects);bus_volume("ArenaMusic",values.music);bus_volume("ArenaAnnouncer",values.get("announcer",.8))
+	bus_volume("Master",values.master);bus_volume("ArenaEffects",values.effects);bus_volume("ArenaAmbience",values.get("ambience",.6));bus_volume("ArenaMusic",values.music);bus_volume("ArenaAnnouncer",values.get("announcer",.8))
 	if values.output in AudioServer.get_output_device_list() and AudioServer.output_device!=values.output:AudioServer.output_device=values.output
 	var viewport: Viewport=game.get_viewport()
 	viewport.msaa_3d=int(values.msaa)
@@ -61,7 +61,7 @@ static func apply(game: Node,values: Dictionary) -> void:
 	if sun:sun.shadow_enabled=values.shadows
 	if game.is_vr():
 		game.xr_rig.apply_hud_preferences(values)
-		load("res://deathmatch/vr/foveation.gd").apply(viewport,XRServer.find_interface("OpenXR"),int(values.foveation_level),int(values.fovea_size))
+		load("res://deathmatch/vr/foveation.gd").apply(viewport,XRServer.find_interface("OpenXR"),int(values.foveation_level),int(values.fovea_size),bool(values.get("foveation_dynamic",true)))
 		var xr=XRServer.find_interface("OpenXR")
 		if xr and xr.is_initialized() and not is_equal_approx(xr.render_target_size_multiplier,values.render_scale):xr.render_target_size_multiplier=values.render_scale
 		viewport.scaling_3d_scale=1.0

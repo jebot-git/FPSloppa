@@ -7,6 +7,9 @@ with tempfile.TemporaryDirectory(prefix='cq-frontier-package-') as tmp:
  stage=Path(tmp)
  for folder in ['deathmatch','addons','experimental-assets','tools']:
   shutil.copytree(ROOT/folder,stage/folder,ignore=shutil.ignore_patterns('__pycache__','*.log','offline-base.zip','*.os','.sconsign.*','build-scons','build-linux','build-linux-server'))
+ # LPMAC authoring/source files are not runtime assets; ship its optimized GLB/manifest only.
+ shutil.rmtree(stage/'tools/ground_transport',ignore_errors=True)
+ shutil.rmtree(stage/'tools/cloak_device',ignore_errors=True)
  (stage/'.godot/imported').mkdir(parents=True)
  for imp in stage.rglob('*.import'):
   for resource in re.findall(r'res://\.godot/imported/[^"\r\n]+',imp.read_text()):

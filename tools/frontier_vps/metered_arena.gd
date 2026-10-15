@@ -80,6 +80,8 @@ func _physics_process(delta:float) -> void:
 func finish_profile() -> void:
 	profile_done=true;Attribution.enabled=false
 	var report:Dictionary={"players":target_players,"wall_seconds":(Time.get_ticks_usec()-profile_started)/1000000.0,"tick_rate":Engine.physics_ticks_per_second,"achieved_tick_hz":measured.server_tick_ms.size()*1000000.0/(Time.get_ticks_usec()-profile_started),"AI":false,"rendering":false,"stress_infinite_ammo_invulnerable":stress,"bandwidth_realtime_bytes":bandwidth.realtime_bytes,"input_counters":server_log.counters,"categories_overlap":true,"replication":replication.stats,"native_backend":preload("res://deathmatch/native/runtime.gd").backend()!=null,"async_snapshots":replication.async_encoder!=null}
+	report["authority_experiments"]={"player_state":native_player_state_enabled,"input_state":native_input_state_enabled,"fanout":native_snapshot_fanout_enabled,"buffers":OS.get_cmdline_user_args().has("--native-snapshot-buffers")}
+	if replication.async_encoder and replication.async_encoder.has_method("snapshot_buffer_stats"):report["snapshot_buffers"]=replication.async_encoder.snapshot_buffer_stats()
 	for key in measured:report[key]=Summary.summary(measured[key])
 	if attribute_movement:report["attribution"]=Attribution.summary()
 	DirAccess.make_dir_recursive_absolute("user://vps-validation")

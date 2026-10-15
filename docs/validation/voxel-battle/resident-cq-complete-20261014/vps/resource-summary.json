@@ -1,0 +1,50 @@
+{
+  "32-stress": {
+    "pid": 1628763,
+    "samples_in_measured_window": 120,
+    "sampled_seconds": 119.01595973968506,
+    "mean_process_cpu_percent_one_core_100": 17.86448587310747,
+    "max_process_cpu_percent_one_core_100": 25.99633459483434,
+    "mean_main_thread_cpu_percent": 14.148274960095856,
+    "max_rss_mib": 437.72265625,
+    "udp_drops_first": 0,
+    "udp_drops_last": 0,
+    "udp_drops_during_sampled_window": 0
+  },
+  "64-normal": {
+    "pid": 1628180,
+    "samples_in_measured_window": 120,
+    "sampled_seconds": 119.01383137702942,
+    "mean_process_cpu_percent_one_core_100": 30.82128571546232,
+    "max_process_cpu_percent_one_core_100": 52.99466497596579,
+    "mean_main_thread_cpu_percent": 26.505138852408795,
+    "max_rss_mib": 438.1015625,
+    "udp_drops_first": 9,
+    "udp_drops_last": 9,
+    "udp_drops_during_sampled_window": 0
+  },
+  "32-normal": {
+    "pid": 1627692,
+    "samples_in_measured_window": 83,
+    "sampled_seconds": 82.00891971588135,
+    "mean_process_cpu_percent_one_core_100": 15.876189853033727,
+    "max_process_cpu_percent_one_core_100": 23.99761190095363,
+    "mean_main_thread_cpu_percent": 12.327827475170867,
+    "max_rss_mib": 437.6015625,
+    "udp_drops_first": 0,
+    "udp_drops_last": 0,
+    "udp_drops_during_sampled_window": 0
+  },
+  "64-stress": {
+    "pid": 1629219,
+    "samples_in_measured_window": 120,
+    "sampled_seconds": 119.01378321647644,
+    "mean_process_cpu_percent_one_core_100": 33.33783582942533,
+    "max_process_cpu_percent_one_core_100": 56.99319119254285,
+    "mean_main_thread_cpu_percent": 29.054993916005078,
+    "max_rss_mib": 438.2421875,
+    "udp_drops_first": 12,
+    "udp_drops_last": 12,
+    "udp_drops_during_sampled_window": 0
+  }
+}

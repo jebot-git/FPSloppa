@@ -1,0 +1,17 @@
+[
+  {
+    "test": "server",
+    "passed": false,
+    "checks": 3
+  },
+  {
+    "test": "client",
+    "passed": false,
+    "checks": 4
+  },
+  {
+    "test": "mixer",
+    "passed": true,
+    "checks": 25
+  }
+]

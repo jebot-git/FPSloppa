@@ -270,7 +270,7 @@ func tick(camera: Camera3D) -> void:
 			var far_distance := -1.0
 			for old in resident:
 				if desired.has(old): continue
-				var distance: float = (Vector2(old) * tile_side - Vector2.ONE * (extent / 2 - tile_side / 2)).distance_squared_to(Vector2(camera.position.x, camera.position.z))
+				var distance: float = (Vector2(old) * tile_side - Vector2.ONE * (extent / 2 - tile_side / 2)).distance_squared_to(Vector2(camera.global_position.x, camera.global_position.z))
 				if distance > far_distance: far_distance = distance; farthest = old
 			if farthest.x >= 0: evict(farthest)
 		if free_slots.is_empty(): discarded_jobs += 1; continue
@@ -321,8 +321,8 @@ func update_visibility(camera: Camera3D) -> void:
 		var origin := Vector3(key.x * tile_side - extent / 2, 0, key.y * tile_side - extent / 2)
 		var bounds: AABB = tile_bounds.get(key, AABB(origin + Vector3(0, min_height, 0), Vector3(tile_side, max_height - min_height, tile_side)))
 		if culling_enabled and outside_frustum(bounds, planes): continue
-		var nearest := Vector3(clampf(camera.position.x, origin.x, origin.x + tile_side), camera.position.y, clampf(camera.position.z, origin.z, origin.z + tile_side))
-		var distance := nearest.distance_to(camera.position)
+		var nearest := Vector3(clampf(camera.global_position.x, origin.x, origin.x + tile_side), camera.global_position.y, clampf(camera.global_position.z, origin.z, origin.z + tile_side))
+		var distance := nearest.distance_to(camera.global_position)
 		var family := 0 if force_fine or distance < 48 else 1 if distance < 112 else 2 if distance < 208 else 3
 		if raster_enabled:
 			var group := groups[family].multimesh

@@ -1,0 +1,74 @@
+--- a/addons/fps_native/src/backend.h
++++ b/addons/fps_native/src/backend.h
+@@ -45,6 +45,7 @@
+  std::deque<Dictionary> completed;
+  bool encode_stopping=false,encoding=false;
+  void encode_loop();
++ Dictionary class_records(const Dictionary &states,const Dictionary &magazines,const Dictionary &spots,const Dictionary &locks,const Dictionary &charges,bool clone,bool projected) const;
+  static double box(Vector3 start,Vector3 end,Vector3 half,double radius);
+  const std::vector<Part> &parts(double height) const;
+ protected: static void _bind_methods();
+--- a/addons/fps_native/src/snapshot_preparation.cpp
++++ b/addons/fps_native/src/snapshot_preparation.cpp
+@@ -67,17 +67,25 @@
+  return Array::make(data,items,game->get(N("round_left")),game->get(N("intermission")),game->get(N("round_message")),game->get(N("frag_limit")),game->get(N("time_limit")),shots,gate_states,game->get(N("map_epoch")),mode,votes->call("snapshot"),clock,game->get(N("projectile_id")));
+ }
+ 
++namespace {
++Dictionary project_magazine(const Dictionary &c,bool clone){
++ Dictionary mag,physical=c[K("physical")],entries;Array weapons=physical.keys();
++ for(int j=0;j<weapons.size();++j){Dictionary p=physical[weapons[j]],row;
++  for(const String &key:{K("mag"),K("ready"),K("carry"),K("stroke"),K("locked")})row[key]=p[key];entries[weapons[j]]=row;
++ }
++ for(const String &key:{K("serial"),K("weapon")})mag[key]=c[key];
++ Dictionary clips=c[K("clips")];mag[K("clips")]=clone?clips.duplicate():clips;
++ for(const String &key:{K("reloading"),K("reload_at")})mag[key]=c[key];
++ mag[K("cycling")]=c.get(K("cycling"),-1);mag[K("cycle_at")]=c.get(K("cycle_at"),0.);mag[K("physical")]=entries;return mag;
++}
++}
+ Dictionary FPSBackend::prepare_class_records(const Dictionary &states,const Dictionary &magazines,const Dictionary &spots,const Dictionary &locks,const Dictionary &charges,bool clone) const{
++ return class_records(states,magazines,spots,locks,charges,clone,false);
++}
++Dictionary FPSBackend::class_records(const Dictionary &states,const Dictionary &magazines,const Dictionary &spots,const Dictionary &locks,const Dictionary &charges,bool clone,bool projected) const{
+  Dictionary result;Array ids=states.keys();
+  for(int i=0;i<ids.size();++i){Variant id=ids[i];Dictionary mag;
+-  if(magazines.has(id)){Dictionary c=magazines[id],physical=c[K("physical")],entries;
+-   Array weapons=physical.keys();for(int j=0;j<weapons.size();++j){Dictionary p=physical[weapons[j]],row;
+-    for(const String &key:{K("mag"),K("ready"),K("carry"),K("stroke"),K("locked")})row[key]=p[key];entries[weapons[j]]=row;
+-   }
+-   for(const String &key:{K("serial"),K("weapon")})mag[key]=c[key];
+-   Dictionary clips=c[K("clips")];mag[K("clips")]=clone?clips.duplicate():clips;
+-   for(const String &key:{K("reloading"),K("reload_at")})mag[key]=c[key];mag[K("cycling")]=c.get(K("cycling"),-1);mag[K("cycle_at")]=c.get(K("cycle_at"),0.);mag[K("physical")]=entries;
+-  }
++  if(magazines.has(id)){Dictionary c=magazines[id];mag=projected?c:project_magazine(c,clone);}
+   Dictionary state=states[id],lock=locks.get(id,Dictionary()),charge=charges.get(id,Dictionary());Array spot=spots.get(id,Array::make(0.,0.));Dictionary row;
+   row[K("state")]=clone?state.duplicate(true):state;row[K("mag")]=mag;row[K("spot")]=clone?spot.duplicate():spot;row[K("lock")]=clone?lock.duplicate(true):lock;row[K("charge")]=clone?charge.duplicate(true):charge;
+   result[String("cp:")+String::num_int64(int64_t(id))]=row;
+@@ -90,7 +98,7 @@
+  for(int index:{1,2,3,4,5,6,8,9,11,12,13})records.append(Array::make(0,index,snapshot[index]));
+  Dictionary source=snapshot[10],mode;Array source_keys=source.keys();
+  for(int i=0;i<source_keys.size();++i){Variant key=source_keys[i];
+-  if(key==Variant("_native_class_source")){if(Variant(source[key]).get_type()!=Variant::ARRAY)return Array();Array fields=source[key];if(fields.size()!=5)return Array();for(int j=0;j<fields.size();++j)if(fields[j].get_type()!=Variant::DICTIONARY)return Array();Dictionary classes=prepare_class_records(fields[0],fields[1],fields[2],fields[3],fields[4],false);Array ids=classes.keys();for(int j=0;j<ids.size();++j)mode[ids[j]]=classes[ids[j]];}
++  if(key==Variant("_native_class_source")){if(Variant(source[key]).get_type()!=Variant::ARRAY)return Array();Array fields=source[key];if(fields.size()!=5&&fields.size()!=6)return Array();for(int j=0;j<5;++j)if(fields[j].get_type()!=Variant::DICTIONARY)return Array();if(fields.size()==6&&fields[5]!=Variant(true))return Array();Dictionary classes=class_records(fields[0],fields[1],fields[2],fields[3],fields[4],false,fields.size()==6);Array ids=classes.keys();for(int j=0;j<ids.size();++j)mode[ids[j]]=classes[ids[j]];}
+   else mode[key]=source[key];
+  }
+  Array keys=mode.keys();
+@@ -115,6 +123,17 @@
+  if(encode_stopping||pending.size()+completed.size()+size_t(encoding)>=2)return false;
+  // One ownership barrier. Record expansion now happens on the encoder thread.
+  if(header[0]!=snapshot[9]||header[2]!=snapshot[12])return false;
+- pending.push_back({snapshot.duplicate(true),header.duplicate(true),token,true});
++ Array capture=snapshot;
++ if(mode.has(K("_native_class_source"))){
++  // Project reload internals before freezing. Private gesture history is not
++  // network state and must not add copy cost to every replicated snapshot.
++  Array fields=mode[K("_native_class_source")];Dictionary states=fields[0],magazines=fields[1],projected;Array ids=states.keys();
++  if(players.size()+shots.size()+mode.size()+ids.size()>32750)return false;
++  for(int i=0;i<ids.size();++i)if(magazines.has(ids[i]))projected[ids[i]]=project_magazine(magazines[ids[i]],false);
++  fields=fields.duplicate();fields[1]=projected;fields.append(true);
++  Dictionary captured_mode=mode.duplicate();captured_mode[K("_native_class_source")]=fields;
++  capture=snapshot.duplicate();capture[10]=captured_mode;
++ }
++ pending.push_back({capture.duplicate(true),header.duplicate(true),token,true});
+  if(!encoder.joinable())encoder=std::thread(&FPSBackend::encode_loop,this);encode_wake.notify_one();return true;
+ }

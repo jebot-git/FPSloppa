@@ -1,0 +1,97 @@
+{
+  "cases": [
+    {
+      "players": 32,
+      "strategy": "reference",
+      "exit_code": 0,
+      "functional_pass": true,
+      "errors": [],
+      "snapshot_ms": {
+        "max": 8.868,
+        "p50": 3.12,
+        "p95": 4.383,
+        "p99": 5.787,
+        "samples": 2401
+      },
+      "achieved_tick_hz": 30.0043493811732,
+      "worker_ms": {
+        "max": 2.511,
+        "p50": 0.9,
+        "p95": 1.298,
+        "p99": 2.095,
+        "samples": 2401
+      }
+    },
+    {
+      "players": 32,
+      "strategy": "native",
+      "exit_code": 0,
+      "functional_pass": true,
+      "errors": [],
+      "snapshot_ms": {
+        "max": 6.307,
+        "p50": 2.198,
+        "p95": 3.293,
+        "p99": 4.876,
+        "samples": 2402
+      },
+      "achieved_tick_hz": 30.0049177410432,
+      "worker_ms": {
+        "max": 3.971,
+        "p50": 1.483,
+        "p95": 2.303,
+        "p99": 3.117,
+        "samples": 2401
+      }
+    },
+    {
+      "players": 64,
+      "strategy": "reference",
+      "exit_code": 0,
+      "functional_pass": true,
+      "errors": [],
+      "snapshot_ms": {
+        "max": 11.431,
+        "p50": 6.118,
+        "p95": 8.362,
+        "p99": 9.24,
+        "samples": 2334
+      },
+      "achieved_tick_hz": 29.1755971806109,
+      "worker_ms": {
+        "max": 3.285,
+        "p50": 1.534,
+        "p95": 2.155,
+        "p99": 2.707,
+        "samples": 2335
+      }
+    },
+    {
+      "players": 64,
+      "strategy": "native",
+      "exit_code": 0,
+      "functional_pass": true,
+      "errors": [],
+      "snapshot_ms": {
+        "max": 8.556,
+        "p50": 4.928,
+        "p95": 6.513,
+        "p99": 7.226,
+        "samples": 2333
+      },
+      "achieved_tick_hz": 29.1559418964063,
+      "worker_ms": {
+        "max": 7.766,
+        "p50": 2.947,
+        "p95": 3.832,
+        "p99": 4.314,
+        "samples": 2334
+      }
+    }
+  ],
+  "functional_pass": true,
+  "population_seconds": 120,
+  "clients_location": "same VPS loopback",
+  "attribute_movement": true,
+  "production_changed": false
+}

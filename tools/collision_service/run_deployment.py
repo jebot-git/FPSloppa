@@ -16,6 +16,7 @@ def main():
     parser.add_argument('--godot', default='godot', help='Full Godot 4.7.2 executable, not an export template')
     parser.add_argument('--jobs', type=int, default=4)
     parser.add_argument('--native-only', action='store_true')
+    parser.add_argument('--authority-experiments', action='store_true', help='Run gameplay regressions with all experimental authority stages enabled')
     args = parser.parse_args()
     if not 1 <= args.jobs <= 12:
         parser.error('jobs must be 1..12')
@@ -69,8 +70,11 @@ def main():
             command = [godot, '--headless', '--xr-mode', 'off', '--main-pack', bundle / 'release/cq-server.pck']
             for name, script in [
                 ('acceptance', 'deathmatch/tests/cq_jolt_runtime.gd'),
+                ('snapshot-preparation', 'deathmatch/tests/snapshot_preparation.gd'),
+                ('player-simulation', 'deathmatch/tests/player_simulation.gd'),
                 ('cs', 'deathmatch/tests/cq_cs_movement.gd'),
                 ('jetpack', 'deathmatch/tests/cq_jetpack.gd'),
+                ('launcher-reload', 'deathmatch/tests/cq_launcher_reload.gd'),
                 ('battery', 'deathmatch/tests/cq_battery_tank.gd'),
                 ('hover', 'deathmatch/tests/cq_hover_tanks.gd'),
                 ('vehicle-surfaces', 'deathmatch/tests/cq_vehicle_surface.gd'),
@@ -78,41 +82,47 @@ def main():
                 ('cq', 'deathmatch/tests/cq_frontier_integration.gd'),
                 ('prediction', 'deathmatch/tests/local_prediction.gd'),
                 ('terrain', 'tools/voxel_battle/validate_jungle_physics.gd')]:
-                execute('runtime-' + name, command + ['--fixed-fps', '30', '--script', 'res://' + script, '--', '30'])
-            jobs = []
-            handles = []
-            try:
-                for role in ['server', 'client']:
-                    log = output / ('network-' + role + '.log')
-                    handle = log.open('w'); handles.append(handle)
-                    proc = subprocess.Popen([str(x) for x in command] + ['--script', 'res://deathmatch/tests/cq_frontier_network.gd', '--', role],
-                                            cwd=bundle / 'release', env=env, stdout=handle, stderr=subprocess.STDOUT)
-                    jobs.append((role, proc, log))
-                    if role == 'server':
-                        deadline = time.monotonic() + 30
-                        while proc.poll() is None and time.monotonic() < deadline and 'DM_HOST_READY' not in log.read_text():
-                            time.sleep(.05)
-                        if 'DM_HOST_READY' not in log.read_text():
-                            raise RuntimeError('Network test server did not start on UDP 28816')
-                for role, proc, log in jobs:
-                    code = proc.wait(timeout=60)
-                    text = log.read_text()
-                    passed = code == 0 and 'CQ_FRONTIER_NETWORK_RESULT ' + role + ' []' in text and 'FAIL ' not in text and 'SCRIPT ERROR' not in text
-                    errors = [line for line in text.splitlines() if 'ERROR:' in line and line != 'ERROR: 8 resources still in use at exit (run with --verbose for details).']
-                    passed = passed and not errors
-                    rows.append({'test': 'network-' + role, 'exit_code': code, 'passed': passed})
-                    if not passed:
-                        raise RuntimeError('Network test failed: ' + role)
-            finally:
-                for _, proc, _ in jobs:
-                    if proc.poll() is None:
-                        proc.terminate()
-                        try:
-                            proc.wait(timeout=3)
-                        except subprocess.TimeoutExpired:
-                            proc.kill(); proc.wait()
-                for handle in handles:
-                    handle.close()
+                execute('runtime-' + name, command + ['--fixed-fps', '30', '--script', 'res://' + script, '--', '30'] + (['--native-player-state', '--native-input-state', '--native-snapshot-fanout', '--native-snapshot-buffers'] if args.authority_experiments else []))
+            execute('runtime-immutable-snapshot', command + ['--script', 'res://deathmatch/tests/snapshot_preparation.gd', '--', '--native-snapshot-buffers'])
+            def network_pair(label, script, marker, flags=()):
+                jobs = []
+                handles = []
+                try:
+                    for role in ['server', 'client']:
+                        log = output / (label + '-' + role + '.log')
+                        handle = log.open('w'); handles.append(handle)
+                        proc = subprocess.Popen([str(x) for x in command] + ['--script', script, '--', role] + list(flags),
+                                                cwd=bundle / 'release', env=env, stdout=handle, stderr=subprocess.STDOUT)
+                        jobs.append((role, proc, log))
+                        if role == 'server':
+                            deadline = time.monotonic() + 30
+                            while proc.poll() is None and time.monotonic() < deadline and 'DM_HOST_READY' not in log.read_text():
+                                time.sleep(.05)
+                            if 'DM_HOST_READY' not in log.read_text():
+                                raise RuntimeError('Network test server did not start: ' + label)
+                    for role, proc, log in jobs:
+                        code = proc.wait(timeout=60)
+                        text = log.read_text()
+                        passed = code == 0 and marker + ' ' + role + ' []' in text and 'FAIL ' not in text and 'SCRIPT ERROR' not in text
+                        errors = [line for line in text.splitlines() if 'ERROR:' in line and line != 'ERROR: 8 resources still in use at exit (run with --verbose for details).']
+                        passed = passed and not errors
+                        rows.append({'test': label + '-' + role, 'exit_code': code, 'passed': passed})
+                        if not passed:
+                            raise RuntimeError('Network test failed: ' + role)
+                finally:
+                    for _, proc, _ in jobs:
+                        if proc.poll() is None:
+                            proc.terminate()
+                            try:
+                                proc.wait(timeout=3)
+                            except subprocess.TimeoutExpired:
+                                proc.kill(); proc.wait()
+                    for handle in handles:
+                        handle.close()
+            network_pair('network', 'res://deathmatch/tests/cq_frontier_network.gd', 'CQ_FRONTIER_NETWORK_RESULT')
+            network_pair('snapshot-network', 'res://deathmatch/tests/snapshot_network.gd', 'SNAPSHOT_NETWORK_RESULT')
+            network_pair('player-network', 'res://deathmatch/tests/snapshot_network.gd', 'SNAPSHOT_NETWORK_RESULT',
+                         ['--native-player-state', '--native-input-state', '--native-snapshot-fanout', '--native-snapshot-buffers'])
     except (RuntimeError, OSError, subprocess.SubprocessError) as error:
         rows.append({'test': 'runner', 'passed': False, 'error': str(error)})
     result = {'source_commit': manifest['source_commit'], 'source_dirty': manifest['source_dirty'],

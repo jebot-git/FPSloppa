@@ -1,0 +1,136 @@
+{
+  "scope": "native infantry fixture, not full CQ",
+  "source_sha256": {
+    "addons/fps_native/src/authority.cpp": "c6680cadac6a41c8e7dc091c9ccb2fecd69f5de5af2212bc172dfc1d6a05af68",
+    "addons/fps_native/src/authority.h": "c64a1ef9c527f7477412b792e8c85742d8342cc500a9c5bb51a6640cc009ba54",
+    "addons/fps_native/src/authority_core.cpp": "1a824296d8007ec4e81662a15c4925d15cc71fa41c3dd55c2a1e088cea12decc",
+    "addons/fps_native/src/authority_core.h": "00823c305bb3db85a0b79bf6b98151ea00dfd7eef61e56dc9b3c5b75ade12ef8",
+    "tools/authority_core/CMakeLists.txt": "d779bc198ed23ead9cdf7905ffeb10e1681c298850f605e4bb877549a77771cb",
+    "tools/authority_core/driver.gd": "e233b91329af1ebb65b5e6d882b8cc9f0d4eea4b04eaa98c8c49e725977fc8d3",
+    "tools/authority_core/functional.gd": "4071c38e9422634d4ea6eed115386d40ea57182e0c0aa1ee8ba56f2b67c70d76",
+    "tools/authority_core/host.gd": "07562463d1ee132cf18128799e2ad2b9ecf4ecbe96a63c5caf90d81b90b77d6b",
+    "tools/authority_core/run_suite.py": "87f168a4b424dcbdb20993d47b79595e71671de8c01473c402ab48096186b7f0",
+    "tools/authority_core/tests.cpp": "560d13f03b13530ff03d0082cb0828d69b4052e558fd26e7d1c5160988117e74"
+  },
+  "native_library_sha256": "147c6c2cf2649b09d98549d175135d1ab41a93677aef011525a0538af023b710",
+  "cases": [
+    {
+      "callback_us": {
+        "max": 2740.0,
+        "mean": 1118.90728476821,
+        "p50": 1173.0,
+        "p95": 1403.0
+      },
+      "combat_and_queries_us": {
+        "max": 754.981018066406,
+        "mean": 158.995463023912,
+        "p50": 144.302993774414,
+        "p95": 249.891998291016
+      },
+      "disconnected": 0,
+      "fixture": "native-infantry-jolt-enet",
+      "frame_encoding_us": {
+        "max": 4.94099998474121,
+        "mean": 2.0512317774805,
+        "p50": 2.94899988174438,
+        "p95": 3.2960000038147
+      },
+      "hz": 30.0019868865488,
+      "movement_and_collision_us": {
+        "max": 1558.86499023438,
+        "mean": 774.804682245318,
+        "p50": 822.942993164062,
+        "p95": 1020.541015625
+      },
+      "native": {
+        "accepted": 1440,
+        "combat_us": 24.523,
+        "damage": 0,
+        "deaths": 0,
+        "movement_us": 846.39,
+        "overflow": 0,
+        "projectile_full": 0,
+        "rejected": 0,
+        "shots": 672,
+        "snapshot_us": 0.027,
+        "tick": 190,
+        "time": 6.33333333333333
+      },
+      "physics": "Godot Jolt",
+      "players": 32,
+      "production_cq": false,
+      "seconds": 5.033,
+      "ticks": 151,
+      "xr": false,
+      "clients": {
+        "admitted": 32,
+        "bad_frames": 0,
+        "disconnected": 0,
+        "frames": 3189,
+        "minimum_frames": 91,
+        "minimum_inputs_sent": 151,
+        "players": 32
+      },
+      "accepted_fraction_of_minimum_offered": 0.2980132450331126
+    },
+    {
+      "callback_us": {
+        "max": 4808.0,
+        "mean": 2154.20529801324,
+        "p50": 2297.0,
+        "p95": 2757.0
+      },
+      "combat_and_queries_us": {
+        "max": 1042.32495117188,
+        "mean": 225.020999396874,
+        "p50": 212.899993896484,
+        "p95": 452.355987548828
+      },
+      "disconnected": 0,
+      "fixture": "native-infantry-jolt-enet",
+      "frame_encoding_us": {
+        "max": 14.4820003509521,
+        "mean": 4.17049668275363,
+        "p50": 5.63899993896484,
+        "p95": 8.83399963378906
+      },
+      "hz": 30.1337058471363,
+      "movement_and_collision_us": {
+        "max": 3121.63598632812,
+        "mean": 1493.40667886292,
+        "p50": 1599.08605957031,
+        "p95": 1787.51794433594
+      },
+      "native": {
+        "accepted": 2966,
+        "combat_us": 11.665,
+        "damage": 0,
+        "deaths": 0,
+        "movement_us": 1719.533,
+        "overflow": 0,
+        "projectile_full": 0,
+        "rejected": 0,
+        "shots": 960,
+        "snapshot_us": 9.439,
+        "tick": 210,
+        "time": 7.0
+      },
+      "physics": "Godot Jolt",
+      "players": 64,
+      "production_cq": false,
+      "seconds": 5.011,
+      "ticks": 151,
+      "xr": false,
+      "clients": {
+        "admitted": 64,
+        "bad_frames": 0,
+        "disconnected": 0,
+        "frames": 6453,
+        "minimum_frames": 94,
+        "minimum_inputs_sent": 150,
+        "players": 64
+      },
+      "accepted_fraction_of_minimum_offered": 0.30895833333333333
+    }
+  ]
+}

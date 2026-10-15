@@ -33,7 +33,7 @@ Prerequisites on the test host:
   with `--godot /absolute/path/to/Godot`. Export templates cannot run the
   `--script` fixtures. The full Godot executable is not included in the bundle.
 - Approximately 3 GB free disk space for package, build and results.
-- Free local test UDP ports 28803, 28807, 28810, 28814 and 28816.
+- Free local test UDP ports 28803, 28807, 28810, 28814, 28816, 28819 and 28820.
 
 Run as an ordinary user without sudo:
 
@@ -49,7 +49,8 @@ the legacy generic-arena water fixture requires separately installed arenas and
 is not part of this CQ deployment.
 Preferences, profiles, cache and logs go into the new output directory, separate
 from the live server's data. First use generates the terrain cache and may take
-longer. The network fixture runs two ordinary processes on test UDP 28816.
+longer. The paired network fixtures use test UDP 28816 and 28820. Snapshot differential
+and benchmark coverage also uses UDP 28819.
 Use `--native-only` for a compiler-only check; its results do not validate the
 runtime integration.
 
@@ -74,3 +75,12 @@ achieved tick rate and sustained population; completion alone is not acceptance.
 Keep the live 32-slot configuration
 unchanged; 64 slots remain an unsupported option. Native batching is still a
 test-service experiment, not the current Godot backend's implementation.
+
+The authority rewrite experiments are packaged with this suite. Run
+`python3 run_suite.py --output /tmp/cq-authority-regressions --authority-experiments`
+to exercise gameplay with native player bookkeeping, input projection, fanout and
+immutable snapshot buffers. The separate ordered capacity comparison is
+`python3 tools/player_simulation/run_suite.py --binary release/cq-server --output /tmp/cq-authority-capacity`.
+It defaults to five stages, 32/64 separate ENet clients and 120 measured seconds
+per case. See `tools/player_simulation/README.md` for switches and interpretation.
+These commands do not change the live service, the protocol or production defaults.

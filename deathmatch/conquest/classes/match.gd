@@ -28,6 +28,7 @@ func killed(victim:int,attacker:int) -> void:
 func status(id:int=0) -> String:
 	if game.battery_tanks.mounted(id):
 		var row:Dictionary=game.battery_tanks.rows[game.battery_tanks.key_for(id)]
+		if row.kind=="transport":return "ALLIED TRANSPORT · %d HP · %d/8 ABOARD · %s · JUMP TO DISMOUNT"%[row.hp,game.battery_tanks.occupants(row).size(),"DRIVER" if row.pilot==id else "PASSENGER"]
 		return "%s · %d HP · USE TO DISMOUNT"%[game.battery_tanks.profile(row).name,row.hp]
 	var text:String="CQ · RED %d BLUE %d / 200"%scores+objectives.status(id)+game.classes.status(id)
 	if game.players.has(id):
@@ -45,11 +46,13 @@ func status(id:int=0) -> String:
 	return text
 func snapshot() -> Dictionary:
 	var data:=super.snapshot()
+	var native=game._snapshot_preparation_backend()
 	for zone in objectives.sites.size():data["cqo:"+str(zone)]={"owner":objectives.rules.owners[zone],"progress":objectives.rules.progress[zone].duplicate(),"contested":objectives.rules.contested[zone],"credit":objectives.rules.credit[zone]}
 	data["cq_points"]={"scores":objectives.rules.scores.duplicate(),"winner":objectives.rules.winner}
-	var common:Dictionary=game.classes.snapshot();common.erase("states")
+	var common:Dictionary={"downed":game.classes.downed,"injecting":game.classes.injecting,"dispensers":game.classes.dispensers} if native else game.classes.snapshot()
+	common.erase("states")
 	for pair in [["downed","cd:"],["injecting","ci:"],["dispensers","cb:"]]:
-		for id in common[pair[0]]:data[pair[1]+str(id)]=common[pair[0]][id]
+		for id in common[pair[0]]:data[pair[1]+str(id)]=common[pair[0]][id].duplicate(true) if native else common[pair[0]][id]
 	for id in game.designations:data["cl:"+str(id)]=game.designations[id].duplicate(true)
 	for key in game.recon_drone.flights:data["crd:"+str(key)]=game.recon_drone.flights[key].duplicate(true)
 	for id in game.recon_drone.alerts:data["crw:"+str(id)]=game.recon_drone.alerts[id].duplicate(true)
@@ -63,6 +66,14 @@ func snapshot() -> Dictionary:
 	for id in grenades.inventory:data["cg:"+str(id)]=grenades.inventory[id]
 	for shot in grenades.shots:data["ch:"+str(shot[0])]=shot
 	data["class_mode"]={"clock":game.clock,"lighting_time":game.battle_map.lighting.cycle_time() if game.battle_map and game.battle_map.lighting else 0.0}
+	if native and game.defer_snapshot_classes:
+		# These values stay on the authority until the native queue freezes them.
+		# The encoder projects class/reload records from its private immutable copy.
+		data["_native_class_source"]=[game.classes.states,game.variant_combat.magazines.states,game.spotting.spotted,game.variant_combat.vehicle_lock.locks,game.variant_combat.charges]
+		return data
+	if native and native.has_method("prepare_class_records"):
+		data.merge(native.prepare_class_records(game.classes.states,game.variant_combat.magazines.states,game.spotting.spotted,game.variant_combat.vehicle_lock.locks,game.variant_combat.charges))
+		return data
 	var magazines:Dictionary=game.variant_combat.magazines.snapshot()
 	# Individual records stay within the UDP budget at the 32-player district target.
 	for id in game.classes.states:data["cp:"+str(id)]={"state":game.classes.states[id].duplicate(true),"mag":magazines.get(id,{}),"spot":game.spotting.spotted.get(id,[0.0,0.0]).duplicate(),"lock":game.variant_combat.vehicle_lock.locks.get(id,{}).duplicate(true),"charge":game.variant_combat.charges.get(id,{}).duplicate(true)}

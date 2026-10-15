@@ -1,0 +1,21 @@
+Godot Engine v4.7.2.stable.fedora.ed1daf0bf - https://godotengine.org
+
+PASS Lost press is recovered after release; missing release cannot block the edge
+PASS Repeated event cannot jump twice
+PASS Consumed jump stops retransmission
+PASS Old-life jump cannot replay after respawn
+PASS Stale press expires after 250 ms
+PASS Held jump remains held for swimming; no synthetic release
+PASS Input decode rate is bounded and recovers
+PASS Remote body samples a timestamped interval
+PASS Reordered old position cannot reset current body
+PASS Respawn clears interpolation across lives
+PASS Missing packets cannot extrapolate through walls
+PASS Lag compensation cannot advance beyond the latest rendered server sample
+PASS Interpolation history is bounded
+PASS Map and model senders share one bounded burst
+PASS Gameplay reservation defers bulk upload
+PASS Per-peer share prevents a fast client monopolizing aggregate budget
+PASS Outstanding map/model bytes share one queue bound
+PASS Partial final window cannot exceed the combined queue limit
+NETWORK_DELIVERY_RESULT []

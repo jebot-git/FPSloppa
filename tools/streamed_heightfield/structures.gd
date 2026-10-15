@@ -181,9 +181,9 @@ func update(camera: Camera3D) -> void:
 		if kind == 1: origin.y -= factory_base_offset
 		var bounds: AABB = meshes[kind][0].get_aabb()
 		bounds.position += origin
-		var nearest := Vector3(clampf(camera.position.x, bounds.position.x, bounds.end.x), clampf(camera.position.y, bounds.position.y, bounds.end.y), clampf(camera.position.z, bounds.position.z, bounds.end.z))
-		var distance := camera.position.distance_to(nearest)
-		if distance > view_distance or (culling_enabled and Stream.outside_frustum(bounds, planes)): continue
+		var nearest := Vector3(clampf(camera.global_position.x, bounds.position.x, bounds.end.x), clampf(camera.global_position.y, bounds.position.y, bounds.end.y), clampf(camera.global_position.z, bounds.position.z, bounds.end.z))
+		var distance := camera.global_position.distance_to(nearest)
+		if distance > view_distance or (culling_enabled and not camera.get_viewport().use_xr and Stream.outside_frustum(bounds, planes)): continue
 		var level: int = previous_lods.get(i, 2)
 		if force_near or distance < 65: level = 0
 		elif distance > 180: level = 2

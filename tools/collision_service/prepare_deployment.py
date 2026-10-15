@@ -61,6 +61,7 @@ def main():
     for name in ['native_compare.py', 'client_fleet.py', 'process_sampler.py']:
         shutil.copy2(ROOT / 'tools/frontier_vps' / name, output / 'capacity' / name)
     shutil.copy2(ROOT / 'tools/voxel_battle/cq_classes.cfg', output / 'capacity/server.cfg')
+    shutil.copytree(ROOT / 'tools/player_simulation', output / 'tools/player_simulation', ignore=shutil.ignore_patterns('__pycache__'))
     subprocess.run(['python3', str(ROOT / 'tools/frontier_vps/package.py'),
                     '--template', str(args.template.resolve()), '--output', str(output / 'release'),
                     '--godot', args.godot], cwd=ROOT, check=True)

@@ -1,0 +1,9 @@
+Godot Engine v4.7.2.stable.fedora.ed1daf0bf - https://godotengine.org
+
+DM_HOST_READY port=28819 practice=false
+Disconnected.
+SNAPSHOT_PREPARATION_RESULT {"checks":1382,"failures":[],"trials":[{"players":32,"timings":{"deferred":{"p50_ms":0.342,"p95_ms":0.362,"samples":140},"hybrid":{"p50_ms":0.802,"p95_ms":0.824,"samples":140},"native":{"p50_ms":0.866,"p95_ms":0.899,"samples":140},"reference":{"p50_ms":0.936,"p95_ms":1.024,"samples":140}}},{"players":64,"timings":{"deferred":{"p50_ms":0.596,"p95_ms":0.625,"samples":140},"hybrid":{"p50_ms":1.065,"p95_ms":1.113,"samples":140},"native":{"p50_ms":1.148,"p95_ms":1.187,"samples":140},"reference":{"p50_ms":1.182,"p95_ms":1.217,"samples":140}}}]}
+WARNING: 21 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 8 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

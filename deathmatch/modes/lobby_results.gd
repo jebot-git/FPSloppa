@@ -8,7 +8,7 @@ func setup(arena: Node) -> void:
 	surface.screen_size=Vector2(7.0,4.8);surface.viewport_size=Vector2(880,604)
 	surface.collision_layer=0;surface.unshaded=true;surface.input_keyboard=false;add_child(surface)
 	var canvas:=Control.new();surface.get_node("Viewport").add_child(canvas);canvas.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	board=preload("res://deathmatch/ui/scoreboard.gd").new();canvas.add_child(board);board.setup()
+	board=preload("res://deathmatch/ui/scoreboard.gd").new();canvas.add_child(board);board.setup(game)
 func _process(_delta: float) -> void:
 	var data: Dictionary=game.lobby.last_results if multiplayer.is_server() else game.lobby.view.get("results",{})
 	if data.is_empty():board.hide();return

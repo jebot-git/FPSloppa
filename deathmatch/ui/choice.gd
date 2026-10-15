@@ -22,7 +22,13 @@ func _init() -> void:
 	scroll=ScrollContainer.new();scroll.scroll_deadzone=100000;scroll.gui_input.connect(drag_input);scroll.custom_minimum_size.y=156;scroll.horizontal_scroll_mode=ScrollContainer.SCROLL_MODE_DISABLED;popup.add_child(scroll)
 	entries=VBoxContainer.new();entries.size_flags_horizontal=Control.SIZE_EXPAND_FILL;scroll.add_child(entries)
 	trigger.pressed.connect(open_popup)
-func _ready() -> void:add_to_group("arena_selectors")
+func _ready() -> void:
+	add_to_group("arena_selectors")
+	var ancestor:Node=get_parent()
+	while ancestor:
+		if ancestor is Control and ancestor.theme and ancestor.theme.get_meta("cq",false):
+			popup.theme=ancestor.theme;popup.add_theme_stylebox_override("panel",preload("res://deathmatch/ui/cq/theme.gd").panel(10.));break
+		ancestor=ancestor.get_parent()
 func open_popup() -> void:
 	for other in get_tree().get_nodes_in_group("arena_selectors"):
 		if other!=self and other.get_viewport()==get_viewport():other.close_popup()

@@ -1,0 +1,39 @@
+{
+  "base_commit": "6abfbf52d35c57d2a958a28d2963b62c0cc6466c",
+  "source_dirty": true,
+  "source_sha256": {
+    "addons/fps_native/src/backend.h": "2f5f33ad67dec1e85d4d7bf554d20d9ad9d5954c047c4abc03f7b94b93d6abff",
+    "addons/fps_native/src/backend.cpp": "15292f06e3289dbd36ce67b2e962c970d587dde34b44977d111e9d07a584df54",
+    "addons/fps_native/src/snapshot_preparation.cpp": "5402d692682357d538f862fda50114361583d104ebf65ca5bc2f4334a0c78e10",
+    "deathmatch/arena.gd": "5e76a8d5de80c56b8fb32ea473d800302850425b563c843f7a276657692456ca",
+    "deathmatch/conquest/classes/match.gd": "f0af12fcdaf390f90fc9bc7b21f0f6a78d45c135c6064a836bac0fa1c87ca384",
+    "deathmatch/network/replication.gd": "5c873d8ead099aa0a1344b8bb7250f7cc0906a947971e3fef57377286c404111"
+  },
+  "native_build": {
+    "target": "linux-server",
+    "bindings_revision": "507ed9d840c01a3c5b2a39af8bb4000bfac30bf5",
+    "portable_container": true,
+    "sha256": "c36b56177b6d32f0a51d5827e212c67c4387a7ca8fed65b0a71946bb7fd0e387",
+    "source_sha256": {
+      "src/avatar_channels.cpp": "d504045236d29622cb9008dd554d1574b893572475cedeb402e4aa29ab55af24",
+      "src/backend.cpp": "15292f06e3289dbd36ce67b2e962c970d587dde34b44977d111e9d07a584df54",
+      "src/backend.h": "2f5f33ad67dec1e85d4d7bf554d20d9ad9d5954c047c4abc03f7b94b93d6abff",
+      "src/codec.cpp": "e0da577b2f8bb5211d15ca5ce20d0e0e0399052ab7280144564f08dc853a138a",
+      "src/codec.h": "25327add15623dc58e7da283d255db4749dc940aeed31370a525fe22248f1f7d",
+      "src/network_packing.cpp": "57fe61955dc05e6a483625b6ed3453d270ef69b98c0b4f791c2de8055789c44c",
+      "src/pose_preparation.cpp": "50b554ad876542e427bb775b078dd96dffc90b89e8fd7cdfc9c9be5de3614f24",
+      "src/poses.cpp": "8e6717dad8ae2e6063da1f9b3210459a3204efc5e9343a066edb775883396103",
+      "src/poses.h": "f2e4376e3d5ecd5ea214f32a0358df871122a67fa63d68b287e4b1138c130e1d",
+      "src/register.cpp": "0f816701ccb030cc974a2ccff6e0bb5ae3f80d16b44b2dd4591d0443b443386c",
+      "src/register_server.cpp": "6ab03617ced0399a1efae9f7ff9266cf847e58ce0c3fe5d3fe0d040a1456d323",
+      "src/snapshot_preparation.cpp": "5402d692682357d538f862fda50114361583d104ebf65ca5bc2f4334a0c78e10"
+    }
+  },
+  "candidate_release": {
+    "cq-server": "d9f79ab89b5ae369aeed11c6052d402e8218cd503bf85b4a235f9c30c46a7c63",
+    "cq-server.pck": "cdfd1a012a4acce2b752bb9f08ebba154952f9af25bbb11488d447f119e21753",
+    "addons/twovoip/libs/libtwovoip.linux.template_release.x86_64.so": "3868dada664abd896853b0d795f172e64394c5b5790a111c0e048a52d7c4b9be",
+    "addons/fps_native/bin/libfpsloppa_native.server.so": "c36b56177b6d32f0a51d5827e212c67c4387a7ca8fed65b0a71946bb7fd0e387"
+  },
+  "production_changed": false
+}

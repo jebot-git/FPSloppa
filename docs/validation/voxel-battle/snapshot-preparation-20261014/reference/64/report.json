@@ -1,0 +1,1540 @@
+{
+  "AI": false,
+  "achieved_tick_hz": 29.1755971806109,
+  "async_snapshots": true,
+  "attribution": {
+    "categories": {
+      "callback.total": {
+        "calls": 3502,
+        "calls_per_tick": {
+          "max": 1,
+          "p50": 1,
+          "p95": 1,
+          "p99": 1,
+          "samples": 3502
+        },
+        "inclusive_per_tick_ms": {
+          "max": 74.321,
+          "p50": 26.703,
+          "p95": 40.5,
+          "p99": 55.833,
+          "samples": 3502
+        },
+        "inclusive_total_ms": 97667.455,
+        "max_call_ms": 74.321,
+        "mean_call_ms": 27.8890505425471,
+        "self_per_tick_ms": {
+          "max": 0.841,
+          "p50": 0.191,
+          "p95": 0.283,
+          "p99": 0.371,
+          "samples": 3502
+        },
+        "self_total_ms": 695.916
+      },
+      "input.accept": {
+        "calls": 229474,
+        "calls_per_tick": {
+          "max": 191,
+          "p50": 64,
+          "p95": 89,
+          "p99": 102,
+          "samples": 3502
+        },
+        "inclusive_per_tick_ms": {
+          "max": 7.728,
+          "p50": 2.999,
+          "p95": 4.492,
+          "p99": 5.207,
+          "samples": 3502
+        },
+        "inclusive_total_ms": 10796.563,
+        "max_call_ms": 1.515,
+        "mean_call_ms": 0.0470491776846179,
+        "self_per_tick_ms": {
+          "max": 7.728,
+          "p50": 2.999,
+          "p95": 4.492,
+          "p99": 5.207,
+          "samples": 3502
+        },
+        "self_total_ms": 10796.563
+      },
+      "movement.cs": {
+        "calls": 223385,
+        "calls_per_tick": {
+          "max": 64,
+          "p50": 64,
+          "p95": 64,
+          "p99": 64,
+          "samples": 3502
+        },
+        "inclusive_per_tick_ms": {
+          "max": 7.541,
+          "p50": 5.232,
+          "p95": 6.292,
+          "p99": 6.735,
+          "samples": 3502
+        },
+        "inclusive_total_ms": 18531.887,
+        "max_call_ms": 0.917,
+        "mean_call_ms": 0.0829594064059807,
+        "self_per_tick_ms": {
+          "max": 1.79,
+          "p50": 1.042,
+          "p95": 1.273,
+          "p99": 1.377,
+          "samples": 3502
+        },
+        "self_total_ms": 3689.154
+      },
+      "movement.posture": {
+        "calls": 223410,
+        "calls_per_tick": {
+          "max": 65,
+          "p50": 64,
+          "p95": 64,
+          "p99": 64,
+          "samples": 3502
+        },
+        "inclusive_per_tick_ms": {
+          "max": 0.207,
+          "p50": 0.107,
+          "p95": 0.132,
+          "p99": 0.148,
+          "samples": 3502
+        },
+        "inclusive_total_ms": 376.771,
+        "max_call_ms": 0.1,
+        "mean_call_ms": 0.00168645539590887,
+        "self_per_tick_ms": {
+          "max": 0.207,
+          "p50": 0.107,
+          "p95": 0.132,
+          "p99": 0.148,
+          "samples": 3502
+        },
+        "self_total_ms": 376.771
+      },
+      "movement.simulate": {
+        "calls": 223385,
+        "calls_per_tick": {
+          "max": 64,
+          "p50": 64,
+          "p95": 64,
+          "p99": 64,
+          "samples": 3502
+        },
+        "inclusive_per_tick_ms": {
+          "max": 8.333,
+          "p50": 5.823,
+          "p95": 7.013,
+          "p99": 7.47,
+          "samples": 3502
+        },
+        "inclusive_total_ms": 20648.593,
+        "max_call_ms": 0.933,
+        "mean_call_ms": 0.0924350023502026,
+        "self_per_tick_ms": {
+          "max": 0.99,
+          "p50": 0.597,
+          "p95": 0.726,
+          "p99": 0.763,
+          "samples": 3502
+        },
+        "self_total_ms": 2116.706
+      },
+      "movement.step": {
+        "calls": 210304,
+        "calls_per_tick": {
+          "max": 64,
+          "p50": 60,
+          "p95": 64,
+          "p99": 64,
+          "samples": 3502
+        },
+        "inclusive_per_tick_ms": {
+          "max": 2.239,
+          "p50": 1.177,
+          "p95": 1.602,
+          "p99": 1.846,
+          "samples": 3502
+        },
+        "inclusive_total_ms": 4220.743,
+        "max_call_ms": 0.864,
+        "mean_call_ms": 0.0200697228773585,
+        "self_per_tick_ms": {
+          "max": 0.715,
+          "p50": 0.362,
+          "p95": 0.489,
+          "p99": 0.536,
+          "samples": 3502
+        },
+        "self_total_ms": 1293.764
+      },
+      "network.physics_poll": {
+        "calls": 3502,
+        "calls_per_tick": {
+          "max": 1,
+          "p50": 1,
+          "p95": 1,
+          "p99": 1,
+          "samples": 3502
+        },
+        "inclusive_per_tick_ms": {
+          "max": 11.44,
+          "p50": 1.128,
+          "p95": 5.789,
+          "p99": 7.476,
+          "samples": 3502
+        },
+        "inclusive_total_ms": 7207.407,
+        "max_call_ms": 11.44,
+        "mean_call_ms": 2.05808309537407,
+        "self_per_tick_ms": {
+          "max": 7.15,
+          "p50": 0.361,
+          "p95": 1.914,
+          "p99": 3.13,
+          "samples": 3502
+        },
+        "self_total_ms": 2401.503
+      },
+      "query.arena._trace.ray": {
+        "calls": 40739,
+        "calls_per_tick": {
+          "max": 258,
+          "p50": 0,
+          "p95": 28,
+          "p99": 255,
+          "samples": 3502
+        },
+        "inclusive_per_tick_ms": {
+          "max": 0.402,
+          "p50": 0.0,
+          "p95": 0.05,
+          "p99": 0.296,
+          "samples": 3502
+        },
+        "inclusive_total_ms": 55.766,
+        "max_call_ms": 0.035,
+        "mean_call_ms": 0.00136886030584943,
+        "self_per_tick_ms": {
+          "max": 0.402,
+          "p50": 0.0,
+          "p95": 0.05,
+          "p99": 0.296,
+          "samples": 3502
+        },
+        "self_total_ms": 55.766
+      },
+      "query.battery_tank.update_clearance.ray": {
+        "calls": 28016,
+        "calls_per_tick": {
+          "max": 8,
+          "p50": 8,
+          "p95": 8,
+          "p99": 8,
+          "samples": 3502
+        },
+        "inclusive_per_tick_ms": {
+          "max": 0.282,
+          "p50": 0.041,
+          "p95": 0.06,
+          "p99": 0.076,
+          "samples": 3502
+        },
+        "inclusive_total_ms": 148.437,
+        "max_call_ms": 0.25,
+        "mean_call_ms": 0.00529829383209595,
+        "self_per_tick_ms": {
+          "max": 0.282,
+          "p50": 0.041,
+          "p95": 0.06,
+          "p99": 0.076,
+          "samples": 3502
+        },
+        "self_total_ms": 148.437
+      },
+      "query.class_arena._trace.ray": {
+        "calls": 1344,
+        "calls_per_tick": {
+          "max": 15,
+          "p50": 0,
+          "p95": 2,
+          "p99": 8,
+          "samples": 3502
+        },
+        "inclusive_per_tick_ms": {
+          "max": 0.027,
+          "p50": 0.0,
+          "p95": 0.006,
+          "p99": 0.015,
+          "samples": 3502
+        },
+        "inclusive_total_ms": 2.999,
+        "max_call_ms": 0.016,
+        "mean_call_ms": 0.00223139880952381,
+        "self_per_tick_ms": {
+          "max": 0.027,
+          "p50": 0.0,
+          "p95": 0.006,
+          "p99": 0.015,
+          "samples": 3502
+        },
+        "self_total_ms": 2.999
+      },
+      "query.cs16.near_edge.ray": {
+        "calls": 209362,
+        "calls_per_tick": {
+          "max": 64,
+          "p50": 60,
+          "p95": 63,
+          "p99": 64,
+          "samples": 3502
+        },
+        "inclusive_per_tick_ms": {
+          "max": 0.649,
+          "p50": 0.397,
+          "p95": 0.501,
+          "p99": 0.54,
+          "samples": 3502
+        },
+        "inclusive_total_ms": 1383.136,
+        "max_call_ms": 0.134,
+        "mean_call_ms": 0.00660643287702639,
+        "self_per_tick_ms": {
+          "max": 0.649,
+          "p50": 0.397,
+          "p95": 0.501,
+          "p99": 0.54,
+          "samples": 3502
+        },
+        "self_total_ms": 1383.136
+      },
+      "query.fighter.step_up.ray": {
+        "calls": 1199,
+        "calls_per_tick": {
+          "max": 3,
+          "p50": 0,
+          "p95": 1,
+          "p99": 2,
+          "samples": 3502
+        },
+        "inclusive_per_tick_ms": {
+          "max": 0.04,
+          "p50": 0.0,
+          "p95": 0.008,
+          "p99": 0.013,
+          "samples": 3502
+        },
+        "inclusive_total_ms": 6.347,
+        "max_call_ms": 0.03,
+        "mean_call_ms": 0.00529357798165138,
+        "self_per_tick_ms": {
+          "max": 0.04,
+          "p50": 0.0,
+          "p95": 0.008,
+          "p99": 0.013,
+          "samples": 3502
+        },
+        "self_total_ms": 6.347
+      },
+      "query.hit_detection.world_fraction.cast": {
+        "calls": 44035,
+        "calls_per_tick": {
+          "max": 311,
+          "p50": 0,
+          "p95": 31,
+          "p99": 284,
+          "samples": 3502
+        },
+        "inclusive_per_tick_ms": {
+          "max": 0.646,
+          "p50": 0.0,
+          "p95": 0.089,
+          "p99": 0.385,
+          "samples": 3502
+        },
+        "inclusive_total_ms": 76.412,
+        "max_call_ms": 0.079,
+        "mean_call_ms": 0.00173525604632679,
+        "self_per_tick_ms": {
+          "max": 0.646,
+          "p50": 0.0,
+          "p95": 0.089,
+          "p99": 0.385,
+          "samples": 3502
+        },
+        "self_total_ms": 76.412
+      },
+      "query.hit_detection.world_fraction.shape": {
+        "calls": 44036,
+        "calls_per_tick": {
+          "max": 311,
+          "p50": 0,
+          "p95": 31,
+          "p99": 284,
+          "samples": 3502
+        },
+        "inclusive_per_tick_ms": {
+          "max": 0.506,
+          "p50": 0.0,
+          "p95": 0.072,
+          "p99": 0.367,
+          "samples": 3502
+        },
+        "inclusive_total_ms": 75.791,
+        "max_call_ms": 0.151,
+        "mean_call_ms": 0.00172111454264693,
+        "self_per_tick_ms": {
+          "max": 0.506,
+          "p50": 0.0,
+          "p95": 0.072,
+          "p99": 0.367,
+          "samples": 3502
+        },
+        "self_total_ms": 75.791
+      },
+      "query.movement.floor_snap": {
+        "calls": 190,
+        "calls_per_tick": {
+          "max": 2,
+          "p50": 0,
+          "p95": 1,
+          "p99": 1,
+          "samples": 3502
+        },
+        "inclusive_per_tick_ms": {
+          "max": 0.054,
+          "p50": 0.0,
+          "p95": 0.003,
+          "p99": 0.028,
+          "samples": 3502
+        },
+        "inclusive_total_ms": 3.453,
+        "max_call_ms": 0.054,
+        "mean_call_ms": 0.0181736842105263,
+        "self_per_tick_ms": {
+          "max": 0.054,
+          "p50": 0.0,
+          "p95": 0.003,
+          "p99": 0.028,
+          "samples": 3502
+        },
+        "self_total_ms": 3.453
+      },
+      "query.movement.room_scale_zero": {
+        "calls": 219784,
+        "calls_per_tick": {
+          "max": 64,
+          "p50": 63,
+          "p95": 64,
+          "p99": 64,
+          "samples": 3502
+        },
+        "inclusive_per_tick_ms": {
+          "max": 0.645,
+          "p50": 0.424,
+          "p95": 0.516,
+          "p99": 0.559,
+          "samples": 3502
+        },
+        "inclusive_total_ms": 1505.19,
+        "max_call_ms": 0.173,
+        "mean_call_ms": 0.00684849670585666,
+        "self_per_tick_ms": {
+          "max": 0.645,
+          "p50": 0.424,
+          "p95": 0.516,
+          "p99": 0.559,
+          "samples": 3502
+        },
+        "self_total_ms": 1505.19
+      },
+      "query.movement.slide": {
+        "calls": 219783,
+        "calls_per_tick": {
+          "max": 64,
+          "p50": 63,
+          "p95": 64,
+          "p99": 64,
+          "samples": 3502
+        },
+        "inclusive_per_tick_ms": {
+          "max": 3.64,
+          "p50": 2.594,
+          "p95": 3.1,
+          "p99": 3.286,
+          "samples": 3502
+        },
+        "inclusive_total_ms": 9235.401,
+        "max_call_ms": 0.393,
+        "mean_call_ms": 0.0420205429901312,
+        "self_per_tick_ms": {
+          "max": 3.64,
+          "p50": 2.594,
+          "p95": 3.1,
+          "p99": 3.286,
+          "samples": 3502
+        },
+        "self_total_ms": 9235.401
+      },
+      "query.movement.step_ceiling": {
+        "calls": 12625,
+        "calls_per_tick": {
+          "max": 12,
+          "p50": 3,
+          "p95": 9,
+          "p99": 11,
+          "samples": 3502
+        },
+        "inclusive_per_tick_ms": {
+          "max": 0.191,
+          "p50": 0.027,
+          "p95": 0.093,
+          "p99": 0.121,
+          "samples": 3502
+        },
+        "inclusive_total_ms": 121.194,
+        "max_call_ms": 0.108,
+        "mean_call_ms": 0.00959952475247525,
+        "self_per_tick_ms": {
+          "max": 0.191,
+          "p50": 0.027,
+          "p95": 0.093,
+          "p99": 0.121,
+          "samples": 3502
+        },
+        "self_total_ms": 121.194
+      },
+      "query.movement.step_forward": {
+        "calls": 12625,
+        "calls_per_tick": {
+          "max": 12,
+          "p50": 3,
+          "p95": 9,
+          "p99": 11,
+          "samples": 3502
+        },
+        "inclusive_per_tick_ms": {
+          "max": 0.245,
+          "p50": 0.034,
+          "p95": 0.128,
+          "p99": 0.172,
+          "samples": 3502
+        },
+        "inclusive_total_ms": 150.218,
+        "max_call_ms": 0.122,
+        "mean_call_ms": 0.0118984554455446,
+        "self_per_tick_ms": {
+          "max": 0.245,
+          "p50": 0.034,
+          "p95": 0.128,
+          "p99": 0.172,
+          "samples": 3502
+        },
+        "self_total_ms": 150.218
+      },
+      "query.movement.step_landing": {
+        "calls": 5241,
+        "calls_per_tick": {
+          "max": 8,
+          "p50": 1,
+          "p95": 5,
+          "p99": 6,
+          "samples": 3502
+        },
+        "inclusive_per_tick_ms": {
+          "max": 0.245,
+          "p50": 0.028,
+          "p95": 0.111,
+          "p99": 0.147,
+          "samples": 3502
+        },
+        "inclusive_total_ms": 124.716,
+        "max_call_ms": 0.109,
+        "mean_call_ms": 0.02379622209502,
+        "self_per_tick_ms": {
+          "max": 0.245,
+          "p50": 0.028,
+          "p95": 0.111,
+          "p99": 0.147,
+          "samples": 3502
+        },
+        "self_total_ms": 124.716
+      },
+      "query.movement.step_obstacle": {
+        "calls": 210012,
+        "calls_per_tick": {
+          "max": 64,
+          "p50": 60,
+          "p95": 63,
+          "p99": 64,
+          "samples": 3502
+        },
+        "inclusive_per_tick_ms": {
+          "max": 1.46,
+          "p50": 0.714,
+          "p95": 0.876,
+          "p99": 0.981,
+          "samples": 3502
+        },
+        "inclusive_total_ms": 2524.504,
+        "max_call_ms": 0.671,
+        "mean_call_ms": 0.0120207607184351,
+        "self_per_tick_ms": {
+          "max": 1.46,
+          "p50": 0.714,
+          "p95": 0.876,
+          "p99": 0.981,
+          "samples": 3502
+        },
+        "self_total_ms": 2524.504
+      },
+      "query.spawn_clearance.clear.shape": {
+        "calls": 12,
+        "calls_per_tick": {
+          "max": 1,
+          "p50": 0,
+          "p95": 0,
+          "p99": 0,
+          "samples": 3502
+        },
+        "inclusive_per_tick_ms": {
+          "max": 0.012,
+          "p50": 0.0,
+          "p95": 0.0,
+          "p99": 0.0,
+          "samples": 3502
+        },
+        "inclusive_total_ms": 0.112,
+        "max_call_ms": 0.012,
+        "mean_call_ms": 0.00933333333333333,
+        "self_per_tick_ms": {
+          "max": 0.012,
+          "p50": 0.0,
+          "p95": 0.0,
+          "p99": 0.0,
+          "samples": 3502
+        },
+        "self_total_ms": 0.112
+      },
+      "query.spotting.tick.ray": {
+        "calls": 87752,
+        "calls_per_tick": {
+          "max": 123,
+          "p50": 0,
+          "p95": 93,
+          "p99": 112,
+          "samples": 3502
+        },
+        "inclusive_per_tick_ms": {
+          "max": 0.429,
+          "p50": 0.0,
+          "p95": 0.258,
+          "p99": 0.336,
+          "samples": 3502
+        },
+        "inclusive_total_ms": 211.186,
+        "max_call_ms": 0.092,
+        "mean_call_ms": 0.00240662321086699,
+        "self_per_tick_ms": {
+          "max": 0.429,
+          "p50": 0.0,
+          "p95": 0.258,
+          "p99": 0.336,
+          "samples": 3502
+        },
+        "self_total_ms": 211.186
+      },
+      "query.vehicle.slide": {
+        "calls": 28016,
+        "calls_per_tick": {
+          "max": 8,
+          "p50": 8,
+          "p95": 8,
+          "p99": 8,
+          "samples": 3502
+        },
+        "inclusive_per_tick_ms": {
+          "max": 4.614,
+          "p50": 0.376,
+          "p95": 0.479,
+          "p99": 0.73,
+          "samples": 3502
+        },
+        "inclusive_total_ms": 1370.347,
+        "max_call_ms": 4.234,
+        "mean_call_ms": 0.0489130139920046,
+        "self_per_tick_ms": {
+          "max": 4.614,
+          "p50": 0.376,
+          "p95": 0.479,
+          "p99": 0.73,
+          "samples": 3502
+        },
+        "self_total_ms": 1370.347
+      },
+      "simulation.airstrike_turrets": {
+        "calls": 3502,
+        "calls_per_tick": {
+          "max": 1,
+          "p50": 1,
+          "p95": 1,
+          "p99": 1,
+          "samples": 3502
+        },
+        "inclusive_per_tick_ms": {
+          "max": 0.247,
+          "p50": 0.011,
+          "p95": 0.101,
+          "p99": 0.114,
+          "samples": 3502
+        },
+        "inclusive_total_ms": 119.669,
+        "max_call_ms": 0.247,
+        "mean_call_ms": 0.0341716162193033,
+        "self_per_tick_ms": {
+          "max": 0.247,
+          "p50": 0.011,
+          "p95": 0.101,
+          "p99": 0.114,
+          "samples": 3502
+        },
+        "self_total_ms": 119.669
+      },
+      "simulation.battery_tanks_tick": {
+        "calls": 3502,
+        "calls_per_tick": {
+          "max": 1,
+          "p50": 1,
+          "p95": 1,
+          "p99": 1,
+          "samples": 3502
+        },
+        "inclusive_per_tick_ms": {
+          "max": 5.568,
+          "p50": 0.964,
+          "p95": 1.233,
+          "p99": 1.474,
+          "samples": 3502
+        },
+        "inclusive_total_ms": 3467.713,
+        "max_call_ms": 5.568,
+        "mean_call_ms": 0.990209308966305,
+        "self_per_tick_ms": {
+          "max": 2.162,
+          "p50": 0.155,
+          "p95": 0.201,
+          "p99": 0.224,
+          "samples": 3502
+        },
+        "self_total_ms": 554.685
+      },
+      "simulation.grenades_tick": {
+        "calls": 3502,
+        "calls_per_tick": {
+          "max": 1,
+          "p50": 1,
+          "p95": 1,
+          "p99": 1,
+          "samples": 3502
+        },
+        "inclusive_per_tick_ms": {
+          "max": 0.171,
+          "p50": 0.064,
+          "p95": 0.083,
+          "p99": 0.092,
+          "samples": 3502
+        },
+        "inclusive_total_ms": 230.146,
+        "max_call_ms": 0.171,
+        "mean_call_ms": 0.0657184466019417,
+        "self_per_tick_ms": {
+          "max": 0.171,
+          "p50": 0.064,
+          "p95": 0.083,
+          "p99": 0.092,
+          "samples": 3502
+        },
+        "self_total_ms": 230.146
+      },
+      "simulation.healing_field_tick": {
+        "calls": 3502,
+        "calls_per_tick": {
+          "max": 1,
+          "p50": 1,
+          "p95": 1,
+          "p99": 1,
+          "samples": 3502
+        },
+        "inclusive_per_tick_ms": {
+          "max": 0.065,
+          "p50": 0.005,
+          "p95": 0.007,
+          "p99": 0.008,
+          "samples": 3502
+        },
+        "inclusive_total_ms": 17.771,
+        "max_call_ms": 0.065,
+        "mean_call_ms": 0.00507452884066248,
+        "self_per_tick_ms": {
+          "max": 0.065,
+          "p50": 0.005,
+          "p95": 0.007,
+          "p99": 0.008,
+          "samples": 3502
+        },
+        "self_total_ms": 17.771
+      },
+      "simulation.history": {
+        "calls": 3502,
+        "calls_per_tick": {
+          "max": 1,
+          "p50": 1,
+          "p95": 1,
+          "p99": 1,
+          "samples": 3502
+        },
+        "inclusive_per_tick_ms": {
+          "max": 1.392,
+          "p50": 0.412,
+          "p95": 0.585,
+          "p99": 0.669,
+          "samples": 3502
+        },
+        "inclusive_total_ms": 1480.348,
+        "max_call_ms": 1.392,
+        "mean_call_ms": 0.422715019988578,
+        "self_per_tick_ms": {
+          "max": 1.392,
+          "p50": 0.412,
+          "p95": 0.585,
+          "p99": 0.669,
+          "samples": 3502
+        },
+        "self_total_ms": 1480.348
+      },
+      "simulation.match_mode": {
+        "calls": 3502,
+        "calls_per_tick": {
+          "max": 1,
+          "p50": 1,
+          "p95": 1,
+          "p99": 1,
+          "samples": 3502
+        },
+        "inclusive_per_tick_ms": {
+          "max": 3.301,
+          "p50": 1.827,
+          "p95": 2.9,
+          "p99": 3.016,
+          "samples": 3502
+        },
+        "inclusive_total_ms": 7187.505,
+        "max_call_ms": 3.301,
+        "mean_call_ms": 2.05240005711022,
+        "self_per_tick_ms": {
+          "max": 3.301,
+          "p50": 1.827,
+          "p95": 2.9,
+          "p99": 3.016,
+          "samples": 3502
+        },
+        "self_total_ms": 7187.505
+      },
+      "simulation.night_vision_tick": {
+        "calls": 3502,
+        "calls_per_tick": {
+          "max": 1,
+          "p50": 1,
+          "p95": 1,
+          "p99": 1,
+          "samples": 3502
+        },
+        "inclusive_per_tick_ms": {
+          "max": 0.116,
+          "p50": 0.005,
+          "p95": 0.052,
+          "p99": 0.062,
+          "samples": 3502
+        },
+        "inclusive_total_ms": 57.089,
+        "max_call_ms": 0.116,
+        "mean_call_ms": 0.0163018275271274,
+        "self_per_tick_ms": {
+          "max": 0.116,
+          "p50": 0.005,
+          "p95": 0.052,
+          "p99": 0.062,
+          "samples": 3502
+        },
+        "self_total_ms": 57.089
+      },
+      "simulation.player_loop": {
+        "calls": 3502,
+        "calls_per_tick": {
+          "max": 1,
+          "p50": 1,
+          "p95": 1,
+          "p99": 1,
+          "samples": 3502
+        },
+        "inclusive_per_tick_ms": {
+          "max": 25.68,
+          "p50": 12.235,
+          "p95": 15.436,
+          "p99": 18.521,
+          "samples": 3502
+        },
+        "inclusive_total_ms": 44005.992,
+        "max_call_ms": 25.68,
+        "mean_call_ms": 12.5659600228441,
+        "self_per_tick_ms": {
+          "max": 18.425,
+          "p50": 5.837,
+          "p95": 8.12,
+          "p99": 12.39,
+          "samples": 3502
+        },
+        "self_total_ms": 21459.648
+      },
+      "simulation.projectiles": {
+        "calls": 3502,
+        "calls_per_tick": {
+          "max": 1,
+          "p50": 1,
+          "p95": 1,
+          "p99": 1,
+          "samples": 3502
+        },
+        "inclusive_per_tick_ms": {
+          "max": 13.498,
+          "p50": 0.003,
+          "p95": 2.44,
+          "p99": 9.664,
+          "samples": 3502
+        },
+        "inclusive_total_ms": 2280.847,
+        "max_call_ms": 13.498,
+        "mean_call_ms": 0.651298400913764,
+        "self_per_tick_ms": {
+          "max": 12.123,
+          "p50": 0.003,
+          "p95": 2.213,
+          "p99": 8.635,
+          "samples": 3502
+        },
+        "self_total_ms": 2085.557
+      },
+      "simulation.recon_drone_tick": {
+        "calls": 3502,
+        "calls_per_tick": {
+          "max": 1,
+          "p50": 1,
+          "p95": 1,
+          "p99": 1,
+          "samples": 3502
+        },
+        "inclusive_per_tick_ms": {
+          "max": 0.028,
+          "p50": 0.004,
+          "p95": 0.007,
+          "p99": 0.009,
+          "samples": 3502
+        },
+        "inclusive_total_ms": 13.939,
+        "max_call_ms": 0.028,
+        "mean_call_ms": 0.0039802969731582,
+        "self_per_tick_ms": {
+          "max": 0.028,
+          "p50": 0.004,
+          "p95": 0.007,
+          "p99": 0.009,
+          "samples": 3502
+        },
+        "self_total_ms": 13.939
+      },
+      "simulation.spotting": {
+        "calls": 3502,
+        "calls_per_tick": {
+          "max": 1,
+          "p50": 1,
+          "p95": 1,
+          "p99": 1,
+          "samples": 3502
+        },
+        "inclusive_per_tick_ms": {
+          "max": 2.817,
+          "p50": 0.002,
+          "p95": 2.351,
+          "p99": 2.573,
+          "samples": 3502
+        },
+        "inclusive_total_ms": 2079.813,
+        "max_call_ms": 2.817,
+        "mean_call_ms": 0.593892918332382,
+        "self_per_tick_ms": {
+          "max": 2.469,
+          "p50": 0.002,
+          "p95": 2.134,
+          "p99": 2.283,
+          "samples": 3502
+        },
+        "self_total_ms": 1868.627
+      },
+      "simulation.tick_class_tools": {
+        "calls": 3502,
+        "calls_per_tick": {
+          "max": 1,
+          "p50": 1,
+          "p95": 1,
+          "p99": 1,
+          "samples": 3502
+        },
+        "inclusive_per_tick_ms": {
+          "max": 0.983,
+          "p50": 0.409,
+          "p95": 0.61,
+          "p99": 0.747,
+          "samples": 3502
+        },
+        "inclusive_total_ms": 1528.792,
+        "max_call_ms": 0.983,
+        "mean_call_ms": 0.436548258138207,
+        "self_per_tick_ms": {
+          "max": 0.983,
+          "p50": 0.409,
+          "p95": 0.61,
+          "p99": 0.747,
+          "samples": 3502
+        },
+        "self_total_ms": 1528.792
+      },
+      "simulation.total": {
+        "calls": 3502,
+        "calls_per_tick": {
+          "max": 1,
+          "p50": 1,
+          "p95": 1,
+          "p99": 1,
+          "samples": 3502
+        },
+        "inclusive_per_tick_ms": {
+          "max": 42.862,
+          "p50": 17.519,
+          "p95": 24.254,
+          "p99": 33.772,
+          "samples": 3502
+        },
+        "inclusive_total_ms": 64248.658,
+        "max_call_ms": 42.862,
+        "mean_call_ms": 18.3462758423758,
+        "self_per_tick_ms": {
+          "max": 2.14,
+          "p50": 0.689,
+          "p95": 0.95,
+          "p99": 1.027,
+          "samples": 3502
+        },
+        "self_total_ms": 2490.589
+      },
+      "simulation.variant_combat_vehicle_lock_guide": {
+        "calls": 3502,
+        "calls_per_tick": {
+          "max": 1,
+          "p50": 1,
+          "p95": 1,
+          "p99": 1,
+          "samples": 3502
+        },
+        "inclusive_per_tick_ms": {
+          "max": 0.29,
+          "p50": 0.034,
+          "p95": 0.062,
+          "p99": 0.136,
+          "samples": 3502
+        },
+        "inclusive_total_ms": 135.7,
+        "max_call_ms": 0.29,
+        "mean_call_ms": 0.0387492861222159,
+        "self_per_tick_ms": {
+          "max": 0.29,
+          "p50": 0.034,
+          "p95": 0.062,
+          "p99": 0.136,
+          "samples": 3502
+        },
+        "self_total_ms": 135.7
+      },
+      "simulation.variant_combat_vehicle_lock_tick": {
+        "calls": 3502,
+        "calls_per_tick": {
+          "max": 1,
+          "p50": 1,
+          "p95": 1,
+          "p99": 1,
+          "samples": 3502
+        },
+        "inclusive_per_tick_ms": {
+          "max": 0.343,
+          "p50": 0.174,
+          "p95": 0.237,
+          "p99": 0.257,
+          "samples": 3502
+        },
+        "inclusive_total_ms": 633.093,
+        "max_call_ms": 0.343,
+        "mean_call_ms": 0.180780411193604,
+        "self_per_tick_ms": {
+          "max": 0.343,
+          "p50": 0.174,
+          "p95": 0.237,
+          "p99": 0.257,
+          "samples": 3502
+        },
+        "self_total_ms": 633.093
+      },
+      "snapshot.authority_echo": {
+        "calls": 2334,
+        "calls_per_tick": {
+          "max": 1,
+          "p50": 1,
+          "p95": 1,
+          "p99": 1,
+          "samples": 3502
+        },
+        "inclusive_per_tick_ms": {
+          "max": 0.978,
+          "p50": 0.491,
+          "p95": 0.762,
+          "p99": 0.84,
+          "samples": 3502
+        },
+        "inclusive_total_ms": 1360.919,
+        "max_call_ms": 0.978,
+        "mean_call_ms": 0.58308440445587,
+        "self_per_tick_ms": {
+          "max": 0.978,
+          "p50": 0.491,
+          "p95": 0.762,
+          "p99": 0.84,
+          "samples": 3502
+        },
+        "self_total_ms": 1360.919
+      },
+      "snapshot.build": {
+        "calls": 2334,
+        "calls_per_tick": {
+          "max": 1,
+          "p50": 1,
+          "p95": 1,
+          "p99": 1,
+          "samples": 3502
+        },
+        "inclusive_per_tick_ms": {
+          "max": 6.453,
+          "p50": 3.098,
+          "p95": 4.476,
+          "p99": 4.891,
+          "samples": 3502
+        },
+        "inclusive_total_ms": 8286.823,
+        "max_call_ms": 6.453,
+        "mean_call_ms": 3.55048114824336,
+        "self_per_tick_ms": {
+          "max": 0.043,
+          "p50": 0.014,
+          "p95": 0.021,
+          "p99": 0.026,
+          "samples": 3502
+        },
+        "self_total_ms": 38.147
+      },
+      "snapshot.freeze_submit": {
+        "calls": 2334,
+        "calls_per_tick": {
+          "max": 1,
+          "p50": 1,
+          "p95": 1,
+          "p99": 1,
+          "samples": 3502
+        },
+        "inclusive_per_tick_ms": {
+          "max": 3.57,
+          "p50": 1.413,
+          "p95": 2.279,
+          "p99": 2.569,
+          "samples": 3502
+        },
+        "inclusive_total_ms": 3950.376,
+        "max_call_ms": 3.57,
+        "mean_call_ms": 1.69253470437018,
+        "self_per_tick_ms": {
+          "max": 3.024,
+          "p50": 1.188,
+          "p95": 1.933,
+          "p99": 2.16,
+          "samples": 3502
+        },
+        "self_total_ms": 3316.568
+      },
+      "snapshot.locomotion": {
+        "calls": 2334,
+        "calls_per_tick": {
+          "max": 1,
+          "p50": 1,
+          "p95": 1,
+          "p99": 1,
+          "samples": 3502
+        },
+        "inclusive_per_tick_ms": {
+          "max": 0.962,
+          "p50": 0.525,
+          "p95": 0.789,
+          "p99": 0.839,
+          "samples": 3502
+        },
+        "inclusive_total_ms": 1421.88,
+        "max_call_ms": 0.962,
+        "mean_call_ms": 0.609203084832905,
+        "self_per_tick_ms": {
+          "max": 0.962,
+          "p50": 0.525,
+          "p95": 0.789,
+          "p99": 0.839,
+          "samples": 3502
+        },
+        "self_total_ms": 1421.88
+      },
+      "snapshot.mode": {
+        "calls": 2334,
+        "calls_per_tick": {
+          "max": 1,
+          "p50": 1,
+          "p95": 1,
+          "p99": 1,
+          "samples": 3502
+        },
+        "inclusive_per_tick_ms": {
+          "max": 4.02,
+          "p50": 2.066,
+          "p95": 3.008,
+          "p99": 3.277,
+          "samples": 3502
+        },
+        "inclusive_total_ms": 5533.754,
+        "max_call_ms": 4.02,
+        "mean_call_ms": 2.37093144815767,
+        "self_per_tick_ms": {
+          "max": 4.02,
+          "p50": 2.066,
+          "p95": 3.008,
+          "p99": 3.277,
+          "samples": 3502
+        },
+        "self_total_ms": 5533.754
+      },
+      "snapshot.prepare": {
+        "calls": 2334,
+        "calls_per_tick": {
+          "max": 1,
+          "p50": 1,
+          "p95": 1,
+          "p99": 1,
+          "samples": 3502
+        },
+        "inclusive_per_tick_ms": {
+          "max": 11.424,
+          "p50": 5.442,
+          "p95": 8.153,
+          "p99": 8.92,
+          "samples": 3502
+        },
+        "inclusive_total_ms": 14765.47,
+        "max_call_ms": 11.424,
+        "mean_call_ms": 6.32625107112254,
+        "self_per_tick_ms": {
+          "max": 1.403,
+          "p50": 0.381,
+          "p95": 0.744,
+          "p99": 0.886,
+          "samples": 3502
+        },
+        "self_total_ms": 1167.352
+      },
+      "snapshot.record_layout": {
+        "calls": 2334,
+        "calls_per_tick": {
+          "max": 1,
+          "p50": 1,
+          "p95": 1,
+          "p99": 1,
+          "samples": 3502
+        },
+        "inclusive_per_tick_ms": {
+          "max": 0.724,
+          "p50": 0.216,
+          "p95": 0.369,
+          "p99": 0.489,
+          "samples": 3502
+        },
+        "inclusive_total_ms": 633.808,
+        "max_call_ms": 0.724,
+        "mean_call_ms": 0.27155441302485,
+        "self_per_tick_ms": {
+          "max": 0.724,
+          "p50": 0.216,
+          "p95": 0.369,
+          "p99": 0.489,
+          "samples": 3502
+        },
+        "self_total_ms": 633.808
+      },
+      "snapshot.rows": {
+        "calls": 2334,
+        "calls_per_tick": {
+          "max": 1,
+          "p50": 1,
+          "p95": 1,
+          "p99": 1,
+          "samples": 3502
+        },
+        "inclusive_per_tick_ms": {
+          "max": 1.593,
+          "p50": 0.457,
+          "p95": 0.727,
+          "p99": 1.053,
+          "samples": 3502
+        },
+        "inclusive_total_ms": 1293.042,
+        "max_call_ms": 1.593,
+        "mean_call_ms": 0.554002570694087,
+        "self_per_tick_ms": {
+          "max": 1.593,
+          "p50": 0.457,
+          "p95": 0.727,
+          "p99": 1.053,
+          "samples": 3502
+        },
+        "self_total_ms": 1293.042
+      },
+      "snapshot.transport": {
+        "calls": 2335,
+        "calls_per_tick": {
+          "max": 1,
+          "p50": 1,
+          "p95": 1,
+          "p99": 1,
+          "samples": 3502
+        },
+        "inclusive_per_tick_ms": {
+          "max": 15.897,
+          "p50": 2.833,
+          "p95": 5.693,
+          "p99": 11.247,
+          "samples": 3502
+        },
+        "inclusive_total_ms": 9269.656,
+        "max_call_ms": 15.897,
+        "mean_call_ms": 3.96987408993576,
+        "self_per_tick_ms": {
+          "max": 15.897,
+          "p50": 2.833,
+          "p95": 5.693,
+          "p99": 11.247,
+          "samples": 3502
+        },
+        "self_total_ms": 9269.656
+      },
+      "vehicle.clearance": {
+        "calls": 28016,
+        "calls_per_tick": {
+          "max": 8,
+          "p50": 8,
+          "p95": 8,
+          "p99": 8,
+          "samples": 3502
+        },
+        "inclusive_per_tick_ms": {
+          "max": 0.613,
+          "p50": 0.189,
+          "p95": 0.246,
+          "p99": 0.276,
+          "samples": 3502
+        },
+        "inclusive_total_ms": 669.239,
+        "max_call_ms": 0.389,
+        "mean_call_ms": 0.0238877427184466,
+        "self_per_tick_ms": {
+          "max": 0.55,
+          "p50": 0.147,
+          "p95": 0.192,
+          "p99": 0.219,
+          "samples": 3502
+        },
+        "self_total_ms": 520.802
+      },
+      "vehicle.terrain_mobility": {
+        "calls": 28016,
+        "calls_per_tick": {
+          "max": 8,
+          "p50": 8,
+          "p95": 8,
+          "p99": 8,
+          "samples": 3502
+        },
+        "inclusive_per_tick_ms": {
+          "max": 0.181,
+          "p50": 0.076,
+          "p95": 0.102,
+          "p99": 0.118,
+          "samples": 3502
+        },
+        "inclusive_total_ms": 271.127,
+        "max_call_ms": 0.14,
+        "mean_call_ms": 0.00967757709880069,
+        "self_per_tick_ms": {
+          "max": 0.181,
+          "p50": 0.076,
+          "p95": 0.102,
+          "p99": 0.118,
+          "samples": 3502
+        },
+        "self_total_ms": 271.127
+      },
+      "vehicle.water_contact": {
+        "calls": 28016,
+        "calls_per_tick": {
+          "max": 8,
+          "p50": 8,
+          "p95": 8,
+          "p99": 8,
+          "samples": 3502
+        },
+        "inclusive_per_tick_ms": {
+          "max": 0.882,
+          "p50": 0.159,
+          "p95": 0.238,
+          "p99": 0.253,
+          "samples": 3502
+        },
+        "inclusive_total_ms": 602.315,
+        "max_call_ms": 0.705,
+        "mean_call_ms": 0.021498964877213,
+        "self_per_tick_ms": {
+          "max": 0.882,
+          "p50": 0.159,
+          "p95": 0.238,
+          "p99": 0.253,
+          "samples": 3502
+        },
+        "self_total_ms": 602.315
+      }
+    },
+    "idle_input_is_carried_into_next_tick": true,
+    "scope_errors": 0,
+    "self_times_exclude_measured_children": true,
+    "ticks": 3502
+  },
+  "bandwidth_realtime_bytes": 1819712480,
+  "categories_overlap": true,
+  "engine_physics_ms": {
+    "max": 77.027,
+    "p50": 40.513,
+    "p95": 52.647,
+    "p99": 72.766,
+    "samples": 3502
+  },
+  "history_ms": {
+    "max": 1.411,
+    "p50": 0.416,
+    "p95": 0.592,
+    "p99": 0.674,
+    "samples": 3502
+  },
+  "input_counters": {},
+  "native_backend": true,
+  "physics_callback_ms": {
+    "max": 74.702,
+    "p50": 26.799,
+    "p95": 40.656,
+    "p99": 56.164,
+    "samples": 3502
+  },
+  "players": {
+    "max": 64,
+    "p50": 64,
+    "p95": 64,
+    "p99": 64,
+    "samples": 3502
+  },
+  "projectiles_ms": {
+    "max": 13.503,
+    "p50": 0.007,
+    "p95": 2.446,
+    "p99": 9.668,
+    "samples": 3502
+  },
+  "rendering": false,
+  "replication": {
+    "async_busy": 0,
+    "async_completed": 2484,
+    "async_encode_usec": 4022365,
+    "async_submitted": 2484,
+    "large_records": 698,
+    "max_packet": 3556,
+    "player_update_gaps": 0,
+    "player_updates": 0,
+    "received_packets": 0,
+    "sent_bytes": 27457329,
+    "sent_packets": 26010,
+    "stale_records": 0
+  },
+  "server_tick_ms": {
+    "max": 42.871,
+    "p50": 17.526,
+    "p95": 24.26,
+    "p99": 33.778,
+    "samples": 3502
+  },
+  "snapshot_age_ms": {
+    "max": 33.333333333335,
+    "p50": 33.3333333333314,
+    "p95": 33.333333333335,
+    "p99": 33.333333333335,
+    "samples": 2335
+  },
+  "snapshot_send_ms": {
+    "max": 11.431,
+    "p50": 6.118,
+    "p95": 8.362,
+    "p99": 9.24,
+    "samples": 2334
+  },
+  "snapshot_transport_ms": {
+    "max": 15.912,
+    "p50": 3.764,
+    "p95": 6.334,
+    "p99": 12.11,
+    "samples": 2335
+  },
+  "snapshot_worker_ms": {
+    "max": 3.285,
+    "p50": 1.534,
+    "p95": 2.155,
+    "p99": 2.707,
+    "samples": 2335
+  },
+  "stress_infinite_ammo_invulnerable": true,
+  "tick_rate": 30,
+  "wall_seconds": 120.031814,
+  "wall_tick_interval_ms": {
+    "max": 83.421,
+    "p50": 33.392,
+    "p95": 46.034,
+    "p99": 58.708,
+    "samples": 3502
+  }
+}

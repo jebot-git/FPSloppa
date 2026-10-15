@@ -263,7 +263,7 @@ static func number(v: Variant,low: float,high: float) -> bool:return (v is float
 static func valid_snapshot(data: Variant) -> bool:
 	if not data is Dictionary:return false
 	if data.is_empty():return true
-	if not data.get("inventory") is Dictionary or data.inventory.size()>32 or not data.get("shots") is Array or data.shots.size()>128 or not data.get("smoke") is Array or data.smoke.size()>32 or not data.get("blind") is Dictionary or data.blind.size()>32:return false
+	if not data.get("inventory") is Dictionary or data.inventory.size()>128 or not data.get("shots") is Array or data.shots.size()>384 or not data.get("smoke") is Array or data.smoke.size()>128 or not data.get("blind") is Dictionary or data.blind.size()>128:return false
 	for id in data.inventory:
 		var row=data.inventory[id]
 		if not id is int or not row is Array or row.size() not in [3,4,5] or not row[0] is Array or row[0].size()!=LIMITS.size() or not row[1] is int or row[1] not in [-1,0,1,2,3] or not row[2] is bool:return false

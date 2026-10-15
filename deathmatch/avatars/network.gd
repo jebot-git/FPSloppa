@@ -162,6 +162,7 @@ func _catalog(data: Dictionary) -> void:
 				checking.erase(hash);game.loading.fail("model:"+hash,"Model disk queue is full.")
 
 func queue_avatar(id: int) -> void:
+	if game.has_method("configure_resident_avatar"):game.configure_resident_avatar(id)
 	if not game.fighters.has(id) or not choices.has(id):return
 	var hash: String=game.match_mode.fortress.display_avatar(id,choices[id].hash)
 	var attempt: String=hash+":"+str(game.fighters[id].get_instance_id())

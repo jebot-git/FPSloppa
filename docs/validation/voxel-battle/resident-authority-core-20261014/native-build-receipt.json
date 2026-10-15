@@ -1,0 +1,25 @@
+{
+  "target": "linux-server",
+  "bindings_revision": "507ed9d840c01a3c5b2a39af8bb4000bfac30bf5",
+  "portable_container": true,
+  "sha256": "147c6c2cf2649b09d98549d175135d1ab41a93677aef011525a0538af023b710",
+  "source_sha256": {
+    "src/authority.cpp": "c6680cadac6a41c8e7dc091c9ccb2fecd69f5de5af2212bc172dfc1d6a05af68",
+    "src/authority.h": "c64a1ef9c527f7477412b792e8c85742d8342cc500a9c5bb51a6640cc009ba54",
+    "src/authority_core.cpp": "1a824296d8007ec4e81662a15c4925d15cc71fa41c3dd55c2a1e088cea12decc",
+    "src/authority_core.h": "00823c305bb3db85a0b79bf6b98151ea00dfd7eef61e56dc9b3c5b75ade12ef8",
+    "src/avatar_channels.cpp": "d504045236d29622cb9008dd554d1574b893572475cedeb402e4aa29ab55af24",
+    "src/backend.cpp": "defa674ab1fbd67bf4889da5dd474e8d37f9ed301a2e56c85e71eca0e0a08b94",
+    "src/backend.h": "b451aad3afa7f499d09e9fee49c99d44ac4b858bbb1e10c4a0715495a3cc2858",
+    "src/codec.cpp": "e0da577b2f8bb5211d15ca5ce20d0e0e0399052ab7280144564f08dc853a138a",
+    "src/codec.h": "25327add15623dc58e7da283d255db4749dc940aeed31370a525fe22248f1f7d",
+    "src/network_packing.cpp": "57fe61955dc05e6a483625b6ed3453d270ef69b98c0b4f791c2de8055789c44c",
+    "src/player_simulation.cpp": "4dd1bf2bd0f678774ff56f812e301a090ff6a5fe42e9737c60374c101b985c7f",
+    "src/pose_preparation.cpp": "50b554ad876542e427bb775b078dd96dffc90b89e8fd7cdfc9c9be5de3614f24",
+    "src/poses.cpp": "8e6717dad8ae2e6063da1f9b3210459a3204efc5e9343a066edb775883396103",
+    "src/poses.h": "f2e4376e3d5ecd5ea214f32a0358df871122a67fa63d68b287e4b1138c130e1d",
+    "src/register.cpp": "0331b15d35c4fceb09254c76dfec46a34d97320ce42908f7fde255d31d2df757",
+    "src/register_server.cpp": "91fa3fe049eaddb7fdc3258c8af12d2eaf4450a43e6247123d9b028e14002bdf",
+    "src/snapshot_preparation.cpp": "e52e9e734ed30d04e76b9cfe336fac317e55f7bddc3d46550f74914190dc16cf"
+  }
+}

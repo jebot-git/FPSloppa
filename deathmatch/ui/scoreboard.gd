@@ -2,6 +2,8 @@ extends PanelContainer
 const FONT=preload("res://deathmatch/ui/BebasNeue-Regular.ttf")
 const RED=Color("ff9c88")
 const BLUE=Color("91caff")
+var display_font:Font=FONT
+var cq:=false
 var title: Label
 var summary: Label
 var observers: Label
@@ -11,8 +13,8 @@ var headers: Array=[]
 func label(parent: Node,width: float,size: int) -> Label:
 	var result:=Label.new();parent.add_child(result)
 	result.custom_minimum_size=Vector2(width,24)
-	result.add_theme_font_override("font",FONT);result.add_theme_font_size_override("font_size",size)
-	result.add_theme_color_override("font_color",Color("e9dfca"))
+	result.add_theme_font_override("font",display_font);result.add_theme_font_size_override("font_size",size)
+	result.add_theme_color_override("font_color",Color("dceff0") if cq else Color("e9dfca"))
 	result.text_overrun_behavior=TextServer.OVERRUN_TRIM_ELLIPSIS
 	result.clip_text=true
 	return result
@@ -23,13 +25,15 @@ func cells(parent: Node) -> Array:
 	result[1].size_flags_horizontal=Control.SIZE_EXPAND_FILL
 	for i in [0,3,4,5]:result[i].horizontal_alignment=HORIZONTAL_ALIGNMENT_RIGHT
 	return result
-func setup() -> void:
+func setup(game=null) -> void:
+	cq=game!=null and game.has_method("draw_class_players")
+	display_font=preload("res://deathmatch/ui/iron_theme.gd").font_for(game)
 	set_anchors_and_offsets_preset(Control.PRESET_CENTER)
 	offset_left=-420;offset_right=420;offset_top=-288;offset_bottom=288
 	mouse_filter=Control.MOUSE_FILTER_IGNORE
 	var panel:=preload("res://deathmatch/ui/iron_theme.gd").panel(14)
 	panel.bg_color=Color("171b21");panel.border_color=Color("af8a50")
-	add_theme_stylebox_override("panel",panel)
+	add_theme_stylebox_override("panel",preload("res://deathmatch/ui/iron_theme.gd").surface_for(game,14) if game!=null and game.has_method("draw_class_players") else panel)
 	var column:=VBoxContainer.new();column.add_theme_constant_override("separation",3);add_child(column)
 	title=label(column,0,30);summary=label(column,0,19)
 	headers=cells(column)
@@ -56,11 +60,12 @@ func refresh_data(data: Dictionary,wall: bool=false) -> void:
 		var player: Dictionary=ranked[i]
 		var colour: Color=(RED if player.team==0 else BLUE if player.team==1 else Color("e9dfca")) if team_game else Color("e9dfca")
 		row.style.bg_color=Color(colour.r*.12,colour.g*.12,colour.b*.12,.98) if team_game else Color("202630") if i%2==0 else Color("181e27")
-		var values: Array=[str(i+1),player.name,player.class_name,str(player.kills),str(player.deaths),str(player.ping)]
+		var values: Array=[str(i+1),preload("res://deathmatch/ui/name_style.gd").plain(player.name) if cq else player.name,player.class_name,str(player.kills),str(player.deaths),str(player.ping)]
 		for j in range(6):
 			row.cells[j].text=values[j];row.cells[j].add_theme_color_override("font_color",colour)
+		if cq:row.cells[1].add_theme_color_override("font_color",Color("dceff0"))
 		row.cells[2].visible=tf
-	var names:=PackedStringArray(data.spectators)
+	var names:=PackedStringArray(data.spectators.map(func(n):return preload("res://deathmatch/ui/name_style.gd").plain(n)) if cq else data.spectators)
 	observers.text="SPECTATORS (%d): "%names.size()+", ".join(names)
 	observers.visible=not names.is_empty()
 	footer.text=("LAST ROUND   ·   " if wall else "HOLD SCORES TO VIEW   ·   ")+"%d PLAYERS"%ranked.size()

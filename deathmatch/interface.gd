@@ -35,6 +35,7 @@ var toast_label: Label
 var water_tint: ColorRect
 var damage: ColorRect
 var hit: Label
+var tactical_map:PanelContainer
 var scoreboard: PanelContainer
 var scores: Label
 var score_table
@@ -63,14 +64,15 @@ var host_mode
 var host_port: SpinBox
 var spectator_choice: CheckButton
 
-func panel_style(color: Color) -> StyleBoxFlat:
-	var style=preload("res://deathmatch/ui/iron_theme.gd").panel()
-	style.bg_color=Color(.12,.105,.085,color.a)
+func panel_style(color: Color) -> StyleBox:
+	var style=preload("res://deathmatch/ui/iron_theme.gd").surface_for(game)
+	if style is StyleBoxFlat:style.bg_color=Color(.12,.105,.085,color.a)
 	return style
 
 func text(parent: Node,value: String,size: int = 16,color: Color = Color("e5d5ad")) -> Label:
 	var label := Label.new()
 	label.text = value
+	if game!=null and game.has_method("draw_class_players") and color==Color("e5d5ad"):color=Color("dceff0")
 	label.add_theme_font_size_override("font_size",size)
 	label.add_theme_color_override("font_color",color)
 	parent.add_child(label)
@@ -79,7 +81,7 @@ func text(parent: Node,value: String,size: int = 16,color: Color = Color("e5d5ad
 func setup(arena: Node) -> void:
 	game = arena
 	var root := Control.new()
-	root.theme=preload("res://deathmatch/ui/iron_theme.gd").theme()
+	root.theme=preload("res://deathmatch/ui/iron_theme.gd").for_game(game)
 	add_child(root)
 	root.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	root.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -147,7 +149,7 @@ func setup(arena: Node) -> void:
 	score_table=preload("res://deathmatch/ui/scoreboard.gd").new()
 	scoreboard=score_table
 	hud.add_child(scoreboard)
-	score_table.setup()
+	score_table.setup(game)
 	scores=score_table.title
 	chat = LineEdit.new()
 	hud.add_child(chat)
@@ -180,7 +182,7 @@ func setup(arena: Node) -> void:
 	root.add_child(settings_panel);settings_panel.setup(game)
 	capture_alert=Label.new();root.add_child(capture_alert);capture_alert.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER;capture_alert.add_theme_font_size_override("font_size",24)
 	capture_alert.set_anchors_and_offsets_preset(Control.PRESET_CENTER_TOP);capture_alert.offset_left=-410;capture_alert.offset_right=410;capture_alert.offset_top=140;capture_alert.offset_bottom=212
-	capture_alert.add_theme_stylebox_override("normal",preload("res://deathmatch/ui/iron_theme.gd").panel(8));capture_alert.hide();capture_alert.mouse_filter=Control.MOUSE_FILTER_IGNORE
+	capture_alert.add_theme_stylebox_override("normal",preload("res://deathmatch/ui/iron_theme.gd").surface_for(game,8));capture_alert.hide();capture_alert.mouse_filter=Control.MOUSE_FILTER_IGNORE
 	vote_alert=Button.new();vote_alert.name="ActiveVoteAlert";root.add_child(vote_alert)
 	vote_alert.set_anchors_and_offsets_preset(Control.PRESET_CENTER_TOP)
 	vote_alert.offset_left=-370;vote_alert.offset_right=370;vote_alert.offset_top=64;vote_alert.offset_bottom=132;vote_alert.hide()
@@ -194,12 +196,12 @@ func _build_menu(root: Control) -> void:
 	root.add_child(menu)
 	menu.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	var dim := ColorRect.new()
-	dim.color = Color(.035,.025,.02,.94)
+	dim.color = Color("081117") if game.has_method("draw_class_players") else Color(.035,.025,.02,.94)
 	menu.add_child(dim)
 	dim.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	var panel := PanelContainer.new();menu.add_child(panel)
 	panel.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	panel.add_theme_stylebox_override("panel",preload("res://deathmatch/ui/iron_theme.gd").panel(24))
+	panel.add_theme_stylebox_override("panel",preload("res://deathmatch/ui/iron_theme.gd").surface_for(game,24))
 	menu_pages=preload("res://deathmatch/ui/menu_pages.gd").new();panel.add_child(menu_pages)
 	var column: VBoxContainer=menu_pages.add_page("home","FPSloppa")
 	var player_page: VBoxContainer=menu_pages.add_page("player","PLAYER & VOICE")
@@ -248,9 +250,9 @@ func _build_menu(root: Control) -> void:
 	connection.add_child(port_field)
 	host_panel=PanelContainer.new();host_panel.name="HostMatchMenu";root.add_child(host_panel)
 	host_panel.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT);host_panel.hide()
-	host_panel.add_theme_stylebox_override("panel",preload("res://deathmatch/ui/iron_theme.gd").panel(24))
+	host_panel.add_theme_stylebox_override("panel",preload("res://deathmatch/ui/iron_theme.gd").surface_for(game,24))
 	var host_column:=VBoxContainer.new();host_column.add_theme_constant_override("separation",12);host_panel.add_child(host_column)
-	var host_title:=text(host_column,"HOST MATCH",30);host_title.add_theme_font_override("font",preload("res://deathmatch/ui/BebasNeue-Regular.ttf"))
+	var host_title:=text(host_column,"HOST MATCH",30);host_title.add_theme_font_override("font",preload("res://deathmatch/ui/iron_theme.gd").font_for(game))
 	text(host_column,"Configure your arena, game mode and match limits.",16)
 	var host_network:=HBoxContainer.new();host_column.add_child(host_network)
 	text(host_network,"SERVER PORT",16);host_port=SpinBox.new();host_port.min_value=1024;host_port.max_value=65535;host_port.value=7777;host_network.add_child(host_port)
@@ -375,9 +377,13 @@ func _build_menu(root: Control) -> void:
 	var connection_overlay=preload("res://deathmatch/network/loading_overlay.gd").new()
 	root.add_child(connection_overlay);connection_overlay.setup(game)
 
-func display_name() -> String:return Profile.Names.display(name_field.text,clan_field.text)
+func display_name() -> String:
+	var value:=Profile.Names.display(name_field.text,clan_field.text)
+	return Profile.Names.plain(value) if game.has_method("draw_class_players") else value
 
 func save_preferences() -> void:
+	if game.has_method("draw_class_players"):
+		name_field.text=Profile.Names.plain(name_field.text);clan_field.text=Profile.Names.plain(clan_field.text)
 	name_field.text = Profile.clean(name_field.text,Profile.system_name())
 	clan_field.text=Profile.Names.clean(clan_field.text,Profile.Names.CLAN_LIMIT,"")
 	game.nickname = display_name()
@@ -477,7 +483,8 @@ func _process(_delta: float) -> void:
 	vote_alert.visible=not vote.is_empty() and not game.menu_open and not game.is_vr()
 	if not vote.is_empty():vote_alert.text="VOTE STARTED · %s\nYES %d/%d · NO %d · %ds · ESC → TEAMS & VOTES"%[vote.title,vote.yes,vote.needed,vote.no,vote.seconds]
 	if not vote.is_empty():match_status.text+="\nVOTE: "+vote.title+" · MENU → TEAMS & VOTES"
-	if game.voice and game.voice.transmitting: match_status.text += "   ·   MIC LIVE"
+	if game.voice and game.voice.transmitting: match_status.text += "   ·   "+("SQUAD RADIO" if game.voice.radio_scope()==1 else "TEAM RADIO" if game.voice.radio_scope()==2 else "MIC LIVE")
+	if game.has_method("draw_class_players"):preload("res://deathmatch/ui/cq/hud.gd").refresh(self,viewed_id)
 	var lines := PackedStringArray()
 	for entry in game.feed:
 		if entry.until>game.clock: lines.append(entry.text)
@@ -504,6 +511,8 @@ func _process(_delta: float) -> void:
 	if state.spectator:
 		vitals.text="SPECTATOR";weapon.text="";ammo.text=""
 	scoreboard.visible = not game.menu_open and (game.bindings.pressed("scores") or (game.is_vr() and game.xr_rig.scores))
+	if tactical_map:
+		tactical_map.visible=scoreboard.visible and game.active;scoreboard.visible=false
 	if scoreboard.visible:
 		score_table.refresh(game)
 		center_message.text=""

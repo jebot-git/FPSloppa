@@ -10,12 +10,12 @@ var speed_up: Button
 var angle_up: Button
 func setup(value: Node) -> void:
 	rig=value;hide();set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	theme=preload("res://deathmatch/ui/iron_theme.gd").theme()
-	var style=preload("res://deathmatch/ui/iron_theme.gd").panel()
+	theme=preload("res://deathmatch/ui/iron_theme.gd").for_game(rig.game)
+	var style=preload("res://deathmatch/ui/iron_theme.gd").surface_for(rig.game)
 	for side in [SIDE_LEFT,SIDE_RIGHT,SIDE_TOP,SIDE_BOTTOM]:style.set_content_margin(side,30)
 	add_theme_stylebox_override("panel",style)
 	var column:=VBoxContainer.new();column.add_theme_constant_override("separation",8);add_child(column)
-	var title:=Label.new();title.add_theme_font_override("font",preload("res://deathmatch/ui/BebasNeue-Regular.ttf"));title.text="VR CONTROLS";title.add_theme_font_size_override("font_size",30);column.add_child(title)
+	var title:=Label.new();title.add_theme_font_override("font",preload("res://deathmatch/ui/iron_theme.gd").font_for(rig.game));title.text="VR CONTROLS";title.add_theme_font_size_override("font_size",30);column.add_child(title)
 	controls=add_button(column,"",func():rig.left_controls=not rig.left_controls;rig.cycle_latched=false;save())
 	seat=add_button(column,"",func():rig.seated=not rig.seated;rig.recenter();save())
 	add_button(column,"RECENTER / CALIBRATE SEATED HEIGHT",func():rig.recenter();refresh())

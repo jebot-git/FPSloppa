@@ -9,7 +9,7 @@ var icon_font:FontFile
 func font() -> FontFile:
 	if not icon_font:
 		icon_font=load("res://deathmatch/conquest/classes/icons/class_icons.ttf")
-		icon_font.fallbacks=[ThemeDB.fallback_font]
+		icon_font.fallbacks=[preload("res://deathmatch/ui/cq/assets/Unitblock.ttf"),ThemeDB.fallback_font]
 	return icon_font
 var spotted:Dictionary={}
 var next_scan:=0.0

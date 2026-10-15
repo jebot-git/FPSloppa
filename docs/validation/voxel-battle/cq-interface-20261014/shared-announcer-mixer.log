@@ -1,0 +1,29 @@
+Godot Engine v4.7.2.stable.fedora.ed1daf0bf - https://godotengine.org
+
+PASS Server announcer defaults on and can be disabled in config
+PASS Server toggle rejects invalid values
+MAP_READY qsrc_dm1 spawns=7 pickups=25
+PASS Headless server loads no announcer audio resources
+PASS First blood is global and rapid double/triple kills address only the killer
+PASS Five, ten and fifteen kills earn distinct streak calls
+PASS Death and suicide reset both streak and combo
+PASS Friendly kills do not award first blood or streaks
+PASS Disabled server suppresses award dispatch and received calls
+PASS Mode snapshot carries disabled policy for clients and demo playback
+PASS Received cues are restricted to bundled names
+PASS Every bundled Ogg decodes into an audio stream
+PASS Announcer bypasses positional attenuation and world reverb
+PASS Notification queue remains bounded during bursts
+PASS Capture calls take precedence over queued awards
+PASS Retired match, mode and result voices cannot queue or dispatch
+PASS A queued call starts on the single audio player
+PASS Disabling policy stops current playback immediately
+PASS Stale calls expire without playback
+PASS Match start is silent
+PASS Match result is silent
+PASS Ordinary CTF and other modes do not trigger objective voice
+PASS TF and AS objectives dispatch the global objective voice
+PASS Separate objectives completed close together each retain their voice
+PASS Local zero volume also prevents delayed queues
+PASS Owned announcer bus is released on shutdown
+ANNOUNCER_RESULT []

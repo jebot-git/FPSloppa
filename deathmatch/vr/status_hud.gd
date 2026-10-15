@@ -4,6 +4,22 @@ const W=preload("res://deathmatch/weapons.gd")
 const CHAT_HEIGHT=132
 const NOTIFY_HEIGHT=56
 const VIEW_SIZE=Vector2i(960,292+CHAT_HEIGHT+NOTIFY_HEIGHT)
+var cq:=false
+var radio_scope:=0
+func update_radio_scope(scope:int)->void:
+	if scope!=radio_scope:radio_scope=scope;queue_redraw()
+var cq_panel:StyleBox
+var cq_font:Font
+var legacy_panel:StyleBoxFlat
+func configure_cq()->void:
+	cq=true;cq_font=preload("res://deathmatch/ui/cq/theme.gd").FONT
+	theme=preload("res://deathmatch/ui/cq/theme.gd").theme()
+	cq_panel=preload("res://deathmatch/ui/cq/hud.gd").surface()
+	for line in chat_labels:line.add_theme_color_override("font_color",preload("res://deathmatch/ui/cq/theme.gd").INK)
+	queue_redraw()
+func backdrop(rect:Rect2,color:Color)->void:
+	if cq:draw_style_box(cq_panel,rect)
+	else:draw_rect(rect,color)
 var player_status: Dictionary={}
 func update_player_status(data: Dictionary) -> void:
 	if data!=player_status:player_status=data;queue_redraw()
@@ -11,6 +27,8 @@ var chat_labels: Array[Label]=[]
 var chat_messages:=PackedStringArray()
 
 func _ready() -> void:
+	if not cq:
+		legacy_panel=StyleBoxFlat.new();legacy_panel.bg_color=Color(.10,.075,.05,.80);legacy_panel.border_color=Color("a88550");legacy_panel.set_border_width_all(2)
 	for i in 2:
 		var line:=Label.new()
 		line.position=Vector2(20,4+i*64)
@@ -19,7 +37,7 @@ func _ready() -> void:
 		line.max_lines_visible=3
 		line.text_overrun_behavior=TextServer.OVERRUN_TRIM_ELLIPSIS
 		line.add_theme_font_size_override("font_size",18)
-		line.add_theme_color_override("font_color",INK)
+		line.add_theme_color_override("font_color",preload("res://deathmatch/ui/cq/theme.gd").INK if cq else INK)
 		line.mouse_filter=Control.MOUSE_FILTER_IGNORE
 		add_child(line);chat_labels.append(line)
 	_refresh_chat()
@@ -62,33 +80,35 @@ func update_network(progress: Dictionary,ping: int,host: bool) -> void:
 	var next:={"show":progress.visible,"percent":int(progress.fraction*100),"ping":ping,"host":host}
 	if next!=network:network=next;queue_redraw()
 const INK=Color("e5d5ad")
-func update_status(state: Dictionary,remaining: float,limit: int,leader: int,intermission: bool,mic: bool,objective: String="",radio: bool=false,weapon_data: Dictionary={},capacities: Array=W.MAX_AMMO) -> void:
+func update_status(state: Dictionary,remaining: float,limit: int,leader: int,intermission: bool,mic: bool,objective: String="",radio: bool=false,weapon_data: Dictionary={},capacities: Array=W.MAX_AMMO,cq_ammo:Dictionary={}) -> void:
 	if weapon_data.is_empty():weapon_data=W.DATA[clampi(state.weapon,0,9)]
 	var ammo_type:int=weapon_data.ammo
 	var next:={"objective":objective,"spectator":state.get("spectator",false),"hp":maxi(0,state.hp),"armor":state.armor,"ammo":state.ammo[ammo_type] if ammo_type>=0 else -1,"capacity":capacities[ammo_type] if ammo_type>=0 else 1,"weapon":weapon_data.name,"seconds":maxi(0,ceili(remaining)),"frags":maxi(0,limit-leader),"dead":state.dead,"pause":intermission,"mic":mic,"radio":radio}
+	if cq and not cq_ammo.is_empty():next.ammo=cq_ammo.loaded;next.capacity=cq_ammo.capacity;next.reserve=cq_ammo.reserve
 	if next!=values:values=next;queue_redraw()
 func label(at: Vector2,value: String,font_size: int,color: Color=INK) -> void:
-	draw_string(ThemeDB.fallback_font,at,value,HORIZONTAL_ALIGNMENT_LEFT,-1,font_size,color)
+	if cq and color in [INK,Color("d8bc8b"),Color("b9a98e"),Color("ffcf80")]:color=preload("res://deathmatch/ui/cq/theme.gd").INK
+	draw_string(cq_font if cq else ThemeDB.fallback_font,at,value,HORIZONTAL_ALIGNMENT_LEFT,-1,font_size,preload("res://deathmatch/ui/cq/theme.gd").INK if cq and color==INK else color)
 func _draw() -> void:
 	for i in chat_labels.size():
-		if not chat_labels[i].text.is_empty():draw_rect(Rect2(4,2+i*64,952,62),Color(.10,.075,.05,.88))
+		if not chat_labels[i].text.is_empty():backdrop(Rect2(4,2+i*64,952,62),Color(.10,.075,.05,.88))
 	draw_set_transform(Vector2(0,CHAT_HEIGHT))
 	if not player_status.is_empty():
 		var team: int=player_status.team
 		var color: Color=Color("ff9c88") if team==0 else Color("91caff") if team==1 else INK
 		if not player_status.ability.is_empty():
-			draw_rect(Rect2(4,0,720,27),Color(.10,.075,.05,.88));label(Vector2(20,22),player_status.ability,20)
+			backdrop(Rect2(4,0,720,27),Color(.10,.075,.05,.88));label(Vector2(20,22),player_status.ability,20)
 		if not player_status.team_text.is_empty():
-			draw_rect(Rect2(748,0,208,27),Color(.10,.075,.05,.90));label(Vector2(762,22),player_status.team_text,20,color)
+			backdrop(Rect2(748,0,208,27),Color(.10,.075,.05,.90));label(Vector2(762,22),player_status.team_text,20,color)
 		if not player_status.carrier.is_empty():
-			draw_rect(Rect2(4,28,952,27),Color(.10,.075,.05,.94));label(Vector2(20,50),player_status.carrier,21,Color("ffdf86"))
+			backdrop(Rect2(4,28,952,27),Color(.10,.075,.05,.94));label(Vector2(20,50),player_status.carrier,21,Color("ffdf86"))
 	draw_set_transform(Vector2(0,CHAT_HEIGHT+NOTIFY_HEIGHT))
 	if not capture_text.is_empty():
-		draw_rect(Rect2(4,0,952,70),Color(.23,.06,.04,.94) if capture_team==0 else Color(.035,.10,.23,.94))
+		backdrop(Rect2(4,0,952,70),Color(.23,.06,.04,.94) if capture_team==0 else Color(.035,.10,.23,.94))
 		label(Vector2(20,28),capture_text.left(82),22,Color("fff0bf"))
 		if not vote_text.is_empty():label(Vector2(20,56),vote_text.split("\n")[0].left(86),18)
 	elif not vote_text.is_empty():
-		draw_rect(Rect2(4,0,952,70),Color(.16,.07,.025,.94))
+		backdrop(Rect2(4,0,952,70),Color(.16,.07,.025,.94))
 		var lines:=vote_text.split("\n")
 		label(Vector2(20,25),lines[0].left(86),20,Color("ffcf80"))
 		label(Vector2(20,53),lines[1],21,Color("ffcf80"))
@@ -99,17 +119,16 @@ func _draw() -> void:
 	if not water_text.is_empty():label(Vector2(335,205),water_text,21,Color("83c9ec"))
 	elif burning:label(Vector2(390,205),"BURNING",21,Color("ff9b47"))
 	if values.is_empty():return
-	var style:=StyleBoxFlat.new();style.bg_color=Color(.10,.075,.05,.80);style.border_color=Color("a88550");style.set_border_width_all(2)
-	if player_status.get("team",-1) in [0,1]:style.border_color=Color("ff9c88") if player_status.team==0 else Color("91caff")
-	draw_style_box(style,Rect2(4,4,952,172))
+	if not cq:legacy_panel.border_color=Color("ff9c88") if player_status.get("team",-1)==0 else Color("91caff") if player_status.get("team",-1)==1 else Color("a88550")
+	draw_style_box(cq_panel if cq else legacy_panel,Rect2(4,4,952,172))
 	label(Vector2(30,34),"ROUND OVER" if values.pause else values.objective if not values.objective.is_empty() else "%d FRAGS LEFT"%values.frags,21,Color("d8bc8b"))
-	label(Vector2(615,34),"%02d:%02d"%[values.seconds/60,values.seconds%60],23)
-	label(Vector2(810,34),"RADIO" if values.radio else "MIC LIVE" if values.mic else "",21,Color("86dfb0"))
+	if not cq:label(Vector2(615,34),"%02d:%02d"%[values.seconds/60,values.seconds%60],23)
+	label(Vector2(810,34),("SQUAD" if cq and radio_scope==1 else "TEAM" if cq else "RADIO") if values.radio else "MIC LIVE" if values.mic else "",21,Color("86dfb0"))
 	if values.spectator:
 		label(Vector2(30,96),"SPECTATING",36)
 		label(Vector2(30,140),"LEFT STICK MOVE · RIGHT STICK UP / DOWN TO FLY",20)
 		return
-	var colors:=[Color("86dfb0") if values.hp>25 else Color("ff827a"),Color("83c9ec"),Color("edce91")]
+	var colors:=[Color("86dfb0") if values.hp>25 else Color("ff827a"),Color("83c9ec"),Color("65e0d5") if cq else Color("edce91")]
 	var amounts:=[values.hp,values.armor,values.ammo]
 	for i in range(3):
 		var x:float=30+i*314;var tint:Color=colors[i]
@@ -120,6 +139,7 @@ func _draw() -> void:
 		else:
 			for j in range(3):draw_rect(Rect2(x+j*11,76-j*3,7,26+j*3),tint)
 		label(Vector2(x+46,105),"∞" if amounts[i]<0 else str(amounts[i]),46,tint)
+		if cq and i==2 and amounts[i]>=0:label(Vector2(x+150,100),"%d SPARE"%values.get("reserve",0),18,Color("8faeb5"))
 		label(Vector2(x,142),["HEALTH","ARMOUR",values.weapon][i],19,INK)
 		draw_line(Vector2(x,157),Vector2(x+264,157),Color(.25,.32,.35,.8),5,true)
 		var ratio:float=1.0 if amounts[i]<0 else clampf(float(amounts[i])/([100.0,200.0,float(values.capacity)][i]),0,1)

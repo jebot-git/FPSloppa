@@ -3,7 +3,17 @@ extends RefCounted
 ## duplicate packets, long gaps and tracking jumps cannot complete a gesture.
 const MAX_GAP:=.16
 const SCALE:=.65
+static var native_enabled:=OS.get_cmdline_user_args().has("--native-player-state")
+static var native_backend
+static var native_checked:=false
 static func sample(p: Dictionary,pose: Dictionary,weapon: Transform3D,hand: Transform3D,stamp: float) -> Dictionary:
+	if native_enabled:
+		if not native_checked:
+			native_checked=true;native_backend=preload("res://deathmatch/native/runtime.gd").backend()
+			if native_backend and not native_backend.has_method("sample_reload_motion"):native_backend=null
+		if native_backend:return native_backend.sample_reload_motion(p,pose,weapon,hand,stamp)
+	return sample_reference(p,pose,weapon,hand,stamp)
+static func sample_reference(p: Dictionary,pose: Dictionary,weapon: Transform3D,hand: Transform3D,stamp: float) -> Dictionary:
 	var current:={"time":stamp,"hand":weapon.affine_inverse()*hand.origin,"weapon":pose.weapon.origin-pose.head.origin,"support":hand.origin-pose.head.origin,"raw_weapon":pose.weapon.origin,"raw_support":hand.origin,"basis":pose.weapon.basis,"head_basis":pose.head.basis}
 	var before: Dictionary=p.get("motion",{})
 	if not before.is_empty() and stamp<=before.time:return {"valid":false,"duplicate":true}

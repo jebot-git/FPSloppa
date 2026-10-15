@@ -10,9 +10,9 @@ var kind:=0
 var level:=0
 var builder
 const WALL:=.24
-const DOOR:=2.0
-const CLEAR_HEIGHT:=2.4
-const STOREY:=3.2
+const DOOR:=2.3
+const CLEAR_HEIGHT:=2.8
+const STOREY:=3.6
 func box(p: Vector3,size: Vector3,color: Color,solid: bool=true) -> void:
 	builder.box(p,size,color)
 	render_boxes.append({"kind":kind,"lod":level,"center":p,"size":size})
@@ -32,26 +32,26 @@ func building(p: Vector3,size: Vector2,floors: int,color: Color,role: String) ->
 		var y:=floor_index*STOREY
 		# An actual stair opening with 2.5 m width and 9 m length.
 		if floor_index>0 and floor_index<floors:
-			box(p+Vector3(-1.5,y,0),Vector3(w-3,.20,d),Color(.51,.50,.43))
-			box(p+Vector3(w/2-1.5,y,4.5),Vector3(3,.20,d-9),Color(.51,.50,.43))
+			box(p+Vector3(-2.2,y,0),Vector3(w-4.4,.20,d),Color(.51,.50,.43))
+			box(p+Vector3(w/2-2.2,y,5.1),Vector3(4.4,.20,d-10.2),Color(.51,.50,.43))
 		else:box(p+Vector3(0,y,0),Vector3(w,.20,d),Color(.51,.50,.43))
 	for f in floors:
 		var y:=f*STOREY+.1
 		for side in [-1.0,1.0]:
 			# Two opposite, unobstructed doors. Upper windows have open apertures.
 			for sign in [-1.0,1.0]:
-				box(p+Vector3(sign*(w+DOOR)/4,y+1.55,side*d/2),Vector3((w-DOOR)/2,3.1,WALL),color)
-			box(p+Vector3(0,y+2.8,side*d/2),Vector3(DOOR,.6,WALL),color)
+				box(p+Vector3(sign*(w+DOOR)/4,y+1.75,side*d/2),Vector3((w-DOOR)/2,3.5,WALL),color)
+			box(p+Vector3(0,y+CLEAR_HEIGHT+(3.5-CLEAR_HEIGHT)/2,side*d/2),Vector3(DOOR,3.5-CLEAR_HEIGHT,WALL),color)
 			if f>0:box(p+Vector3(0,y+.45,side*d/2),Vector3(DOOR,.9,WALL),color)
 			# Side walls with real 1.6 m windows, never painted on solid boxes.
 			box(p+Vector3(side*w/2,y+.45,0),Vector3(WALL,.9,d),color)
-			box(p+Vector3(side*w/2,y+2.75,0),Vector3(WALL,.7,d),color)
+			box(p+Vector3(side*w/2,y+3.15,0),Vector3(WALL,.7,d),color)
 			for z in range(0,int(d/3)):
-				box(p+Vector3(side*w/2,y+1.65,-d/2+1.5+z*3),Vector3(WALL,1.5,1.4),color)
+				box(p+Vector3(side*w/2,y+1.85,-d/2+1.5+z*3),Vector3(WALL,1.9,1.4),color)
 		# Split interior: cross wall has a two-metre opening on the axial route.
 		if level==0:
 			for sign in [-1.0,1.0]:
-				var span: float=(w-2.4)/2-(3.0 if sign>0 and floors>1 else 0.0)
+				var span: float=(w-2.4)/2-(4.4 if sign>0 and floors>1 else 0.0)
 				box(p+Vector3(sign*(1.2+span/2),y+1.4,1),Vector3(span,2.8,.16),color.darkened(.1))
 			# Human-scale furnishing stays off the main aisle and staircase.
 			box(p+Vector3(-w*.28,y+.4,-d*.25),Vector3(2.1,.8,.8),Color(.30,.25,.18))
@@ -67,9 +67,9 @@ func building(p: Vector3,size: Vector2,floors: int,color: Color,role: String) ->
 					box(p+Vector3(-w*.28,y+.25+shelf*.8,d*.25-3),Vector3(3,.12,1),Color(.38,.40,.38))
 					box(p+Vector3(-w*.28,y+.55+shelf*.8,d*.25-3),Vector3(1.4,.48,.8),Color(.61,.49,.32))
 		if f<floors-1:
-			for step in 16:
-				box(p+Vector3(w/2-1.5,y+(step+1)*.2-.1,-d/2+.5+step*.5),Vector3(2.4,.2,.52),Color(.55,.54,.47))
-			box(p+Vector3(w/2-1.5,y+3.1,-d/2+8.6),Vector3(2.4,.2,1.4),Color(.55,.54,.47))
+			for step in 18:
+				box(p+Vector3(w/2-2.2,y+(step+1)*.2-.1,-d/2+.5+step*.5),Vector3(2.8,.2,.52),Color(.55,.54,.47))
+			box(p+Vector3(w/2-2.2,y+3.5,-d/2+9.6),Vector3(2.8,.2,1.4),Color(.55,.54,.47))
 	# Pitched roofs are retained at near and middle detail.
 	if role!="observatory":roof(p+Vector3(0,h+.11,0),Vector3(w+.5,1.3,d+.5),Color(.31,.34,.31) if kind else Color(.43,.25,.18))
 func make(site_kind: int,lod: int) -> ArrayMesh:

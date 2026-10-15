@@ -1,0 +1,49 @@
+{
+	"callback_us": {
+		"max": 2605.0,
+		"mean": 1005.99,
+		"p50": 1038.0,
+		"p95": 1324.0
+	},
+	"combat_and_queries_us": {
+		"max": 686.859985351562,
+		"mean": 114.711162754695,
+		"p50": 110.533996582031,
+		"p95": 226.203994750977
+	},
+	"disconnected": 0,
+	"fixture": "native-infantry-jolt-enet",
+	"frame_encoding_us": {
+		"max": 26.6450004577637,
+		"mean": 2.191718612231,
+		"p50": 2.98600006103516,
+		"p95": 4.04699993133545
+	},
+	"hz": 29.9990000333322,
+	"movement_and_collision_us": {
+		"max": 1654.84497070312,
+		"mean": 705.291145642599,
+		"p50": 728.664978027344,
+		"p95": 939.010986328125
+	},
+	"native": {
+		"accepted": 111612,
+		"combat_us": 9.768,
+		"damage": 4,
+		"deaths": 0,
+		"movement_us": 665.695,
+		"overflow": 0,
+		"projectile_full": 0,
+		"rejected": 0,
+		"shots": 12352,
+		"snapshot_us": 3.187,
+		"tick": 3639,
+		"time": 121.3
+	},
+	"physics": "Godot Jolt",
+	"players": 32,
+	"production_cq": false,
+	"seconds": 120.004,
+	"ticks": 3600,
+	"xr": false
+}

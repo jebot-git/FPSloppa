@@ -2,3 +2,5 @@
 /docs/*.patch whitespace=-space-before-tab
 # Retain raw benchmark stdout exactly, including blank/whitespace lines.
 /docs/validation/**/*.log -whitespace
+# Validation patch captures preserve exact diff context.
+/docs/validation/**/*.patch -whitespace

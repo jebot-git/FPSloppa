@@ -9,6 +9,15 @@ static func radio() -> Node3D:
 static func utility(key:String) -> Node3D:
 	if key in ["jetpack","healing_grenade"]:
 		return preload("res://deathmatch/conquest/classes/grenade_visuals.gd").model(3 if key=="healing_grenade" else 0)
+	if key in ["recon","recon_drone"]:
+		var node:Node3D=load("res://deathmatch/models/cloak_device/cloak_device.glb").instantiate()
+		for mesh in node.find_children("*","MeshInstance3D",true,false):
+			for index in mesh.mesh.get_surface_count():
+				var material:Material=mesh.get_active_material(index)
+				if material.resource_name.contains("GlassCell"):
+					var energy:=ShaderMaterial.new();energy.shader=preload("res://deathmatch/models/cloak_device/cell_surface.gdshader");mesh.set_surface_override_material(index,energy)
+		preload("res://tools/voxel_battle/baked_lighting.gd").convert_node(node)
+		return node
 	var models=preload("res://deathmatch/conquest/classes/models.gd")
 	var node:Node3D=models.weapon(7,"cq_medic" if key=="medical" else "cq_technician") if key in ["medical","engineering"] else models.weapon(8,"cq_scout")
 	node.scale=Vector3.ONE*.35

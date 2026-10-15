@@ -25,6 +25,8 @@ func send(kind: String,pose: Dictionary,velocity:=Vector3.ZERO) -> void:
 	if rig.game.has_method("class_throw"):rig.game.class_throw(kind,pose,velocity,sequence);return
 	rig.game.match_mode.fortress.physical.submit(kind,pose,velocity,sequence)
 func update(delta: float,valid: bool) -> void:
+	if rig.get("cq_utility")!=null:
+		available=false;return
 	var game=rig.game
 	available=valid and game.active and not game.map_loading and game.bindings.physical_interactions and (game.match_mode.kind in ["tf","tb","as"] or game.has_method("class_throw") and game.classes.has_grenade(game.multiplayer.get_unique_id())) and not game.lobby.active() and game.intermission<=0 and not game.match_mode.special.blocked(game.multiplayer.get_unique_id()) and not rig.blackout.visible
 	var support: XRController3D=rig.right if rig.left_handed else rig.left

@@ -27,8 +27,8 @@ var skin_templates:Dictionary={}
 var skin_recognition:Dictionary={}
 
 func setup(network: Node) -> void:
-	theme=preload("res://deathmatch/ui/iron_theme.gd").theme()
 	service = network
+	theme=preload("res://deathmatch/ui/iron_theme.gd").for_game(service.game)
 	library = service.library
 	title = "FPSloppa / PLAYER MODEL"
 	size = Vector2i(1000,760)
@@ -217,7 +217,7 @@ func setup_skin_dialog() -> void:
 	skin_dialog=PanelContainer.new();add_child(skin_dialog)
 	skin_dialog.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	skin_dialog.offset_left=40;skin_dialog.offset_top=40;skin_dialog.offset_right=-40;skin_dialog.offset_bottom=-40
-	skin_dialog.add_theme_stylebox_override("panel",preload("res://deathmatch/ui/iron_theme.gd").panel(20))
+	skin_dialog.add_theme_stylebox_override("panel",preload("res://deathmatch/ui/iron_theme.gd").surface_for(service.game,20))
 	var column:=VBoxContainer.new();column.add_theme_constant_override("separation",12);skin_dialog.add_child(column)
 	var label:=Label.new();label.text="IMPORT UTX SKIN";label.add_theme_font_size_override("font_size",24);column.add_child(label)
 	var hint:=Label.new();hint.text="Check the suggested base model, then choose the skin family and face. You can override the model.";hint.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART;column.add_child(hint)

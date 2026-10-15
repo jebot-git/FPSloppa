@@ -1,0 +1,15 @@
+Godot Engine v4.7.2.stable.fedora.ed1daf0bf - https://godotengine.org
+
+Connecting to 127.0.0.1:28820…
+DM_EVENT Snapshot client joined the arena.
+PASS Client receives initial authoritative state
+PASS Deferred CQ class state reaches gameplay receiver
+PASS Reload state reaches gameplay receiver
+PASS Internal capture metadata never reaches wire state
+The host disconnected.
+SNAPSHOT_NETWORK_RESULT client []
+Disconnected.
+WARNING: 21 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 8 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

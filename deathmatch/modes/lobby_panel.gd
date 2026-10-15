@@ -10,8 +10,8 @@ var wall:=false
 var refresh_left:=0.0
 func setup(arena: Node) -> void:
 	game=arena;set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	theme=preload("res://deathmatch/ui/iron_theme.gd").theme()
-	add_theme_stylebox_override("panel",preload("res://deathmatch/ui/iron_theme.gd").panel(20))
+	theme=preload("res://deathmatch/ui/iron_theme.gd").for_game(game)
+	add_theme_stylebox_override("panel",preload("res://deathmatch/ui/iron_theme.gd").surface_for(game,20))
 	var column:=VBoxContainer.new();column.add_theme_constant_override("separation",12);add_child(column)
 	status=label(column);status.add_theme_font_size_override("font_size",24)
 	response=label(column)

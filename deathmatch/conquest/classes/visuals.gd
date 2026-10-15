@@ -1,4 +1,5 @@
 extends "res://deathmatch/experimental/visuals.gd"
+signal nvg_flash(position:Vector3,radius:float,duration:float,size:float,energy:float)
 func beam(color:Color,start:Vector3,end:Vector3) -> void:
 	var ray:=Node3D.new();add_child(ray);ray.position=(start+end)*.5
 	if start.distance_to(end)>.001:ray.look_at(end)
@@ -36,6 +37,7 @@ func burst(rules:String,pos:Vector3,weapon:int,kind:String="",definition:Diction
 	if definition.get("cq_bullet",false):super.burst("cs16",pos,2,"hitscan",definition);return
 	if not definition.has("cq_effect"):super.burst(rules,pos,weapon,kind,definition);return
 	var color:Color=definition.color;var ordnance:bool=definition.cq_effect=="ordnance"
+	nvg_flash.emit(pos,72. if ordnance else 24.,.5 if ordnance else .16,2.5 if ordnance else .3,1.2 if ordnance else .8)
 	globe(pos,color,2.5 if ordnance else .3,.32 if ordnance else .15)
 	if ordnance:ring(pos,color.lightened(.2),2.7,.35)
 	for i in (20 if ordnance else 7):particle(pos,Vector3(randf_range(-1,1),randf_range(-1,1),randf_range(-1,1)).normalized()*(6 if ordnance else 2),color,.06,.35)

@@ -51,6 +51,10 @@ func controller(rig: Node,role: String) -> XRController3D:
 		"left":return rig.left
 		_:return rig.right
 func vr_pressed(rig: Node,action: String) -> bool:
+	if rig.get("cq_hands")!=null and action in ["menu","reload","scores"]:
+		if action=="menu":return false
+		var hand:=controller(rig,"weapon" if action=="reload" else "support")
+		return (rig.simulated or hand.get_has_tracking_data()) and hand.is_button_pressed("by_button")
 	var parts:String=vr.get(action,"")
 	if not valid_vr(parts):return false
 	var pieces:=parts.split(":");var hand:=controller(rig,pieces[0])

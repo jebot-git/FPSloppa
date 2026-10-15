@@ -9,6 +9,10 @@ var vehicle_lock=preload("res://deathmatch/conquest/classes/vehicle_lock.gd").ne
 var magazines=preload("res://deathmatch/conquest/classes/magazines.gd").new()
 func setup(arena) -> void:super.setup(arena);magazines.setup(arena)
 func tick_input(id:int,delta:float) -> void:
+	var token:=Attribution.begin("player.combat_input")
+	_tick_input(id,delta)
+	Attribution.end(token)
+func _tick_input(id:int,delta:float) -> void:
 	if game.battery_tanks.mounted(id):return
 	var s:Dictionary=game.players[id]
 	if s.weapon!=5:charges.erase(id)
@@ -19,7 +23,9 @@ func tick_input(id:int,delta:float) -> void:
 		else:
 			launch_blast(id);salvos[id].left-=1;salvos[id].at=game.clock+game.armory.data(5).salvo_interval
 			if salvos[id].left<=0:salvos.erase(id)
+	var grenade_scope:=Attribution.begin("player.grenade_input")
 	game.grenades.sample_player(id)
+	Attribution.end(grenade_scope)
 	if game.grenades.selected(id)>=0:charges.erase(id);return
 	if s.fire or s.get("alt_fire",false):game.classes.weapon_used(id)
 	if s.weapon in [6,7,8]:
@@ -27,7 +33,10 @@ func tick_input(id:int,delta:float) -> void:
 			if s.weapon==6:game.deploy_class_box(id)
 			elif s.weapon==8:game.designate(id)
 		return
-	if not magazines.tick(id):charges.erase(id);return
+	var reload_scope:=Attribution.begin("player.magazine_reload")
+	var ready:bool=magazines.tick(id)
+	Attribution.end(reload_scope)
+	if not ready:charges.erase(id);return
 	if s.weapon==5:
 		var valid:bool=s.fire and s.weapon in s.owned and game.clock-s.last_input<=.35 and s.cooldown<=0 and s.ammo[2]>=3 and magazines.loaded(id)>=3 and not s.get("input_blocked",false) and not s.get("reload",false) and not game._shot_solution(id).blocked and game.projectiles.size()<=MAX_PROJECTILES-3
 		if not valid:charges.erase(id);return
@@ -119,7 +128,7 @@ func definition(owner_id:int,weapon:int,extra:Dictionary) -> Dictionary:
 		data.color=Color("ff3c39") if team==0 else Color("3b8dff")
 	if extra.get("turret_shot",false):data.name="TURRET ORDNANCE";data.guided=false;data.gravity=0.0;data.speed=40.0;data.fuse=4.0
 	if extra.has("hover_shot"):data.name="%s TANK ORDNANCE"%str(extra.hover_shot).to_upper();data.inherit=.5
-	if extra.get("battery_shot",false):data.merge({"name":"BATTERY MORTAR","kind":"tribes_mortar","speed":sqrt(275.0*20),"gravity":20.0,"inherit":.5,"damage":152,"splash":152,"blast_radius":20.0,"radius":.3,"fuse":30.0,"arm":2.0,"bounce":.1,"guided":false,"quake_rocket":false,"direct_random":0,"cq_effect":"ordnance"},true)
+	if extra.get("battery_shot",false):data.merge({"name":"BATTERY MORTAR","kind":"tribes_mortar","speed":sqrt(5000.0*20),"gravity":20.0,"inherit":.5,"damage":152,"splash":152,"blast_radius":20.0,"radius":.3,"fuse":90.0,"arm":2.0,"bounce":.1,"guided":false,"quake_rocket":false,"direct_random":0,"cq_effect":"ordnance"},true)
 	if weapon==3:data.cq_bullet=true
 	return data
 
@@ -129,7 +138,6 @@ func explode(id:int,where:Vector3,ignore:int=0,hull_impact:int=0) -> void:
 	if game.projectiles.has(id):
 		var p:Dictionary=game.projectiles[id];var d:Dictionary=p.definition
 		if d.get("splash",0)>0:
-			game.night_vision.flash(where,maxf(30,d.blast_radius*8),2.2)
 			for vehicle in game.get_tree().get_nodes_in_group("cq_repairable_vehicles"):
 				if vehicle.hp<=0 or vehicle.get("service")==game.battery_tanks or vehicle.get_meta("cq_direct_projectile",-1)==id:continue
 				var distance:float=where.distance_to(vehicle.global_position)

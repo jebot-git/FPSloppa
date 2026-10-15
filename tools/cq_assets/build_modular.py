@@ -128,7 +128,7 @@ for name in names:
    objects+=scope(scale);objects.append(tube('Beam emitter' if name=='beam_pistol' else 'Suppressor',7.1,1.12,.55 if name=='beam_pistol' else .75,2.1 if name=='beam_pistol' else 3.5,scale))
    if name=='scout_pistol':objects+=stock(scale,front=-4.4)
   elif name=='pistol':
-   objects+=[box('Rear iron left',(-.38,-3.6,3.13),(.18,.38,.42),black,scale),box('Rear iron right',(.38,-3.6,3.13),(.18,.38,.42),black,scale),box('Front iron blade',(0,4.0,3.12),(.16,.35,.42),black,scale)]
+   objects+=[box('Rear iron left',(-.38,-3.6,3.13),(.18,.38,.42),black,scale),box('Rear iron right',(.38,-3.6,3.13),(.18,.38,.42),black,scale),box('Front iron blade',(0,4.0,3.13),(.16,.35,.42),black,scale)]
   else:objects+=dot_sight(scale,y=-1.2)
  else:
   objects.append(part('Receiver','Receiver',scale))
@@ -247,6 +247,9 @@ for name in names:
  if name=='assault_rifle':data.update(scope_rear=game_point((0,-1.3,4.0),scale),scope_front=game_point((0,-.9,4.0),scale),scope_radius=.65*scale,zoom_steps=[1.5],red_dot=True)
  if name in ('beam_pistol','scout_pistol'):data.update(scope_rear=game_point((0,-4.22,4.3),scale),scope_front=game_point((0,3.22,4.3),scale),scope_radius=.6*scale,zoom_steps=[2.0,4.0,8.0] if name=='beam_pistol' else [1.5,3.0,6.0])
  if heavy:data.update(pack_entry=game_point((-3.1,2.4,.55),scale),pack_direction=[-1,0,0],monitor_position=game_point((0,-1.8,4.05),scale))
+ data['rack_anchor']=([0,.135,-.0455] if pistol else [.055,.10,-.0455] if name=='assault_rifle' else [.065,.115,-.052]) if not heavy else [0,0,0]
+ data['magazine_anchor']=game_point((-3.1,2.4,.55),scale) if heavy else game_point((0,-3.25,-4.05),scale) if pistol else game_point((0,2.5,-.3925),scale)
+ data['support_anchor']=[0,.025,-.07] if pistol else [0,.015,-.15]
  manifest[name]=data
  for material in materials:
   for node in list(material.node_tree.nodes):

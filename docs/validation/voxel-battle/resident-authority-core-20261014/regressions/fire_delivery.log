@@ -1,0 +1,18 @@
+Godot Engine v4.7.2.stable.fedora.ed1daf0bf - https://godotengine.org
+
+PASS All short taps survive either 30 Hz send phase; old path missed four of eight
+PASS Dropped initial trigger packet recovers on release packet
+PASS Recovered tap restores the released trigger state
+PASS Repeated event cannot fire twice
+PASS Acknowledgement stops trigger retransmission
+PASS Previous life cannot replay a trigger
+PASS Weapon change cancels old tap
+PASS Stale trigger cannot fire later
+PASS Blocked input cannot replay after menu closes
+PASS Malformed event rejected: <null>
+PASS Malformed event rejected: [1]
+PASS Malformed event rejected: [1, 6, 8]
+PASS Malformed event rejected: [1, 6, "fire"]
+PASS Malformed event rejected: [1, 5, 1]
+PASS Malformed event rejected: [5000, 6, 1]
+FIRE_DELIVERY_RESULT {"checks":15,"failures":[]}

@@ -16,6 +16,20 @@
 using namespace godot;
 namespace {constexpr double INF=std::numeric_limits<double>::infinity();}
 void FPSBackend::_bind_methods(){
+ ClassDB::bind_method(D_METHOD("sample_reload_motion","state","pose","weapon","hand","stamp"),&FPSBackend::sample_reload_motion);
+ ClassDB::bind_method(D_METHOD("submit_snapshot_buffer","snapshot","header","token"),&FPSBackend::submit_snapshot_buffer);
+ ClassDB::bind_method(D_METHOD("snapshot_buffer_stats"),&FPSBackend::snapshot_buffer_stats);
+ ClassDB::bind_method(D_METHOD("bind_players","states"),&FPSBackend::bind_players);
+ ClassDB::bind_method(D_METHOD("get_player_state_count"),&FPSBackend::get_player_state_count);
+ ClassDB::bind_method(D_METHOD("begin_player","id","now"),&FPSBackend::begin_player);
+ ClassDB::bind_method(D_METHOD("advance_player","id","delta"),&FPSBackend::advance_player);
+ ClassDB::bind_method(D_METHOD("begin_player_fire","id","now","buffer_primary"),&FPSBackend::begin_player_fire);
+ ClassDB::bind_method(D_METHOD("end_player_fire","id","previous"),&FPSBackend::end_player_fire);
+ ClassDB::bind_method(D_METHOD("valid_input","command"),&FPSBackend::valid_input);
+ ClassDB::bind_method(D_METHOD("accept_input_header","state","command","now"),&FPSBackend::accept_input_header);
+ ClassDB::bind_method(D_METHOD("apply_input_fields","state","command","dual"),&FPSBackend::apply_input_fields);
+ ClassDB::bind_method(D_METHOD("accept_fire_event","state","command","now"),&FPSBackend::accept_fire_event);
+ ClassDB::bind_method(D_METHOD("send_snapshot_batch","game","budget","normal","large","recipients","now"),&FPSBackend::send_snapshot_batch);
  ClassDB::bind_method(D_METHOD("configure_hitboxes","rows"),&FPSBackend::configure_hitboxes);
  ClassDB::bind_method(D_METHOD("set_workers","count"),&FPSBackend::set_workers);
  ClassDB::bind_method(D_METHOD("get_workers"),&FPSBackend::get_workers);
@@ -26,6 +40,10 @@ void FPSBackend::_bind_methods(){
  ClassDB::bind_method(D_METHOD("range_candidates","positions","teams","observers","targets","radii"),&FPSBackend::range_candidates);
  ClassDB::bind_method(D_METHOD("rewind","before","after","current","weight"),&FPSBackend::rewind);
  ClassDB::bind_method(D_METHOD("submit_snapshot","records","header","token"),&FPSBackend::submit_snapshot);
+ ClassDB::bind_method(D_METHOD("submit_snapshot_state","snapshot","header","token"),&FPSBackend::submit_snapshot_state);
+ ClassDB::bind_method(D_METHOD("prepare_snapshot","game"),&FPSBackend::prepare_snapshot);
+ ClassDB::bind_method(D_METHOD("snapshot_records","snapshot"),&FPSBackend::snapshot_records);
+ ClassDB::bind_method(D_METHOD("prepare_class_records","states","magazines","spots","locks","charges","clone"),&FPSBackend::prepare_class_records,DEFVAL(true));
  ClassDB::bind_method(D_METHOD("poll_snapshots"),&FPSBackend::poll_snapshots);
  ClassDB::bind_method(D_METHOD("valid_transform","value"),&FPSBackend::valid_transform);
  ClassDB::bind_method(D_METHOD("validate_pose","value"),&FPSBackend::validate_pose);
@@ -125,6 +143,8 @@ void FPSBackend::encode_loop(){
  while(true){SnapshotJob task;
   {std::unique_lock<std::mutex> lock(encode_mutex);encode_wake.wait(lock,[&]{return encode_stopping||!pending.empty();});if(encode_stopping)return;task=pending.front();pending.pop_front();encoding=true;}
   auto began=std::chrono::steady_clock::now();
+  if(task.frozen)task.records=thaw_value(*task.frozen);
+  if(task.state)task.records=snapshot_records(task.records);
   int64_t epoch=task.header[0];double time=task.header[2];if(task.token!=last_token||epoch!=last_epoch){cache.clear();last_token=task.token;last_epoch=epoch;}
   // Frozen per-job records contain only network values. No worker writes
   // shared Godot containers: each produces a private byte buffer, merged here.

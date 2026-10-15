@@ -1,0 +1,134 @@
+Godot Engine v4.7.2.stable.fedora.ed1daf0bf - https://godotengine.org
+LOG in xrCreateInstance: Instance created
+	createInfo->applicationInfo.applicationName: FPSloppa
+	createInfo->applicationInfo.applicationVersion: 1
+	createInfo->applicationInfo.engineName: Godot Engine
+	createInfo->applicationInfo.engineVersion: 40702
+	createInfo->applicationInfo.apiVersion: 1.1.62
+	appinfo.detected.engine.name: (null)
+	appinfo.detected.engine.version: 0.0.0
+	quirks.disable_vulkan_format_depth: false
+	quirks.disable_vulkan_format_depth_stencil: false
+	quirks.disable_quad_views: false
+	quirks.no_validation_error_in_create_ref_space: true
+	quirks.skip_end_session: false
+	quirks.parallel_views: false
+	quirks.no_texture_source_alpha: false
+	quirks.ignore_invalid_swapchain_usage_bits: false
+
+OpenXR: Created instance for OpenXR 1.1.62
+OpenXR: Running on OpenXR runtime:  WiVRn 'v26.9.3-pyrowave.1'   26.9.3
+LOG in xrGetSystem: Selected devices
+	Head: 'WiVRn HMD'
+	Eyes: 'WiVRn Eye Tracker'
+	Left: 'WiVRn left controller'
+	Right: 'WiVRn right controller'
+	Gamepad: 'WiVRn Gamepad'
+	Hand-Tracking Left (unobstructed): 'WiVRn left controller'
+	Hand-Tracking Right (unobstructed): 'WiVRn right controller'
+	Hand-Tracking Left (conforming): '<none>'
+	Hand-Tracking Right (conforming): '<none>'
+OpenXR: XrGraphicsRequirementsVulkan2KHR:
+ - minApiVersionSupported:  1.0.0
+ - maxApiVersionSupported:  1023.1023.1023
+LOG in xrCreateVulkanInstanceKHR: Creation of VkInstance:
+	result: VK_SUCCESS
+	vulkanInstance: 0x41ad47f0
+	extensions:
+		VK_KHR_external_fence_capabilities
+		VK_KHR_external_memory_capabilities
+		VK_KHR_external_semaphore_capabilities
+		VK_KHR_get_physical_device_properties2
+		VK_EXT_debug_utils
+		VK_KHR_surface
+		VK_KHR_xlib_surface
+		VK_EXT_swapchain_colorspace
+LOG in xrGetVulkanGraphicsDeviceKHR: Creation of VkDevice:
+	result: VK_SUCCESS
+	vulkanDevice: 0x41ca5e20
+	vulkanInstance: 0x41ad47f0
+	external_fence_fd: true
+	external_semaphore_fd: true
+	timelineSemaphore: true
+	extensions:
+		VK_KHR_dedicated_allocation
+		VK_KHR_external_fence
+		VK_KHR_external_memory
+		VK_KHR_external_semaphore
+		VK_KHR_get_memory_requirements2
+		VK_KHR_external_memory_fd
+		VK_KHR_16bit_storage
+		VK_KHR_acceleration_structure
+		VK_KHR_buffer_device_address
+		VK_KHR_create_renderpass2
+		VK_KHR_deferred_host_operations
+		VK_KHR_depth_stencil_resolve
+		VK_KHR_driver_properties
+		VK_KHR_fragment_shading_rate
+		VK_KHR_image_format_list
+		VK_KHR_maintenance2
+		VK_KHR_multiview
+		VK_KHR_ray_tracing_pipeline
+		VK_KHR_shader_float16_int8
+		VK_KHR_storage_buffer_storage_class
+		VK_KHR_swapchain
+		VK_KHR_synchronization2
+		VK_KHR_vulkan_memory_model
+		VK_EXT_pipeline_creation_cache_control
+		VK_EXT_subgroup_size_control
+		VK_KHR_external_semaphore_fd
+		VK_KHR_external_fence_fd
+		VK_KHR_timeline_semaphore
+Vulkan 1.4.363 - Forward+ - Using Device #0: Intel - Intel(R) Arc(tm) A770 Graphics (DG2)
+
+WARNING: res://addons/godot-xr-tools/hands/scenes/lowpoly/left_tac_glove_low.tscn:3 - ext_resource, invalid UID: uid://bnx4hithcij6y - using text path instead: res://addons/godot-xr-tools/hands/model/Hand_Glove_low_L.gltf
+     at: load (scene/resources/resource_format_text.cpp:501)
+     GDScript backtrace (most recent call first):
+         [0] setup (res://deathmatch/vr/rig.gd:89)
+         [1] _ready (res://deathmatch/arena.gd:241)
+         [2] _ready (res://tools/voxel_battle/class_arena.gd:49)
+         [3] start (res://tools/voxel_battle/live_client.gd:15)
+WARNING: Custom solver bias for shapes is not supported when using Jolt Physics. Any such value will be ignored. This shape belongs to '<unknown>' and 0 other object(s).
+     at: set_solver_bias (modules/jolt_physics/shapes/jolt_shape_3d.cpp:91)
+     GDScript backtrace (most recent call first):
+         [0] setup (res://deathmatch/vr/rig.gd:89)
+         [1] _ready (res://deathmatch/arena.gd:241)
+         [2] _ready (res://tools/voxel_battle/class_arena.gd:49)
+         [3] start (res://tools/voxel_battle/live_client.gd:15)
+WARNING: res://addons/godot-xr-tools/hands/materials/glove_caucasian_green_camo.tres:3 - ext_resource, invalid UID: uid://dgkfppran5j1f - using text path instead: res://addons/godot-xr-tools/hands/textures/glove_caucasian_green_camo.png
+     at: load (scene/resources/resource_format_text.cpp:501)
+     GDScript backtrace (most recent call first):
+         [0] setup (res://deathmatch/vr/rig.gd:89)
+         [1] _ready (res://deathmatch/arena.gd:241)
+         [2] _ready (res://tools/voxel_battle/class_arena.gd:49)
+         [3] start (res://tools/voxel_battle/live_client.gd:15)
+WARNING: res://addons/godot-xr-tools/hands/materials/glove_caucasian_green_camo.tres:4 - ext_resource, invalid UID: uid://bw8rmigwt5pr4 - using text path instead: res://addons/godot-xr-tools/hands/textures/glove_fingerless_normal.png
+     at: load (scene/resources/resource_format_text.cpp:501)
+     GDScript backtrace (most recent call first):
+         [0] setup (res://deathmatch/vr/rig.gd:89)
+         [1] _ready (res://deathmatch/arena.gd:241)
+         [2] _ready (res://tools/voxel_battle/class_arena.gd:49)
+         [3] start (res://tools/voxel_battle/live_client.gd:15)
+WARNING: res://addons/godot-xr-tools/hands/materials/glove_caucasian_green_camo.tres:5 - ext_resource, invalid UID: uid://d2iocwfr47kqp - using text path instead: res://addons/godot-xr-tools/hands/textures/glove_fingerless_occlusionRoughnessMetallic.png
+     at: load (scene/resources/resource_format_text.cpp:501)
+     GDScript backtrace (most recent call first):
+         [0] setup (res://deathmatch/vr/rig.gd:89)
+         [1] _ready (res://deathmatch/arena.gd:241)
+         [2] _ready (res://tools/voxel_battle/class_arena.gd:49)
+         [3] start (res://tools/voxel_battle/live_client.gd:15)
+WARNING: res://addons/godot-xr-tools/hands/scenes/lowpoly/right_tac_glove_low.tscn:3 - ext_resource, invalid UID: uid://csgsp0wuw8ucy - using text path instead: res://addons/godot-xr-tools/hands/model/Hand_Glove_low_R.gltf
+     at: load (scene/resources/resource_format_text.cpp:501)
+     GDScript backtrace (most recent call first):
+         [0] setup (res://deathmatch/vr/rig.gd:89)
+         [1] _ready (res://deathmatch/arena.gd:241)
+         [2] _ready (res://tools/voxel_battle/class_arena.gd:49)
+         [3] start (res://tools/voxel_battle/live_client.gd:15)
+XR_RUNTIME {"OpenXRSystemName":"Meta Quest Pro on WiVRn","OpenXRVendorID":0,"XRRuntimeName":"WiVRn 'v26.9.3-pyrowave.1'","XRRuntimeVersion":"26.9.3"}
+XR_READY OpenXR
+Connecting to 87.106.27.237:7777…
+CQ_LIVE_ANALYTICS /home/blux/.cache/cq-live-fixes/analytics-20261014/client-gameplay.jsonl
+DM_EVENT UNSUPPORTED CQ CAPACITY: more than 32 slots is experimental. Sustained 64-player operation has not passed validation; tick overruns, packet loss and disconnections are possible.
+DM_EVENT Jebot joined the arena.
+FRAME_STATS {"draw_calls":64.0,"frame_ms_p50":11.008,"frame_ms_p95":13.564,"frames":899,"target_ms":13.8888888888889,"xr":true}
+FRAME_STATS {"draw_calls":169.0,"frame_ms_p50":11.17,"frame_ms_p95":18.431,"frames":846,"target_ms":13.8888888888889,"xr":true}
+FRAME_STATS {"draw_calls":79.0,"frame_ms_p50":11.214,"frame_ms_p95":15.964,"frames":870,"target_ms":13.8888888888889,"xr":true}

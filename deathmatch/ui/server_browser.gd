@@ -25,7 +25,7 @@ var connection_panel: PanelContainer
 func setup(arena: Node, hud: Node) -> void:
 	game=arena;interface=hud;name="ServerBrowser"
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	add_theme_stylebox_override("panel",preload("res://deathmatch/ui/iron_theme.gd").panel(20))
+	add_theme_stylebox_override("panel",preload("res://deathmatch/ui/iron_theme.gd").surface_for(game,20))
 	directory=preload("res://deathmatch/ui/server_directory.gd").new();add_child(directory)
 	var column:=VBoxContainer.new();column.add_theme_constant_override("separation",8);add_child(column)
 	interface.text(column,"BROWSE SERVERS",30)
@@ -42,6 +42,7 @@ func setup(arena: Node, hud: Node) -> void:
 	var modes: Array=[{"id":"all","title":"All game modes"}]
 	for key in game.match_mode.NAMES:modes.append({"id":key,"title":game.match_mode.NAMES[key]})
 	mode.configure(modes,"GAME MODE");mode.choose("all");mode.selected.connect(func(_value):render())
+	if game.has_method("draw_class_players"):mode.hide()
 	sorting=preload("res://deathmatch/ui/choice.gd").new();choices.add_child(sorting)
 	sorting.configure([{"id":"ping","title":"Sort: ping"},{"id":"players","title":"Sort: humans"},{"id":"name","title":"Sort: name"}],"SORT SERVERS");sorting.choose("ping");sorting.selected.connect(func(_value):render())
 	var scroll:=preload("res://deathmatch/ui/drag_scroll.gd").new();scroll.size_flags_vertical=Control.SIZE_EXPAND_FILL;column.add_child(scroll)
@@ -64,7 +65,7 @@ func setup(arena: Node, hud: Node) -> void:
 	directory.changed.connect(render);directory.notice.connect(func(value):message.text=value)
 	connection_panel=PanelContainer.new();add_child(connection_panel)
 	connection_panel.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	connection_panel.add_theme_stylebox_override("panel",preload("res://deathmatch/ui/iron_theme.gd").panel(20))
+	connection_panel.add_theme_stylebox_override("panel",preload("res://deathmatch/ui/iron_theme.gd").surface_for(game,20))
 	var book=preload("res://deathmatch/ui/menu_pages.gd").new();connection_panel.add_child(book)
 	var network: VBoxContainer=book.add_page("home","SERVER CONNECTIONS")
 	interface.text(network,"Master server",20);master_row.reparent(network)

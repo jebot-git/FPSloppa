@@ -18,7 +18,10 @@ static func build(map) -> Node3D:
 		for x in range(-span,span):
 			var nav:=preload("res://deathmatch/bots.gd").new_mesh("voxel_jungle")
 			var bounds:=AABB(Vector3(x*SIDE,map.Landscape.MIN_HEIGHT,z*SIDE),Vector3(SIDE,map.Landscape.MAX_HEIGHT-map.Landscape.MIN_HEIGHT,SIDE))
-			nav.filter_baking_aabb=bounds.grow(BORDER);nav.border_size=BORDER
+			# Power-of-two cell count survives the engine's float32 property
+			# conversion exactly; ten cells can round just above ten and ceil to eleven.
+			nav.border_size=nav.cell_size*16
+			nav.filter_baking_aabb=bounds.grow(nav.border_size)
 			var source=map.navigation_source_chunk(nav.filter_baking_aabb,heights)
 			NavigationServer3D.bake_from_source_geometry_data_async(nav,source)
 			pending.append(nav);meshes.append(nav)

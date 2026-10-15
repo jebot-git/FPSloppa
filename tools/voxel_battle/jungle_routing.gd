@@ -34,7 +34,7 @@ func build_graph() -> void:
 			if row[i-1].id!=row[i].id and not graph.are_points_connected(row[i-1].id,row[i].id):graph.connect_points(row[i-1].id,row[i].id)
 	graph_ready=true
 func path(start: Vector3,goal: Vector3,allow_jump: bool=true) -> PackedVector3Array:
-	if start.distance_to(goal)<=LEG_DISTANCE:return super.path(start,goal,allow_jump)
+	if start.distance_to(goal)<=LEG_DISTANCE:return local_path(start,goal,allow_jump)
 	if not ready():return PackedVector3Array()
 	if not graph_ready:build_graph()
 	var ids:=graph.get_id_path(graph.get_closest_point(start),graph.get_closest_point(goal))
@@ -45,4 +45,22 @@ func path(start: Vector3,goal: Vector3,allow_jump: bool=true) -> PackedVector3Ar
 		if point.distance_to(start)>LEG_DISTANCE:break
 		waypoint=point
 	if waypoint.distance_to(start)<2:waypoint=graph.get_point_position(ids[mini(1,ids.size()-1)])
-	return super.path(start,waypoint,false)
+	return local_path(start,waypoint,false)
+
+func local_path(start:Vector3,goal:Vector3,allow_jump:bool) -> PackedVector3Array:
+	if not ready():return PackedVector3Array()
+	var query:=NavigationPathQueryParameters3D.new()
+	query.map=region.get_navigation_map();query.start_position=start;query.target_position=goal
+	query.navigation_layers=3 if allow_jump else 1
+	query.path_search_max_polygons=4096;query.path_search_max_distance=180.
+	var result:=NavigationPathQueryResult3D.new();NavigationServer3D.query_path(query,result)
+	var route:=result.get_path()
+	if route.is_empty() or route[0].distance_to(start)>2.5 or route[-1].distance_to(goal)>2:return PackedVector3Array()
+	return route
+
+func install_links() -> void:
+	# Jungle chunks already contain authored road seam links. The inherited
+	# arena-wide boundary scan is unnecessary here and stalls the first tick
+	# on the million-polygon jungle mesh. Bots use ground routes in this host.
+	installed=true
+func update_jump_links() -> void:pass

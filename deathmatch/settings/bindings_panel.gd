@@ -21,7 +21,7 @@ var category
 var groups: Dictionary={}
 var selected_groups: Dictionary={"desktop":"MOVEMENT","vr":"WEAPON ACTIONS"}
 func setup(arena: Node) -> void:
-	game=arena;theme=preload("res://deathmatch/ui/iron_theme.gd").theme();hide();set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	game=arena;theme=preload("res://deathmatch/ui/iron_theme.gd").for_game(game);hide();set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	var margin:=MarginContainer.new();add_child(margin)
 	for side in ["left","right","top","bottom"]:margin.add_theme_constant_override("margin_"+side,16)
 	var layout:=VBoxContainer.new();layout.add_theme_constant_override("separation",12);margin.add_child(layout)
@@ -41,7 +41,8 @@ func setup(arena: Node) -> void:
 		var group_page=group_column("desktop",group)
 		section(group_page,group)
 		for action in DESKTOP_GROUPS[group]:
-			var row:=binding_row(group_page,LABELS[action]);var button:=Button.new();button.custom_minimum_size.y=48;button.size_flags_horizontal=Control.SIZE_EXPAND_FILL;row.add_child(button);buttons[action]=button
+			if game.has_method("draw_class_players") and action in ["next_weapon","previous_weapon","offhand_fire"]:continue
+			var row:=binding_row(group_page,action_label(action));var button:=Button.new();button.custom_minimum_size.y=48;button.size_flags_horizontal=Control.SIZE_EXPAND_FILL;row.add_child(button);buttons[action]=button
 			button.pressed.connect(func():begin_capture(action))
 	var sticks=group_column("vr","STICKS & MOVEMENT")
 	section(sticks,"STICKS")
@@ -52,7 +53,8 @@ func setup(arena: Node) -> void:
 	var weapons=group_column("vr","WEAPON ACTIONS")
 	var communication=group_column("vr","MENUS & COMMUNICATION")
 	for action in game.bindings.VR:
-		var row:=binding_row(communication if action in ["menu","scores","chat","team_chat","ptt","team_ptt","weapon_wheel"] else weapons,LABELS[action]);var hand=selector(row,ROLES);var input=selector(row,INPUT_LABELS);vr_choices[action]=[hand,input]
+		if game.has_method("draw_class_players") and action in ["offhand_fire","weapon_wheel"]:continue
+		var row:=binding_row(communication if action in ["menu","scores","chat","team_chat","ptt","team_ptt","weapon_wheel"] else weapons,action_label(action));var hand=selector(row,ROLES);var input=selector(row,INPUT_LABELS);vr_choices[action]=[hand,input]
 		hand.selected.connect(func(value):set_vr_binding(action,0,value))
 		input.selected.connect(func(value):set_vr_binding(action,1,value))
 	var physical=group_column("vr","PHYSICAL CONTROLS & TRACKING")
@@ -132,3 +134,11 @@ func group_column(kind: String,label: String) -> VBoxContainer:
 func select_group(id: String) -> void:
 	selected_groups[device]=id;cancel_capture();close_choices();scroll.scroll_vertical=0
 	for group in groups[device]:groups[device][group].visible=group==id
+
+func action_label(action:String)->String:
+	if game.has_method("draw_class_players"):
+		if action=="team_ptt":return "Squad / team radio"
+		if action=="jump":return "Jump / dismount"
+		if action=="alt_fire":return "Aim / secondary trigger"
+		if action=="use":return "Use / board vehicle"
+	return LABELS[action]

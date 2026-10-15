@@ -125,6 +125,7 @@ func change_team(id: int,team: int,force: bool=false) -> bool:
 	game._spawn(id);game.players[id].invulnerable=0
 	game._broadcast_roster();game._announcement.rpc(game.players[id].name+" joined "+game.match_mode.TEAMS[team]);return true
 func balance() -> void:
+	if game.has_method("refresh_resident_roster"):game.refresh_resident_roster()
 	var ids: Array=game.players.keys().filter(eligible)
 	ids.sort_custom(func(a,b):return game.players[a].kills>game.players[b].kills if game.players[a].kills!=game.players[b].kills else a<b)
 	# Snake ordering spreads the strongest fraggers while keeping sizes within one.

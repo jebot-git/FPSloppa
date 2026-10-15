@@ -10,6 +10,7 @@ var room_tick:=0.0
 var reverb: AudioEffectReverb
 var own_bus:=false
 var effects_bus_owned:=false
+var ambience_bus_owned:=false
 func setup(arena: Node) -> void:
 	game=arena
 	if game.headless: return
@@ -23,6 +24,8 @@ func setup(arena: Node) -> void:
 		reverb.predelay_msec=18
 		reverb.wet=.08; reverb.dry=1; reverb.room_size=.55; reverb.damping=.7
 		AudioServer.add_bus_effect(idx,reverb)
+	if AudioServer.get_bus_index("ArenaAmbience")<0:
+		ambience_bus_owned=true;AudioServer.add_bus();AudioServer.set_bus_name(AudioServer.bus_count-1,"ArenaAmbience");AudioServer.set_bus_send(AudioServer.bus_count-1,"Master")
 	if AudioServer.get_bus_index("ArenaEffects")<0:
 		effects_bus_owned=true;AudioServer.add_bus()
 		var idx:=AudioServer.bus_count-1
@@ -117,6 +120,9 @@ func clear() -> void:
 		if is_instance_valid(player): player.stop();player.queue_free()
 	active.clear()
 func _exit_tree() -> void:
+	if ambience_bus_owned:
+		var ambience:=AudioServer.get_bus_index("ArenaAmbience")
+		if ambience>=0:AudioServer.remove_bus(ambience)
 	if effects_bus_owned:
 		var idx:=AudioServer.get_bus_index("ArenaEffects")
 		if idx>=0:AudioServer.remove_bus(idx)

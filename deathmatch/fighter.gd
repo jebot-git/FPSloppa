@@ -50,6 +50,7 @@ var jump_held := false
 var jump_queued := false
 var peer_id := 0
 var avatar: Node3D
+var plain_nametag:=false
 var label: Label3D
 var target := Vector3.ZERO
 var target_yaw := 0.0
@@ -85,7 +86,7 @@ func setup(id: int, nickname: String, color: Color) -> void:
 	if DisplayServer.get_name() == "headless": return
 	avatar = Art.marine(color)
 	add_child(avatar)
-	label = Label3D.new()
+	label = load("res://deathmatch/ui/cq/nametag.gd" if plain_nametag else "res://deathmatch/ui/colored_nametag.gd").new()
 	label.text = nickname
 	label.position.y = 2.0
 	label.font_size = 28
@@ -452,9 +453,7 @@ func set_frozen(value: bool, progress: float=0.0) -> void:
 var class_badge: Label3D
 func set_nametag(nickname: String,team: int,color: Color) -> void:
 	if not label:return
-	# Shape supplements colour without another floating panel or through-wall marker.
-	label.text=("◆ " if team==0 else "● " if team==1 else "")+nickname
-	label.modulate=color.lightened(.2 if team in [0,1] else .4)
+	label.set_player_name(str(label.get_meta("cq_prefix",""))+nickname,team,color)
 func set_class_badge(title: String,color: Color) -> void:
 	if title.is_empty():
 		if is_instance_valid(class_badge):class_badge.hide()

@@ -18,7 +18,7 @@ func setup(arena) -> void:
 	for i in 3:streams.append(load("res://deathmatch/audio/jungle/rustle_%d.wav"%i))
 	for i in VOICES:
 		var player:=AudioStreamPlayer3D.new();player.max_distance=RADIUS;player.unit_size=2
-		player.attenuation_model=AudioStreamPlayer3D.ATTENUATION_INVERSE_DISTANCE;player.volume_db=-12;player.max_db=-6
+		player.attenuation_model=AudioStreamPlayer3D.ATTENUATION_INVERSE_DISTANCE;player.volume_db=-26;player.max_db=-20
 		player.bus="ArenaEffects" if AudioServer.get_bus_index("ArenaEffects")>=0 else "Master"
 		add_child(player);voices.append(player)
 func contains(point:Vector3) -> bool:
@@ -45,6 +45,7 @@ func _process(delta:float) -> void:
 	if game==null or game.headless or not game.active or not is_instance_valid(game.battle_map) or not is_instance_valid(game.battle_map.grass):return
 	tick+=delta
 	if tick<.1:return
+	var interval:=tick
 	tick=0
 	var listener:Vector3=game.xr_rig.head.global_position if game.is_vr() else game.camera.global_position
 	for key in cells.keys():
@@ -56,7 +57,7 @@ func _process(delta:float) -> void:
 		var old:Vector3=previous.get(id,point);previous[id]=point
 		var travel:float=Vector2(point.x-old.x,point.z-old.z).length()
 		var grounded:bool=actor.is_supported() if game.multiplayer.is_server() or actor.local_player else actor.visual_grounded
-		if point.distance_squared_to(listener)>RADIUS*RADIUS or game.players[id].dead or game.players[id].spectator or not grounded or travel<.005 or travel>3:distance[id]=0.0;continue
+		if point.distance_squared_to(listener)>RADIUS*RADIUS or game.players[id].dead or game.players[id].spectator or not grounded or travel/interval<=2.5 or game.players[id].get("slow",false) or travel>3:distance[id]=0.0;continue
 		if not contains(point):distance[id]=0.0;continue
 		distance[id]=float(distance.get(id,0.0))+travel
 		if distance[id]<(.18 if actor.stance=="prone" else .35) or game.clock<float(next_at.get(id,0.0)):continue
@@ -66,5 +67,5 @@ func emit_rustle(point:Vector3,prone:bool=false) -> void:
 	if voices.is_empty():return
 	var voice:AudioStreamPlayer3D=voices[emissions%VOICES]
 	voice.stop();voice.stream=streams[emissions%3];voice.global_position=point+Vector3.UP*.3
-	voice.volume_db=-19 if prone else -12;voice.pitch_scale=.93+float(emissions%7)*.025
+	voice.volume_db=-32 if prone else -26;voice.pitch_scale=.93+float(emissions%7)*.025
 	voice.play();emissions+=1

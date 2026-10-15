@@ -1,0 +1,49 @@
+{
+  "cases": [
+    {
+      "failures": [],
+      "observed": {
+        "dead": true,
+        "gibbed": true,
+        "grenade_flying": true,
+        "grenade_selected": true,
+        "jetpack": true,
+        "native": true,
+        "nvg": true,
+        "poses": false,
+        "respawn": true,
+        "team_change": true
+      },
+      "shots": 16,
+      "tick": 813,
+      "tracked": false
+    },
+    {
+      "failures": [],
+      "observed": {
+        "dead": true,
+        "gibbed": true,
+        "grenade_flying": true,
+        "grenade_selected": true,
+        "jetpack": true,
+        "native": true,
+        "nvg": true,
+        "poses": true,
+        "respawn": true,
+        "team_change": true
+      },
+      "shots": 17,
+      "tick": 1629,
+      "tracked": true
+    },
+    {
+      "bots": 4,
+      "failures": [],
+      "maximum_displacement": 103.141487121582,
+      "maximum_shots": 38,
+      "ticks": 600,
+      "authored_navmesh_warnings": 19
+    }
+  ],
+  "library_sha256": "a6c0fa81abb02c0df2a069bedd1d4e758c07e4c2bf4b182f231789574e2f1abc"
+}

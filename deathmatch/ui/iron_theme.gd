@@ -24,3 +24,10 @@ static func theme() -> Theme:
 	var trough:=panel(0);trough.bg_color=Color("100e0c");trough.content_margin_top=4;trough.content_margin_bottom=4;t.set_stylebox("slider","HSlider",trough)
 	var fill:=trough.duplicate();fill.bg_color=GOLD;t.set_stylebox("grabber_area","HSlider",fill);t.set_stylebox("grabber_area_highlight","HSlider",fill)
 	return t
+
+static func for_game(game)->Theme:
+	return preload("res://deathmatch/ui/cq/theme.gd").theme() if game!=null and game.has_method("draw_class_players") else theme()
+static func surface_for(game,margin:float=18.)->StyleBox:
+	return preload("res://deathmatch/ui/cq/theme.gd").panel(margin) if game!=null and game.has_method("draw_class_players") else panel(margin)
+static func font_for(game)->Font:
+	return preload("res://deathmatch/ui/cq/theme.gd").FONT if game!=null and game.has_method("draw_class_players") else preload("res://deathmatch/ui/BebasNeue-Regular.ttf")

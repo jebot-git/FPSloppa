@@ -10,6 +10,7 @@ class FPSCodec : public RefCounted {
 protected:
  static void _bind_methods();
 public:
+ bool validate_authority_frame(const PackedByteArray &bytes,int expected,int64_t tick) const;
  PackedByteArray encode(const Variant &value) const;
  PackedByteArray pack_input(const Dictionary &command) const;
  Array encode_records(const Array &records) const;

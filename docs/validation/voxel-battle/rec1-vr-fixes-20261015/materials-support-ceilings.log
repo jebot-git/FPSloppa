@@ -1,0 +1,24 @@
+Godot Engine v4.7.2.stable.fedora.ed1daf0bf - https://godotengine.org
+Vulkan 1.4.363 - Forward+ - Using Device #0: Intel - Intel(R) Arc(tm) A770 Graphics (DG2)
+
+WARNING: res://addons/godot-xr-tools/hands/scenes/lowpoly/left_tac_glove_low.tscn:3 - ext_resource, invalid UID: uid://bnx4hithcij6y - using text path instead: res://addons/godot-xr-tools/hands/model/Hand_Glove_low_L.gltf
+     at: load (scene/resources/resource_format_text.cpp:501)
+     GDScript backtrace (most recent call first):
+         [0] run (res://deathmatch/tests/cq_rec1_render.gd:32)
+WARNING: Custom solver bias for shapes is not supported when using Jolt Physics. Any such value will be ignored. This shape belongs to '<unknown>' and 0 other object(s).
+     at: set_solver_bias (modules/jolt_physics/shapes/jolt_shape_3d.cpp:91)
+     GDScript backtrace (most recent call first):
+         [0] run (res://deathmatch/tests/cq_rec1_render.gd:32)
+WARNING: res://addons/godot-xr-tools/hands/materials/glove_caucasian_green_camo.tres:3 - ext_resource, invalid UID: uid://dgkfppran5j1f - using text path instead: res://addons/godot-xr-tools/hands/textures/glove_caucasian_green_camo.png
+     at: load (scene/resources/resource_format_text.cpp:501)
+     GDScript backtrace (most recent call first):
+         [0] run (res://deathmatch/tests/cq_rec1_render.gd:32)
+WARNING: res://addons/godot-xr-tools/hands/materials/glove_caucasian_green_camo.tres:4 - ext_resource, invalid UID: uid://bw8rmigwt5pr4 - using text path instead: res://addons/godot-xr-tools/hands/textures/glove_fingerless_normal.png
+     at: load (scene/resources/resource_format_text.cpp:501)
+     GDScript backtrace (most recent call first):
+         [0] run (res://deathmatch/tests/cq_rec1_render.gd:32)
+WARNING: res://addons/godot-xr-tools/hands/materials/glove_caucasian_green_camo.tres:5 - ext_resource, invalid UID: uid://d2iocwfr47kqp - using text path instead: res://addons/godot-xr-tools/hands/textures/glove_fingerless_occlusionRoughnessMetallic.png
+     at: load (scene/resources/resource_format_text.cpp:501)
+     GDScript backtrace (most recent call first):
+         [0] run (res://deathmatch/tests/cq_rec1_render.gd:32)
+CQ_REC1_RENDER_RESULT {"checks":239,"failures":[]}

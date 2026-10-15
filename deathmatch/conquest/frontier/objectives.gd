@@ -22,12 +22,12 @@ func present(id:int,zone:int) -> bool:
 	return game.match_mode.nearby(id,sites[zone].position,RADIUS)
 func tick(delta:float) -> void:
 	var presence:Array=[]
-	for zone in sites.size():presence.append([false,false])
+	for zone in sites.size():presence.append([0,0])
 	for id in game.players:
 		var state:Dictionary=game.players[id]
 		if state.spectator or state.team not in [0,1] or not game.classes.alive(id) or game.battery_tanks.mounted(id):continue
 		for zone in sites.size():
-			if present(id,zone):presence[zone][state.team]=true
+			if present(id,zone):presence[zone][state.team]+=1
 	for zone in rules.advance(delta,presence):game._announcement.rpc(sites[zone].name.capitalize()+" captured by "+game.match_mode.TEAMS[rules.owners[zone]])
 	game.match_mode.scores=rules.scores.duplicate();game.match_mode.check_limit()
 func reset() -> void:

@@ -18,6 +18,7 @@ signal cue_started(cue: String)
 
 func setup(arena: Node) -> void:
 	game=arena
+	if game.has_method("draw_class_players"):allowed=false;set_process(false);return
 	if game.headless:set_process(false);return
 	if AudioServer.get_bus_index("ArenaAnnouncer")<0:
 		owned_bus=true;AudioServer.add_bus();AudioServer.set_bus_name(AudioServer.bus_count-1,"ArenaAnnouncer")
@@ -27,6 +28,7 @@ func setup(arena: Node) -> void:
 
 @rpc("authority","call_remote","reliable",0)
 func policy(enabled: bool) -> void:
+	enabled=enabled and not game.has_method("draw_class_players")
 	if enabled and not allowed:was_active=false;was_over=false
 	allowed=enabled
 	if not allowed:clear_audio()

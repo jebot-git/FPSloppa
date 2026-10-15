@@ -64,7 +64,8 @@ static func surface(original:Material,baked_vertices:bool=false) -> Material:
 	var key:Array=[original,baked_vertices]
 	if converted.has(key):return converted[key]
 	var result:=ShaderMaterial.new()
-	var source:=original as StandardMaterial3D
+	var source:=original as BaseMaterial3D
+	if source and source.transparency!=BaseMaterial3D.TRANSPARENCY_DISABLED:return original
 	if source and source.billboard_mode!=BaseMaterial3D.BILLBOARD_DISABLED:
 		result.shader=preload("res://tools/voxel_battle/baked_card.gdshader");result.set_shader_parameter("albedo",source.albedo_texture)
 	else:
@@ -78,11 +79,15 @@ static func surface(original:Material,baked_vertices:bool=false) -> Material:
 static func convert_mesh(mesh:Mesh) -> void:
 	for surface_index in mesh.get_surface_count():
 		var original:=mesh.surface_get_material(surface_index)
-		if original is StandardMaterial3D:mesh.surface_set_material(surface_index,surface(original))
+		if original is BaseMaterial3D:mesh.surface_set_material(surface_index,surface(original))
 static func convert_node(node:Node) -> void:
 	if node is MeshInstance3D:
-		if node.material_override is StandardMaterial3D:node.material_override=surface(node.material_override)
+		if node.material_override is BaseMaterial3D:node.material_override=surface(node.material_override)
 		elif node.mesh:convert_mesh(node.mesh)
+		if node.mesh:
+			for index in node.mesh.get_surface_count():
+				var override:Material=node.get_surface_override_material(index)
+				if override is BaseMaterial3D:node.set_surface_override_material(index,surface(override))
 	if node is MultiMeshInstance3D and node.multimesh:convert_mesh(node.multimesh.mesh)
 	for child in node.get_children():convert_node(child)
 

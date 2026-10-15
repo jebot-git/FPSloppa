@@ -1,0 +1,18 @@
+"""Generate native immutable CQ anchors from the same manifest used by clients."""
+import argparse,json
+from pathlib import Path
+ROOT=Path(__file__).resolve().parents[2]
+SLOTS=['burst_pistol','assault_rifle','pistol','smg','carbine','massacre','ammo_box','repair_kit','designator','scout_pistol','beam_pistol','guided_launcher']
+def generated():
+ m=json.loads((ROOT/'deathmatch/weapons/cq/manifest.json').read_text())
+ lines=['#pragma once','#include "authority_math.h"','#include <array>','namespace cqauthority {','struct WeaponGeometry { V muzzle, magazine, rack, support; };','inline const WeaponGeometry &cq_geometry(int slot) {',' static const std::array<WeaponGeometry,12> values{{']
+ for key in SLOTS:
+  fmt=lambda a:'{'+','.join(format(float(n),'.12g') for n in a)+'}'
+  lines.append('  {'+','.join(fmt(m[key][k]) for k in ['muzzle','magazine_anchor','rack_anchor','support_anchor'])+'},')
+ return '\n'.join(lines+[' }};',' return values[slot >= 0 && slot < 12 ? slot : 2];','}','}'])+'\n'
+if __name__=='__main__':
+ p=argparse.ArgumentParser();p.add_argument('--check',action='store_true');a=p.parse_args();dest=ROOT/'addons/fps_native/src/authority_weapon_geometry.h'
+ if a.check:
+  if dest.read_text()!=generated():raise SystemExit('Native weapon geometry is stale')
+  print('CQ client/native weapon anchors match')
+ else:dest.write_text(generated())

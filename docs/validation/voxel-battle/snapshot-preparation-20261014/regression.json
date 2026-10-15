@@ -1,0 +1,126 @@
+{
+  "source_commit": "6abfbf52d35c57d2a958a28d2963b62c0cc6466c",
+  "source_dirty": true,
+  "passed": true,
+  "tests": [
+    {
+      "test": "configure",
+      "exit_code": 0,
+      "passed": true,
+      "checks": 0,
+      "known_cleanup_diagnostic": false
+    },
+    {
+      "test": "build",
+      "exit_code": 0,
+      "passed": true,
+      "checks": 0,
+      "known_cleanup_diagnostic": false
+    },
+    {
+      "test": "native",
+      "exit_code": 0,
+      "passed": true,
+      "checks": 0,
+      "known_cleanup_diagnostic": false
+    },
+    {
+      "test": "runtime-acceptance",
+      "exit_code": 0,
+      "passed": true,
+      "checks": 48,
+      "known_cleanup_diagnostic": false
+    },
+    {
+      "test": "runtime-snapshot-preparation",
+      "exit_code": 0,
+      "passed": true,
+      "checks": 0,
+      "known_cleanup_diagnostic": true
+    },
+    {
+      "test": "runtime-cs",
+      "exit_code": 0,
+      "passed": true,
+      "checks": 31,
+      "known_cleanup_diagnostic": false
+    },
+    {
+      "test": "runtime-jetpack",
+      "exit_code": 0,
+      "passed": true,
+      "checks": 44,
+      "known_cleanup_diagnostic": false
+    },
+    {
+      "test": "runtime-battery",
+      "exit_code": 0,
+      "passed": true,
+      "checks": 58,
+      "known_cleanup_diagnostic": true
+    },
+    {
+      "test": "runtime-hover",
+      "exit_code": 0,
+      "passed": true,
+      "checks": 44,
+      "known_cleanup_diagnostic": true
+    },
+    {
+      "test": "runtime-vehicle-surfaces",
+      "exit_code": 0,
+      "passed": true,
+      "checks": 28,
+      "known_cleanup_diagnostic": true
+    },
+    {
+      "test": "runtime-ballistics",
+      "exit_code": 0,
+      "passed": true,
+      "checks": 0,
+      "known_cleanup_diagnostic": false
+    },
+    {
+      "test": "runtime-cq",
+      "exit_code": 0,
+      "passed": true,
+      "checks": 50,
+      "known_cleanup_diagnostic": true
+    },
+    {
+      "test": "runtime-prediction",
+      "exit_code": 0,
+      "passed": true,
+      "checks": 14,
+      "known_cleanup_diagnostic": false
+    },
+    {
+      "test": "runtime-terrain",
+      "exit_code": 0,
+      "passed": true,
+      "checks": 0,
+      "known_cleanup_diagnostic": false
+    },
+    {
+      "test": "network-server",
+      "exit_code": 0,
+      "passed": true
+    },
+    {
+      "test": "network-client",
+      "exit_code": 0,
+      "passed": true
+    },
+    {
+      "test": "snapshot-network-server",
+      "exit_code": 0,
+      "passed": true
+    },
+    {
+      "test": "snapshot-network-client",
+      "exit_code": 0,
+      "passed": true
+    }
+  ],
+  "capacity_validation": false
+}

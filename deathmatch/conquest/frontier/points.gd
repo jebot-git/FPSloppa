@@ -1,5 +1,5 @@
 extends RefCounted
-## Unified-map CQ. Capture speed is independent of the number of occupants.
+## Unified-map CQ. Capture progress scales linearly with allied occupants.
 const CAPTURE_SECONDS:=10.0
 const INCOME_SECONDS:=10.0
 const LIMIT:=200
@@ -37,7 +37,7 @@ func advance(delta:float,presence:Array) -> Array:
 			if owners[zone]>=0:step=minf(step,maxf(.000001,INCOME_SECONDS-credit[zone]))
 			if contested[zone]:continue
 			var team:=0 if presence[zone][0] else 1 if presence[zone][1] else -1
-			if team>=0 and owners[zone]!=team:step=minf(step,maxf(.000001,CAPTURE_SECONDS-progress[zone][team]))
+			if team>=0 and owners[zone]!=team:step=minf(step,maxf(.000001,(CAPTURE_SECONDS-progress[zone][team])/maxi(1,int(presence[zone][team]))))
 		for zone in owners.size():
 			if owners[zone]>=0:
 				credit[zone]+=step
@@ -46,7 +46,7 @@ func advance(delta:float,presence:Array) -> Array:
 			if contested[zone]:continue
 			var team:=0 if presence[zone][0] else 1 if presence[zone][1] else -1
 			if team<0 or owners[zone]==team:continue
-			progress[zone][team]+=step
+			progress[zone][team]+=step*maxi(1,int(presence[zone][team]))
 			if progress[zone][team]+.000001>=CAPTURE_SECONDS:
 				owners[zone]=team;progress[zone]=[0.0,0.0];credit[zone]=0.0;changed.append(zone)
 		remaining-=step;decide()

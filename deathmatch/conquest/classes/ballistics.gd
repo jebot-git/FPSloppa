@@ -3,10 +3,19 @@ const Attribution=preload("res://deathmatch/server/attribution.gd")
 ## Shared ballistic aiming. Solves the real launch velocity, including inheritance.
 static func solve(start: Vector3,target: Vector3,speed: float,gravity: float,inherited:=Vector3.ZERO,high: bool=false) -> Dictionary:
 	if speed<=0 or gravity<=0 or not start.is_finite() or not target.is_finite():return {}
+	var span:=target-start;var distance:=Vector2(span.x,span.z).length()
+	if inherited.length_squared()<.000000000001 and distance>.000001:
+		var v2:=speed*speed;var disc:=v2*v2-gravity*(gravity*distance*distance+2*span.y*v2)
+		if disc < -v2*v2*.0000000001:return {}
+		var tangent:float=(v2+(1 if high else -1)*sqrt(maxf(0,disc)))/(gravity*distance)
+		var horizontal:=speed/sqrt(1+tangent*tangent);var flight:=distance/horizontal
+		var velocity:=Vector3(span.x/distance*horizontal,horizontal*tangent,span.z/distance*horizontal)
+		return {"direction":velocity.normalized(),"velocity":velocity,"time":flight}
+	var time_step:=clampf(2*(speed+inherited.length())/gravity+5.,10.,120.)/400.
 	var previous:=.025;var previous_error:=error_at(start,target,speed,gravity,inherited,previous)
 	var solutions: Array=[]
 	for i in range(1,401):
-		var time:=i*.025;var error:=error_at(start,target,speed,gravity,inherited,time)
+		var time:=i*time_step;var error:=error_at(start,target,speed,gravity,inherited,time)
 		if error*previous_error<=0:
 			var low:=previous;var upper:=time
 			for iteration in 18:

@@ -1,0 +1,5 @@
+addons/fps_native/src/authority_core.cpp: In constructor 'cqauthority::Core::Core()':
+addons/fps_native/src/authority_core.cpp:24:1: note: variable tracking size limit exceeded with '-fvar-tracking-assignments', retrying without
+   24 | Core::Core() { frame_.reserve(32 + MAX_PLAYERS * 120); }
+      | ^~~~
+{"checks":249035,"ok":true,"replay_players":64,"replay_ticks":3600}

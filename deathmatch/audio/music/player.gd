@@ -11,7 +11,7 @@ var loading: Dictionary={}
 var cache: Dictionary={}
 func setup(arena: Node) -> void:
 	game=arena
-	if game.headless:set_process(false);return
+	if game.headless or game.has_method("draw_class_players"):set_process(false);return
 	if AudioServer.get_bus_index("ArenaMusic")<0:
 		owned_bus=true;AudioServer.add_bus();AudioServer.set_bus_name(AudioServer.bus_count-1,"ArenaMusic")
 		AudioServer.set_bus_send(AudioServer.bus_count-1,"Master")

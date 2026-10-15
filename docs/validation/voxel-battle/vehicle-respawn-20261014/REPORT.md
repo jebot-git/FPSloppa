@@ -1,0 +1,9 @@
+# Vehicle respawn balancing — 14 October 2026
+
+Destroyed transports return after 120 seconds; rocket, light and heavy tanks return after 180 seconds. The authority uses simulation time from destruction, including drowning. Further damage to a wreck does not restart its timer. Vehicles restore their original authored location, heading and team, full health and ammunition, empty seats and cleared volley/reload/movement state. Their entity keys remain stable. Native host synchronization restores position and collision on respawn. A round restart restores vehicles immediately and cancels pending timers.
+
+Implemented in the native C++ resident authority and script fallback. No wire format or protocol change is needed; existing protocol-22 clients remain compatible.
+
+Validation: 910,295 native golden checks and the same ASan/UBSan checks passed, including 67 added assertions covering all four vehicle kinds, exact timer boundaries, repeated wreck damage, original placement/ownership, empty seats, second destruction, drowning and round reset. The script fallback passed 28 matching checks, and the Jolt eight-seat integration fixture passed 475 checks. Portable native packaging passed build-receipt validation. Evidence and release hashes are retained here.
+
+Release `20261014-cq-vehicle-respawn` passed remote SHA-256 verification and isolated startup, then activated through the visible sudo terminal. The previous release/config are retained for rollback. Native server PID 1637106, server collector PID 1637312, 64 slots. Matching VR client PID 241428 and client/WiVRn collector PID 241429 connected successfully, with map loaded, focused XR session and no initial client errors. Both collectors run up to two hours, pinned to their target processes. Server analytics: `/home/blux/fpsloppa-cq/analytics/20261014-cq-vehicle-respawn`. Local client analytics: `/home/blux/.cache/cq-live-fixes/vehicle-respawn-analytics-20261014`.

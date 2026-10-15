@@ -1,0 +1,93 @@
+{
+	"ai_us": {
+		"max": 26.062,
+		"mean": 1.19719855595668,
+		"p50": 1.288,
+		"p95": 1.99
+	},
+	"callback_us": {
+		"max": 6930.0,
+		"mean": 1921.39516800889,
+		"p50": 1777.0,
+		"p95": 3388.0
+	},
+	"combat_and_queries_us": {
+		"max": 2938.36401367188,
+		"mean": 266.233004604171,
+		"p50": 183.026000976562,
+		"p95": 645.427001953125
+	},
+	"compressed_publication_bytes": 19704971,
+	"cq_gameplay": true,
+	"cq_mode_us": {
+		"max": 102.653,
+		"mean": 1.92621577339628,
+		"p50": 1.464,
+		"p95": 3.408
+	},
+	"disconnected": 0,
+	"fixture": "native-cq-jungle-jolt-enet",
+	"frame_encoding_us": {
+		"max": 140.897003173828,
+		"mean": 31.9063643426333,
+		"p50": 41.181999206543,
+		"p95": 60.5449981689453
+	},
+	"hz": 30.0033327778704,
+	"jungle_map": true,
+	"movement_and_collision_us": {
+		"max": 1996.59704589844,
+		"mean": 1000.95773476026,
+		"p50": 1046.125,
+		"p95": 1300.45300292969
+	},
+	"native": {
+		"accepted": 115196,
+		"ai_us": 1.564,
+		"combat_us": 121.377,
+		"damage": 5,
+		"deaths": 5,
+		"intermission": 0.0,
+		"mode_us": 1.278,
+		"movement_us": 970.341,
+		"overflow": 0,
+		"projectile_full": 0,
+		"rejected": 4,
+		"round_epoch": 1,
+		"round_remaining": 0.0,
+		"scores": [
+			0,
+			0
+		],
+		"shots": 4524,
+		"snapshot_us": 0.027,
+		"tick": 3961,
+		"time": 132.033333333333,
+		"winner": -2
+	},
+	"physics": "Godot Jolt",
+	"players": 32,
+	"production_cq": false,
+	"rpc_inputs": 115200,
+	"seconds": 120.02,
+	"shots_by_class_current_life": {
+		"0": 2070,
+		"1": 436,
+		"2": 1568,
+		"3": 91
+	},
+	"snapshot_parts": 21783,
+	"stress_infinite_reserve_invulnerable": true,
+	"ticks": 3601,
+	"warmup_native": {
+		"accepted": 5860,
+		"damage": 0,
+		"deaths": 0,
+		"overflow": 0,
+		"projectile_full": 0,
+		"rejected": 0,
+		"shots": 0
+	},
+	"warmup_seconds": 8.0,
+	"xr": true
+}

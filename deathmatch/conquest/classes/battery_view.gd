@@ -10,9 +10,9 @@ class FeedHUD extends Control:
 		draw_line(Vector2(0,36),Vector2(640,36),Color("69b9b1"),2)
 		var config:Dictionary=view.service.profile(row)
 		var text:String="%s · %d/%d HP · "%[config.name,row.hp,config.hp]+("SALVO %d/8"%(8-row.left) if row.left>0 else "RELOAD %.1fs"%maxf(0,row.reload_at-view.game.clock) if row.reload_at>view.game.clock else "READY · %d %s"%[config.capacity if row.kind=="rocket" or row.rounds==0 else row.rounds,"VOLLEYS" if row.kind=="heavy" else "ROUNDS"])
-		draw_string(ThemeDB.fallback_font,Vector2(14,24),text,HORIZONTAL_ALIGNMENT_LEFT,-1,18,Color("dcebe8"))
-		draw_string(ThemeDB.fallback_font,Vector2(14,350),"WEAPON HAND AIM · MOTION STICK DRIVE" if view.game.is_vr() else "MOUSE AIM · WASD TANK DRIVE",HORIZONTAL_ALIGNMENT_LEFT,-1,14,Color("c7d8d8"))
-		draw_string(ThemeDB.fallback_font,Vector2(475,350),"USE · DISMOUNT",HORIZONTAL_ALIGNMENT_LEFT,-1,14,Color("c7d8d8"))
+		draw_string(preload("res://deathmatch/ui/cq/theme.gd").FONT,Vector2(14,24),text,HORIZONTAL_ALIGNMENT_LEFT,-1,18,Color("dcebe8"))
+		draw_string(preload("res://deathmatch/ui/cq/theme.gd").FONT,Vector2(14,350),"WEAPON HAND AIM · MOTION STICK DRIVE" if view.game.is_vr() else "MOUSE AIM · WASD TANK DRIVE",HORIZONTAL_ALIGNMENT_LEFT,-1,14,Color("c7d8d8"))
+		draw_string(preload("res://deathmatch/ui/cq/theme.gd").FONT,Vector2(475,350),"USE · DISMOUNT",HORIZONTAL_ALIGNMENT_LEFT,-1,14,Color("c7d8d8"))
 		for axis in [Vector2.RIGHT,Vector2.DOWN]:
 			for sign in [-1,1]:
 				var a:Vector2=Vector2(320,180)+axis*sign*5;var b:Vector2=Vector2(320,180)+axis*sign*13
@@ -27,6 +27,8 @@ var screen:MeshInstance3D
 var hud:FeedHUD
 var black:Environment
 var saved:Dictionary={}
+var reticle:MeshInstance3D
+var hidden_hull:Node3D
 func setup(arena,tanks) -> void:game=arena;service=tanks
 func create_view() -> void:
 	viewport=SubViewport.new();viewport.name="STBatteryScopeFeed";viewport.size=Vector2i(640,360);viewport.world_3d=game.get_world_3d();viewport.render_target_update_mode=SubViewport.UPDATE_DISABLED;viewport.audio_listener_enable_3d=false;add_child(viewport)
@@ -39,6 +41,9 @@ func create_view() -> void:
 	var m:=StandardMaterial3D.new();m.shading_mode=BaseMaterial3D.SHADING_MODE_UNSHADED;m.albedo_texture=viewport.get_texture();screen.material_override=m;add_child(screen)
 	black=Environment.new();black.background_mode=Environment.BG_COLOR;black.background_color=Color.BLACK
 func deactivate() -> void:
+	if reticle:reticle.hide()
+	if is_instance_valid(hidden_hull):hidden_hull.show()
+	hidden_hull=null
 	for state in saved.values():
 		var camera=state.ref.get_ref()
 		if is_instance_valid(camera):camera.cull_mask=state.mask;camera.environment=state.environment
@@ -51,10 +56,32 @@ func update() -> void:
 	deactivate()
 	var id:int=game.multiplayer.get_unique_id();key=service.key_for(id)
 	if key<0 or not game.active or game.menu_open:return
-	if not viewport:create_view()
 	var row:Dictionary=service.rows[key]
 	if is_instance_valid(game.viewmodel):game.viewmodel.hide()
 	if is_instance_valid(game.offhand_viewmodel):game.offhand_viewmodel.hide()
+	if row.kind=="transport":
+		if game.is_vr() and is_instance_valid(game.xr_rig.gun):game.xr_rig.gun.hide()
+		key=-1;return # Passenger's normal stereo/world camera looks through pod windows.
+	if game.is_vr():
+		if not reticle:
+			reticle=MeshInstance3D.new();reticle.name="StereoBoreReticle";reticle.mesh=ImmediateMesh.new();reticle.cast_shadow=GeometryInstance3D.SHADOW_CASTING_SETTING_OFF;add_child(reticle)
+			var material:=StandardMaterial3D.new();material.shading_mode=BaseMaterial3D.SHADING_MODE_UNSHADED;material.albedo_color=Color("dcebe8");reticle.material_override=material
+		var start:Vector3=service.muzzle(row);var end:Vector3=start+row.direction*5000.
+		var query:=PhysicsRayQueryParameters3D.create(start,end,1,[service.bodies[key].get_rid()])
+		var hit:Dictionary=game.get_world_3d().direct_space_state.intersect_ray(query)
+		var target:Vector3=hit.position if not hit.is_empty() else end
+		var distance:float=clampf(game.xr_rig.head.global_position.distance_to(target),2.,100.)
+		var offset:Vector3=(target-game.xr_rig.head.global_position).normalized()
+		reticle.global_position=game.xr_rig.head.global_position+offset*distance;reticle.global_basis=game.xr_rig.head.global_basis
+		var mesh:ImmediateMesh=reticle.mesh;mesh.clear_surfaces();mesh.surface_begin(Mesh.PRIMITIVE_LINES)
+		for axis in [Vector3.RIGHT,Vector3.UP]:
+			for sign in [-1.,1.]:mesh.surface_add_vertex(axis*sign*distance*.002);mesh.surface_add_vertex(axis*sign*distance*.006)
+		mesh.surface_end();reticle.show()
+		hidden_hull=service.models.get(key)
+		if is_instance_valid(hidden_hull):hidden_hull.hide()
+		if is_instance_valid(game.xr_rig.gun):game.xr_rig.gun.hide()
+		return
+	if not viewport:create_view()
 	if game.is_vr():
 		var rig=game.xr_rig
 		if is_instance_valid(rig.gun):rig.gun.hide()

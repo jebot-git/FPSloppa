@@ -1,0 +1,84 @@
+{
+  "scope": "Final 10-second measured jungle/ENet correctness windows following 8-second warmups. Not a capacity/performance certification.",
+  "native_library_sha256": "3157ec7e8def508522ea1cd4ccdb48c32dddde5bb7f84841e011240303531ae4",
+  "cases": [
+    {
+      "players": 32,
+      "seconds": 10.026,
+      "ticks": 301,
+      "hz": 30.0219429483343,
+      "native": {
+        "accepted": 9599,
+        "ai_us": 0.452,
+        "combat_us": 260.763,
+        "damage": 1,
+        "deaths": 1,
+        "intermission": 0.0,
+        "mode_us": 5.049,
+        "movement_us": 1064.847,
+        "overflow": 0,
+        "projectile_full": 0,
+        "rejected": 1,
+        "round_epoch": 1,
+        "round_remaining": 0.0,
+        "scores": [
+          0,
+          0
+        ],
+        "shots": 240,
+        "snapshot_us": 76.883,
+        "tick": 657,
+        "time": 21.9,
+        "winner": -2
+      },
+      "accepted_fraction_of_minimum_offered": 0.9998958333333333,
+      "clients": {
+        "admitted": 32,
+        "players": 32,
+        "bad_frames": 0,
+        "disconnected": 0,
+        "minimum_frames": 200,
+        "minimum_inputs_sent": 300
+      }
+    },
+    {
+      "players": 64,
+      "seconds": 10.036,
+      "ticks": 301,
+      "hz": 29.9920286966919,
+      "native": {
+        "accepted": 19209,
+        "ai_us": 1.924,
+        "combat_us": 243.238,
+        "damage": 6,
+        "deaths": 3,
+        "intermission": 0.0,
+        "mode_us": 1.758,
+        "movement_us": 2168.842,
+        "overflow": 0,
+        "projectile_full": 0,
+        "rejected": 3,
+        "round_epoch": 1,
+        "round_remaining": 0.0,
+        "scores": [
+          0,
+          0
+        ],
+        "shots": 480,
+        "snapshot_us": 69.783,
+        "tick": 665,
+        "time": 22.1666666666667,
+        "winner": -2
+      },
+      "accepted_fraction_of_minimum_offered": 0.9971449335548173,
+      "clients": {
+        "admitted": 64,
+        "players": 64,
+        "bad_frames": 0,
+        "disconnected": 0,
+        "minimum_frames": 200,
+        "minimum_inputs_sent": 301
+      }
+    }
+  ]
+}

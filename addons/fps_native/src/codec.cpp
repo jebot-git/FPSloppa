@@ -1,4 +1,5 @@
 #include "codec.h"
+#include "authority_protocol.h"
 #include <godot_cpp/core/class_db.hpp>
 #include <godot_cpp/variant/array.hpp>
 #include <godot_cpp/variant/dictionary.hpp>
@@ -120,6 +121,7 @@ struct Reader {
 };
 }
 void FPSCodec::_bind_methods(){
+ ClassDB::bind_method(D_METHOD("validate_authority_frame","bytes","expected","tick"),&FPSCodec::validate_authority_frame);
  ClassDB::bind_method(D_METHOD("pack_input","command"),&FPSCodec::pack_input);
  ClassDB::bind_method(D_METHOD("encode_records","records"),&FPSCodec::encode_records);
  ClassDB::bind_method(D_METHOD("pack_records","records","header"),&FPSCodec::pack_records);
@@ -134,3 +136,5 @@ Variant FPSCodec::decode(const PackedByteArray &bytes) const{
  if(bytes.size()>int64_t(LIMIT))return Variant();Reader reader(bytes);Variant value=reader.read();
  return reader.valid&&reader.offset==reader.size?value:Variant();
 }
+
+bool FPSCodec::validate_authority_frame(const PackedByteArray& bytes,int expected,int64_t tick)const{return cqauthority::validate_frame(bytes.ptr(),bytes.size(),expected,tick);}

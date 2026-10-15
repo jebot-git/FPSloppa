@@ -14,6 +14,7 @@ var graphics_page: VBoxContainer
 var input_page: VBoxContainer
 var tracking_page: VBoxContainer
 var tracking_status: Label
+var ambience_slider:HSlider
 var foveation_status: Label
 var foveation_mode:=""
 var foveation_poll:=0.0
@@ -22,12 +23,12 @@ var haptics_scroll: ScrollContainer
 func setup(arena: Node) -> void:
 	game=arena;values=game.presentation;name="AudioGraphicsSettings";hide()
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	theme=preload("res://deathmatch/ui/iron_theme.gd").theme()
-	var style=preload("res://deathmatch/ui/iron_theme.gd").panel()
+	theme=preload("res://deathmatch/ui/iron_theme.gd").for_game(game)
+	var style=preload("res://deathmatch/ui/iron_theme.gd").surface_for(game)
 	for side in [SIDE_LEFT,SIDE_RIGHT,SIDE_TOP,SIDE_BOTTOM]:style.set_content_margin(side,20)
 	add_theme_stylebox_override("panel",style)
 	var column:=VBoxContainer.new();column.add_theme_constant_override("separation",8);add_child(column)
-	var title:=Label.new();title.add_theme_font_override("font",preload("res://deathmatch/ui/BebasNeue-Regular.ttf"));title.text="SETTINGS";title.add_theme_font_size_override("font_size",28);column.add_child(title)
+	var title:=Label.new();title.add_theme_font_override("font",preload("res://deathmatch/ui/iron_theme.gd").font_for(game));title.text="SETTINGS";title.add_theme_font_size_override("font_size",28);column.add_child(title)
 	haptics_scroll=preload("res://deathmatch/ui/drag_scroll.gd").new();haptics_scroll.size_flags_vertical=Control.SIZE_EXPAND_FILL;haptics_scroll.horizontal_scroll_mode=ScrollContainer.SCROLL_MODE_DISABLED;column.add_child(haptics_scroll)
 	var haptics_options:=VBoxContainer.new();haptics_options.add_theme_constant_override("separation",8);haptics_options.size_flags_horizontal=Control.SIZE_EXPAND_FILL;haptics_scroll.add_child(haptics_options)
 	stepper(haptics_options,"controller_haptic_strength","Controller strength",.1)
@@ -42,6 +43,8 @@ func setup(arena: Node) -> void:
 		if game.is_vr():game.xr_rig.left_handed=not game.xr_rig.left_handed;refresh())
 	controls.recenter=button(tracking_page,"RECENTER / CALIBRATE BODY",func():
 		if game.is_vr():game.xr_rig.recenter();refresh())
+	if game.has_method("draw_class_players"):
+		var preview=preload("res://deathmatch/vr/calibration_preview.gd").new();tracking_page.add_child(preview);preview.setup(game)
 	tracking_status=Label.new();tracking_status.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART;tracking_page.add_child(tracking_status)
 	audio_page=VBoxContainer.new();audio_page.add_theme_constant_override("separation",8);column.add_child(audio_page)
 	graphics_page=VBoxContainer.new();graphics_page.add_theme_constant_override("separation",8);column.add_child(graphics_page)
@@ -49,6 +52,11 @@ func setup(arena: Node) -> void:
 	var graphics_scroll:=preload("res://deathmatch/ui/drag_scroll.gd").new();graphics_scroll.custom_minimum_size.y=280;graphics_scroll.size_flags_vertical=Control.SIZE_EXPAND_FILL;graphics_scroll.horizontal_scroll_mode=ScrollContainer.SCROLL_MODE_DISABLED;graphics_page.add_child(graphics_scroll)
 	var graphics_options:=VBoxContainer.new();graphics_options.add_theme_constant_override("separation",8);graphics_options.size_flags_horizontal=Control.SIZE_EXPAND_FILL;graphics_scroll.add_child(graphics_options)
 	for row in [["master","Master volume"],["effects","Sound effects"],["music","Music"],["announcer","Announcer"],["voice","Voice playback"]]:stepper(audio_page,row[0],row[1],.05)
+	var ambience_row:=HBoxContainer.new();audio_page.add_child(ambience_row)
+	var ambience_title:=Label.new();ambience_title.text="Ambience";ambience_title.custom_minimum_size.x=220;ambience_row.add_child(ambience_title)
+	ambience_slider=HSlider.new();ambience_slider.min_value=0;ambience_slider.max_value=1;ambience_slider.step=.01;ambience_slider.custom_minimum_size=Vector2(160,48);ambience_slider.size_flags_horizontal=Control.SIZE_EXPAND_FILL;ambience_row.add_child(ambience_slider)
+	var ambience_amount:=Label.new();ambience_amount.custom_minimum_size.x=90;ambience_row.add_child(ambience_amount);controls.ambience=ambience_amount
+	ambience_slider.value_changed.connect(func(value):values.ambience=value;save())
 	controls.spatial_audio=button(audio_page,"",func():
 		values.spatial_audio="stereo" if values.spatial_audio=="steam_audio" else "steam_audio";game.spatial.apply_backend();save())
 	controls.output=button(audio_page,"",func():
@@ -60,6 +68,8 @@ func setup(arena: Node) -> void:
 	controls.texture_filter=button(graphics_options,"",func():values.texture_filter=(int(values.texture_filter)+1)%3;save())
 	controls.contrast_lighting=button(graphics_options,"",func():values.contrast_lighting=not values.get("contrast_lighting",false);save())
 	controls.msaa=button(graphics_options,"",func():values.msaa=(int(values.msaa)+1)%4;save())
+	controls.foveation_dynamic=button(graphics_options,"",func():values.foveation_dynamic=not values.get("foveation_dynamic",true);save())
+	controls.foveation_dynamic.toggle_mode=true
 	controls.foveation_level=button(graphics_options,"",func():values.foveation_level=(int(values.foveation_level)+1)%4;save())
 	controls.fovea_size=button(graphics_options,"",func():values.fovea_size=(int(values.fovea_size)+1)%4;save())
 	foveation_status=Label.new();foveation_status.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART;graphics_options.add_child(foveation_status)
@@ -77,7 +87,7 @@ func setup(arena: Node) -> void:
 		child.reparent(category_pages.devices if child is Button else category_pages.audio)
 	book.link("audio","devices","DEVICES & VOICE")
 	for child in graphics_options.get_children():child.reparent(category_pages.graphics)
-	for control in [controls.foveation_level,controls.fovea_size,foveation_status,controls.hud_scale.get_parent(),controls.hud_y.get_parent()]:control.reparent(category_pages.vr)
+	for control in [controls.foveation_dynamic,controls.foveation_level,controls.fovea_size,foveation_status,controls.hud_scale.get_parent(),controls.hud_y.get_parent()]:control.reparent(category_pages.vr)
 	for control in [controls.fullscreen,controls.fov.get_parent()]:control.reparent(category_pages.desktop)
 	book.link("graphics","vr","VR RENDERING & HUD")
 	book.link("graphics","desktop","DESKTOP DISPLAY")
@@ -88,6 +98,7 @@ func setup(arena: Node) -> void:
 	column.queue_free()
 	audio_page=category_pages.audio;graphics_page=category_pages.graphics;input_page=category_pages.controls;tracking_page=category_pages.tracking
 	haptics_scroll=category_pages.haptics.get_parent()
+	if game.has_method("draw_class_players"):configure_cq()
 	book.page_changed.connect(func(id):section=id;refresh())
 	book.closed.connect(hide)
 	refresh()
@@ -114,7 +125,8 @@ func refresh() -> void:
 	if game.is_vr():
 		controls.gun_hand.text="GUN HAND: "+("LEFT" if game.xr_rig.left_handed else "RIGHT")+" · SWAP"
 	values.voice=game.voice.volume
-	for key in ["master","effects","voice","music","announcer","render_scale","controller_haptic_strength"]:controls[key].text="%d%%"%roundi(values[key]*100)
+	for key in ["master","effects","ambience","voice","music","announcer","render_scale","controller_haptic_strength"]:controls[key].text="%d%%"%roundi(values[key]*100)
+	ambience_slider.set_value_no_signal(values.get("ambience",.6))
 	controls.fov.text="%d°"%roundi(values.fov);controls.fov.get_parent().visible=not game.is_vr()
 	controls.hud_scale.text="%d%%"%roundi(values.hud_scale*100)
 	controls.hud_y.text="%+.0f cm"%(values.hud_y*100)
@@ -131,13 +143,15 @@ func open() -> void:
 	section="home";refresh();get_parent().move_child(self,-1);show()
 
 func refresh_foveation(xr) -> void:
-	foveation_mode=Foveation.mode(xr)
+	foveation_mode=Foveation.mode(xr,values.get("foveation_dynamic",true))
 	var gaze:=foveation_mode=="gaze"
 	controls.foveation_level.visible=not gaze
 	controls.fovea_size.visible=gaze
-	controls.foveation_level.text="VR STATIC FOVEATION: "+Foveation.LABELS[int(values.foveation_level)]
+	controls.foveation_dynamic.text="VR FOVEATION MODE: "+("DYNAMIC" if values.get("foveation_dynamic",true) else "STATIC")
+	controls.foveation_dynamic.set_pressed_no_signal(values.get("foveation_dynamic",true))
+	controls.foveation_level.text="VR FOVEATION STRENGTH: "+Foveation.LABELS[int(values.foveation_level)]
 	controls.fovea_size.text="VR FOVEA SIZE: "+Foveation.SIZE_LABELS[int(values.fovea_size)]
-	foveation_status.text=Foveation.description(xr,int(values.foveation_level),int(values.fovea_size))
+	foveation_status.text=Foveation.description(xr,int(values.foveation_level),int(values.fovea_size),values.get("foveation_dynamic",true))
 
 func _process(delta: float) -> void:
 	if not is_visible_in_tree() or section!="vr":return
@@ -145,4 +159,20 @@ func _process(delta: float) -> void:
 	if foveation_poll<.5:return
 	foveation_poll=0.0
 	var xr=XRServer.find_interface("OpenXR")
-	if Foveation.mode(xr)!=foveation_mode:refresh_foveation(xr)
+	if Foveation.mode(xr,values.get("foveation_dynamic",true))!=foveation_mode:refresh_foveation(xr)
+
+func configure_cq()->void:
+	book.titles.home="CQ SETTINGS";book.titles.audio="AUDIO";book.titles.devices="VOICE & DEVICES";book.titles.graphics="DISPLAY";book.titles.vr="VR & COMFORT";book.titles.tracking="AVATAR CALIBRATION"
+	for link in category_pages.home.get_children():
+		if link is Button:
+			if link.text.begins_with("GRAPHICS"):link.text="DISPLAY  ›"
+			elif link.text.begins_with("TRACKING"):link.text="AVATAR CALIBRATION  ›"
+	book.parents.vr="home";book.link("home","vr","VR & COMFORT")
+	for child in category_pages.graphics.get_children():
+		if child is Button and child.text.begins_with("VR RENDERING"):child.hide()
+	controls.music.get_parent().hide();controls.announcer.get_parent().hide();controls.contrast_lighting.hide()
+	controls.effects.get_parent().get_child(0).text="Effects & ambience"
+	controls.recenter.hide() # The preview includes calibration and confirmation.
+	controls.vr_controls.reparent(category_pages.vr);controls.gun_hand.reparent(category_pages.vr)
+	for child in category_pages.tracking.get_children():
+		if child is Label:child.hide() # Instructions are included in the live preview.

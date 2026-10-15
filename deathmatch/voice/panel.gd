@@ -16,17 +16,17 @@ func setup(service: Node) -> void:
 	visible=false
 	mouse_filter=Control.MOUSE_FILTER_STOP
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	var background=preload("res://deathmatch/ui/iron_theme.gd").panel()
+	var background=preload("res://deathmatch/ui/iron_theme.gd").surface_for(voice.game)
 	for side in [SIDE_LEFT,SIDE_RIGHT,SIDE_TOP,SIDE_BOTTOM]: background.set_content_margin(side,20)
 	add_theme_stylebox_override("panel",background)
 	var column:=VBoxContainer.new()
 	column.add_theme_constant_override("separation",8)
 	add_child(column)
-	var theme_resource=preload("res://deathmatch/ui/iron_theme.gd").theme()
+	var theme_resource=preload("res://deathmatch/ui/iron_theme.gd").for_game(voice.game)
 	theme_resource.default_font_size=18
 	column.theme=theme_resource
 	var intro:=Label.new()
-	intro.text="VOICE CHAT\nNearby: V / offhand grip\nTeam: B / grab shoulder radio + hold trigger"
+	intro.text="VOICE CHAT\nNearby: V / offhand grip\nSquad: hold B / radio trigger · Team: tap, then hold within 0.32s" if voice.game.has_method("draw_class_players") else "VOICE CHAT\nNearby: V / offhand grip\nTeam: B / grab shoulder radio + hold trigger"
 	column.add_child(intro)
 	mumble=Button.new();mumble.text="OPEN EXTERNAL MUMBLE CLIENT";mumble.custom_minimum_size.y=44;column.add_child(mumble)
 	mumble.pressed.connect(func():

@@ -36,6 +36,7 @@ const HK_ANGLE:=-PI/3
 const BELT_PICKUP:=Vector3(-.135,-.015,-.335)
 const BELT_TRAY:=Vector3(0,.145,-.335)
 static func rack_point(w: int,p: Dictionary) -> Vector3:
+	if p.has("cq_weapon"):return load("res://deathmatch/conquest/classes/models.gd").anchor(p.cq_weapon,"rack_anchor")+Vector3.BACK*.065*p.stroke
 	if w==9:return BOLT_PIVOT+Basis(Vector3.BACK,p.get("lift",0.0)*PI/3)*(RACK_POINTS[w]-BOLT_PIVOT)+Vector3.BACK*.10*p.stroke
 	if w==5:return hk_transform(p.stroke,p.get("lift",0.0))*RACK_POINTS[w]
 	return RACK_POINTS[w]+Vector3.BACK*(.105 if w==3 else .065)*p.stroke+Vector3.UP*.055*p.get("lift",0.0)
@@ -124,6 +125,7 @@ static func sample(p: Dictionary,w: int,clip: int,total: int,capacity: int,pose:
 	if p.side!=-1 and p.side!=int(pose.left_handed):interrupt(p)
 	p.side=int(pose.left_handed)
 	var hand: Transform3D=pose.right if pose.left_handed else pose.left
+	var magazine:Vector3=load("res://deathmatch/conquest/classes/models.gd").anchor(p.cq_weapon,"magazine_anchor") if p.has("cq_weapon") else MAG_POINTS[w]
 	var weapon:=model_pose(pose,w);var local: Vector3=weapon.affine_inverse()*hand.origin
 	var motion:=Motion.sample(p,pose,weapon,hand,now if input_time<0 else input_time)
 	# A locked pistol can close with a deliberate sideways flick. It cannot
@@ -176,7 +178,7 @@ static func sample(p: Dictionary,w: int,clip: int,total: int,capacity: int,pose:
 			p.removed_depth=maxf(p.removed_depth,depth)
 			# A distinct inward motion prevents the overlapping grab/insert
 			# volumes from immediately reseating a just-extracted magazine.
-			if (p.removed_depth-depth)*.65>=.025 and hand.origin.distance_to(weapon*MAG_POINTS[w])<INSERT_RADIUS and insertion_aligned(w,pose,hand) and now-p.started>=.06 and (w!=8 or p.cover>.9):
+			if (p.removed_depth-depth)*.65>=.025 and hand.origin.distance_to(weapon*magazine)<INSERT_RADIUS and insertion_aligned(w,pose,hand) and now-p.started>=.06 and (w!=8 or p.cover>.9):
 				clip=mini(clip+int(p.carried_rounds),mini(capacity,total));p.mag=true
 				if w==12:chamber(p,clip)
 				if w==8:p.belt=false;p.belt_progress=0.0
@@ -196,7 +198,7 @@ static func sample(p: Dictionary,w: int,clip: int,total: int,capacity: int,pose:
 				# motion after the knock-out is required.
 				return clip
 			var contact: Vector3=load("res://deathmatch/conquest/classes/reload_geometry.gd").ammo_contact(hand,w)
-			var close: bool=contact.distance_to(weapon*MAG_POINTS[w])<INSERT_RADIUS
+			var close: bool=contact.distance_to(weapon*magazine)<INSERT_RADIUS
 			var aligned:=insertion_aligned(w,pose,hand)
 			if p.left_pouch and close and aligned and now-p.started>=.15 and (w!=8 or p.cover>.9):
 				if tube_fed(w):clip=mini(clip+1,mini(capacity,total))
@@ -260,8 +262,8 @@ static func sample(p: Dictionary,w: int,clip: int,total: int,capacity: int,pose:
 			p.grab=""
 	elif pressed or (w==3 and p.supported and grip and not p.ready):
 		var cover_grip:=weapon*cover_point(p.cover)
-		var belt_first: bool=w==8 and not p.belt and local.distance_to(BELT_PICKUP)<local.distance_to(MAG_POINTS[w])
-		if p.mag and magazine_contact(w,p.cover,weapon,hand.origin) and not belt_first:
+		var belt_first: bool=w==8 and not p.belt and local.distance_to(BELT_PICKUP)<local.distance_to(magazine)
+		if p.mag and (removable_by_hand(w) and (w!=8 or p.cover>.9) and hand.origin.distance_to(weapon*magazine)<GRAB_RADIUS) and not belt_first:
 			p.grab="magazine";p.anchor=local;p.started=now;p.event+=1
 		elif w==5 and p.hk_locked and hand.origin.distance_to(weapon*rack_point(w,p))<HK_RADIUS:
 			p.grab="hk_release";p.anchor=local;p.started=now;p.pulled=false
@@ -269,7 +271,7 @@ static func sample(p: Dictionary,w: int,clip: int,total: int,capacity: int,pose:
 			p.grab="belt";p.carry=3;p.started=now;p.event+=1
 		elif w==8 and hand.origin.distance_to(cover_grip)<GRAB_RADIUS:
 			p.grab="cover";p.base=p.cover;p.anchor=local;p.started=now;p.event+=1
-		elif rack_contact(w,p,weapon,hand.origin) and p.cover<.05 and (w!=3 or not p.ready) and (w!=8 or p.belt) and not p.hk_locked and not (p.ready and handguard_first(w,local)):
+		elif rack_contact(w,p,weapon,hand.origin) and p.cover<.05 and (w!=3 or not p.ready) and (w!=8 or p.belt) and not p.hk_locked and not (p.ready and (local.distance_to(load("res://deathmatch/conquest/classes/models.gd").anchor(p.cq_weapon,"support_anchor"))<local.distance_to(rack_point(w,p)) if p.has("cq_weapon") else handguard_first(w,local))):
 			p.grab="rack";p.anchor=local;p.started=now;p.pulled=false;p.event+=1
 			if w==9:p.bolt_offset=local-rack_point(w,p);p.bolt_high=rack_point(w,p).y
 			else:p.stroke=0.0

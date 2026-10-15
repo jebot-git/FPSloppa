@@ -14,6 +14,8 @@ var zoom:=1.5
 var zoom_latched:=false
 const CQ_ZOOMS=[1.5,3.0,6.0]
 var zoom_steps:Array=CQ_ZOOMS.duplicate()
+var saved_zoom:Dictionary={}
+var optic_key:=""
 static func zoom_fov(base:float,magnification:float) -> float:return rad_to_deg(2*atan(tan(deg_to_rad(base)*.5)/magnification))
 func step_zoom(axis:float) -> void:
 	if absf(axis)<.25:zoom_latched=false
@@ -23,9 +25,11 @@ func setup(owner_rig) -> void:rig=owner_rig
 func attach(model: Node3D) -> void:
 	if is_instance_valid(weapon) and weapon==model:return
 	if is_instance_valid(lens):lens.queue_free()
+	if not optic_key.is_empty():saved_zoom[optic_key]=zoom_index
 	weapon=model
+	optic_key=str(model.get_meta("cq_weapon",-1)) if is_instance_valid(model) else ""
 	zoom_steps=model.get_meta("zoom_steps",CQ_ZOOMS).duplicate() if is_instance_valid(model) else CQ_ZOOMS.duplicate()
-	zoom_index=0;zoom=zoom_steps[0];zoom_latched=false
+	zoom_index=clampi(saved_zoom.get(optic_key,0),0,zoom_steps.size()-1);zoom=zoom_steps[zoom_index];zoom_latched=false
 	if not is_instance_valid(model) or not model.has_meta("scope_rear"):return
 	if not viewport:
 		viewport=SubViewport.new();viewport.name="SniperOptic";viewport.size=Vector2i(384,384) if OS.has_feature("android") else Vector2i(512,512)

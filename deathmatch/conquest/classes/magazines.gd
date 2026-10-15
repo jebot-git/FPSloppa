@@ -39,7 +39,7 @@ func tick(id:int) -> bool:
 	if s.vr_device:
 		c.reloading=-1
 		if not c.physical.has(w):c.physical[w]=Reload.make(c.clips[w])
-		var p:Dictionary=c.physical[w];p.weapon=geometry(w)
+		var p:Dictionary=c.physical[w];p.weapon=geometry(w);p.cq_weapon=w
 		var previous_mag:bool=p.mag;var previous_clip:int=c.clips[w]
 		c.clips[w]=Reload.sample(p,geometry(w),c.clips[w],s.ammo[d.ammo],d.magazine,s.xr,s.get("reload_grip",false),reload_pressed,game.clock,true,s.last_input)
 		if w in [5,11]:

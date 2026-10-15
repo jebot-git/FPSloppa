@@ -2,6 +2,7 @@
 #include <godot_cpp/core/class_db.hpp>
 #include "codec.h"
 #include "backend.h"
+#include "authority.h"
 #ifndef FPS_SERVER
 #include "poses.h"
 #endif
@@ -10,6 +11,7 @@ static void initialize(ModuleInitializationLevel level) {
  if(level!=MODULE_INITIALIZATION_LEVEL_SCENE)return;
  GDREGISTER_CLASS(FPSCodec);
  GDREGISTER_CLASS(FPSBackend);
+ GDREGISTER_CLASS(FPSAuthority);
 #ifndef FPS_SERVER
  GDREGISTER_CLASS(FPSPose);
 #endif

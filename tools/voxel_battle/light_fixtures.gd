@@ -9,9 +9,15 @@ static func rows(buildings:Array) -> Array:
 		var p:Vector3=building.center;var size:Vector2=building.size;var kind:int=building.kind
 		for floor_index in building.floors:
 			for x in [-.22,.22]:
-				for z in [-.24,.24]:result.append(source(kind,p+Vector3(size.x*x,floor_index*3.2+2.7,size.y*z),"hanging",18,.85))
+				for z in [-.24,.24]:
+					var at:=Vector3(size.x*x,floor_index*3.6+3.1,size.y*z)
+					# An intermediate ceiling has an open stairwell on its right.
+					# Mount the pendant on the intact slab instead of empty air.
+					if floor_index<building.floors-1 and at.x>size.x*.5-4.4 and at.z<10.2-size.y*.5:
+						at.x=size.x*.5-5.0
+					result.append(source(kind,p+at,"hanging",18,.85))
 		for side in [-1,1]:
-			var row:=source(kind,p+Vector3(0,2.83,side*(size.y/2+2.3)),"entry",14,1.2)
+			var row:=source(kind,p+Vector3(0,3.23,side*(size.y/2+2.3)),"entry",14,1.2)
 			row["side"]=side;result.append(row)
 	for kind in 11:
 		# Posts stand on the verges, outside the 14 m wide gate/road corridor.

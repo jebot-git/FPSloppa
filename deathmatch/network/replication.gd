@@ -62,7 +62,18 @@ func queue_packets(snapshot:Array) -> bool:
 		async_encoder=ClassDB.instantiate("FPSBackend")
 		async_encoder.set_workers(preload("res://deathmatch/native/runtime.gd").backend().get_workers())
 	sequence+=1
-	var accepted:bool=async_encoder.submit_snapshot(_records(snapshot),[snapshot[9],sequence,snapshot[12]],async_token)
+	var token:=preload("res://deathmatch/server/attribution.gd").begin("snapshot.freeze_submit")
+	var accepted:bool
+	if async_encoder.has_method("submit_snapshot_state") and not OS.get_cmdline_user_args().has("--gdscript-snapshot-preparation"):
+		if OS.get_cmdline_user_args().has("--native-snapshot-buffers"):
+			accepted=async_encoder.submit_snapshot_buffer(snapshot,[snapshot[9],sequence,snapshot[12]],async_token)
+		else:accepted=async_encoder.submit_snapshot_state(snapshot,[snapshot[9],sequence,snapshot[12]],async_token)
+	else:
+		var layout_token:=preload("res://deathmatch/server/attribution.gd").begin("snapshot.record_layout")
+		var records:=_records(snapshot)
+		preload("res://deathmatch/server/attribution.gd").end(layout_token)
+		accepted=async_encoder.submit_snapshot(records,[snapshot[9],sequence,snapshot[12]],async_token)
+	preload("res://deathmatch/server/attribution.gd").end(token)
 	stats["async_submitted"]=stats.get("async_submitted",0)+(1 if accepted else 0)
 	stats["async_busy"]=stats.get("async_busy",0)+(0 if accepted else 1)
 	return accepted

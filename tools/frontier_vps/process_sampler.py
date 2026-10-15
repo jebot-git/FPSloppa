@@ -1,7 +1,7 @@
 """Sample candidate authority CPU by thread, memory and owned UDP receive drops."""
 import argparse,json,os,time
 from pathlib import Path
-p=argparse.ArgumentParser();p.add_argument('--binary',type=Path,required=True);p.add_argument('--output',type=Path,required=True);p.add_argument('--seconds',type=int,default=400);a=p.parse_args()
+p=argparse.ArgumentParser();p.add_argument('--resident',action='store_true');p.add_argument('--binary',type=Path,required=True);p.add_argument('--output',type=Path,required=True);p.add_argument('--seconds',type=int,default=400);a=p.parse_args()
 binary=str(a.binary.resolve());a.output.parent.mkdir(parents=True,exist_ok=True);previous={};clock_ticks=os.sysconf('SC_CLK_TCK');deadline=time.monotonic()+a.seconds
 with a.output.open('w',buffering=1) as out:
  while time.monotonic()<deadline:
@@ -10,7 +10,9 @@ with a.output.open('w',buffering=1) as out:
    if not proc.name.isdigit():continue
    try:
     args=(proc/'cmdline').read_bytes().split(b'\0')
-    if not args or args[0].decode()!=binary or b'--server' not in args:continue
+    if not args or args[0].decode()!=binary:continue
+    resident_server=a.resident and b'--role' in args and args[args.index(b'--role')+1:args.index(b'--role')+2]==[b'server']
+    if b'--server' not in args and not resident_server:continue
     status={r.split(':',1)[0]:r.split(':',1)[1].strip() for r in (proc/'status').read_text().splitlines() if ':' in r}
     threads={}
     for task in (proc/'task').iterdir():

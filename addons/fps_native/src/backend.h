@@ -15,6 +15,7 @@
 #include <functional>
 #include <deque>
 #include <unordered_map>
+#include <memory>
 namespace godot {
 class FPSBackend : public RefCounted {
  GDCLASS(FPSBackend,RefCounted)
@@ -36,7 +37,17 @@ class FPSBackend : public RefCounted {
  int parallel_threshold=8192;
  void parallel(size_t n,const std::function<void(size_t)> &fn,int threshold=0);
  void stop_workers();
- struct SnapshotJob {Array records,header;int64_t token;};
+ struct PlayerState {Dictionary source;uint64_t generation=0;int64_t serial=-1;double cooldown=0,offhand_cooldown=0,charge=0;};
+ std::unordered_map<int64_t,PlayerState> player_states;
+ uint64_t player_generation=0;
+ // Containers in this optional handoff are immutable native-owned storage.
+ struct FrozenValue {Variant leaf;std::vector<FrozenValue> values;std::vector<Variant> keys;enum Kind {LEAF,ARRAY,DICTIONARY} kind=LEAF;};
+ static bool freeze_value(const Variant &source,FrozenValue &out,size_t &remaining,int depth=0);
+ static Variant thaw_value(const FrozenValue &source);
+ bool queue_snapshot_state(const Array &snapshot,const Array &header,int64_t token,bool buffer);
+ int64_t buffer_submitted=0,buffer_fallback=0;
+ struct SnapshotJob {Array records,header;int64_t token;bool state=false;std::shared_ptr<const FrozenValue> frozen;};
+ const std::thread::id owner_thread=std::this_thread::get_id();
  std::thread encoder;
  std::mutex encode_mutex;
  std::condition_variable encode_wake;
@@ -59,6 +70,12 @@ public:
  Array range_candidates(const PackedVector3Array &positions,const PackedInt32Array &teams,const PackedInt32Array &observers,const PackedInt32Array &targets,const PackedFloat64Array &radii);
  Dictionary rewind(const Dictionary &before,const Dictionary &after,const Dictionary &current,double weight) const;
  bool submit_snapshot(const Array &records,const Array &header,int64_t token);
+ bool submit_snapshot_buffer(const Array &snapshot,const Array &header,int64_t token);
+ Dictionary snapshot_buffer_stats() const;
+ bool submit_snapshot_state(const Array &snapshot,const Array &header,int64_t token);
+ Array prepare_snapshot(Object *game) const;
+ Array snapshot_records(const Array &snapshot) const;
+ Dictionary prepare_class_records(const Dictionary &states,const Dictionary &magazines,const Dictionary &spots,const Dictionary &locks,const Dictionary &charges,bool clone=true) const;
  Array poll_snapshots();
  bool valid_transform(const Variant &value) const;
  Dictionary validate_pose(const Variant &value) const;
@@ -70,6 +87,18 @@ public:
  Array get_target_overflow() const;
  Array target_candidates(Vector3 start,Vector3 end,double radius) const;
  Dictionary tune_udp_buffer(int port,int bytes) const;
+ void bind_players(const Dictionary &states);
+ int get_player_state_count() const{return int(player_states.size());}
+ int begin_player(int64_t id,double now);
+ bool advance_player(int64_t id,double delta);
+ Array begin_player_fire(int64_t id,double now,bool buffer_primary);
+ void end_player_fire(int64_t id,const Array &previous);
+ Dictionary sample_reload_motion(const Dictionary &state,const Dictionary &pose,Transform3D weapon,Transform3D hand,double stamp);
+ bool valid_input(const Dictionary &command) const;
+ void accept_input_header(const Dictionary &state,const Dictionary &command,double now);
+ void apply_input_fields(const Dictionary &state,const Dictionary &command,bool dual);
+ void accept_fire_event(const Dictionary &state,const Dictionary &command,double now);
+ bool send_snapshot_batch(Object *game,Object *budget,const Array &normal,const Array &large,const Array &recipients,double now);
  void shutdown();
 };
 }

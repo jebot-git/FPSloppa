@@ -17,6 +17,9 @@ var permission_wait:=false
 var panel: Control
 var test_receive:=false
 var radio_active:=false
+var radio_mode:=1
+var radio_button_down:=false
+var radio_last_press:=-1000.
 var radio_audio: Node
 var channel_serial: Dictionary={}
 
@@ -94,6 +97,7 @@ func can_transmit() -> bool:
 
 func set_radio(value: bool) -> void:
 	value=value and team_available() and game.voice_enabled and mode>0
+	if game.has_method("draw_class_players"):value=value and game.squads.membership(multiplayer.get_unique_id())>=0
 	if value==radio_active:return
 	radio_active=value
 	if is_instance_valid(radio_audio):radio_audio.cue(value,volume)
@@ -102,7 +106,17 @@ func driving() -> bool:
 	var id:=multiplayer.get_unique_id()
 	return game.players.has(id) and (game.match_mode.fortress.walkers.mounted(id) or game.handle_vehicle_player(id,0.0))
 
+func radio_trigger(value:bool)->void:
+	if not game.has_method("draw_class_players"):set_radio(value);return
+	if value and not radio_button_down:
+		var now:=Time.get_ticks_msec()/1000.
+		radio_mode=2 if now-radio_last_press<=.32 else 1
+		radio_last_press=-1000. if radio_mode==2 else now
+	radio_button_down=value;set_radio(value)
+func radio_scope()->int:
+	return radio_mode if game.has_method("draw_class_players") and team_channel() else 2 if team_channel() else 0
 func team_channel() -> bool:
+	if game.has_method("draw_class_players"):return game.voice_enabled and mode>0 and team_available() and radio_active
 	return game.voice_enabled and mode>0 and team_available() and (driving() or radio_active or not game.is_vr() and game.bindings.pressed("team_ptt"))
 
 func push_to_talk() -> bool:
@@ -113,11 +127,12 @@ func push_to_talk() -> bool:
 	return game.bindings.pressed("ptt")
 
 func _process(delta: float) -> void:
-	if not game.is_vr():set_radio(game.bindings.pressed("team_ptt") and can_transmit())
+	if not game.is_vr():radio_trigger(game.bindings.pressed("team_ptt") and can_transmit())
 	if radio_active and not team_available():set_radio(false)
 	for id in streams.keys():
 		var state: Dictionary=streams[id]
-		if not game.players.has(id) or game.clock-state.last_time>2 or state.get("team",false) and (not team_available(id) or not team_available() or not game.match_mode.same_team(id,multiplayer.get_unique_id())):remove_stream(id);continue
+		if game.has_method("draw_class_players") and state.get("scope",0)==1 and not game.squads.same_squad(id,multiplayer.get_unique_id()):remove_stream(id);continue
+		if not game.players.has(id) or game.clock-state.last_time>2 or state.get("team",false) and (not team_available(id) or not team_available() or not radio_allied(id,multiplayer.get_unique_id())):remove_stream(id);continue
 		var speaker=state.speaker
 		if game.clock-state.last_time>.16 and speaker.inopusstream:speaker.external_end_stream()
 		if game.fighters.has(id) and state.player is AudioStreamPlayer3D:state.player.global_position=game.fighters[id].global_position+Vector3.UP*1.55
@@ -163,7 +178,7 @@ func remove_peer(id: int) -> void:
 
 func reset() -> void:
 	for id in streams.keys(): remove_stream(id)
-	guard.clear(); muted.clear();channel_serial.clear(); sequence=0;set_radio(false)
+	guard.clear(); muted.clear();channel_serial.clear(); sequence=0;radio_button_down=false;radio_last_press=-1000.;radio_mode=1;set_radio(false)
 	game.voice_enabled=true
 	set_mode(mode)
 
@@ -171,20 +186,24 @@ func _exit_tree() -> void:
 	for id in streams.keys():remove_stream(id)
 	stop_capture()
 
-func _receive_audio(id: int,serial: int,data: PackedByteArray,team_only: bool=false) -> void:
+func _receive_audio(id: int,serial: int,data: PackedByteArray,team_only: bool=false,scope:int=-1) -> void:
+	if scope<0:scope=2 if team_only else 0
+	if scope not in [0,1,2] or (scope>0)!=team_only:return
+	if game.has_method("draw_class_players") and scope==1 and not game.squads.same_squad(id,multiplayer.get_unique_id()):return
 	if not game.voice_enabled or not game.players.has(id) or id==multiplayer.get_unique_id() or muted_all or muted.has(id) or not valid_packet(data):return
-	if team_only and (not team_available(id) or not team_available() or not game.match_mode.same_team(id,multiplayer.get_unique_id())):return
+	if team_only and (not team_available(id) or not team_available() or not radio_allied(id,multiplayer.get_unique_id())):return
 	if game.headless and not test_receive:return
-	var channel: Dictionary=channel_serial.get(id,{"serial":-1,"team":team_only})
-	if serial<=channel.serial and team_only!=channel.team:return
-	if serial>channel.serial:channel_serial[id]={"serial":serial,"team":team_only}
-	if streams.has(id) and streams[id].team!=team_only:remove_stream(id)
+	var channel: Dictionary=channel_serial.get(id,{"serial":-1,"team":team_only,"scope":scope})
+	if serial<=channel.serial and scope!=channel.get("scope",2 if channel.team else 0):return
+	if serial>channel.serial:channel_serial[id]={"serial":serial,"team":team_only,"scope":scope}
+	if streams.has(id) and streams[id].get("scope",2 if streams[id].team else 0)!=scope:remove_stream(id)
 	if streams.has(id):
 		var old: Dictionary=streams[id]
 		if serial<old.base or serial<old.last-32 or old.seen.has(serial):return
 		if serial>old.last+50 or serial-old.base>=32000 or game.clock-old.last_time>.16:remove_stream(id)
 	if not streams.has(id):
 		create_stream(id,serial,team_only)
+		streams[id].scope=scope
 		if team_only and is_instance_valid(radio_audio):radio_audio.cue(true,volume)
 	var state: Dictionary=streams[id]
 	state.last=maxi(state.last,serial);state.last_time=game.clock;state.seen[serial]=true

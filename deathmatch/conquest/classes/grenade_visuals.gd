@@ -26,7 +26,9 @@ static func model(_kind:int) -> Node3D:
 		preload("res://deathmatch/conquest/classes/airstrike.gd").prepare_model(result)
 		preload("res://tools/voxel_battle/baked_lighting.gd").convert_node(result)
 		return result
-	return load("res://deathmatch/weapons/cq/grenade.glb").instantiate()
+	var result:Node3D=load("res://deathmatch/weapons/cq/grenade.glb").instantiate()
+	preload("res://tools/voxel_battle/baked_lighting.gd").convert_node(result)
+	return result
 func cloud() -> Node3D:
 	var root:=Node3D.new();var puff:=QuadMesh.new();puff.size=Vector2(2,2)
 	var mat:=ShaderMaterial.new();mat.shader=preload("res://deathmatch/conquest/classes/smoke.gdshader")
@@ -64,7 +66,7 @@ func update():
 		var kind: int=utility.selected(id)
 		if kind<0 or not utility.rules.alive(id):continue
 		if not hands.has(id):hands[id]=model(kind);hands[id].set_meta("kind",kind);add_child(hands[id])
-		hands[id].visible=not (id==game.multiplayer.get_unique_id() and game.is_vr() and game.xr_rig.physical_actions.available)
+		hands[id].visible=not (id==game.multiplayer.get_unique_id() and game.is_vr() and (game.xr_rig.physical_actions.available or game.xr_rig.cq_utility and game.xr_rig.cq_utility.held))
 		if id==viewpoint and not game.is_vr():hands[id].global_transform=game.camera.global_transform*Transform3D(Basis(Vector3.RIGHT,.3),Vector3(.18,-.22,-.42))
 		elif not game.players[id].xr.is_empty():
 			var pose: Dictionary=game.players[id].xr

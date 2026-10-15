@@ -1,0 +1,620 @@
+{
+  "status": {
+    "service": "fpsloppa-cq.service",
+    "original_pid": 1600382,
+    "original_identity": [
+      "59460619",
+      "S"
+    ],
+    "started_utc_epoch": 1791980669.1421022,
+    "suspended": true,
+    "completed": true,
+    "comparison_exit_code": 0,
+    "resumed_original_process": true,
+    "finished_utc_epoch": 1791982708.1004164
+  },
+  "profile_seconds": 120,
+  "process_sampling_includes_join_and_client_tail": true,
+  "cases": [
+    {
+      "stage": "reference",
+      "players": 32,
+      "achieved_hz": 30.0044493549635,
+      "callback_ms": {
+        "max": 43.55,
+        "p50": 14.066,
+        "p95": 20.087,
+        "p99": 29.875,
+        "samples": 3602
+      },
+      "snapshot_prepare_ms": {
+        "max": 6.712,
+        "p50": 2.553,
+        "p95": 3.453,
+        "p99": 4.849,
+        "samples": 2402
+      },
+      "snapshot_worker_ms": {
+        "max": 4.172,
+        "p50": 1.653,
+        "p95": 2.361,
+        "p99": 3.117,
+        "samples": 2401
+      },
+      "grouped_mean_ms_per_tick": {
+        "player_bookkeeping": 3.615289561354803,
+        "input_accept_inclusive": 2.282957523598001,
+        "snapshot_prepare_inclusive": 1.7314652970571904,
+        "snapshot_transport": 0.9974439200444198,
+        "movement_queries": 2.036459744586341,
+        "match_mode": 1.0811724042198778
+      },
+      "process_whole_case": {
+        "pid": 1610177,
+        "samples": 200,
+        "cpu_main_p50_percent": 56.99327508071085,
+        "cpu_all_p50_percent": 66.99268808626455,
+        "peak_rss_mib": 515.88671875,
+        "udp_drops_max": 325
+      },
+      "snapshot_buffers": {
+        "fallback": 0,
+        "submitted": 0
+      },
+      "replication": {
+        "async_busy": 0,
+        "async_completed": 2430,
+        "async_encode_usec": 4161544,
+        "async_submitted": 2431,
+        "large_records": 549,
+        "max_packet": 2871,
+        "player_update_gaps": 0,
+        "player_updates": 0,
+        "received_packets": 0,
+        "sent_bytes": 14455330,
+        "sent_packets": 14239,
+        "stale_records": 0
+      }
+    },
+    {
+      "stage": "reference",
+      "players": 64,
+      "achieved_hz": 28.3484418532597,
+      "callback_ms": {
+        "max": 80.488,
+        "p50": 28.336,
+        "p95": 44.506,
+        "p99": 62.379,
+        "samples": 3403
+      },
+      "snapshot_prepare_ms": {
+        "max": 9.721,
+        "p50": 4.639,
+        "p95": 6.346,
+        "p99": 7.939,
+        "samples": 2269
+      },
+      "snapshot_worker_ms": {
+        "max": 7.585,
+        "p50": 2.799,
+        "p95": 3.757,
+        "p99": 4.356,
+        "samples": 2269
+      },
+      "grouped_mean_ms_per_tick": {
+        "player_bookkeeping": 7.487861298853952,
+        "input_accept_inclusive": 3.886560681751396,
+        "snapshot_prepare_inclusive": 3.2436905671466354,
+        "snapshot_transport": 2.705368204525419,
+        "movement_queries": 3.9891004995592123,
+        "match_mode": 2.1069856009403467
+      },
+      "process_whole_case": {
+        "pid": 1610954,
+        "samples": 208,
+        "cpu_main_p50_percent": 98.98975672932994,
+        "cpu_all_p50_percent": 110.98850348036152,
+        "peak_rss_mib": 514.51953125,
+        "udp_drops_max": 6778
+      },
+      "snapshot_buffers": {
+        "fallback": 0,
+        "submitted": 0
+      },
+      "replication": {
+        "async_busy": 0,
+        "async_completed": 2393,
+        "async_encode_usec": 6955349,
+        "async_submitted": 2394,
+        "large_records": 603,
+        "max_packet": 3608,
+        "player_update_gaps": 0,
+        "player_updates": 0,
+        "received_packets": 0,
+        "sent_bytes": 25807492,
+        "sent_packets": 24373,
+        "stale_records": 0
+      }
+    },
+    {
+      "stage": "player-state",
+      "players": 32,
+      "achieved_hz": 30.0051077842465,
+      "callback_ms": {
+        "max": 36.429,
+        "p50": 14.069,
+        "p95": 19.624,
+        "p99": 28.237,
+        "samples": 3601
+      },
+      "snapshot_prepare_ms": {
+        "max": 5.575,
+        "p50": 2.33,
+        "p95": 3.274,
+        "p99": 4.382,
+        "samples": 2400
+      },
+      "snapshot_worker_ms": {
+        "max": 3.927,
+        "p50": 1.546,
+        "p95": 2.199,
+        "p99": 2.95,
+        "samples": 2401
+      },
+      "grouped_mean_ms_per_tick": {
+        "player_bookkeeping": 3.7505748403221326,
+        "input_accept_inclusive": 2.2085404054429323,
+        "snapshot_prepare_inclusive": 1.622408219938906,
+        "snapshot_transport": 0.9755231880033324,
+        "movement_queries": 2.0076895306859206,
+        "match_mode": 1.054948903082477
+      },
+      "process_whole_case": {
+        "pid": 1612348,
+        "samples": 199,
+        "cpu_main_p50_percent": 55.99364197783963,
+        "cpu_all_p50_percent": 64.99374119886349,
+        "peak_rss_mib": 515.109375,
+        "udp_drops_max": 240
+      },
+      "snapshot_buffers": {
+        "fallback": 0,
+        "submitted": 0
+      },
+      "replication": {
+        "async_busy": 0,
+        "async_completed": 2430,
+        "async_encode_usec": 3931713,
+        "async_submitted": 2430,
+        "large_records": 569,
+        "max_packet": 2856,
+        "player_update_gaps": 0,
+        "player_updates": 0,
+        "received_packets": 0,
+        "sent_bytes": 14678653,
+        "sent_packets": 14333,
+        "stale_records": 0
+      }
+    },
+    {
+      "stage": "player-state",
+      "players": 64,
+      "achieved_hz": 28.1202848181706,
+      "callback_ms": {
+        "max": 75.877,
+        "p50": 30.22,
+        "p95": 43.52,
+        "p99": 61.983,
+        "samples": 3376
+      },
+      "snapshot_prepare_ms": {
+        "max": 9.577,
+        "p50": 4.772,
+        "p95": 6.276,
+        "p99": 7.716,
+        "samples": 2250
+      },
+      "snapshot_worker_ms": {
+        "max": 6.793,
+        "p50": 2.808,
+        "p95": 3.788,
+        "p99": 4.742,
+        "samples": 2251
+      },
+      "grouped_mean_ms_per_tick": {
+        "player_bookkeeping": 7.780516587677724,
+        "input_accept_inclusive": 3.905434241706161,
+        "snapshot_prepare_inclusive": 3.2763755924170614,
+        "snapshot_transport": 2.843079976303317,
+        "movement_queries": 4.034516587677725,
+        "match_mode": 2.1476661729857818
+      },
+      "process_whole_case": {
+        "pid": 1613075,
+        "samples": 208,
+        "cpu_main_p50_percent": 98.99018571097996,
+        "cpu_all_p50_percent": 111.98881523072913,
+        "peak_rss_mib": 514.45703125,
+        "udp_drops_max": 5604
+      },
+      "snapshot_buffers": {
+        "fallback": 0,
+        "submitted": 0
+      },
+      "replication": {
+        "async_busy": 0,
+        "async_completed": 2377,
+        "async_encode_usec": 7016594,
+        "async_submitted": 2377,
+        "large_records": 643,
+        "max_packet": 3447,
+        "player_update_gaps": 0,
+        "player_updates": 0,
+        "received_packets": 0,
+        "sent_bytes": 26899693,
+        "sent_packets": 25374,
+        "stale_records": 0
+      }
+    },
+    {
+      "stage": "input-state",
+      "players": 32,
+      "achieved_hz": 30.0032590321495,
+      "callback_ms": {
+        "max": 37.187,
+        "p50": 14.595,
+        "p95": 19.96,
+        "p99": 29.068,
+        "samples": 3601
+      },
+      "snapshot_prepare_ms": {
+        "max": 6.667,
+        "p50": 2.52,
+        "p95": 3.301,
+        "p99": 4.653,
+        "samples": 2401
+      },
+      "snapshot_worker_ms": {
+        "max": 3.672,
+        "p50": 1.605,
+        "p95": 2.24,
+        "p99": 3.129,
+        "samples": 2401
+      },
+      "grouped_mean_ms_per_tick": {
+        "player_bookkeeping": 3.8334698694807,
+        "input_accept_inclusive": 2.2917114690363785,
+        "snapshot_prepare_inclusive": 1.7322577061927242,
+        "snapshot_transport": 0.911762288253263,
+        "movement_queries": 2.110240766453763,
+        "match_mode": 1.1093979450152736
+      },
+      "process_whole_case": {
+        "pid": 1614339,
+        "samples": 200,
+        "cpu_main_p50_percent": 56.99391891486503,
+        "cpu_all_p50_percent": 66.99305637030156,
+        "peak_rss_mib": 515.4375,
+        "udp_drops_max": 321
+      },
+      "snapshot_buffers": {
+        "fallback": 0,
+        "submitted": 0
+      },
+      "replication": {
+        "async_busy": 0,
+        "async_completed": 2436,
+        "async_encode_usec": 4075806,
+        "async_submitted": 2437,
+        "large_records": 513,
+        "max_packet": 2724,
+        "player_update_gaps": 0,
+        "player_updates": 0,
+        "received_packets": 0,
+        "sent_bytes": 13792552,
+        "sent_packets": 13573,
+        "stale_records": 0
+      }
+    },
+    {
+      "stage": "input-state",
+      "players": 64,
+      "achieved_hz": 27.6463725910047,
+      "callback_ms": {
+        "max": 80.476,
+        "p50": 31.387,
+        "p95": 45.995,
+        "p99": 64.763,
+        "samples": 3319
+      },
+      "snapshot_prepare_ms": {
+        "max": 8.969,
+        "p50": 4.769,
+        "p95": 6.407,
+        "p99": 7.354,
+        "samples": 2212
+      },
+      "snapshot_worker_ms": {
+        "max": 5.723,
+        "p50": 2.852,
+        "p95": 3.771,
+        "p99": 4.459,
+        "samples": 2213
+      },
+      "grouped_mean_ms_per_tick": {
+        "player_bookkeeping": 7.9435131063573365,
+        "input_accept_inclusive": 4.032960530280205,
+        "snapshot_prepare_inclusive": 3.2849915637240135,
+        "snapshot_transport": 2.8973781259415485,
+        "movement_queries": 4.064529075022597,
+        "match_mode": 2.1666185598071706
+      },
+      "process_whole_case": {
+        "pid": 1615127,
+        "samples": 207,
+        "cpu_main_p50_percent": 98.9909732108453,
+        "cpu_all_p50_percent": 111.98820529689307,
+        "peak_rss_mib": 512.93359375,
+        "udp_drops_max": 10495
+      },
+      "snapshot_buffers": {
+        "fallback": 0,
+        "submitted": 0
+      },
+      "replication": {
+        "async_busy": 0,
+        "async_completed": 2308,
+        "async_encode_usec": 6807570,
+        "async_submitted": 2308,
+        "large_records": 718,
+        "max_packet": 3576,
+        "player_update_gaps": 0,
+        "player_updates": 0,
+        "received_packets": 0,
+        "sent_bytes": 25662373,
+        "sent_packets": 24191,
+        "stale_records": 0
+      }
+    },
+    {
+      "stage": "fanout",
+      "players": 32,
+      "achieved_hz": 30.0036300142983,
+      "callback_ms": {
+        "max": 40.586,
+        "p50": 14.17,
+        "p95": 19.493,
+        "p99": 30.057,
+        "samples": 3601
+      },
+      "snapshot_prepare_ms": {
+        "max": 6.504,
+        "p50": 2.402,
+        "p95": 3.288,
+        "p99": 4.75,
+        "samples": 2400
+      },
+      "snapshot_worker_ms": {
+        "max": 6.988,
+        "p50": 1.59,
+        "p95": 2.211,
+        "p99": 2.984,
+        "samples": 2401
+      },
+      "grouped_mean_ms_per_tick": {
+        "player_bookkeeping": 3.773407664537628,
+        "input_accept_inclusive": 2.272275201332963,
+        "snapshot_prepare_inclusive": 1.665842266037212,
+        "snapshot_transport": 0.9479930574840322,
+        "movement_queries": 2.020550680366565,
+        "match_mode": 1.0957906137184115
+      },
+      "process_whole_case": {
+        "pid": 1616366,
+        "samples": 199,
+        "cpu_main_p50_percent": 56.994560919470466,
+        "cpu_all_p50_percent": 66.99270884898843,
+        "peak_rss_mib": 515.3046875,
+        "udp_drops_max": 352
+      },
+      "snapshot_buffers": {
+        "fallback": 0,
+        "submitted": 0
+      },
+      "replication": {
+        "async_busy": 0,
+        "async_completed": 2422,
+        "async_encode_usec": 3965917,
+        "async_submitted": 2422,
+        "large_records": 529,
+        "max_packet": 2850,
+        "player_update_gaps": 0,
+        "player_updates": 0,
+        "received_packets": 0,
+        "sent_bytes": 14287319,
+        "sent_packets": 14012,
+        "stale_records": 0
+      }
+    },
+    {
+      "stage": "fanout",
+      "players": 64,
+      "achieved_hz": 27.6808222432059,
+      "callback_ms": {
+        "max": 75.727,
+        "p50": 30.032,
+        "p95": 49.543,
+        "p99": 64.618,
+        "samples": 3323
+      },
+      "snapshot_prepare_ms": {
+        "max": 10.787,
+        "p50": 4.751,
+        "p95": 6.546,
+        "p99": 8.166,
+        "samples": 2215
+      },
+      "snapshot_worker_ms": {
+        "max": 5.914,
+        "p50": 2.869,
+        "p95": 3.877,
+        "p99": 4.703,
+        "samples": 2216
+      },
+      "grouped_mean_ms_per_tick": {
+        "player_bookkeeping": 7.88752994282275,
+        "input_accept_inclusive": 3.9850659043033403,
+        "snapshot_prepare_inclusive": 3.290071020162504,
+        "snapshot_transport": 2.916857959674992,
+        "movement_queries": 3.9711023171832682,
+        "match_mode": 2.0844095696659646
+      },
+      "process_whole_case": {
+        "pid": 1617142,
+        "samples": 206,
+        "cpu_main_p50_percent": 98.99059659382556,
+        "cpu_all_p50_percent": 111.98863550489858,
+        "peak_rss_mib": 513.78125,
+        "udp_drops_max": 9383
+      },
+      "snapshot_buffers": {
+        "fallback": 0,
+        "submitted": 0
+      },
+      "replication": {
+        "async_busy": 0,
+        "async_completed": 2301,
+        "async_encode_usec": 6859213,
+        "async_submitted": 2301,
+        "large_records": 713,
+        "max_packet": 3588,
+        "player_update_gaps": 0,
+        "player_updates": 0,
+        "received_packets": 0,
+        "sent_bytes": 26492116,
+        "sent_packets": 24916,
+        "stale_records": 0
+      }
+    },
+    {
+      "stage": "buffers",
+      "players": 32,
+      "achieved_hz": 30.005325903697,
+      "callback_ms": {
+        "max": 40.511,
+        "p50": 13.767,
+        "p95": 18.924,
+        "p99": 29.553,
+        "samples": 3602
+      },
+      "snapshot_prepare_ms": {
+        "max": 6.208,
+        "p50": 2.287,
+        "p95": 3.12,
+        "p99": 4.79,
+        "samples": 2401
+      },
+      "snapshot_worker_ms": {
+        "max": 5.358,
+        "p50": 2.322,
+        "p95": 3.164,
+        "p99": 4.267,
+        "samples": 2402
+      },
+      "grouped_mean_ms_per_tick": {
+        "player_bookkeeping": 3.6894239311493613,
+        "input_accept_inclusive": 2.2657729039422545,
+        "snapshot_prepare_inclusive": 1.5978822876179901,
+        "snapshot_transport": 0.8035619100499722,
+        "movement_queries": 2.0427573570238757,
+        "match_mode": 1.0719092171016102
+      },
+      "process_whole_case": {
+        "pid": 1618386,
+        "samples": 201,
+        "cpu_main_p50_percent": 54.99434809370183,
+        "cpu_all_p50_percent": 66.99251951469853,
+        "peak_rss_mib": 516.28125,
+        "udp_drops_max": 77
+      },
+      "snapshot_buffers": {
+        "fallback": 0,
+        "submitted": 2422
+      },
+      "replication": {
+        "async_busy": 0,
+        "async_completed": 2422,
+        "async_encode_usec": 5808533,
+        "async_submitted": 2422,
+        "large_records": 539,
+        "max_packet": 2873,
+        "player_update_gaps": 0,
+        "player_updates": 0,
+        "received_packets": 0,
+        "sent_bytes": 14082853,
+        "sent_packets": 13977,
+        "stale_records": 0
+      }
+    },
+    {
+      "stage": "buffers",
+      "players": 64,
+      "achieved_hz": 28.9029587159217,
+      "callback_ms": {
+        "max": 78.501,
+        "p50": 27.389,
+        "p95": 41.27,
+        "p99": 61.251,
+        "samples": 3470
+      },
+      "snapshot_prepare_ms": {
+        "max": 10.052,
+        "p50": 4.572,
+        "p95": 6.245,
+        "p99": 7.987,
+        "samples": 2314
+      },
+      "snapshot_worker_ms": {
+        "max": 6.765,
+        "p50": 3.531,
+        "p95": 4.844,
+        "p99": 5.714,
+        "samples": 2313
+      },
+      "grouped_mean_ms_per_tick": {
+        "player_bookkeeping": 7.149425648414985,
+        "input_accept_inclusive": 3.9422095100864554,
+        "snapshot_prepare_inclusive": 3.1878095100864554,
+        "snapshot_transport": 2.677141786743516,
+        "movement_queries": 3.8310847262247836,
+        "match_mode": 2.013346109510086
+      },
+      "process_whole_case": {
+        "pid": 1619114,
+        "samples": 208,
+        "cpu_main_p50_percent": 97.9918854914107,
+        "cpu_all_p50_percent": 111.98581151126919,
+        "peak_rss_mib": 517.046875,
+        "udp_drops_max": 6172
+      },
+      "snapshot_buffers": {
+        "fallback": 0,
+        "submitted": 2407
+      },
+      "replication": {
+        "async_busy": 0,
+        "async_completed": 2406,
+        "async_encode_usec": 8880580,
+        "async_submitted": 2407,
+        "large_records": 845,
+        "max_packet": 3522,
+        "player_update_gaps": 0,
+        "player_updates": 0,
+        "received_packets": 0,
+        "sent_bytes": 27573587,
+        "sent_packets": 25852,
+        "stale_records": 0
+      }
+    }
+  ]
+}

@@ -658,6 +658,7 @@ func jetpack_allowed() -> bool:
 
 func _create_fighter(id: int) -> void:
 	var actor = Fighter.new()
+	actor.plain_nametag=has_method("draw_class_players")
 	var team: int=players[id].team
 	actor.setup(id,players[id].name,match_mode.COLORS[team] if team>=0 else COLORS[players[id].color])
 	actor.set_nametag(players[id].name,team,match_mode.COLORS[team] if team>=0 else COLORS[players[id].color])
@@ -911,8 +912,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		if bindings.matches("next_weapon",event):desired_weapon=W.next_owned(desired_weapon,1,owned)
 		if bindings.matches("previous_weapon",event):desired_weapon=W.next_owned(desired_weapon,-1,owned)
 		if bindings.matches("use",event):
-			if multiplayer.is_server():_use_for(1)
-			else:_use_request.rpc_id(1)
+			_request_use()
 		if bindings.matches("chat",event) and hud:hud.open_chat()
 		if bindings.matches("team_chat",event) and hud and voice.team_available():hud.open_chat(true)
 	if event is InputEventMouseButton:
@@ -985,16 +985,29 @@ func _input_packet(bytes: PackedByteArray) -> void:
 	var command = NetCodec.unpack(bytes,8192)
 	if command is Dictionary and command.get("map_epoch",-1)==map_epoch: _accept_input(id,command)
 
+# Experimental authority stages are opt-in and own per-arena state.
+var native_player_state_enabled:=OS.get_cmdline_user_args().has("--native-player-state")
+var native_input_state_enabled:=OS.get_cmdline_user_args().has("--native-input-state")
+var native_snapshot_fanout_enabled:=OS.get_cmdline_user_args().has("--native-snapshot-fanout")
+var player_state_backend
+var player_state_backend_checked:=false
+func _player_state_backend():
+	if not player_state_backend_checked:
+		player_state_backend_checked=true
+		if (native_player_state_enabled or native_input_state_enabled or native_snapshot_fanout_enabled) and preload("res://deathmatch/native/runtime.gd").available("FPSBackend"):
+			player_state_backend=ClassDB.instantiate("FPSBackend")
+	return player_state_backend
+
 func _accept_input(id: int,command: Dictionary) -> void:
 	server_log.count("input_received")
 	if not players.has(id) or not active: return
-	for field in ["seq","move","yaw","pitch","fire","weapon","slow","respawn"]:
-		if not command.has(field): return
-	if not command.move is Vector2 or not command.move.is_finite(): return
-	if not (command.yaw is float or command.yaw is int) or not is_finite(float(command.yaw)): return
-	if not (command.pitch is float or command.pitch is int) or not is_finite(float(command.pitch)): return
-	if not command.seq is int or not command.weapon is int: return
-	if not command.fire is bool or not command.slow is bool or not command.respawn is bool: return
+	var input_backend=_player_state_backend() if native_input_state_enabled else null
+	var validate_scope:=Attribution.begin("input.validate")
+	var valid:=true
+	if input_backend:valid=input_backend.valid_input(command)
+	else:valid=_valid_input_reference(command)
+	Attribution.end(validate_scope)
+	if not valid:return
 	var s: Dictionary = players[id]
 	# In-flight commands still contain the entrance yaw/movement. Keep the exit
 	# transform until the owner has received the new teleport serial.
@@ -1004,32 +1017,41 @@ func _accept_input(id: int,command: Dictionary) -> void:
 	if command.seq<=s.last_seq or command.seq>2147483647: return
 	if is_instance_valid(district_gateway):district_gateway.input(id,command);return
 	server_log.count("input_accepted")
-	s.last_seq = command.seq
-	s.last_input = clock
-	var view=command.get("view_time",-1.0)
-	s.view_time=float(view) if (view is float or view is int) and is_finite(float(view)) else -1.0
-	input_delivery.accept(s,command)
+	var header_scope:=Attribution.begin("input.header_events")
+	if input_backend:input_backend.accept_input_header(s,command,clock)
+	else:
+		s.last_seq = command.seq
+		s.last_input = clock
+		var view=command.get("view_time",-1.0)
+		s.view_time=float(view) if (view is float or view is int) and is_finite(float(view)) else -1.0
+		input_delivery.accept(s,command)
+	Attribution.end(header_scope)
 	if match_mode.special.blocked(id):
 		s.jump_pending=false;s.jump_ack=s.get("jump_received",0)
 		s.fire_pending=[];s.input_blocked=true;fire_delivery.accept(s,command,clock)
 		s.move=Vector2.ZERO;s.room=Vector3.ZERO;s.fire=false;s.offhand_fire=false;s.melee=false;s.jump=false;s.swim=Vector3.ZERO
 		return
-	s.move = command.move.limit_length(1.0)
-	s.fly=preload("res://deathmatch/vr/preferences.gd").bounded(command.get("fly",0.0),-1,1,0)
-	s.yaw = wrapf(command.yaw,-PI,PI)
-	s.pitch = clampf(command.pitch,-1.45,1.45)
-	s.fire = command.fire
-	s.offhand_fire = armory.dual() and command.get("offhand_fire",false)==true
-	s.alt_fire=command.get("alt_fire",false)==true
-	s.input_blocked=command.get("input_blocked",false)==true
-	s.melee = command.get("melee",false)==true
-	s.slow = command.slow
-	s.want_respawn = command.respawn
-	s.jump = command.get("jump",false)==true
-	s.crouch=command.get("crouch",false)==true
-	s.prone=command.get("prone",false)==true
-	s.physical=command.get("physical",false)==true
-	s.vr_device=command.has("xr")
+	var fields_scope:=Attribution.begin("input.fields")
+	if input_backend:input_backend.apply_input_fields(s,command,armory.dual())
+	else:
+		s.move = command.move.limit_length(1.0)
+		s.fly=preload("res://deathmatch/vr/preferences.gd").bounded(command.get("fly",0.0),-1,1,0)
+		s.yaw = wrapf(command.yaw,-PI,PI)
+		s.pitch = clampf(command.pitch,-1.45,1.45)
+		s.fire = command.fire
+		s.offhand_fire = armory.dual() and command.get("offhand_fire",false)==true
+		s.alt_fire=command.get("alt_fire",false)==true
+		s.input_blocked=command.get("input_blocked",false)==true
+		s.melee = command.get("melee",false)==true
+		s.slow = command.slow
+		s.want_respawn = command.respawn
+		s.jump = command.get("jump",false)==true
+		s.crouch=command.get("crouch",false)==true
+		s.prone=command.get("prone",false)==true
+		s.physical=command.get("physical",false)==true
+		s.vr_device=command.has("xr")
+	Attribution.end(fields_scope)
+	var pose_scope:=Attribution.begin("input.pose_room")
 	s.xr=VRPoses.validate(command.get("xr",{}))
 	match_mode.fortress.walkers.accept_controls(id,command.get("pilot_controls",[]))
 	s.room=RoomScale.validate(command.get("room"),s.xr)
@@ -1037,9 +1059,14 @@ func _accept_input(id: int,command: Dictionary) -> void:
 	var swim=command.get("swim",Vector3.ZERO)
 	if not s.xr.is_empty() and not s.spectator and swim is Vector3 and swim.is_finite():s.swim=swim.limit_length(1.0)
 	if command.has("xr") and s.xr.is_empty(): s.fire=false;s.alt_fire=false;s.melee=false;s.input_blocked=true
-	fire_delivery.accept(s,command,clock)
+	Attribution.end(pose_scope)
+	var fire_scope:=Attribution.begin("input.fire_events")
+	if input_backend:input_backend.accept_fire_event(s,command,clock)
+	else:fire_delivery.accept(s,command,clock)
+	Attribution.end(fire_scope)
 	if s.spectator:s.fire=false;s.offhand_fire=false;s.melee=false;s.want_respawn=false
 	if s.vr_device and not s.xr.has("offhand_weapon"): s.offhand_fire=false
+	var equipment_scope:=Attribution.begin("input.equipment_physical")
 	if not match_mode.fortress.walkers.mounted(id) and armory.valid(command.weapon) and s.owned.has(command.weapon) and command.weapon!=s.weapon and s.charge<=0:
 		s.weapon = command.weapon
 		s.cooldown = maxf(s.cooldown,.28)
@@ -1048,6 +1075,24 @@ func _accept_input(id: int,command: Dictionary) -> void:
 		s.held = false
 
 	match_mode.fortress.physical.sample(id)
+	Attribution.end(equipment_scope)
+
+func _valid_input_reference(command:Dictionary) -> bool:
+	for field in ["seq","move","yaw","pitch","fire","weapon","slow","respawn"]:
+		if not command.has(field): return false
+	if not command.move is Vector2 or not command.move.is_finite(): return false
+	if not (command.yaw is float or command.yaw is int) or not is_finite(float(command.yaw)): return false
+	if not (command.pitch is float or command.pitch is int) or not is_finite(float(command.pitch)): return false
+	if not command.seq is int or not command.weapon is int: return false
+	if not command.fire is bool or not command.slow is bool or not command.respawn is bool: return false
+	return true
+
+func _request_use() -> void:
+	if multiplayer.is_server():_use_for(1)
+	else:_use_request.rpc_id(1)
+
+func _send_input(command:Dictionary) -> void:
+	_input_packet.rpc_id(1,NetCodec.pack(command))
 
 func _physics_process(delta: float) -> void:
 	# Simulation uses the engine physics delta; _process interpolates to the current display frame.
@@ -1087,12 +1132,12 @@ func _physics_process(delta: float) -> void:
 				var wire:=command.duplicate()
 				input_delivery.annotate(wire,clock)
 				fire_delivery.annotate(wire,clock)
-				_input_packet.rpc_id(1,NetCodec.pack(wire))
+				_send_input(wire)
 			if players[mine].spectator and intermission<=0:
 				_move_spectator(mine,command.move,command.fly,command.yaw,command.slow,delta)
 			if match_mode.special.frozen.has(mine) and intermission<=0:
 				fighters[mine].simulate_frozen(delta)
-			elif not players[mine].dead and not player_incapacitated(mine) and not match_mode.special.blocked(mine) and not match_mode.fortress.walkers.mounted(mine) and not handle_vehicle_player(mine,0.0) and intermission<=0:
+			elif not players[mine].dead and not players[mine].spectator and not player_incapacitated(mine) and not match_mode.special.blocked(mine) and not match_mode.fortress.walkers.mounted(mine) and not handle_vehicle_player(mine,0.0) and intermission<=0:
 				var room:=RoomScale.validate(command.get("room"),command.get("xr",{}))
 				var speed: float=(5.2 if command.slow else 9.4)*(1.0 if lobby.active() else match_mode.fortress.speed(mine))
 				fighters[mine].speed_multiplier=1.0 if lobby.active() else match_mode.fortress.speed(mine)
@@ -1205,6 +1250,10 @@ func _server_tick(delta: float) -> void:
 	var movement_start: Dictionary = {}
 	for id in fighters:
 		movement_start[id]={"position":fighters[id].position,"serial":players[id].serial,"height":fighters[id].collision_height,"yaw":fighters[id].damage_yaw()}
+	var state_backend=_player_state_backend() if native_player_state_enabled else null
+	var bind_scope:=Attribution.begin("simulation.player_bind")
+	if state_backend:state_backend.bind_players(players)
+	Attribution.end(bind_scope)
 	var player_scope:=Attribution.begin("simulation.player_loop")
 	for id in players:
 		var s: Dictionary = players[id]
@@ -1224,43 +1273,66 @@ func _server_tick(delta: float) -> void:
 			fighters[id].configure_jetpack(false)
 			fighters[id].simulate(Vector2.ZERO,s.yaw,true,delta,false,Vector3.ZERO)
 			continue
-		if clock-s.last_input>.35:
-			s.move = Vector2.ZERO
-			s.room=Vector3.ZERO;s.swim=Vector3.ZERO
-			s.jump=false
-			s.fire = false
-			s.offhand_fire=false;s.alt_fire=false;s.input_blocked=true
-			s.melee = false
-		var jump: bool=input_delivery.consume(s,fighters[id])
+		var delivery_scope:=Attribution.begin("player.delivery_timeout")
+		var jump:bool
+		if state_backend:
+			var bits:int=state_backend.begin_player(id,clock)
+			jump=bool(bits&1);fighters[id].jetpack_requested=bool(bits&2)
+			if bits&4:fighters[id].jump_held=false
+		else:
+			if clock-s.last_input>.35:
+				s.move=Vector2.ZERO;s.room=Vector3.ZERO;s.swim=Vector3.ZERO
+				s.jump=false;s.fire=false;s.offhand_fire=false;s.alt_fire=false;s.input_blocked=true;s.melee=false
+			jump=input_delivery.consume(s,fighters[id])
+		Attribution.end(delivery_scope)
 		if handle_vehicle_player(id,delta):continue
 		if match_mode.fortress.walkers.handle_player(id,jump):continue
+		var equipment_scope:=Attribution.begin("player.stance_equipment")
 		_update_crouch(id,s.xr)
 		fighters[id].speed_multiplier=match_mode.fortress.speed(id)
 		fighters[id].configure_jetpack(jetpack_allowed_for(id),s.get("input_blocked",false))
+		Attribution.end(equipment_scope)
+		var move_scope:=Attribution.begin("player.movement")
 		fighters[id].simulate(s.move*(1.0-minf(s.room.length()*30/((5.2 if s.slow else 9.4)*fighters[id].speed_multiplier),1.0)),s.yaw,s.slow,delta,jump,s.get("swim",Vector3.ZERO))
+		Attribution.end(move_scope)
+		var room_scope:=Attribution.begin("player.room_scale")
 		if not s.xr.is_empty():
 			var shift:=RoomScale.move_capsule(fighters[id],s.room,s.yaw,delta)
 			s.room-=shift
 			RoomScale.rebase_pose(s.xr,shift)
 			if id==multiplayer.get_unique_id() and is_vr(): xr_rig.compensate_room_move(shift)
+		Attribution.end(room_scope)
 		if fighters[id].position.y < fall_limit:
 			_damage(id,id,1000,"fell out of the arena",true)
 			continue
-		s.cooldown = maxf(0,s.cooldown-delta)
-		s.offhand_cooldown=maxf(0,s.offhand_cooldown-delta)
-		if s.charge>0:
-			s.charge -= delta
-			if s.charge<=0: _launch(id,8)
+		var timer_scope:=Attribution.begin("player.timers")
+		if state_backend:
+			if state_backend.advance_player(id,delta):_launch(id,8)
+		else:
+			s.cooldown = maxf(0,s.cooldown-delta)
+			s.offhand_cooldown=maxf(0,s.offhand_cooldown-delta)
+			if s.charge>0:
+				s.charge -= delta
+				if s.charge<=0: _launch(id,8)
+		Attribution.end(timer_scope)
+		var melee_scope:=Attribution.begin("player.melee")
 		_update_melee(id)
-		var trigger_state: Array=fire_delivery.begin_attempt(s,clock,s.weapon==6 and armory.kind in ["doom","quake"])
+		Attribution.end(melee_scope)
+		var fire_scope:=Attribution.begin("player.fire_attempt")
+		var buffered:bool=s.weapon==6 and armory.kind in ["doom","quake"]
+		var trigger_state: Array=state_backend.begin_player_fire(id,clock,buffered) if state_backend else fire_delivery.begin_attempt(s,clock,buffered)
 		if armory.experimental():variant_combat.tick_input(id,delta)
 		else:
 			if s.fire and s.cooldown<=0: _fire(id)
 			if s.weapon==2 and s.offhand_fire and s.offhand_cooldown<=0: _fire(id,true)
 		if not s.offhand_fire: s.offhand_held=false
 		if not s.fire: s.held = false
-		fire_delivery.end_attempt(s,trigger_state)
+		if state_backend:state_backend.end_player_fire(id,trigger_state)
+		else:fire_delivery.end_attempt(s,trigger_state)
+		Attribution.end(fire_scope)
+		var collect_scope:=Attribution.begin("player.pickups")
 		_collect(id)
+		Attribution.end(collect_scope)
 	Attribution.end(player_scope)
 	_update_projectiles(delta,movement_start)
 	var mode_scope:=Attribution.begin("simulation.match_mode")
@@ -1821,7 +1893,10 @@ func asset_allowance(peer: int, requested: int) -> int:
 		rtt=multiplayer.multiplayer_peer.get_peer(peer).get_statistic(ENetPacketPeer.PEER_ROUND_TRIP_TIME)
 	return bandwidth.claim(peer,requested,clock,active_peers.size(),rtt,outstanding)
 
-func _send_snapshot() -> void:
+var defer_snapshot_classes:=false
+
+func _prepare_snapshot_reference() -> Array:
+	var phase:=Attribution.begin("snapshot.rows")
 	var data: Array = []
 	for id in players:
 		var s: Dictionary = players[id]
@@ -1834,6 +1909,7 @@ func _send_snapshot() -> void:
 		shots.append([id,p.position,p.owner,p.weapon,p.direction,p.yaw,p.pitch])
 	var gate_states: Array = []
 	for gate in gates: gate_states.append(gate.open)
+	Attribution.end(phase);phase=Attribution.begin("snapshot.mode")
 	var mode_state: Dictionary=match_mode.snapshot();mode_state["lobby"]=lobby.snapshot()
 	mode_state["weapon_rules"]=armory.kind
 	if not variant_combat.charging.is_empty():mode_state["weapon_charge"]=variant_combat.charge_snapshot()
@@ -1849,6 +1925,7 @@ func _send_snapshot() -> void:
 	mode_state["elevators"]=[]
 	for i in gates.size():
 		if gates[i].get("elevator",false):mode_state.elevators.append([i,gates[i].node.position])
+	Attribution.end(phase);phase=Attribution.begin("snapshot.locomotion")
 	mode_state["locomotion"]={}
 	for id in fighters:
 		input_delivery.sync_life(players[id])
@@ -1860,10 +1937,29 @@ func _send_snapshot() -> void:
 	mode_state["movement_ack"]={}
 	for id in players:mode_state.movement_ack[id]=players[id].last_seq
 	var state: Array=[data,items,round_left,intermission,round_message,frag_limit,time_limit,shots,gate_states,map_epoch,mode_state,votes.snapshot(),clock,projectile_id]
+	Attribution.end(phase)
+	return state
+
+func _snapshot_preparation_backend():
+	if OS.get_cmdline_user_args().has("--gdscript-snapshot-preparation"):return null
+	var backend=preload("res://deathmatch/native/runtime.gd").backend()
+	return backend if backend and backend.has_method("prepare_snapshot") else null
+
+func _send_snapshot() -> void:
+	var backend=_snapshot_preparation_backend()
+	var asynchronous:bool=dedicated and replication.native_packing_enabled and replication.native_packer and not OS.get_cmdline_user_args().has("--sync-snapshots") and not OS.get_cmdline_user_args().has("--gdscript-backend") and preload("res://deathmatch/native/runtime.gd").available("FPSBackend")
+	defer_snapshot_classes=asynchronous and backend!=null and backend.has_method("submit_snapshot_state") and not multiplayer.get_peers().is_empty() and not demos.recording and not demos.auto_record and not is_instance_valid(district_gateway)
+	var build_token:=Attribution.begin("snapshot.build")
+	var state:Array=backend.prepare_snapshot(self) if backend and OS.get_cmdline_user_args().has("--native-snapshot-rows") else _prepare_snapshot_reference()
+	if state.is_empty():state=_prepare_snapshot_reference()
+	Attribution.end(build_token)
+	defer_snapshot_classes=false
 	if is_instance_valid(district_gateway):district_gateway.replicate(state);return
+	var echo_token:=Attribution.begin("snapshot.authority_echo")
 	callv("_snapshot",state)
+	Attribution.end(echo_token)
 	if not multiplayer.get_peers().is_empty():
-		if dedicated and replication.native_packing_enabled and replication.native_packer and not OS.get_cmdline_user_args().has("--sync-snapshots") and not OS.get_cmdline_user_args().has("--gdscript-backend") and preload("res://deathmatch/native/runtime.gd").available("FPSBackend"):
+		if asynchronous:
 			replication.queue_packets(state)
 		else:_send_snapshot_packets(replication.packets(state))
 
@@ -1872,6 +1968,9 @@ func _send_snapshot_packets(packets:Dictionary) -> void:
 	var recipients:Array=[]
 	for id in multiplayer.get_peers():
 		if players.has(id):recipients.append(id)
+	if native_snapshot_fanout_enabled:
+		var backend=_player_state_backend()
+		if backend and backend.send_snapshot_batch(self,bandwidth,packets.normal,packets.large,recipients,clock):return
 	for bytes in packets.normal:
 		bandwidth.reserve((bytes.size()+64)*recipients.size(),clock)
 		for id in recipients:_state_packet.rpc_id(id,bytes)

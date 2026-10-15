@@ -1,0 +1,84 @@
+{
+  "scope": "Ten-second correctness/transport smoke after eight-second warmup; no performance comparison or capacity certification. Final confirmation/remote-presentation UI checks ran separately afterwards.",
+  "native_library_sha256": "235c7251a887628362a79bd9c06c4cf5269d0565c7ccabbaadbf9798bea3fd57",
+  "cases": [
+    {
+      "players": 32,
+      "seconds": 10.026,
+      "ticks": 301,
+      "hz": 30.0219429483343,
+      "native": {
+        "accepted": 9598,
+        "ai_us": 1.718,
+        "combat_us": 190.284,
+        "damage": 1,
+        "deaths": 1,
+        "intermission": 0.0,
+        "mode_us": 1.824,
+        "movement_us": 1012.313,
+        "overflow": 0,
+        "projectile_full": 0,
+        "rejected": 2,
+        "round_epoch": 1,
+        "round_remaining": 0.0,
+        "scores": [
+          0,
+          0
+        ],
+        "shots": 240,
+        "snapshot_us": 46.479,
+        "tick": 659,
+        "time": 21.9666666666667,
+        "winner": -2
+      },
+      "accepted_fraction_of_minimum_offered": 0.9964700996677741,
+      "clients": {
+        "admitted": 32,
+        "players": 32,
+        "bad_frames": 0,
+        "disconnected": 0,
+        "minimum_frames": 201,
+        "minimum_inputs_sent": 301
+      }
+    },
+    {
+      "players": 64,
+      "seconds": 10.031,
+      "ticks": 301,
+      "hz": 30.0069783670621,
+      "native": {
+        "accepted": 19199,
+        "ai_us": 1.706,
+        "combat_us": 235.808,
+        "damage": 2,
+        "deaths": 2,
+        "intermission": 0.0,
+        "mode_us": 1.917,
+        "movement_us": 2000.965,
+        "overflow": 0,
+        "projectile_full": 0,
+        "rejected": 0,
+        "round_epoch": 1,
+        "round_remaining": 0.0,
+        "scores": [
+          0,
+          0
+        ],
+        "shots": 477,
+        "snapshot_us": 0.028,
+        "tick": 664,
+        "time": 22.1333333333333,
+        "winner": -2
+      },
+      "accepted_fraction_of_minimum_offered": 0.996625830564784,
+      "clients": {
+        "admitted": 64,
+        "players": 64,
+        "bad_frames": 0,
+        "disconnected": 0,
+        "minimum_frames": 200,
+        "minimum_inputs_sent": 301
+      }
+    }
+  ]
+}

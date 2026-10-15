@@ -8,14 +8,19 @@ const STAGES:=["day","golden","dusk","twilight","night","dawn_twilight","dawn","
 const KEYS:=[Vector2(0,0),Vector2(.20,0),Vector2(.24,1),Vector2(.29,2),Vector2(.33,3),Vector2(.36,4),Vector2(.64,4),Vector2(.67,5),Vector2(.71,6),Vector2(.76,7),Vector2(.80,0),Vector2(1,0)]
 static var noise:FastNoiseLite
 static func directions() -> Array[Vector3]:return [Vector3.UP,Vector3(.8,.6,0),Vector3(-.8,.6,0),Vector3(0,.6,.8),Vector3(0,.6,-.8)]
+static func cycle_phase(seconds:float,cycle:float)->float:
+	var p:=fposmod(seconds/cycle,1.0)
+	if p<.275:return p*.31/.275
+	if p<.725:return .31+(p-.275)*.375/.45
+	return .685+(p-.725)*.315/.275
 static func stage_pair(seconds:float,cycle:float) -> Vector3:
-	var phase:=fposmod(seconds/cycle,1.0)
+	var phase:=cycle_phase(seconds,cycle)
 	for i in range(KEYS.size()-1):
 		if phase<=KEYS[i+1].x:
 			return Vector3(KEYS[i].y,KEYS[i+1].y,smoothstep(KEYS[i].x,KEYS[i+1].x,phase))
 	return Vector3.ZERO
 static func sun_weights(seconds:float,cycle:float) -> Vector3:
-	var p:=fposmod(seconds/cycle,1.0)
+	var p:=cycle_phase(seconds,cycle)
 	if p<.20:return Vector3(1,0,0)
 	if p<.27:
 		var t:=smoothstep(.20,.27,p);return Vector3(1-t,t,0)
