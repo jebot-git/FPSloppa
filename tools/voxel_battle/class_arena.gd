@@ -278,7 +278,7 @@ func _local_command() -> Dictionary:
 			var stick:Vector2=bindings.axis(xr_rig,"move") if not command.input_blocked else Vector2.ZERO
 			command.move=Vector2(stick.x,-stick.y).limit_length(1) if stick.length()>=.18 else Vector2.ZERO
 			command.fire=bindings.vr_pressed(xr_rig,"fire") and not command.input_blocked and not xr_rig.wheel_open()
-		command.reload=false;command.reload_grip=false;command.reload_trigger=false;command.cq_drag=false;command.physical=false;command.melee=false;command.offhand_fire=false;command.alt_fire=false;command.room=Vector3.ZERO
+		command.reload=false;command.reload_grip=false;command.reload_trigger=false;command.cq_drag=false;command.physical=false;command.melee=false;command.offhand_fire=false;command.alt_fire=false;command.room=Vector3.ZERO;command.crouch=false;command.prone=false
 		command.offhand_fire=not command.input_blocked and (bindings.vr_pressed(xr_rig,"offhand_fire") if is_vr() else bindings.pressed("offhand_fire"))
 		if transport:command.fire=false
 		else:command.jump=false

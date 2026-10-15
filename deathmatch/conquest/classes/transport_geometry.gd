@@ -1,5 +1,6 @@
 extends RefCounted
 ## Blender-authored, shared with the generated native transport geometry.
+const EYE_HEIGHT:=1.48
 static var manifest:Dictionary={}
 static func data()->Dictionary:
  if manifest.is_empty():manifest=JSON.parse_string(FileAccess.get_file_as_string("res://deathmatch/models/ground_transport/manifest.json"))

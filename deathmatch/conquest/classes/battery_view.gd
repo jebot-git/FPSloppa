@@ -29,7 +29,24 @@ var black:Environment
 var saved:Dictionary={}
 var reticle:MeshInstance3D
 var hidden_hull:Node3D
-func setup(arena,tanks) -> void:game=arena;service=tanks
+func setup(arena,tanks) -> void:
+	game=arena;service=tanks;process_priority=100
+func lock_transport_view()->bool:
+	if not game.active:return false
+	var id:int=game.multiplayer.get_unique_id();var seated:int=service.key_for(id)
+	if seated<0 or service.view_row(seated).kind!="transport":return false
+	var eye:Vector3=service.render_transport_eye(id,seated)
+	if game.is_vr():
+		if is_instance_valid(game.xr_rig) and is_instance_valid(game.xr_rig.head):
+			# Translate the origin, preserving tracked head/controller rotations and
+			# their relative poses. Positional tracking cannot leave the assigned eye.
+			game.xr_rig.global_position+=eye-game.xr_rig.head.global_position
+	elif game.camera:game.camera.global_position=eye
+	return true
+func _process(_delta:float)->void:
+	# Runs after the ordinary camera and XR rig updates, including while menus
+	# are open. Earlier seat assignment is overwritten by the rig's own process.
+	lock_transport_view()
 func create_view() -> void:
 	viewport=SubViewport.new();viewport.name="STBatteryScopeFeed";viewport.size=Vector2i(640,360);viewport.world_3d=game.get_world_3d();viewport.render_target_update_mode=SubViewport.UPDATE_DISABLED;viewport.audio_listener_enable_3d=false;add_child(viewport)
 	sensor=Camera3D.new();sensor.physics_interpolation_mode=Node.PHYSICS_INTERPOLATION_MODE_OFF;sensor.fov=75;sensor.near=.08;sensor.far=1600;sensor.cull_mask&=~PRIVATE_LAYER;viewport.add_child(sensor);sensor.make_current()
@@ -61,8 +78,7 @@ func update() -> void:
 	if is_instance_valid(game.offhand_viewmodel):game.offhand_viewmodel.hide()
 	if row.kind=="transport":
 		if game.is_vr() and is_instance_valid(game.xr_rig.gun):game.xr_rig.gun.hide()
-		if not game.is_vr() and game.camera:
-			game.camera.global_position=service.render_passenger_position(id,key)+Vector3.UP*game.camera_eye_height
+		lock_transport_view()
 		key=-1;return # Normal stereo/world camera shares the rendered cabin pose.
 	if game.is_vr():
 		if not reticle:

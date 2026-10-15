@@ -1,0 +1,17 @@
+{
+  "scope": "Transport seat viewpoint lock, desktop and synthetic tracked camera offsets; no physical headset test.",
+  "behavior": [
+    "Fixed authored seat eye height in interpolated hull space for all eight seats",
+    "No desktop stance displacement; menus retain seat lock",
+    "Late render update cancels VR head translation while preserving rotation",
+    "Dismount releases the lock"
+  ],
+  "camera_motion": {
+    "checks": 155,
+    "failures": []
+  },
+  "transport": {
+    "checks": 60,
+    "failures": []
+  }
+}

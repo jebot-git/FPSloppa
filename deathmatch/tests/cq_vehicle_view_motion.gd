@@ -5,6 +5,9 @@ class Rig extends Node3D:
  var head:Camera3D
  var gun:Node3D
  var hand_models:Array=[]
+ var overwrite_origin:=false
+ func _process(_delta:float)->void:
+  if overwrite_origin:position=Vector3(5,0,7)
 class Game extends Node3D:
  var active:=true
  var clock:=1.
@@ -25,6 +28,7 @@ class Game extends Node3D:
    local_yaw=wrapf(local_yaw-event.relative.x*.0022,-PI,PI)
    local_pitch=clampf(local_pitch-event.relative.y*.0022,-1.45,1.45)
  func is_vr()->bool:return vr
+ func world_view_camera()->Camera3D:return xr_rig.head if vr else camera
  func _weapon_transform(_id:int)->Transform3D:
   return xr_rig.gun.global_transform if vr else Transform3D(Basis(Vector3.UP,local_yaw)*Basis(Vector3.RIGHT,local_pitch),Vector3.ZERO)
 var checks:=0
@@ -94,14 +98,38 @@ func run()->void:
   var rendered:=service.render_row(0,alpha);service.rendered_rows[0]=rendered
   view.update()
   var seat:Vector3=service.visual_origin(rendered)+service.visual_basis(rendered)*Tanks.Transport.point(6,"seat")
-  check(game.camera.global_position.distance_to(seat+Vector3.UP*game.camera_eye_height)<.0001,"Transport eye remains fixed to its rendered seat at interpolation fraction "+str(alpha))
+  check(game.camera.global_position.distance_to(seat+service.visual_basis(rendered)*Vector3.UP*Tanks.Transport.EYE_HEIGHT)<.0001,"Transport eye remains fixed to its rendered seat at interpolation fraction "+str(alpha))
   check(is_equal_approx(rendered.position.x,alpha),"Transport hull moves continuously between simulation poses")
   if previous.is_finite():check(game.camera.global_position.distance_to(previous)<.5,"Transport rendered eye has no full-tick jumps")
   previous=game.camera.global_position
  service.draw()
  var rendered_seat:Vector3=service.models[0].global_transform*Tanks.Transport.point(6,"seat")
- check(game.camera.global_position.distance_to(rendered_seat+Vector3.UP*game.camera_eye_height)<.0001,"Actual transport model and desktop cabin camera use the same frame pose")
+ check(game.camera.global_position.distance_to(rendered_seat+service.models[0].global_basis*Vector3.UP*Tanks.Transport.EYE_HEIGHT)<.0001,"Actual transport model and desktop cabin camera use the same frame pose")
  check(row.position==Vector3(1,0,0) and row.yaw==.2,"Rendering does not mutate authoritative vehicle state")
+ # Every passenger/cockpit eye is fixed in hull space, independent of stance.
+ for index in 8:
+  row.seats.fill(0);row.seats[index]=1;row.pilot=1 if index==6 else 0
+  row.normal=Vector3(.15,.97,.12).normalized();service.rendered_rows[0]=row.duplicate(true)
+  var expected_eye:Vector3=service.visual_origin(row)+service.visual_basis(row)*(Tanks.Transport.point(index,"seat")+Vector3.UP*Tanks.Transport.EYE_HEIGHT)
+  for height in [.35,1.48,2.4]:
+   game.camera_eye_height=height;game.camera.global_position=Vector3(100,100,100);view.update()
+   check(game.camera.global_position.distance_to(expected_eye)<.0001,"Seat %d ignores desktop stance height %.2f"%[index,height])
+  game.menu_open=true;game.camera.position=Vector3(50,50,50);view._process(0.)
+  check(game.camera.global_position.distance_to(expected_eye)<.0001,"Seat %d remains anchored with menu open"%index);game.menu_open=false
+  game.vr=true;game.xr_rig.rotation.y=.7;game.xr_rig.head.rotation=Vector3(.2,-.5,.1)
+  var tracked_basis:Basis=game.xr_rig.head.global_basis
+  for offset in [Vector3(-2,.5,3),Vector3(3,2.2,-2)]:
+   game.xr_rig.position=Vector3(5,0,7);game.xr_rig.head.position=offset;view.lock_transport_view()
+   check(game.xr_rig.head.global_position.distance_to(expected_eye)<.0001,"Seat %d cancels tracked head translation"%index)
+   check(game.xr_rig.head.global_basis.is_equal_approx(tracked_basis),"Seat %d preserves head look rotation"%index)
+  game.xr_rig.overwrite_origin=true;await process_frame;await process_frame
+  check(game.xr_rig.head.global_position.distance_to(expected_eye)<.0001,"Seat %d late lock runs after XR origin update"%index)
+  game.xr_rig.overwrite_origin=false;game.vr=false
+ row.seats.fill(0);row.pilot=0;game.camera.position=Vector3(9,8,7);view._process(0.)
+ check(game.camera.position==Vector3(9,8,7),"Dismount releases the camera position lock")
+ row.seats.fill(0);row.seats[6]=1;row.pilot=1;row.normal=Vector3.UP
+ service.rendered_rows.clear();game.xr_rig.rotation=Vector3.ZERO
+
  row.position=Vector3(500,0,0);row.visual_y=0.
  check(service.render_row(0,.5).position==row.position,"Teleports snap rather than interpolating across the map")
  # Remote snapshots preserve a separate render interpolation history.

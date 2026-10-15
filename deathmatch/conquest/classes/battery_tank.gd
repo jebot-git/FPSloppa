@@ -237,6 +237,9 @@ func view_row(key:int)->Dictionary:return rendered_rows[key] if rendered_rows.ha
 func render_passenger_position(id:int,key:int)->Vector3:
 	var row:=view_row(key);var index:=seat_index(id,key)
 	return visual_origin(row)+visual_basis(row)*Transport.point(index,"seat") if index>=0 else row.position
+func render_transport_eye(id:int,key:int)->Vector3:
+	var row:=view_row(key);var index:=seat_index(id,key)
+	return visual_origin(row)+visual_basis(row)*(Transport.point(index,"seat")+Vector3.UP*Transport.EYE_HEIGHT)
 func pivot(row:Dictionary) -> Vector3:return visual_origin(row)+visual_basis(row)*profile(row).pivot
 func muzzle(row:Dictionary,shot:int=0) -> Vector3:
 	var config:=profile(row);var side:Vector3=row.direction.cross(row.get("normal",Vector3.UP)).normalized();return pivot(row)+row.direction*config.length+side*(config.offset if shot%2==0 else -config.offset)
