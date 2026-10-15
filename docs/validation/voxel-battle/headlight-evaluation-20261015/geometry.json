@@ -1,0 +1,245 @@
+{
+	"coarse_wall_test": {
+		"center_should_be_lit": true,
+		"half_cone_degrees": 22,
+		"lit_corner_vertices": 0,
+		"range_m": 10,
+		"wall_size_m": [
+			12,
+			8
+		]
+	},
+	"coarse_world_vertex_step_m": 22.0970869120796,
+	"entry_text_count": 0,
+	"scope": "Geometry/coverage feasibility audit only; not GPU timing or an i7 benchmark. No production headlight implementation.",
+	"surface_rows": [
+		{
+			"lod": 0,
+			"longest_edge_p50_m": 1.91509771347046,
+			"longest_edge_p95_m": 16.0153045654297,
+			"max_edge_m": 26.3153953552246,
+			"normal_count": 0,
+			"site": 0,
+			"triangles": 8684,
+			"triangles_over_8m": 868
+		},
+		{
+			"lod": 1,
+			"longest_edge_p50_m": 2.3600857257843,
+			"longest_edge_p95_m": 16.0252933502197,
+			"max_edge_m": 26.3153953552246,
+			"normal_count": 0,
+			"site": 0,
+			"triangles": 6236,
+			"triangles_over_8m": 868
+		},
+		{
+			"lod": 0,
+			"longest_edge_p50_m": 1.91509771347046,
+			"longest_edge_p95_m": 28.0007133483887,
+			"max_edge_m": 41.7432632446289,
+			"normal_count": 0,
+			"site": 1,
+			"triangles": 4452,
+			"triangles_over_8m": 636
+		},
+		{
+			"lod": 1,
+			"longest_edge_p50_m": 2.36008405685425,
+			"longest_edge_p95_m": 28.0010280609131,
+			"max_edge_m": 41.7432632446289,
+			"normal_count": 0,
+			"site": 1,
+			"triangles": 3468,
+			"triangles_over_8m": 556
+		},
+		{
+			"lod": 0,
+			"longest_edge_p50_m": 1.91509771347046,
+			"longest_edge_p95_m": 26.0011081695557,
+			"max_edge_m": 144.346801757812,
+			"normal_count": 0,
+			"site": 2,
+			"triangles": 3676,
+			"triangles_over_8m": 604
+		},
+		{
+			"lod": 1,
+			"longest_edge_p50_m": 2.36008524894714,
+			"longest_edge_p95_m": 26.0094203948975,
+			"max_edge_m": 144.346801757812,
+			"normal_count": 0,
+			"site": 2,
+			"triangles": 2812,
+			"triangles_over_8m": 556
+		},
+		{
+			"lod": 0,
+			"longest_edge_p50_m": 1.91509771347046,
+			"longest_edge_p95_m": 27.6007213592529,
+			"max_edge_m": 65.0372161865234,
+			"normal_count": 0,
+			"site": 3,
+			"triangles": 5472,
+			"triangles_over_8m": 760
+		},
+		{
+			"lod": 1,
+			"longest_edge_p50_m": 2.31249094009399,
+			"longest_edge_p95_m": 30.0009593963623,
+			"max_edge_m": 65.0372161865234,
+			"normal_count": 0,
+			"site": 3,
+			"triangles": 4128,
+			"triangles_over_8m": 696
+		},
+		{
+			"lod": 0,
+			"longest_edge_p50_m": 1.91509795188904,
+			"longest_edge_p95_m": 22.0013084411621,
+			"max_edge_m": 41.0589828491211,
+			"normal_count": 0,
+			"site": 4,
+			"triangles": 3732,
+			"triangles_over_8m": 572
+		},
+		{
+			"lod": 1,
+			"longest_edge_p50_m": 2.36008524894714,
+			"longest_edge_p95_m": 22.0184020996094,
+			"max_edge_m": 41.0589828491211,
+			"normal_count": 0,
+			"site": 4,
+			"triangles": 2856,
+			"triangles_over_8m": 532
+		},
+		{
+			"lod": 0,
+			"longest_edge_p50_m": 1.91509795188904,
+			"longest_edge_p95_m": 20.0009994506836,
+			"max_edge_m": 28.0025787353516,
+			"normal_count": 0,
+			"site": 5,
+			"triangles": 2620,
+			"triangles_over_8m": 264
+		},
+		{
+			"lod": 1,
+			"longest_edge_p50_m": 2.31248712539673,
+			"longest_edge_p95_m": 20.0014400482178,
+			"max_edge_m": 28.0025787353516,
+			"normal_count": 0,
+			"site": 5,
+			"triangles": 1972,
+			"triangles_over_8m": 240
+		},
+		{
+			"lod": 0,
+			"longest_edge_p50_m": 1.91509819030762,
+			"longest_edge_p95_m": 18.0016002655029,
+			"max_edge_m": 59.6657371520996,
+			"normal_count": 0,
+			"site": 6,
+			"triangles": 1840,
+			"triangles_over_8m": 244
+		},
+		{
+			"lod": 1,
+			"longest_edge_p50_m": 1.91509819030762,
+			"longest_edge_p95_m": 18.0136051177979,
+			"max_edge_m": 59.6657371520996,
+			"normal_count": 0,
+			"site": 6,
+			"triangles": 1384,
+			"triangles_over_8m": 244
+		},
+		{
+			"lod": 0,
+			"longest_edge_p50_m": 1.91509819030762,
+			"longest_edge_p95_m": 20.0014400482178,
+			"max_edge_m": 26.3153953552246,
+			"normal_count": 0,
+			"site": 7,
+			"triangles": 1724,
+			"triangles_over_8m": 232
+		},
+		{
+			"lod": 1,
+			"longest_edge_p50_m": 2.3600857257843,
+			"longest_edge_p95_m": 20.0122451782227,
+			"max_edge_m": 26.3153953552246,
+			"normal_count": 0,
+			"site": 7,
+			"triangles": 1340,
+			"triangles_over_8m": 232
+		},
+		{
+			"lod": 0,
+			"longest_edge_p50_m": 1.91509819030762,
+			"longest_edge_p95_m": 18.0224857330322,
+			"max_edge_m": 28.4253406524658,
+			"normal_count": 0,
+			"site": 8,
+			"triangles": 4100,
+			"triangles_over_8m": 424
+		},
+		{
+			"lod": 1,
+			"longest_edge_p50_m": 2.36008524894714,
+			"longest_edge_p95_m": 20.0014400482178,
+			"max_edge_m": 28.4253406524658,
+			"normal_count": 0,
+			"site": 8,
+			"triangles": 3212,
+			"triangles_over_8m": 424
+		},
+		{
+			"lod": 0,
+			"longest_edge_p50_m": 1.91509819030762,
+			"longest_edge_p95_m": 18.0016002655029,
+			"max_edge_m": 29.068883895874,
+			"normal_count": 0,
+			"site": 9,
+			"triangles": 2536,
+			"triangles_over_8m": 236
+		},
+		{
+			"lod": 1,
+			"longest_edge_p50_m": 2.36008453369141,
+			"longest_edge_p95_m": 18.0016002655029,
+			"max_edge_m": 29.068883895874,
+			"normal_count": 0,
+			"site": 9,
+			"triangles": 1850,
+			"triangles_over_8m": 228
+		},
+		{
+			"lod": 0,
+			"longest_edge_p50_m": 1.91509819030762,
+			"longest_edge_p95_m": 23.0012531280518,
+			"max_edge_m": 32.526912689209,
+			"normal_count": 0,
+			"site": 10,
+			"triangles": 1508,
+			"triangles_over_8m": 268
+		},
+		{
+			"lod": 1,
+			"longest_edge_p50_m": 2.3600857257843,
+			"longest_edge_p95_m": 23.0176010131836,
+			"max_edge_m": 32.526912689209,
+			"normal_count": 0,
+			"site": 10,
+			"triangles": 1184,
+			"triangles_over_8m": 268
+		}
+	],
+	"terrain_tile_edge_m": 31.780080053328,
+	"terrain_vertex_steps_m": [
+		0.993127501666499,
+		1.986255003333,
+		3.972510006666,
+		7.94502001333199
+	],
+	"transport_seats": 8
+}

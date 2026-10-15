@@ -31,4 +31,3 @@ static func prepare_seats(node:Node3D)->void:
   if i<6:seat.rotation.y=PI/2 if i<3 else -PI/2
   art.box(seat,Vector3(0,.35,0),Vector3(.5,.12,.5),finish)
   art.box(seat,Vector3(0,.7,.22),Vector3(.5,.65,.1),finish)
-  var marker:=Label3D.new();marker.text="DRIVER · USE" if i==6 else "PASSENGER";marker.font_size=20;marker.pixel_size=.0015;marker.position=point(i,"entry")+Vector3.UP*1.25;marker.billboard=BaseMaterial3D.BILLBOARD_ENABLED;marker.visibility_range_end=8;seats.add_child(marker)
