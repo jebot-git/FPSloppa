@@ -1,0 +1,510 @@
+{
+  "requested_players": 4,
+  "requested_hz": 60,
+  "duration_seconds": 5,
+  "stress": false,
+  "bundle": "/home/blux/fpsloppa-cq/validation/load-20261015-rate-release",
+  "passed": true,
+  "server": {
+    "ai_us": {
+      "max": 7.56,
+      "mean": 2.97794352159469,
+      "p50": 3.175,
+      "p95": 4.847
+    },
+    "callback_us": {
+      "max": 1871.0,
+      "mean": 754.956810631229,
+      "p50": 746.0,
+      "p95": 970.0
+    },
+    "combat_and_queries_us": {
+      "max": 1147.61206054688,
+      "mean": 143.362548447923,
+      "p50": 136.938003540039,
+      "p95": 212.942993164062
+    },
+    "compressed_publication_bytes": 417185,
+    "configured_hz": 60,
+    "cq_gameplay": true,
+    "cq_mode_us": {
+      "max": 25.605,
+      "mean": 3.85455813953488,
+      "p50": 2.854,
+      "p95": 6.479
+    },
+    "disconnected": 0,
+    "fixture": "native-cq-jungle-jolt-enet",
+    "frame_encoding_us": {
+      "max": 98.8259963989258,
+      "mean": 23.5937608281503,
+      "p50": 30.1609992980957,
+      "p95": 49.1479988098145
+    },
+    "hz": 60.0199401794616,
+    "jungle_map": true,
+    "movement_and_collision_us": {
+      "max": 630.648986816406,
+      "mean": 470.245562176372,
+      "p50": 468.147003173828,
+      "p95": 567.914001464844
+    },
+    "native": {
+      "accepted": 1179,
+      "ai_us": 4.416,
+      "combat_us": 125.132,
+      "damage": 0,
+      "deaths": 0,
+      "intermission": 0.0,
+      "mode_us": 2.453,
+      "movement_us": 476.928,
+      "overflow": 0,
+      "projectile_full": 0,
+      "rejected": 0,
+      "round_epoch": 1,
+      "round_remaining": 0.0,
+      "scores": [
+        0,
+        0
+      ],
+      "shots": 23,
+      "snapshot_us": 0.03,
+      "tick": 817,
+      "time": 13.6166666666667,
+      "winner": -2
+    },
+    "physics": "Godot Jolt",
+    "physics_interval_us": {
+      "max": 17814,
+      "mean": 16665.9733333333,
+      "p50": 16669,
+      "p95": 16914
+    },
+    "players": 4,
+    "production_cq": false,
+    "rpc_inputs": 1179,
+    "seconds": 5.015,
+    "shots_by_class_current_life": {
+      "0": 0,
+      "1": 0,
+      "2": 23,
+      "3": 0
+    },
+    "simulation_elapsed_seconds": 5.01666666666667,
+    "snapshot_hz": 20,
+    "snapshot_parts": 570,
+    "stress_infinite_reserve_invulnerable": false,
+    "ticks": 301,
+    "warmup_native": {
+      "accepted": 913,
+      "damage": 0,
+      "deaths": 0,
+      "overflow": 0,
+      "projectile_full": 0,
+      "rejected": 0,
+      "shots": 0
+    },
+    "warmup_seconds": 8.0,
+    "xr": true
+  },
+  "clients": [
+    {
+      "admitted": 4,
+      "bad_frames": 0,
+      "disconnected": 0,
+      "frames": 402,
+      "minimum_frames": 100,
+      "minimum_inputs_sent": 301,
+      "players": 4,
+      "total_inputs_sent": 1206,
+      "transport": [
+        [
+          {
+            "loss": 0.0,
+            "measured": false,
+            "rtt": 33.0,
+            "sequence": 1,
+            "throttle": 32.0
+          },
+          {
+            "loss": 0.0,
+            "measured": false,
+            "rtt": 28.0,
+            "sequence": 61,
+            "throttle": 1.0
+          },
+          {
+            "loss": 0.0,
+            "measured": false,
+            "rtt": 24.0,
+            "sequence": 121,
+            "throttle": 3.0
+          },
+          {
+            "loss": 0.0,
+            "measured": false,
+            "rtt": 21.0,
+            "sequence": 181,
+            "throttle": 7.0
+          },
+          {
+            "loss": 0.0,
+            "measured": false,
+            "rtt": 19.0,
+            "sequence": 241,
+            "throttle": 11.0
+          },
+          {
+            "loss": 0.0,
+            "measured": false,
+            "rtt": 17.0,
+            "sequence": 301,
+            "throttle": 15.0
+          },
+          {
+            "loss": 0.0,
+            "measured": false,
+            "rtt": 15.0,
+            "sequence": 361,
+            "throttle": 32.0
+          },
+          {
+            "loss": 0.0,
+            "measured": false,
+            "rtt": 15.0,
+            "sequence": 421,
+            "throttle": 32.0
+          },
+          {
+            "loss": 0.0,
+            "measured": true,
+            "rtt": 15.0,
+            "sequence": 481,
+            "throttle": 32.0
+          },
+          {
+            "loss": 0.0,
+            "measured": true,
+            "rtt": 15.0,
+            "sequence": 541,
+            "throttle": 32.0
+          },
+          {
+            "loss": 0.0,
+            "measured": true,
+            "rtt": 15.0,
+            "sequence": 601,
+            "throttle": 32.0
+          },
+          {
+            "loss": 0.0,
+            "measured": true,
+            "rtt": 15.0,
+            "sequence": 661,
+            "throttle": 32.0
+          },
+          {
+            "loss": 0.0,
+            "measured": true,
+            "rtt": 15.0,
+            "sequence": 721,
+            "throttle": 32.0
+          },
+          {
+            "loss": 0.0,
+            "measured": true,
+            "rtt": 15.0,
+            "sequence": 781,
+            "throttle": 32.0
+          }
+        ],
+        [
+          {
+            "loss": 0.0,
+            "measured": false,
+            "rtt": 25.0,
+            "sequence": 1,
+            "throttle": 32.0
+          },
+          {
+            "loss": 0.0,
+            "measured": false,
+            "rtt": 22.0,
+            "sequence": 62,
+            "throttle": 1.0
+          },
+          {
+            "loss": 0.0,
+            "measured": false,
+            "rtt": 20.0,
+            "sequence": 122,
+            "throttle": 3.0
+          },
+          {
+            "loss": 0.0,
+            "measured": false,
+            "rtt": 18.0,
+            "sequence": 182,
+            "throttle": 7.0
+          },
+          {
+            "loss": 0.0,
+            "measured": false,
+            "rtt": 16.0,
+            "sequence": 242,
+            "throttle": 11.0
+          },
+          {
+            "loss": 0.0,
+            "measured": false,
+            "rtt": 15.0,
+            "sequence": 302,
+            "throttle": 15.0
+          },
+          {
+            "loss": 0.0,
+            "measured": false,
+            "rtt": 15.0,
+            "sequence": 362,
+            "throttle": 17.0
+          },
+          {
+            "loss": 0.0,
+            "measured": false,
+            "rtt": 15.0,
+            "sequence": 422,
+            "throttle": 21.0
+          },
+          {
+            "loss": 0.0,
+            "measured": true,
+            "rtt": 15.0,
+            "sequence": 482,
+            "throttle": 25.0
+          },
+          {
+            "loss": 0.0,
+            "measured": true,
+            "rtt": 15.0,
+            "sequence": 542,
+            "throttle": 29.0
+          },
+          {
+            "loss": 0.0,
+            "measured": true,
+            "rtt": 15.0,
+            "sequence": 602,
+            "throttle": 32.0
+          },
+          {
+            "loss": 0.0,
+            "measured": true,
+            "rtt": 14.0,
+            "sequence": 662,
+            "throttle": 32.0
+          },
+          {
+            "loss": 0.0,
+            "measured": true,
+            "rtt": 14.0,
+            "sequence": 722,
+            "throttle": 32.0
+          }
+        ],
+        [
+          {
+            "loss": 0.0,
+            "measured": false,
+            "rtt": 17.0,
+            "sequence": 1,
+            "throttle": 32.0
+          },
+          {
+            "loss": 0.0,
+            "measured": false,
+            "rtt": 15.0,
+            "sequence": 62,
+            "throttle": 1.0
+          },
+          {
+            "loss": 0.0,
+            "measured": false,
+            "rtt": 15.0,
+            "sequence": 122,
+            "throttle": 3.0
+          },
+          {
+            "loss": 0.0,
+            "measured": false,
+            "rtt": 15.0,
+            "sequence": 182,
+            "throttle": 7.0
+          },
+          {
+            "loss": 0.0,
+            "measured": false,
+            "rtt": 15.0,
+            "sequence": 242,
+            "throttle": 11.0
+          },
+          {
+            "loss": 0.0,
+            "measured": false,
+            "rtt": 15.0,
+            "sequence": 302,
+            "throttle": 15.0
+          },
+          {
+            "loss": 0.0,
+            "measured": false,
+            "rtt": 15.0,
+            "sequence": 362,
+            "throttle": 17.0
+          },
+          {
+            "loss": 0.0,
+            "measured": false,
+            "rtt": 15.0,
+            "sequence": 422,
+            "throttle": 21.0
+          },
+          {
+            "loss": 0.0,
+            "measured": true,
+            "rtt": 15.0,
+            "sequence": 482,
+            "throttle": 25.0
+          },
+          {
+            "loss": 0.0,
+            "measured": true,
+            "rtt": 15.0,
+            "sequence": 542,
+            "throttle": 31.0
+          },
+          {
+            "loss": 0.0,
+            "measured": true,
+            "rtt": 15.0,
+            "sequence": 602,
+            "throttle": 32.0
+          },
+          {
+            "loss": 0.0,
+            "measured": true,
+            "rtt": 15.0,
+            "sequence": 662,
+            "throttle": 32.0
+          },
+          {
+            "loss": 0.0,
+            "measured": true,
+            "rtt": 15.0,
+            "sequence": 722,
+            "throttle": 32.0
+          }
+        ],
+        [
+          {
+            "loss": 0.0,
+            "measured": false,
+            "rtt": 9.0,
+            "sequence": 1,
+            "throttle": 32.0
+          },
+          {
+            "loss": 0.0,
+            "measured": false,
+            "rtt": 9.0,
+            "sequence": 62,
+            "throttle": 1.0
+          },
+          {
+            "loss": 0.0,
+            "measured": false,
+            "rtt": 9.0,
+            "sequence": 122,
+            "throttle": 3.0
+          },
+          {
+            "loss": 0.0,
+            "measured": false,
+            "rtt": 9.0,
+            "sequence": 182,
+            "throttle": 7.0
+          },
+          {
+            "loss": 0.0,
+            "measured": false,
+            "rtt": 9.0,
+            "sequence": 242,
+            "throttle": 11.0
+          },
+          {
+            "loss": 0.0,
+            "measured": false,
+            "rtt": 9.0,
+            "sequence": 302,
+            "throttle": 15.0
+          },
+          {
+            "loss": 0.0,
+            "measured": false,
+            "rtt": 9.0,
+            "sequence": 362,
+            "throttle": 17.0
+          },
+          {
+            "loss": 0.0,
+            "measured": false,
+            "rtt": 9.0,
+            "sequence": 422,
+            "throttle": 21.0
+          },
+          {
+            "loss": 0.0,
+            "measured": true,
+            "rtt": 9.0,
+            "sequence": 482,
+            "throttle": 25.0
+          },
+          {
+            "loss": 0.0,
+            "measured": true,
+            "rtt": 9.0,
+            "sequence": 542,
+            "throttle": 29.0
+          },
+          {
+            "loss": 0.0,
+            "measured": true,
+            "rtt": 9.0,
+            "sequence": 602,
+            "throttle": 32.0
+          },
+          {
+            "loss": 0.0,
+            "measured": true,
+            "rtt": 9.0,
+            "sequence": 662,
+            "throttle": 32.0
+          },
+          {
+            "loss": 0.0,
+            "measured": true,
+            "rtt": 9.0,
+            "sequence": 722,
+            "throttle": 32.0
+          }
+        ]
+      ]
+    }
+  ],
+  "diagnostics": [],
+  "accepted_fraction": 0.9776119402985075,
+  "exit_codes": [
+    0,
+    0
+  ],
+  "failures": []
+}

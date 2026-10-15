@@ -8,7 +8,7 @@ The `addons/fps_native/src/authority_*.{h,cpp}` modules, except `authority_world
 
 `FPSAuthority` is constructed/configured once per map instance. Cold configuration imports authored terrain/roads/water, capture sites, spawns, lamps, vehicles, avatar reach, class XP and choices. Actor attachment gives the core an identity and exclusive Jolt cylinder. Inputs use authenticated RPC sender IDs and bounded binary packets. Only the core mutates gameplay state; there is no per-tick import/export of authoritative player Dictionaries. Inspection and snapshot Dictionaries are detached diagnostic/client presentation copies.
 
-Advance exactly once per 30Hz physics frame, on the engine owner thread. The adapter rejects other rates, duplicate/out-of-physics advances and foreign threads. Scene/Jolt operations remain on that thread. Core phases include native bot planning, input consumption and movement commits, ordered combat/query commits, projectiles/entities, CQ mode and frame publication. This explicit order defines this authority's behavior; it is not a claim of instruction-for-instruction equivalence to the old interleaved script loop.
+Advance exactly once per configured physics frame, on the engine owner thread. Production defaults to 30 Hz. The experimental `configure_tick_rate(60)` API must be called before actors or ticks exist, and the engine physics rate must match. The adapter rejects unsupported/mismatched rates, duplicate/out-of-physics advances and foreign threads. Gameplay clocks, integration and cooldowns use the configured step; snapshot construction/publication remains 20 Hz. Scene/Jolt operations remain on that thread. Core phases include native bot planning, input consumption and movement commits, ordered combat/query commits, projectiles/entities, CQ mode and frame publication. This explicit order defines this authority's behavior; it is not a claim of instruction-for-instruction equivalence to the old interleaved script loop.
 
 The bridge lives in `deathmatch/native/cq_authority.gd`. It bypasses the old gameplay/history/snapshot loops, retains Godot admission, asset downloads, votes and scene navigation, and sends native frames. `cq_presentation.gd` projects them into existing client prediction, model, HUD, tank-camera and effect APIs. `authority_protocol.gd` is an independent semantic decoder; FPSCodec's native validator is used by synthetic load clients to avoid measuring many GDScript decoders in a single process.
 
@@ -29,7 +29,7 @@ Storage bounds are 128 players, 32 queued commands per player and 2,048 projecti
 
 Wire scalars are little endian without native struct padding. CQI1 remains the 30-byte fixture input. CQI2 adds bounded validated tracked transforms, room displacement, action flags, rewind time and redundant edge counters (maximum 310 bytes). Reliable discrete actions additionally carry life, map epoch and sequence. Legacy lifeless gameplay RPCs are rejected for native peers.
 
-CQA1 retains 104-byte base player rows. CQA2 appends TLV sections for poses, physical reloads, projectiles, jetpack, classes, CQ mode/zones, boxes, fields, vehicles, turrets, flights, grenades, effects/damage feedback and player extras. See the encoder/decoder for exact layouts. The frame limit is 1MiB. At 20Hz publication over 30Hz simulation, the host compresses once and fans out shared pieces of at most 960 payload bytes. Each client retains only one bounded assembly and publishes complete validated frames. Admission/control use reliable RPCs; input and frame channels are separate.
+CQA1 retains 104-byte base player rows. CQA2 appends TLV sections for poses, physical reloads, projectiles, jetpack, classes, CQ mode/zones, boxes, fields, vehicles, turrets, flights, grenades, effects/damage feedback and player extras. See the encoder/decoder for exact layouts. The frame limit is 1MiB. At 20Hz publication over 30Hz (or explicitly experimental 60Hz) simulation, the host compresses once and fans out shared pieces of at most 960 payload bytes. Each client retains only one bounded assembly and publishes complete validated frames. Admission/control use reliable RPCs; input and frame channels are separate.
 
 CQ is the supported mode in this path. Legacy TF/CTF/assault/district worker authority and waiting lobbies are not migrated; native startup rejects enabled lobby mode. VRM and face/body tracking are outside this branch's UT99 scope. Full rendering/XR device behavior still requires interactive testing; headless tracked tests supply synthetic controller poses.
 
@@ -168,3 +168,25 @@ Resident native CQ enforces four eight-member squads per team and requires squad
 ## Class armour — 14 October 2026
 
 Resident native CQ starts shocktroops at 100 armour, medics/technicians at 50 and scouts at zero. Living players within a friendly uncontested POI capture cylinder recharge two armour per second up to their class cap; overlapping POIs never stack. Existing damage absorption applies. See [validation and live deployment record](../../docs/validation/voxel-battle/armour-live-20261014/REPORT.md).
+
+## Experimental capacity probes — 15 October 2026
+
+`run_capacity_case.py` runs one isolated packaged fixture alongside the live service.
+It verifies the bundle manifest and waits for the fixture process to own its UDP
+socket before starting clients. Map construction is excluded from admission and
+measurement deadlines. It never suspends or restarts the live service.
+
+```sh
+python3 tools/frontier_vps/run_capacity_case.py --bundle /isolated/release --output /new/128-30 --players 128 --hz 30 --team-limit 64 --seconds 120 --port 27959
+python3 tools/frontier_vps/run_capacity_case.py --bundle /isolated/release --output /new/64-60 --players 64 --hz 60 --seconds 120 --port 27969
+```
+
+Run these cases sequentially. The default admission limit remains 32/team and
+8/squad. `--team-limit 64` explicitly opts this fixture into 64/team and 16/squad;
+it does not change production admission defaults or the 128-player storage bound.
+This option is separate from the simulation-rate experiment.
+`patch_probe_pack.py` derives an isolated Godot v4 pack from a deployed release,
+replacing only registered entries and recording original/output/override hashes.
+It preserves the deployed assets; it does not publish or install the result.
+
+See the [VPS measurements and scope](../../docs/validation/voxel-battle/capacity-128-60hz-20261015/REPORT.md).

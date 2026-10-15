@@ -1,0 +1,775 @@
+diff --git a/addons/fps_native/src/authority.cpp b/addons/fps_native/src/authority.cpp
+index 3ed5641..4681c12 100644
+--- a/addons/fps_native/src/authority.cpp
++++ b/addons/fps_native/src/authority.cpp
+@@ -90,6 +90,7 @@ void FPSAuthority::_bind_methods() {
+                        &FPSAuthority::terrain_sample);
+   ClassDB::bind_method(D_METHOD("configure_lamps", "lamps"),
+                        &FPSAuthority::configure_lamps);
++  ClassDB::bind_method(D_METHOD("configure_tick_rate", "hz"), &FPSAuthority::configure_tick_rate);
+   ClassDB::bind_method(D_METHOD("configure_world", "node"),
+                        &FPSAuthority::configure_world);
+   ClassDB::bind_method(D_METHOD("attach_vehicle", "kind", "body", "yaw", "team"),
+@@ -403,6 +404,8 @@ bool FPSAuthority::configure_cq(const Dictionary &d) {
+   for (const char *key : {"auto_respawn", "day_cycle", "squads"})
+     if (d.has(key) && d[key].get_type() != Variant::BOOL)
+       return false;
++  if (d.has("experimental_team_limit") && d["experimental_team_limit"].get_type() != Variant::INT) return false;
++  c.team_limit = d.get("experimental_team_limit", 32);
+   c.squads = d.get("squads", false);
+   c.auto_respawn = d.get("auto_respawn", true);
+   c.day_cycle = d.get("day_cycle", false);
+@@ -617,7 +620,7 @@ cqauthority::Moved FPSAuthority::move(const cqauthority::Motion &m, double) {
+   // Match Fighter.step_up: sweep up/forward/down only from grounded walking.
+   // The successful sweep consumes horizontal travel; never move it twice.
+   auto step = [&]() {
+-    Vector3 travel = gv({m.velocity.x * cqauthority::DT, 0, m.velocity.z * cqauthority::DT});
++    Vector3 travel = gv({m.velocity.x * core.step_seconds(), 0, m.velocity.z * core.step_seconds()});
+     if (!m.step || !m.grounded || m.velocity.y > 0 || travel.length() < .001) return false;
+     Ref<KinematicCollision3D> obstacle;obstacle.instantiate();
+     Transform3D before = actor->get_global_transform();
+@@ -781,11 +784,15 @@ cqauthority::Hit FPSAuthority::cast_ray(cqauthority::V from, cqauthority::V to,
+   return contact(result);
+ }
+ 
++bool FPSAuthority::configure_tick_rate(int hz) {
++  return on_owner() && !advancing && actors.empty() && core.configure_tick_rate(hz);
++}
++
+ bool FPSAuthority::advance() {
+   // CharacterBody3D movement uses the engine physics delta. Enforce the core's
+   // fixed tick contract.
+   if (!on_owner() || advancing ||
+-      Engine::get_singleton()->get_physics_ticks_per_second() != 30 ||
++      Engine::get_singleton()->get_physics_ticks_per_second() != core.tick_rate() ||
+       !Engine::get_singleton()->is_in_physics_frame() ||
+       last_physics_frame == Engine::get_singleton()->get_physics_frames())
+     return false;
+@@ -953,6 +960,9 @@ Dictionary FPSAuthority::metrics() const {
+     return d;
+   d["tick"] = int64_t(core.tick());
+   d["time"] = core.time();
++  d["tick_hz"] = core.tick_rate();
++  d["team_limit"] = core.cq.team_limit;
++  d["squad_limit"] = core.cq.squad_limit();
+   d["accepted"] = int64_t(core.counters.accepted);
+   d["rejected"] = int64_t(core.counters.rejected);
+   d["overflow"] = int64_t(core.counters.overflow);
+diff --git a/addons/fps_native/src/authority.h b/addons/fps_native/src/authority.h
+index 3159b2c..9bcacdc 100644
+--- a/addons/fps_native/src/authority.h
++++ b/addons/fps_native/src/authority.h
+@@ -78,6 +78,7 @@ public:
+   ~FPSAuthority();
+   bool request_restart();
+   bool configure_world(Node3D *);
++  bool configure_tick_rate(int hz);
+   Dictionary terrain_sample(const Vector3 &) const;
+   bool configure_lamps(const PackedVector3Array &);
+   int attach_vehicle(int, CharacterBody3D *, double, int);
+diff --git a/addons/fps_native/src/authority_abilities.cpp b/addons/fps_native/src/authority_abilities.cpp
+index e4409f0..a27c2df 100644
+--- a/addons/fps_native/src/authority_abilities.cpp
++++ b/addons/fps_native/src/authority_abilities.cpp
+@@ -273,7 +273,7 @@ void Core::repair(Player &p, Host &host) {
+       V at = v.position + B::yaw(v.yaw).apply(nearest);
+       if ((at - tip).length() > 1.5 || host.entity_ray(tip, at, v.key).blocked)
+         continue;
+-      double amount = std::min(30 * DT, vehicle_profile(v.kind).hp - v.hp);
++      double amount = std::min(30 * step_, vehicle_profile(v.kind).hp - v.hp);
+       v.hp += amount;
+       p.repair_credit += amount;
+       int xp = int(p.repair_credit / 10);
+@@ -306,8 +306,8 @@ void Core::tick_locks(Host &host) {
+           best = v.key;
+         }
+       p.lock_elapsed =
+-          best ? (best == p.lock_vehicle ? std::min(1.5, p.lock_elapsed + DT)
+-                                         : DT)
++          best ? (best == p.lock_vehicle ? std::min(1.5, p.lock_elapsed + step_)
++                                         : step_)
+                : 0;
+       p.lock_vehicle = best;
+     }
+diff --git a/addons/fps_native/src/authority_ai.cpp b/addons/fps_native/src/authority_ai.cpp
+index 44769e9..c956c95 100644
+--- a/addons/fps_native/src/authority_ai.cpp
++++ b/addons/fps_native/src/authority_ai.cpp
+@@ -10,7 +10,7 @@ void Core::tick_bots(Host &host) {
+       brain = BotBrain{};
+       brain.life = p.handle;
+       brain.last_position = p.position;
+-      brain.think = time_ + double(index % 6) * DT;
++      brain.think = time_ + double(index % 6) * step_;
+     }
+     Command c;
+     c.life = p.handle.life;
+@@ -182,7 +182,7 @@ void Core::tick_bots(Host &host) {
+       V next = brain.path[brain.step];
+       c.jump = next.y - p.position.y > .6;
+       double moved = (p.position - brain.last_position).length();
+-      brain.stuck = moved < .015 ? brain.stuck + DT : 0;
++      brain.stuck = moved < .015 ? brain.stuck + step_ : 0;
+       if (brain.stuck > .8) {
+         c.jump = true;
+         brain.route = 0;
+@@ -192,7 +192,7 @@ void Core::tick_bots(Host &host) {
+     brain.last_position = p.position;
+     if (!target && p.clips[c.weapon] < weapons()[c.weapon].mag)
+       c.reload = true;
+-    if ((c.weapon==2 || c.weapon==9 || c.weapon==10) && p.cooldown>DT) c.fire=false;
++    if ((c.weapon==2 || c.weapon==9 || c.weapon==10) && p.cooldown>step_) c.fire=false;
+     submit(p.handle, c);
+   }
+ }
+diff --git a/addons/fps_native/src/authority_core.cpp b/addons/fps_native/src/authority_core.cpp
+index ad3a208..7e7184f 100644
+--- a/addons/fps_native/src/authority_core.cpp
++++ b/addons/fps_native/src/authority_core.cpp
+@@ -24,6 +24,14 @@ const std::array<Weapon, 12> &weapons() {
+   return w;
+ }
+ Core::Core() { frame_.reserve(512 * 1024); }
++bool Core::configure_tick_rate(int hz) {
++  if ((hz != 30 && hz != 60) || tick_ != 0 ||
++      std::any_of(players_.begin(), players_.end(), [](const Player &p) { return p.active; }))
++    return false;
++  tick_hz_ = hz;
++  step_ = 1.0 / double(hz);
++  return true;
++}
+ Player *Core::find(int64_t id) {
+   for (auto &p : players_)
+     if (p.active && p.handle.id == id)
+@@ -46,7 +54,7 @@ Handle Core::join(int64_t id, int team, V position, uint16_t owned,
+       team < 0 || team > (cq.enabled ? 1 : 2) || (owned & ~uint16_t(0xfff)) ||
+       !owned || !next_life_)
+     return {};
+-  if (cq.squads) { int count=0;for (const auto &p:players_) count+=p.active&&p.team==team;if(count>=32)return {}; }
++  if (cq.squads) { int count=0;for (const auto &p:players_) count+=p.active&&p.team==team;if(count>=cq.team_limit)return {}; }
+   for (int n : ammo)
+     if (n < 0 || n > 10000)
+       return {};
+@@ -393,15 +401,15 @@ void Core::movement(Player &p, Host &host) {
+     p.pose.height = p.height;
+     p.pose.has_height = true;
+   }
+-  p.stamina = std::max(0., p.stamina - DT);
++  p.stamina = std::max(0., p.stamina - step_);
+   bool ground = p.grounded && p.velocity.y <= 0;
+   bool jumping =
+       ground && p.height >= .8 && (p.jump_pending || (c.jump && !p.jump_held));
+   V wish = B::yaw(p.yaw).apply({c.x, 0, c.z});
+   double room_scale =
+-      1 - std::min(p.room.length() * 30 / ((c.slow ? 5.2 : 9.4)), 1.);
++      1 - std::min(p.room.length() / step_ / ((c.slow ? 5.2 : 9.4)), 1.);
+   wish = wish * room_scale;
+-  bool boosted = p.jetpack.tick(p.velocity, wish, DT, c.jump || p.jump_pending,
++  bool boosted = p.jetpack.tick(p.velocity, wish, step_, c.jump || p.jump_pending,
+                                 p.jump_held && !p.jump_pending,
+                                 c.jetpack || p.jet_event_pending,
+                                 p.jetpack_enabled, c.blocked, p.height < .8);
+@@ -411,7 +419,7 @@ void Core::movement(Player &p, Host &host) {
+     V before = p.position;
+     auto result = host.move(
+         {p.handle, p.position, p.velocity, height, p.yaw, p.grounded, false},
+-        DT);
++        step_);
+     if (result.position.finite() && result.velocity.finite()) {
+       p.position = result.position;
+       p.velocity = result.velocity;
+@@ -459,9 +467,9 @@ void Core::movement(Player &p, Host &host) {
+                  p.yaw,    p.grounded, false};
+     horizontal = horizontal *
+                  (std::max(0., current - std::max(current, stop) * 4 *
+-                                             (host.edge(probe) ? 2 : 1) * DT) /
++                                             (host.edge(probe) ? 2 : 1) * step_) /
+                   current) *
+-                 std::pow(std::max(0., 1 - .19 * p.stamina), DT * 100);
++                 std::pow(std::max(0., 1 - .19 * p.stamina), step_ * 100);
+   }
+   if (strength > 0) {
+     auto direction = wish.unit();
+@@ -471,17 +479,17 @@ void Core::movement(Player &p, Host &host) {
+     if (available > 0)
+       horizontal =
+           horizontal +
+-          direction * std::min(available, (walk ? 5 : 10) * requested * DT);
++          direction * std::min(available, (walk ? 5 : 10) * requested * step_);
+   }
+   if (walk && horizontal.length() < 1. / 32)
+     horizontal = {};
+   p.velocity = {horizontal.x,
+-                walk ? -.2 : std::max(-62.5, p.velocity.y - 25 * DT * .5),
++                walk ? -.2 : std::max(-62.5, p.velocity.y - 25 * step_ * .5),
+                 horizontal.z};
+   for (auto *v : {&p.velocity.x, &p.velocity.y, &p.velocity.z})
+     *v = std::clamp(*v, -62.5, 62.5);
+   auto result = host.move(
+-      {p.handle, p.position, p.velocity, height, p.yaw, p.grounded, walk}, DT);
++      {p.handle, p.position, p.velocity, height, p.yaw, p.grounded, walk}, step_);
+   // Host results are trusted collision results, but never admit NaNs into
+   // resident state.
+   if (!result.position.finite() || !result.velocity.finite() ||
+@@ -494,7 +502,7 @@ void Core::movement(Player &p, Host &host) {
+   if (p.grounded && (!jumping || p.velocity.y <= 0))
+     p.velocity.y = 0;
+   else
+-    p.velocity.y = std::max(-62.5, p.velocity.y - 25 * DT * .5);
++    p.velocity.y = std::max(-62.5, p.velocity.y - 25 * step_ * .5);
+   if (p.pose.tracked && p.room.length2() > 0) {
+     V applied = host.room_move(p.handle, p.room, p.yaw);
+     if (applied.finite()) {
+@@ -792,7 +800,7 @@ bool Core::magazines(Player &p) {
+ void Core::combat(Player &p, Host &host) {
+   if (p.staging || p.dead || p.incapacitated || p.vehicle >= 0)
+     return;
+-  p.cooldown = std::max(0., p.cooldown - DT);
++  p.cooldown = std::max(0., p.cooldown - step_);
+   if (cq.enabled && p.grenade_selected) {
+     if (!p.grenade_offhand && !p.input.vr && !p.input.blocked) {
+       bool pressed = p.input.fire || p.press_pending;
+@@ -972,8 +980,8 @@ void Core::projectiles(Host &host) {
+   for (auto &s : projectiles_)
+     if (s.active) {
+       if (s.stuck) {
+-        s.age += DT;
+-        s.remaining -= DT;
++        s.age += step_;
++        s.remaining -= step_;
+         if (s.age >= s.arm || s.remaining <= 0) {
+           s.active = false;
+           impact(s, {true, {}, s.position}, host);
+@@ -999,7 +1007,7 @@ void Core::projectiles(Host &host) {
+               (best->position - s.position).unit() * s.velocity.length();
+           s.velocity =
+               s.velocity +
+-              (desired - s.velocity).limited(s.velocity.length() * .08 * DT);
++              (desired - s.velocity).limited(s.velocity.length() * .08 * step_);
+         }
+       }
+       if (s.target_vehicle)
+@@ -1009,7 +1017,7 @@ void Core::projectiles(Host &host) {
+             V desired = (v.position + V{0, .8, 0} - s.position).unit(),
+               current = s.velocity.unit();
+             double angle = std::acos(std::clamp(current.dot(desired), -1., 1.)),
+-                   step = std::min(angle, 2.0943951023931953 * DT);
++                   step = std::min(angle, 2.0943951023931953 * step_);
+             if (angle > 1e-6) {
+               V tangent = (desired - current * std::cos(angle)).unit();
+               if (tangent.length2() < .1)
+@@ -1021,12 +1029,12 @@ void Core::projectiles(Host &host) {
+             break;
+           }
+       V next =
+-          s.position + s.velocity * DT + V{0, -.5 * s.gravity * DT * DT, 0};
++          s.position + s.velocity * step_ + V{0, -.5 * s.gravity * step_ * step_, 0};
+       auto hit = trace_hit(host, s.position, next, s.owner, s.sweep_radius, -1,
+                            !s.fresh, s.ignore_entity);
+       s.fresh = false;
+-      s.age += DT;
+-      s.remaining -= DT;
++      s.age += step_;
++      s.remaining -= step_;
+       if (hit.blocked) {
+         if (s.age < s.arm && s.bounce > 0) {
+           s.position = hit.position + hit.normal * (s.sweep_radius + .005);
+@@ -1047,7 +1055,7 @@ void Core::projectiles(Host &host) {
+           impact(s, {true, {}, next}, host);
+       } else {
+         s.position = next;
+-        s.velocity.y -= s.gravity * DT;
++        s.velocity.y -= s.gravity * step_;
+       }
+     }
+ }
+@@ -1087,7 +1095,7 @@ void Core::snapshot() {
+ void Core::advance(Host &host) {
+   using Clock = std::chrono::steady_clock;
+   auto a = Clock::now();
+-  time_ = double(++tick_) * DT;
++  time_ = double(++tick_) * step_;
+   if (cq.enabled) {
+     round_state(host);
+     tick_lighting(host);
+@@ -1122,7 +1130,7 @@ void Core::advance(Host &host) {
+       if (running && p.vehicle < 0)
+         movement(p, host);
+       else
+-        p.jetpack.cooldown = std::max(0., p.jetpack.cooldown - DT);
++        p.jetpack.cooldown = std::max(0., p.jetpack.cooldown - step_);
+     }
+   if (cq.enabled)
+     record_history();
+@@ -1146,8 +1154,8 @@ void Core::advance(Host &host) {
+     tick_classes(host);
+   }
+   auto c = Clock::now();
+-  // 20 Hz publication from a 30 Hz simulation; stable 2,1 tick cadence.
+-  if ((tick_ * 2) / 3 != ((tick_ - 1) * 2) / 3)
++  // Keep snapshot construction at 20 Hz for either supported simulation rate.
++  if ((tick_ * 20) / tick_hz_ != ((tick_ - 1) * 20) / tick_hz_)
+     snapshot();
+   auto d = Clock::now();
+   timings = {
+diff --git a/addons/fps_native/src/authority_core.h b/addons/fps_native/src/authority_core.h
+index b0e5d2f..e798ea1 100644
+--- a/addons/fps_native/src/authority_core.h
++++ b/addons/fps_native/src/authority_core.h
+@@ -182,6 +182,8 @@ struct Timings {
+          mode_us = 0;
+ };
+ class Core {
++  int tick_hz_ = 30;
++  double step_ = DT;
+   std::array<Player, MAX_PLAYERS> players_{};
+   struct BotBrain {
+     Handle life, target;
+@@ -298,6 +300,9 @@ public:
+   Counters counters;
+   Timings timings;
+   Core();
++  bool configure_tick_rate(int hz);
++  int tick_rate() const { return tick_hz_; }
++  double step_seconds() const { return step_; }
+   Player *find(int64_t);
+   const Player *find(int64_t) const;
+   Player *resolve(Handle);
+diff --git a/addons/fps_native/src/authority_cq.h b/addons/fps_native/src/authority_cq.h
+index 457ff5d..cadff3e 100644
+--- a/addons/fps_native/src/authority_cq.h
++++ b/addons/fps_native/src/authority_cq.h
+@@ -95,6 +95,8 @@ struct Designation {
+   bool locking = false;
+ };
+ struct CqConfig {
++  int team_limit = 32; // Explicit experimental overrides do not change production defaults.
++  int squad_limit() const { return team_limit / 4; }
+   bool enabled = false;
+   double map_limit = 1414.213562373095, fall_limit = -200, water_level = -1e9;
+   double light_fraction = 1;
+diff --git a/addons/fps_native/src/authority_gameplay.cpp b/addons/fps_native/src/authority_gameplay.cpp
+index 279e4a7..178efad 100644
+--- a/addons/fps_native/src/authority_gameplay.cpp
++++ b/addons/fps_native/src/authority_gameplay.cpp
+@@ -14,7 +14,7 @@ bool Core::same_team(const Player &a, const Player &b) const {
+   return a.team == b.team && (cq.enabled || a.team != 0);
+ }
+ bool Core::configure_cq(const CqConfig &config) {
+-  if (tick_ || !std::isfinite(config.map_limit) || config.map_limit <= 0 ||
++  if ((config.team_limit != 32 && config.team_limit != 64) || tick_ || !std::isfinite(config.map_limit) || config.map_limit <= 0 ||
+       !std::isfinite(config.fall_limit) || !std::isfinite(config.water_level) ||
+       !std::isfinite(config.light_fraction) || config.light_fraction < 0 ||
+       config.light_fraction > 1 || !std::isfinite(config.cycle_seconds) ||
+@@ -222,7 +222,7 @@ bool Core::inject(Handle medic, Handle victim, double delta) {
+   auto *b = resolve(victim);
+   if (!cq.enabled || !a || !b || !alive(*a) || a->classes.role != Role::MEDIC ||
+       !b->incapacitated || !same_team(*a, *b) || !std::isfinite(delta) ||
+-      delta <= 0 || delta > DT + 1e-9)
++      delta <= 0 || delta > step_ + 1e-9)
+     return false;
+   if (b->injector.id && b->injector != medic)
+     return false;
+@@ -322,7 +322,7 @@ void Core::tick_classes(Host &host) {
+           box.credit[i] = 0;
+           box.lives[i] = p.handle.life;
+         }
+-        box.credit[i] = std::min(300., box.credit[i] + DT * 20);
++        box.credit[i] = std::min(300., box.credit[i] + step_ * 20);
+         box.credit[i] -= supply(box, p, int(box.credit[i]));
+         if (!box.active)
+           break;
+@@ -340,7 +340,7 @@ void Core::tick_classes(Host &host) {
+           V chest = b.position + V{0, .35, 0};
+           if ((tip - chest).length() <= .25 &&
+               !host.world_trace(tip, chest, a.handle).blocked) {
+-            inject(a.handle, b.handle, DT);
++            inject(a.handle, b.handle, step_);
+             break;
+           }
+         }
+@@ -354,7 +354,7 @@ void Core::tick_classes(Host &host) {
+         continue;
+       p.injector = {};
+       p.inject_progress = 0;
+-      p.bleed_remaining = std::max(0., p.bleed_remaining - DT);
++      p.bleed_remaining = std::max(0., p.bleed_remaining - step_);
+       if (p.bleed_remaining <= 1e-9)
+         damage(p.handle, p.injury_source, 1, DamageKind::BLEEDOUT, false,
+                p.injury_credit, p.injury_weapon);
+@@ -395,7 +395,7 @@ void Core::tick_classes(Host &host) {
+                  .blocked)
+           {presence[i][p.team] = true;++counts[i][p.team];}
+       }
+-  points.advance(DT, presence, counts);
++  points.advance(step_, presence, counts);
+   // Two armour points per second; overlapping POIs never multiply the rate.
+   for (auto &p : players_) {
+     bool recharge = false;
+@@ -412,7 +412,7 @@ void Core::tick_classes(Host &host) {
+         }
+       }
+     if (!recharge) { p.armor_credit = 0; continue; }
+-    p.armor_credit += DT * 2;
++    p.armor_credit += step_ * 2;
+     int gain = int(p.armor_credit + 1e-9);
+     p.armor = std::min(p.classes.armor_limit(), p.armor + gain);
+     p.armor_credit -= gain;
+diff --git a/addons/fps_native/src/authority_round.cpp b/addons/fps_native/src/authority_round.cpp
+index 58c712f..ffde39e 100644
+--- a/addons/fps_native/src/authority_round.cpp
++++ b/addons/fps_native/src/authority_round.cpp
+@@ -227,7 +227,7 @@ void Core::drag(Player &p, Host &host) {
+     if (b.active && b.incapacitated && same_team(p, b)) {
+       if ((hand - b.position - V{0, .35, 0}).length() > .6)
+         continue;
+-      V motion = (hand - V{0, .35, 0} - b.position).limited(DT * 2);
++      V motion = (hand - V{0, .35, 0} - b.position).limited(step_ * 2);
+       V actual = host.room_move(b.handle, B::yaw(b.yaw).inverse(motion), b.yaw);
+       b.position = b.position + actual;
+       break;
+diff --git a/addons/fps_native/src/authority_squads.cpp b/addons/fps_native/src/authority_squads.cpp
+index 0e5cdd2..1a92d2e 100644
+--- a/addons/fps_native/src/authority_squads.cpp
++++ b/addons/fps_native/src/authority_squads.cpp
+@@ -10,7 +10,7 @@ bool Core::join_squad(Handle h,int squad) {
+   if(squad==-1){squad=0;for(int s=1;s<4;++s)if(squad_size(p->team,s)<squad_size(p->team,squad))squad=s;}
+   if(squad<0||squad>=4)return false;
+   if(p->squad==squad)return true;
+-  if(squad_size(p->team,squad)>=8)return false;
++  if(squad_size(p->team,squad)>=cq.squad_limit())return false;
+   p->squad=squad;return true;
+ }
+ bool Core::ground_spawn(const Player &p,V anchor,Host &host,V &out) {
+diff --git a/addons/fps_native/src/authority_utilities.cpp b/addons/fps_native/src/authority_utilities.cpp
+index aede668..cb8e415 100644
+--- a/addons/fps_native/src/authority_utilities.cpp
++++ b/addons/fps_native/src/authority_utilities.cpp
+@@ -206,10 +206,10 @@ bool Core::throw_grenade(Player &p, Host &host) {
+ void Core::tick_grenades(Host &host) {
+   for (auto &g : grenades_)
+     if (g.active) {
+-      g.age += DT;
++      g.age += step_;
+       if (!g.ground) {
+-        int steps = std::max(1, int(std::ceil(g.velocity.length() * DT / .08)));
+-        double dt = DT / steps;
++        int steps = std::max(1, int(std::ceil(g.velocity.length() * step_ / .08)));
++        double dt = step_ / steps;
+         for (int i = 0; i < std::min(steps, 32); ++i) {
+           g.velocity.y -= 12.5 * dt;
+           V end = g.position + g.velocity * dt;
+@@ -296,7 +296,7 @@ void Core::tick_fields(Host &host) {
+     field_delta_ = 0;
+     return;
+   }
+-  field_delta_ += DT;
++  field_delta_ += step_;
+   if (tick_ % 3)
+     return;
+   double elapsed = field_delta_;
+diff --git a/addons/fps_native/src/authority_vehicles.cpp b/addons/fps_native/src/authority_vehicles.cpp
+index 8a422b4..a7b9e1b 100644
+--- a/addons/fps_native/src/authority_vehicles.cpp
++++ b/addons/fps_native/src/authority_vehicles.cpp
+@@ -279,20 +279,20 @@ void Core::tick_vehicles(Host &host) {
+     double desired =
+         -z * (z < 0 ? profile.forward : profile.reverse) * mobility;
+     double delta = desired - v.speed;
+-    v.speed += std::clamp(delta, -DT * profile.acceleration * mobility,
+-                          DT * profile.acceleration * mobility);
+-    v.yaw -= x * profile.turn * mobility * DT;
++    v.speed += std::clamp(delta, -step_ * profile.acceleration * mobility,
++                          step_ * profile.acceleration * mobility);
++    v.yaw -= x * profile.turn * mobility * step_;
+     V horizontal = B::yaw(v.yaw).apply({0, 0, -v.speed});
+-    V next = v.position + horizontal * DT;
++    V next = v.position + horizontal * step_;
+     if (std::abs(next.x) > cq.map_limit - 4 ||
+         std::abs(next.z) > cq.map_limit - 4) {
+       horizontal = {};
+       v.speed = 0;
+     }
+     if (pilot || !v.grounded || !v.stable_ground || std::abs(v.speed) > .001) {
+-      v.fall_speed -= 20 * DT;
++      v.fall_speed -= 20 * step_;
+       auto result =
+-          host.move_vehicle(v, {horizontal.x, v.fall_speed, horizontal.z}, DT);
++          host.move_vehicle(v, {horizontal.x, v.fall_speed, horizontal.z}, step_);
+       if (result.position.finite() && result.velocity.finite()) {
+         v.position = result.position;
+         v.fall_speed = result.velocity.y;
+@@ -302,7 +302,7 @@ void Core::tick_vehicles(Host &host) {
+         v.stable_ground = result.stable_ground;
+       }
+     }
+-    v.velocity = (v.position - old) / DT;
++    v.velocity = (v.position - old) / step_;
+     host.sync_vehicle(v);
+     bool drowned = false;
+     for (V corner : {V{}, V{profile.size.x * .45, 0, profile.size.z * .4},
+diff --git a/addons/fps_native/src/backend.h b/addons/fps_native/src/backend.h
+index 95b238b..3dd167e 100644
+--- a/addons/fps_native/src/backend.h
++++ b/addons/fps_native/src/backend.h
+@@ -13,6 +13,7 @@
+ #include <mutex>
+ #include <condition_variable>
+ #include <functional>
++#include <string>
+ #include <deque>
+ #include <unordered_map>
+ #include <memory>
+diff --git a/tools/authority_core/driver.gd b/tools/authority_core/driver.gd
+index b5fc1d4..f3fc651 100644
+--- a/tools/authority_core/driver.gd
++++ b/tools/authority_core/driver.gd
+@@ -6,7 +6,9 @@ func option(flag:String,fallback:String)->String:
+  var args:=OS.get_cmdline_user_args();var i:=args.find(flag);return args[i+1] if i>=0 and i+1<args.size() else fallback
+ func _initialize()->void:run.call_deferred()
+ func run()->void:
+- Engine.physics_ticks_per_second=30;Engine.max_fps=120
++ var hz:=int(option("--tick-hz","30"))
++ if hz not in [30,60]:push_error("Fixture rate must be 30 or 60 Hz");quit(1);return
++ Engine.physics_ticks_per_second=hz;Engine.max_fps=120
+  var server:=option("--role","server")=="server";var count:=int(option("--players","32"));var seconds:=float(option("--seconds","120"));var port:=int(option("--port","27929"));var address:=option("--address","127.0.0.1")
+  deadline=Time.get_ticks_msec()+int((seconds+50)*1000)
+  var client_count:=int(option("--client-count",str(count)))
+diff --git a/tools/authority_core/host.gd b/tools/authority_core/host.gd
+index c86e0df..1ee648f 100644
+--- a/tools/authority_core/host.gd
++++ b/tools/authority_core/host.gd
+@@ -4,6 +4,8 @@ const Codec=preload("res://deathmatch/native/authority_protocol.gd")
+ const Metadata=preload("res://deathmatch/native/cq_metadata.gd")
+ const Reload=preload("res://deathmatch/conquest/classes/reload_state.gd")
+ const Runtime=preload("res://deathmatch/native/runtime.gd")
++const CQ_SLOTS=["burst_pistol","assault_rifle","pistol","smg","carbine","massacre","ammo_box","repair_kit","designator","scout_pistol","beam_pistol","guided_launcher"]
++var weapon_manifest:Dictionary={}
+ var authority
+ var ai_timings:Array=[]
+ var mode_timings:Array=[]
+@@ -24,6 +26,13 @@ var warm_seconds:=8.
+ var native_baseline:Dictionary={}
+ var sequence_baseline:=-1
+ var animation_sequence:=0
++var animation_phase:=0.0
++var new_animation_step:=false
++var tick_hz:=30
++var team_limit:=32
++var physics_samples:Array=[]
++var previous_physics_us:=0
++var next_admission_report:=0
+ var transport_stats:Array=[]
+ var next_transport:=0
+ var rpc_inputs:=0
+@@ -56,15 +65,21 @@ var piece_count:=0
+ var piece_bytes:=0
+ func setup(is_server:bool,players:int,duration:float,report:String="")->void:
+  if Runtime.available("FPSCodec"):validator=ClassDB.instantiate("FPSCodec")
+- server=is_server;expected=players;seconds=duration;report_path=report;wall_start=Time.get_ticks_msec()
++ server=is_server;expected=players;seconds=duration;report_path=report;wall_start=Time.get_ticks_msec();tick_hz=Engine.physics_ticks_per_second
++ if tracked and cq_mode:weapon_manifest=JSON.parse_string(FileAccess.get_file_as_string("res://deathmatch/weapons/cq/manifest.json"))
+  if server:
+   if not Runtime.available("FPSAuthority"):
+    push_error("FPSAuthority unavailable");get_tree().quit(1);return
+   if tracked:reach_profile=preload("res://deathmatch/avatars/ut_format.gd").read("res://deathmatch/avatars/models/base/soldier.utavatar").manifest.ik_profile
+   authority=ClassDB.instantiate("FPSAuthority")
++  if authority.has_method("configure_tick_rate"):
++   if not authority.configure_tick_rate(tick_hz):push_error("Native tick-rate configuration rejected");get_tree().quit(1);return
++  elif tick_hz!=30:push_error("Native library does not support experimental rate");get_tree().quit(1);return
+   authority.configure_world(self)
+   if cq_mode:
+-   if not authority.configure_cq({"squads":jungle,"day_cycle":true,"auto_respawn":true}):push_error("CQ core configuration failed");get_tree().quit(1);return
++   var args:=OS.get_cmdline_user_args();var limit_index:=args.find("--experimental-team-limit")
++   if limit_index>=0 and limit_index+1<args.size():team_limit=int(args[limit_index+1])
++   if not authority.configure_cq({"experimental_team_limit":team_limit,"squads":jungle,"day_cycle":true,"auto_respawn":true}):push_error("CQ core configuration failed");get_tree().quit(1);return
+    if not authority.configure_terrain(Metadata.terrain()):push_error("terrain import failed");get_tree().quit(1);return
+    var objectives=preload("res://deathmatch/conquest/frontier/objectives.gd").new()
+    for site in objectives.sites:authority.configure_zone(site.position,3.)
+@@ -101,7 +116,7 @@ func _join(id:int)->void:
+  if jungle:actor.position=native_map.spawn_positions[index%native_map.spawn_positions.size()]
+  var collider:=CollisionShape3D.new();var shape:=CylinderShape3D.new();shape.radius=.3;shape.height=1.65;collider.shape=shape;collider.position.y=.83;actor.add_child(collider);add_child(actor);actor.set_meta("peer",id)
+  var serial:int=authority.attach_actor(id,actor,collider,index%2 if cq_mode else index%2+1,1<<4,PackedInt32Array([10000,10000,10000,10000]))
+- if serial==0:push_error("native admission failed");get_tree().quit(1);return
++ if serial==0:push_error("native admission failed at roster position "+str(index+1)+" team "+str(index%2));get_tree().quit(1);return
+  var role:int=index%4 if cq_mode else 0
+  var weapon:int=[4,9,4,5][role] if cq_mode else 4
+  if cq_mode:
+@@ -166,12 +181,17 @@ func _physics_process(_delta:float)->void:
+  var now:=Time.get_ticks_msec()
+  if now-wall_start>int((seconds+45)*1000):push_error("authority fixture timeout");get_tree().quit(1);return
+  if server:
++  if started<=0 and now>=next_admission_report:
++   next_admission_report=now+1000
++   var admission:Dictionary={"expected":expected,"joined":joined,"ready":ready_clients,"disconnected":disconnected,"elapsed_seconds":(now-wall_start)/1000.0}
++   if not report_path.is_empty():FileAccess.open(report_path+".admission.json",FileAccess.WRITE).store_string(JSON.stringify(admission))
++   print("AUTHORITY_ADMISSION ",JSON.stringify(admission))
+   var begin:=Time.get_ticks_usec()
+   if not authority.advance():push_error("native tick contract rejected");get_tree().quit(1);return
+   var metrics:Dictionary=authority.metrics()
+   var tick:int=metrics.tick
+   # Only materialise one shared packed frame on publication, then fan out via Godot transport.
+-  if started>0 and (tick*2)/3!=((tick-1)*2)/3:
++  if started>0 and int(tick*20/tick_hz)!=int((tick-1)*20/tick_hz):
+    var frame:PackedByteArray=authority.snapshot();var frame_tick:=frame.decode_u64(4)
+    if frame_tick!=last_frame_tick:
+     var packed:=frame.compress(FileAccess.COMPRESSION_FASTLZ);var parts:=ceili(packed.size()/960.)
+@@ -181,40 +201,56 @@ func _physics_process(_delta:float)->void:
+   var total:=Time.get_ticks_usec()-begin
+   if started>0 and now>=started:
+    if native_baseline.is_empty():native_baseline=metrics.duplicate();rpc_baseline=rpc_inputs
++   var now_us:=Time.get_ticks_usec()
++   if previous_physics_us>0:physics_samples.append(now_us-previous_physics_us)
++   previous_physics_us=now_us
+    timings.append(Vector4(total,metrics.movement_us,metrics.combat_us,metrics.snapshot_us));ai_timings.append(metrics.ai_us);mode_timings.append(metrics.mode_us)
+    if now-started>=int(seconds*1000):_finish()
+  elif started>0:
+   if now>=started and sequence_baseline<0:sequence_baseline=sequence;received_baseline=received
+   sequence+=1
+-  animation_sequence=sequence-sequence_baseline if sequence_baseline>=0 else 0
++  var previous_step:=animation_sequence
++  animation_phase=(sequence-sequence_baseline)*30.0/tick_hz if sequence_baseline>=0 else 0.0
++  animation_sequence=int(animation_phase);new_animation_step=animation_sequence!=previous_step
++  var input_phase:=float(sequence)*30.0/tick_hz
+   if now>=next_transport:
+    next_transport=now+1000
+    var peer=multiplayer.multiplayer_peer.get_peer(1)
+    transport_stats.append({"measured":now>=started,"rtt":peer.get_statistic(ENetPacketPeer.PEER_ROUND_TRIP_TIME),"loss":peer.get_statistic(ENetPacketPeer.PEER_PACKET_LOSS),"throttle":peer.get_statistic(ENetPacketPeer.PEER_PACKET_THROTTLE),"sequence":sequence})
+   var phase:=float(multiplayer.get_unique_id()%97)
+-  var command:Dictionary={"life":life,"seq":sequence,"move":Vector2(sin(sequence*.013+phase)*.35,cos(sequence*.009+phase)*.35),"yaw":phase+sin(sequence*.003),"pitch":.6,"weapon":player_weapon,"fire":animation_sequence%300>=260 if player_weapon==5 else animation_sequence%300 in range(60,150),"jump":sequence%200==1,"reload":sequence%150==100,"slow":false,"crouch":sequence%400>280,"prone":sequence%800>720,"blocked":false,"view_time":float(last_tick)/30.-.1 if last_tick>=0 else -1.}
++  var command:Dictionary={"life":life,"seq":sequence,"move":Vector2(sin(input_phase*.013+phase)*.35,cos(input_phase*.009+phase)*.35),"yaw":phase+sin(input_phase*.003),"pitch":.6,"weapon":player_weapon,"fire":animation_sequence%300>=260 if player_weapon==5 else animation_sequence%300 in range(60,150),"jump":int(input_phase)%200==1,"reload":int(input_phase)%150==100,"slow":false,"crouch":int(input_phase)%400>280,"prone":int(input_phase)%800>720,"blocked":false,"view_time":float(last_tick)/tick_hz-.1 if last_tick>=0 else -1.}
+   if player_weapon in [2,9,10]:command.fire=command.fire and animation_sequence%24<3
+   if sequence_baseline<0:command.move=Vector2.ZERO;command.jump=false;command.reload=false;command.fire=false
+   if tracked:tracked_command(command)
+   _command.rpc_id(1,Codec.encode_input(command))
+-  if cq_mode:
++  if cq_mode and (tick_hz==30 or new_animation_step):
+    if animation_sequence%600==5 and player_role==1:_action.rpc_id(1,life,sequence,0)
+    if animation_sequence%600==15 and player_role==2:_action.rpc_id(1,life,sequence,2)
+    if animation_sequence%600==20 and player_role==2:_action.rpc_id(1,life,sequence,3)
+ func tracked_command(c:Dictionary)->void:
+- var left:bool=multiplayer.get_unique_id()%2==1;var step:=animation_sequence%300
++ var left:bool=multiplayer.get_unique_id()%2==1;var step:=fmod(animation_phase,300.0)
+  var basis:=Basis(Vector3.RIGHT,.6);var base:=Vector3(-.3 if left else .3,1.1,-.3)
+  var geometry:int=12 if player_weapon in [5,11] else 2 if player_weapon in [2,9,3] else 7
+- var point:Vector3=base+basis*(Reload.MAG_POINTS[geometry]*.65);var support:=point;var grip:=false
++ var mag_anchor:Vector3=Reload.MAG_POINTS[geometry];var rack_anchor:=Vector3(.04,.09,.055)
++ if cq_mode:
++  var anchors:Dictionary=weapon_manifest[CQ_SLOTS[player_weapon]]
++  var m:Array=anchors.magazine_anchor;var r:Array=anchors.rack_anchor
++  mag_anchor=Vector3(m[0],m[1],m[2]);rack_anchor=Vector3(r[0],r[1],r[2])
++ var point:Vector3=base+basis*(mag_anchor*.65);var support:=point;var grip:=false;var magazine_trigger:=false
+  if step>=3 and step<16:
+-  grip=true
++  magazine_trigger=true;grip=not cq_mode
+   var draw:=minf(maxf(step-3,0)*.03,.12) if step<9 else maxf(0,.12-(step-9)*.025)
+   support+=basis*(Vector3.LEFT*draw if geometry==12 else Vector3.DOWN*draw)
+- if step>=22 and step<=30:support=Vector3(.29 if left else -.29,.965,0).lerp(point,clampf((step-24)/6.,0,1));grip=step>=23
+- if step>=33 and step<=40:
+-  support=base+basis*(Vector3(.04,.09,.055)*.65+Vector3.UP*.02);grip=step<40;support+=basis*Vector3(0,0,[0.,0.,.025,.05,.065,.04,.015,0.][step-33])
++ if step>=22 and step<=30:
++  support=Vector3(.29 if left else -.29,.965,0).lerp(point,clampf((step-24)/6.,0,1));magazine_trigger=step>=23;grip=magazine_trigger and not cq_mode
++ if step>=33 and step<=40 and geometry!=12:
++  support=base+basis*(rack_anchor*.65+Vector3.UP*.02);grip=step<40;support+=basis*Vector3(0,0,rack_motion(step-33)*.65)
+  var weapon:=Transform3D(basis,base);var hand:=Transform3D(Basis.IDENTITY,support)
+  c.xr={"head":Transform3D(Basis.IDENTITY,Vector3(0,1.65,0)),"left":weapon if left else hand,"right":hand if left else weapon,"weapon":weapon,"offhand_weapon":hand,"height":1.65,"left_handed":left};c.vr_device=true;c.reload_grip=grip;c.reload=step==19
++ if cq_mode:c.reload_trigger=magazine_trigger
++func rack_motion(phase:float)->float:
++ var points:Array=[0.,0.,.025,.05,.065,.04,.015,0.]
++ var i:=clampi(int(phase),0,7);return lerpf(points[i],points[mini(i+1,7)],clampf(phase-i,0,1))
+ @rpc("any_peer","call_remote","reliable",0)
+ func _action(serial:int,seq:int,kind:int)->void:
+  if server:authority.request_action(multiplayer.get_remote_sender_id(),serial,seq,kind)
+@@ -225,7 +261,7 @@ func _finish()->void:
+  var native:Dictionary=authority.metrics();var warm:Dictionary={}
+  for key in ["accepted","rejected","overflow","shots","damage","deaths","projectile_full"]:
+   warm[key]=native_baseline.get(key,0);native[key]-=warm[key]
+- var result:Dictionary={"warmup_seconds":warm_seconds,"warmup_native":warm,"rpc_inputs":rpc_inputs-rpc_baseline,"fixture":"native-cq-jungle-jolt-enet" if jungle else "native-cq-jolt-enet" if cq_mode else "native-infantry-jolt-enet","players":expected,"seconds":(Time.get_ticks_msec()-started)/1000.,"ticks":timings.size(),"hz":timings.size()/((Time.get_ticks_msec()-started)/1000.),"callback_us":_distribution(total),"movement_and_collision_us":_distribution(movement),"combat_and_queries_us":_distribution(combat),"frame_encoding_us":_distribution(snapshot),"native":native,"disconnected":disconnected,"physics":"Godot Jolt","production_cq":false,"stress_infinite_reserve_invulnerable":stress,"xr":tracked,"cq_gameplay":cq_mode,"jungle_map":jungle,"compressed_publication_bytes":publication_bytes,"snapshot_parts":sent_parts}
++ var result:Dictionary={"configured_hz":tick_hz,"experimental_team_limit":team_limit,"simulation_elapsed_seconds":timings.size()/float(tick_hz),"snapshot_hz":20,"physics_interval_us":_distribution(physics_samples) if not physics_samples.is_empty() else {},"warmup_seconds":warm_seconds,"warmup_native":warm,"rpc_inputs":rpc_inputs-rpc_baseline,"fixture":"native-cq-jungle-jolt-enet" if jungle else "native-cq-jolt-enet" if cq_mode else "native-infantry-jolt-enet","players":expected,"seconds":(Time.get_ticks_msec()-started)/1000.,"ticks":timings.size(),"hz":timings.size()/((Time.get_ticks_msec()-started)/1000.),"callback_us":_distribution(total),"movement_and_collision_us":_distribution(movement),"combat_and_queries_us":_distribution(combat),"frame_encoding_us":_distribution(snapshot),"native":native,"disconnected":disconnected,"physics":"Godot Jolt","production_cq":false,"stress_infinite_reserve_invulnerable":stress,"xr":tracked,"cq_gameplay":cq_mode,"jungle_map":jungle,"compressed_publication_bytes":publication_bytes,"snapshot_parts":sent_parts}
+  result["ai_us"]=_distribution(ai_timings);result["cq_mode_us"]=_distribution(mode_timings)
+  var by_class:Dictionary={}
+  for actor in get_children():
+diff --git a/tools/authority_core/tests.cpp b/tools/authority_core/tests.cpp
+index 365e675..0dc35ee 100644
+--- a/tools/authority_core/tests.cpp
++++ b/tools/authority_core/tests.cpp
+@@ -265,6 +265,46 @@ void projectiles() {
+   check(k->resolve(replacement)->kills == 0,
+         "projectile credit life isolation");
+ }
++void tick_rate_tests() {
++  for (int hz : {30, 60}) {
++    auto c = std::make_unique<Core>(); Flat host;
++    check(c->tick_rate() == 30 && c->step_seconds() == DT, "default rate remains 30 Hz");
++    check(!c->configure_tick_rate(0) && !c->configure_tick_rate(59) && !c->configure_tick_rate(120), "unsupported rates rejected");
++    check(c->configure_tick_rate(hz), "configure supported tick rate before use");
++    auto h = c->join(1, 1, {0, 50, 0}, 1 << 4, {100,100,100,100});
++    check(!c->configure_tick_rate(hz), "cannot change rate after admission");
++    c->resolve(h)->cooldown = 1.;
++    int publications = 0; uint64_t previous_frame_tick = 0;
++    for (int n=0; n<hz/2; ++n) {
++      auto input = cmd(h,n,4); check(c->submit(h,input), "rated input accepted");
++      c->advance(host);
++      const auto &frame = c->frame(); uint64_t frame_tick = 0;
++      if (frame.size() >= 12) for (int b=0;b<8;++b) frame_tick |= uint64_t(frame[4+b]) << (8*b);
++      if (frame_tick != previous_frame_tick) { ++publications; previous_frame_tick = frame_tick; }
++    }
++    check(publications == 10, "snapshot construction stays at 20 Hz at either rate");
++    check(std::abs(c->time()-.5)<1e-12, "native clock matches real half-second");
++    check(std::abs(c->resolve(h)->cooldown-.5)<1e-9, "cooldown uses configured seconds");
++    check(std::abs(c->resolve(h)->position.y-46.875)<1e-8, "gravity integrates the same wall duration");
++    for (int n=hz/2;n<hz;++n) { auto input=cmd(h,n,4); c->submit(h,input); c->advance(host); }
++    check(c->tick()==uint64_t(hz) && std::abs(c->time()-1.)<1e-12, "one-second tick count and clock match");
++    check(!c->configure_tick_rate(30), "cannot retime a running authority");
++  }
++}
++void experimental_team_limit_tests() {
++  auto c=std::make_unique<Core>(); CqConfig config;config.enabled=true;config.squads=true;
++  check(config.team_limit==32 && config.squad_limit()==8,"production team and squad caps unchanged");
++  config.team_limit=63;check(!c->configure_cq(config),"unsupported team capacity rejected");
++  config.team_limit=64;check(c->configure_cq(config),"experimental 64-per-team configuration accepted");
++  for(int i=0;i<128;++i) {
++    auto h=c->join(i+1,i%2,{double(i*4),0,0},1<<4,{100,100,100,100});
++    check(h.id!=0,"experimental admission reaches 128 actors");
++    check(c->join_squad(h,-1),"every experimental actor receives a squad");
++  }
++  for(int team=0;team<2;++team)for(int squad=0;squad<4;++squad)
++    check(c->squad_size(team,squad)==16,"experimental squads contain 16 members");
++  check(!c->join(129,0,{0,0,0},1<<4,{100,100,100,100}).id,"experimental capacity remains bounded at 128");
++}
+ void snapshots_and_replay() {
+   auto a = std::make_unique<Core>(), b = std::make_unique<Core>();
+   Flat ha, hb;
+@@ -328,6 +368,8 @@ int main(int argc, char **argv) {
+     cq_rules_tests();
+     entity_tests();
+     protocol_tests();
++    tick_rate_tests();
++    experimental_team_limit_tests();
+     inputs();
+     wire();
+     movement();
+diff --git a/tools/frontier_vps/resident_driver.gd b/tools/frontier_vps/resident_driver.gd
+index 4c6ff6f..2a74745 100644
+--- a/tools/frontier_vps/resident_driver.gd
++++ b/tools/frontier_vps/resident_driver.gd
+@@ -6,7 +6,9 @@ func option(flag:String,fallback:String)->String:
+  var args:=OS.get_cmdline_user_args();var i:=args.find(flag);return args[i+1] if i>=0 and i+1<args.size() else fallback
+ func _ready()->void:run.call_deferred()
+ func run()->void:
+- Engine.physics_ticks_per_second=30;Engine.max_fps=120
++ var hz:=int(option("--tick-hz","30"))
++ if hz not in [30,60]:push_error("Fixture rate must be 30 or 60 Hz");get_tree().quit(1);return
++ Engine.physics_ticks_per_second=hz;Engine.max_fps=120
+  var server:=option("--role","server")=="server";var count:=int(option("--players","32"));var seconds:=float(option("--seconds","120"));var port:=int(option("--port","27929"));var address:=option("--address","127.0.0.1")
+  deadline=Time.get_ticks_msec()+int((seconds+50)*1000)
+  var client_count:=int(option("--client-count",str(count)))
+@@ -22,6 +24,8 @@ func run()->void:
+    api.server_disconnected.connect(func():
+     if host.is_inside_tree():host.get_parent().remove_child(host))
+   api.multiplayer_peer=peer
++  host.wall_start=Time.get_ticks_msec()
++  deadline=Time.get_ticks_msec()+int((seconds+50)*1000)
+   if not server:clients.append(host)
+ func _process(_dt:float)->void:
+  if Time.get_ticks_msec()>deadline:push_error("driver timeout");get_tree().quit(1);return

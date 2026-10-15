@@ -227,7 +227,7 @@ void Core::drag(Player &p, Host &host) {
     if (b.active && b.incapacitated && same_team(p, b)) {
       if ((hand - b.position - V{0, .35, 0}).length() > .6)
         continue;
-      V motion = (hand - V{0, .35, 0} - b.position).limited(DT * 2);
+      V motion = (hand - V{0, .35, 0} - b.position).limited(step_ * 2);
       V actual = host.room_move(b.handle, B::yaw(b.yaw).inverse(motion), b.yaw);
       b.position = b.position + actual;
       break;

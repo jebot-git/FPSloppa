@@ -4,6 +4,8 @@ const Codec=preload("res://deathmatch/native/authority_protocol.gd")
 const Metadata=preload("res://deathmatch/native/cq_metadata.gd")
 const Reload=preload("res://deathmatch/conquest/classes/reload_state.gd")
 const Runtime=preload("res://deathmatch/native/runtime.gd")
+const CQ_SLOTS=["burst_pistol","assault_rifle","pistol","smg","carbine","massacre","ammo_box","repair_kit","designator","scout_pistol","beam_pistol","guided_launcher"]
+var weapon_manifest:Dictionary={}
 var authority
 var ai_timings:Array=[]
 var mode_timings:Array=[]
@@ -24,6 +26,13 @@ var warm_seconds:=8.
 var native_baseline:Dictionary={}
 var sequence_baseline:=-1
 var animation_sequence:=0
+var animation_phase:=0.0
+var new_animation_step:=false
+var tick_hz:=30
+var team_limit:=32
+var physics_samples:Array=[]
+var previous_physics_us:=0
+var next_admission_report:=0
 var transport_stats:Array=[]
 var next_transport:=0
 var rpc_inputs:=0
@@ -56,15 +65,21 @@ var piece_count:=0
 var piece_bytes:=0
 func setup(is_server:bool,players:int,duration:float,report:String="")->void:
  if Runtime.available("FPSCodec"):validator=ClassDB.instantiate("FPSCodec")
- server=is_server;expected=players;seconds=duration;report_path=report;wall_start=Time.get_ticks_msec()
+ server=is_server;expected=players;seconds=duration;report_path=report;wall_start=Time.get_ticks_msec();tick_hz=Engine.physics_ticks_per_second
+ if tracked and cq_mode:weapon_manifest=JSON.parse_string(FileAccess.get_file_as_string("res://deathmatch/weapons/cq/manifest.json"))
  if server:
   if not Runtime.available("FPSAuthority"):
    push_error("FPSAuthority unavailable");get_tree().quit(1);return
   if tracked:reach_profile=preload("res://deathmatch/avatars/ut_format.gd").read("res://deathmatch/avatars/models/base/soldier.utavatar").manifest.ik_profile
   authority=ClassDB.instantiate("FPSAuthority")
+  if authority.has_method("configure_tick_rate"):
+   if not authority.configure_tick_rate(tick_hz):push_error("Native tick-rate configuration rejected");get_tree().quit(1);return
+  elif tick_hz!=30:push_error("Native library does not support experimental rate");get_tree().quit(1);return
   authority.configure_world(self)
   if cq_mode:
-   if not authority.configure_cq({"squads":jungle,"day_cycle":true,"auto_respawn":true}):push_error("CQ core configuration failed");get_tree().quit(1);return
+   var args:=OS.get_cmdline_user_args();var limit_index:=args.find("--experimental-team-limit")
+   if limit_index>=0 and limit_index+1<args.size():team_limit=int(args[limit_index+1])
+   if not authority.configure_cq({"experimental_team_limit":team_limit,"squads":jungle,"day_cycle":true,"auto_respawn":true}):push_error("CQ core configuration failed");get_tree().quit(1);return
    if not authority.configure_terrain(Metadata.terrain()):push_error("terrain import failed");get_tree().quit(1);return
    var objectives=preload("res://deathmatch/conquest/frontier/objectives.gd").new()
    for site in objectives.sites:authority.configure_zone(site.position,3.)
@@ -101,7 +116,7 @@ func _join(id:int)->void:
  if jungle:actor.position=native_map.spawn_positions[index%native_map.spawn_positions.size()]
  var collider:=CollisionShape3D.new();var shape:=CylinderShape3D.new();shape.radius=.3;shape.height=1.65;collider.shape=shape;collider.position.y=.83;actor.add_child(collider);add_child(actor);actor.set_meta("peer",id)
  var serial:int=authority.attach_actor(id,actor,collider,index%2 if cq_mode else index%2+1,1<<4,PackedInt32Array([10000,10000,10000,10000]))
- if serial==0:push_error("native admission failed");get_tree().quit(1);return
+ if serial==0:push_error("native admission failed at roster position "+str(index+1)+" team "+str(index%2));get_tree().quit(1);return
  var role:int=index%4 if cq_mode else 0
  var weapon:int=[4,9,4,5][role] if cq_mode else 4
  if cq_mode:
@@ -166,12 +181,17 @@ func _physics_process(_delta:float)->void:
  var now:=Time.get_ticks_msec()
  if now-wall_start>int((seconds+45)*1000):push_error("authority fixture timeout");get_tree().quit(1);return
  if server:
+  if started<=0 and now>=next_admission_report:
+   next_admission_report=now+1000
+   var admission:Dictionary={"expected":expected,"joined":joined,"ready":ready_clients,"disconnected":disconnected,"elapsed_seconds":(now-wall_start)/1000.0}
+   if not report_path.is_empty():FileAccess.open(report_path+".admission.json",FileAccess.WRITE).store_string(JSON.stringify(admission))
+   print("AUTHORITY_ADMISSION ",JSON.stringify(admission))
   var begin:=Time.get_ticks_usec()
   if not authority.advance():push_error("native tick contract rejected");get_tree().quit(1);return
   var metrics:Dictionary=authority.metrics()
   var tick:int=metrics.tick
   # Only materialise one shared packed frame on publication, then fan out via Godot transport.
-  if started>0 and (tick*2)/3!=((tick-1)*2)/3:
+  if started>0 and int(tick*20/tick_hz)!=int((tick-1)*20/tick_hz):
    var frame:PackedByteArray=authority.snapshot();var frame_tick:=frame.decode_u64(4)
    if frame_tick!=last_frame_tick:
     var packed:=frame.compress(FileAccess.COMPRESSION_FASTLZ);var parts:=ceili(packed.size()/960.)
@@ -181,40 +201,56 @@ func _physics_process(_delta:float)->void:
   var total:=Time.get_ticks_usec()-begin
   if started>0 and now>=started:
    if native_baseline.is_empty():native_baseline=metrics.duplicate();rpc_baseline=rpc_inputs
+   var now_us:=Time.get_ticks_usec()
+   if previous_physics_us>0:physics_samples.append(now_us-previous_physics_us)
+   previous_physics_us=now_us
    timings.append(Vector4(total,metrics.movement_us,metrics.combat_us,metrics.snapshot_us));ai_timings.append(metrics.ai_us);mode_timings.append(metrics.mode_us)
    if now-started>=int(seconds*1000):_finish()
  elif started>0:
   if now>=started and sequence_baseline<0:sequence_baseline=sequence;received_baseline=received
   sequence+=1
-  animation_sequence=sequence-sequence_baseline if sequence_baseline>=0 else 0
+  var previous_step:=animation_sequence
+  animation_phase=(sequence-sequence_baseline)*30.0/tick_hz if sequence_baseline>=0 else 0.0
+  animation_sequence=int(animation_phase);new_animation_step=animation_sequence!=previous_step
+  var input_phase:=float(sequence)*30.0/tick_hz
   if now>=next_transport:
    next_transport=now+1000
    var peer=multiplayer.multiplayer_peer.get_peer(1)
    transport_stats.append({"measured":now>=started,"rtt":peer.get_statistic(ENetPacketPeer.PEER_ROUND_TRIP_TIME),"loss":peer.get_statistic(ENetPacketPeer.PEER_PACKET_LOSS),"throttle":peer.get_statistic(ENetPacketPeer.PEER_PACKET_THROTTLE),"sequence":sequence})
   var phase:=float(multiplayer.get_unique_id()%97)
-  var command:Dictionary={"life":life,"seq":sequence,"move":Vector2(sin(sequence*.013+phase)*.35,cos(sequence*.009+phase)*.35),"yaw":phase+sin(sequence*.003),"pitch":.6,"weapon":player_weapon,"fire":animation_sequence%300>=260 if player_weapon==5 else animation_sequence%300 in range(60,150),"jump":sequence%200==1,"reload":sequence%150==100,"slow":false,"crouch":sequence%400>280,"prone":sequence%800>720,"blocked":false,"view_time":float(last_tick)/30.-.1 if last_tick>=0 else -1.}
+  var command:Dictionary={"life":life,"seq":sequence,"move":Vector2(sin(input_phase*.013+phase)*.35,cos(input_phase*.009+phase)*.35),"yaw":phase+sin(input_phase*.003),"pitch":.6,"weapon":player_weapon,"fire":animation_sequence%300>=260 if player_weapon==5 else animation_sequence%300 in range(60,150),"jump":int(input_phase)%200==1,"reload":int(input_phase)%150==100,"slow":false,"crouch":int(input_phase)%400>280,"prone":int(input_phase)%800>720,"blocked":false,"view_time":float(last_tick)/tick_hz-.1 if last_tick>=0 else -1.}
   if player_weapon in [2,9,10]:command.fire=command.fire and animation_sequence%24<3
   if sequence_baseline<0:command.move=Vector2.ZERO;command.jump=false;command.reload=false;command.fire=false
   if tracked:tracked_command(command)
   _command.rpc_id(1,Codec.encode_input(command))
-  if cq_mode:
+  if cq_mode and (tick_hz==30 or new_animation_step):
    if animation_sequence%600==5 and player_role==1:_action.rpc_id(1,life,sequence,0)
    if animation_sequence%600==15 and player_role==2:_action.rpc_id(1,life,sequence,2)
    if animation_sequence%600==20 and player_role==2:_action.rpc_id(1,life,sequence,3)
 func tracked_command(c:Dictionary)->void:
- var left:bool=multiplayer.get_unique_id()%2==1;var step:=animation_sequence%300
+ var left:bool=multiplayer.get_unique_id()%2==1;var step:=fmod(animation_phase,300.0)
  var basis:=Basis(Vector3.RIGHT,.6);var base:=Vector3(-.3 if left else .3,1.1,-.3)
  var geometry:int=12 if player_weapon in [5,11] else 2 if player_weapon in [2,9,3] else 7
- var point:Vector3=base+basis*(Reload.MAG_POINTS[geometry]*.65);var support:=point;var grip:=false
+ var mag_anchor:Vector3=Reload.MAG_POINTS[geometry];var rack_anchor:=Vector3(.04,.09,.055)
+ if cq_mode:
+  var anchors:Dictionary=weapon_manifest[CQ_SLOTS[player_weapon]]
+  var m:Array=anchors.magazine_anchor;var r:Array=anchors.rack_anchor
+  mag_anchor=Vector3(m[0],m[1],m[2]);rack_anchor=Vector3(r[0],r[1],r[2])
+ var point:Vector3=base+basis*(mag_anchor*.65);var support:=point;var grip:=false;var magazine_trigger:=false
  if step>=3 and step<16:
-  grip=true
+  magazine_trigger=true;grip=not cq_mode
   var draw:=minf(maxf(step-3,0)*.03,.12) if step<9 else maxf(0,.12-(step-9)*.025)
   support+=basis*(Vector3.LEFT*draw if geometry==12 else Vector3.DOWN*draw)
- if step>=22 and step<=30:support=Vector3(.29 if left else -.29,.965,0).lerp(point,clampf((step-24)/6.,0,1));grip=step>=23
- if step>=33 and step<=40:
-  support=base+basis*(Vector3(.04,.09,.055)*.65+Vector3.UP*.02);grip=step<40;support+=basis*Vector3(0,0,[0.,0.,.025,.05,.065,.04,.015,0.][step-33])
+ if step>=22 and step<=30:
+  support=Vector3(.29 if left else -.29,.965,0).lerp(point,clampf((step-24)/6.,0,1));magazine_trigger=step>=23;grip=magazine_trigger and not cq_mode
+ if step>=33 and step<=40 and geometry!=12:
+  support=base+basis*(rack_anchor*.65+Vector3.UP*.02);grip=step<40;support+=basis*Vector3(0,0,rack_motion(step-33)*.65)
  var weapon:=Transform3D(basis,base);var hand:=Transform3D(Basis.IDENTITY,support)
  c.xr={"head":Transform3D(Basis.IDENTITY,Vector3(0,1.65,0)),"left":weapon if left else hand,"right":hand if left else weapon,"weapon":weapon,"offhand_weapon":hand,"height":1.65,"left_handed":left};c.vr_device=true;c.reload_grip=grip;c.reload=step==19
+ if cq_mode:c.reload_trigger=magazine_trigger
+func rack_motion(phase:float)->float:
+ var points:Array=[0.,0.,.025,.05,.065,.04,.015,0.]
+ var i:=clampi(int(phase),0,7);return lerpf(points[i],points[mini(i+1,7)],clampf(phase-i,0,1))
 @rpc("any_peer","call_remote","reliable",0)
 func _action(serial:int,seq:int,kind:int)->void:
  if server:authority.request_action(multiplayer.get_remote_sender_id(),serial,seq,kind)
@@ -225,7 +261,7 @@ func _finish()->void:
  var native:Dictionary=authority.metrics();var warm:Dictionary={}
  for key in ["accepted","rejected","overflow","shots","damage","deaths","projectile_full"]:
   warm[key]=native_baseline.get(key,0);native[key]-=warm[key]
- var result:Dictionary={"warmup_seconds":warm_seconds,"warmup_native":warm,"rpc_inputs":rpc_inputs-rpc_baseline,"fixture":"native-cq-jungle-jolt-enet" if jungle else "native-cq-jolt-enet" if cq_mode else "native-infantry-jolt-enet","players":expected,"seconds":(Time.get_ticks_msec()-started)/1000.,"ticks":timings.size(),"hz":timings.size()/((Time.get_ticks_msec()-started)/1000.),"callback_us":_distribution(total),"movement_and_collision_us":_distribution(movement),"combat_and_queries_us":_distribution(combat),"frame_encoding_us":_distribution(snapshot),"native":native,"disconnected":disconnected,"physics":"Godot Jolt","production_cq":false,"stress_infinite_reserve_invulnerable":stress,"xr":tracked,"cq_gameplay":cq_mode,"jungle_map":jungle,"compressed_publication_bytes":publication_bytes,"snapshot_parts":sent_parts}
+ var result:Dictionary={"configured_hz":tick_hz,"experimental_team_limit":team_limit,"simulation_elapsed_seconds":timings.size()/float(tick_hz),"snapshot_hz":20,"physics_interval_us":_distribution(physics_samples) if not physics_samples.is_empty() else {},"warmup_seconds":warm_seconds,"warmup_native":warm,"rpc_inputs":rpc_inputs-rpc_baseline,"fixture":"native-cq-jungle-jolt-enet" if jungle else "native-cq-jolt-enet" if cq_mode else "native-infantry-jolt-enet","players":expected,"seconds":(Time.get_ticks_msec()-started)/1000.,"ticks":timings.size(),"hz":timings.size()/((Time.get_ticks_msec()-started)/1000.),"callback_us":_distribution(total),"movement_and_collision_us":_distribution(movement),"combat_and_queries_us":_distribution(combat),"frame_encoding_us":_distribution(snapshot),"native":native,"disconnected":disconnected,"physics":"Godot Jolt","production_cq":false,"stress_infinite_reserve_invulnerable":stress,"xr":tracked,"cq_gameplay":cq_mode,"jungle_map":jungle,"compressed_publication_bytes":publication_bytes,"snapshot_parts":sent_parts}
  result["ai_us"]=_distribution(ai_timings);result["cq_mode_us"]=_distribution(mode_timings)
  var by_class:Dictionary={}
  for actor in get_children():

@@ -24,6 +24,14 @@ const std::array<Weapon, 12> &weapons() {
   return w;
 }
 Core::Core() { frame_.reserve(512 * 1024); }
+bool Core::configure_tick_rate(int hz) {
+  if ((hz != 30 && hz != 60) || tick_ != 0 ||
+      std::any_of(players_.begin(), players_.end(), [](const Player &p) { return p.active; }))
+    return false;
+  tick_hz_ = hz;
+  step_ = 1.0 / double(hz);
+  return true;
+}
 Player *Core::find(int64_t id) {
   for (auto &p : players_)
     if (p.active && p.handle.id == id)
@@ -46,7 +54,7 @@ Handle Core::join(int64_t id, int team, V position, uint16_t owned,
       team < 0 || team > (cq.enabled ? 1 : 2) || (owned & ~uint16_t(0xfff)) ||
       !owned || !next_life_)
     return {};
-  if (cq.squads) { int count=0;for (const auto &p:players_) count+=p.active&&p.team==team;if(count>=32)return {}; }
+  if (cq.squads) { int count=0;for (const auto &p:players_) count+=p.active&&p.team==team;if(count>=cq.team_limit)return {}; }
   for (int n : ammo)
     if (n < 0 || n > 10000)
       return {};
@@ -393,15 +401,15 @@ void Core::movement(Player &p, Host &host) {
     p.pose.height = p.height;
     p.pose.has_height = true;
   }
-  p.stamina = std::max(0., p.stamina - DT);
+  p.stamina = std::max(0., p.stamina - step_);
   bool ground = p.grounded && p.velocity.y <= 0;
   bool jumping =
       ground && p.height >= .8 && (p.jump_pending || (c.jump && !p.jump_held));
   V wish = B::yaw(p.yaw).apply({c.x, 0, c.z});
   double room_scale =
-      1 - std::min(p.room.length() * 30 / ((c.slow ? 5.2 : 9.4)), 1.);
+      1 - std::min(p.room.length() / step_ / ((c.slow ? 5.2 : 9.4)), 1.);
   wish = wish * room_scale;
-  bool boosted = p.jetpack.tick(p.velocity, wish, DT, c.jump || p.jump_pending,
+  bool boosted = p.jetpack.tick(p.velocity, wish, step_, c.jump || p.jump_pending,
                                 p.jump_held && !p.jump_pending,
                                 c.jetpack || p.jet_event_pending,
                                 p.jetpack_enabled, c.blocked, p.height < .8);
@@ -411,7 +419,7 @@ void Core::movement(Player &p, Host &host) {
     V before = p.position;
     auto result = host.move(
         {p.handle, p.position, p.velocity, height, p.yaw, p.grounded, false},
-        DT);
+        step_);
     if (result.position.finite() && result.velocity.finite()) {
       p.position = result.position;
       p.velocity = result.velocity;
@@ -459,9 +467,9 @@ void Core::movement(Player &p, Host &host) {
                  p.yaw,    p.grounded, false};
     horizontal = horizontal *
                  (std::max(0., current - std::max(current, stop) * 4 *
-                                             (host.edge(probe) ? 2 : 1) * DT) /
+                                             (host.edge(probe) ? 2 : 1) * step_) /
                   current) *
-                 std::pow(std::max(0., 1 - .19 * p.stamina), DT * 100);
+                 std::pow(std::max(0., 1 - .19 * p.stamina), step_ * 100);
   }
   if (strength > 0) {
     auto direction = wish.unit();
@@ -471,17 +479,17 @@ void Core::movement(Player &p, Host &host) {
     if (available > 0)
       horizontal =
           horizontal +
-          direction * std::min(available, (walk ? 5 : 10) * requested * DT);
+          direction * std::min(available, (walk ? 5 : 10) * requested * step_);
   }
   if (walk && horizontal.length() < 1. / 32)
     horizontal = {};
   p.velocity = {horizontal.x,
-                walk ? -.2 : std::max(-62.5, p.velocity.y - 25 * DT * .5),
+                walk ? -.2 : std::max(-62.5, p.velocity.y - 25 * step_ * .5),
                 horizontal.z};
   for (auto *v : {&p.velocity.x, &p.velocity.y, &p.velocity.z})
     *v = std::clamp(*v, -62.5, 62.5);
   auto result = host.move(
-      {p.handle, p.position, p.velocity, height, p.yaw, p.grounded, walk}, DT);
+      {p.handle, p.position, p.velocity, height, p.yaw, p.grounded, walk}, step_);
   // Host results are trusted collision results, but never admit NaNs into
   // resident state.
   if (!result.position.finite() || !result.velocity.finite() ||
@@ -494,7 +502,7 @@ void Core::movement(Player &p, Host &host) {
   if (p.grounded && (!jumping || p.velocity.y <= 0))
     p.velocity.y = 0;
   else
-    p.velocity.y = std::max(-62.5, p.velocity.y - 25 * DT * .5);
+    p.velocity.y = std::max(-62.5, p.velocity.y - 25 * step_ * .5);
   if (p.pose.tracked && p.room.length2() > 0) {
     V applied = host.room_move(p.handle, p.room, p.yaw);
     if (applied.finite()) {
@@ -792,7 +800,7 @@ bool Core::magazines(Player &p) {
 void Core::combat(Player &p, Host &host) {
   if (p.staging || p.dead || p.incapacitated || p.vehicle >= 0)
     return;
-  p.cooldown = std::max(0., p.cooldown - DT);
+  p.cooldown = std::max(0., p.cooldown - step_);
   if (cq.enabled && p.grenade_selected) {
     if (!p.grenade_offhand && !p.input.vr && !p.input.blocked) {
       bool pressed = p.input.fire || p.press_pending;
@@ -972,8 +980,8 @@ void Core::projectiles(Host &host) {
   for (auto &s : projectiles_)
     if (s.active) {
       if (s.stuck) {
-        s.age += DT;
-        s.remaining -= DT;
+        s.age += step_;
+        s.remaining -= step_;
         if (s.age >= s.arm || s.remaining <= 0) {
           s.active = false;
           impact(s, {true, {}, s.position}, host);
@@ -999,7 +1007,7 @@ void Core::projectiles(Host &host) {
               (best->position - s.position).unit() * s.velocity.length();
           s.velocity =
               s.velocity +
-              (desired - s.velocity).limited(s.velocity.length() * .08 * DT);
+              (desired - s.velocity).limited(s.velocity.length() * .08 * step_);
         }
       }
       if (s.target_vehicle)
@@ -1009,7 +1017,7 @@ void Core::projectiles(Host &host) {
             V desired = (v.position + V{0, .8, 0} - s.position).unit(),
               current = s.velocity.unit();
             double angle = std::acos(std::clamp(current.dot(desired), -1., 1.)),
-                   step = std::min(angle, 2.0943951023931953 * DT);
+                   step = std::min(angle, 2.0943951023931953 * step_);
             if (angle > 1e-6) {
               V tangent = (desired - current * std::cos(angle)).unit();
               if (tangent.length2() < .1)
@@ -1021,12 +1029,12 @@ void Core::projectiles(Host &host) {
             break;
           }
       V next =
-          s.position + s.velocity * DT + V{0, -.5 * s.gravity * DT * DT, 0};
+          s.position + s.velocity * step_ + V{0, -.5 * s.gravity * step_ * step_, 0};
       auto hit = trace_hit(host, s.position, next, s.owner, s.sweep_radius, -1,
                            !s.fresh, s.ignore_entity);
       s.fresh = false;
-      s.age += DT;
-      s.remaining -= DT;
+      s.age += step_;
+      s.remaining -= step_;
       if (hit.blocked) {
         if (s.age < s.arm && s.bounce > 0) {
           s.position = hit.position + hit.normal * (s.sweep_radius + .005);
@@ -1047,7 +1055,7 @@ void Core::projectiles(Host &host) {
           impact(s, {true, {}, next}, host);
       } else {
         s.position = next;
-        s.velocity.y -= s.gravity * DT;
+        s.velocity.y -= s.gravity * step_;
       }
     }
 }
@@ -1087,7 +1095,7 @@ void Core::snapshot() {
 void Core::advance(Host &host) {
   using Clock = std::chrono::steady_clock;
   auto a = Clock::now();
-  time_ = double(++tick_) * DT;
+  time_ = double(++tick_) * step_;
   if (cq.enabled) {
     round_state(host);
     tick_lighting(host);
@@ -1122,7 +1130,7 @@ void Core::advance(Host &host) {
       if (running && p.vehicle < 0)
         movement(p, host);
       else
-        p.jetpack.cooldown = std::max(0., p.jetpack.cooldown - DT);
+        p.jetpack.cooldown = std::max(0., p.jetpack.cooldown - step_);
     }
   if (cq.enabled)
     record_history();
@@ -1146,8 +1154,8 @@ void Core::advance(Host &host) {
     tick_classes(host);
   }
   auto c = Clock::now();
-  // 20 Hz publication from a 30 Hz simulation; stable 2,1 tick cadence.
-  if ((tick_ * 2) / 3 != ((tick_ - 1) * 2) / 3)
+  // Keep snapshot construction at 20 Hz for either supported simulation rate.
+  if ((tick_ * 20) / tick_hz_ != ((tick_ - 1) * 20) / tick_hz_)
     snapshot();
   auto d = Clock::now();
   timings = {

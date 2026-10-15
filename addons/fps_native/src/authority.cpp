@@ -90,6 +90,7 @@ void FPSAuthority::_bind_methods() {
                        &FPSAuthority::terrain_sample);
   ClassDB::bind_method(D_METHOD("configure_lamps", "lamps"),
                        &FPSAuthority::configure_lamps);
+  ClassDB::bind_method(D_METHOD("configure_tick_rate", "hz"), &FPSAuthority::configure_tick_rate);
   ClassDB::bind_method(D_METHOD("configure_world", "node"),
                        &FPSAuthority::configure_world);
   ClassDB::bind_method(D_METHOD("attach_vehicle", "kind", "body", "yaw", "team"),
@@ -403,6 +404,8 @@ bool FPSAuthority::configure_cq(const Dictionary &d) {
   for (const char *key : {"auto_respawn", "day_cycle", "squads"})
     if (d.has(key) && d[key].get_type() != Variant::BOOL)
       return false;
+  if (d.has("experimental_team_limit") && d["experimental_team_limit"].get_type() != Variant::INT) return false;
+  c.team_limit = d.get("experimental_team_limit", 32);
   c.squads = d.get("squads", false);
   c.auto_respawn = d.get("auto_respawn", true);
   c.day_cycle = d.get("day_cycle", false);
@@ -617,7 +620,7 @@ cqauthority::Moved FPSAuthority::move(const cqauthority::Motion &m, double) {
   // Match Fighter.step_up: sweep up/forward/down only from grounded walking.
   // The successful sweep consumes horizontal travel; never move it twice.
   auto step = [&]() {
-    Vector3 travel = gv({m.velocity.x * cqauthority::DT, 0, m.velocity.z * cqauthority::DT});
+    Vector3 travel = gv({m.velocity.x * core.step_seconds(), 0, m.velocity.z * core.step_seconds()});
     if (!m.step || !m.grounded || m.velocity.y > 0 || travel.length() < .001) return false;
     Ref<KinematicCollision3D> obstacle;obstacle.instantiate();
     Transform3D before = actor->get_global_transform();
@@ -781,11 +784,15 @@ cqauthority::Hit FPSAuthority::cast_ray(cqauthority::V from, cqauthority::V to,
   return contact(result);
 }
 
+bool FPSAuthority::configure_tick_rate(int hz) {
+  return on_owner() && !advancing && actors.empty() && core.configure_tick_rate(hz);
+}
+
 bool FPSAuthority::advance() {
   // CharacterBody3D movement uses the engine physics delta. Enforce the core's
   // fixed tick contract.
   if (!on_owner() || advancing ||
-      Engine::get_singleton()->get_physics_ticks_per_second() != 30 ||
+      Engine::get_singleton()->get_physics_ticks_per_second() != core.tick_rate() ||
       !Engine::get_singleton()->is_in_physics_frame() ||
       last_physics_frame == Engine::get_singleton()->get_physics_frames())
     return false;
@@ -953,6 +960,9 @@ Dictionary FPSAuthority::metrics() const {
     return d;
   d["tick"] = int64_t(core.tick());
   d["time"] = core.time();
+  d["tick_hz"] = core.tick_rate();
+  d["team_limit"] = core.cq.team_limit;
+  d["squad_limit"] = core.cq.squad_limit();
   d["accepted"] = int64_t(core.counters.accepted);
   d["rejected"] = int64_t(core.counters.rejected);
   d["overflow"] = int64_t(core.counters.overflow);

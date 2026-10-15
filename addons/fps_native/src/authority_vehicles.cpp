@@ -279,20 +279,20 @@ void Core::tick_vehicles(Host &host) {
     double desired =
         -z * (z < 0 ? profile.forward : profile.reverse) * mobility;
     double delta = desired - v.speed;
-    v.speed += std::clamp(delta, -DT * profile.acceleration * mobility,
-                          DT * profile.acceleration * mobility);
-    v.yaw -= x * profile.turn * mobility * DT;
+    v.speed += std::clamp(delta, -step_ * profile.acceleration * mobility,
+                          step_ * profile.acceleration * mobility);
+    v.yaw -= x * profile.turn * mobility * step_;
     V horizontal = B::yaw(v.yaw).apply({0, 0, -v.speed});
-    V next = v.position + horizontal * DT;
+    V next = v.position + horizontal * step_;
     if (std::abs(next.x) > cq.map_limit - 4 ||
         std::abs(next.z) > cq.map_limit - 4) {
       horizontal = {};
       v.speed = 0;
     }
     if (pilot || !v.grounded || !v.stable_ground || std::abs(v.speed) > .001) {
-      v.fall_speed -= 20 * DT;
+      v.fall_speed -= 20 * step_;
       auto result =
-          host.move_vehicle(v, {horizontal.x, v.fall_speed, horizontal.z}, DT);
+          host.move_vehicle(v, {horizontal.x, v.fall_speed, horizontal.z}, step_);
       if (result.position.finite() && result.velocity.finite()) {
         v.position = result.position;
         v.fall_speed = result.velocity.y;
@@ -302,7 +302,7 @@ void Core::tick_vehicles(Host &host) {
         v.stable_ground = result.stable_ground;
       }
     }
-    v.velocity = (v.position - old) / DT;
+    v.velocity = (v.position - old) / step_;
     host.sync_vehicle(v);
     bool drowned = false;
     for (V corner : {V{}, V{profile.size.x * .45, 0, profile.size.z * .4},

@@ -206,10 +206,10 @@ bool Core::throw_grenade(Player &p, Host &host) {
 void Core::tick_grenades(Host &host) {
   for (auto &g : grenades_)
     if (g.active) {
-      g.age += DT;
+      g.age += step_;
       if (!g.ground) {
-        int steps = std::max(1, int(std::ceil(g.velocity.length() * DT / .08)));
-        double dt = DT / steps;
+        int steps = std::max(1, int(std::ceil(g.velocity.length() * step_ / .08)));
+        double dt = step_ / steps;
         for (int i = 0; i < std::min(steps, 32); ++i) {
           g.velocity.y -= 12.5 * dt;
           V end = g.position + g.velocity * dt;
@@ -296,7 +296,7 @@ void Core::tick_fields(Host &host) {
     field_delta_ = 0;
     return;
   }
-  field_delta_ += DT;
+  field_delta_ += step_;
   if (tick_ % 3)
     return;
   double elapsed = field_delta_;

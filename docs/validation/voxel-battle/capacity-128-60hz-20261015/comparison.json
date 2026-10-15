@@ -1,0 +1,100 @@
+[
+  {
+    "case": "load-20261015-128-reload",
+    "players": 128,
+    "requested_hz": 30,
+    "achieved_hz": 29.9980839879708,
+    "gate_passed": true,
+    "tick_budget_ms": 33.333333333333336,
+    "callback_ms": {
+      "max": 47.973,
+      "mean": 14.7715890030547,
+      "p50": 15.224,
+      "p95": 35.067
+    },
+    "callback_p95_within_budget": false,
+    "physics_interval_ms": {
+      "max": 64.783,
+      "mean": 33.3341627777778,
+      "p50": 34.464,
+      "p95": 50.085
+    },
+    "shots": 5561,
+    "shots_by_class_current_life": {
+      "0": 1920,
+      "1": 671,
+      "2": 2880,
+      "3": 30
+    },
+    "input_acceptance_percent": 99.65988607918928,
+    "offered_inputs": 461022,
+    "accepted_inputs": 459454,
+    "minimum_inputs_sent": 3601,
+    "minimum_complete_frames": 2224,
+    "admitted": 128,
+    "bad_frames": 0,
+    "disconnects": 0,
+    "post_bind_server_cpu_percent_one_core": 55.41756990542526,
+    "peak_server_rss_mib": 442.1171875,
+    "approx_fanout_payload_mbit_s_including_warmup": 375.058400106216,
+    "mean_phase_ms": {
+      "movement_and_collision_us": 4.30576298874228,
+      "combat_and_queries_us": 0.57502002069441,
+      "frame_encoding_us": 0.0897216459181045,
+      "cq_mode_us": 0.00365358789225215,
+      "ai_us": 0.00265657789502915
+    },
+    "mean_residual_ms": 9.794774181912624,
+    "sample_start_utc": "2026-10-15T06:07:53.955542+00:00",
+    "sample_end_utc": "2026-10-15T06:10:05.033105+00:00"
+  },
+  {
+    "case": "load-20261015-64-60-final",
+    "players": 64,
+    "requested_hz": 60,
+    "achieved_hz": 59.9993334333183,
+    "gate_passed": true,
+    "tick_budget_ms": 16.666666666666668,
+    "callback_ms": {
+      "max": 17.1,
+      "mean": 4.41098583530065,
+      "p50": 3.436,
+      "p95": 9.403
+    },
+    "callback_p95_within_budget": true,
+    "physics_interval_ms": {
+      "max": 29.26,
+      "mean": 16.6666898611111,
+      "p50": 16.572,
+      "p95": 22.854
+    },
+    "shots": 3306,
+    "shots_by_class_current_life": {
+      "0": 960,
+      "1": 336,
+      "2": 1920,
+      "3": 30
+    },
+    "input_acceptance_percent": 99.92688821490093,
+    "offered_inputs": 460938,
+    "accepted_inputs": 460601,
+    "minimum_inputs_sent": 7201,
+    "minimum_complete_frames": 2216,
+    "admitted": 64,
+    "bad_frames": 0,
+    "disconnects": 0,
+    "post_bind_server_cpu_percent_one_core": 41.48908494955259,
+    "peak_server_rss_mib": 442.30859375,
+    "approx_fanout_payload_mbit_s_including_warmup": 114.47263828524115,
+    "mean_phase_ms": {
+      "movement_and_collision_us": 2.5479181911350404,
+      "combat_and_queries_us": 0.293367407994905,
+      "frame_encoding_us": 0.027618771387691202,
+      "cq_mode_us": 0.0034508895986668604,
+      "ai_us": 0.00249566851826135
+    },
+    "mean_residual_ms": 1.5361349066660854,
+    "sample_start_utc": "2026-10-15T06:11:24.934693+00:00",
+    "sample_end_utc": "2026-10-15T06:13:34.004785+00:00"
+  }
+]

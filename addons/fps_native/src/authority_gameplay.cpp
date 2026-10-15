@@ -14,7 +14,7 @@ bool Core::same_team(const Player &a, const Player &b) const {
   return a.team == b.team && (cq.enabled || a.team != 0);
 }
 bool Core::configure_cq(const CqConfig &config) {
-  if (tick_ || !std::isfinite(config.map_limit) || config.map_limit <= 0 ||
+  if ((config.team_limit != 32 && config.team_limit != 64) || tick_ || !std::isfinite(config.map_limit) || config.map_limit <= 0 ||
       !std::isfinite(config.fall_limit) || !std::isfinite(config.water_level) ||
       !std::isfinite(config.light_fraction) || config.light_fraction < 0 ||
       config.light_fraction > 1 || !std::isfinite(config.cycle_seconds) ||
@@ -222,7 +222,7 @@ bool Core::inject(Handle medic, Handle victim, double delta) {
   auto *b = resolve(victim);
   if (!cq.enabled || !a || !b || !alive(*a) || a->classes.role != Role::MEDIC ||
       !b->incapacitated || !same_team(*a, *b) || !std::isfinite(delta) ||
-      delta <= 0 || delta > DT + 1e-9)
+      delta <= 0 || delta > step_ + 1e-9)
     return false;
   if (b->injector.id && b->injector != medic)
     return false;
@@ -322,7 +322,7 @@ void Core::tick_classes(Host &host) {
           box.credit[i] = 0;
           box.lives[i] = p.handle.life;
         }
-        box.credit[i] = std::min(300., box.credit[i] + DT * 20);
+        box.credit[i] = std::min(300., box.credit[i] + step_ * 20);
         box.credit[i] -= supply(box, p, int(box.credit[i]));
         if (!box.active)
           break;
@@ -340,7 +340,7 @@ void Core::tick_classes(Host &host) {
           V chest = b.position + V{0, .35, 0};
           if ((tip - chest).length() <= .25 &&
               !host.world_trace(tip, chest, a.handle).blocked) {
-            inject(a.handle, b.handle, DT);
+            inject(a.handle, b.handle, step_);
             break;
           }
         }
@@ -354,7 +354,7 @@ void Core::tick_classes(Host &host) {
         continue;
       p.injector = {};
       p.inject_progress = 0;
-      p.bleed_remaining = std::max(0., p.bleed_remaining - DT);
+      p.bleed_remaining = std::max(0., p.bleed_remaining - step_);
       if (p.bleed_remaining <= 1e-9)
         damage(p.handle, p.injury_source, 1, DamageKind::BLEEDOUT, false,
                p.injury_credit, p.injury_weapon);
@@ -395,7 +395,7 @@ void Core::tick_classes(Host &host) {
                  .blocked)
           {presence[i][p.team] = true;++counts[i][p.team];}
       }
-  points.advance(DT, presence, counts);
+  points.advance(step_, presence, counts);
   // Two armour points per second; overlapping POIs never multiply the rate.
   for (auto &p : players_) {
     bool recharge = false;
@@ -412,7 +412,7 @@ void Core::tick_classes(Host &host) {
         }
       }
     if (!recharge) { p.armor_credit = 0; continue; }
-    p.armor_credit += DT * 2;
+    p.armor_credit += step_ * 2;
     int gain = int(p.armor_credit + 1e-9);
     p.armor = std::min(p.classes.armor_limit(), p.armor + gain);
     p.armor_credit -= gain;

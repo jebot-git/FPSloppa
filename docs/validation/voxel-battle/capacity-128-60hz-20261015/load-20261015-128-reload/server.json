@@ -1,0 +1,106 @@
+{
+	"ai_us": {
+		"max": 64.179,
+		"mean": 2.65657789502915,
+		"p50": 2.494,
+		"p95": 4.506
+	},
+	"callback_us": {
+		"max": 47973.0,
+		"mean": 14771.5890030547,
+		"p50": 15224.0,
+		"p95": 35067.0
+	},
+	"combat_and_queries_us": {
+		"max": 5570.328125,
+		"mean": 575.02002069441,
+		"p50": 202.279006958008,
+		"p95": 2237.77392578125
+	},
+	"compressed_publication_bytes": 46897317,
+	"configured_hz": 30,
+	"cq_gameplay": true,
+	"cq_mode_us": {
+		"max": 29.2,
+		"mean": 3.65358789225215,
+		"p50": 2.624,
+		"p95": 6.659
+	},
+	"disconnected": 0,
+	"experimental_team_limit": 64,
+	"fixture": "native-cq-jungle-jolt-enet",
+	"frame_encoding_us": {
+		"max": 420.690002441406,
+		"mean": 89.7216459181045,
+		"p50": 103.152000427246,
+		"p95": 197.550994873047
+	},
+	"hz": 29.9980839879708,
+	"jungle_map": true,
+	"movement_and_collision_us": {
+		"max": 8963.9248046875,
+		"mean": 4305.76298874228,
+		"p50": 4545.8359375,
+		"p95": 5579.630859375
+	},
+	"native": {
+		"accepted": 459454,
+		"ai_us": 1.211,
+		"combat_us": 165.137,
+		"damage": 4,
+		"deaths": 0,
+		"intermission": 0.0,
+		"mode_us": 4.977,
+		"movement_us": 4067.848,
+		"overflow": 0,
+		"projectile_full": 0,
+		"rejected": 0,
+		"round_epoch": 1,
+		"round_remaining": 0.0,
+		"scores": [
+			0,
+			0
+		],
+		"shots": 5561,
+		"snapshot_us": 112.815,
+		"squad_limit": 16,
+		"team_limit": 64,
+		"tick": 3948,
+		"tick_hz": 30,
+		"time": 131.6,
+		"winner": -2
+	},
+	"physics": "Godot Jolt",
+	"physics_interval_us": {
+		"max": 64783,
+		"mean": 33334.1627777778,
+		"p50": 34464,
+		"p95": 50085
+	},
+	"players": 128,
+	"production_cq": false,
+	"rpc_inputs": 459454,
+	"seconds": 120.041,
+	"shots_by_class_current_life": {
+		"0": 1920,
+		"1": 671,
+		"2": 2880,
+		"3": 30
+	},
+	"simulation_elapsed_seconds": 120.033333333333,
+	"snapshot_hz": 20,
+	"snapshot_parts": 50161,
+	"stress_infinite_reserve_invulnerable": false,
+	"ticks": 3601,
+	"warmup_native": {
+		"accepted": 27155,
+		"damage": 0,
+		"deaths": 0,
+		"overflow": 0,
+		"projectile_full": 0,
+		"rejected": 0,
+		"shots": 0
+	},
+	"warmup_seconds": 8.0,
+	"xr": true
+}

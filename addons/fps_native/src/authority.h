@@ -78,6 +78,7 @@ public:
   ~FPSAuthority();
   bool request_restart();
   bool configure_world(Node3D *);
+  bool configure_tick_rate(int hz);
   Dictionary terrain_sample(const Vector3 &) const;
   bool configure_lamps(const PackedVector3Array &);
   int attach_vehicle(int, CharacterBody3D *, double, int);

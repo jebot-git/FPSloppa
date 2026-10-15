@@ -10,7 +10,7 @@ void Core::tick_bots(Host &host) {
       brain = BotBrain{};
       brain.life = p.handle;
       brain.last_position = p.position;
-      brain.think = time_ + double(index % 6) * DT;
+      brain.think = time_ + double(index % 6) * step_;
     }
     Command c;
     c.life = p.handle.life;
@@ -182,7 +182,7 @@ void Core::tick_bots(Host &host) {
       V next = brain.path[brain.step];
       c.jump = next.y - p.position.y > .6;
       double moved = (p.position - brain.last_position).length();
-      brain.stuck = moved < .015 ? brain.stuck + DT : 0;
+      brain.stuck = moved < .015 ? brain.stuck + step_ : 0;
       if (brain.stuck > .8) {
         c.jump = true;
         brain.route = 0;
@@ -192,7 +192,7 @@ void Core::tick_bots(Host &host) {
     brain.last_position = p.position;
     if (!target && p.clips[c.weapon] < weapons()[c.weapon].mag)
       c.reload = true;
-    if ((c.weapon==2 || c.weapon==9 || c.weapon==10) && p.cooldown>DT) c.fire=false;
+    if ((c.weapon==2 || c.weapon==9 || c.weapon==10) && p.cooldown>step_) c.fire=false;
     submit(p.handle, c);
   }
 }

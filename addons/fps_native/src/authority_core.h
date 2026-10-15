@@ -182,6 +182,8 @@ struct Timings {
          mode_us = 0;
 };
 class Core {
+  int tick_hz_ = 30;
+  double step_ = DT;
   std::array<Player, MAX_PLAYERS> players_{};
   struct BotBrain {
     Handle life, target;
@@ -298,6 +300,9 @@ public:
   Counters counters;
   Timings timings;
   Core();
+  bool configure_tick_rate(int hz);
+  int tick_rate() const { return tick_hz_; }
+  double step_seconds() const { return step_; }
   Player *find(int64_t);
   const Player *find(int64_t) const;
   Player *resolve(Handle);

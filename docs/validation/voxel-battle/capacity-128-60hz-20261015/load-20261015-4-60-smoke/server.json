@@ -1,0 +1,102 @@
+{
+	"ai_us": {
+		"max": 7.56,
+		"mean": 2.97794352159469,
+		"p50": 3.175,
+		"p95": 4.847
+	},
+	"callback_us": {
+		"max": 1871.0,
+		"mean": 754.956810631229,
+		"p50": 746.0,
+		"p95": 970.0
+	},
+	"combat_and_queries_us": {
+		"max": 1147.61206054688,
+		"mean": 143.362548447923,
+		"p50": 136.938003540039,
+		"p95": 212.942993164062
+	},
+	"compressed_publication_bytes": 417185,
+	"configured_hz": 60,
+	"cq_gameplay": true,
+	"cq_mode_us": {
+		"max": 25.605,
+		"mean": 3.85455813953488,
+		"p50": 2.854,
+		"p95": 6.479
+	},
+	"disconnected": 0,
+	"fixture": "native-cq-jungle-jolt-enet",
+	"frame_encoding_us": {
+		"max": 98.8259963989258,
+		"mean": 23.5937608281503,
+		"p50": 30.1609992980957,
+		"p95": 49.1479988098145
+	},
+	"hz": 60.0199401794616,
+	"jungle_map": true,
+	"movement_and_collision_us": {
+		"max": 630.648986816406,
+		"mean": 470.245562176372,
+		"p50": 468.147003173828,
+		"p95": 567.914001464844
+	},
+	"native": {
+		"accepted": 1179,
+		"ai_us": 4.416,
+		"combat_us": 125.132,
+		"damage": 0,
+		"deaths": 0,
+		"intermission": 0.0,
+		"mode_us": 2.453,
+		"movement_us": 476.928,
+		"overflow": 0,
+		"projectile_full": 0,
+		"rejected": 0,
+		"round_epoch": 1,
+		"round_remaining": 0.0,
+		"scores": [
+			0,
+			0
+		],
+		"shots": 23,
+		"snapshot_us": 0.03,
+		"tick": 817,
+		"time": 13.6166666666667,
+		"winner": -2
+	},
+	"physics": "Godot Jolt",
+	"physics_interval_us": {
+		"max": 17814,
+		"mean": 16665.9733333333,
+		"p50": 16669,
+		"p95": 16914
+	},
+	"players": 4,
+	"production_cq": false,
+	"rpc_inputs": 1179,
+	"seconds": 5.015,
+	"shots_by_class_current_life": {
+		"0": 0,
+		"1": 0,
+		"2": 23,
+		"3": 0
+	},
+	"simulation_elapsed_seconds": 5.01666666666667,
+	"snapshot_hz": 20,
+	"snapshot_parts": 570,
+	"stress_infinite_reserve_invulnerable": false,
+	"ticks": 301,
+	"warmup_native": {
+		"accepted": 913,
+		"damage": 0,
+		"deaths": 0,
+		"overflow": 0,
+		"projectile_full": 0,
+		"rejected": 0,
+		"shots": 0
+	},
+	"warmup_seconds": 8.0,
+	"xr": true
+}

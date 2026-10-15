@@ -13,6 +13,7 @@
 #include <mutex>
 #include <condition_variable>
 #include <functional>
+#include <string>
 #include <deque>
 #include <unordered_map>
 #include <memory>

@@ -95,6 +95,8 @@ struct Designation {
   bool locking = false;
 };
 struct CqConfig {
+  int team_limit = 32; // Explicit experimental overrides do not change production defaults.
+  int squad_limit() const { return team_limit / 4; }
   bool enabled = false;
   double map_limit = 1414.213562373095, fall_limit = -200, water_level = -1e9;
   double light_fraction = 1;

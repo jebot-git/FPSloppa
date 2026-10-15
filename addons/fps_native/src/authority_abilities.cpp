@@ -273,7 +273,7 @@ void Core::repair(Player &p, Host &host) {
       V at = v.position + B::yaw(v.yaw).apply(nearest);
       if ((at - tip).length() > 1.5 || host.entity_ray(tip, at, v.key).blocked)
         continue;
-      double amount = std::min(30 * DT, vehicle_profile(v.kind).hp - v.hp);
+      double amount = std::min(30 * step_, vehicle_profile(v.kind).hp - v.hp);
       v.hp += amount;
       p.repair_credit += amount;
       int xp = int(p.repair_credit / 10);
@@ -306,8 +306,8 @@ void Core::tick_locks(Host &host) {
           best = v.key;
         }
       p.lock_elapsed =
-          best ? (best == p.lock_vehicle ? std::min(1.5, p.lock_elapsed + DT)
-                                         : DT)
+          best ? (best == p.lock_vehicle ? std::min(1.5, p.lock_elapsed + step_)
+                                         : step_)
                : 0;
       p.lock_vehicle = best;
     }

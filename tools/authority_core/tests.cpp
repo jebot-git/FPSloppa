@@ -265,6 +265,46 @@ void projectiles() {
   check(k->resolve(replacement)->kills == 0,
         "projectile credit life isolation");
 }
+void tick_rate_tests() {
+  for (int hz : {30, 60}) {
+    auto c = std::make_unique<Core>(); Flat host;
+    check(c->tick_rate() == 30 && c->step_seconds() == DT, "default rate remains 30 Hz");
+    check(!c->configure_tick_rate(0) && !c->configure_tick_rate(59) && !c->configure_tick_rate(120), "unsupported rates rejected");
+    check(c->configure_tick_rate(hz), "configure supported tick rate before use");
+    auto h = c->join(1, 1, {0, 50, 0}, 1 << 4, {100,100,100,100});
+    check(!c->configure_tick_rate(hz), "cannot change rate after admission");
+    c->resolve(h)->cooldown = 1.;
+    int publications = 0; uint64_t previous_frame_tick = 0;
+    for (int n=0; n<hz/2; ++n) {
+      auto input = cmd(h,n,4); check(c->submit(h,input), "rated input accepted");
+      c->advance(host);
+      const auto &frame = c->frame(); uint64_t frame_tick = 0;
+      if (frame.size() >= 12) for (int b=0;b<8;++b) frame_tick |= uint64_t(frame[4+b]) << (8*b);
+      if (frame_tick != previous_frame_tick) { ++publications; previous_frame_tick = frame_tick; }
+    }
+    check(publications == 10, "snapshot construction stays at 20 Hz at either rate");
+    check(std::abs(c->time()-.5)<1e-12, "native clock matches real half-second");
+    check(std::abs(c->resolve(h)->cooldown-.5)<1e-9, "cooldown uses configured seconds");
+    check(std::abs(c->resolve(h)->position.y-46.875)<1e-8, "gravity integrates the same wall duration");
+    for (int n=hz/2;n<hz;++n) { auto input=cmd(h,n,4); c->submit(h,input); c->advance(host); }
+    check(c->tick()==uint64_t(hz) && std::abs(c->time()-1.)<1e-12, "one-second tick count and clock match");
+    check(!c->configure_tick_rate(30), "cannot retime a running authority");
+  }
+}
+void experimental_team_limit_tests() {
+  auto c=std::make_unique<Core>(); CqConfig config;config.enabled=true;config.squads=true;
+  check(config.team_limit==32 && config.squad_limit()==8,"production team and squad caps unchanged");
+  config.team_limit=63;check(!c->configure_cq(config),"unsupported team capacity rejected");
+  config.team_limit=64;check(c->configure_cq(config),"experimental 64-per-team configuration accepted");
+  for(int i=0;i<128;++i) {
+    auto h=c->join(i+1,i%2,{double(i*4),0,0},1<<4,{100,100,100,100});
+    check(h.id!=0,"experimental admission reaches 128 actors");
+    check(c->join_squad(h,-1),"every experimental actor receives a squad");
+  }
+  for(int team=0;team<2;++team)for(int squad=0;squad<4;++squad)
+    check(c->squad_size(team,squad)==16,"experimental squads contain 16 members");
+  check(!c->join(129,0,{0,0,0},1<<4,{100,100,100,100}).id,"experimental capacity remains bounded at 128");
+}
 void snapshots_and_replay() {
   auto a = std::make_unique<Core>(), b = std::make_unique<Core>();
   Flat ha, hb;
@@ -328,6 +368,8 @@ int main(int argc, char **argv) {
     cq_rules_tests();
     entity_tests();
     protocol_tests();
+    tick_rate_tests();
+    experimental_team_limit_tests();
     inputs();
     wire();
     movement();

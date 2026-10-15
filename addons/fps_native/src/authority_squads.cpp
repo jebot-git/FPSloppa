@@ -10,7 +10,7 @@ bool Core::join_squad(Handle h,int squad) {
   if(squad==-1){squad=0;for(int s=1;s<4;++s)if(squad_size(p->team,s)<squad_size(p->team,squad))squad=s;}
   if(squad<0||squad>=4)return false;
   if(p->squad==squad)return true;
-  if(squad_size(p->team,squad)>=8)return false;
+  if(squad_size(p->team,squad)>=cq.squad_limit())return false;
   p->squad=squad;return true;
 }
 bool Core::ground_spawn(const Player &p,V anchor,Host &host,V &out) {

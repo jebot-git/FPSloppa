@@ -6,7 +6,9 @@ func option(flag:String,fallback:String)->String:
  var args:=OS.get_cmdline_user_args();var i:=args.find(flag);return args[i+1] if i>=0 and i+1<args.size() else fallback
 func _ready()->void:run.call_deferred()
 func run()->void:
- Engine.physics_ticks_per_second=30;Engine.max_fps=120
+ var hz:=int(option("--tick-hz","30"))
+ if hz not in [30,60]:push_error("Fixture rate must be 30 or 60 Hz");get_tree().quit(1);return
+ Engine.physics_ticks_per_second=hz;Engine.max_fps=120
  var server:=option("--role","server")=="server";var count:=int(option("--players","32"));var seconds:=float(option("--seconds","120"));var port:=int(option("--port","27929"));var address:=option("--address","127.0.0.1")
  deadline=Time.get_ticks_msec()+int((seconds+50)*1000)
  var client_count:=int(option("--client-count",str(count)))
@@ -22,6 +24,8 @@ func run()->void:
    api.server_disconnected.connect(func():
     if host.is_inside_tree():host.get_parent().remove_child(host))
   api.multiplayer_peer=peer
+  host.wall_start=Time.get_ticks_msec()
+  deadline=Time.get_ticks_msec()+int((seconds+50)*1000)
   if not server:clients.append(host)
 func _process(_dt:float)->void:
  if Time.get_ticks_msec()>deadline:push_error("driver timeout");get_tree().quit(1);return

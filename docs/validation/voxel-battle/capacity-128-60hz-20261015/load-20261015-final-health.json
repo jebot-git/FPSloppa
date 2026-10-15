@@ -1,0 +1,15 @@
+{
+  "epoch": 1792044848.72805,
+  "service": "MainPID=1652607\nNRestarts=0\nActiveState=active\nSubState=running\n",
+  "release": "/home/blux/fpsloppa-cq/releases/20261014-cq-vehicle-respawn",
+  "fixture_processes_remaining": [],
+  "production_defaults_changed": false,
+  "service_suspended": false,
+  "live_start": "ExecMainStartTimestamp=Thu 2026-10-15 06:10:23 UTC\nActiveEnterTimestamp=Thu 2026-10-15 06:10:23 UTC\n",
+  "live_executable": "/home/blux/fpsloppa-cq/releases/20261014-cq-vehicle-respawn/cq-server",
+  "initial_live_pid": 1637106,
+  "pid_preserved": false,
+  "service_restarted_by_test": false,
+  "restart_observed_between_cases": true,
+  "restart_cause": "unknown"
+}
