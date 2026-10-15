@@ -8,6 +8,10 @@ namespace {
 Vector3 gv(cqauthority::V v) { return {real_t(v.x), real_t(v.y), real_t(v.z)}; }
 cqauthority::V cv(Vector3 v) { return {v.x, v.y, v.z}; }
 } // namespace
+int FPSAuthority::collapse_region(const Vector3 &minimum, const Vector3 &maximum) {
+  if (!on_owner()) return 0;
+  return core.collapse_region(cv(minimum), cv(maximum), *this);
+}
 Node3D *FPSAuthority::world() const {
   auto *root = Object::cast_to<Node3D>(ObjectDB::get_instance(world_node));
   if (root && root->is_inside_tree())

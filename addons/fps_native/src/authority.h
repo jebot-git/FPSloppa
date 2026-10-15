@@ -88,6 +88,7 @@ public:
   bool apply_adaptive_tick();
   Dictionary terrain_sample(const Vector3 &) const;
   bool configure_lamps(const PackedVector3Array &);
+  int collapse_region(const Vector3 &, const Vector3 &);
   int attach_vehicle(int, CharacterBody3D *, double, int);
 
   int64_t attach_actor(int64_t, CharacterBody3D *, CollisionShape3D *, int, int,

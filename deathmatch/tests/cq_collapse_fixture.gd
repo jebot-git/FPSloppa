@@ -7,6 +7,11 @@ class Game extends Node3D:
  var active:=true
  var map_epoch:=9
  var resident=null
+ var collapse_calls:Array=[]
+ var authority=null
+ func cq_building_collapse(bounds:AABB)->void:
+  collapse_calls.append(bounds)
+  if authority:authority.collapse_region(bounds.position,bounds.end)
 class World extends Node3D:
  var layout:Dictionary={}
  var wall_bodies:Dictionary={}

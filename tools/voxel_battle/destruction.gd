@@ -1,6 +1,7 @@
 extends Node3D
 ## Opt-in authoritative wall breaches; fixed topology, no rigid bodies or runtime CSG.
 const Landscape=preload("res://tools/voxel_battle/landscape.gd")
+const Assets=preload("res://tools/voxel_battle/collapse_assets.gd")
 const Integrity=preload("res://tools/voxel_battle/structural_integrity.gd")
 const Builder=preload("res://tools/streamed_heightfield/structures.gd").Builder
 const MAX_BROKEN:=256
@@ -21,6 +22,13 @@ var building_topology:Dictionary={}
 var collapsed_fixtures:Array=[]
 var building_bodies:Dictionary={}
 var last_collapse_stats:Dictionary={}
+var collapse_meshes:Dictionary={}
+var prepared:Dictionary={}
+var rubble:Dictionary={}
+var shard_pool:Array=[]
+var dust_pool:Array=[]
+var collapse_effects_played:=0
+var preparation_usec:=0
 var walls:Dictionary={}
 var bins:Dictionary={}
 var broken:Dictionary={}
@@ -44,6 +52,7 @@ func setup(arena,world,draw:bool,experiment:bool=false)->void:
   var resource:Resource=load("res://experimental-assets/destruction/wall_topology.res")
   topology=resource.get_meta("topology")
   building_topology=resource.get_meta("buildings",{})
+  collapse_meshes=resource.get_meta("animations",{})
   assert(not building_topology.is_empty(),"Rebake destruction topology for structural collapse")
   for file in resource.get_meta("sources",{}):
    if FileAccess.file_exists("res://"+file):assert(FileAccess.get_sha256("res://"+file)==resource.get_meta("sources")[file],"Destruction topology is stale; run bake_destruction_topology.gd")
@@ -72,6 +81,7 @@ func setup(arena,world,draw:bool,experiment:bool=false)->void:
   for id in integrity.buildings.size():
    var bounds:AABB=integrity.buildings[id].bounds;bounds.position+=Landscape.CENTERS[integrity.buildings[id].kind]
    if bounds.has_point(body.global_position):building_bodies[id].append(weakref(body));break
+ prepare_assets()
  set_process(true)
 func nearest_point(bounds:AABB,p:Vector3)->Vector3:return p.clamp(bounds.position,bounds.end)
 func candidates(at:Vector3,damage:float,radius:float,visibility:bool=true)->PackedInt32Array:
@@ -207,41 +217,105 @@ func flush_meshes()->void:
   map.structures.meshes[kind][2]=map.structures.meshes[kind][1]
   map.structures.groups[kind][2].multimesh.mesh=map.structures.meshes[kind][2]
  map.structures.last_position=Vector3.INF;dirty.clear();rebuild_usec=Time.get_ticks_usec()-started
+func prepare_assets()->void:
+ var started:=Time.get_ticks_usec()
+ var sites:Array=Assets.Objectives.new().sites
+ for id in integrity.buildings.size():
+  var building:Dictionary=integrity.buildings[id]
+  var origin:Vector3=Landscape.CENTERS[building.kind]+building.center
+  var rows:Array=Assets.rubble_rows(building,sites)
+  var body:=StaticBody3D.new();body.name="CollapseRubble_%d"%id;body.collision_layer=0;add_child(body)
+  for row in rows:
+   var collider:=CollisionShape3D.new();var shape:=BoxShape3D.new();shape.size=row.size;collider.shape=shape;collider.position=row.center-building.center;body.add_child(collider)
+  body.global_position=origin
+  var visual:MeshInstance3D
+  if graphics and map.structures:
+   visual=MeshInstance3D.new();visual.mesh=Assets.rubble_mesh(building,rows);visual.visible=false;visual.cast_shadow=GeometryInstance3D.SHADOW_CASTING_SETTING_OFF;add_child(visual);visual.global_position=origin
+   var material:=ShaderMaterial.new();material.shader=preload("res://tools/voxel_battle/collapse_rubble.gdshader");visual.material_override=material
+   if not collapse_meshes.has(id):
+    # Small synthetic fixtures prepare once at setup, never at impact.
+    var source:ArrayMesh=map.structures.meshes[building.kind][0]
+    var arrays:Array=source.surface_get_arrays(0);var indices:PackedInt32Array=arrays[Mesh.ARRAY_INDEX];var selected:=PackedInt32Array()
+    for i in range(0,indices.size(),3):
+     if Integrity.contains_triangle(building,arrays[Mesh.ARRAY_VERTEX],indices,i):selected.append(i)
+    collapse_meshes[id]=Assets.compact(source,selected,building.center)
+   var node:=MeshInstance3D.new();node.mesh=collapse_meshes[id];node.visible=false;node.physics_interpolation_mode=Node.PHYSICS_INTERPOLATION_MODE_OFF;node.cast_shadow=GeometryInstance3D.SHADOW_CASTING_SETTING_OFF;add_child(node);node.global_position=origin;prepared[id]=node
+  rubble[id]={"body":body,"visual":visual,"rows":rows}
+ if not graphics:preparation_usec=Time.get_ticks_usec()-started;return
+ var shards:PackedScene=load("res://experimental-assets/destruction/wall_shards.tscn")
+ for index in MAX_SHARDS/8:
+  var node:Node3D=shards.instantiate();add_child(node);node.visible=false
+  if map.get("lighting")!=null:preload("res://tools/voxel_battle/baked_lighting.gd").convert_node(node)
+  var transforms:Array=[]
+  for child in node.get_children():child.cast_shadow=GeometryInstance3D.SHADOW_CASTING_SETTING_OFF;transforms.append(child.transform)
+  shard_pool.append({"node":node,"transforms":transforms,"used":-1})
+ prepare_dust()
+ preparation_usec=Time.get_ticks_usec()-started
+func prepare_dust()->void:
+ var material:=ShaderMaterial.new();material.shader=preload("res://tools/voxel_battle/collapse_dust.gdshader")
+ var mesh:=QuadMesh.new();mesh.size=Vector2(2,2);mesh.material=material
+ for i in 4:
+  var node:=MultiMeshInstance3D.new();node.multimesh=MultiMesh.new();node.multimesh.transform_format=MultiMesh.TRANSFORM_3D;node.multimesh.mesh=mesh;node.multimesh.instance_count=12;node.cast_shadow=GeometryInstance3D.SHADOW_CASTING_SETTING_OFF;node.physics_interpolation_mode=Node.PHYSICS_INTERPOLATION_MODE_OFF;node.visible=false;add_child(node)
+  var voice:=AudioStreamPlayer3D.new();voice.stream=load("res://deathmatch/audio/cq_field/building_collapse.wav");voice.bus="ArenaEffects";voice.volume_db=2.;voice.unit_size=12.;voice.max_distance=180.;add_child(voice)
+  dust_pool.append({"node":node,"voice":voice,"age":3.,"size":Vector2.ONE})
+func collapse_effect(building:Dictionary)->void:
+ var origin:Vector3=Landscape.CENTERS[building.kind]+building.center
+ if game.has_method("world_view_camera"):
+  var camera:Camera3D=game.world_view_camera()
+  if not camera or camera.global_position.distance_squared_to(origin)>180.*180.:return
+ var selected:Dictionary={}
+ for effect in dust_pool:
+  if effect.age>=2.4:selected=effect;break
+ if selected.is_empty():
+  selected=dust_pool[0]
+  for effect in dust_pool:
+   if effect.age>selected.age:selected=effect
+ selected.age=0.;selected.size=building.size;selected.node.global_position=origin;selected.node.visible=true
+ selected.voice.global_position=origin+Vector3.UP;selected.voice.play();collapse_effects_played+=1
+ update_dust(selected)
+func update_dust(effect:Dictionary)->void:
+ var t:float=effect.age/2.4
+ effect.node.visible=t<1.
+ for i in 12:
+  var angle:float=i*TAU/12.
+  var p:=Vector3(cos(angle)*effect.size.x*.42*(1.+t*.35),.6+t*2.,sin(angle)*effect.size.y*.42*(1.+t*.35))
+  var scale:=Vector3(2.+t*3.,1.5+t*2.,2.+t*3.)*(1.-pow(t,3))
+  effect.node.multimesh.set_instance_transform(i,Transform3D(Basis.IDENTITY.scaled(scale),p))
 func animate_cell(cell:Dictionary,at:Vector3)->void:
  if game.has_method("world_view_camera"):
   var camera:Camera3D=game.world_view_camera()
   if not camera or camera.global_position.distance_squared_to(cell.position)>120.*120.:return
- # Baked shared Voronoi fragments; transform animation only, never physics bodies.
  if animated_this_frame>=MAX_ANIMATED_PANELS_PER_FRAME:return
  animated_this_frame+=1
- var shards:PackedScene=load("res://experimental-assets/destruction/wall_shards.tscn")
- if shards==null:return
- var node:Node3D=shards.instantiate();add_child(node)
- if map.get("lighting")!=null:preload("res://tools/voxel_battle/baked_lighting.gd").convert_node(node)
+ var pool_index:=0
+ for i in shard_pool.size():
+  if shard_pool[i].used<shard_pool[pool_index].used:pool_index=i
+ var item:Dictionary=shard_pool[pool_index];item.used=Time.get_ticks_usec()
+ debris=debris.filter(func(row):return row.pool!=pool_index)
+ var node:Node3D=item.node;node.visible=true
  var axis:int=walls[cell.wall].axis
  node.transform=Transform3D(Basis.IDENTITY if axis==0 else Basis(Vector3.UP,PI*.5),cell.position)
  node.scale=Vector3(cell.size[axis],cell.size.y,cell.size[2 if axis==0 else 0])
- for child in node.get_children():
-  if not child is MeshInstance3D:continue
-  if debris.size()>=MAX_SHARDS:
-   var old:Dictionary=debris.pop_front()
-   if is_instance_valid(old.node):old.node.queue_free()
-  child.cast_shadow=GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
-  var origin:Transform3D=child.global_transform
+ for i in node.get_child_count():
+  var child:MeshInstance3D=node.get_child(i);child.transform=item.transforms[i];child.visible=true
   var direction:Vector3=(cell.position-at).normalized()+Vector3.UP*.7
-  debris.append({"node":child,"origin":origin,"velocity":direction*(2.5+float(debris.size()%3)),"age":0.,"spin":Vector3(.8,1.2,.5)})
- # Parent is freed after its finite animation; late joiners receive no old debris.
- var reference:WeakRef=weakref(node)
- get_tree().create_timer(1.2).timeout.connect(func():
-  var remaining=reference.get_ref()
-  if is_instance_valid(remaining):remaining.queue_free())
+  debris.append({"node":child,"origin":child.global_transform,"velocity":direction*(2.5+float(debris.size()%3)),"age":0.,"pool":pool_index})
 func collapse_building(id:int,animate:bool)->void:
  if collapsed.has(id) or id<0 or id>=integrity.buildings.size():return
  var started:=Time.get_ticks_usec()
  var building:Dictionary=integrity.buildings[id]
- if graphics and animate:animate_collapse(building)
- var visual_us:int=Time.get_ticks_usec()-started
- collapsed[id]=true;dirty[building.kind]=true
+ collapsed[id]=true
+ if multiplayer.is_server() and game.has_method("cq_building_collapse"):
+  var bounds:AABB=building.bounds;bounds.position+=Landscape.CENTERS[building.kind]
+  game.cq_building_collapse(bounds)
+ var damage_us:int=Time.get_ticks_usec()-started
+ var visual_started:=Time.get_ticks_usec()
+ if graphics and animate:
+  animate_collapse(building);collapse_effect(building)
+ var visual_us:int=Time.get_ticks_usec()-visual_started
+ dirty[building.kind]=true
+ rubble[id].body.collision_layer=1
+ if is_instance_valid(rubble[id].visual):rubble[id].visual.visible=true
  hide_fixtures(building)
  var count:=0
  for reference in building_bodies[id]:
@@ -250,7 +324,7 @@ func collapse_building(id:int,animate:bool)->void:
   collapse_bodies[body.get_instance_id()]=reference;body.collision_layer=0;count+=1
  for index in building.walls:
   if colliders.has(index):colliders[index].collision_layer=0
- last_collapse_stats={"id":id,"bodies":count,"animation_us":visual_us,"total_us":Time.get_ticks_usec()-started}
+ last_collapse_stats={"id":id,"bodies":count,"damage_us":damage_us,"animation_us":visual_us,"total_us":Time.get_ticks_usec()-started}
 func hide_fixtures(building:Dictionary)->void:
  if not graphics or map.get("lighting")==null:return
  var lighting=map.lighting
@@ -270,18 +344,9 @@ func animate_collapse(building:Dictionary)->void:
  if game.has_method("world_view_camera"):
   var camera:Camera3D=game.world_view_camera()
   if not camera or camera.global_position.distance_squared_to(origin)>120.*120.:return
- var source:ArrayMesh=map.structures.meshes[building.kind][0]
- var arrays:Array=source.surface_get_arrays(0).duplicate(true)
- var points:PackedVector3Array=arrays[Mesh.ARRAY_VERTEX];var indices:PackedInt32Array=arrays[Mesh.ARRAY_INDEX]
- var selected:=PackedInt32Array()
- for i in range(0,indices.size(),3):
-  if Integrity.contains_triangle(building,points,indices,i):selected.append_array(indices.slice(i,i+3))
- if selected.is_empty():return
- for i in points.size():points[i]-=building.center
- arrays[Mesh.ARRAY_VERTEX]=points;arrays[Mesh.ARRAY_INDEX]=selected
- var mesh:=ArrayMesh.new();mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES,arrays,[],{},source.surface_get_format(0));mesh.surface_set_material(0,source.surface_get_material(0))
- var node:=MeshInstance3D.new();node.mesh=mesh;node.physics_interpolation_mode=Node.PHYSICS_INTERPOLATION_MODE_OFF
- node.cast_shadow=GeometryInstance3D.SHADOW_CASTING_SETTING_OFF;add_child(node);node.global_position=origin
+ var id:int=integrity.buildings.find(building)
+ if not prepared.has(id):return
+ var node:MeshInstance3D=prepared[id];node.visible=true;node.rotation=Vector3.ZERO;node.global_position=origin
  collapse_visuals.append({"node":node,"origin":origin,"height":building.floors*Integrity.STOREY+1.5,"age":0.})
 func clear_state()->void:
  for item in collapsed_fixtures:
@@ -293,8 +358,12 @@ func clear_state()->void:
   if is_instance_valid(body):body.collision_layer=1
  collapse_bodies.clear();collapsed.clear()
  for item in collapse_visuals:
-  if is_instance_valid(item.node):item.node.queue_free()
+  if is_instance_valid(item.node):item.node.visible=false
  collapse_visuals.clear()
+ for row in rubble.values():
+  row.body.collision_layer=0
+  if is_instance_valid(row.visual):row.visual.visible=false
+ for effect in dust_pool:effect.age=3.;effect.node.visible=false;effect.voice.stop()
  for body in colliders.values():body.free()
  colliders.clear();cell_shapes.clear()
  for index in walls:
@@ -304,8 +373,9 @@ func clear_state()->void:
    for lod in 3:
     map.structures.meshes[kind][lod]=originals[kind][lod];map.structures.groups[kind][lod].multimesh.mesh=originals[kind][lod]
   map.structures.last_position=Vector3.INF
+ for item in shard_pool:item.node.visible=false
  for item in debris:
-  if is_instance_valid(item.node):item.node.queue_free()
+  if is_instance_valid(item.node):item.node.visible=false
  debris.clear();broken.clear();dirty.clear();originals.clear()
 func publish(peer:int=0,at:Vector3=Vector3.ZERO)->void:
  if multiplayer.get_peers().is_empty():return
@@ -347,16 +417,21 @@ func _process(delta:float)->void:
  for item in debris:
   if not is_instance_valid(item.node):continue
   item.age+=delta;var t:float=item.age
+  if t>=1.05:item.node.visible=false;continue
   item.node.global_transform=item.origin
   item.node.global_position+=item.velocity*t+Vector3.DOWN*3*t*t
   item.node.rotate_object_local(Vector3(1,1,.5).normalized(),t*1.8)
   item.node.scale*=maxf(0,1.-maxf(0,t-.65)/.4)
- debris=debris.filter(func(item):return is_instance_valid(item.node))
+ debris=debris.filter(func(item):return is_instance_valid(item.node) and item.age<1.05)
  for item in collapse_visuals:
   if not is_instance_valid(item.node):continue
   item.age+=delta
   var t:float=clampf(item.age/1.4,0,1)
   item.node.global_position=item.origin+Vector3.DOWN*item.height*t*t
   item.node.rotation=Vector3(.08*t*t,0,.045*t*t)
-  if t>=1:item.node.queue_free()
+  if t>=1:item.node.visible=false
  collapse_visuals=collapse_visuals.filter(func(item):return is_instance_valid(item.node) and item.age<1.4)
+
+ for effect in dust_pool:
+  if effect.age>=2.4:continue
+  effect.age=minf(2.4,effect.age+delta);update_dust(effect)

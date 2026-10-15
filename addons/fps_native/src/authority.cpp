@@ -77,6 +77,7 @@ bool number(const Variant &v) {
 }
 } // namespace
 void FPSAuthority::_bind_methods() {
+  ClassDB::bind_method(D_METHOD("collapse_region", "minimum", "maximum"), &FPSAuthority::collapse_region);
   ClassDB::bind_method(D_METHOD("stage_player", "id"), &FPSAuthority::stage_player);
   ClassDB::bind_method(D_METHOD("configure_stress", "id", "enabled"),
                        &FPSAuthority::configure_stress);

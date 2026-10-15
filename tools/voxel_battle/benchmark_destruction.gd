@@ -78,6 +78,18 @@ func run()->void:
   await create_timer(1.).timeout
   report.after_collapse=await sample(60);report.collapsed=service.collapsed.keys();report.buildings=service.integrity.buildings.size();report.integrity=service.integrity.status(building_id,service.broken)
   await capture("collapsed")
+  var center:Vector3=Map.Landscape.CENTERS[building.kind]+building.center
+  camera.position=center+Vector3(0,4,building.size.y*.65);camera.look_at(center+Vector3.UP*.4)
+  await sample(12);await capture("rubble-close")
+  var capture_site:Dictionary=Destruction.Assets.Objectives.new().sites[1]
+  var capture_id:=-1
+  for id in service.integrity.buildings.size():
+   if service.integrity.buildings[id].kind==1 and service.integrity.buildings[id].role=="dispatch":capture_id=id;break
+  assert(capture_id>=0);service.collapse_building(capture_id,false);service.flush_meshes()
+  var marker:=MeshInstance3D.new();var ring:=TorusMesh.new();ring.inner_radius=2.93;ring.outer_radius=3.;marker.mesh=ring;game.add_child(marker);marker.global_position=capture_site.position+Vector3.UP*.02
+  var material:=StandardMaterial3D.new();material.shading_mode=BaseMaterial3D.SHADING_MODE_UNSHADED;material.albedo_color=Color("71e6d4");marker.material_override=material
+  camera.global_position=capture_site.position+Vector3(10,12,15);camera.look_at(capture_site.position)
+  await sample(12);await capture("capture-clear")
  FileAccess.open(out+"/results.json",FileAccess.WRITE).store_string(JSON.stringify(report,"\t"));print("DESTRUCTION_BENCHMARK ",JSON.stringify(report))
  game.queue_free();await process_frame;quit()
 

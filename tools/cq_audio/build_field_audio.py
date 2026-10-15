@@ -86,3 +86,6 @@ build_weapon_reports()
 # Apply the vehicle pass after the common ordnance-impact placeholder.
 from reauthor_vehicles import build as build_vehicle_reports
 build_vehicle_reports()
+
+# Building destruction reuses the final CC0 explosion/thunder edits.
+import build_collapse

@@ -1,0 +1,53 @@
+{
+	"broken": 24,
+	"cells": 3769,
+	"collapse_detail": {
+		"animation_us": 4,
+		"bodies": 115,
+		"id": 10,
+		"total_us": 247
+	},
+	"collapse_us": 454,
+	"collapsed": [
+		10
+	],
+	"first_impact_us": 750,
+	"graphics": false,
+	"integrity": {
+		"failed_floor": 1,
+		"remaining": 0.0,
+		"stories": [
+			{
+				"failed": false,
+				"remaining": 0.776054590389053,
+				"sides": [
+					0.5,
+					1.0,
+					0.666666666666667,
+					1.0
+				]
+			},
+			{
+				"failed": true,
+				"remaining": 0.0,
+				"sides": [
+					0.0,
+					0.0,
+					0.0,
+					0.0
+				]
+			},
+			{
+				"failed": false,
+				"remaining": 1.0,
+				"sides": [
+					1.0,
+					1.0,
+					1.0,
+					1.0
+				]
+			}
+		]
+	},
+	"twelve_impacts_us": 4588
+}

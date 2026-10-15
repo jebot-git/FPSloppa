@@ -94,6 +94,33 @@ void use(Core &c, Handle h, int seq) {
 } // namespace
 void entity_tests() {
   for (int hz : {30, 60}) {
+    auto c = make(); World world; c->configure_tick_rate(hz);
+    int vehicle = c->add_vehicle(VehicleKind::LIGHT, {}, 0, 0);
+    int outside_vehicle = c->add_vehicle(VehicleKind::HEAVY, {100, 0, 0}, 0, 1);
+    auto inside = add(*c, 1, 0, {0, 0, 0});
+    auto upper = add(*c, 2, 1, {0, 4, 0});
+    auto rider = add(*c, 3, 0, {3.5, 0, 0});
+    auto outside = add(*c, 4, 1, {100, 0, 0});
+    input(*c, rider, 0); use(*c, rider, 0); c->advance(world);
+    check(c->resolve(rider)->vehicle == vehicle, "collapse fixture has seated occupant");
+    auto *p = c->resolve(inside); p->invulnerable = 100; p->armor = 100; p->stress = true;
+    auto *down = c->resolve(upper); down->hp = 1; down->incapacitated = true;
+    double hp = c->vehicles()[vehicle].hp, other_hp = c->vehicles()[outside_vehicle].hp;
+    int affected = c->collapse_region({-10, -.3, -10}, {10, 12, 10}, world);
+    check(affected == 4, "collapse affects three occupants and one hull");
+    for (auto h : {inside, upper, rider})
+      check(c->resolve(h)->dead && c->resolve(h)->death_gibbed && !c->resolve(h)->incapacitated,
+            "collapse gibs either team, downed/invulnerable/stress actors and seated occupants");
+    check(c->resolve(rider)->vehicle < 0, "collapse releases killed vehicle occupant");
+    check(c->vehicles()[vehicle].hp == hp - 100, "collapse applies exactly 100 hull damage");
+    check(c->vehicles()[outside_vehicle].hp == other_hp && !c->resolve(outside)->dead,
+          "collapse leaves outside actors and vehicles unaffected");
+    check(c->resolve(inside)->kills == 0 && c->resolve(upper)->kills == 0,
+          "environmental collapse awards no kills or XP");
+    check(c->collapse_region({10, 0, 0}, {-10, 10, 10}, world) == 0,
+          "collapse rejects invalid volume");
+  }
+  for (int hz : {30, 60}) {
     auto c = make(); World world;
     check(c->configure_tick_rate(hz), "ordnance fixture rate");
     int tank = c->add_vehicle(VehicleKind::ROCKET, {}, 0, 0);

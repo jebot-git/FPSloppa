@@ -480,7 +480,7 @@ func _play_variant_shot_fx(id:int,weapon:int,alternate:bool) -> void:
 	if headless:return
 	if id==multiplayer.get_unique_id():visual_cooldown=armory.data(weapon,alternate).cycle
 	if field_audio:field_audio.shot(weapon,_weapon_transform(id).origin)
-const CLASS_PROTOCOL:="fpsloppa-cq-frontier-26-structural-collapse"
+const CLASS_PROTOCOL:="fpsloppa-cq-frontier-27-collapse-cover"
 func connection_protocol() -> String:return CLASS_PROTOCOL
 func _collect(_id:int) -> void:pass # CQ resupplies through its class dispensers.
 func on_player_died(id:int) -> void:
@@ -491,14 +491,28 @@ func on_player_died(id:int) -> void:
 
 static func map_identity() -> String:
 	var digest:=HashingContext.new();digest.start(HashingContext.HASH_SHA256)
-	for file in ["landscape","architecture","outer_architecture","hydrology","waterways","map","stair_ramps","water_contents","baked_lighting","jungle_sky","light_fixtures","weather_schedule","weather","grass_cover","destruction","structural_integrity"]:
+	for file in ["landscape","architecture","outer_architecture","hydrology","waterways","map","stair_ramps","water_contents","baked_lighting","jungle_sky","light_fixtures","weather_schedule","weather","grass_cover","destruction","structural_integrity","collapse_assets"]:
 		digest.update(FileAccess.get_file_as_bytes("res://tools/voxel_battle/"+file+".gd"))
-	for path in ["res://experimental-assets/jungle/lighting/bake.json","res://experimental-assets/jungle/lighting/irradiance.png","res://experimental-assets/jungle/lighting/dawn.png","res://experimental-assets/jungle/lighting/skybox.png","res://tools/voxel_battle/baked_lighting.gdshaderinc","res://tools/voxel_battle/jungle_sky.gdshader"]:
+	for path in ["res://experimental-assets/jungle/lighting/bake.json","res://experimental-assets/jungle/lighting/irradiance.png","res://experimental-assets/jungle/lighting/dawn.png","res://experimental-assets/jungle/lighting/skybox.png","res://tools/voxel_battle/baked_lighting.gdshaderinc","res://tools/voxel_battle/jungle_sky.gdshader","res://tools/voxel_battle/collapse_dust.gdshader","res://tools/voxel_battle/collapse_rubble.gdshader"]:
 		digest.update(FileAccess.get_file_as_bytes(path))
 	return digest.finish().hex_encode()
 func cq_ordnance_impact(at:Vector3,damage:float,radius:float)->void:
 	if is_instance_valid(destruction):destruction.impact(at,damage,radius)
-
+func cq_building_collapse(bounds:AABB)->void:
+	if not multiplayer.is_server() or not active:return
+	if resident.serving() and resident.core:
+		resident.core.collapse_region(bounds.position,bounds.end);return
+	# Capture membership before releasing seats or damaging hulls.
+	var victims:Dictionary={}
+	for id in players:
+		if not players[id].dead and not players[id].spectator and fighters.has(id) and bounds.has_point(fighters[id].position):victims[id]=fighters[id].position
+	for id in victims:
+		battery_tanks.leave(id,true)
+		fighters[id].position=victims[id]
+		_damage(id,0,10000,"BUILDING COLLAPSE",true,victims[id]+Vector3.UP,Vector3.UP,true)
+	for key in battery_tanks.rows:
+		var row:Dictionary=battery_tanks.rows[key]
+		if row.hp>0 and bounds.has_point(row.position):battery_tanks.damage(key,-1,100,"ordnance")
 func _load_map(map_id:String) -> bool:
 	if is_instance_valid(destruction):destruction.free();destruction=null
 	if resident.serving() and resident.core:resident.reset_instance()

@@ -1,5 +1,32 @@
 #include "authority_core.h"
 namespace cqauthority {
+int Core::collapse_region(V lo, V hi, Host &host) {
+  if (!cq.enabled || points.winner != -2 || !lo.finite() || !hi.finite() ||
+      lo.x >= hi.x || lo.y >= hi.y || lo.z >= hi.z)
+    return 0;
+  auto inside = [&](V p) {
+    return p.x >= lo.x && p.x <= hi.x && p.y >= lo.y && p.y <= hi.y &&
+           p.z >= lo.z && p.z <= hi.z;
+  };
+  int affected = 0;
+  // Fixed actor/entity arrays stay valid during an ordnance host callback.
+  // Membership is evaluated before releasing seats or changing collision.
+  for (auto &p : players_)
+    if (p.active && !p.dead && !p.staging && inside(p.position)) {
+      V position = p.position;
+      if (p.vehicle >= 0) {
+        vehicle_leave(p, host, true);
+        p.position = position;
+        host.teleport(p.handle, position);
+      }
+      if (damage(p.handle, {}, 10000, DamageKind::COLLAPSE)) ++affected;
+    }
+  for (auto &v : vehicles_)
+    if (v.active && v.hp > 0 && inside(v.position))
+      if (damage_vehicle(v.key, -1, 100, DamageKind::ORDNANCE, {}, host) > 0)
+        ++affected;
+  return affected;
+}
 Session Core::session(const Player &p) const {
   return {p.handle.id, p.session_token};
 }

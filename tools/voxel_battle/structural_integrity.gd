@@ -1,4 +1,5 @@
 extends RefCounted
+const Fixtures=preload("res://tools/voxel_battle/light_fixtures.gd")
 ## Deterministic authored bearing lanes, not a physics/load solver.
 const STOREY:=3.6
 const MIN_SUPPORT:=.45
@@ -19,6 +20,17 @@ func setup(layout,walls:Dictionary,cells:Array)->void:
    var p:Vector3=spec.center+Vector3(0,3.1,side*(spec.size.y*.5+1.2))
    row.attachments.append(AABB(p-Vector3(.5,0,1.4),Vector3(1.,.7,2.8)))
   buildings.append(row)
+ # Claim the whole post/arm/head when any part is mounted in a building volume.
+ # Clipping only to the room shell used to leave offset lamp heads floating.
+ if not layout is Dictionary:
+  for fixture in Fixtures.rows(authored):
+   if fixture.type in ["entry","hanging"]:continue
+   var p:Vector3=fixture.local+Vector3.UP*Fixtures.ground(fixture)
+   var height:float=4.8 if fixture.type=="lamppost" else 6.5
+   var region:=AABB(p-Vector3(1.5,height+.2,1.5),Vector3(3,height+.6,3))
+   for building in buildings:
+    if building.kind==fixture.kind and region.intersects(building.bounds):
+     building.attachments.append(region);break
  for index in walls:
   var wall:Dictionary=walls[index]
   for id in buildings.size():

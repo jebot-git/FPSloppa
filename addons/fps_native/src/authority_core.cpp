@@ -530,6 +530,7 @@ bool Core::damage(Handle victim, Handle source, double amount, DamageKind kind,
   bool bypass = kind == DamageKind::WATER || kind == DamageKind::FALL ||
                 kind == DamageKind::BLEEDOUT ||
                 kind == DamageKind::VEHICLE_DESTROYED ||
+                kind == DamageKind::COLLAPSE ||
                 kind == DamageKind::HEAVY_RUNOVER;
   if (p->stress && !bypass)
     return false;

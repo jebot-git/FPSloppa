@@ -1,0 +1,83 @@
+{
+  "graphics": {
+    "buildings": 2,
+    "checks": 39,
+    "failures": [],
+    "support_columns": [
+      18,
+      18,
+      18
+    ]
+  },
+  "catalog": {
+    "buildings": 36,
+    "checks": 187,
+    "eligible_cells": 3693,
+    "failures": []
+  },
+  "damage": {
+    "checks": 42,
+    "failures": []
+  },
+  "effects": {
+    "audible": true,
+    "dust_visible": true,
+    "peak": 0.239514276385307,
+    "prebuilt_mesh": true,
+    "samples": 4096
+  },
+  "breach": {
+    "cells": 3,
+    "checks": 18,
+    "failures": [],
+    "last_rebuild_us": 607,
+    "shard_cap": 96
+  },
+  "native_impact": {
+    "checks": 28,
+    "failures": []
+  },
+  "server": {
+    "collapsed_before_reset": true,
+    "restored": true,
+    "revision": 3
+  },
+  "early": {
+    "collapsed_received": true,
+    "label": "early",
+    "neighbour_retained": true,
+    "observed_stable": true,
+    "ok": true,
+    "reset_restored": true,
+    "revision": 3,
+    "upper_collision_removed": true
+  },
+  "late": {
+    "collapsed_received": true,
+    "label": "late",
+    "neighbour_retained": true,
+    "observed_stable": false,
+    "ok": true,
+    "reset_restored": true,
+    "revision": 3,
+    "upper_collision_removed": true
+  },
+  "native_suite": {
+    "checks": 915888,
+    "ok": true,
+    "collision_legacy_misses": 211,
+    "collision_legacy_late": 56,
+    "replay_players": 64,
+    "replay_ticks": 3600
+  },
+  "integrity": {
+    "buildings": 2,
+    "checks": 39,
+    "failures": [],
+    "support_columns": [
+      18,
+      18,
+      18
+    ]
+  }
+}

@@ -251,7 +251,7 @@ func effects(frame:Dictionary)->void:
    9:
     if not game.players.has(event.actor) or game.players[event.actor].serial!=event.life:continue
     var dead:bool=bool(event.detail&1);var gibbed:bool=bool(event.detail&2);var blast:bool=bool(event.detail&4);var weapon:int=((event.detail>>4)&15)-1
-    var name:String=game.armory.data(weapon).name if weapon>=0 else "ENVIRONMENT"
+    var name:String="BUILDING COLLAPSE" if ((event.detail>>8)&255)==11 else game.armory.data(weapon).name if weapon>=0 else "ENVIRONMENT"
     if dead:death_fx(event.actor,event.life,event.position,gibbed,event.direction,int(event.value),seq,name,blast)
     else:game._hurt_fx(event.actor,event.position,event.direction,int(event.value),false,false,seq,false,name,blast)
     if int(event.entity)==game.multiplayer.get_unique_id() and event.actor!=int(event.entity):game._hit_confirm(int(event.entity))

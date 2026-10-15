@@ -96,6 +96,7 @@ func run()->void:
     await frame("event_"+mode+str(repeat),index)
     index+=1
  var report:Dictionary={"adapter":RenderingServer.get_video_adapter_name(),"renderer":RenderingServer.get_current_rendering_method(),"resolution":[size.x,size.y],"vsync":false,"events":events,"frames":frames,"scope":"Full map, no players. Direct failed factory-storey support set; no preceding breaches. CPU-call wall durations can include driver/synchronization waits; thread_cpu_us comes from Linux /proc/thread-self/schedstat execution nanoseconds and excludes descheduling/waits (kernel accounting granularity applies). Viewport GPU timestamps can lag and exclude CPU scripts/uploads. Other owned Godot processes suspended during capture."}
+ report.preparation_us=service.preparation_usec
  DirAccess.make_dir_recursive_absolute("res://test-results")
  FileAccess.open(output,FileAccess.WRITE).store_string(JSON.stringify(report))
  print("COLLAPSE_PROFILE_SAVED ",output)

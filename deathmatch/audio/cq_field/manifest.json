@@ -1021,5 +1021,21 @@
       ]
     },
     "edit": "Isolated original OGA/Pixabay layers; Audacity MCP mix, high/low-pass, attack/tail fades, DC removal, normalization; mono 24 kHz PCM16, gain trim; travel loop uses interior crop and 120 ms end-to-start crossfade"
+  },
+  "building_collapse": {
+    "file": "building_collapse.wav",
+    "sources": [
+      "sea_cannon_hit_cannon_1",
+      "sea_cannon_hit_1",
+      "sea_cannon_hit_wall_no_splash",
+      "thunder"
+    ],
+    "loop": false,
+    "seconds": 3.5,
+    "rate": 24000,
+    "channels": 1,
+    "sha256": "9a7dfc2841f3194fab6906ba43575a460eac9e660ddfbfbcd45b28aec40a9c61",
+    "recipe": "[0:a]asplit=3[a][b][c];[a]asetrate=15600,aresample=24000,lowpass=f=1800,volume=0.65[x];[b]asetrate=19200,aresample=24000,adelay=240,lowpass=f=2600,volume=0.45[y];[c]adelay=650,lowpass=f=3600,volume=0.3[z];[1:a]lowpass=f=350,volume=0.18,afade=t=in:d=0.08[r];[x][y][z][r]amix=inputs=4:normalize=0,atrim=duration=3.5,afade=t=out:st=2.2:d=1.3,alimiter=limit=0.79:level=false[out]",
+    "edit": "Layered slowed masonry-like impacts, staggered debris transients and filtered thunder rumble; 3.5s finite tail. CC0 derivatives."
   }
 }

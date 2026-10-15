@@ -29,10 +29,11 @@ func run()->void:
  var removed:bool=ray(f.world,f.origin+Vector3(0,12,0),f.origin+Vector3(0,1,0)).is_empty()
  var neighbour:bool=not ray(f.world,f.origin+Vector3(26,12,0),f.origin+Vector3(26,1,0)).is_empty()
  var collapsed:bool=service.collapsed.has(0) and service.received_revision==2
+ var rubble_received:bool=service.rubble[0].body.collision_layer==1
  while Time.get_ticks_msec()<deadline and service.received_revision<3:await process_frame
  await physics_frame;await physics_frame
  var restored:bool=service.collapsed.is_empty() and not ray(f.world,f.origin+Vector3(0,12,0),f.origin+Vector3(0,1,0)).is_empty()
- var ok:bool=service.synced and service.enabled and collapsed and removed and neighbour and restored and (observed_stable or arg("--label","early")=="late")
+ var ok:bool=service.synced and service.enabled and collapsed and removed and neighbour and restored and rubble_received and service.rubble[0].body.collision_layer==0 and f.game.collapse_calls.is_empty() and (observed_stable or arg("--label","early")=="late")
  print("CQ_COLLAPSE_NET_CLIENT ",JSON.stringify({"label":arg("--label","early"),"observed_stable":observed_stable,"collapsed_received":collapsed,"upper_collision_removed":removed,"neighbour_retained":neighbour,"reset_restored":restored,"revision":service.received_revision,"ok":ok}))
  f.game.queue_free();await process_frame;peer.close();quit(0 if ok else 1)
 func ray(world,a:Vector3,b:Vector3)->Dictionary:return world.get_world_3d().direct_space_state.intersect_ray(PhysicsRayQueryParameters3D.create(a,b,1))

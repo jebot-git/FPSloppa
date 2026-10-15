@@ -1,5 +1,7 @@
 # CQ Frontier field audio sources
 
+`building_collapse.wav` is a CC0 derivative of the existing Thimras **Battle at Sea** cannon-impact edits and denalwa thunder edit credited below. The project remix layers slowed, staggered impacts with low-pass rumble and a finite 3.5-second fade. Reproduce with `python3 tools/cq_audio/build_collapse.py`; its exact FFmpeg filter recipe and output hash are in `manifest.json`.
+
 Runtime edits by the FPSloppa project. Source licenses apply to each derivative; no original commercial game recordings are included. Most sources are CC0-1.0. The heavy-engine recording uses CC-BY-3.0; the rocket-tank launch/travel recordings use the Pixabay Content License. Source-specific credits and terms are retained below.
 
 | Source | Author | License | Download quality |

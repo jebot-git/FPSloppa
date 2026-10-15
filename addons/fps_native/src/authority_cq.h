@@ -18,7 +18,8 @@ enum class DamageKind : uint8_t {
   BLEEDOUT,
   VEHICLE_DESTROYED,
   RUNOVER,
-  HEAVY_RUNOVER
+  HEAVY_RUNOVER,
+  COLLAPSE
 };
 struct Session {
   int64_t id = 0;

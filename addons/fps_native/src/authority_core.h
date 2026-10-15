@@ -321,6 +321,7 @@ public:
   bool damage(Handle victim, Handle source, double amount,
               DamageKind kind = DamageKind::BULLET, bool headshot = false,
               Session = {}, int weapon = -1);
+  int collapse_region(V minimum, V maximum, Host &);
   void request_restart() { restart_requested_ = true; }
   bool configure_cq(const CqConfig &);
   bool configure_lamps(const std::vector<V> &);
