@@ -54,6 +54,18 @@ func run():
 	check(not game.announcer.allowed and game.announcer.player==null and game.announcer.streams.is_empty() and game.announcer.pending.is_empty(),"CQ announcer stays disabled without loaded clips or queued calls")
 	settings.book.navigate("tracking");await settle()
 	check(settings.tracking_page.get_children().any(func(c):return c is VBoxContainer and c.has_method("setup")),"Calibration preview remains accessible")
+	var ambient_row:HBoxContainer=settings.controls.ambience.get_parent()
+	var ambient_buttons:Array=ambient_row.get_children().filter(func(c):return c is Button)
+	check(ambient_buttons.size()==2 and ambient_buttons[0].text=="−" and ambient_buttons[1].text=="+","Ambience matches volume minus/plus controls")
+	var previous_config:String=settings.config_path;settings.config_path="user://cq-ambient-stepper-test.cfg"
+	var previous_ambient:float=settings.values.ambience
+	settings.values.ambience=.5;settings.refresh();ambient_buttons[1].pressed.emit()
+	check(is_equal_approx(settings.values.ambience,.55) and settings.controls.ambience.text=="55%","Ambient plus button applies and displays five percent step")
+	ambient_buttons[0].pressed.emit()
+	check(is_equal_approx(settings.values.ambience,.5),"Ambient minus button restores five percent step")
+	settings.values.ambience=previous_ambient;settings.config_path=previous_config;settings.refresh()
+	preload("res://deathmatch/settings/preferences.gd").apply(game,settings.values)
+	DirAccess.remove_absolute("user://cq-ambient-stepper-test.cfg")
 	settings.hide();hud.open_bindings();var bindings=hud.bindings_panel;bindings.select_device("desktop");bindings.select_group("COMBAT & EQUIPMENT");await capture("bindings")
 	check(not bindings.buttons.has("next_weapon") and not bindings.buttons.has("previous_weapon") and not bindings.vr_choices.has("offhand_fire"),"CQ bindings omit disabled cycling and duplicate offhand fire")
 	check(bindings.get_theme_default_font().get_font_name()=="Unitblock","Dynamically opened dialogs use Unitblock")

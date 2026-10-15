@@ -14,7 +14,6 @@ var graphics_page: VBoxContainer
 var input_page: VBoxContainer
 var tracking_page: VBoxContainer
 var tracking_status: Label
-var ambience_slider:HSlider
 var foveation_status: Label
 var foveation_mode:=""
 var foveation_poll:=0.0
@@ -52,11 +51,7 @@ func setup(arena: Node) -> void:
 	var graphics_scroll:=preload("res://deathmatch/ui/drag_scroll.gd").new();graphics_scroll.custom_minimum_size.y=280;graphics_scroll.size_flags_vertical=Control.SIZE_EXPAND_FILL;graphics_scroll.horizontal_scroll_mode=ScrollContainer.SCROLL_MODE_DISABLED;graphics_page.add_child(graphics_scroll)
 	var graphics_options:=VBoxContainer.new();graphics_options.add_theme_constant_override("separation",8);graphics_options.size_flags_horizontal=Control.SIZE_EXPAND_FILL;graphics_scroll.add_child(graphics_options)
 	for row in [["master","Master volume"],["effects","Sound effects"],["music","Music"],["announcer","Announcer"],["voice","Voice playback"]]:stepper(audio_page,row[0],row[1],.05)
-	var ambience_row:=HBoxContainer.new();audio_page.add_child(ambience_row)
-	var ambience_title:=Label.new();ambience_title.text="Ambience";ambience_title.custom_minimum_size.x=220;ambience_row.add_child(ambience_title)
-	ambience_slider=HSlider.new();ambience_slider.min_value=0;ambience_slider.max_value=1;ambience_slider.step=.01;ambience_slider.custom_minimum_size=Vector2(160,48);ambience_slider.size_flags_horizontal=Control.SIZE_EXPAND_FILL;ambience_row.add_child(ambience_slider)
-	var ambience_amount:=Label.new();ambience_amount.custom_minimum_size.x=90;ambience_row.add_child(ambience_amount);controls.ambience=ambience_amount
-	ambience_slider.value_changed.connect(func(value):values.ambience=value;save())
+	stepper(audio_page,"ambience","Ambience",.05)
 	controls.spatial_audio=button(audio_page,"",func():
 		values.spatial_audio="stereo" if values.spatial_audio=="steam_audio" else "steam_audio";game.spatial.apply_backend();save())
 	controls.output=button(audio_page,"",func():
@@ -126,7 +121,6 @@ func refresh() -> void:
 		controls.gun_hand.text="GUN HAND: "+("LEFT" if game.xr_rig.left_handed else "RIGHT")+" · SWAP"
 	values.voice=game.voice.volume
 	for key in ["master","effects","ambience","voice","music","announcer","render_scale","controller_haptic_strength"]:controls[key].text="%d%%"%roundi(values[key]*100)
-	ambience_slider.set_value_no_signal(values.get("ambience",.6))
 	controls.fov.text="%d°"%roundi(values.fov);controls.fov.get_parent().visible=not game.is_vr()
 	controls.hud_scale.text="%d%%"%roundi(values.hud_scale*100)
 	controls.hud_y.text="%+.0f cm"%(values.hud_y*100)
@@ -171,7 +165,7 @@ func configure_cq()->void:
 	for child in category_pages.graphics.get_children():
 		if child is Button and child.text.begins_with("VR RENDERING"):child.hide()
 	controls.music.get_parent().hide();controls.announcer.get_parent().hide();controls.contrast_lighting.hide()
-	controls.effects.get_parent().get_child(0).text="Effects & ambience"
+	controls.effects.get_parent().get_child(0).text="Sound effects"
 	controls.recenter.hide() # The preview includes calibration and confirmation.
 	controls.vr_controls.reparent(category_pages.vr);controls.gun_hand.reparent(category_pages.vr)
 	for child in category_pages.tracking.get_children():

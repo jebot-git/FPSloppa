@@ -35,7 +35,7 @@ func create_view() -> void:
 	sensor=Camera3D.new();sensor.physics_interpolation_mode=Node.PHYSICS_INTERPOLATION_MODE_OFF;sensor.fov=75;sensor.near=.08;sensor.far=1600;sensor.cull_mask&=~PRIVATE_LAYER;viewport.add_child(sensor);sensor.make_current()
 	var layer:=CanvasLayer.new();viewport.add_child(layer);hud=FeedHUD.new();hud.view=self;hud.size=Vector2(640,360);hud.mouse_filter=Control.MOUSE_FILTER_IGNORE;layer.add_child(hud)
 	overlay=CanvasLayer.new();overlay.layer=9;add_child(overlay)
-	var frame:=Control.new();frame.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT);overlay.add_child(frame)
+	var frame:=Control.new();frame.mouse_filter=Control.MOUSE_FILTER_IGNORE;frame.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT);overlay.add_child(frame)
 	var image:=TextureRect.new();image.texture=viewport.get_texture();image.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT);image.stretch_mode=TextureRect.STRETCH_KEEP_ASPECT_CENTERED;image.mouse_filter=Control.MOUSE_FILTER_IGNORE;frame.add_child(image)
 	screen=MeshInstance3D.new();screen.name="SeatedStereoScopeScreen";screen.layers=PRIVATE_LAYER;screen.cast_shadow=GeometryInstance3D.SHADOW_CASTING_SETTING_OFF;var quad:=QuadMesh.new();quad.size=Vector2(1.6,.9);screen.mesh=quad
 	var m:=StandardMaterial3D.new();m.shading_mode=BaseMaterial3D.SHADING_MODE_UNSHADED;m.albedo_texture=viewport.get_texture();screen.material_override=m;add_child(screen)

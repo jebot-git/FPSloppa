@@ -77,6 +77,8 @@ func run()->void:
  for weapon in Field.SHOTS:audio.shot(weapon,Vector3(0,1,0))
  check(audio.played.size()==Field.SHOTS.size(),"Every weapon family has an audible report")
  check(audio.voices.all(func(p):return p.bus=="ArenaEffects" and p.stream!=null),"Reports use effects bus")
+ check(audio.voices.all(func(p):return p.unit_size==5.),"Weapon reports retain full near-field level through five metres")
+ check(audio.voices.all(func(p):return p.volume_db>=-6.),"Reports use raised weapon mix with quieter suppressed scout")
  for i in 40:audio.play_cue("carbine",Vector3(0,1,0))
  check(audio.voices.size()<=Field.MAX_VOICES,"Report voices are bounded")
  for i in 14:game.battery_tanks.rows[i]={"position":Vector3(i*.1,0,0),"hp":100,"pilot":1,"speed":5.,"kind":"light"}

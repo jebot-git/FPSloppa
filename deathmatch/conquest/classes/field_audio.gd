@@ -33,19 +33,19 @@ func stream(kind:String,looped:bool=false)->AudioStream:
 func audible(at:Vector3,radius:float)->bool:
  var camera:Camera3D=game.world_view_camera()
  return camera!=null and camera.global_position.distance_squared_to(at)<radius*radius
-func play_cue(kind:String,at:Vector3,level:float=-12,radius:float=15)->bool:
+func play_cue(kind:String,at:Vector3,level:float=-12,radius:float=15,reference_distance:float=2.)->bool:
  if game.headless or not game.active or not audible(at,radius):return false
  voices=voices.filter(is_instance_valid)
  if voices.size()>=MAX_VOICES:voices.pop_front().queue_free()
  var voice:AudioStreamPlayer3D=game.spatial.create_player();game.spatial.configure(voice)
- voice.stream=stream(kind);voice.bus="ArenaEffects";voice.volume_db=level;voice.unit_size=2.;voice.max_distance=radius
- if voice.has_method("play_stream"):voice.set("min_attenuation_distance",2.)
+ voice.stream=stream(kind);voice.bus="ArenaEffects";voice.volume_db=level;voice.max_db=maxf(0.,level);voice.unit_size=reference_distance;voice.max_distance=radius
+ if voice.has_method("play_stream"):voice.set("min_attenuation_distance",reference_distance)
  voice.set_meta("dry_db",level);voice.set_meta("expires",Time.get_ticks_msec()/1000.+voice.stream.get_length()+.1)
  add_child(voice);voice.global_position=at;voice.finished.connect(voice.queue_free);voice.play();voices.append(voice)
  played[kind]=int(played.get(kind,0))+1;return true
 func shot(weapon:int,at:Vector3)->void:
  if not SHOTS.has(weapon):return
- play_cue(SHOTS[weapon],at,-12 if weapon==9 else -6 if weapon in [0,1,3,4] else -4,18 if weapon==9 else 110 if weapon in [5,11] else 90)
+ play_cue(SHOTS[weapon],at,-6 if weapon==9 else 0 if weapon in [0,1,3,4] else 2,18 if weapon==9 else 110 if weapon in [5,11] else 90,5.)
 static func vehicle_report(kind:String)->String:
  return {"rocket":"rocket_tank_launch","light":"tank_light_fire","heavy":"tank_heavy_fire","turret":"turret_fire"}.get(kind,"")
 func observe_fire(key:String,shot_at:float,kind:String,at:Vector3,alive:bool=true)->bool:
@@ -53,7 +53,7 @@ func observe_fire(key:String,shot_at:float,kind:String,at:Vector3,alive:bool=tru
  firing_seen[key]=maxf(previous,shot_at)
  if not alive or shot_at<=previous:return false
  var report:=vehicle_report(kind)
- return not report.is_empty() and play_cue(report,at,-8 if kind=="turret" else -6,110)
+ return not report.is_empty() and play_cue(report,at,-2 if kind=="turret" else 0,110,8.)
 func local_cue(kind:String)->void:
  if game.headless or not game.active:return
  ui.stream=stream(kind);ui.play();played[kind]=int(played.get(kind,0))+1

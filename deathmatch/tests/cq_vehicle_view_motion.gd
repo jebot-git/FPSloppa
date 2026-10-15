@@ -20,6 +20,10 @@ class Game extends Node3D:
  var xr_rig:Rig
  var players:Dictionary={1:{}}
  var fighters:Dictionary={}
+ func _unhandled_input(event:InputEvent)->void:
+  if event is InputEventMouseMotion and not menu_open:
+   local_yaw=wrapf(local_yaw-event.relative.x*.0022,-PI,PI)
+   local_pitch=clampf(local_pitch-event.relative.y*.0022,-1.45,1.45)
  func is_vr()->bool:return vr
  func _weapon_transform(_id:int)->Transform3D:
   return xr_rig.gun.global_transform if vr else Transform3D(Basis(Vector3.UP,local_yaw)*Basis(Vector3.RIGHT,local_pitch),Vector3.ZERO)
@@ -46,7 +50,15 @@ func run()->void:
    check(view.viewport.get_camera_3d()==view.sensor,kind+" scope sensor remains current")
    check(absf(atan2(-row.direction.x,-row.direction.z)-heading)<.0001,kind+" fresh mouse yaw responds without waiting for a physics tick")
    if kind!="rocket":check(absf(rad_to_deg(asin(row.direction.y))-Tanks.PROFILES[kind].pitch_max)<.001,kind+" view and barrel share their elevation clamp")
+  # Deliver actual viewport input with the fullscreen scope overlay visible.
+  # Assigning local_yaw directly misses GUI controls swallowing mouse motion.
+  await process_frame
+  var yaw_before:float=game.local_yaw
+  var motion:=InputEventMouseMotion.new();motion.position=Vector2(root.size)*.5;motion.global_position=motion.position;motion.relative=Vector2(50,-20)
+  root.push_input(motion,true)
+  check(absf(angle_difference(yaw_before,game.local_yaw)+.11)<.0001,kind+" scope overlay passes mouse motion to unhandled desktop aim")
   service.draw()
+  check(absf(atan2(view.sensor.global_basis.z.x,view.sensor.global_basis.z.z)-game.local_yaw)<.0001,kind+" mouse event steers the rendered scope camera")
   var visible_aim:Node3D=service.models[0].find_child("Aim",true,false)
   check((-visible_aim.global_basis.z).distance_to(-view.sensor.global_basis.z)<.0001,kind+" actual rendered barrel and scope camera share one aim basis")
   check(service.models[0].physics_interpolation_mode==Node.PHYSICS_INTERPOLATION_MODE_OFF,kind+" manually interpolated model avoids a second engine interpolation")
