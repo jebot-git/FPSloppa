@@ -1,0 +1,105 @@
+{
+	"adapter": "Intel(R) Graphics (ADL-N)",
+	"after_collapse": {
+		"draw_calls": 18.0,
+		"frames": 60,
+		"max_ms": 27.205,
+		"mean_ms": 15.1366333333333,
+		"p95_ms": 26.624,
+		"triangles": 57013.0
+	},
+	"bombardment": {
+		"draw_calls": 26.0,
+		"frames": 30,
+		"max_ms": 16.199,
+		"mean_ms": 12.1064,
+		"p95_ms": 16.149,
+		"triangles": 58179.0
+	},
+	"bombardment_collision_us": 12882,
+	"bombardment_mesh_us": 19622,
+	"breached": {
+		"draw_calls": 17.0,
+		"frames": 90,
+		"max_ms": 26.179,
+		"mean_ms": 13.5238555555556,
+		"p95_ms": 16.328,
+		"triangles": 56765.0
+	},
+	"breakup": {
+		"draw_calls": 22.0,
+		"frames": 15,
+		"max_ms": 16.379,
+		"mean_ms": 11.8048666666667,
+		"p95_ms": 16.379,
+		"triangles": 50533.0
+	},
+	"broken": 24,
+	"buildings": 36,
+	"catalog_cells": 3769,
+	"catalog_walls": 1446,
+	"collapse_collision_animation_us": 21287,
+	"collapse_detail": {
+		"animation_us": 13829,
+		"bodies": 115,
+		"id": 10,
+		"total_us": 14448
+	},
+	"collapse_mesh_us": 10467,
+	"collapsed": [
+		10
+	],
+	"first_impact_collision_us": 4584,
+	"first_impact_mesh_us": 9777,
+	"intact": {
+		"draw_calls": 14.0,
+		"frames": 90,
+		"max_ms": 26.267,
+		"mean_ms": 13.4813,
+		"p95_ms": 13.879,
+		"triangles": 50375.0
+	},
+	"integrity": {
+		"failed_floor": 1,
+		"remaining": 0.0,
+		"stories": [
+			{
+				"failed": false,
+				"remaining": 0.776054590389053,
+				"sides": [
+					0.5,
+					1.0,
+					0.666666666666667,
+					1.0
+				]
+			},
+			{
+				"failed": true,
+				"remaining": 0.0,
+				"sides": [
+					0.0,
+					0.0,
+					0.0,
+					0.0
+				]
+			},
+			{
+				"failed": false,
+				"remaining": 1.0,
+				"sides": [
+					1.0,
+					1.0,
+					1.0,
+					1.0
+				]
+			}
+		]
+	},
+	"renderer": "forward_plus",
+	"resolution": [
+		1280,
+		720
+	],
+	"scope": "Full streamed map, real colliders, one factory breach then twelve coalesced impacts. No players/AI; desktop GPU only, not a 64-player or VR performance claim.",
+	"shard_limit": 96
+}

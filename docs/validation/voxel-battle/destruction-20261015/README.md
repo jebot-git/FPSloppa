@@ -1,5 +1,7 @@
 # Reactive building destruction experiment — 2026-10-15
 
+Historical wall-only prototype. [The structural-integrity revision](../structural-collapse-20261015/README.md) adds building collapse and supersedes its structural limitations.
+
 [Implementation, controls and limitations](../../../CQ-DESTRUCTION.md).
 
 Verified on Godot 4.7.2 / Jolt. The graphical run used Vulkan Forward+, Intel ADL-N integrated graphics, 1280 × 720. These are short full-map rendering/collision probes without players or AI; another local desktop test was open. Frame wall times include rendering/presentation wait and are not isolated GPU timings or a 64-player/VR capacity claim.

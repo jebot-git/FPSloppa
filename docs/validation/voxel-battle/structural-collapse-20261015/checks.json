@@ -1,0 +1,64 @@
+{
+  "integrity": {
+    "buildings": 2,
+    "checks": 28,
+    "failures": [],
+    "support_columns": [
+      18,
+      18,
+      18
+    ]
+  },
+  "graphics": {
+    "buildings": 2,
+    "checks": 28,
+    "failures": [],
+    "support_columns": [
+      18,
+      18,
+      18
+    ]
+  },
+  "catalog": {
+    "buildings": 36,
+    "checks": 112,
+    "eligible_cells": 3693,
+    "failures": []
+  },
+  "breaches": {
+    "cells": 3,
+    "checks": 18,
+    "failures": [],
+    "last_rebuild_us": 230,
+    "shard_cap": 96
+  },
+  "native_callback": {
+    "checks": 28,
+    "failures": []
+  },
+  "server": {
+    "collapsed_before_reset": true,
+    "restored": true,
+    "revision": 3
+  },
+  "early_client": {
+    "collapsed_received": true,
+    "label": "early",
+    "neighbour_retained": true,
+    "observed_stable": true,
+    "ok": true,
+    "reset_restored": true,
+    "revision": 3,
+    "upper_collision_removed": true
+  },
+  "late_client": {
+    "collapsed_received": true,
+    "label": "late",
+    "neighbour_retained": true,
+    "observed_stable": false,
+    "ok": true,
+    "reset_restored": true,
+    "revision": 3,
+    "upper_collision_removed": true
+  }
+}

@@ -58,9 +58,9 @@ func run()->void:
  check(service.broken.size()==1,"Duplicate network state does not reapply damage")
  check(service.candidates(origin,10,30,false).is_empty(),"Sub-threshold impacts cannot destroy walls")
  # A real player capsule can walk through the breach, not merely a ray.
- var actor=preload("res://deathmatch/fighter.gd").new();world.add_child(actor);actor.position=origin+Vector3(0,.11,2);actor.update_height(1.7,true)
+ var actor=preload("res://deathmatch/fighter.gd").new();world.add_child(actor);actor.setup(99,"Breach capsule",Color.WHITE);actor.set_process(false);actor.position=origin+Vector3(0,.11,2);actor.update_height(1.7,true)
  for i in 65:await physics_frame;actor.simulate(Vector2(0,-1),0,false,1./60.)
- check(actor.position.z<origin.z-.5,"170 cm player traverses the created entry")
+ check(actor.position.z<origin.z-.5,"Standing player capsule traverses the created entry")
  actor.free()
  service.clear_state();await physics_frame;await physics_frame
  check(not ray(world,a,b).is_empty() and service.broken.is_empty(),"Round reset restores original mesh and collision")

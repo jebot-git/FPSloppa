@@ -1,4 +1,5 @@
 extends SceneTree
+const Integrity=preload("res://tools/voxel_battle/structural_integrity.gd")
 const Architecture=preload("res://tools/voxel_battle/architecture.gd")
 func _initialize()->void:run.call_deferred()
 func run()->void:
@@ -18,9 +19,19 @@ func run()->void:
      for j in 3:
       if not indices[i+j] in record.vertices:record.vertices.append(indices[i+j])
    if not record.triangles.is_empty():topology[index][lod]=record
- var resource:=Resource.new();resource.set_meta("topology",topology)
+ var structural:=Integrity.new();structural.setup(layout,{},[])
+ var buildings:Dictionary={}
+ for id in structural.buildings.size():
+  var building:Dictionary=structural.buildings[id];buildings[id]={}
+  for lod in 2:
+   var arrays:Array=meshes[building.kind][lod].surface_get_arrays(0)
+   var points:PackedVector3Array=arrays[Mesh.ARRAY_VERTEX];var indices:PackedInt32Array=arrays[Mesh.ARRAY_INDEX];var removed:=PackedInt32Array()
+   for i in range(0,indices.size(),3):
+    if Integrity.contains_triangle(building,points,indices,i):removed.append(i)
+   buildings[id][lod]=removed
+ var resource:=Resource.new();resource.set_meta("topology",topology);resource.set_meta("buildings",buildings)
  var hashes:Dictionary={}
- for file in ["tools/voxel_battle/architecture.gd","tools/voxel_battle/outer_architecture.gd","tools/voxel_battle/light_fixtures.gd","tools/streamed_heightfield/structures.gd"]:hashes[file]=FileAccess.get_sha256("res://"+file)
+ for file in ["tools/voxel_battle/structural_integrity.gd","tools/voxel_battle/architecture.gd","tools/voxel_battle/outer_architecture.gd","tools/voxel_battle/light_fixtures.gd","tools/streamed_heightfield/structures.gd"]:hashes[file]=FileAccess.get_sha256("res://"+file)
  resource.set_meta("sources",hashes)
  assert(ResourceSaver.save(resource,"res://experimental-assets/destruction/wall_topology.res",ResourceSaver.FLAG_COMPRESS)==OK)
  print("DESTRUCTION_TOPOLOGY_BAKED ",JSON.stringify({"walls":topology.size(),"bake_us":Time.get_ticks_usec()-started}));quit()
