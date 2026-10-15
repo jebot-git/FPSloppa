@@ -16,7 +16,7 @@ def main():
  base=[a.godot,'--verbose','--headless','--xr-mode','off','--path',str(ROOT)];jobs=[];results=[]
  try:
   with (out/'server.log').open('w') as log:
-   server=subprocess.Popen(base+['res://tools/voxel_battle/class_arena.tscn','--','--server','--config',str(out/'server.cfg'),'--cq-native-authority'],stdout=log,stderr=subprocess.STDOUT,start_new_session=True);jobs.append(server)
+   server=subprocess.Popen(base+['res://tools/voxel_battle/class_arena.tscn','--','--server','--config',str(out/'server.cfg')],stdout=log,stderr=subprocess.STDOUT,start_new_session=True);jobs.append(server)
    deadline=time.monotonic()+60
    while 'CQ_RESIDENT_READY' not in (out/'server.log').read_text():
     if server.poll() is not None or time.monotonic()>deadline:raise RuntimeError('Arena startup failed')
@@ -39,7 +39,7 @@ def main():
     except subprocess.TimeoutExpired:os.killpg(job.pid,signal.SIGKILL);job.wait()
  bot_config=out/'bots.cfg';bot_config.write_text(config.replace('sv_bot_fill "0"','sv_bot_fill "4"')+'\nset sv_voice "0"\n')
  with (out/'bots.log').open('w') as log:
-  result=subprocess.run(base+['--script','res://tools/authority_core/bot_driver.gd','--','--server','--config',str(bot_config),'--cq-native-authority','--authority-client-report',str(out/'bots.json')],stdout=log,stderr=subprocess.STDOUT,timeout=210)
+  result=subprocess.run(base+['--script','res://tools/authority_core/bot_driver.gd','--','--server','--config',str(bot_config),'--authority-client-report',str(out/'bots.json')],stdout=log,stderr=subprocess.STDOUT,timeout=210)
  bot_log=(out/'bots.log').read_text()
  # Keep known authored-navmesh edge merge warnings in the evidence, without
  # confusing them with new authority/script errors or suppressing engine logs.

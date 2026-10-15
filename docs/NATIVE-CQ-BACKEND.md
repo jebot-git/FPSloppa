@@ -1,6 +1,6 @@
 # Native CQ backend prototype
 
-The voxelspace branch has both the incremental `FPSBackend` acceleration and an opt-in resident `FPSAuthority` CQ implementation. The resident path now owns the CQ gameplay pipeline; see the [current authority contract](../tools/authority_core/README.md) and [completed CQ/VPS validation](validation/voxel-battle/resident-cq-complete-20261014/REPORT.md). The incremental-path descriptions below record the earlier architecture. The live service has not been switched, and 64-player support remains experimental.
+The voxelspace branch has both incremental `FPSBackend` acceleration and a resident `FPSAuthority` CQ implementation, selected by default for the dedicated unified-map CQ server with adaptive 60/30 Hz ticking. The resident path now owns the CQ gameplay pipeline; see the [current authority contract](../tools/authority_core/README.md) and [completed CQ/VPS validation](validation/voxel-battle/resident-cq-complete-20261014/REPORT.md). The incremental-path descriptions below record the earlier architecture. Source defaults take effect when a rebuilt package is launched; changing them does not replace an already running service. 64-player support remains experimental.
 
 ## Implemented paths
 

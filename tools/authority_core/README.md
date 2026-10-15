@@ -1,6 +1,6 @@
 # Resident CQ authority
 
-The experimental CQ server has an opt-in resident C++ authority. Godot retains ENet admission/transport, UTX assets, scene lifecycle, navigation queries and Jolt integration. Enable it on a dedicated CQ server with `--cq-native-authority`. The normal server path remains available; this flag does not modify a live deployment. Both ends require `fpsloppa-cq-frontier-22-live-fixes`.
+The dedicated unified-map CQ server uses the resident C++ authority by default. Godot retains ENet admission/transport, UTX assets, scene lifecycle, navigation queries and Jolt integration. No authority or adaptive flags are required. `--cq-script-authority` retains the older script authority for regression comparisons. Both ends require `fpsloppa-cq-frontier-22-live-fixes`.
 
 ## Ownership and reuse
 
@@ -8,10 +8,9 @@ The `addons/fps_native/src/authority_*.{h,cpp}` modules, except `authority_world
 
 `FPSAuthority` is constructed/configured once per map instance. Cold configuration imports authored terrain/roads/water, capture sites, spawns, lamps, vehicles, avatar reach, class XP and choices. Actor attachment gives the core an identity and exclusive Jolt cylinder. Inputs use authenticated RPC sender IDs and bounded binary packets. Only the core mutates gameplay state; there is no per-tick import/export of authoritative player Dictionaries. Inspection and snapshot Dictionaries are detached diagnostic/client presentation copies.
 
-Advance exactly once per configured physics frame, on the engine owner thread. Production defaults to 30 Hz. The experimental `configure_tick_rate(60)` API must be called before actors or ticks exist, and the engine physics rate must match. The adapter rejects unsupported/mismatched rates, duplicate/out-of-physics advances and foreign threads. Gameplay clocks, integration and cooldowns use the configured step; snapshot construction/publication remains 20 Hz. Scene/Jolt operations remain on that thread. Core phases include native bot planning, input consumption and movement commits, ordered combat/query commits, projectiles/entities, CQ mode and frame publication. This explicit order defines this authority's behavior; it is not a claim of instruction-for-instruction equivalence to the old interleaved script loop.
+Advance exactly once per configured physics frame, on the engine owner thread. The dedicated CQ host defaults to adaptive 60/30 Hz. The core itself initializes at 30 Hz until configured. The fixed `configure_tick_rate(30|60)` API must be called before actors or ticks exist, and the engine physics rate must match. The adapter rejects unsupported/mismatched rates, duplicate/out-of-physics advances and foreign threads. Gameplay clocks, integration and cooldowns use the configured step; snapshot construction/publication remains 20 Hz. Scene/Jolt operations remain on that thread. Core phases include native bot planning, input consumption and movement commits, ordered combat/query commits, projectiles/entities, CQ mode and frame publication. This explicit order defines this authority's behavior; it is not a claim of instruction-for-instruction equivalence to the old interleaved script loop.
 
-For the experimental 64-player adaptive mode, add `--cq-adaptive-tick` alongside
-`--cq-native-authority` on a dedicated server. It starts at 60 Hz, requests 30 Hz
+Adaptive mode is enabled by default (`sv_cq_adaptive_tick "1"`). It starts at 60 Hz, requests 30 Hz
 after two consecutive two-second windows with callback p95 above 15 ms or
 simulation/wall-time ratio below 0.92, and recovers only after at least 30 seconds
 at 30 Hz plus ten consecutive windows below 11 ms p95 and ratio at least 0.98.
@@ -30,7 +29,7 @@ Existing CQA2 presentation already carries simulation time in its mode section;
 no wire-format change is required. Default team/squad limits remain 32/8 (64 total).
 Set `sv_cq_maxclients "64"` in the isolated server config to admit the full target
 population; the existing supported-capacity configuration remains 32 total.
-Without this opt-in flag the existing fixed 30 Hz native path remains unchanged.
+For a fixed rate, set `sv_cq_adaptive_tick "0"` and `sv_cq_tick_rate "30"` or `"60"`. `--cq-fixed-tick` also disables adaptation, using that configured fixed rate. The previous `--cq-native-authority --cq-adaptive-tick` arguments remain harmless but are unnecessary. Synthetic capacity fixtures retain their explicit rate selection for reproducible comparisons.
 
 The bridge lives in `deathmatch/native/cq_authority.gd`. It bypasses the old gameplay/history/snapshot loops, retains Godot admission, asset downloads, votes and scene navigation, and sends native frames. `cq_presentation.gd` projects them into existing client prediction, model, HUD, tank-camera and effect APIs. `authority_protocol.gd` is an independent semantic decoder; FPSCodec's native validator is used by synthetic load clients to avoid measuring many GDScript decoders in a single process.
 
@@ -56,6 +55,16 @@ CQA1 retains 104-byte base player rows. CQA2 appends TLV sections for poses, phy
 CQ is the supported mode in this path. Legacy TF/CTF/assault/district worker authority and waiting lobbies are not migrated; native startup rejects enabled lobby mode. VRM and face/body tracking are outside this branch's UT99 scope. Full rendering/XR device behavior still requires interactive testing; headless tracked tests supply synthetic controller poses.
 
 ## Reproduce
+
+Check default selection and config/CLI overrides without launching a match:
+
+```sh
+godot --headless --xr-mode off --path . --script tools/authority_core/server_defaults_test.gd
+```
+
+The packaged `tools/frontier_vps/run_adaptive_arena.py` smoke starts the server
+without authority/tick flags. Its `--fixed-hz 30|60` option verifies explicit
+fixed-rate configuration through the same gameplay client.
 
 ```sh
 python3 tools/build_gameplay_native.py --target linux --server --container -j 8

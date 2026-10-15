@@ -1,0 +1,35 @@
+{
+  "passed": true,
+  "requested_mode": "adaptive_default",
+  "requested_hz": 60,
+  "client": {
+    "failures": [],
+    "observed": {
+      "dead": true,
+      "gibbed": true,
+      "grenade_flying": true,
+      "grenade_selected": true,
+      "jetpack": true,
+      "native": true,
+      "nvg": true,
+      "poses": false,
+      "respawn": true,
+      "squad": true,
+      "team_change": true
+    },
+    "shots": 17,
+    "tick": 3483,
+    "tracked": false
+  },
+  "ready": [
+    {
+      "adaptive_tick": true,
+      "map_epoch": 0,
+      "physics_hz": 60,
+      "players": 0
+    }
+  ],
+  "diagnostics": [],
+  "expected_capacity_warnings": [],
+  "unexpected_diagnostics": []
+}

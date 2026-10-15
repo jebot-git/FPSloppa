@@ -1,0 +1,22 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+SERVER_LOG {"data":{"after":425984,"available":true,"before":212992,"error":0,"port":28009,"requested":4194304},"epoch":0,"event":"network_receive_buffer","map":"voxel_jungle","mode":"tdm","seq":1,"uptime_ms":41381,"utc":"2026-10-15T07:21:05Z"}
+DM_HOST_READY port=28009 practice=false
+SERVER_LOG {"data":{"allowed_modes":["tdm"],"bind":"127.0.0.1","capacity_policy":{"maximum":64,"slots":32,"supported_limit":32,"unsupported":false,"warning":""},"friendly_fire":false,"hostname":"CQ Frontier · Classes Prototype","max_clients":32,"protocol":"fpsloppa-cq-frontier-22-live-fixes","rotation":["voxel_jungle"],"score_limit":200,"version":"0.16v-cq-experimental","voice_backend":"builtin","weapon_rules":"ut99"},"epoch":0,"event":"server_started","map":"voxel_jungle","mode":"tdm","seq":2,"uptime_ms":41381,"utc":"2026-10-15T07:21:05Z"}
+SERVER_CONFIG name=CQ Frontier · Classes Prototype bind=127.0.0.1 maxclients=32 voice=false map=voxel_jungle rotation=["voxel_jungle"] weapons=ut99 gametype=tdm limit=200 friendlyfire=false
+CQ_FRONTIER_SERVER_READY backend=monolithic players=32 unsupported_capacity=false physics_hz=60 movement=cs points=200
+CQ_RESIDENT_READY {"adaptive_tick":true,"map_epoch":0,"physics_hz":60,"players":0}
+SERVER_LOG {"data":{"address":"127.0.0.1","loss_percent":0.0,"peer":1145109654,"port":48309,"rtt_ms":6.0,"state":5,"throttle":32.0},"epoch":0,"event":"peer_connected","map":"voxel_jungle","mode":"tdm","seq":3,"uptime_ms":81543,"utc":"2026-10-15T07:21:46Z"}
+SERVER_LOG {"data":{"elapsed_ms":0,"peer":1145109654,"previous_stage":"transport","stage":"waiting_hello"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":4,"uptime_ms":81543,"utc":"2026-10-15T07:21:46Z"}
+SERVER_LOG {"data":{"capacity":32,"client_protocol":"fpsloppa-cq-frontier-22-live-fixes","elapsed_ms":7,"peer":1145109654,"players":0,"previous_stage":"waiting_hello","spectator":false,"stage":"map_offer"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":5,"uptime_ms":81550,"utc":"2026-10-15T07:21:46Z"}
+SERVER_LOG {"data":{"elapsed_ms":14,"peer":1145109654,"previous_stage":"map_offer","stage":"models_offer"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":6,"uptime_ms":81564,"utc":"2026-10-15T07:21:46Z"}
+SERVER_LOG {"data":{"elapsed_ms":34,"peer":1145109654,"previous_stage":"models_offer","stage":"ready"},"epoch":0,"event":"join_stage","map":"voxel_jungle","mode":"tdm","seq":7,"uptime_ms":81598,"utc":"2026-10-15T07:21:46Z"}
+SERVER_LOG {"data":{"name":"Native QA","peer":1145109654,"spectator":false,"team":0},"epoch":0,"event":"player_joined","map":"voxel_jungle","mode":"tdm","seq":8,"uptime_ms":81600,"utc":"2026-10-15T07:21:46Z"}
+SERVER_LOG {"data":{"message":"Native QA joined the arena."},"epoch":0,"event":"match_event","map":"voxel_jungle","mode":"tdm","seq":9,"uptime_ms":81600,"utc":"2026-10-15T07:21:46Z"}
+DM_EVENT Native QA joined the arena.
+SERVER_LOG {"data":{"message":"Native QA joined BLUE"},"epoch":0,"event":"match_event","map":"voxel_jungle","mode":"tdm","seq":10,"uptime_ms":100732,"utc":"2026-10-15T07:22:05Z"}
+DM_EVENT Native QA joined BLUE
+SERVER_LOG {"data":{"admitted":true,"peer":1145109654,"stage":{}},"epoch":0,"event":"peer_departure_stage","map":"voxel_jungle","mode":"tdm","seq":11,"uptime_ms":107812,"utc":"2026-10-15T07:22:12Z"}
+SERVER_LOG {"data":{"peer":1145109654},"epoch":0,"event":"peer_disconnected","map":"voxel_jungle","mode":"tdm","seq":12,"uptime_ms":107812,"utc":"2026-10-15T07:22:12Z"}
+SERVER_LOG {"data":{"message":"Native QA left the arena."},"epoch":0,"event":"match_event","map":"voxel_jungle","mode":"tdm","seq":13,"uptime_ms":107812,"utc":"2026-10-15T07:22:12Z"}
+DM_EVENT Native QA left the arena.

@@ -1,0 +1,11 @@
+{
+  "source": "/home/blux/fpsloppa-cq/validation/adaptive-20261015-complete-release/cq-server.pck",
+  "source_sha256": "f423f82fbc6b1b8c45184c72c5c6ef15af3b414f746c6bee4527356d08a56876",
+  "output_sha256": "f4eddb4739f2a48266c1980556299de0a8858834f28b9d0b0d0ee71d8c38477c",
+  "overrides": {
+    "deathmatch/arena.gd": "6b36470e02541dd9a744d0a8d30dde04812aafded679b68ba26c243e8201ae1b",
+    "tools/voxel_battle/class_arena.gd": "bf1273f33aa2e4e81a45b21c32e885b0920af4c5270bd7f014a36036ce4d3539",
+    "deathmatch/server/config.gd": "3042f76e648d338ddda68a969decaa9c56402ece5f5937f8e3d36dae222249b9",
+    "deathmatch/native/cq_authority.gd": "7eb37acee8260542acaf456195ba77e17f495d0f5fa68a9128fb9caed55abbf0"
+  }
+}

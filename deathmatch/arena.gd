@@ -324,6 +324,7 @@ func _start_dedicated(args: PackedStringArray) -> void:
 		get_tree().quit(2)
 		return
 	var settings: Dictionary=result.values
+	if has_method("configure_cq_authority"):call("configure_cq_authority",settings,args)
 	if has_method("draw_class_players") and settings.sv_cq_backend!="monolithic":
 		push_error("Unified jungle CQ requires sv_cq_backend monolithic; district workers use the legacy maps.");get_tree().quit(2);return
 	if cq_maps.enabled and settings.sv_cq_backend!="districts":push_error("Independent district maps require the districts backend.");get_tree().quit(2);return

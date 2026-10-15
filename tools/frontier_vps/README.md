@@ -2,8 +2,16 @@
 
 The live target is `blux@87.106.27.237` (Ubuntu 24.04, AMD EPYC-Milan, 12 vCPU,
 24 GB RAM). This package runs the frontier class arena directly, with Godot
-4.7.2, CS movement, monolithic authority, 30 Hz physics, 200-point CQ and a
+4.7.2, CS movement, resident native authority, adaptive 60/30 Hz physics, 200-point CQ and a
 32-player default. It does not deploy the legacy district worker stack.
+
+Ordinary `--server --config server.cfg` startup selects native authority and starts
+at 60 Hz, falling back to 30 Hz under pressure and recovering after sustained
+headroom. No extra flags are needed. Set `sv_cq_adaptive_tick "0"` and
+`sv_cq_tick_rate "30"` or `"60"` for a fixed rate; `--cq-fixed-tick` also disables
+adaptation. Older configs that omit the adaptive setting inherit the new default.
+This takes effect when a rebuilt package is launched; it does not update an
+already running deployment. See [the governor policy](../authority_core/README.md).
 
 Runtime layout:
 

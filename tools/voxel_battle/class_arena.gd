@@ -630,6 +630,9 @@ func _create_fighter(id:int) -> void:
 	super._create_fighter(id)
 	fighters[id].quake_movement=false;fighters[id].configure_cs16(true)
 
+func configure_cq_authority(settings:Dictionary,args:PackedStringArray) -> void:
+	resident.configure_server(settings,args)
+
 func _start_dedicated(args:PackedStringArray) -> void:
 	super._start_dedicated(args)
 	if active:print("CQ_FRONTIER_SERVER_READY backend=monolithic players=",max_clients," unsupported_capacity=",capacity_policy().unsupported," physics_hz=",Engine.physics_ticks_per_second," movement=cs points=200")

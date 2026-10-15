@@ -22,6 +22,7 @@ def main():
     parser.add_argument('--config', type=Path, required=True)
     parser.add_argument('--output', type=Path, required=True)
     parser.add_argument('--port', type=int, default=28009)
+    parser.add_argument('--fixed-hz', type=int, choices=[30, 60], help='Verify explicit fixed-rate override instead of adaptive defaults')
     args = parser.parse_args()
     bundle = args.bundle.resolve()
     out = args.output.resolve()
@@ -32,14 +33,17 @@ def main():
         if not path.is_relative_to(bundle) or hashlib.sha256(path.read_bytes()).hexdigest() != digest:
             raise RuntimeError('Bundle checksum mismatch: '+name)
     (out/'release-sha256.json').write_text(json.dumps(manifest, indent=2))
-    (out/'server.cfg').write_bytes(args.config.read_bytes())
+    config = args.config.read_text()
+    if args.fixed_hz:
+        config += f'\nset sv_cq_adaptive_tick "0"\nset sv_cq_tick_rate "{args.fixed_hz}"\n'
+    (out/'server.cfg').write_text(config)
     base = ['stdbuf', '-oL', '-eL', str(bundle/'cq-server'), '--headless', '--xr-mode', 'off', '--']
     jobs = []
-    result = {'passed': False}
+    result = {'passed': False, 'requested_mode': 'fixed' if args.fixed_hz else 'adaptive_default',
+              'requested_hz': args.fixed_hz or 60}
     try:
         with (out/'server.log').open('w') as server_log, (out/'desktop.log').open('w') as client_log:
-            server = subprocess.Popen(base+['--server', '--config', str(out/'server.cfg'),
-                                           '--cq-native-authority', '--cq-adaptive-tick'],
+            server = subprocess.Popen(base+['--server', '--config', str(out/'server.cfg')],
                                       stdout=server_log, stderr=subprocess.STDOUT, start_new_session=True)
             jobs.append(server)
             deadline = time.monotonic()+120
@@ -51,10 +55,9 @@ def main():
                                            '--port', str(args.port), '--authority-client-report', str(out/'desktop.json')],
                                       stdout=client_log, stderr=subprocess.STDOUT, start_new_session=True)
             jobs.append(client)
-            if client.wait(timeout=120):
-                raise RuntimeError('Full arena client failed')
+            result['client_exit_code'] = client.wait(timeout=120)
             result['client'] = json.loads((out/'desktop.json').read_text())
-            result['passed'] = not result['client']['failures']
+            result['passed'] = result['client_exit_code'] == 0 and not result['client']['failures']
     except Exception as error:
         result['error'] = str(error)
     finally:
@@ -70,7 +73,7 @@ def main():
         expected, unexpected = classify_diagnostics(result['diagnostics'], capacity64)
         result['expected_capacity_warnings'] = expected
         result['unexpected_diagnostics'] = unexpected
-        if unexpected or not ready or ready[0].get('physics_hz') != 60 or not ready[0].get('adaptive_tick'):
+        if unexpected or not ready or ready[0].get('physics_hz') != (args.fixed_hz or 60) or ready[0].get('adaptive_tick') != (args.fixed_hz is None):
             result['passed'] = False
         (out/'summary.json').write_text(json.dumps(result, indent=2))
     print(json.dumps(result), flush=True)

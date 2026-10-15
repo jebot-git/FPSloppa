@@ -1,0 +1,38 @@
+extends SceneTree
+## Check operator config compatibility and client/server authority selection.
+const Config=preload("res://deathmatch/server/config.gd")
+const Authority=preload("res://deathmatch/native/cq_authority.gd")
+var failures:Array[String]=[]
+func check(ok:bool,message:String)->void:
+ if not ok:failures.append(message)
+func _initialize()->void:
+ var path:="user://cq-server-defaults-test.cfg"
+ var file:=FileAccess.open(path,FileAccess.WRITE)
+ file.store_string('set sv_gametype "cq"\nset sv_cq_tick_rate "30"\n');file.close()
+ var result:Dictionary=Config.read_config(path)
+ check(not result.has("error"),"Old CQ config must remain valid")
+ var host=Authority.new()
+ check(not host.enabled,"A new client must wait for a native server frame")
+ host.configure_server(result.values,PackedStringArray())
+ check(host.enabled and host.adaptive_tick,"Old fixed-rate config inherits adaptive default")
+ host.reset_client()
+ check(host.enabled,"Map/client reset must retain server authority selection")
+ host.configure_server(result.values,PackedStringArray(["--cq-fixed-tick"]))
+ check(host.enabled and not host.adaptive_tick and host.fixed_tick_hz==30,"CLI fixed override honors configured 30 Hz")
+ file=FileAccess.open(path,FileAccess.WRITE)
+ file.store_string('set sv_gametype "cq"\nset sv_cq_adaptive_tick "0"\nset sv_cq_tick_rate "60"\n');file.close()
+ result=Config.read_config(path)
+ check(not result.has("error"),"Explicit fixed config must parse")
+ host.configure_server(result.values,PackedStringArray())
+ check(host.enabled and not host.adaptive_tick and host.fixed_tick_hz==60,"Config fixed override honors 60 Hz")
+ host.configure_server(result.values,PackedStringArray(["--cq-script-authority"]))
+ host.enabled=true;host.reset_client()
+ check(not host.enabled,"Reset must retain script regression override")
+ var client=Authority.new();client.enabled=true;client.reset_client()
+ check(not client.enabled,"Disconnect clears native client presentation state")
+ file=FileAccess.open(path,FileAccess.WRITE);file.store_string('set sv_cq_adaptive_tick "2"\n');file.close()
+ check(Config.read_config(path).has("error"),"Invalid adaptive setting must be rejected")
+ DirAccess.remove_absolute(ProjectSettings.globalize_path(path))
+ host.free();client.free()
+ print("CQ_SERVER_DEFAULTS_TEST ",JSON.stringify({"passed":failures.is_empty(),"failures":failures}))
+ quit(0 if failures.is_empty() else 1)

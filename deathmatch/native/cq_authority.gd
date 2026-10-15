@@ -1,12 +1,13 @@
 extends Node
-## Opt-in CQ host. Godot owns admission/assets/transport/Jolt; C++ owns gameplay.
+## Default dedicated CQ host. Godot owns admission/assets/transport/Jolt; C++ owns gameplay.
 const Runtime=preload("res://deathmatch/native/runtime.gd")
 const Codec=preload("res://deathmatch/native/authority_protocol.gd")
 const Metadata=preload("res://deathmatch/native/cq_metadata.gd")
 const Presentation=preload("res://deathmatch/native/cq_presentation.gd")
 var game
 var core
-var enabled:=OS.get_cmdline_user_args().has("--cq-native-authority")
+var enabled:=false
+var server_enabled:=false
 var origin:=0.
 var epoch:=-1
 var lives:Dictionary={}
@@ -31,7 +32,8 @@ var metrics:Dictionary={}
 var client_frame:Dictionary={}
 var deployment_offered:=false
 var deployed_peers:Dictionary={}
-var adaptive_tick:=OS.get_cmdline_user_args().has("--cq-adaptive-tick")
+var adaptive_tick:=true
+var fixed_tick_hz:=60
 var previous_tick_us:=0
 var observed_hz:=60
 func _process(_delta:float)->void:
@@ -41,16 +43,23 @@ func _process(_delta:float)->void:
  if hz!=observed_hz:
   print("CQ_TICK_TRANSITION ",JSON.stringify({"from":observed_hz,"to":hz,"metrics":core.metrics()}));observed_hz=hz
 func setup(arena)->void:game=arena
-func serving()->bool:return enabled and game.multiplayer.is_server()
+func configure_server(settings:Dictionary,args:PackedStringArray)->void:
+ server_enabled=not args.has("--cq-script-authority")
+ enabled=server_enabled
+ adaptive_tick=settings.sv_cq_adaptive_tick==1 and not args.has("--cq-fixed-tick")
+ fixed_tick_hz=int(settings.sv_cq_tick_rate)
+func serving()->bool:return enabled and game.dedicated and game.multiplayer.is_server()
 func initialise()->bool:
  if core:return true
  if not Runtime.available("FPSAuthority"):push_error("Resident CQ requires FPSAuthority");return false
  if game.lobby.enabled:push_error("Resident CQ uses the unified map; configure sv_lobby 0");return false
- if not game.dedicated:push_error("Resident CQ test host currently requires dedicated mode");return false
- Engine.physics_ticks_per_second=60 if adaptive_tick else 30
+ if not game.dedicated:push_error("Resident CQ requires dedicated mode");return false
+ Engine.physics_ticks_per_second=60 if adaptive_tick else fixed_tick_hz
  default_reach=preload("res://deathmatch/avatars/ut_format.gd").read("res://deathmatch/avatars/models/base/soldier.utavatar").manifest.ik_profile
  core=ClassDB.instantiate("FPSAuthority");origin=game.clock;epoch=game.map_epoch
- if adaptive_tick and not core.configure_adaptive_tick():return false
+ if adaptive_tick:
+  if not core.configure_adaptive_tick():return false
+ elif not core.configure_tick_rate(fixed_tick_hz):return false
  observed_hz=Engine.physics_ticks_per_second;previous_tick_us=0
  if not core.configure_world(game) or not core.configure_cq({"squads":true,"day_cycle":true,"cycle_offset":game.battle_map.lighting.cycle_time() if game.battle_map and game.battle_map.lighting else 0.,"round_seconds":game.time_limit if game.time_limit_enabled() else 0.}):return false
  if not core.configure_terrain(Metadata.terrain()):return false
@@ -298,7 +307,7 @@ func reset_instance()->void:
  core=null;lives.clear();native_peers.clear();request_sequences.clear();action_sequences.clear();avatar_hashes.clear();nvg_sequences.clear();last_tick=-1
 func reset_client()->void:
  deployment_offered=false
- client_frame.clear();received_tick=-1;assembly_tick=-1;pieces.clear();received_parts=0;packed_size=0;raw_size=0;last_event=0;last_round=-1;death_effects.clear();request_sequence=0;origin=0;epoch=-1;enabled=OS.get_cmdline_user_args().has("--cq-native-authority")
+ client_frame.clear();received_tick=-1;assembly_tick=-1;pieces.clear();received_parts=0;packed_size=0;raw_size=0;last_event=0;last_round=-1;death_effects.clear();request_sequence=0;origin=0;epoch=-1;enabled=server_enabled
 func reset()->void:
  deployed_peers.clear();reset_instance();reset_client()
 func spawn_request(id:int)->bool:

@@ -2,6 +2,8 @@ extends "res://tools/voxel_battle/class_arena.gd"
 ## Full admission/presentation/prediction integration client; no AI or rendering.
 signal test_complete(result:Dictionary)
 var test_start:=0
+const WARMUP_MS:=8000
+var warm_start:=0
 var live_start:=0
 var phase:=0.
 var tracked_test:=OS.get_cmdline_user_args().has("--authority-tracked")
@@ -36,8 +38,12 @@ func _physics_process(delta:float)->void:
  var now:=Time.get_ticks_msec()
  if active and resident.received_tick>0:
   observed.native=true
-  if not live_start:live_start=now
-  phase=(now-live_start)/1000.
+  # Let admission, deployment and ENet startup settle before timed ability checks.
+  # Keep sending ordinary idle commands throughout, as in the load fixtures.
+  var local_frame:Dictionary=resident.client_frame.get("players",{}).get(multiplayer.get_unique_id(),{})
+  if not warm_start and not local_frame.is_empty() and not local_frame.staging:warm_start=now
+  if not live_start and warm_start and now-warm_start>=WARMUP_MS:live_start=now
+  phase=(now-live_start)/1000. if live_start else 0.
   var state:Dictionary=local_state();var mine:int=multiplayer.get_unique_id()
   if not state.is_empty():
    var serial:int=state.serial
@@ -61,7 +67,7 @@ func _physics_process(delta:float)->void:
   if once("suicide",6.5):request_suicide()
   if once("team",11.):votes.switch_team(1-first_team)
   if phase>18:finish_test()
- if now-test_start>65000:finish_test(true)
+ if now-test_start>90000:finish_test(true)
 func finish_test(timeout:bool=false)->void:
  completed=true
  var failures:Array=[]
@@ -70,5 +76,5 @@ func finish_test(timeout:bool=false)->void:
  if tracked_test and not observed.poses:failures.append("poses")
  if observed_shots<1:failures.append("shooting")
  if timeout:failures.append("timeout")
- var result:Dictionary={"tracked":tracked_test,"observed":observed,"shots":observed_shots,"tick":resident.received_tick,"failures":failures}
+ var result:Dictionary={"tracked":tracked_test,"warmup_seconds":WARMUP_MS/1000.,"observed":observed,"shots":observed_shots,"tick":resident.received_tick,"failures":failures}
  print("AUTHORITY_ARENA_CLIENT ",JSON.stringify(result));test_complete.emit(result)
