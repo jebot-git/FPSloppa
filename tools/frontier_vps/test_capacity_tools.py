@@ -11,9 +11,29 @@ import unittest
 
 from patch_probe_pack import entries
 from run_capacity_case import listening
+from run_adaptive_arena import classify_diagnostics
 
 
 class CapacityToolsTests(unittest.TestCase):
+    def test_expected_capacity_warning_never_hides_errors(self):
+        warning = 'WARNING: UNSUPPORTED CQ CAPACITY: more than 32 slots is experimental. Capacity caveat retained.'
+        error = "ERROR: Attempt to disconnect a nonexistent connection"
+        expected, unexpected = classify_diagnostics([warning, error], True)
+        self.assertEqual(expected, [warning])
+        self.assertEqual(unexpected, [error])
+        self.assertEqual(classify_diagnostics([warning], False), ([], [warning]))
+
+    def test_adaptive_probe_rejects_unsupported_capacity_and_pressure_options(self):
+        script = str(Path(__file__).with_name('run_capacity_case.py'))
+        base = [sys.executable, script, '--bundle', '/unused', '--output', '/unused', '--hz', '60']
+        for options, message in [
+            (['--players', '128', '--adaptive-tick'], b'<=64 players'),
+            (['--players', '64', '--adaptive-load-delay-us', '14000'], b'requires adaptive mode'),
+        ]:
+            result = subprocess.run(base+options, capture_output=True)
+            self.assertEqual(result.returncode, 2)
+            self.assertIn(message, result.stderr)
+
     def test_readiness_requires_owned_socket(self):
         with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as udp:
             udp.bind(('127.0.0.1', 0))

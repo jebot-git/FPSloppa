@@ -91,6 +91,9 @@ void FPSAuthority::_bind_methods() {
   ClassDB::bind_method(D_METHOD("configure_lamps", "lamps"),
                        &FPSAuthority::configure_lamps);
   ClassDB::bind_method(D_METHOD("configure_tick_rate", "hz"), &FPSAuthority::configure_tick_rate);
+  ClassDB::bind_method(D_METHOD("configure_adaptive_tick"), &FPSAuthority::configure_adaptive_tick);
+  ClassDB::bind_method(D_METHOD("observe_tick_load", "callback_us", "wall_seconds"), &FPSAuthority::observe_tick_load);
+  ClassDB::bind_method(D_METHOD("apply_adaptive_tick"), &FPSAuthority::apply_adaptive_tick);
   ClassDB::bind_method(D_METHOD("configure_world", "node"),
                        &FPSAuthority::configure_world);
   ClassDB::bind_method(D_METHOD("attach_vehicle", "kind", "body", "yaw", "team"),
@@ -785,7 +788,22 @@ cqauthority::Hit FPSAuthority::cast_ray(cqauthority::V from, cqauthority::V to,
 }
 
 bool FPSAuthority::configure_tick_rate(int hz) {
-  return on_owner() && !advancing && actors.empty() && core.configure_tick_rate(hz);
+  return on_owner() && !advancing && !tick_governor.enabled && actors.empty() && core.configure_tick_rate(hz);
+}
+bool FPSAuthority::configure_adaptive_tick() {
+  if (!on_owner() || advancing || !actors.empty() || !core.configure_tick_rate(60)) return false;
+  tick_governor.enable(); return true;
+}
+bool FPSAuthority::observe_tick_load(double callback_us, double wall_seconds) {
+  return on_owner() && !advancing && tick_governor.observe(callback_us, wall_seconds);
+}
+bool FPSAuthority::apply_adaptive_tick() {
+  if (!on_owner() || advancing || Engine::get_singleton()->is_in_physics_frame()) return false;
+  if (!tick_governor.enabled || tick_governor.pending == core.tick_rate()) return true;
+  if (!core.transition_tick_rate(tick_governor.pending)) return false;
+  tick_governor.commit(tick_governor.pending);
+  Engine::get_singleton()->set_physics_ticks_per_second(core.tick_rate());
+  return true;
 }
 
 bool FPSAuthority::advance() {
@@ -961,6 +979,14 @@ Dictionary FPSAuthority::metrics() const {
   d["tick"] = int64_t(core.tick());
   d["time"] = core.time();
   d["tick_hz"] = core.tick_rate();
+  d["snapshot_tick"] = int64_t(core.snapshot_tick());
+  d["adaptive_tick"] = tick_governor.enabled;
+  d["pending_tick_hz"] = tick_governor.pending;
+  d["tick_transitions"] = tick_governor.transitions;
+  d["tick_fallbacks"] = tick_governor.fallbacks;
+  d["tick_recoveries"] = tick_governor.recoveries;
+  d["tick_window_p95_us"] = tick_governor.p95_us;
+  d["tick_window_simulation_ratio"] = tick_governor.simulation_ratio;
   d["team_limit"] = core.cq.team_limit;
   d["squad_limit"] = core.cq.squad_limit();
   d["accepted"] = int64_t(core.counters.accepted);

@@ -35,16 +35,21 @@ def main():
     p.add_argument('--players',type=int,required=True);p.add_argument('--hz',type=int,choices=[30,60],default=30)
     p.add_argument('--seconds',type=int,default=120);p.add_argument('--port',type=int,default=27959)
     p.add_argument('--team-limit',type=int,choices=[32,64],default=32)
+    p.add_argument('--adaptive-tick',action='store_true')
+    p.add_argument('--adaptive-load-delay-us',type=int,choices=[0,14000],default=0)
     p.add_argument('--stress-test',action='store_true');a=p.parse_args()
     if not 1<=a.players<=128 or a.seconds<1:p.error('Invalid workload')
+    if a.adaptive_tick and (a.players>64 or a.hz!=60 or a.team_limit!=32):p.error('Adaptive experiment requires <=64 players, 60 Hz initial rate and default team limits')
+    if a.adaptive_load_delay_us and (not a.adaptive_tick or a.seconds<80):p.error('Pressure/recovery probe requires adaptive mode and >=80 seconds')
     out=a.output.resolve();out.mkdir(parents=True,exist_ok=False);bundle=a.bundle.resolve()
     manifest=json.loads((bundle/'release-sha256.json').read_text())
     for name,sha in manifest.items():
         f=(bundle/name).resolve()
         if not f.is_relative_to(bundle) or hashlib.sha256(f.read_bytes()).hexdigest()!=sha:raise RuntimeError('Release checksum mismatch: '+name)
     (out/'release-sha256.json').write_text(json.dumps(manifest,indent=2))
-    jobs=[];handles=[];samples=[];result={'requested_players':a.players,'requested_hz':a.hz,'experimental_team_limit':a.team_limit,'duration_seconds':a.seconds,'stress':a.stress_test,'bundle':str(bundle),'passed':False}
+    jobs=[];handles=[];samples=[];result={'requested_players':a.players,'requested_hz':a.hz,'experimental_team_limit':a.team_limit,'adaptive_tick':a.adaptive_tick,'injected_delay_us':a.adaptive_load_delay_us,'duration_seconds':a.seconds,'stress':a.stress_test,'bundle':str(bundle),'passed':False}
     base=[str(bundle/'cq-server'),'--headless','--xr-mode','off','--','--resident-suite','--players',str(a.players),'--seconds',str(a.seconds),'--port',str(a.port),'--tick-hz',str(a.hz),'--experimental-team-limit',str(a.team_limit),'--cq-core','--tracked','--jungle-map']+(['--stress-test'] if a.stress_test else [])
+    if a.adaptive_tick:base+=['--cq-adaptive-tick','--adaptive-load-delay-us',str(a.adaptive_load_delay_us)]
     try:
         log=(out/'server.log').open('w');handles.append(log)
         server=subprocess.Popen(base+['--role','server','--report',str(out/'server.json')],stdout=log,stderr=subprocess.STDOUT,start_new_session=True);jobs.append(server)
@@ -74,7 +79,13 @@ def main():
         failures=[]
         if diagnostics:failures.append('Fixture diagnostics')
         if sum(c['admitted'] for c in clients)!=a.players:failures.append('Incomplete admission')
-        if row['players']!=a.players or row['hz']<a.hz*.98 or row['hz']>a.hz*1.02:failures.append('Simulation Hz/population gate')
+        if row['players']!=a.players:failures.append('Population gate')
+        if a.adaptive_tick:
+            ratio=row['simulation_elapsed_seconds']/row['seconds'];result['simulation_wall_ratio']=ratio
+            if not .98<=ratio<=1.02 or not row.get('adaptive_tick') or not row.get('by_tick_rate',{}).get('60',{}).get('ticks'):failures.append('Adaptive simulation clock gate')
+            transitions=[(t['from'],t['to']) for t in row.get('tick_transitions',[])]
+            if a.adaptive_load_delay_us and (transitions.count((60,30))<1 or transitions.count((30,60))<1):failures.append('Pressure fallback/recovery gate')
+        elif row['hz']<a.hz*.98 or row['hz']>a.hz*1.02:failures.append('Simulation Hz gate')
         if row['disconnected'] or row['native']['overflow'] or row['native']['projectile_full']:failures.append('Server transport/queue gate')
         for c in clients:
             if c['bad_frames'] or c['disconnected'] or c['minimum_frames']<a.seconds*15 or c['minimum_inputs_sent']<a.seconds*a.hz*.96:failures.append('Client delivery/input gate')

@@ -31,6 +31,15 @@ var metrics:Dictionary={}
 var client_frame:Dictionary={}
 var deployment_offered:=false
 var deployed_peers:Dictionary={}
+var adaptive_tick:=OS.get_cmdline_user_args().has("--cq-adaptive-tick")
+var previous_tick_us:=0
+var observed_hz:=60
+func _process(_delta:float)->void:
+ if not serving() or not core or not adaptive_tick:return
+ if not core.apply_adaptive_tick():push_error("Adaptive CQ rate change rejected");game.get_tree().quit(2);return
+ var hz:int=Engine.physics_ticks_per_second
+ if hz!=observed_hz:
+  print("CQ_TICK_TRANSITION ",JSON.stringify({"from":observed_hz,"to":hz,"metrics":core.metrics()}));observed_hz=hz
 func setup(arena)->void:game=arena
 func serving()->bool:return enabled and game.multiplayer.is_server()
 func initialise()->bool:
@@ -38,9 +47,11 @@ func initialise()->bool:
  if not Runtime.available("FPSAuthority"):push_error("Resident CQ requires FPSAuthority");return false
  if game.lobby.enabled:push_error("Resident CQ uses the unified map; configure sv_lobby 0");return false
  if not game.dedicated:push_error("Resident CQ test host currently requires dedicated mode");return false
- Engine.physics_ticks_per_second=30
+ Engine.physics_ticks_per_second=60 if adaptive_tick else 30
  default_reach=preload("res://deathmatch/avatars/ut_format.gd").read("res://deathmatch/avatars/models/base/soldier.utavatar").manifest.ik_profile
  core=ClassDB.instantiate("FPSAuthority");origin=game.clock;epoch=game.map_epoch
+ if adaptive_tick and not core.configure_adaptive_tick():return false
+ observed_hz=Engine.physics_ticks_per_second;previous_tick_us=0
  if not core.configure_world(game) or not core.configure_cq({"squads":true,"day_cycle":true,"cycle_offset":game.battle_map.lighting.cycle_time() if game.battle_map and game.battle_map.lighting else 0.,"round_seconds":game.time_limit if game.time_limit_enabled() else 0.}):return false
  if not core.configure_terrain(Metadata.terrain()):return false
  for team in 2:
@@ -60,7 +71,7 @@ func initialise()->bool:
   if core.attach_vehicle(["rocket","light","heavy","transport"].find(row.kind),body,float(row.yaw),int(row.team))<0:return false
  for id in game.players:
   if not game.players[id].spectator and not attach(id):return false
- print("CQ_RESIDENT_READY ",JSON.stringify({"map_epoch":epoch,"players":lives.size(),"physics_hz":30}))
+ print("CQ_RESIDENT_READY ",JSON.stringify({"map_epoch":epoch,"players":lives.size(),"physics_hz":Engine.physics_ticks_per_second,"adaptive_tick":adaptive_tick}))
  return true
 func attach(id:int)->bool:
  if not core or lives.has(id) or not game.fighters.has(id):return lives.has(id)
@@ -121,6 +132,7 @@ func action(id:int,kind:int,a:int=0,b:int=0,c:int=0)->bool:
  var seq:int=action_sequences.get(id,-1)+1;action_sequences[id]=seq
  return core.request_action(id,state.life,seq,kind,a,b,c)
 func physics(delta:float)->void:
+ var callback_start:=Time.get_ticks_usec()
  game.clock+=delta
  if not game.active:return
  game.multiplayer.poll()
@@ -128,6 +140,8 @@ func physics(delta:float)->void:
  if game.map_epoch!=epoch:
   reset_instance()
   if not initialise():game.get_tree().quit(2);return
+ # Initialisation can change the engine rate. Wait for a matching engine step.
+ if not is_equal_approx(delta,1.0/Engine.physics_ticks_per_second):return
  if game.clock>=next_bot_population:
   next_bot_population=game.clock+1
   game.bot_population.maintain()
@@ -146,8 +160,15 @@ func physics(delta:float)->void:
  game.squads.roster=core.squad_roster()
  metrics=core.metrics()
  game.intermission=metrics.intermission;game.round_left=metrics.round_remaining;game.match_mode.scores=Array(metrics.scores)
- var tick:int=metrics.tick
- if tick==last_tick or tick*2/3==(tick-1)*2/3:return
+ _publish()
+ if adaptive_tick:
+  var now:=Time.get_ticks_usec()
+  var wall:=float(now-previous_tick_us)/1000000.0 if previous_tick_us>0 else delta
+  previous_tick_us=now
+  if not core.observe_tick_load(float(now-callback_start),wall):push_error("Adaptive CQ observation rejected");game.get_tree().quit(2)
+func _publish()->void:
+ var tick:int=metrics.snapshot_tick
+ if tick==last_tick or tick<=0 or tick!=int(metrics.tick):return
  var frame:PackedByteArray=core.snapshot()
  if frame.is_empty():return
  last_tick=tick

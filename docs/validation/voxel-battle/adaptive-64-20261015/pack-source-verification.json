@@ -1,0 +1,217 @@
+{
+  "all_match": true,
+  "files": {
+    "tools/authority_core/host.gd": {
+      "pack_sha256": "58f1bef4880b47a27a88972f57a2433ef75c285dc5d11f546a0d02c9bbb080b7",
+      "matches": true
+    },
+    "tools/frontier_vps/entry.gd": {
+      "pack_sha256": "810c032f5df8ed0c919d23f065a993b890c5eb76fcad2335b3022e864d3600b2",
+      "matches": true
+    },
+    "tools/frontier_vps/resident_driver.gd": {
+      "pack_sha256": "86af2d65969b7100aacf0e81b67246dc90d47496ccad4b53661362968b893cea",
+      "matches": true
+    },
+    "deathmatch/native/cq_authority.gd": {
+      "pack_sha256": "f9a3df14859063122f8b422b53a44e5382c299846a1a1a624ca0677f6cb73b28",
+      "matches": true
+    },
+    "addons/fps_native/src/authority_cq_snapshot.cpp": {
+      "pack_sha256": "3b4a704775ea226c1137c2d9149669ee96111724359d3851ef66d05d4de4d916",
+      "matches": true
+    },
+    "addons/fps_native/src/authority_terrain.cpp": {
+      "pack_sha256": "bf92c3539b4e624c93d5d62eb8fa671bf7ca2d0cac042dcb976f6d63b3da0b24",
+      "matches": true
+    },
+    "addons/fps_native/src/authority_wire.h": {
+      "pack_sha256": "01c0e5785d8926642895641a411ff2b95f97f8c1f8dacb7551debcd1092c095a",
+      "matches": true
+    },
+    "addons/fps_native/src/poses.h": {
+      "pack_sha256": "f2e4376e3d5ecd5ea214f32a0358df871122a67fa63d68b287e4b1138c130e1d",
+      "matches": true
+    },
+    "addons/fps_native/src/authority_entities.cpp": {
+      "pack_sha256": "c7b306c564072db7e32bfde0d083def8c0a2d5cdbdd1f7abb02e9aba4d898ec2",
+      "matches": true
+    },
+    "addons/fps_native/src/authority_cq.cpp": {
+      "pack_sha256": "2822fd41de4e6e1257da02d13cf974cb9da074c92075fec621052f7cbc47aff8",
+      "matches": true
+    },
+    "addons/fps_native/src/authority_ballistics.cpp": {
+      "pack_sha256": "db6cddba0754823b432a352b5168de9e5297bb8fe4a5bbbb3d669c68701ea775",
+      "matches": true
+    },
+    "addons/fps_native/src/authority_state.cpp": {
+      "pack_sha256": "edbeeedc9b303af922098b20e38abf044fe0e640cfc1d715ba648b60f398bb75",
+      "matches": true
+    },
+    "addons/fps_native/src/authority_utilities.cpp": {
+      "pack_sha256": "efff7a609ffdefad818d1e0c493813314e1630e5e5260ea16eb9f8e6d4210128",
+      "matches": true
+    },
+    "addons/fps_native/src/authority_melee.cpp": {
+      "pack_sha256": "902ff2882ad8bc53ebb62d0d13776f2371b24c8b4dd581e556079cb8dcf32926",
+      "matches": true
+    },
+    "addons/fps_native/src/backend.cpp": {
+      "pack_sha256": "defa674ab1fbd67bf4889da5dd474e8d37f9ed301a2e56c85e71eca0e0a08b94",
+      "matches": true
+    },
+    "addons/fps_native/src/authority_ai.cpp": {
+      "pack_sha256": "2a8115f2c87715525493ddd3af16bcd8024811a982b97ffa31e665825350cc1e",
+      "matches": true
+    },
+    "addons/fps_native/src/authority_world.cpp": {
+      "pack_sha256": "c75de69219c56570c7b5b1dc2bbd0c660d052664b6a48d81f7ab0abee822c3f8",
+      "matches": true
+    },
+    "addons/fps_native/src/authority_core.cpp": {
+      "pack_sha256": "ee82fea74fd9c340f742a45048e2b45f12882b49079d17853b1db761df272e7a",
+      "matches": true
+    },
+    "addons/fps_native/src/authority_terrain.h": {
+      "pack_sha256": "5f7bdc11c9ddd91ca752b5fc2542adaa3e2a124e654f2555c0f0fd69e9996abf",
+      "matches": true
+    },
+    "addons/fps_native/src/player_simulation.cpp": {
+      "pack_sha256": "4dd1bf2bd0f678774ff56f812e301a090ff6a5fe42e9737c60374c101b985c7f",
+      "matches": true
+    },
+    "addons/fps_native/src/authority_weapon_geometry.h": {
+      "pack_sha256": "edbe76a640754047b2b45aea3ea15300de68985edeaf06937a91d9bccd5e4c9e",
+      "matches": true
+    },
+    "addons/fps_native/src/authority.h": {
+      "pack_sha256": "5355f82af3ca8788250fce3a1ddb80ee02fffda65cab78eb2d067068522bdde4",
+      "matches": true
+    },
+    "addons/fps_native/src/authority_melee.h": {
+      "pack_sha256": "20443968669c786ee547c039c10dff0e4257202942b99161db131b4271d051c6",
+      "matches": true
+    },
+    "addons/fps_native/src/backend.h": {
+      "pack_sha256": "063266b806fd34c7838cda0298d88a30f90d089882c503e0cbb6f7ab35f8438b",
+      "matches": true
+    },
+    "addons/fps_native/src/authority_transport_geometry.h": {
+      "pack_sha256": "7f251492f6b0707552ce977b64b9cee6daed0d60e5c72b7ebd2444faf9475ee4",
+      "matches": true
+    },
+    "addons/fps_native/src/authority_snapshot.cpp": {
+      "pack_sha256": "ce1c08ef389af562e55e71f88befae63cee05636523b32fbdccb712d6e9da38f",
+      "matches": true
+    },
+    "addons/fps_native/src/codec.h": {
+      "pack_sha256": "04f3dae5d336a192ce912e123f8ec0a4a0ebd1a48cd5514831bd3cb837493cbe",
+      "matches": true
+    },
+    "addons/fps_native/src/authority_abilities.cpp": {
+      "pack_sha256": "a164603f69deb027266eb5ae09a049ba3466dbc57beadb1c0e5e19a3e5a160a5",
+      "matches": true
+    },
+    "addons/fps_native/src/authority_collision.h": {
+      "pack_sha256": "7824fc89ce1cdc49becafd92a4ceeed7884d25e3b591578c983fc11eada0de15",
+      "matches": true
+    },
+    "addons/fps_native/src/authority_cq.h": {
+      "pack_sha256": "0461206603cf38bb7698d5080972847c7c0e1783790eba26495f8581a741b29e",
+      "matches": true
+    },
+    "addons/fps_native/src/authority_queries.cpp": {
+      "pack_sha256": "09d735729dd2812d74f68b0cec41d2a956e3c684793c6c77675067907a5214e2",
+      "matches": true
+    },
+    "addons/fps_native/src/pose_preparation.cpp": {
+      "pack_sha256": "50b554ad876542e427bb775b078dd96dffc90b89e8fd7cdfc9c9be5de3614f24",
+      "matches": true
+    },
+    "addons/fps_native/src/authority_collision.cpp": {
+      "pack_sha256": "9a06a3325bbf9cfb2c7a8f09e060f145b05106508ab00da2e5d86c4e641dfd33",
+      "matches": true
+    },
+    "addons/fps_native/src/avatar_channels.cpp": {
+      "pack_sha256": "d504045236d29622cb9008dd554d1574b893572475cedeb402e4aa29ab55af24",
+      "matches": true
+    },
+    "addons/fps_native/src/network_packing.cpp": {
+      "pack_sha256": "57fe61955dc05e6a483625b6ed3453d270ef69b98c0b4f791c2de8055789c44c",
+      "matches": true
+    },
+    "addons/fps_native/src/authority_recoil.h": {
+      "pack_sha256": "db57c6a4d82dff3d7fffcec2d6a95c0400551bfa6e975eee5ad448c63a81784b",
+      "matches": true
+    },
+    "addons/fps_native/src/authority_protocol.h": {
+      "pack_sha256": "ce865ee277f0b53356a025dd82bdec5ca86899665f8ea92baf34a30c476ae957",
+      "matches": true
+    },
+    "addons/fps_native/src/authority_round.cpp": {
+      "pack_sha256": "8f72b1724bc045a3518a2ce9457016ae0f0a92a1e517c1048b7c70f2448eda96",
+      "matches": true
+    },
+    "addons/fps_native/src/register.cpp": {
+      "pack_sha256": "0331b15d35c4fceb09254c76dfec46a34d97320ce42908f7fde255d31d2df757",
+      "matches": true
+    },
+    "addons/fps_native/src/authority_vehicles.cpp": {
+      "pack_sha256": "c504997810f853c88b6d580713d2ab0045fe4fc7b0345ede18051eb06132c7ef",
+      "matches": true
+    },
+    "addons/fps_native/src/authority_vr.cpp": {
+      "pack_sha256": "cef634036cc9bd5c103288734c9439e06db9867776eaacebb63b9df8f0717eed",
+      "matches": true
+    },
+    "addons/fps_native/src/register_server.cpp": {
+      "pack_sha256": "91fa3fe049eaddb7fdc3258c8af12d2eaf4450a43e6247123d9b028e14002bdf",
+      "matches": true
+    },
+    "addons/fps_native/src/authority_nvg.h": {
+      "pack_sha256": "60e519853ef1ad99dc8fa7fe4dd72c7724687e026d6967ba5f0d15168cee72f7",
+      "matches": true
+    },
+    "addons/fps_native/src/poses.cpp": {
+      "pack_sha256": "8e6717dad8ae2e6063da1f9b3210459a3204efc5e9343a066edb775883396103",
+      "matches": true
+    },
+    "addons/fps_native/src/codec.cpp": {
+      "pack_sha256": "54ef70885b6088c24339547c87379f362b6f120d367901573870978dfc63cb63",
+      "matches": true
+    },
+    "addons/fps_native/src/authority_squads.cpp": {
+      "pack_sha256": "de340747adc74f90b9174a5f40a5a1a391a4acbb18bfcd153d07a3f1cfd96e54",
+      "matches": true
+    },
+    "addons/fps_native/src/authority.cpp": {
+      "pack_sha256": "74f5a146515cb3439810d9ad4daee3a680bcbc8e8d1b9b38e521670c40688113",
+      "matches": true
+    },
+    "addons/fps_native/src/authority_core.h": {
+      "pack_sha256": "fdc06aae2e56791fa1aa929fe98b5b3fcc670b074a419cda16d5c1069d0b6a3b",
+      "matches": true
+    },
+    "addons/fps_native/src/authority_protocol.cpp": {
+      "pack_sha256": "729107984131062710f436f441f2cbef7532e71a0bb8677f58ff8dfa68b10802",
+      "matches": true
+    },
+    "addons/fps_native/src/authority_vr.h": {
+      "pack_sha256": "719ffc9da140b8d977896970edadc50744ecc72f73d7775cc26dd545f873090e",
+      "matches": true
+    },
+    "addons/fps_native/src/authority_gameplay.cpp": {
+      "pack_sha256": "0a9a6fa1687bb3829e0b625e8707f56764ef2a7adb9dc465483f1aaceca63b74",
+      "matches": true
+    },
+    "addons/fps_native/src/authority_math.h": {
+      "pack_sha256": "52b255675c5def96ba769d7c6e245e8316c3ab9223c5c1489af72830d5e9b10f",
+      "matches": true
+    },
+    "addons/fps_native/src/snapshot_preparation.cpp": {
+      "pack_sha256": "e52e9e734ed30d04e76b9cfe336fac317e55f7bddc3d46550f74914190dc16cf",
+      "matches": true
+    }
+  }
+}

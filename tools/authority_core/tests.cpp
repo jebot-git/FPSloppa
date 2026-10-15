@@ -1,4 +1,5 @@
 #include "authority_core.h"
+#include "authority_tick.h"
 #include <cstring>
 #include <iostream>
 #include <limits>
@@ -291,6 +292,56 @@ void tick_rate_tests() {
     check(!c->configure_tick_rate(30), "cannot retime a running authority");
   }
 }
+void adaptive_tick_tests() {
+  TickGovernor governor;
+  check(!governor.observe(1000,1./60),"governor is opt-in");governor.enable();
+  check(!governor.observe(NAN,1./60) && !governor.observe(1,-1),"invalid governor samples rejected");
+  auto feed=[&](int ticks,double work,double wall) {for(int i=0;i<ticks;++i)check(governor.observe(work,wall),"valid load observation");};
+  feed(1200,14500,1./60);check(governor.pending==60,"below-budget 64-player-like work retains 60 Hz");
+  feed(121,15500,1./60);check(governor.pending==60,"one marginal pressure window does not flap");
+  feed(121,15500,1./60);check(governor.pending==30,"sustained callback pressure requests fallback");
+  check(!governor.commit(60) && governor.commit(30),"only pending transition commits");
+  feed(600,5000,1./30);check(governor.pending==30,"recovery respects 30-second minimum residence");
+  feed(310,5000,1./30);check(governor.pending==60 && governor.commit(60),"sustained headroom permits recovery");
+  feed(230,1000,.025);check(governor.pending==30,"slow scheduling triggers fallback even with cheap callbacks");
+  check(governor.fallbacks==1 && governor.recoveries==1,"transition counters track commits only");
+  TickGovernor emergency;emergency.enable();
+  for(int i=0;i<16;++i)emergency.observe(18000,1./60);
+  check(emergency.pending==60,"short severe spike does not instantly change rate");
+  for(int i=0;i<16;++i)emergency.observe(18000,1./60);
+  check(emergency.pending==30,"sustained over-budget work gets emergency half-second fallback");
+  auto c=std::make_unique<Core>();Flat host;c->configure_tick_rate(60);
+  auto h=c->join(1,1,{0,50,0},1<<4,{100,100,100,100});c->resolve(h)->cooldown=2.;
+  int snapshots=0;uint64_t previous=0;double previous_time=0.;
+  for(int phase=0;phase<3;++phase) {
+    int hz=phase==1?30:60;check(c->transition_tick_rate(hz),"running core accepts supported transition");
+    for(int i=0;i<hz/2;++i) {
+      c->advance(host);check(c->time()>previous_time,"clock never rewinds across transitions");previous_time=c->time();
+      if(c->snapshot_tick()!=previous){++snapshots;previous=c->snapshot_tick();}
+    }
+    check(std::abs(c->time()-(phase+1)*.5)<1e-12,"mixed-rate clock preserves elapsed seconds");
+    check(std::abs(c->resolve(h)->cooldown-(1.5-phase*.5))<1e-9,"cooldown survives live transitions");
+  }
+  check(snapshots==30,"20 Hz snapshots survive 60/30/60 transitions");
+  check(std::abs(c->resolve(h)->position.y-21.875)<1e-8,"mixed-rate gravity preserves trajectory");
+  check(!c->transition_tick_rate(45),"unsupported running rate rejected");
+  auto irregular=std::make_unique<Core>();snapshots=0;previous=0;
+  for(auto schedule : {std::pair<int,int>{60,17},{30,11},{60,19}}) {
+    irregular->transition_tick_rate(schedule.first);
+    for(int i=0;i<schedule.second;++i) {
+      irregular->advance(host);
+      if(irregular->snapshot_tick()!=previous){++snapshots;previous=irregular->snapshot_tick();}
+    }
+  }
+  check(std::abs(irregular->time()-58./60)<1e-12 && snapshots==19,"off-boundary transitions retain clock and snapshot phase");
+  auto admission=std::make_unique<Core>();admission->configure_tick_rate(60);
+  admission->join(1,1,{0,50,0},1<<4,{100,100,100,100});
+  for(int i=0;i<3;++i)admission->advance(host);
+  admission->join(2,1,{4,50,0},1<<4,{100,100,100,100});admission->advance(host);
+  check(admission->snapshot_tick()!=admission->tick() && admission->frame()[12]==1,"admission can leave a pre-barrier snapshot pending");
+  admission->advance(host);admission->advance(host);
+  check(admission->snapshot_tick()==admission->tick() && admission->frame()[12]==2,"fresh publication contains the complete admitted roster");
+}
 void experimental_team_limit_tests() {
   auto c=std::make_unique<Core>(); CqConfig config;config.enabled=true;config.squads=true;
   check(config.team_limit==32 && config.squad_limit()==8,"production team and squad caps unchanged");
@@ -369,6 +420,7 @@ int main(int argc, char **argv) {
     entity_tests();
     protocol_tests();
     tick_rate_tests();
+    adaptive_tick_tests();
     experimental_team_limit_tests();
     inputs();
     wire();

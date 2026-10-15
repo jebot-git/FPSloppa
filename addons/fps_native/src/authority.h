@@ -1,5 +1,6 @@
 #pragma once
 #include "authority_core.h"
+#include "authority_tick.h"
 #include <godot_cpp/classes/capsule_shape3d.hpp>
 #include <godot_cpp/classes/character_body3d.hpp>
 #include <godot_cpp/classes/collision_shape3d.hpp>
@@ -21,6 +22,7 @@ class FPSAuthority : public RefCounted, private cqauthority::Host {
     cqauthority::Handle handle;
   };
   cqauthority::Core core;
+  cqauthority::TickGovernor tick_governor;
   std::unordered_map<int64_t, Actor> actors;
   std::unordered_map<uint64_t, cqauthority::Handle> identities;
   std::unordered_map<uint64_t, ObjectID> entity_bodies;
@@ -79,6 +81,9 @@ public:
   bool request_restart();
   bool configure_world(Node3D *);
   bool configure_tick_rate(int hz);
+  bool configure_adaptive_tick();
+  bool observe_tick_load(double callback_us, double wall_seconds);
+  bool apply_adaptive_tick();
   Dictionary terrain_sample(const Vector3 &) const;
   bool configure_lamps(const PackedVector3Array &);
   int attach_vehicle(int, CharacterBody3D *, double, int);

@@ -1,0 +1,41 @@
+{
+  "passed": false,
+  "client": {
+    "failures": [],
+    "observed": {
+      "dead": true,
+      "gibbed": true,
+      "grenade_flying": true,
+      "grenade_selected": true,
+      "jetpack": true,
+      "native": true,
+      "nvg": true,
+      "poses": false,
+      "respawn": true,
+      "squad": true,
+      "team_change": true
+    },
+    "shots": 17,
+    "tick": 3537,
+    "tracked": false
+  },
+  "ready": [
+    {
+      "adaptive_tick": true,
+      "map_epoch": 0,
+      "physics_hz": 60,
+      "players": 0
+    }
+  ],
+  "diagnostics": [
+    "WARNING: UNSUPPORTED CQ CAPACITY: more than 32 slots is experimental. Sustained 64-player operation has not passed validation; tick overruns, packet loss and disconnections are possible.",
+    "ERROR: Attempt to disconnect a nonexistent connection from 'VoxelBattle:<Node3D#117037860210>'. Signal: 'tree_exited', callable: ''.",
+    "ERROR: Attempt to disconnect a nonexistent connection from 'MapNetwork:<Node#128983238074>'. Signal: 'tree_exited', callable: ''.",
+    "ERROR: Attempt to disconnect a nonexistent connection from 'Loading:<Node#125241918981>'. Signal: 'tree_exited', callable: ''.",
+    "ERROR: Attempt to disconnect a nonexistent connection from 'AvatarNetwork:<Node#125258696199>'. Signal: 'tree_exited', callable: ''.",
+    "ERROR: Attempt to disconnect a nonexistent connection from 'VoiceChat:<Node#132556785188>'. Signal: 'tree_exited', callable: ''.",
+    "ERROR: Attempt to disconnect a nonexistent connection from 'Announcer:<Node#123564197523>'. Signal: 'tree_exited', callable: ''.",
+    "ERROR: Attempt to disconnect a nonexistent connection from 'PlayerVotes:<Node#123480311437>'. Signal: 'tree_exited', callable: ''.",
+    "ERROR: Attempt to disconnect a nonexistent connection from 'ResidentCQ:<Node#121953584550>'. Signal: 'tree_exited', callable: ''."
+  ]
+}

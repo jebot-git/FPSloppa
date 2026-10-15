@@ -1,0 +1,109 @@
+[
+  {
+    "case": "adaptive-20261015-v4-64-normal",
+    "passed": true,
+    "average_tick_hz": 60.0023331000233,
+    "simulation_wall_ratio": 1.0000388850003417,
+    "callback_ms": {
+      "max": 17.557,
+      "mean": 4.67443091237328,
+      "p50": 3.635,
+      "p95": 10.203
+    },
+    "rate_windows": {
+      "60": {
+        "ticks": 7201,
+        "simulated_seconds": 120.01666666666667,
+        "callback_ms": {
+          "max": 17.557,
+          "mean": 4.67443091237328,
+          "p50": 3.635,
+          "p95": 10.203
+        }
+      }
+    },
+    "transitions": [],
+    "minimum_frames": 2330,
+    "minimum_inputs": 7201,
+    "bad_frames": 0,
+    "disconnected": 0,
+    "accepted_fraction": 0.9990757595152293,
+    "shots": 3306,
+    "physics_interval_ms": {
+      "max": 30.253,
+      "mean": 16.6659940277778,
+      "p50": 16.587,
+      "p95": 23.319
+    },
+    "server_cpu_percent_one_core_post_bind": 44.572182356674915,
+    "peak_server_rss_mib_post_bind": 442.546875,
+    "native_library_sha256": "8c11a52d323b98cf247a7db4f95313e561815244f3b65146014dc5271bfbcdd4"
+  },
+  {
+    "case": "adaptive-20261015-v3-64-pressure",
+    "passed": true,
+    "average_tick_hz": 46.3426624117848,
+    "simulation_wall_ratio": 0.999980558633733,
+    "callback_ms": {
+      "max": 31.125,
+      "mean": 6.324024991010431,
+      "p50": 3.97,
+      "p95": 20.683
+    },
+    "rate_windows": {
+      "30": {
+        "ticks": 1639,
+        "simulated_seconds": 54.63333333333333,
+        "callback_ms": {
+          "max": 31.125,
+          "mean": 10.4987583892617,
+          "p50": 7.608,
+          "p95": 25.11
+        }
+      },
+      "60": {
+        "ticks": 3923,
+        "simulated_seconds": 65.38333333333334,
+        "callback_ms": {
+          "max": 25.504,
+          "mean": 4.579852663777721,
+          "p50": 3.512,
+          "p95": 10.001
+        }
+      }
+    },
+    "transitions": [
+      {
+        "from": 60,
+        "native_time": 9.76666666666667,
+        "p95_us": 5086.0,
+        "simulation_ratio": 0.991550655240002,
+        "to": 30,
+        "wall_seconds": 0.759
+      },
+      {
+        "from": 30,
+        "native_time": 64.4,
+        "p95_us": 10113.0,
+        "simulation_ratio": 1.00006016755434,
+        "to": 60,
+        "wall_seconds": 55.275
+      }
+    ],
+    "minimum_frames": 2260,
+    "minimum_inputs": 7201,
+    "bad_frames": 0,
+    "disconnected": 0,
+    "accepted_fraction": 0.9972424356821447,
+    "shots": 3275,
+    "physics_interval_ms": {
+      "max": 49.604,
+      "mean": 21.5765738176587,
+      "p50": 19.513,
+      "p95": 37.56
+    },
+    "server_cpu_percent_one_core_post_bind": 37.20466831861086,
+    "peak_server_rss_mib_post_bind": 442.421875,
+    "native_library_sha256": "8c11a52d323b98cf247a7db4f95313e561815244f3b65146014dc5271bfbcdd4"
+  }
+]

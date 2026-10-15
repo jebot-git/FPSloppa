@@ -28,9 +28,11 @@ bool Core::configure_tick_rate(int hz) {
   if ((hz != 30 && hz != 60) || tick_ != 0 ||
       std::any_of(players_.begin(), players_.end(), [](const Player &p) { return p.active; }))
     return false;
-  tick_hz_ = hz;
-  step_ = 1.0 / double(hz);
-  return true;
+  return transition_tick_rate(hz);
+}
+bool Core::transition_tick_rate(int hz) {
+  if (hz != 30 && hz != 60) return false;
+  tick_hz_ = hz; step_ = 1.0 / double(hz); return true;
 }
 Player *Core::find(int64_t id) {
   for (auto &p : players_)
@@ -1062,6 +1064,7 @@ void Core::projectiles(Host &host) {
 using wire::append;
 using wire::real;
 void Core::snapshot() {
+  snapshot_tick_ = tick_;
   frame_.clear();
   for (uint8_t c : {'C', 'Q', 'A', '1'})
     frame_.push_back(c);
@@ -1095,7 +1098,10 @@ void Core::snapshot() {
 void Core::advance(Host &host) {
   using Clock = std::chrono::steady_clock;
   auto a = Clock::now();
-  time_ = double(++tick_) * step_;
+  ++tick_;
+  const uint64_t previous_clock_units = clock_units_;
+  clock_units_ += 60 / tick_hz_;
+  time_ = double(clock_units_) * (1.0 / 60.0);
   if (cq.enabled) {
     round_state(host);
     tick_lighting(host);
@@ -1155,7 +1161,7 @@ void Core::advance(Host &host) {
   }
   auto c = Clock::now();
   // Keep snapshot construction at 20 Hz for either supported simulation rate.
-  if ((tick_ * 20) / tick_hz_ != ((tick_ - 1) * 20) / tick_hz_)
+  if (clock_units_ / 3 != previous_clock_units / 3)
     snapshot();
   auto d = Clock::now();
   timings = {

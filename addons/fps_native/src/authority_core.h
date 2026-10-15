@@ -277,6 +277,7 @@ class Core {
   bool stationary(const Player &) const;
   double time_ = 0;
   uint64_t tick_ = 0;
+  uint64_t clock_units_ = 0, snapshot_tick_ = 0; // One unit is 1/60 second.
   uint32_t next_life_ = 1;
   std::vector<uint8_t> frame_;
   void consume(Player &);
@@ -301,6 +302,8 @@ public:
   Timings timings;
   Core();
   bool configure_tick_rate(int hz);
+  bool transition_tick_rate(int hz);
+  uint64_t snapshot_tick() const { return snapshot_tick_; }
   int tick_rate() const { return tick_hz_; }
   double step_seconds() const { return step_; }
   Player *find(int64_t);

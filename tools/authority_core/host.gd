@@ -29,6 +29,15 @@ var animation_sequence:=0
 var animation_phase:=0.0
 var new_animation_step:=false
 var tick_hz:=30
+var initial_tick_hz:=30
+var adaptive_tick:=OS.get_cmdline_user_args().has("--cq-adaptive-tick")
+var adaptive_previous_us:=0
+var tick_transitions:Array=[]
+var rate_timings:Dictionary={30:[],60:[]}
+var simulated_seconds:=0.0
+var last_server_time:=0.0
+var assembly_time:=0.0
+var load_delay_us:=0
 var team_limit:=32
 var physics_samples:Array=[]
 var previous_physics_us:=0
@@ -66,13 +75,19 @@ var piece_bytes:=0
 func setup(is_server:bool,players:int,duration:float,report:String="")->void:
  if Runtime.available("FPSCodec"):validator=ClassDB.instantiate("FPSCodec")
  server=is_server;expected=players;seconds=duration;report_path=report;wall_start=Time.get_ticks_msec();tick_hz=Engine.physics_ticks_per_second
+ initial_tick_hz=tick_hz
  if tracked and cq_mode:weapon_manifest=JSON.parse_string(FileAccess.get_file_as_string("res://deathmatch/weapons/cq/manifest.json"))
  if server:
   if not Runtime.available("FPSAuthority"):
    push_error("FPSAuthority unavailable");get_tree().quit(1);return
   if tracked:reach_profile=preload("res://deathmatch/avatars/ut_format.gd").read("res://deathmatch/avatars/models/base/soldier.utavatar").manifest.ik_profile
   authority=ClassDB.instantiate("FPSAuthority")
-  if authority.has_method("configure_tick_rate"):
+  if adaptive_tick:
+   if not authority.configure_adaptive_tick():push_error("Adaptive tick configuration rejected");get_tree().quit(1);return
+   tick_hz=60;Engine.physics_ticks_per_second=60
+   var args:=OS.get_cmdline_user_args();var delay_index:=args.find("--adaptive-load-delay-us")
+   if delay_index>=0 and delay_index+1<args.size():load_delay_us=int(args[delay_index+1])
+  elif authority.has_method("configure_tick_rate"):
    if not authority.configure_tick_rate(tick_hz):push_error("Native tick-rate configuration rejected");get_tree().quit(1);return
   elif tick_hz!=30:push_error("Native library does not support experimental rate");get_tree().quit(1);return
   authority.configure_world(self)
@@ -156,12 +171,13 @@ func _begin()->void:started=Time.get_ticks_msec()+int(warm_seconds*1000)
 func _command(command:PackedByteArray)->void:
  if server:rpc_inputs+=1;authority.submit_packet(multiplayer.get_remote_sender_id(),command)
 @rpc("authority","call_remote","unreliable",2)
-func _frame_part(tick:int,index:int,count:int,size:int,bytes:PackedByteArray)->void:
+func _frame_part(tick:int,server_time:float,index:int,count:int,size:int,bytes:PackedByteArray)->void:
+ if not is_finite(server_time) or server_time<0:return
  if tick<=last_tick or tick<assembly_tick:return
  if count<1 or count>1093 or size<14 or size>Codec.MAX_FRAME or index<0 or index>=count or bytes.size()>960:bad_frames+=1;return
  if tick!=assembly_tick:
-  assembly_tick=tick;pieces.clear();pieces.resize(count);piece_count=0;piece_bytes=0;assembly_size=size
- if pieces.size()!=count or assembly_size!=size:bad_frames+=1;return
+  assembly_tick=tick;assembly_time=server_time;pieces.clear();pieces.resize(count);piece_count=0;piece_bytes=0;assembly_size=size
+ if pieces.size()!=count or assembly_size!=size or assembly_time!=server_time:bad_frames+=1;return
  if not pieces[index].is_empty():return
  pieces[index]=bytes;piece_count+=1;piece_bytes+=bytes.size()
  if piece_bytes>Codec.MAX_FRAME:bad_frames+=1;return
@@ -169,13 +185,23 @@ func _frame_part(tick:int,index:int,count:int,size:int,bytes:PackedByteArray)->v
  var packed:=PackedByteArray()
  for piece in pieces:packed.append_array(piece)
  var bytes_frame:=packed.decompress(assembly_size,FileAccess.COMPRESSION_FASTLZ)
- if not validator or not validator.validate_authority_frame(bytes_frame,expected,tick):bad_frames+=1;return
+ if not validator or not validator.validate_authority_frame(bytes_frame,expected,tick):
+  if bad_frames==0:print("AUTHORITY_REJECTED_FRAME ",JSON.stringify({"tick":tick,"header_tick":bytes_frame.decode_u64(4) if bytes_frame.size()>=14 else -1,"players":bytes_frame.decode_u16(12) if bytes_frame.size()>=14 else -1,"expected":expected,"bytes":bytes_frame.size()}))
+  bad_frames+=1;return
  # Only the local recipient's life is needed by a load peer. Every field and TLV
  # was checked above; semantic presentation is tested independently.
  for row in expected:
   var offset:=14+row*104
   if bytes_frame.decode_s64(offset)==multiplayer.get_unique_id():life=bytes_frame.decode_u32(offset+8);break
- last_tick=tick;received+=1;wire_bytes+=piece_bytes
+ last_tick=tick;last_server_time=server_time;received+=1;wire_bytes+=piece_bytes
+func _process(_delta:float)->void:
+ if not server or not adaptive_tick or not authority or finalising:return
+ if not authority.apply_adaptive_tick():push_error("Adaptive tick application rejected");get_tree().quit(1);return
+ var hz:int=Engine.physics_ticks_per_second
+ if hz!=tick_hz:
+  var m:Dictionary=authority.metrics()
+  tick_transitions.append({"wall_seconds":(Time.get_ticks_msec()-started)/1000.0,"native_time":m.time,"from":tick_hz,"to":hz,"p95_us":m.tick_window_p95_us,"simulation_ratio":m.tick_window_simulation_ratio})
+  tick_hz=hz
 func _physics_process(_delta:float)->void:
  if finalising or (not server and transport_closed):return
  var now:=Time.get_ticks_msec()
@@ -191,19 +217,27 @@ func _physics_process(_delta:float)->void:
   var metrics:Dictionary=authority.metrics()
   var tick:int=metrics.tick
   # Only materialise one shared packed frame on publication, then fan out via Godot transport.
-  if started>0 and int(tick*20/tick_hz)!=int((tick-1)*20/tick_hz):
+  if started>0 and int(metrics.snapshot_tick)==tick and tick!=last_frame_tick:
    var frame:PackedByteArray=authority.snapshot();var frame_tick:=frame.decode_u64(4)
    if frame_tick!=last_frame_tick:
     var packed:=frame.compress(FileAccess.COMPRESSION_FASTLZ);var parts:=ceili(packed.size()/960.)
-    for index in parts:_frame_part.rpc(frame_tick,index,parts,frame.size(),packed.slice(index*960,mini((index+1)*960,packed.size())))
+    for index in parts:_frame_part.rpc(frame_tick,float(metrics.time),index,parts,frame.size(),packed.slice(index*960,mini((index+1)*960,packed.size())))
     publication_bytes+=packed.size();sent_parts+=parts
     last_frame_tick=frame_tick
+  # Explicit test-only pressure, first 16 measured wall seconds. Never enabled by production.
+  if load_delay_us>0 and started>0 and now>=started and now-started<16000:OS.delay_usec(load_delay_us)
   var total:=Time.get_ticks_usec()-begin
+  if adaptive_tick and started>0:
+   var observed_us:=Time.get_ticks_usec()
+   var elapsed:=float(observed_us-adaptive_previous_us)/1000000.0 if adaptive_previous_us>0 else _delta
+   adaptive_previous_us=observed_us
+   if not authority.observe_tick_load(float(total),elapsed):push_error("Adaptive tick observation rejected");get_tree().quit(1);return
   if started>0 and now>=started:
    if native_baseline.is_empty():native_baseline=metrics.duplicate();rpc_baseline=rpc_inputs
    var now_us:=Time.get_ticks_usec()
    if previous_physics_us>0:physics_samples.append(now_us-previous_physics_us)
    previous_physics_us=now_us
+   simulated_seconds+=_delta;rate_timings[tick_hz].append(total)
    timings.append(Vector4(total,metrics.movement_us,metrics.combat_us,metrics.snapshot_us));ai_timings.append(metrics.ai_us);mode_timings.append(metrics.mode_us)
    if now-started>=int(seconds*1000):_finish()
  elif started>0:
@@ -218,7 +252,7 @@ func _physics_process(_delta:float)->void:
    var peer=multiplayer.multiplayer_peer.get_peer(1)
    transport_stats.append({"measured":now>=started,"rtt":peer.get_statistic(ENetPacketPeer.PEER_ROUND_TRIP_TIME),"loss":peer.get_statistic(ENetPacketPeer.PEER_PACKET_LOSS),"throttle":peer.get_statistic(ENetPacketPeer.PEER_PACKET_THROTTLE),"sequence":sequence})
   var phase:=float(multiplayer.get_unique_id()%97)
-  var command:Dictionary={"life":life,"seq":sequence,"move":Vector2(sin(input_phase*.013+phase)*.35,cos(input_phase*.009+phase)*.35),"yaw":phase+sin(input_phase*.003),"pitch":.6,"weapon":player_weapon,"fire":animation_sequence%300>=260 if player_weapon==5 else animation_sequence%300 in range(60,150),"jump":int(input_phase)%200==1,"reload":int(input_phase)%150==100,"slow":false,"crouch":int(input_phase)%400>280,"prone":int(input_phase)%800>720,"blocked":false,"view_time":float(last_tick)/tick_hz-.1 if last_tick>=0 else -1.}
+  var command:Dictionary={"life":life,"seq":sequence,"move":Vector2(sin(input_phase*.013+phase)*.35,cos(input_phase*.009+phase)*.35),"yaw":phase+sin(input_phase*.003),"pitch":.6,"weapon":player_weapon,"fire":animation_sequence%300>=260 if player_weapon==5 else animation_sequence%300 in range(60,150),"jump":int(input_phase)%200==1,"reload":int(input_phase)%150==100,"slow":false,"crouch":int(input_phase)%400>280,"prone":int(input_phase)%800>720,"blocked":false,"view_time":last_server_time-.1 if last_tick>=0 else -1.}
   if player_weapon in [2,9,10]:command.fire=command.fire and animation_sequence%24<3
   if sequence_baseline<0:command.move=Vector2.ZERO;command.jump=false;command.reload=false;command.fire=false
   if tracked:tracked_command(command)
@@ -261,8 +295,11 @@ func _finish()->void:
  var native:Dictionary=authority.metrics();var warm:Dictionary={}
  for key in ["accepted","rejected","overflow","shots","damage","deaths","projectile_full"]:
   warm[key]=native_baseline.get(key,0);native[key]-=warm[key]
- var result:Dictionary={"configured_hz":tick_hz,"experimental_team_limit":team_limit,"simulation_elapsed_seconds":timings.size()/float(tick_hz),"snapshot_hz":20,"physics_interval_us":_distribution(physics_samples) if not physics_samples.is_empty() else {},"warmup_seconds":warm_seconds,"warmup_native":warm,"rpc_inputs":rpc_inputs-rpc_baseline,"fixture":"native-cq-jungle-jolt-enet" if jungle else "native-cq-jolt-enet" if cq_mode else "native-infantry-jolt-enet","players":expected,"seconds":(Time.get_ticks_msec()-started)/1000.,"ticks":timings.size(),"hz":timings.size()/((Time.get_ticks_msec()-started)/1000.),"callback_us":_distribution(total),"movement_and_collision_us":_distribution(movement),"combat_and_queries_us":_distribution(combat),"frame_encoding_us":_distribution(snapshot),"native":native,"disconnected":disconnected,"physics":"Godot Jolt","production_cq":false,"stress_infinite_reserve_invulnerable":stress,"xr":tracked,"cq_gameplay":cq_mode,"jungle_map":jungle,"compressed_publication_bytes":publication_bytes,"snapshot_parts":sent_parts}
+ var result:Dictionary={"configured_hz":initial_tick_hz,"experimental_team_limit":team_limit,"simulation_elapsed_seconds":simulated_seconds,"snapshot_hz":20,"physics_interval_us":_distribution(physics_samples) if not physics_samples.is_empty() else {},"warmup_seconds":warm_seconds,"warmup_native":warm,"rpc_inputs":rpc_inputs-rpc_baseline,"fixture":"native-cq-jungle-jolt-enet" if jungle else "native-cq-jolt-enet" if cq_mode else "native-infantry-jolt-enet","players":expected,"seconds":(Time.get_ticks_msec()-started)/1000.,"ticks":timings.size(),"hz":timings.size()/((Time.get_ticks_msec()-started)/1000.),"callback_us":_distribution(total),"movement_and_collision_us":_distribution(movement),"combat_and_queries_us":_distribution(combat),"frame_encoding_us":_distribution(snapshot),"native":native,"disconnected":disconnected,"physics":"Godot Jolt","production_cq":false,"stress_infinite_reserve_invulnerable":stress,"xr":tracked,"cq_gameplay":cq_mode,"jungle_map":jungle,"compressed_publication_bytes":publication_bytes,"snapshot_parts":sent_parts}
  result["ai_us"]=_distribution(ai_timings);result["cq_mode_us"]=_distribution(mode_timings)
+ result["adaptive_tick"]=adaptive_tick;result["tick_transitions"]=tick_transitions;result["injected_delay_us"]=load_delay_us;result["by_tick_rate"]={}
+ for hz in [30,60]:
+  if not rate_timings[hz].is_empty():result.by_tick_rate[str(hz)]={"ticks":rate_timings[hz].size(),"callback_us":_distribution(rate_timings[hz])}
  var by_class:Dictionary={}
  for actor in get_children():
   if not actor is CharacterBody3D or not actor.has_meta("peer"):continue

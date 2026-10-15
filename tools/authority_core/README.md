@@ -1,6 +1,6 @@
 # Resident CQ authority
 
-The experimental CQ server has an opt-in resident C++ authority. Godot retains ENet admission/transport, UTX assets, scene lifecycle, navigation queries and Jolt integration. Enable it on a dedicated CQ server with `--cq-native-authority`. The normal server path remains available; this flag does not modify a live deployment. Both ends require `fpsloppa-cq-frontier-21-squads`.
+The experimental CQ server has an opt-in resident C++ authority. Godot retains ENet admission/transport, UTX assets, scene lifecycle, navigation queries and Jolt integration. Enable it on a dedicated CQ server with `--cq-native-authority`. The normal server path remains available; this flag does not modify a live deployment. Both ends require `fpsloppa-cq-frontier-22-live-fixes`.
 
 ## Ownership and reuse
 
@@ -9,6 +9,28 @@ The `addons/fps_native/src/authority_*.{h,cpp}` modules, except `authority_world
 `FPSAuthority` is constructed/configured once per map instance. Cold configuration imports authored terrain/roads/water, capture sites, spawns, lamps, vehicles, avatar reach, class XP and choices. Actor attachment gives the core an identity and exclusive Jolt cylinder. Inputs use authenticated RPC sender IDs and bounded binary packets. Only the core mutates gameplay state; there is no per-tick import/export of authoritative player Dictionaries. Inspection and snapshot Dictionaries are detached diagnostic/client presentation copies.
 
 Advance exactly once per configured physics frame, on the engine owner thread. Production defaults to 30 Hz. The experimental `configure_tick_rate(60)` API must be called before actors or ticks exist, and the engine physics rate must match. The adapter rejects unsupported/mismatched rates, duplicate/out-of-physics advances and foreign threads. Gameplay clocks, integration and cooldowns use the configured step; snapshot construction/publication remains 20 Hz. Scene/Jolt operations remain on that thread. Core phases include native bot planning, input consumption and movement commits, ordered combat/query commits, projectiles/entities, CQ mode and frame publication. This explicit order defines this authority's behavior; it is not a claim of instruction-for-instruction equivalence to the old interleaved script loop.
+
+For the experimental 64-player adaptive mode, add `--cq-adaptive-tick` alongside
+`--cq-native-authority` on a dedicated server. It starts at 60 Hz, requests 30 Hz
+after two consecutive two-second windows with callback p95 above 15 ms or
+simulation/wall-time ratio below 0.92, and recovers only after at least 30 seconds
+at 30 Hz plus ten consecutive windows below 11 ms p95 and ratio at least 0.98.
+An emergency half-second window falls back sooner if at least 25% of callbacks
+exceed 16.67 ms or simulation/wall-time ratio drops below 0.85.
+The governor observes the complete host callback (including snapshot fanout), and
+wall-time cadence catches sustained work outside it. Pressure reflects an early
+headroom threshold, not just ticks that already exceed their budget. This does
+not certify a tight 60 Hz schedule or guarantee recovery if headroom is absent.
+
+Rate changes commit in idle processing, outside physics, with the native step and
+engine rate changed together. A rate-independent integer 1/60-second clock and
+20 Hz publication phase preserve timers, history and snapshot timestamps. Clients
+use explicit simulation timestamps rather than dividing tick IDs by a rate.
+Existing CQA2 presentation already carries simulation time in its mode section;
+no wire-format change is required. Default team/squad limits remain 32/8 (64 total).
+Set `sv_cq_maxclients "64"` in the isolated server config to admit the full target
+population; the existing supported-capacity configuration remains 32 total.
+Without this opt-in flag the existing fixed 30 Hz native path remains unchanged.
 
 The bridge lives in `deathmatch/native/cq_authority.gd`. It bypasses the old gameplay/history/snapshot loops, retains Godot admission, asset downloads, votes and scene navigation, and sends native frames. `cq_presentation.gd` projects them into existing client prediction, model, HUD, tank-camera and effect APIs. `authority_protocol.gd` is an independent semantic decoder; FPSCodec's native validator is used by synthetic load clients to avoid measuring many GDScript decoders in a single process.
 
@@ -190,3 +212,5 @@ replacing only registered entries and recording original/output/override hashes.
 It preserves the deployed assets; it does not publish or install the result.
 
 See the [VPS measurements and scope](../../docs/validation/voxel-battle/capacity-128-60hz-20261015/REPORT.md).
+
+Adaptive 64-player policy and VPS validation: [15 October experiment](../../docs/validation/voxel-battle/adaptive-64-20261015/REPORT.md).
