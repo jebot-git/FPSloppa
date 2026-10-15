@@ -85,9 +85,14 @@ static func surface(original:Material,baked_vertices:bool=false) -> Material:
 	if converted.has(key):return converted[key]
 	var result:=ShaderMaterial.new()
 	var source:=original as BaseMaterial3D
-	if source and source.transparency!=BaseMaterial3D.TRANSPARENCY_DISABLED:return original
+	# Foliage cutouts still need baked irradiance. Preserve genuinely blended
+	# surfaces (water/effects), but let fixed-Y alpha-scissor cards reach their shader.
+	var cutout_card:=source and source.billboard_mode==BaseMaterial3D.BILLBOARD_FIXED_Y and source.transparency==BaseMaterial3D.TRANSPARENCY_ALPHA_SCISSOR
+	if source and source.transparency!=BaseMaterial3D.TRANSPARENCY_DISABLED and not cutout_card:return original
 	if source and source.billboard_mode!=BaseMaterial3D.BILLBOARD_DISABLED:
 		result.shader=preload("res://tools/voxel_battle/baked_card.gdshader");result.set_shader_parameter("albedo",source.albedo_texture)
+		result.set_shader_parameter("tint",source.albedo_color)
+		result.set_shader_parameter("alpha_cutoff",source.alpha_scissor_threshold)
 	else:
 		result.shader=preload("res://tools/voxel_battle/baked_surface.gdshader")
 		result.set_shader_parameter("baked_vertices",baked_vertices)
