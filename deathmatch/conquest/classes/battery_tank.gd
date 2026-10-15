@@ -36,6 +36,9 @@ var models:Dictionary={}
 var view
 var next_helper:=0.0
 var helper_points:=PackedVector3Array()
+var previous_render:Dictionary={}
+var rendered_rows:Dictionary={}
+var last_render_receive:=0.
 var helper_mesh:MeshInstance3D
 func setup(arena) -> void:game=arena
 static func placements() -> Array:
@@ -55,7 +58,7 @@ func reset() -> void:
 		for id in occupants(row):unlock(id)
 	for node in bodies.values()+models.values():
 		if is_instance_valid(node):node.free()
-	bodies.clear();models.clear();rows.clear();helper_points.clear();next_helper=0.0
+	bodies.clear();models.clear();rows.clear();previous_render.clear();rendered_rows.clear();last_render_receive=0.;helper_points.clear();next_helper=0.0
 	if view:view.deactivate()
 func configure() -> void:
 	reset()
@@ -196,16 +199,41 @@ func leave(id:int,forced:bool=false) -> bool:
 	unlock(id)
 	if game.fighters.has(id):game.fighters[id].position=point;game.fighters[id].reset_view();game.fighters[id].jump_held=game.players[id].get("jump",false)
 	return true
-func direction(id:int) -> Vector3:
-	# Validated weapon-hand pose; clamp barrel pitch without changing aim azimuth.
-	var raw:Vector3=-game._weapon_transform(id).basis.z.normalized()
-	var key:=key_for(id)
-	if key<0 or rows[key].kind=="rocket":return raw
-	var config:=profile(rows[key]);var frame:=visual_basis(rows[key]);raw=frame.inverse()*raw
+static func constrain_direction(row:Dictionary,raw:Vector3)->Vector3:
+	if row.kind=="rocket":return raw.normalized()
+	var config:=profile(row);var frame:=visual_basis(row);raw=frame.inverse()*raw.normalized()
 	var pitch:=clampf(asin(clampf(raw.y,-1,1)),deg_to_rad(config.pitch_min),deg_to_rad(config.pitch_max))
 	var horizontal:=Vector3(raw.x,0,raw.z).normalized()
 	if horizontal.length_squared()<.1:horizontal=Vector3.FORWARD
 	return frame*(horizontal*cos(pitch)+Vector3.UP*sin(pitch))
+func direction(id:int) -> Vector3:
+	# Authority retains the validated weapon-hand pose, independent of head gaze.
+	var raw:Vector3=-game._weapon_transform(id).basis.z.normalized()
+	var key:=key_for(id)
+	return raw if key<0 else constrain_direction(rows[key],raw)
+func remember_render(key:int,row:Dictionary,remote:bool=false,span:float=.05)->void:
+	previous_render[key]={"pose":Transform3D(visual_basis(row),visual_origin(row)),"direction":row.direction,"yaw":row.yaw,"kind":row.kind,"remote":remote,"at":Time.get_ticks_usec()/1000000.,"span":span}
+func render_row(key:int,fraction:float=-1.)->Dictionary:
+	var row:Dictionary=rows[key];var result:=row.duplicate()
+	var old:Dictionary=previous_render.get(key,{})
+	if not old.is_empty() and old.kind==row.kind and old.pose.origin.distance_to(visual_origin(row))<20.:
+		var alpha:float=fraction
+		if alpha<0:alpha=(Time.get_ticks_usec()/1000000.-old.at)/old.span if old.remote else Engine.get_physics_interpolation_fraction()
+		alpha=clampf(alpha,0,1)
+		var current:=Transform3D(visual_basis(row),visual_origin(row))
+		var pose:Transform3D=old.pose.interpolate_with(current,alpha)
+		result.position=pose.origin-(visual_origin(row)-row.position);result.visual_y=pose.origin.y;result.normal=pose.basis.y.normalized();result.yaw=lerp_angle(old.yaw,row.yaw,alpha)
+		result.direction=old.direction.slerp(row.direction,alpha).normalized()
+	# Rendering uses fresh local aim; authority still samples validated commands at its tick rate.
+	var mine:int=game.multiplayer.get_unique_id()
+	if row.pilot==mine and game.players.has(mine) and not game.menu_open and row.kind!="transport":
+		var raw:Vector3=-game._weapon_transform(mine).basis.z if game.is_vr() else -(Basis(Vector3.UP,game.local_yaw)*Basis(Vector3.RIGHT,game.local_pitch)).z
+		result.direction=constrain_direction(result,raw)
+	return result
+func view_row(key:int)->Dictionary:return rendered_rows[key] if rendered_rows.has(key) else render_row(key)
+func render_passenger_position(id:int,key:int)->Vector3:
+	var row:=view_row(key);var index:=seat_index(id,key)
+	return visual_origin(row)+visual_basis(row)*Transport.point(index,"seat") if index>=0 else row.position
 func pivot(row:Dictionary) -> Vector3:return visual_origin(row)+visual_basis(row)*profile(row).pivot
 func muzzle(row:Dictionary,shot:int=0) -> Vector3:
 	var config:=profile(row);var side:Vector3=row.direction.cross(row.get("normal",Vector3.UP)).normalized();return pivot(row)+row.direction*config.length+side*(config.offset if shot%2==0 else -config.offset)
@@ -293,6 +321,7 @@ func tick(delta:float) -> void:
 	if not multiplayer.is_server():return
 	for key in rows:
 		var row:Dictionary=rows[key];var config:=profile(row);var id:int=row.pilot
+		if not game.headless:remember_render(key,row)
 		if row.hp<=0:
 			if row.get("respawn_at",0.0)>0.0 and game.clock+1e-9>=row.respawn_at:
 				rows[key]=spawn_row(row.spawn)
@@ -386,6 +415,14 @@ func receive(data:Dictionary,offset:float) -> void:
 		if not data.has(key) or rows[key].kind!=data[key].kind:bodies[key].free();bodies.erase(key)
 	for key in models.keys():
 		if not data.has(key) or rows[key].kind!=data[key].kind:models[key].free();models.erase(key)
+	var now:float=Time.get_ticks_usec()/1000000.
+	var interval:float=clampf(now-last_render_receive,1./120.,.15)
+	for key in rows:
+		if data.has(key):remember_render(key,render_row(key),true,interval)
+	last_render_receive=now
+	for key in previous_render.keys():
+		if not data.has(key):previous_render.erase(key)
+	rendered_rows.clear()
 	rows=data.duplicate(true)
 	for key in rows:
 		rows[key].next+=offset;rows[key].reload_at+=offset;rows[key].shot_at+=offset;body(key);pose_body(key)
@@ -394,10 +431,11 @@ func receive(data:Dictionary,offset:float) -> void:
 		if id!=0 and not mounted(id):unlock(id)
 func draw() -> void:
 	if game.headless:return
+	rendered_rows.clear()
 	for key in rows:
-		var row:Dictionary=rows[key]
+		var row:Dictionary=render_row(key);rendered_rows[key]=row
 		if not models.has(key):
-			var node:=Node3D.new();var hull:Node3D=load(profile(row).model).instantiate();node.add_child(hull);normalise_model(hull);add_child(node);preload("res://tools/voxel_battle/baked_lighting.gd").convert_node(node);preload("res://deathmatch/conquest/classes/recon_drone.gd").prepare_model(node)
+			var node:=Node3D.new();node.physics_interpolation_mode=Node.PHYSICS_INTERPOLATION_MODE_OFF;var hull:Node3D=load(profile(row).model).instantiate();node.add_child(hull);normalise_model(hull);add_child(node);preload("res://tools/voxel_battle/baked_lighting.gd").convert_node(node);preload("res://deathmatch/conquest/classes/recon_drone.gd").prepare_model(node)
 			if row.kind=="transport":Transport.prepare_windows(node);Transport.prepare_seats(node)
 			models[key]=node
 		models[key].position=visual_origin(row);models[key].basis=visual_basis(row);models[key].visible=row.hp>0
@@ -405,6 +443,10 @@ func draw() -> void:
 	for id in game.fighters:
 		if mounted(id) and is_instance_valid(game.fighters[id].avatar):game.fighters[id].avatar.hide()
 	if not view:view=preload("res://deathmatch/conquest/classes/battery_view.gd").new();add_child(view);view.setup(game,self)
+	# The VR rig normally follows the interpolated player capsule earlier in the frame.
+	# Seat it on the same rendered hull now, preserving head/controller orientation.
+	var mine:int=game.multiplayer.get_unique_id();var seated:=key_for(mine)
+	if seated>=0 and game.is_vr() and is_instance_valid(game.xr_rig):game.xr_rig.global_position=render_passenger_position(mine,seated)
 	draw_helper();view.update()
 static func pose_turret(model:Node3D,row:Dictionary)->void:
 	var yaw_node:Node3D=model.find_child("Yaw",true,false)

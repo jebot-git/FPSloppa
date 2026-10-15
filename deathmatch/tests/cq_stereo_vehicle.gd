@@ -11,6 +11,8 @@ class Game extends Node3D:
  var offhand_viewmodel:Node3D
  var camera:Camera3D
  var xr_rig:Rig
+ var players:Dictionary={1:{}}
+ func _weapon_transform(_id:int)->Transform3D:return xr_rig.gun.global_transform
  func is_vr():return true
 var failures:Array=[]
 var checks:=0

@@ -56,12 +56,14 @@ func update() -> void:
 	deactivate()
 	var id:int=game.multiplayer.get_unique_id();key=service.key_for(id)
 	if key<0 or not game.active or game.menu_open:return
-	var row:Dictionary=service.rows[key]
+	var row:Dictionary=service.view_row(key)
 	if is_instance_valid(game.viewmodel):game.viewmodel.hide()
 	if is_instance_valid(game.offhand_viewmodel):game.offhand_viewmodel.hide()
 	if row.kind=="transport":
 		if game.is_vr() and is_instance_valid(game.xr_rig.gun):game.xr_rig.gun.hide()
-		key=-1;return # Passenger's normal stereo/world camera looks through pod windows.
+		if not game.is_vr() and game.camera:
+			game.camera.global_position=service.render_passenger_position(id,key)+Vector3.UP*game.camera_eye_height
+		key=-1;return # Normal stereo/world camera shares the rendered cabin pose.
 	if game.is_vr():
 		if not reticle:
 			reticle=MeshInstance3D.new();reticle.name="StereoBoreReticle";reticle.mesh=ImmediateMesh.new();reticle.cast_shadow=GeometryInstance3D.SHADOW_CASTING_SETTING_OFF;add_child(reticle)
@@ -94,7 +96,7 @@ func update() -> void:
 		game.camera.cull_mask=PRIVATE_LAYER;game.camera.environment=black
 		if game.is_vr():screen.global_transform=game.camera.global_transform*Transform3D(Basis.IDENTITY,Vector3(0,0,-.8))
 	overlay.visible=not game.is_vr();screen.visible=game.is_vr()
-	sensor.global_position=service.muzzle(row)+row.direction*.1;sensor.look_at(sensor.global_position+row.direction,Vector3.UP if absf(row.direction.y)<.99 else Vector3.RIGHT)
+	sensor.global_position=service.muzzle(row)+row.direction*.1;sensor.look_at(sensor.global_position+row.direction,row.get("normal",Vector3.UP) if absf(row.direction.dot(row.get("normal",Vector3.UP)))<.99 else Vector3.RIGHT);sensor.make_current()
 	# The arena streams terrain/structures once per frame using world_view_camera().
 	hud.queue_redraw();viewport.render_target_update_mode=SubViewport.UPDATE_ALWAYS
 func _exit_tree() -> void:deactivate()
