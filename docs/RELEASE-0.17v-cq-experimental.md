@@ -1,11 +1,13 @@
-# FPSloppa CQ 0.17 — native VR live test
+# FPSloppa CQ 0.17 — corrected VR client builds
 
-Game-only experimental CQ release for Linux and Windows x86_64. Extract the complete archive and run `Play-Desktop` or `Play-VR`; the client connects automatically to **87.106.27.237:7777**. The launcher and updater are omitted. OpenXR VR requires a working runtime, such as the running WiVRn-Pro setup on Linux.
+Fixes rendered client startup in the 0.17 game-only release. Both Linux and Windows packages are corrected. Extract the full archive and run `Play-VR` or `Play-Desktop`; clients connect automatically to **87.106.27.237:7777**. No launcher/updater is included.
 
-The live dedicated server enables destruction and 64 player slots, with adaptive 60 Hz simulation and a 30 Hz fallback under sustained load. CoreCU and competing game servers are stopped with persistent data retained. The separate Linux server archive contains the dedicated runtime.
+- Preserve Godot's complete script-class metadata when packaging, including implicit `RefCounted` classes used by XR hands and VR menus. The old packager silently omitted these classes, causing VR script compilation failures.
+- Initialize terrain texture arrays outside assertions. Release templates omit assertion expressions, leaving the arrays uninitialized and producing repeated texture-format errors. Voxel header reads now also execute normally in release builds.
+- Add a shipped resource check that compiles the VR-only dependency graph and verifies terrain texture array allocation/uploads, even in headless checks.
 
-This update includes the tested medic revival, dragging and deployable boxes; technician repair feedback and cabin repair; physical transport steering and tracked cabin hands; scout device and designator fixes; weapon display, reload and utility interaction fixes; XP unlock progress; jungle ambience; and rain rendering improvements. Shocktroopers carry three HE grenades. Cocking supports the offhand trigger, and NVG activation requires an empty hand.
+Linux and Windows-under-Wine resource and multiplayer checks are included with the validation evidence. Linux startup is additionally exercised with the real Forward+ Vulkan renderer and WiVRn-Pro OpenXR runtime. Native Windows GPU/OpenXR hardware remains untested.
 
-Portable native Linux client/server and Windows libraries were rebuilt from the CQ voxelspace branch. Packaged Linux desktop, synthetic tracked-controller and Windows-under-Wine clients passed the native multiplayer admission/gameplay checks, including replicated destruction. The uploaded server also passed an isolated VPS smoke test. Windows GPU/OpenXR hardware was not tested. Sustained 64-player load remains experimental; these admission checks are not a 64-player stress qualification.
+Compatible with the deployed CQ server at **87.106.27.237:7777**, with destruction, 64 slots and adaptive 60/30 Hz simulation. Sustained 64-player load remains experimental. This hotfix does not change gameplay protocol or native binaries.
 
-Each archive includes runtime dependencies, licenses and per-file hashes. `SHA256SUMS` and `BUILD-MANIFEST.json` identify the downloadable artifacts and source commit.
+Artifacts include per-file hashes and licenses; verify downloads with `SHA256SUMS` and `BUILD-MANIFEST.json`.

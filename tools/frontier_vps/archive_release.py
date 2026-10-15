@@ -8,6 +8,7 @@ def digest(path):
 def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--build',type=Path,required=True)
+    parser.add_argument('--validation',default='docs/validation/voxel-battle/release-20261015')
     args=parser.parse_args()
     version=(ROOT/'VERSION').read_text().strip()
     commit=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip()
@@ -27,7 +28,7 @@ def main():
         with zipfile.ZipFile(target) as archive:assert archive.testzip() is None
         artifacts.append({'file':target.name,'bytes':target.stat().st_size,'sha256':digest(target),'platform':platform})
         print('ARCHIVED',target.name,flush=True)
-    manifest={**receipt,'commit':commit,'branch':subprocess.check_output(['git','branch','--show-current'],cwd=ROOT,text=True).strip(),'server':{'max_clients':64,'adaptive_tick':True,'tick_hz':[60,30],'destruction':True},'artifacts':artifacts,'validation':'docs/validation/voxel-battle/release-20261015'}
+    manifest={**receipt,'commit':commit,'branch':subprocess.check_output(['git','branch','--show-current'],cwd=ROOT,text=True).strip(),'server':{'max_clients':64,'adaptive_tick':True,'tick_hz':[60,30],'destruction':True},'artifacts':artifacts,'validation':args.validation}
     (out/'BUILD-MANIFEST.json').write_text(json.dumps(manifest,indent=2)+'\n')
     shutil.copy2(ROOT/'docs'/f'RELEASE-{version}.md',out/'RELEASE-NOTES.md')
     (out/'SHA256SUMS').write_text(''.join(digest(p)+'  '+p.name+'\n' for p in sorted(out.iterdir()) if p.is_file()))

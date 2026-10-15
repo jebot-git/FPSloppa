@@ -9,6 +9,15 @@ def main():
  out=a.output.resolve();out.mkdir(parents=True,exist_ok=False);build=a.bundle.resolve()
  (out/'server.cfg').write_text(a.config.read_text().replace('28817',str(a.port)))
  env=os.environ.copy();env['XDG_DATA_HOME']=str(out/'data');env['XDG_CACHE_HOME']=str(out/'cache')
+ # Admission uses a headless arena and never loads the VR hand/menu graph.
+ # Compile that graph explicitly so missing class registrations fail the build.
+ for platform in ['Linux']+(['Windows'] if a.wine else []):
+  probe_env=env.copy();command=[str(build/'Linux/FPSloppaCQ.x86_64')]
+  if platform=='Windows':
+   command=['wine',str(build/'Windows/FPSloppaCQ.exe')];probe_env['WINEPREFIX']=str(out/'wine');probe_env['WINEDEBUG']='-all'
+  probe=subprocess.run(command+['--headless','--xr-mode','off','--','--release-resource-check'],env=probe_env,stdout=subprocess.PIPE,stderr=subprocess.STDOUT,text=True,timeout=90)
+  (out/(platform.lower()+'-resources.log')).write_text(probe.stdout)
+  assert probe.returncode==0 and 'RELEASE_RESOURCES PASS' in probe.stdout and 'SCRIPT ERROR' not in probe.stdout,platform+' VR resource validation failed'
  with (out/'server.log').open('w') as log:server=subprocess.Popen(['stdbuf','-oL','-eL',str(build/'Server/cq-server'),'--headless','--xr-mode','off','--','--server','--config',str(out/'server.cfg'),'--cq-destruction'],stdout=log,stderr=subprocess.STDOUT,env=env,start_new_session=True)
  cases=[]
  try:

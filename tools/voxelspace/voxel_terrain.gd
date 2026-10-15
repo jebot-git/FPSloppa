@@ -23,14 +23,18 @@ func setup(map,full: bool=false,merged: int=-1) -> void:
 	material=ShaderMaterial.new();material.shader=preload("res://tools/voxelspace/voxel_surface.gdshader");material.set_shader_parameter("colors",map.color_texture)
 	if merged>=0:
 		var file:=load_stream("res://tools/voxelspace/assets/terrain-voxels-merged.vxz")
-		assert(file.get_data(4)[1].get_string_from_ascii()=="VXMG");var levels:=file.get_u32()
+		var magic:String=file.get_data(4)[1].get_string_from_ascii()
+		if magic!="VXMG":push_error("Invalid merged voxel terrain header");return
+		var levels:=file.get_u32()
 		for lod in levels:
 			var mesh:=read_mesh(file)
 			if lod==merged:
 				var instance:=MeshInstance3D.new();instance.mesh=mesh;instance.cast_shadow=GeometryInstance3D.SHADOW_CASTING_SETTING_OFF;add_child(instance);triangles=mesh.surface_get_array_index_len(0)/3
 		return
 	var file:=load_stream("res://tools/voxelspace/assets/terrain-voxels.vxz")
-	assert(file.get_data(4)[1].get_string_from_ascii()=="VXCH");var count:=file.get_u32();var levels:=file.get_u32()
+	var magic:String=file.get_data(4)[1].get_string_from_ascii()
+	if magic!="VXCH":push_error("Invalid voxel terrain header");return
+	var count:=file.get_u32();var levels:=file.get_u32()
 	for i in count:
 		var origin:=Vector3(file.get_float(),0,file.get_float());var meshes: Array=[]
 		for lod in levels:meshes.append(read_mesh(file))

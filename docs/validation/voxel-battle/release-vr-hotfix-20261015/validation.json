@@ -1,0 +1,25 @@
+{
+  "linux_vr": {
+    "exit": 0,
+    "openxr": "WiVRn-Pro v26.9.3-pyrowave.1",
+    "gpu": "Intel Arc A770",
+    "joined_public_server": true,
+    "script_errors": 0,
+    "terrain_texture_errors": 0
+  },
+  "windows_wine": {
+    "exit": 0,
+    "renderer": "Vulkan Forward+",
+    "joined_public_server": true,
+    "script_errors": 0,
+    "terrain_texture_errors": 0,
+    "native_windows_hardware_tested": false
+  },
+  "resource_checks": {
+    "Linux": "passed",
+    "Windows_Wine": "passed"
+  },
+  "gameplay_suite": "passed all 3; candidate before restoring unchanged live map identity",
+  "version": "0.17v-cq-experimental",
+  "replacement": true
+}

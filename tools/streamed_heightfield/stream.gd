@@ -64,17 +64,7 @@ func setup() -> void:
 	extent = source.EXTENT
 	tile_side = source.TILE
 	grid = source.GRID
-	var height_images: Array[Image] = []
-	var color_images: Array[Image] = []
-	var empty_height := Image.create(Landscape.SAMPLES, Landscape.SAMPLES, false, Image.FORMAT_RF)
-	var empty_color := Image.create(Landscape.SAMPLES, Landscape.SAMPLES, false, Image.FORMAT_RGBA8)
-	empty_height=Mips.image(empty_height);empty_color=Mips.image(empty_color)
-	for slot in CAPACITY:
-		height_images.append(empty_height)
-		color_images.append(empty_color)
-		free_slots.append(slot)
-	assert(height_tiles.create_from_images(height_images) == OK)
-	assert(color_tiles.create_from_images(color_images) == OK)
+	if initialize_tile_arrays()!=OK:return
 	page_image = Image.create(grid, grid, false, Image.FORMAT_RF)
 	pages.set_image(Mips.image(page_image))
 	var coarse := source.coarse_images()
@@ -109,6 +99,23 @@ func setup() -> void:
 	analytic_material.set_shader_parameter("pages", pages)
 	analytic_coarse_material = analytic_material.duplicate()
 	analytic_coarse_material.set_shader_parameter("coarse", true)
+
+func initialize_tile_arrays() -> int:
+	free_slots.clear()
+	var height_images: Array[Image] = []
+	var color_images: Array[Image] = []
+	var empty_height := Image.create(Landscape.SAMPLES, Landscape.SAMPLES, false, Image.FORMAT_RF)
+	var empty_color := Image.create(Landscape.SAMPLES, Landscape.SAMPLES, false, Image.FORMAT_RGBA8)
+	empty_height=Mips.image(empty_height);empty_color=Mips.image(empty_color)
+	for slot in CAPACITY:
+		height_images.append(empty_height)
+		color_images.append(empty_color)
+		free_slots.append(slot)
+	# Assertions are omitted from release templates: allocations must run here.
+	var error:=height_tiles.create_from_images(height_images)
+	if error==OK:error=color_tiles.create_from_images(color_images)
+	if error!=OK:push_error("Terrain texture array initialization failed: "+error_string(error))
+	return error
 
 func world_bounds() -> AABB:
 	return AABB(Vector3(-extent / 2, min_height, -extent / 2), Vector3(extent, max_height - min_height, extent))

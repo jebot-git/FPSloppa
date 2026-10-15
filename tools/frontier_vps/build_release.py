@@ -44,13 +44,17 @@ def stage_graph(stage):
  for name,source in selected.items():
   target=stage/name;target.parent.mkdir(parents=True,exist_ok=True);shutil.copy2(source,target)
  # Eliminate editor-time global classes that were excluded with tools/launcher.
- classes=[]
+ # Preserve Godot's resolved inheritance, including implicit RefCounted bases.
+ # Inferring it with an `extends` regex silently dropped XRHelpers and pointer
+ # events: headless admission passed, but rendered VR startup could not compile.
+ cache=(ROOT/'.godot/global_script_class_cache.cfg').read_text()
+ classes=[row for row,path in re.findall(r'(\{[^{}]*"path": "res://([^"]+)"[^{}]*\})',cache) if path in selected]
+ registered={path for row,path in re.findall(r'(\{[^{}]*"path": "res://([^"]+)"[^{}]*\})',cache) if path in selected}
  for name,source in selected.items():
-  if source.suffix!='.gd':continue
-  text=source.read_text();kind=re.search(r'^class_name\s+(\w+)',text,re.M);base=re.search(r'^extends\s+(\w+)',text,re.M)
-  if kind and base:classes.append('{"base": &"'+base[1]+'", "class": &"'+kind[1]+'", "icon": "", "is_abstract": false, "is_tool": '+str('@tool' in text).lower()+', "language": &"GDScript", "path": "res://'+name+'"}')
+  if source.suffix=='.gd' and re.search(r'^class_name\s+\w+',source.read_text(),re.M):
+   assert name in registered,'Refresh Godot editor class cache before packaging: '+name
  (stage/'.godot').mkdir(exist_ok=True)
- (stage/'.godot/global_script_class_cache.cfg').write_text('list=Array[Dictionary](['+',\n'.join(classes)+'])\n')
+ (stage/'.godot/global_script_class_cache.cfg').write_text('list=['+',\n'.join(classes)+']\n')
  shutil.copy2(ROOT/'.godot/uid_cache.bin',stage/'.godot/uid_cache.bin')
  return selected
 def main():

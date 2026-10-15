@@ -2,6 +2,8 @@ extends Node
 ## Game-only release entry. Explicit connection/practice/server arguments take precedence.
 func _ready()->void:
 	var args:=OS.get_cmdline_user_args()
+	if args.has("--release-resource-check"):
+		get_tree().root.add_child.call_deferred(load("res://tools/frontier_vps/resource_check.gd").new());return
 	if args.has("--authority-arena-client") or args.has("--resident-suite") or args.has("--clients") or args.has("--capacity"):
 		get_tree().root.add_child.call_deferred(load("res://tools/frontier_vps/entry.gd").new());return
 	var arena=load("res://tools/voxel_battle/class_arena.tscn").instantiate()
