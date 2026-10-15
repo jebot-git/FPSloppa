@@ -44,6 +44,7 @@ func request(pose:Dictionary={}) -> void:
 	else:game._cq_nvg.rpc_id(1,game.players[id].serial,game.map_epoch,request_sequence,pose)
 func local_input(command:Dictionary) -> void:
 	var pressed:bool=false
+	var eligible:=false
 	var pose:Dictionary=command.get("xr",{})
 	if game.is_vr() and not pose.is_empty():
 		for key in ["left","right"]:
@@ -51,8 +52,9 @@ func local_input(command:Dictionary) -> void:
 			if absf(relative.x)<.28 and relative.y>-.02 and relative.y<.45 and relative.z>-.38 and relative.z<.18:
 				var controller:XRController3D=game.xr_rig.left if key=="left" else game.xr_rig.right
 				pressed=pressed or controller.get_float("trigger")>.6
-				if controller.get_float("trigger")>.6:command.fire=false;command.offhand_fire=false
-	var edge:=pressed and not trigger_held;trigger_held=pressed
+				if game.xr_rig.hand_empty(0 if key=="left" else 1) and controller.get_float("trigger")>.6:
+					eligible=true;command.fire=false;command.offhand_fire=false
+	var edge:=eligible and not trigger_held;trigger_held=pressed
 	if edge and not command.get("input_blocked",false):request(pose)
 func eye(id:int) -> Transform3D:
 	var state:Dictionary=game.players[id];var base:=Transform3D(Basis(Vector3.UP,state.yaw),game.fighters[id].position)

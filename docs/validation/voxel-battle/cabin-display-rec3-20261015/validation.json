@@ -1,0 +1,108 @@
+{
+  "utc": "2026-10-15T17:00:31.013067+00:00",
+  "branch": "experimental/cq-voxelspace",
+  "rec3": {
+    "path": "/home/blux/Downloads/rec3.mp4",
+    "duration_seconds": 28.60007,
+    "observations": "No visible drag indicator while reaching around the incapacitated patient."
+  },
+  "root_cause": "Native medic fixture set medic and patient to team 0, while the client retained medic team 1 from its join roster. Friendly-only drag selection, revival indicator, repair status and the drag marker therefore rejected the ally. Real network render reproduced the mismatch; after projecting native teams into client presentation, both are team 0 and the marker renders.",
+  "changes": [
+    "Native snapshot class presentation carries team and updates player team state. Fixture server metadata also matches native teams.",
+    "Physical transport steering is explicitly enabled by default, saved as a VR control preference, with an optional stick fallback.",
+    "CQ gloves remain children of their tracked controllers; the competing XRTools physics transform update is disabled. Free transport passenger hands follow late seat correction.",
+    "Cabin repair tool mount is fixed to the front passenger dashboard at seat offset (0, 0.95, -0.55), independent of tracked head motion.",
+    "Massacre charge messages render on a 320x200 texture inside the authored monitor glass. Display is parented to the actual gun and inherits weapon scale, recoil and late tracking.",
+    "Small medic drag ring faces the viewer and renders over patient armour/weapons; world cover still blocks it. Visible within 3 m.",
+    "User confirmed interactions work correctly and requested only the small neck grab marker. The large revival indicator is removed from CQ rendering; its legacy preview is isolated from gameplay."
+  ],
+  "checks": {
+    "visual_mechanics": {
+      "checks": 54,
+      "passed": true
+    },
+    "physical_wheel": {
+      "checks": 21,
+      "passed": true
+    },
+    "medic_gestures": {
+      "checks": 19,
+      "passed": true
+    },
+    "rendered_marker_and_monitor": {
+      "checks": 5,
+      "passed": true,
+      "renderers": [
+        "Forward+ Vulkan",
+        "OpenGL Compatibility"
+      ]
+    },
+    "live_native_network_marker": {
+      "passed": true,
+      "same_team": true,
+      "visible": true,
+      "client_team": 0,
+      "patient_team": 0
+    },
+    "production_arena": {
+      "passed": true,
+      "desktop_team_presentation": true,
+      "tracked_team_presentation": true,
+      "bots": 4,
+      "authored_navmesh_warnings": 19
+    },
+    "large_indicator_removal": {
+      "class_arena_parse": true,
+      "legacy_preview_parse": true,
+      "note": "Presentation-only removal followed the full integration run."
+    }
+  },
+  "native_cpp_changed": false,
+  "native_library_sha256": "05fbf253b0ac967534c66b1375160ab0da3c90fe8e6bed9c4fd9318ac5fb16a2",
+  "known_diagnostics": [
+    "Existing glove UID fallback warnings.",
+    "Existing isolated fixture ObjectDB/resource shutdown diagnostics."
+  ],
+  "live_test": {
+    "status": "Technician OpenXR client connected; fixture ready",
+    "path": "/home/blux/.cache/cq-technician-cabin-20261015-185931",
+    "remote_server_modified": false,
+    "verified_utc": "2026-10-15T17:00:40.952612+00:00",
+    "launch": {
+      "server_pid": 513515,
+      "address": "127.0.0.1:27781",
+      "scene": "res://tools/voxel_battle/technician_test.tscn",
+      "reset": "F8 or RESET TECHNICIAN TEST in the menu",
+      "client_launcher": "/home/blux/.cache/cq-technician-cabin-20261015-185931/run-client.sh",
+      "output": "/home/blux/.cache/cq-technician-cabin-20261015-185931",
+      "class": "technician",
+      "primary_ammo": 3,
+      "secondary_ammo": 1,
+      "vehicle_hp": 40,
+      "client_pid": 513727,
+      "server_left_running": true,
+      "utc": "2026-10-15T17:00:08.883644+00:00",
+      "collectors": {
+        "client": 513728,
+        "server": 513729
+      },
+      "branch": "experimental/cq-voxelspace",
+      "native_library_sha256": "05fbf253b0ac967534c66b1375160ab0da3c90fe8e6bed9c4fd9318ac5fb16a2"
+    },
+    "analytics": [
+      "client gameplay and frame pacing",
+      "client process and WiVRn",
+      "server process and health events"
+    ],
+    "ready": {
+      "ammo": [
+        1,
+        0,
+        3,
+        0
+      ],
+      "vehicle_hp": 40
+    },
+    "reset": "F8 or RESET TECHNICIAN TEST"
+  }
+}

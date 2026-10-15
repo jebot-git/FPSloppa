@@ -26,6 +26,10 @@ static func weapon(id:int,rules:String) -> Node3D:
 		if data.has("red_dot_position"):
 			var p:Array=data.red_dot_position;dot.position=Vector3(p[0],p[1],p[2])
 		dot.position.z+=.018
+		var zero:float=float(data.get("sight_zero_metres",50.0))
+		var sight_muzzle:=muzzle(id,rules)
+		dot.rotation.x=-atan2((dot.position.y-sight_muzzle.y)*.65,zero)
+		dot.set_meta("zero_metres",zero)
 	var handle=node.find_child("ChargingHandle",true,false)
 	if handle:
 		if id in [0,2,9,10,8]:handle.free()

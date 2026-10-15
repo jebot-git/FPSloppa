@@ -6,6 +6,13 @@ namespace cqauthority {
 constexpr size_t MAX_ZONES = 32, MAX_BOXES = 384, MAX_FIELDS = 128,
                  MAX_TURRETS = 128, MAX_VEHICLES = 32, MAX_FLIGHTS = 128,
                  MAX_GRENADES = 384;
+// Matches the prone avatar centre line used by tracked contact selection.
+inline V patient_contact(V at, double yaw, V point) {
+  B frame=B::yaw(yaw);
+  V local=frame.inverse(point-at);
+  return at+frame.apply(V{0,.35,std::clamp(local.z,-1.15,.30)});
+}
+constexpr double BOX_REDEPLOY_SECONDS=15.;
 enum class Role : uint8_t { SHOCKTROOP, SCOUT, MEDIC, TECHNICIAN };
 enum class DamageKind : uint8_t {
   BULLET,
@@ -71,7 +78,9 @@ struct Box {
   Session owner;
   int team = 0;
   bool health = false;
-  V position;
+  V position, velocity;
+  bool airborne = false;
+  double flight_age = 0;
   int remaining = 1000;
   double xp_credit = 0;
   std::array<double, 128> credit{};

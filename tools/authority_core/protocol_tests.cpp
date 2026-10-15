@@ -205,7 +205,7 @@ void protocol_tests() {
           "holding grenade pin suppresses firearm");
     command(*c, h, 20, 4);
     c->advance(world);
-    check(c->resolve(h)->grenade_count == 0 && !c->resolve(h)->grenade_selected,
+    check(c->resolve(h)->grenade_count == 2 && !c->resolve(h)->grenade_selected,
           "desktop release throws once and restores firearm");
     int count = 0;
     for (auto &g : c->grenades())

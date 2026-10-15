@@ -59,6 +59,8 @@ var last_panel:=false
 var focused:=true
 var cq_utility
 var cq_hands
+var transport_wheel
+var medic_interactions
 var virtual_stock=preload("res://deathmatch/vr/virtual_stock.gd").new()
 var virtual_stock_enabled:=true
 var weapon_kick=preload("res://deathmatch/vr/weapon_kick.gd").new()
@@ -73,6 +75,8 @@ func setup(arena: Node, test_mode: bool=false) -> bool:
 	enabled=true
 	if game.has_method("draw_class_players"):
 		cq_hands=preload("res://deathmatch/vr/cq_hands.gd").new();add_child(cq_hands);cq_hands.setup(self)
+		medic_interactions=preload("res://deathmatch/vr/medic_interactions.gd").new();medic_interactions.setup(self)
+		transport_wheel=preload("res://deathmatch/vr/transport_wheel.gd").new();transport_wheel.setup(self)
 		cq_utility=preload("res://deathmatch/vr/cq_utility.gd").new();cq_utility.setup(self)
 	var settings:=Preferences.read_settings()
 	smooth_turn=settings.smooth_turn;turn_speed=settings.turn_speed;snap_angle=settings.snap_angle
@@ -88,6 +92,10 @@ func setup(arena: Node, test_mode: bool=false) -> bool:
 	for item in [[left,"left"],[right,"right"]]:
 		var hand_model=load("res://addons/godot-xr-tools/hands/scenes/lowpoly/"+item[1]+"_tac_glove_low.tscn").instantiate()
 		item[0].add_child(hand_model)
+		if game.has_method("draw_class_players"):
+			# CQ owns tracked attachment poses. XRTools' physics driver detaches the
+			# glove from the controller and otherwise overwrites the late cabin pose.
+			hand_model.set_physics_process(false);hand_model.top_level=false;hand_model.transform=Transform3D.IDENTITY
 		hand_models.append(hand_model)
 		if game.has_method("draw_class_players"):preload("res://tools/voxel_battle/baked_lighting.gd").convert_node(hand_model)
 		var fingers=preload("res://deathmatch/vr/glove_fingers.gd").new()
@@ -188,10 +196,10 @@ func build_ui() -> void:
 	if game.has_method("draw_class_players"):status_hud.configure_cq()
 	status_hud.size=Vector2(status_viewport.size);status_hud.mouse_filter=Control.MOUSE_FILTER_IGNORE
 	status_viewport.add_child(status_hud)
-	status_surface=MeshInstance3D.new()
+	status_surface=MeshInstance3D.new();status_surface.layers=1<<18
 	var status_quad:=QuadMesh.new();status_quad.size=Vector2(status_viewport.size)*.001
 	# Extend upwards for chat without moving or shrinking the existing HUD.
-	status_quad.center_offset.y=(status_hud.CHAT_HEIGHT+status_hud.NOTIFY_HEIGHT)*.0005
+	status_quad.center_offset.y=(status_hud.KILLFEED_HEIGHT+status_hud.CHAT_HEIGHT+status_hud.NOTIFY_HEIGHT)*.0005
 	status_surface.mesh=status_quad;status_surface.position=Vector3(0,-.46,-1.5)
 	status_surface.cast_shadow=GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 	var status_material:=StandardMaterial3D.new()
@@ -206,7 +214,7 @@ func build_ui() -> void:
 
 	turn_panel=preload("res://deathmatch/vr/turn_panel.gd").new()
 	ui_root.add_child(turn_panel);turn_panel.setup(self)
-	blackout=MeshInstance3D.new()
+	blackout=MeshInstance3D.new();blackout.layers=1<<18
 	var sphere:=SphereMesh.new()
 	sphere.radius=.08
 	sphere.height=.16
@@ -218,7 +226,7 @@ func build_ui() -> void:
 	blackout.material_override=material
 	head.add_child(blackout)
 	blackout.visible=false
-	damage_overlay=MeshInstance3D.new()
+	damage_overlay=MeshInstance3D.new();damage_overlay.layers=1<<18
 	damage_overlay.mesh=QuadMesh.new()
 	damage_overlay.mesh.size=Vector2(2,2)
 	damage_overlay.position.z=-.1
@@ -237,10 +245,12 @@ func apply_hud_preferences(values: Dictionary) -> void:
 	status_surface.scale=Vector3.ONE*bounds.bounded(values.get("hud_scale",1.0),.7,1.4,1.0)
 	status_surface.position=Vector3(0,bounds.bounded(values.get("hud_y",-.46),-.65,.55,-.46),-1.5)
 
+var menu_mount:=Transform3D.IDENTITY
 func place_menu() -> void:
 	if not panel: return
 	var yaw:=head.global_rotation.y
 	panel.global_transform=Transform3D(Basis(Vector3.UP,yaw),head.global_position+Basis(Vector3.UP,yaw)*Vector3(0,-.05,-1.8))
+	menu_mount=global_transform.affine_inverse()*panel.global_transform
 	keyboard.global_transform=panel.global_transform*Transform3D(Basis(Vector3.RIGHT,-.2),Vector3(0,-1.0,.15))
 func recenter() -> void:
 	support_aim.reset();jump_detector.reset();crouch_detector.reset();swim_detector.reset();swim_input=Vector3.ZERO
@@ -298,6 +308,11 @@ func weapon_pose() -> Transform3D:
 	if cq_hands and cq_hands.claims_hand(held,other.transform):valid=false
 	var supported:Transform3D=support_aim.solve(held,other.transform,slot,game.bindings.vr_pressed(self,"support"),valid,"cq" if cq_hands else "doom",cq_hands!=null)
 	return virtual_stock.solve(supported,other.transform,head.transform,slot,left_handed,valid and support_aim.engaged and virtual_stock_enabled and slot in [1,3,4,5,11],"cq",true) if cq_hands else supported
+func follow_menu()->void:
+	panel.global_transform=global_transform*menu_mount
+	keyboard.global_transform=panel.global_transform*Transform3D(Basis(Vector3.RIGHT,-.2),Vector3(0,-1.0,.15))
+func update_scope_visibility()->void:
+	if sniper_scope and sniper_scope.active:status_surface.hide()
 func update_seated(body: Dictionary) -> void:
 	seated_active=seated
 	origin_offset.y=seated_height_offset if seated_active else 0.0
@@ -332,7 +347,8 @@ func _process(delta: float) -> void:
 	jump_detector.sample(head.position.y,delta,game.bindings.physical_jump and not seated_active and not calibration_pending and focused and not game.menu_open and head_tracked() and actor!=null and not game.local_state().get("dead",true),actor!=null and actor.is_supported())
 	var tracked_hands: bool=head_tracked() and (simulated or left.get_has_tracking_data() and right.get_has_tracking_data())
 	var living: bool=actor!=null and not game.local_state().get("dead",true) and not game.local_state().get("spectator",false)
-	if cq_utility:cq_utility.update(delta,living and tracked_hands and focused and not game.menu_open and not mounted_for_cq())
+	if medic_interactions:medic_interactions.update(living and tracked_hands and focused and not game.menu_open and not mounted_for_cq())
+	if cq_utility:cq_utility.update(delta,living and tracked_hands and focused and not game.menu_open and (not mounted_for_cq() or repair_cabin_passenger()))
 	if cq_hands:cq_hands.update(delta,living and tracked_hands and focused and not game.menu_open and not mounted_for_cq())
 	support_aim.advance(delta);virtual_stock.advance(delta);weapon_kick.update(delta)
 	var swimming: bool=living and actor.in_water and focused and tracked_hands and not game.menu_open and not scores and game.intermission<=0 and not game.match_mode.special.blocked(mine)
@@ -342,7 +358,7 @@ func _process(delta: float) -> void:
 	if calibration_pending and (simulated or head.position.y>.5): recenter()
 	if actor and not game.menu_open and focused:
 		var stick: Vector2=game.bindings.axis(self,"turn")
-		apply_turn(stick.x,delta)
+		if not transport_wheel or transport_wheel.driver_key()<0:apply_turn(stick.x,delta)
 		global_basis=Basis(Vector3.UP,game.local_yaw)
 		if not game.has_method("draw_class_players") and absf(stick.y)>.75 and not cycle_latched and not game.local_state().get("spectator",false):
 			game.desired_weapon=W.next_owned(game.desired_weapon,1 if stick.y>0 else -1,game.local_state().get("owned",[2]))
@@ -356,7 +372,7 @@ func _process(delta: float) -> void:
 		actor.avatar.stance=actor.stance;actor.avatar.aim_pitch=game.local_state().get("pitch",0.0)
 		actor.avatar._process(delta if actor.avatar.process_mode==Node.PROCESS_MODE_DISABLED and not actor.frozen else 0.0)
 	shoulder_radio.update(not mounted and living and tracked_hands and focused and not game.menu_open and not scores and not blackout.visible)
-	update_shoulder_utility(living and not mounted)
+	update_shoulder_utility(living and (not mounted or repair_cabin_passenger()))
 	physical_actions.update(delta,not mounted and not shoulder_radio.held and living and tracked_hands and focused and not game.menu_open and not scores)
 	var menu_visible: bool=game.menu_open or scores or (focused and game.bindings.pressed("scores")) or not game.active
 	var burning: bool=actor!=null and game.match_mode.fortress.burning(actor.peer_id)
@@ -365,9 +381,11 @@ func _process(delta: float) -> void:
 	damage_material.set_shader_parameter("underwater",1.0 if actor!=null and actor.underwater else 0.0)
 	damage_material.set_shader_parameter("strength",clampf(game.hurt_flash/.35,0,1))
 	if menu_visible and (not last_panel or panel.global_position.distance_to(head.global_position)>3.5): place_menu()
+	if menu_visible:follow_menu()
 	last_panel=menu_visible
 	status_surface.visible=actor!=null and focused and not menu_visible
 	status_hud.update_chat(game.chat_feed,game.clock)
+	status_hud.update_killfeed(game.feed,game.clock)
 	if not menu_visible:turn_panel.hide()
 	panel.visible=menu_visible
 	panel.enabled=menu_visible
@@ -430,7 +448,7 @@ func _process(delta: float) -> void:
 		actor.set_local_body(false)
 		for i in hand_models.size():
 			var model:Node3D=hand_models[i]
-			model.visible=not actor.local_body_visible and not mounted
+			model.visible=not actor.local_body_visible and (not mounted or transport_seated())
 			var offhand:bool=(i==0)!=left_handed
 			var grip_pose:Transform3D=(left if i==0 else right).global_transform
 			grip_pose.origin=attached_hand(offhand,grip_pose).origin
@@ -442,6 +460,7 @@ func _process(delta: float) -> void:
 					grip_pose=preload("res://deathmatch/conquest/classes/models.gd").support_pose(gun.global_transform,s.weapon,i==0)
 					hand_animators[i].curls=PackedFloat32Array([.8,.85,.95,.95,.95])
 			model.global_transform=grip_pose
+		if medic_interactions:medic_interactions.attach_hand()
 		var from: Vector3=actor.position+Vector3.UP*actor.torso_height()
 		var wall:=PhysicsRayQueryParameters3D.create(from,head.global_position,1)
 		blackout.visible=not game.handle_vehicle_player(mine,0.0) and not s.spectator and (not game.get_world_3d().direct_space_state.intersect_ray(wall).is_empty() or head.global_position.distance_to(from)>1.3)
@@ -453,7 +472,9 @@ func _process(delta: float) -> void:
 		blackout.visible=false
 	if not sniper_scope and is_instance_valid(gun) and gun.has_meta("scope_rear"):
 		sniper_scope=preload("res://deathmatch/vr/sniper_scope.gd").new();add_child(sniper_scope);sniper_scope.setup(self)
-	if sniper_scope:sniper_scope.update_rig()
+	if sniper_scope:
+		sniper_scope.update_rig()
+		update_scope_visibility()
 func attached_hand(offhand:bool,fallback:Transform3D) -> Transform3D:
 	# Local controller tracking is independent of remote/avatar arm constraints.
 	if game.has_method("draw_class_players"):return fallback
@@ -519,6 +540,23 @@ func command(sequence: int) -> Dictionary:
 func feedback(strength: float,seconds: float=.08,offhand: bool=false) -> void:
 	var use_left:=left_handed!=offhand
 	if enabled and not simulated: (left if use_left else right).trigger_haptic_pulse("haptic",0,clampf(strength,0,1),seconds,0)
+func hand_empty(index:int)->bool:
+	var controller:XRController3D=left if index==0 else right
+	if controller.get_float("grip")>.35:return false
+	if cq_utility and cq_utility.held and cq_utility.hand_index==index:return false
+	if shoulder_radio.held and shoulder_radio.held_hand==index:return false
+	if medic_interactions and medic_interactions.drag_hand==index:return false
+	if cq_hands:
+		var primary:int=0 if left_handed else 1
+		if index==primary and cq_hands.holding:return false
+		if index!=primary:
+			var reload_state:Dictionary=cq_hands.row()
+			if reload_state.get("carry",0)>0 or reload_state.get("grab","")!="" or reload_state.get("stroke",0.)>.05:return false
+		if index!=primary and cq_hands.holding:
+			var weapon_hand:XRController3D=left if left_handed else right
+			var aim:XRController3D=left_aim if left_handed else right_aim
+			if support_aim.engaged or cq_hands.claims_hand(Poses.held_weapon(weapon_hand.transform,aim.transform),controller.transform):return false
+	return true
 
 func focused_edit() -> Control:
 	var viewport: SubViewport=panel.get_node("Viewport")
@@ -583,12 +621,34 @@ func update_shoulder_utility(valid:bool) -> void:
 		shoulder_utility_key=key
 		if is_instance_valid(shoulder_utility):shoulder_utility.free()
 		shoulder_utility=preload("res://deathmatch/avatars/equipment.gd").utility(key);add_child(shoulder_utility)
+		shoulder_utility.set_meta("stowed_scale",shoulder_utility.scale)
 		preload("res://tools/voxel_battle/baked_lighting.gd").convert_node(shoulder_utility)
 	if is_instance_valid(shoulder_utility):
 		shoulder_utility.visible=valid and not physical_actions.busy()
-		var size:Vector3=shoulder_utility.scale
-		shoulder_utility.global_transform=preload("res://deathmatch/conquest/classes/grenade_visuals.gd").held_pose(cq_utility.hand().global_transform,cq_utility.hand_index==0) if cq_utility and cq_utility.held and cq_utility.grenade() else cq_utility.hand().global_transform if cq_utility and cq_utility.held else shoulder_mount(false)
-		shoulder_utility.scale=size
+		var carried:bool=cq_utility and cq_utility.held and not cq_utility.box_mode
+		if key in ["jetpack","healing_grenade"]:
+			shoulder_utility.visible=shoulder_utility.visible and (carried or cq_utility.grenade_available())
+			preload("res://deathmatch/conquest/classes/grenade_visuals.gd").show_armed(shoulder_utility,carried and cq_utility.armed)
+		if carried and cq_utility.grenade():
+			shoulder_utility.global_transform=preload("res://deathmatch/conquest/classes/grenade_visuals.gd").held_pose(cq_utility.hand().global_transform,cq_utility.hand_index==0)
+		elif carried and key=="medical":
+			var equipment=preload("res://deathmatch/avatars/equipment.gd")
+			var tool_pose:Transform3D=medic_interactions.injector_pose() if medic_interactions and medic_interactions.injection_target!=0 else equipment.injector_pose(cq_utility.hand().global_transform)
+			shoulder_utility.global_transform=Transform3D(tool_pose.basis.scaled(Vector3.ONE*equipment.injector_scale()),tool_pose.origin)
+		elif carried and key in ["recon","recon_drone"]:
+			shoulder_utility.global_transform=preload("res://deathmatch/avatars/equipment.gd").cloak_held_pose(cq_utility.hand().global_transform)
+		elif carried:
+			var aim:XRController3D=left_aim if cq_utility.hand_index==0 else right_aim
+			shoulder_utility.global_transform=Art.held_transform(Poses.held_weapon(cq_utility.hand().global_transform,aim.global_transform),7 if key in ["medical","engineering"] else 8,.65,"cq_"+rules.role(id))
+		else:
+			shoulder_utility.global_transform=cq_utility.tool_mount() if key in ["medical","engineering"] and cq_utility else shoulder_mount(false)
+			shoulder_utility.scale=shoulder_utility.get_meta("stowed_scale")
 
+func transport_seated()->bool:
+	if not game.has_method("draw_class_players"):return false
+	var key:int=game.battery_tanks.key_for(game.multiplayer.get_unique_id())
+	return key>=0 and game.battery_tanks.rows[key].kind=="transport"
+func repair_cabin_passenger()->bool:
+	return game.has_method("draw_class_players") and game.battery_tanks.can_repair_from_cabin(game.multiplayer.get_unique_id())
 func mounted_for_cq() -> bool:
 	return game.has_method("draw_class_players") and game.battery_tanks.mounted(game.multiplayer.get_unique_id())

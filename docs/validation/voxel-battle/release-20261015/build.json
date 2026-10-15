@@ -1,0 +1,27 @@
+{
+  "version": "0.17v-cq-experimental",
+  "address": "87.106.27.237",
+  "port": 7777,
+  "launcher": false,
+  "platforms": {
+    "Server": {
+      "files": 45,
+      "pack_bytes": 530562512,
+      "pack_sha256": "e76861fb6d49f1d30fbe30112cc85111610b6e67ea9fd829074e1e01c16b31f8",
+      "binary": "cq-server"
+    },
+    "Linux": {
+      "files": 51,
+      "pack_bytes": 530562640,
+      "pack_sha256": "073c4e4dd880b318dbf763584d51e202876d2642fe75edf8ec206054fb176b17",
+      "binary": "FPSloppaCQ.x86_64"
+    },
+    "Windows": {
+      "files": 51,
+      "pack_bytes": 530562640,
+      "pack_sha256": "073c4e4dd880b318dbf763584d51e202876d2642fe75edf8ec206054fb176b17",
+      "binary": "FPSloppaCQ.exe"
+    }
+  },
+  "resources": 3080
+}

@@ -1,0 +1,96 @@
+{
+  "utc": "2026-10-15T16:35:04.171409+00:00",
+  "branch": "experimental/cq-voxelspace",
+  "changes": [
+    "Nearby allied/neutral vehicle health bars appear within 20 m while the technician holds the engineering repair tool; bars hide on release. Destroyed and enemy vehicles are excluded.",
+    "Own transport repair status appears inside the front cabin when servicing from seat 7.",
+    "Front passenger seat 7 permits retrieval/stowing of the rear-mounted repair tool and tracked hands. Other seated equipment restrictions remain active.",
+    "Native C++ permits 30 HP/s repair of the own allied transport from the front passenger seat. Drivers and side pod passengers are excluded; trigger release, blocked input, stale input, untracked/unheld VR tool stop repair.",
+    "Nearby incapacitated allied players show an amber ring and centre dot to medics. White indicates a hand in reach, teal indicates the local drag gesture. Markers follow the prone body, disappear on revival, and are hidden from other classes/enemies.",
+    "Isolated loopback technician fixture starts with primary ammo 3, secondary ammo 1, and nearby allied transport HP 40/100; F8/menu reset clears existing supply boxes and restores the test."
+  ],
+  "checks": {
+    "native_core": {
+      "checks": 917476,
+      "passed": true
+    },
+    "asan_ubsan": {
+      "checks": 917476,
+      "passed": true
+    },
+    "real_jolt_authority": {
+      "checks": 593,
+      "passed": true
+    },
+    "cq_visual_mechanics": {
+      "checks": 45,
+      "passed": true
+    },
+    "medic_gestures": {
+      "checks": 19,
+      "passed": true
+    },
+    "technician_fixture_network_check": {
+      "ammo": [
+        1,
+        0,
+        3,
+        0
+      ],
+      "distance": 4.31203413009644,
+      "failures": [],
+      "role": 3,
+      "vehicle_hp": 40.0
+    },
+    "production_arena": {
+      "desktop": "passed",
+      "tracked": "passed",
+      "bots": 4,
+      "authored_navmesh_warnings": 19,
+      "source_manifest": "checks/arena-summary.json",
+      "note": "Full integration preceded the display-only reset cleanup; reset cleanup has its own subsequent visual regression check."
+    }
+  },
+  "known_diagnostics": [
+    "Existing glove material UID warnings use path fallback.",
+    "Isolated fixture shutdown reports ObjectDB/resource leaks; no gameplay script errors in successful checks."
+  ],
+  "live_test": {
+    "status": "OpenXR connected; technician fixture ready",
+    "path": "/home/blux/.cache/cq-technician-ready-20261015-183359",
+    "remote_deployed_server_modified": false,
+    "verified_utc": "2026-10-15T16:36:33.630589+00:00",
+    "launch": {
+      "utc": "2026-10-15T16:35:56.043238+00:00",
+      "client_pid": 505738,
+      "server_pid": 505256,
+      "collectors": {
+        "client": 505739,
+        "server": 505740
+      },
+      "address": "127.0.0.1:27781",
+      "branch": "experimental/cq-voxelspace",
+      "scenario": "technician: low ammunition and 40 HP allied transport",
+      "protocol": "fpsloppa-cq-frontier-29-vr-mechanics",
+      "native_library_sha256": "05fbf253b0ac967534c66b1375160ab0da3c90fe8e6bed9c4fd9318ac5fb16a2",
+      "output": "/home/blux/.cache/cq-technician-ready-20261015-183359"
+    },
+    "runtime": "Meta Quest Pro on WiVRn 26.9.3",
+    "analytics": [
+      "client gameplay/frame statistics",
+      "client process + WiVRn performance",
+      "server process + health events"
+    ],
+    "ready": {
+      "ammo": [
+        1,
+        0,
+        3,
+        0
+      ],
+      "allied_transport_hp": 40,
+      "allied_transport_max_hp": 100
+    },
+    "reset": "F8 or RESET TECHNICIAN TEST in the menu"
+  }
+}

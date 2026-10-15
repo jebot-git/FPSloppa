@@ -1,0 +1,57 @@
+{
+  "utc": "2026-10-15T17:28:52.408315+00:00",
+  "branch": "experimental/cq-voxelspace",
+  "scope": "local native server and Vulkan rendered client; headset confirmation of rain clarity and grenade audio balance remains necessary",
+  "render_investigation": {
+    "samples": 95,
+    "begin": "2026-10-15T17:18:05",
+    "end": "2026-10-15T17:19:40",
+    "observed_states": [
+      {
+        "foveation_dynamic": false,
+        "foveation_level": 0,
+        "foveation_mode": "gaze",
+        "requested_scale": 1.0,
+        "scale_3d": 1.0,
+        "target_multiplier": 1.0,
+        "target_size": "(2160.0, 2376.0)",
+        "viewport_size": "(2160.0, 2376.0)",
+        "vrs_mode": 2,
+        "vrs_radius": 25.0,
+        "vrs_strength": 1.0
+      }
+    ],
+    "resolution_reset_reproduced": false,
+    "user_observation": "rain effect coincides with perceived loss of resolution",
+    "change": "Replace alpha-hashed rain with soft radial alpha blending without depth writes; preserve fog schedule and particle budget; tint rain for local NVG.",
+    "telemetry": "Requested/actual XR multiplier and target/viewport size, 3D scale, VRS parameters, weather rain/fog/budget, AA and gaze-valid boolean; no gaze pose recording.",
+    "engine_sources": [
+      "https://github.com/godotengine/godot/blob/4.7/modules/openxr/openxr_api.cpp",
+      "https://github.com/godotengine/godot/blob/4.7/modules/openxr/openxr_interface.cpp"
+    ]
+  },
+  "grenade_changes": [
+    "Visible ordnance burst and illumination via existing bounded CQ effect pool",
+    "Mechanical arming sound, haptic pulse and amber held indicator",
+    "Explosion audio unit distance 12m and max distance 180m; 0dB source gain"
+  ],
+  "checks": {
+    "weather": 64757,
+    "live_interactions": 21,
+    "native_grenade": "native-grenade.json",
+    "weather_render": "weather-render.log"
+  },
+  "live_output": "/home/blux/.cache/cq-shocktroop-feedback-20261015-192517",
+  "live_readiness": {
+    "xr_ready": true,
+    "shocktroop_ready": true,
+    "script_errors": false,
+    "client_alive": true,
+    "server_alive": true,
+    "analytics": {
+      "client-gameplay.jsonl": 39921,
+      "client-process.jsonl": 468924,
+      "server-process.jsonl": 119978
+    }
+  }
+}

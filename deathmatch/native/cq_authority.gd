@@ -127,7 +127,7 @@ func input(id:int,c:Dictionary)->void:
  if not pose is Dictionary or (not pose.is_empty() and not core.validate_pose(pose)):return
  if not c.get("room",Vector3.ZERO) is Vector3 or not c.get("room",Vector3.ZERO).is_finite():return
  if c.has("view_time") and (not (c.view_time is float or c.view_time is int) or not is_finite(float(c.view_time))):return
- var safe:Dictionary={"life":c.get("input_life",-1),"seq":c.seq,"move":c.move,"yaw":c.yaw,"pitch":c.pitch,"weapon":c.weapon,"fire":c.fire,"jump":c.get("jump",false),"reload":c.get("reload",false),"slow":c.slow,"crouch":c.get("crouch",false),"prone":c.get("prone",false),"blocked":c.get("input_blocked",false),"xr":c.get("xr",{}),"vr_device":c.get("vr_device",false),"room":c.get("room",Vector3.ZERO),"reload_grip":c.get("reload_grip",false),"reload_trigger":c.get("reload_trigger",false),"offhand_fire":c.get("offhand_fire",false),"jetpack":c.get("jetpack",false),"cq_drag":c.get("cq_drag",false),"melee":c.get("melee",false),"respawn":c.get("respawn",false),"view_time":float(c.get("view_time",-1.))-origin if c.get("view_time",-1.)>=0 else -1.}
+ var safe:Dictionary={"life":c.get("input_life",-1),"seq":c.seq,"move":c.move,"yaw":c.yaw,"pitch":c.pitch,"weapon":c.weapon,"fire":c.fire,"jump":c.get("jump",false),"reload":c.get("reload",false),"slow":c.slow,"crouch":c.get("crouch",false),"prone":c.get("prone",false),"blocked":c.get("input_blocked",false),"xr":c.get("xr",{}),"vr_device":c.get("vr_device",false),"room":c.get("room",Vector3.ZERO),"swim":c.get("swim",Vector3.ZERO),"reload_grip":c.get("reload_grip",false),"reload_trigger":c.get("reload_trigger",false),"offhand_fire":c.get("offhand_fire",false),"jetpack":c.get("jetpack",false),"cq_drag":c.get("cq_drag",false),"melee":c.get("melee",false),"respawn":c.get("respawn",false),"view_time":float(c.get("view_time",-1.))-origin if c.get("view_time",-1.)>=0 else -1.}
  for key in ["jump_event","jump_seq","jetpack_event"]:
   if c.get(key) is int and c[key]>=(-1 if key=="jump_seq" else 0) and c[key]<=2147483647:safe[key]=c[key]
  var edge:Variant=c.get("fire_event",[])
@@ -274,7 +274,7 @@ var nvg_sequences:Dictionary={}
 
 func send_input(c:Dictionary)->void:
  var wire:Dictionary={"life":c.input_life,"seq":c.seq,"move":c.move,"yaw":c.yaw,"pitch":c.pitch,"weapon":c.weapon,"fire":c.fire,"jump":c.get("jump",false),"reload":c.get("reload",false),"slow":c.slow,"crouch":c.get("crouch",false),"prone":c.get("prone",false),"blocked":c.get("input_blocked",false),"view_time":float(c.get("view_time",-1.))-origin if c.get("view_time",-1.)>=0 else -1.}
- for key in ["xr","vr_device","room","reload_grip","reload_trigger","offhand_fire","jetpack","cq_drag","melee","respawn","weapon_held","jump_event","jump_seq","jetpack_event","fire_event"]:
+ for key in ["xr","vr_device","room","swim","reload_grip","reload_trigger","offhand_fire","jetpack","cq_drag","melee","respawn","weapon_held","jump_event","jump_seq","jetpack_event","fire_event"]:
   if c.has(key):wire[key]=c[key]
  _packet.rpc_id(1,game.map_epoch,Codec.encode_input(wire))
 @rpc("any_peer","call_remote","unreliable_ordered",1)
@@ -321,7 +321,7 @@ func refresh_roster()->void:
  for id in lives:
   var p:Dictionary=core.inspect(id)
   if p.is_empty() or not game.players.has(id):continue
-  game.players[id].kills=p.kills;game.players[id].deaths=p.deaths;game.players[id].serial=p.life
+  game.players[id].team=p.team;game.players[id].kills=p.kills;game.players[id].deaths=p.deaths;game.players[id].serial=p.life
 
 func request(kind:int,a:int=0,b:int=0,c:int=0)->void:
  var state:Dictionary=game.local_state()

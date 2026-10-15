@@ -4,7 +4,7 @@ const LABELS={"forward":"Forward","back":"Backward","left":"Strafe left","right"
 const DESKTOP_GROUPS={"MOVEMENT":["forward","back","left","right","jump","slow","crouch","prone","down"],"COMBAT & EQUIPMENT":["fire","alt_fire","offhand_fire","reload","melee","use","next_weapon","previous_weapon"],"COMMUNICATION & MATCH":["scores","chat","team_chat","team_ptt","ptt"]}
 const ROLES={"weapon":"Weapon hand","support":"Support hand","move":"Movement hand","turn":"Turning hand","left":"Left hand","right":"Right hand"}
 const INPUT_LABELS={"trigger":"Trigger","grip":"Grip","ax_button":"A / X","by_button":"B / Y","primary_click":"Stick click","none":"Unbound"}
-const OPTIONS={"two_handed":"Support-hand aiming","physical_jump":"Physical jump","physical_crouch":"Physical crouch","physical_prone":"Physical prone","tracked_leg_animation":"Animate tracked legs while still","physical_interactions":"Physical ability / console buttons","face_expressions":"Face expressions (experimental)"}
+const OPTIONS={"two_handed":"Support-hand aiming","physical_jump":"Physical jump","physical_crouch":"Physical crouch","physical_prone":"Physical prone","tracked_leg_animation":"Animate tracked legs while still","physical_interactions":"Physical ability / console buttons","physical_transport_steering":"Physical transport steering (VR)","face_expressions":"Face expressions (experimental)"}
 var game
 var capture:=""
 var device:="desktop"
@@ -59,6 +59,7 @@ func setup(arena: Node) -> void:
 		input.selected.connect(func(value):set_vr_binding(action,1,value))
 	var physical=group_column("vr","PHYSICAL CONTROLS & TRACKING")
 	for option in OPTIONS:
+		if option=="physical_transport_steering" and not game.has_method("draw_class_players"):continue
 		if not option in game.bindings:continue
 		var check:=CheckButton.new();check.text=OPTIONS[option];check.custom_minimum_size.y=48;physical.add_child(check);checks[option]=check
 		check.toggled.connect(func(value):game.bindings.set(option,value);save())

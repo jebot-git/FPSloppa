@@ -25,7 +25,7 @@ struct Command {
   int64_t jump_seq = -1;
   uint8_t fire_mask = 0, fire_weapon = 0;
   Pose pose;
-  V room;
+  V room, swim;
   double stamp = 0;
   bool weapon_held = true;
   bool reload_trigger = false;
@@ -101,7 +101,7 @@ struct Player {
   Player();
   Handle handle;
   int team = 0, squad = -1;
-  double combat_until = 0;
+  double combat_until = 0, air_left = 12, drown_at = 0;
   bool grass_concealed = false;
   bool active = false, dead = false, grounded = false, jump_held = false,
        bot = false, stress = false, staging = false;
@@ -113,7 +113,11 @@ struct Player {
   size_t action_head = 0, action_count = 0;
   int64_t action_seq = -1;
   bool nvg_pending = false;
-  V throw_velocity;
+  V throw_velocity, throw_peak_velocity;
+  std::array<V,2> hand_velocity{}, hand_peak_velocity{};
+  std::array<double,2> hand_peak_until{};
+  double throw_peak_until = 0;
+  int grenade_hand = -1;
   uint64_t lock_vehicle = 0;
   double lock_elapsed = 0;
   double melee_ready = 0;
@@ -126,7 +130,8 @@ struct Player {
   double bleed_remaining = 0, inject_progress = 0, invulnerable = 0,
          respawn_at = 0;
   uint64_t injury_tick = 0, inject_touched = 0;
-  Handle injector, injury_source;
+  Handle injector, injury_source, drag_target;
+  V drag_anchor;
   Session injury_credit;
   int injury_weapon = -1;
   bool death_gibbed = false;
@@ -272,6 +277,7 @@ class Core {
                 bool relative = false, uint64_t ignore_entity = 0);
   void tick_classes(Host &);
   void utility(Player &, Host &);
+  bool drop_box(Player &, int, Host &);
   Player *owner(Session);
   Session session(const Player &) const;
   bool alive(const Player &) const;
@@ -349,6 +355,7 @@ public:
   bool choose_class(Handle, int);
   bool choose_gear(Handle, int role, int slot, int value);
   bool deploy_box(Handle, V);
+  void clear_supply(Handle);
   bool inject(Handle, Handle, double);
   bool toggle_nvg(Handle);
   bool queue_action(Handle, const Action &);

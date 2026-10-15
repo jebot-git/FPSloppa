@@ -61,13 +61,13 @@ func _process(delta:float)->void:
  var duck:float=.4 if game.voice and game.voice.transmitting else 1.
  var actor=game.fighters.get(game.multiplayer.get_unique_id())
  var wet:bool=is_instance_valid(actor) and actor.underwater
- submerged.volume_db=-13+linear_to_db(duck) if wet else -80
- river.volume_db=-15+linear_to_db(duck*(.2 if wet else 1.)) if river_near else -80
+ submerged.volume_db=-19+linear_to_db(duck) if wet else -80
+ river.volume_db=-21+linear_to_db(duck*(.2 if wet else 1.)) if river_near else -80
  var outdoors:float=(.55 if selected>=0 else 1.)*(.25 if wet else 1.)
  if game.battle_map and game.battle_map.lighting:outdoors*=lerpf(1.,.45,game.battle_map.lighting.weather_cloud)
- day.volume_db=linear_to_db(maxf(.0001,(1-darkness)*outdoors*duck))
- night.volume_db=linear_to_db(maxf(.0001,darkness*outdoors*duck))
+ day.volume_db=-8+linear_to_db(maxf(.0001,(1-darkness)*outdoors*duck))
+ night.volume_db=-8+linear_to_db(maxf(.0001,darkness*outdoors*duck))
  for key in beds.keys():
   weights[key]=move_toward(weights[key],1. if key==selected else 0.,delta/2.5)
-  beds[key].volume_db=-10+linear_to_db(maxf(.0001,weights[key]*duck*(.2 if wet else 1.)))
+  beds[key].volume_db=-16+linear_to_db(maxf(.0001,weights[key]*duck*(.2 if wet else 1.)))
   if weights[key]<=0. and key!=selected:beds[key].queue_free();beds.erase(key);weights.erase(key)

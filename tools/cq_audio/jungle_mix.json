@@ -1,0 +1,107 @@
+{
+  "rate": 24000,
+  "master_seconds": 128,
+  "loop_seconds": 120,
+  "sources": {
+    "jungle_peru_day": {
+      "author": "nonamethefish",
+      "license": "CC0-1.0",
+      "page": "https://freesound.org/people/nonamethefish/sounds/653743/",
+      "file": "653743__nonamethefish__peruvian-amazon-birds-frogs-daytime.wav",
+      "sha256": "1c89e899da8ba257a2d240b0967bc037bb7fa7940d48510e6c8a3242ea508b7c",
+      "start": 3,
+      "seconds": 52,
+      "overlap": 4,
+      "highpass": 120,
+      "phase": 0.0
+    },
+    "jungle_peru_frogs": {
+      "author": "nonamethefish",
+      "license": "CC0-1.0",
+      "page": "https://freesound.org/people/nonamethefish/sounds/653742/",
+      "file": "653742__nonamethefish__peruvian-amazon-frogs-birds-jungle.wav",
+      "sha256": "69fa8bcd6fb3454fb569e9a50576dd35b7cf752565db75809533ce4ead8a38ad",
+      "start": 2,
+      "seconds": 27,
+      "overlap": 3,
+      "highpass": 110,
+      "phase": 5.0
+    },
+    "jungle_costa_rica": {
+      "author": "sethlind",
+      "license": "CC0-1.0",
+      "page": "https://freesound.org/people/sethlind/sounds/332727/",
+      "file": "332727__sethlind__birds-and-bugs-in-the-woods-of-costa-rica.wav",
+      "sha256": "94787cdc5966dbe1aaabc16e98dc5f9cc97feacde275974a016ec6be2c7ec405",
+      "start": 4,
+      "seconds": 71,
+      "overlap": 5,
+      "highpass": 150,
+      "phase": 11.0
+    },
+    "jungle_lacandon": {
+      "author": "nicotep",
+      "license": "CC0-1.0",
+      "page": "https://freesound.org/people/nicotep/sounds/619311/",
+      "file": "619311__nicotep__ambiente_lacandon.wav",
+      "sha256": "0559a883737efee163aad23ad1cbec747ff71b314e6628d169598588d920936f",
+      "start": 5,
+      "seconds": 88,
+      "overlap": 6,
+      "highpass": 160,
+      "phase": 27.0
+    },
+    "jungle_anne82": {
+      "author": "anne82",
+      "license": "CC0-1.0",
+      "page": "https://freesound.org/people/anne82/sounds/276067/",
+      "file": "276067__anne82__jungleathmo.wav",
+      "sha256": "46ae837e633c4b08ab2597f3639381f4468bea49c1a7019ee5123778b192b9b7",
+      "start": 30,
+      "seconds": 160,
+      "overlap": 8,
+      "highpass": 180,
+      "phase": 43.0
+    }
+  },
+  "mixes": {
+    "day": {
+      "rms_dbfs": -32,
+      "layers": [
+        {
+          "source": "jungle_peru_day",
+          "gain_db": -6
+        },
+        {
+          "source": "jungle_costa_rica",
+          "gain_db": -12
+        },
+        {
+          "source": "jungle_lacandon",
+          "gain_db": -16
+        },
+        {
+          "source": "jungle_anne82",
+          "gain_db": -22
+        }
+      ]
+    },
+    "night": {
+      "rms_dbfs": -34,
+      "layers": [
+        {
+          "source": "jungle_peru_frogs",
+          "gain_db": -8
+        },
+        {
+          "source": "jungle_anne82",
+          "gain_db": -12
+        },
+        {
+          "source": "jungle_lacandon",
+          "gain_db": -20
+        }
+      ]
+    }
+  }
+}

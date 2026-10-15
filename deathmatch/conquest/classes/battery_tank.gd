@@ -26,9 +26,10 @@ const MAX_HOVER_HEIGHT:=.5
 const PROFILES={
 	"rocket":{"name":"BATTERY TANK","hp":100,"size":SIZE,"forward":FORWARD,"reverse":REVERSE,"turn":TURN,"acceleration":4.0,"capacity":8,"reload":RELOAD,"interval":INTERVAL,"pair":1,"pitch_min":-89.0,"pitch_max":89.0,"pivot":Vector3(0,2.3,0),"length":2.65,"offset":.55,"model":"res://deathmatch/models/battery_tank/battery_tank.glb"},
 	"light":{"name":"LIGHT TANK","hp":250,"size":Vector3(2.2,1.0,4.8),"forward":FORWARD,"reverse":REVERSE,"turn":TURN,"acceleration":4.0,"capacity":5,"reload":10.0,"interval":1.5,"pair":1,"pitch_min":-2.0,"pitch_max":35.0,"pivot":Vector3(0,.88044,1.30787),"length":3.46838,"offset":0.0,"model":"res://deathmatch/models/hover_tanks/light.glb"},
-	"transport":{"name":"ALLIED TRANSPORT","hp":100,"size":Vector3(3.510538,2.820975,8),"forward":FORWARD,"reverse":REVERSE,"turn":TURN,"acceleration":4.0,"capacity":0,"reload":0.0,"interval":0.0,"pair":0,"pitch_min":0.0,"pitch_max":0.0,"pivot":Vector3.ZERO,"length":0.0,"offset":0.0,"model":"res://deathmatch/models/ground_transport/transport.glb"},
+	"transport":{"name":"ALLIED TRANSPORT","hp":100,"size":Vector3(3.510538,2.820975,8),"forward":12.0,"reverse":6.0,"turn":TURN,"acceleration":4.0,"capacity":0,"reload":0.0,"interval":0.0,"pair":0,"pitch_min":0.0,"pitch_max":0.0,"pivot":Vector3.ZERO,"length":0.0,"offset":0.0,"model":"res://deathmatch/models/ground_transport/transport.glb"},
 	"heavy":{"name":"HEAVY TANK","hp":500,"size":Vector3(3.2,1.2,5.8),"forward":6.0,"reverse":3.0,"turn":.35,"acceleration":2.5,"capacity":4,"reload":15.0,"interval":1.5,"pair":2,"pitch_min":-4.0,"pitch_max":25.0,"pivot":Vector3(0,1.06728,1.30121),"length":3.79844,"offset":.18,"model":"res://deathmatch/models/hover_tanks/heavy.glb"}}
 static func profile(row:Dictionary) -> Dictionary:return PROFILES.get(row.get("kind","rocket"),PROFILES.rocket)
+var repair_status=preload("res://deathmatch/conquest/classes/repair_status.gd").new()
 var game
 var rows:Dictionary={}
 var bodies:Dictionary={}
@@ -55,6 +56,7 @@ static func placements() -> Array:
 		result.append({"poi":Landscape.TYPES[spec[0]],"position":at,"yaw":PI*.5 if spec[1]==0 else -PI*.5,"team":spec[1],"kind":"transport"})
 	return result
 func reset() -> void:
+	repair_status.clear()
 	if not game.headless:headlights.clear()
 	for row in rows.values():
 		for id in occupants(row):unlock(id)
@@ -118,6 +120,12 @@ func seat_index(id:int,key:int)->int:return rows[key].get("seats",[]).find(id) i
 func passenger_position(id:int,key:int)->Vector3:
 	var row:Dictionary=rows[key];var index:=seat_index(id,key)
 	return visual_origin(row)+visual_basis(row)*Transport.point(index,"seat") if index>=0 else row.position
+func repair_tool_mount(id:int)->Transform3D:
+	var row:Dictionary=view_row(key_for(id))
+	return Transform3D(visual_basis(row),visual_origin(row))*Transform3D(Basis(Vector3.RIGHT,-PI/2),Transport.point(7,"seat")+Vector3(0,.95,-.55))
+func can_repair_from_cabin(id:int)->bool:
+	var key:=key_for(id)
+	return key>=0 and rows[key].kind=="transport" and seat_index(id,key)==7 and game.classes.role(id)=="technician" and game.classes.states.get(id,{}).get("equipped_utility","engineering")=="engineering"
 func mounted(id:int) -> bool:return key_for(id)>=0
 func key_for(id:int) -> int:
 	for key in rows:
@@ -458,7 +466,7 @@ func draw() -> void:
 	# Seat it on the same rendered hull now, preserving head/controller orientation.
 	var mine:int=game.multiplayer.get_unique_id();var seated:=key_for(mine)
 	if seated>=0 and game.is_vr() and is_instance_valid(game.xr_rig):game.xr_rig.global_position=render_passenger_position(mine,seated)
-	draw_helper();view.update();headlights.update(self)
+	draw_helper();view.update();headlights.update(self);repair_status.update(self)
 static func pose_turret(model:Node3D,row:Dictionary)->void:
 	var yaw_node:Node3D=model.find_child("Yaw",true,false)
 	if yaw_node:

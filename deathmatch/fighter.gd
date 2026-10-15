@@ -19,6 +19,7 @@ var frozen_label: Label3D
 var frost_material: ShaderMaterial
 var frost_originals: Array=[]
 var gibbed:=false
+var incapacitated:=false
 var spectator:=false
 var xr_pose: Dictionary={}
 var avatar_hash := ""
@@ -150,6 +151,7 @@ func locomotion_state() -> Dictionary:
 	if jetpack_enabled:state.jetpack=jetpack_state.duplicate(true)
 	return state
 func receive_locomotion(state: Dictionary) -> void:
+	incapacitated=state.get("incapacitated",false)
 	update_height(float(state.get("height",xr_pose.get("height",1.65))),true)
 	visual_grounded=state.get("grounded",absf(visual_velocity.y)<.5)==true
 func update_height(requested:float,force:bool=false) -> void:
@@ -351,8 +353,8 @@ func show_alive(alive: bool, is_local: bool) -> void:
 	if alive_state and not alive:reset_jetpack()
 	alive_state = alive
 	local_player = is_local
-	collision_layer = 2 if alive and not vehicle_seated else 0
-	collision_mask=0 if spectator else 3
+	collision_layer = 2 if alive and not vehicle_seated and not incapacitated else 0
+	collision_mask=0 if spectator else 1 if incapacitated else 3
 	if avatar:
 		avatar.dead = not alive
 		if not avatar_hash.is_empty():

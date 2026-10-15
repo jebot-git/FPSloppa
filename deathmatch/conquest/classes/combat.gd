@@ -168,3 +168,12 @@ func tick_battery(id:int,delta:float,movement_start:Dictionary,targets) -> void:
 	var hit:Dictionary=game._trace(p.position,end,p.owner,0,d.radius,{} if p.fresh else movement_start,targets.candidates(p.position,end,d.radius));p.fresh=false
 	if hit.hit:explode(id,hit.position);return
 	p.position=end;p.direction=p.velocity.normalized()
+
+func charge_label(id:int)->String:
+	if game.players.get(id,{}).get("weapon",-1)!=5:return ""
+	var charge:Dictionary=charges.get(id,{})
+	if not charge.is_empty():
+		var left:float=maxf(0.,float(charge.at)-game.clock)
+		return "CHARGING %03d%% · %.2fs · "%[clampi(roundi((1.-left/.35)*100.),0,100),left]
+	var state:Dictionary=magazines.states.get(id,{})
+	return "RELOADING ORDNANCE · " if state.get("reloading",-1)==5 else "MASSACRE READY · "

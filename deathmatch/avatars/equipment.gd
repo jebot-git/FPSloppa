@@ -20,5 +20,19 @@ static func utility(key:String) -> Node3D:
 		return node
 	var models=preload("res://deathmatch/conquest/classes/models.gd")
 	var node:Node3D=models.weapon(7,"cq_medic" if key=="medical" else "cq_technician") if key in ["medical","engineering"] else models.weapon(8,"cq_scout")
-	node.scale=Vector3.ONE*.35
+	node.scale=Vector3.ONE*(injector_scale() if key=="medical" else .35)
 	return node
+
+static func cloak_held_pose(grip:Transform3D)->Transform3D:
+	# The cell is authored along +Y, while the closed palm's thumb axis is -Z.
+	# Use the grip frame directly, like a cylindrical grenade, at its authored size.
+	return grip*Transform3D(Basis(Vector3.RIGHT,-PI/2),Vector3(0,-.018,-.018))
+
+static func injector_grip()->Transform3D:
+	# Point the needle out of the pinky side of the fist, away from the thumb.
+	return Transform3D(Basis(Vector3.UP,PI),Vector3(0,-.018,-.018))
+static func injector_scale()->float:
+	return preload("res://deathmatch/conquest/classes/models.gd").metadata(7,"cq_medic").get("held_scale",1.15)
+static func injector_pose(grip:Transform3D)->Transform3D:return grip*injector_grip()
+static func injector_tip()->Vector3:
+	return preload("res://deathmatch/conquest/classes/models.gd").muzzle(7,"cq_medic")*injector_scale()

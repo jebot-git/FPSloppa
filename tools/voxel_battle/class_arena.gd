@@ -18,7 +18,6 @@ var airstrike=preload("res://deathmatch/conquest/classes/airstrike.gd").new()
 var recon_drone=preload("res://deathmatch/conquest/classes/recon_drone.gd").new()
 var night_vision=preload("res://deathmatch/conquest/classes/night_vision.gd").new()
 var loadout_menu
-var revival_timers=preload("res://deathmatch/conquest/classes/revival_timers.gd").new()
 var spotted_markers=preload("res://deathmatch/conquest/classes/spotted_markers.gd").new()
 var spotting=preload("res://deathmatch/conquest/classes/spotting.gd").new()
 var classes=preload("res://deathmatch/conquest/classes/rules.gd").new()
@@ -86,7 +85,7 @@ func _spawn(id:int) -> void:
 	spotting.spotted.erase(id);recon_drone.marks.erase(id);recon_drone.alerts.erase(id)
 	airstrike.cancel(id)
 	classes.spawn(id)
-	grenades.cancel(id);grenades.state(id).counts=[1 if classes.grenade_kind(id)==0 else 0,0,0,3 if classes.healing_grenades(id) else 0];grenades.state(id).shoulder=classes.grenade_kind(id)
+	grenades.cancel(id);grenades.state(id).counts=[3 if classes.grenade_kind(id)==0 else 0,0,0,3 if classes.healing_grenades(id) else 0];grenades.state(id).shoulder=classes.grenade_kind(id)
 	players[id].cq_class=classes.role(id);players[id].cq_id=id
 	super._spawn(id)
 	if resident.serving() and resident.core and not resident.attach(id):push_error("Resident CQ actor admission failed")
@@ -214,9 +213,10 @@ func _server_tick(delta:float) -> void:
 func _end_round() -> void:
 	if intermission<=0:classes.round_awards(-1 if match_mode.scores[0]==match_mode.scores[1] else 0 if match_mode.scores[0]>match_mode.scores[1] else 1)
 	super._end_round()
+var medic_drag_points=preload("res://deathmatch/conquest/classes/medic_drag_points.gd").new()
 func draw_class_players() -> void:
 	if headless:return
-	draw_class_tools();grenades.draw();revival_timers.draw(self)
+	draw_class_tools();grenades.draw();medic_drag_points.draw(self)
 	var mine:int=multiplayer.get_unique_id()
 	for id in fighters:
 		var reload_view:Dictionary=variant_combat.magazines.states.get(id,{}).get("physical",{}).get(players[id].weapon,{})
@@ -277,13 +277,15 @@ func _local_command() -> Dictionary:
 		if is_vr():
 			var stick:Vector2=bindings.axis(xr_rig,"move") if not command.input_blocked else Vector2.ZERO
 			command.move=Vector2(stick.x,-stick.y).limit_length(1) if stick.length()>=.18 else Vector2.ZERO
-			command.fire=bindings.vr_pressed(xr_rig,"fire") and not command.input_blocked and not xr_rig.wheel_open()
+			command.fire=bindings.vr_pressed(xr_rig,"fire") and not command.input_blocked
+			if transport and bindings.physical_transport_steering:command.move=xr_rig.transport_wheel.command() if xr_rig.transport_wheel and not command.input_blocked else Vector2.ZERO
 		command.reload=false;command.reload_grip=false;command.reload_trigger=false;command.cq_drag=false;command.physical=false;command.melee=false;command.offhand_fire=false;command.alt_fire=false;command.room=Vector3.ZERO;command.crouch=false;command.prone=false
 		command.offhand_fire=not command.input_blocked and (bindings.vr_pressed(xr_rig,"offhand_fire") if is_vr() else bindings.pressed("offhand_fire"))
 		if transport:command.fire=false
 		else:command.jump=false
 
 	if is_vr() and xr_rig.cq_utility:xr_rig.cq_utility.decorate(command)
+	if is_vr() and xr_rig.medic_interactions:xr_rig.medic_interactions.decorate(command)
 	return command
 func deploy_class_box(id:int) -> bool:
 	if battery_tanks.mounted(id):return false
@@ -319,7 +321,7 @@ func tick_class_tools(delta:float) -> void:
 		for id in players:
 			if not classes.alive(id) or players[id].team!=box.team:continue
 			var chest:Vector3=fighters[id].position+Vector3.UP*.9
-			if chest.distance_to(box.position)>4 or not classes.needs_supply(key,id):continue
+			if (Vector2(chest.x-box.position.x,chest.z-box.position.z).length()>3 or absf(chest.y-box.position.y)>1.8 if box.kind=="health" else chest.distance_to(box.position)>4) or not classes.needs_supply(key,id):continue
 			if not Attribution.ray(get_world_3d().direct_space_state,PhysicsRayQueryParameters3D.create(box.position+Vector3.UP*.15,chest,1),"query.class_arena.tick_class_tools.ray").is_empty():continue
 			var contact:=Vector2i(key,id);contacts[contact]=true
 			# Weighted items are atomic: retain contact credit until a full pack fits.
@@ -365,17 +367,29 @@ func tick_class_tools(delta:float) -> void:
 			var direction:Vector3=(row.position-p.position).normalized();var score:float=p.velocity.normalized().dot(direction)
 			if score>alignment:alignment=score;best=row
 		if not best.is_empty():p.velocity=p.velocity.move_toward((best.position-p.position).normalized()*p.velocity.length(),p.velocity.length()*.08*delta)
-func line_visual(points:PackedVector3Array,color:Color,existing:MeshInstance3D) -> MeshInstance3D:
+func line_visual(points:PackedVector3Array,color:Color,existing:MeshInstance3D,thickness:float=0.0) -> MeshInstance3D:
 	var node:=existing
 	if not is_instance_valid(node):
 		node=MeshInstance3D.new();$Map.add_child(node);node.cast_shadow=GeometryInstance3D.SHADOW_CASTING_SETTING_OFF;node.mesh=ImmediateMesh.new()
 		var material:=StandardMaterial3D.new();material.shading_mode=BaseMaterial3D.SHADING_MODE_UNSHADED;material.albedo_color=color;material.transparency=BaseMaterial3D.TRANSPARENCY_ALPHA;node.material_override=material
 	# The same mesh is reused when the wearer toggles NVG.
 	node.material_override.albedo_color=color
+	node.material_override.cull_mode=BaseMaterial3D.CULL_DISABLED
+	node.material_override.emission_enabled=thickness>0
+	node.material_override.emission=color;node.material_override.emission_energy_multiplier=2.0
 	var mesh:ImmediateMesh=node.mesh;mesh.clear_surfaces()
 	if not points.is_empty():
-		mesh.surface_begin(Mesh.PRIMITIVE_LINES)
-		for point in points:mesh.surface_add_vertex(point)
+		mesh.surface_begin(Mesh.PRIMITIVE_TRIANGLES if thickness>0 else Mesh.PRIMITIVE_LINES)
+		var eye:Vector3=xr_rig.head.global_position if is_vr() else camera.global_position
+		for i in range(0,points.size()-1,2):
+			var a:Vector3=points[i];var b:Vector3=points[i+1]
+			if thickness>0:
+				var axis:Vector3=(b-a).normalized();var side:Vector3=axis.cross(eye-a)
+				if side.length_squared()<.000001:side=axis.cross(Vector3.UP)
+				if side.length_squared()<.000001:side=axis.cross(Vector3.RIGHT)
+				side=side.normalized()*thickness*.5
+				for v in [a-side,a+side,b+side,a-side,b+side,b-side]:mesh.surface_add_vertex(v)
+			else:mesh.surface_add_vertex(a);mesh.surface_add_vertex(b)
 		mesh.surface_end()
 	return node
 func draw_class_tools() -> void:
@@ -384,18 +398,27 @@ func draw_class_tools() -> void:
 	var eye:Vector3=xr_rig.head.global_position if is_vr() else camera.global_position if camera else Vector3.ZERO
 	var nvg:bool=night_vision.enabled_for(mine)
 	var ally:=PackedVector3Array();var enemy:=PackedVector3Array()
-	for row in designations.values():
-		if row.until<clock:continue
+	var local_beam:=false
+	if is_vr() and not menu_open:
+		var model:Node3D=xr_rig.gun
+		var utility_designator:bool=xr_rig.cq_utility.held and xr_rig.cq_utility.kind()=="airstrike"
+		if utility_designator:model=xr_rig.shoulder_utility
+		var in_hand:bool=utility_designator or xr_rig.cq_hands.holding and local_state().get("weapon",-1)==8 and not xr_rig.cq_utility.held
+		if in_hand and is_instance_valid(model) and model.visible:
+			var start:Vector3=model.global_transform*preload("res://deathmatch/conquest/classes/models.gd").muzzle(8,"cq_scout")
+			var end:Vector3=start-model.global_basis.z.normalized()*200.
+			var hit:Dictionary=Attribution.ray(get_world_3d().direct_space_state,PhysicsRayQueryParameters3D.create(start,end,1),"query.designator.local_beam")
+			ally.append_array(PackedVector3Array([start,hit.position if not hit.is_empty() else end]))
+			local_beam=true
+	for id in designations:
+		var row:Dictionary=designations[id]
+		# The tracked muzzle already renders our beam without network pose latency.
+		if row.until<clock or (id==mine and local_beam):continue
 		if players.get(mine,{}).get("team",-1)==row.team:ally.append_array(PackedVector3Array([row.start,row.position]))
 		else:enemy.append_array(preload("res://deathmatch/conquest/classes/beam.gd").visible_segment(row.start,row.position,eye,nvg))
-	if is_vr() and not menu_open and xr_rig.cq_hands and xr_rig.cq_hands.holding and local_state().get("weapon",-1)==8 and not xr_rig.cq_utility.held and is_instance_valid(xr_rig.gun):
-		var start:Vector3=xr_rig.gun.global_transform*preload("res://deathmatch/conquest/classes/models.gd").muzzle(8,"cq_scout")
-		var end:Vector3=start-xr_rig.gun.global_basis.z.normalized()*5000.
-		var hit:Dictionary=Attribution.ray(get_world_3d().direct_space_state,PhysicsRayQueryParameters3D.create(start,end,1),"query.designator.local_beam")
-		ally.append_array(PackedVector3Array([start,hit.position if not hit.is_empty() else end]))
-	beam_mesh=line_visual(ally,Color(1,.15,.1,1.0 if nvg else .85),beam_mesh)
+	beam_mesh=line_visual(ally,Color(1,.15,.1,1.0 if nvg else .85),beam_mesh,.008)
 	var faded:MeshInstance3D=class_visuals.get("enemy_beam")
-	class_visuals.enemy_beam=line_visual(enemy,Color(1,.15,.1,1.0 if nvg else .12),faded)
+	class_visuals.enemy_beam=line_visual(enemy,Color(1,.15,.1,1.0 if nvg else .12),faded,.004)
 	for key in class_visuals.keys():
 		if str(key).begins_with("box") and not classes.dispensers.has(str(key).trim_prefix("box").to_int()):
 			if is_instance_valid(class_visuals[key]):class_visuals[key].queue_free()
@@ -459,8 +482,9 @@ func accept_class_throw(id:int,action:String,pose:Dictionary,seq:int) -> void:
 	grenades.physical_request(id,action,checked,players[id].get("cq_throw_velocity",Vector3.ZERO))
 @rpc("authority","call_local","reliable",1)
 func _de_grenade_fx(position:Vector3,_kind:int) -> void:
-	night_vision.flash(position,70,.65,2.5,1.2)
-	if effects:effects.play("cq_field_ordnance_impact",position,-3)
+	if headless:return
+	_weapon_visuals().burst("ut99",position,-1,"ordnance",{"cq_effect":"ordnance","color":Color("ffba62")})
+	if effects:effects.play("cq_field_ordnance_impact",position,0)
 func _weapon_visuals():
 	if not is_instance_valid(variant_visuals):
 		variant_visuals=preload("res://deathmatch/conquest/classes/visuals.gd").new();variant_visuals.name="CQWeaponEffects";add_child(variant_visuals);variant_visuals.illumination.connect(_weapon_illumination);variant_visuals.nvg_flash.connect(night_vision.flash)
@@ -482,7 +506,7 @@ func _play_variant_shot_fx(id:int,weapon:int,alternate:bool) -> void:
 	if headless:return
 	if id==multiplayer.get_unique_id():visual_cooldown=armory.data(weapon,alternate).cycle
 	if field_audio:field_audio.shot(weapon,_weapon_transform(id).origin)
-const CLASS_PROTOCOL:="fpsloppa-cq-frontier-28-headlights"
+const CLASS_PROTOCOL:="fpsloppa-cq-frontier-29-vr-mechanics"
 func connection_protocol() -> String:return CLASS_PROTOCOL
 func _collect(_id:int) -> void:pass # CQ resupplies through its class dispensers.
 func on_player_died(id:int) -> void:

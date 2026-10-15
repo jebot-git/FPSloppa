@@ -1,0 +1,268 @@
+--- a/deathmatch/interface.gd
++++ b/deathmatch/interface.gd
+@@ -322,6 +322,8 @@
+ 	)
+ 	var session_actions:=VBoxContainer.new();match_page.add_child(session_actions)
+ 	suicide=button(session_actions,"SUICIDE · −1 FRAG",func():
++		if game.has_method("draw_class_players"):
++			preload("res://deathmatch/ui/cq/menu.gd").activate_respawn(self);return
+ 		game.request_suicide()
+ 		game.menu_open=false;show_menu(false)
+ 		Input.mouse_mode=Input.MOUSE_MODE_VISIBLE if game.is_vr() else Input.MOUSE_MODE_CAPTURED
+@@ -463,6 +465,7 @@
+ 	var state: Dictionary = game.local_state()
+ 	var viewed_id: int=game.demos.selected_player if game.demos.playing else multiplayer.get_unique_id()
+ 	suicide.disabled=game.demos.playing or state.is_empty() or state.get("dead",true) or state.get("spectator",false) or game.intermission>0 or game.lobby.active() or game.match_mode.special.blocked(viewed_id)
++	if game.has_method("draw_class_players"):preload("res://deathmatch/ui/cq/menu.gd").refresh_respawn(self,state)
+ 	if state.is_empty(): return
+ 	var d: Dictionary = game.match_mode.fortress.weapon_data(viewed_id,state.weapon)
+ 	vitals.text = "%03d  HEALTH    %03d  ARMOR" % [state.hp,state.armor]
+--- a/deathmatch/ui/cq/menu.gd
++++ b/deathmatch/ui/cq/menu.gd
+@@ -52,5 +52,22 @@
+ 	# are inherited arena features and do not apply to the CQ class mode.
+ 	retire(hud.votes_panel.selector);retire(hud.votes_panel.call_map);retire(hud.votes_panel.call_loadout)
+ 	hud.votes_button.text="TEAMS & BALANCE"
+-	hud.suicide.text="RESPAWN";hud.suicide.tooltip_text="Return after the normal respawn delay."
++	refresh_respawn(hud,game.local_state())
+ 	book.navigate("home")
++
++static func refresh_respawn(hud,state:Dictionary)->void:
++	var game=hud.game
++	var deploying:bool=state.get("dead",false) or game.squads.local().get("staging",false)
++	hud.suicide.text="RESPAWN" if deploying else "SUICIDE"
++	hud.suicide.tooltip_text="Choose a squad and spawn point on the deployment map. The normal respawn delay applies." if deploying else "Kill yourself and return to deployment after the normal respawn delay."
++	hud.suicide.disabled=game.demos.playing or state.is_empty() or (state.get("spectator",false) and not deploying) or game.intermission>0 or game.lobby.active()
++static func activate_respawn(hud)->void:
++	var game=hud.game
++	var state:Dictionary=game.local_state()
++	refresh_respawn(hud,state)
++	if hud.suicide.disabled:return
++	if state.get("dead",false) or game.squads.local().get("staging",false):
++		game.squads.open_map();return
++	game.request_suicide()
++	game.menu_open=false;hud.show_menu(false)
++	Input.mouse_mode=Input.MOUSE_MODE_VISIBLE if game.is_vr() else Input.MOUSE_MODE_CAPTURED
+--- a/deathmatch/vr/status_hud.gd
++++ b/deathmatch/vr/status_hud.gd
+@@ -1,9 +1,10 @@
+ extends Control
+ ## Transparent, noninteractive HUD drawn into a head-relative stereo surface.
+ const W=preload("res://deathmatch/weapons.gd")
++const KILLFEED_HEIGHT=100
+ const CHAT_HEIGHT=132
+ const NOTIFY_HEIGHT=56
+-const VIEW_SIZE=Vector2i(960,292+CHAT_HEIGHT+NOTIFY_HEIGHT)
++const VIEW_SIZE=Vector2i(960,292+KILLFEED_HEIGHT+CHAT_HEIGHT+NOTIFY_HEIGHT)
+ var cq:=false
+ var radio_scope:=0
+ func update_radio_scope(scope:int)->void:
+@@ -15,7 +16,7 @@
+ 	cq=true;cq_font=preload("res://deathmatch/ui/cq/theme.gd").FONT
+ 	theme=preload("res://deathmatch/ui/cq/theme.gd").theme()
+ 	cq_panel=preload("res://deathmatch/ui/cq/hud.gd").surface()
+-	for line in chat_labels:line.add_theme_color_override("font_color",preload("res://deathmatch/ui/cq/theme.gd").INK)
++	for line in chat_labels+kill_labels:line.add_theme_color_override("font_color",preload("res://deathmatch/ui/cq/theme.gd").INK)
+ 	queue_redraw()
+ func backdrop(rect:Rect2,color:Color)->void:
+ 	if cq:draw_style_box(cq_panel,rect)
+@@ -23,15 +24,23 @@
+ var player_status: Dictionary={}
+ func update_player_status(data: Dictionary) -> void:
+ 	if data!=player_status:player_status=data;queue_redraw()
++var kill_labels:Array[Label]=[]
++var kill_messages:=PackedStringArray()
+ var chat_labels: Array[Label]=[]
+ var chat_messages:=PackedStringArray()
+ 
+ func _ready() -> void:
+ 	if not cq:
+ 		legacy_panel=StyleBoxFlat.new();legacy_panel.bg_color=Color(.10,.075,.05,.80);legacy_panel.border_color=Color("a88550");legacy_panel.set_border_width_all(2)
++	for i in 3:
++		var line:=Label.new();line.position=Vector2(20,4+i*32);line.size=Vector2(920,30)
++		line.add_theme_font_size_override("font_size",20)
++		line.add_theme_color_override("font_color",preload("res://deathmatch/ui/cq/theme.gd").INK if cq else INK)
++		line.text_overrun_behavior=TextServer.OVERRUN_TRIM_ELLIPSIS
++		line.mouse_filter=Control.MOUSE_FILTER_IGNORE;add_child(line);kill_labels.append(line)
+ 	for i in 2:
+ 		var line:=Label.new()
+-		line.position=Vector2(20,4+i*64)
++		line.position=Vector2(20,KILLFEED_HEIGHT+4+i*64)
+ 		line.size=Vector2(920,60)
+ 		line.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART
+ 		line.max_lines_visible=3
+@@ -41,6 +50,18 @@
+ 		line.mouse_filter=Control.MOUSE_FILTER_IGNORE
+ 		add_child(line);chat_labels.append(line)
+ 	_refresh_chat()
++
++func update_killfeed(entries:Array,now:float)->void:
++	var next:=PackedStringArray()
++	for entry in entries:
++		if entry.until>now:next.append(entry.text)
++	while next.size()>3:next.remove_at(0)
++	if next==kill_messages:return
++	kill_messages=next
++	for i in kill_labels.size():
++		var index:=i-(3-kill_messages.size())
++		kill_labels[i].text=kill_messages[index] if index>=0 else ""
++	queue_redraw()
+ 
+ func update_chat(entries: Array,now: float) -> void:
+ 	var next:=PackedStringArray()
+@@ -90,9 +111,11 @@
+ 	if cq and color in [INK,Color("d8bc8b"),Color("b9a98e"),Color("ffcf80")]:color=preload("res://deathmatch/ui/cq/theme.gd").INK
+ 	draw_string(cq_font if cq else ThemeDB.fallback_font,at,value,HORIZONTAL_ALIGNMENT_LEFT,-1,font_size,preload("res://deathmatch/ui/cq/theme.gd").INK if cq and color==INK else color)
+ func _draw() -> void:
++	for i in kill_labels.size():
++		if not kill_labels[i].text.is_empty():backdrop(Rect2(4,2+i*32,952,30),Color(.10,.075,.05,.88))
+ 	for i in chat_labels.size():
+-		if not chat_labels[i].text.is_empty():backdrop(Rect2(4,2+i*64,952,62),Color(.10,.075,.05,.88))
+-	draw_set_transform(Vector2(0,CHAT_HEIGHT))
++		if not chat_labels[i].text.is_empty():backdrop(Rect2(4,KILLFEED_HEIGHT+2+i*64,952,62),Color(.10,.075,.05,.88))
++	draw_set_transform(Vector2(0,KILLFEED_HEIGHT+CHAT_HEIGHT))
+ 	if not player_status.is_empty():
+ 		var team: int=player_status.team
+ 		var color: Color=Color("ff9c88") if team==0 else Color("91caff") if team==1 else INK
+@@ -102,7 +125,7 @@
+ 			backdrop(Rect2(748,0,208,27),Color(.10,.075,.05,.90));label(Vector2(762,22),player_status.team_text,20,color)
+ 		if not player_status.carrier.is_empty():
+ 			backdrop(Rect2(4,28,952,27),Color(.10,.075,.05,.94));label(Vector2(20,50),player_status.carrier,21,Color("ffdf86"))
+-	draw_set_transform(Vector2(0,CHAT_HEIGHT+NOTIFY_HEIGHT))
++	draw_set_transform(Vector2(0,KILLFEED_HEIGHT+CHAT_HEIGHT+NOTIFY_HEIGHT))
+ 	if not capture_text.is_empty():
+ 		backdrop(Rect2(4,0,952,70),Color(.23,.06,.04,.94) if capture_team==0 else Color(.035,.10,.23,.94))
+ 		label(Vector2(20,28),capture_text.left(82),22,Color("fff0bf"))
+@@ -112,7 +135,7 @@
+ 		var lines:=vote_text.split("\n")
+ 		label(Vector2(20,25),lines[0].left(86),20,Color("ffcf80"))
+ 		label(Vector2(20,53),lines[1],21,Color("ffcf80"))
+-	draw_set_transform(Vector2(0,CHAT_HEIGHT+NOTIFY_HEIGHT+72))
++	draw_set_transform(Vector2(0,KILLFEED_HEIGHT+CHAT_HEIGHT+NOTIFY_HEIGHT+72))
+ 	if not network.is_empty():
+ 		if network.show:label(Vector2(16,205),"↓ ASSETS %d%%"%network.percent,18,Color("d8bc8b"))
+ 		label(Vector2(832,205),"HOST" if network.host else "%d ms"%network.ping if network.ping>0 else "— ms",18,Color("b9a98e"))
+--- a/deathmatch/vr/rig.gd
++++ b/deathmatch/vr/rig.gd
+@@ -191,7 +191,7 @@
+ 	status_surface=MeshInstance3D.new()
+ 	var status_quad:=QuadMesh.new();status_quad.size=Vector2(status_viewport.size)*.001
+ 	# Extend upwards for chat without moving or shrinking the existing HUD.
+-	status_quad.center_offset.y=(status_hud.CHAT_HEIGHT+status_hud.NOTIFY_HEIGHT)*.0005
++	status_quad.center_offset.y=(status_hud.KILLFEED_HEIGHT+status_hud.CHAT_HEIGHT+status_hud.NOTIFY_HEIGHT)*.0005
+ 	status_surface.mesh=status_quad;status_surface.position=Vector3(0,-.46,-1.5)
+ 	status_surface.cast_shadow=GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+ 	var status_material:=StandardMaterial3D.new()
+@@ -368,6 +368,7 @@
+ 	last_panel=menu_visible
+ 	status_surface.visible=actor!=null and focused and not menu_visible
+ 	status_hud.update_chat(game.chat_feed,game.clock)
++	status_hud.update_killfeed(game.feed,game.clock)
+ 	if not menu_visible:turn_panel.hide()
+ 	panel.visible=menu_visible
+ 	panel.enabled=menu_visible
+--- a/addons/fps_native/src/authority_utilities.cpp
++++ b/addons/fps_native/src/authority_utilities.cpp
+@@ -74,7 +74,8 @@
+       choose_gear(p.handle, a.a, a.b, a.c);
+       continue;
+     }
+-    if (a.kind == ActionKind::SUICIDE && cq.enabled && !p.input.blocked &&
++    // Menu actions remain valid while movement/fire input is blocked.
++    if (a.kind == ActionKind::SUICIDE && cq.enabled &&
+         points.winner == -2 && time_ - p.last_input <= .35) {
+       if (!p.dead)
+         damage(p.handle, p.handle, 10000, DamageKind::VEHICLE_DESTROYED);
+--- a/tools/authority_core/gameplay_tests.cpp
++++ b/tools/authority_core/gameplay_tests.cpp
+@@ -74,6 +74,24 @@
+ }
+ } // namespace
+ void cq_rules_tests() {
++  for (int hz : {30, 60}) {
++    auto c = game(); World world;
++    check(c->configure_tick_rate(hz), "menu suicide tick rate");
++    auto h = join(*c, 901, 0);
++    Command input; input.life = h.life; input.seq = 0; input.weapon = 2; input.blocked = true;
++    check(c->submit(h, input), "menu-blocked input accepted");
++    c->advance(world);
++    Action action; action.kind = ActionKind::SUICIDE; action.seq = 0;
++    check(c->queue_action(h, action), "suicide menu action accepted");
++    c->advance(world);
++    auto *p = c->resolve(h);
++    check(p->dead && p->deaths == 1, "suicide works with menu-blocked input and spawn protection");
++    check(p->respawn_at > c->time() && p->want_respawn, "suicide preserves normal respawn delay");
++    check(!c->queue_action(h, action), "replayed suicide rejected");
++    action.seq = 1; c->queue_action(h, action); c->advance(world);
++    check(p->deaths == 1, "dead suicide cannot award another death");
++  }
++
+   // Exercise authority dispatch as well as the golden-reference swing sampler.
+   for (int hz : {30, 60}) {
+     auto c = game(); World world;
+--- /dev/null
++++ b/deathmatch/tests/cq_respawn_killfeed.gd
+@@ -0,0 +1,63 @@
++extends SceneTree
++const Menu=preload("res://deathmatch/ui/cq/menu.gd")
++var checks:=0
++class Squads extends RefCounted:
++	var opened:=0
++	var state:Dictionary={}
++	func local()->Dictionary:return state
++	func open_map()->void:opened+=1
++class Lobby extends RefCounted:
++	func active()->bool:return false
++class Game extends RefCounted:
++	var squads:=Squads.new()
++	var demos:Dictionary={"playing":false}
++	var intermission:=0.
++	var lobby:=Lobby.new()
++	var menu_open:=true
++	var state:Dictionary={"dead":false,"spectator":false}
++	var suicides:=0
++	func local_state()->Dictionary:return state
++	func request_suicide()->void:suicides+=1
++	func is_vr()->bool:return false
++class Hud extends RefCounted:
++	var game:=Game.new()
++	var suicide:=Button.new()
++	var shown:=true
++	func show_menu(value:bool)->void:shown=value
++func check(ok:bool,message:String)->void:
++	checks+=1
++	if not ok:push_error(message);quit(1)
++func _initialize()->void:run.call_deferred()
++func run()->void:
++	var hud:=Hud.new()
++	Menu.refresh_respawn(hud,hud.game.state)
++	check(hud.suicide.text=="SUICIDE" and not hud.suicide.disabled,"alive button offers suicide")
++	Menu.activate_respawn(hud)
++	check(hud.game.suicides==1 and not hud.shown and not hud.game.menu_open,"alive click requests suicide and closes menu")
++	hud.game.state.dead=true
++	Menu.refresh_respawn(hud,hud.game.state)
++	check(hud.suicide.text=="RESPAWN" and not hud.suicide.disabled,"dead button offers respawn")
++	Menu.activate_respawn(hud)
++	check(hud.game.squads.opened==1 and hud.game.suicides==1,"dead click opens deployment without another suicide")
++	hud.game.intermission=1
++	Menu.activate_respawn(hud)
++	check(hud.suicide.disabled and hud.game.squads.opened==1,"round completion blocks action")
++	hud.game.intermission=0;hud.game.state={"dead":false,"spectator":true};hud.game.squads.state={"staging":true}
++	Menu.refresh_respawn(hud,hud.game.state)
++	check(hud.suicide.text=="RESPAWN" and not hud.suicide.disabled,"staging spectator can reach deployment")
++	hud.game.squads.state={};Menu.activate_respawn(hud)
++	check(hud.suicide.disabled and hud.game.suicides==1,"real spectator cannot suicide")
++	var status=preload("res://deathmatch/vr/status_hud.gd").new();root.add_child(status);status.configure_cq()
++	var entries:Array=[{"text":"Expired","until":1.},{"text":"Alpha → Bravo · Pistol","until":8.},{"text":"Bravo → Charlie · Carbine","until":8.},{"text":"Charlie → Delta · SMG","until":9.},{"text":"Delta → Alpha · Rifle","until":10.}]
++	status.update_killfeed(entries,2.)
++	check(status.kill_messages.size()==3 and status.kill_messages[0]==entries[2].text,"killfeed retains newest three unexpired entries")
++	check(status.kill_labels[2].text==entries[4].text,"newest kill is beside status notifications")
++	status.update_chat([{"text":"Squad message","until":12.}],2.)
++	check(status.chat_labels[1].text=="Squad message" and status.chat_labels[0].position.y>=status.KILLFEED_HEIGHT,"chat remains separate from killfeed")
++	status.update_killfeed(entries,9.)
++	check(status.kill_messages.size()==1 and status.kill_labels[0].text.is_empty() and status.kill_labels[2].text==entries[4].text,"individual expiry clears old labels")
++	status.update_killfeed(entries,10.)
++	check(status.kill_messages.is_empty() and status.kill_labels.all(func(line):return line.text.is_empty()),"killfeed clears at expiry")
++	check(status.VIEW_SIZE.y==292+status.KILLFEED_HEIGHT+status.CHAT_HEIGHT+status.NOTIFY_HEIGHT,"status surface reserves space for all rows")
++	hud.suicide.free();status.queue_free()
++	print("CQ_RESPAWN_KILLFEED_OK ",checks);quit()

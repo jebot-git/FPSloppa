@@ -259,13 +259,16 @@ void Core::tick_turrets(Host &host) {
     }
 }
 void Core::repair(Player &p, Host &host) {
-  if (p.classes.role != Role::TECHNICIAN || p.weapon != 7 || !p.input.fire)
+  if (p.classes.role != Role::TECHNICIAN || p.classes.replaces_box() || p.weapon != 7 || !p.input.fire ||
+      p.input.blocked || time_-p.last_input>.35 || (p.input.vr && (!p.pose.tracked || !p.input.weapon_held)))
     return;
+  // Cabin passenger may service only their own transport, never fire a gun.
+  if(p.vehicle>=0 && (p.vehicle_seat!=7 || vehicles_[size_t(p.vehicle)].kind!=VehicleKind::TRANSPORT))return;
   auto pose = weapon_pose(p);
   V tip = pose.apply({0, 0, -.12});
   for (auto &v : vehicles_)
     if (v.active && v.hp > 0 && v.team == p.team &&
-        v.hp < vehicle_profile(v.kind).hp) {
+        (p.vehicle<0 || &v==&vehicles_[size_t(p.vehicle)]) && v.hp < vehicle_profile(v.kind).hp) {
       V local = B::yaw(v.yaw).inverse(tip - v.position);
       V half = vehicle_profile(v.kind).size * .5;
       V nearest{std::clamp(local.x, -half.x, half.x),

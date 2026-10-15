@@ -31,6 +31,9 @@ func solve(primary: Transform3D, support: Transform3D, weapon: int, holding: boo
 			anchor=(models.support(weapon)-models.grip(weapon))*.65
 	if not engaged and offset.distance_to(primary.basis*anchor)>(.16 if rules in ["cs16","cq"] else .24):return primary
 	engaged=true
+	# A pistol support grip stabilizes the firing wrist; it must not rotate the
+	# barrel towards the cupping hand below the weapon.
+	if pistol:return primary
 	if rules in ["cs16","cq"]:
 		var target:=Basis(Quaternion((primary.basis*anchor).normalized(),offset.normalized()))*primary.basis if distance>.01 else primary.basis
 		return Transform3D(primary.basis.slerp(target,blend) if smooth else target,primary.origin)

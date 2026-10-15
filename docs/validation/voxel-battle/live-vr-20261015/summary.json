@@ -1,0 +1,515 @@
+{
+  "window": {
+    "first": "2026-10-15T14:23:00",
+    "last": "2026-10-15T14:34:57",
+    "seconds": 718.0,
+    "samples": 713,
+    "class_samples": {
+      "shocktroop": 391,
+      "medic": 80,
+      "scout": 130,
+      "technician": 112
+    },
+    "player_counts": {
+      "1": 713
+    }
+  },
+  "client": {
+    "all": {
+      "fps": {
+        "n": 713,
+        "mean": 83.12061711079944,
+        "min": 14.0,
+        "p05": 66.0,
+        "median": 89.0,
+        "p95": 90.0,
+        "max": 91.0
+      },
+      "process_ms": {
+        "n": 713,
+        "mean": 13.641030855539972,
+        "min": 6.582,
+        "p05": 8.2056,
+        "median": 11.28,
+        "p95": 19.1788,
+        "max": 353.271
+      },
+      "physics_ms": {
+        "n": 713,
+        "mean": 2.119913043478261,
+        "min": 0.789,
+        "p05": 0.9192,
+        "median": 1.282,
+        "p95": 5.1213999999999915,
+        "max": 21.242
+      },
+      "draw_calls": {
+        "n": 713,
+        "mean": 96.55960729312763,
+        "min": 33.0,
+        "p05": 38.0,
+        "median": 92.0,
+        "p95": 186.79999999999984,
+        "max": 301.0
+      },
+      "static_memory": {
+        "n": 713,
+        "mean": 633510022.7545582,
+        "min": 617462983.0,
+        "p05": 628738840.6,
+        "median": 633709673.0,
+        "p95": 635978021.8,
+        "max": 636740933.0
+      },
+      "video_memory": {
+        "n": 713,
+        "mean": 1041241868.5890603,
+        "min": 653718272.0,
+        "p05": 1047525347.2,
+        "median": 1052390944.0,
+        "p95": 1067241792.0,
+        "max": 1067330384.0
+      }
+    },
+    "gameplay": {
+      "fps": {
+        "n": 632,
+        "mean": 83.2863924050633,
+        "min": 64.0,
+        "p05": 66.0,
+        "median": 89.0,
+        "p95": 90.0,
+        "max": 91.0
+      },
+      "process_ms": {
+        "n": 632,
+        "mean": 13.060485759493671,
+        "min": 6.582,
+        "p05": 8.19795,
+        "median": 11.1585,
+        "p95": 18.800999999999988,
+        "max": 111.826
+      },
+      "physics_ms": {
+        "n": 632,
+        "mean": 2.2008037974683545,
+        "min": 0.789,
+        "p05": 0.9345500000000001,
+        "median": 1.3039999999999998,
+        "p95": 5.634449999999981,
+        "max": 21.242
+      },
+      "draw_calls": {
+        "n": 632,
+        "mean": 87.875,
+        "min": 33.0,
+        "p05": 38.0,
+        "median": 82.0,
+        "p95": 150.0,
+        "max": 225.0
+      },
+      "static_memory": {
+        "n": 632,
+        "mean": 633654566.4398735,
+        "min": 621487899.0,
+        "p05": 629555955.2,
+        "median": 633720193.0,
+        "p95": 635961082.0,
+        "max": 636527570.0
+      },
+      "video_memory": {
+        "n": 632,
+        "mean": 1039438950.050633,
+        "min": 653718272.0,
+        "p05": 1052307888.0,
+        "median": 1052390944.0,
+        "p95": 1067241792.0,
+        "max": 1067330384.0
+      }
+    },
+    "menu": {
+      "fps": {
+        "n": 81,
+        "mean": 81.82716049382717,
+        "min": 14.0,
+        "p05": 66.0,
+        "median": 87.0,
+        "p95": 90.0,
+        "max": 91.0
+      },
+      "process_ms": {
+        "n": 81,
+        "mean": 18.170716049382715,
+        "min": 7.095,
+        "p05": 8.492,
+        "median": 13.071,
+        "p95": 23.587,
+        "max": 353.271
+      },
+      "physics_ms": {
+        "n": 81,
+        "mean": 1.4887654320987653,
+        "min": 0.798,
+        "p05": 0.87,
+        "median": 1.131,
+        "p95": 4.724,
+        "max": 11.55
+      },
+      "draw_calls": {
+        "n": 81,
+        "mean": 164.320987654321,
+        "min": 71.0,
+        "p05": 85.0,
+        "median": 172.0,
+        "p95": 280.0,
+        "max": 301.0
+      },
+      "static_memory": {
+        "n": 81,
+        "mean": 632382225.1111112,
+        "min": 617462983.0,
+        "p05": 620709856.0,
+        "median": 633569883.0,
+        "p95": 636681885.0,
+        "max": 636740933.0
+      },
+      "video_memory": {
+        "n": 81,
+        "mean": 1055309084.8395061,
+        "min": 1040474432.0,
+        "p05": 1040480624.0,
+        "median": 1054048624.0,
+        "p95": 1067180640.0,
+        "max": 1067186832.0
+      }
+    },
+    "process": {
+      "cpu_percent": {
+        "n": 718,
+        "mean": 104.06367569022092,
+        "min": 59.995795254517375,
+        "p05": 68.8401411290781,
+        "median": 83.99329015688278,
+        "p95": 250.12951542765924,
+        "max": 324.94996874817093
+      },
+      "rss_kib": {
+        "n": 718,
+        "mean": 1375867.7493036212,
+        "min": 1286588.0,
+        "p05": 1343988.0,
+        "median": 1368992.0,
+        "p95": 1403928.0,
+        "max": 1403932.0
+      },
+      "thread_count": {
+        "n": 718,
+        "mean": 39.94568245125348,
+        "min": 1.0,
+        "p05": 40.0,
+        "median": 40.0,
+        "p95": 40.0,
+        "max": 40.0
+      },
+      "udp_receive_drops": {
+        "n": 718,
+        "mean": 0.0,
+        "min": 0.0,
+        "p05": 0.0,
+        "median": 0.0,
+        "p95": 0.0,
+        "max": 0.0
+      }
+    },
+    "flags": {
+      "active": 713,
+      "xr": 713,
+      "focused": 713,
+      "map_loading": 0,
+      "dead": 31,
+      "menu": 81
+    },
+    "voice": {
+      "sent": 138,
+      "received": 0
+    }
+  },
+  "server": {
+    "cpu_percent": {
+      "n": 707,
+      "mean": 17.32302587639736,
+      "min": 10.998791034157883,
+      "p05": 14.997903296011504,
+      "median": 16.998136341010586,
+      "p95": 18.998159316918084,
+      "max": 21.99726767527367
+    },
+    "rss_kib": {
+      "n": 708,
+      "mean": 478963.94350282487,
+      "min": 478880.0,
+      "p05": 478948.0,
+      "median": 478968.0,
+      "p95": 478972.0,
+      "max": 478972.0
+    },
+    "thread_count": {
+      "n": 708,
+      "mean": 16.0,
+      "min": 16.0,
+      "p05": 16.0,
+      "median": 16.0,
+      "p95": 16.0,
+      "max": 16.0
+    },
+    "udp_receive_drops": {
+      "n": 708,
+      "mean": 0.0,
+      "min": 0.0,
+      "p05": 0.0,
+      "median": 0.0,
+      "p95": 0.0,
+      "max": 0.0
+    },
+    "journal_health": {
+      "physics_ms": {
+        "samples": 143,
+        "min": 1.179,
+        "median": 1.502,
+        "p95": 2.2054000000000005,
+        "max": 11.772
+      },
+      "process_ms": {
+        "samples": 143,
+        "min": 0.428,
+        "median": 0.537,
+        "p95": 0.6426000000000001,
+        "max": 0.944
+      },
+      "orphan_nodes": {
+        "samples": 143,
+        "min": 0.0,
+        "median": 0.0,
+        "p95": 0.0,
+        "max": 0.0
+      }
+    },
+    "ping_ms": {
+      "samples": 143,
+      "min": 41,
+      "median": 42.0,
+      "p95": 48.0,
+      "max": 98
+    },
+    "events": {
+      "health": 147,
+      "peer_connected": 1,
+      "join_stage": 4,
+      "spawn": 1,
+      "player_joined": 1,
+      "match_event": 2,
+      "peer_departure_stage": 1,
+      "peer_disconnected": 1
+    },
+    "active_state": "active",
+    "restart_count": 0,
+    "release": "20261015-cq-headlights-destruction64",
+    "source_commit": "b7de5c2ec3dba2add081f2fa2b340fbf7017a799",
+    "local_suicide_fix_deployed": false
+  },
+  "frames": {
+    "windows": 71,
+    "total_frames": 59156,
+    "window_p50_ms": {
+      "n": 71,
+      "mean": 11.085211267605635,
+      "min": 9.35,
+      "p05": 9.736,
+      "median": 11.152,
+      "p95": 12.441,
+      "max": 15.887
+    },
+    "window_p95_ms": {
+      "n": 71,
+      "mean": 19.136225352112675,
+      "min": 13.37,
+      "p05": 13.479,
+      "median": 15.403,
+      "p95": 29.6625,
+      "max": 31.752
+    }
+  },
+  "wivrn": {
+    "sample_age_ms": {
+      "n": 718,
+      "mean": 97.06674362952646,
+      "min": 0.124389,
+      "p05": 8.67481785,
+      "median": 96.18533550000001,
+      "p95": 189.53802215,
+      "max": 199.868509
+    },
+    "target_hz": [
+      90.0
+    ],
+    "client_app_15": {
+      "cpu_ms": {
+        "n": 717,
+        "mean": 8.69955750209205,
+        "min": 5.46192,
+        "p05": 6.0274122,
+        "median": 8.318033,
+        "p95": 11.253318399999998,
+        "max": 14.100425999999999
+      },
+      "gpu_ms": {
+        "n": 717,
+        "mean": 4.832443383542538,
+        "min": 3.118163,
+        "p05": 3.6992846,
+        "median": 4.901571,
+        "p95": 5.8103739999999995,
+        "max": 6.711938
+      },
+      "interval_ms": {
+        "n": 717,
+        "mean": 12.104344732217573,
+        "min": 10.766981,
+        "p05": 10.9331176,
+        "median": 11.21973,
+        "p95": 15.090643999999998,
+        "max": 15.993431
+      },
+      "period_ms": {
+        "n": 717,
+        "mean": 11.111111,
+        "min": 11.111111,
+        "p05": 11.111111,
+        "median": 11.111111,
+        "p95": 11.111111,
+        "max": 11.111111
+      }
+    },
+    "stream_0": {
+      "encode_ms": {
+        "n": 718,
+        "mean": 1.2052233871866296,
+        "min": 0.884548,
+        "p05": 1.06239315,
+        "median": 1.1990565,
+        "p95": 1.37714165,
+        "max": 1.659231
+      },
+      "delivery_ms": {
+        "n": 718,
+        "mean": 3.297479511142061,
+        "min": 1.9133559999999998,
+        "p05": 2.4405628,
+        "median": 3.1140774999999996,
+        "p95": 4.35159695,
+        "max": 29.25488
+      },
+      "decode_ms": {
+        "n": 718,
+        "mean": 3.42874795821727,
+        "min": 2.123698,
+        "p05": 2.66048785,
+        "median": 3.3657035,
+        "p95": 4.45275,
+        "max": 5.6796359999999995
+      },
+      "encode_display_ms": {
+        "n": 718,
+        "mean": 45.9307142994429,
+        "min": 35.791669999999996,
+        "p05": 40.2671501,
+        "median": 46.094775999999996,
+        "p95": 51.015797649999996,
+        "max": 100.984197
+      },
+      "counters": {
+        "frames": 64534,
+        "presented_frames": 64367,
+        "repeats": 172
+      }
+    },
+    "stream_1": {
+      "encode_ms": {
+        "n": 718,
+        "mean": 1.21606319637883,
+        "min": 0.944444,
+        "p05": 1.0602402,
+        "median": 1.202575,
+        "p95": 1.3615917999999998,
+        "max": 3.363418
+      },
+      "delivery_ms": {
+        "n": 718,
+        "mean": 4.611301470752089,
+        "min": 3.055541,
+        "p05": 3.6345953499999997,
+        "median": 4.415944,
+        "p95": 6.114788649999999,
+        "max": 40.284151
+      },
+      "decode_ms": {
+        "n": 718,
+        "mean": 3.1788268551532033,
+        "min": 1.8565099999999999,
+        "p05": 2.32436025,
+        "median": 3.0816149999999998,
+        "p95": 4.3782396,
+        "max": 6.255157
+      },
+      "encode_display_ms": {
+        "n": 718,
+        "mean": 45.92949592061281,
+        "min": 35.819283,
+        "p05": 40.2863452,
+        "median": 46.0897795,
+        "p95": 51.0152439,
+        "max": 101.01695
+      },
+      "counters": {
+        "frames": 64534,
+        "presented_frames": 64367,
+        "repeats": 172
+      }
+    }
+  },
+  "script_errors": {
+    "SCRIPT ERROR: Invalid call. Nonexistent function 'wheel_open' in base 'Node3D (rig.gd)'.": 11,
+    "SCRIPT ERROR: Invalid access to property or key 'weapon' on a base object of type 'Dictionary'.": 11,
+    "SCRIPT ERROR: Invalid access to property or key 'seq' on a base object of type 'Dictionary'.": 5
+  },
+  "configuration": {
+    "client_branch": "experimental/cq-voxelspace",
+    "client_head": "1a6f952cc4433d24df407550766e99dc2c09db30",
+    "uncommitted_task_changes": true,
+    "server": "87.106.27.237:7777",
+    "runtime": "WiVRn-Pro v26.9.3-pyrowave.1",
+    "headset": "Meta Quest Pro",
+    "gpu": "Intel Arc A770",
+    "protocol": "fpsloppa-cq-frontier-28-headlights"
+  },
+  "limitations": [
+    "One player throughout; not a capacity or multiplayer combat test.",
+    "FPS and process telemetry are approximately one-second samples, not complete per-frame traces. FRAME_STATS percentiles belong to individual approximately ten-second windows and cannot be combined into a global percentile.",
+    "WiVRn target is 90 Hz; FRAME_STATS target_ms is incorrectly hard-coded to a 72 Hz budget.",
+    "The newly active WiVRn app ID 15 is inferred to be this client from its activation and completed-frame counter.",
+    "WiVRn encode_display_ms is encode-to-predicted-display timing, not full motion-to-photon latency.",
+    "Zero UDP receive-buffer drops does not establish zero network packet loss. No round-trip voice test occurred.",
+    "Legacy server health player HP/armour/input counters do not reflect native CQ authority. Do not interpret last_input_seq=-1 or increasing input_age_ms as loss of native CQ input.",
+    "The three ENVIRONMENT self-death notifications do not identify water versus suicide or another environmental cause.",
+    "Client input failures are confirmed in the mounted-vehicle firing path. Other reported visual, equipment, audio and swimming defects require targeted reproduction/instrumentation.",
+    "The client exited after the session. OpenXR shutdown errors are present; their cause and whether exit was requested are not established by these logs."
+  ],
+  "confirmed_input_failure": {
+    "missing_wheel_open_calls": 11,
+    "location": "tools/voxel_battle/class_arena.gd:280",
+    "context": "mounted VR vehicle firing",
+    "weapon_dictionary_errors": 11,
+    "input_sequence_dictionary_errors": 5,
+    "interpretation": "The missing method interrupts _local_command; downstream fire delivery and native send_input then access missing fields. Grenade throw failure is not established as the same cause."
+  }
+}

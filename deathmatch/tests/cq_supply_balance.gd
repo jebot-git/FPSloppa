@@ -10,6 +10,8 @@ func check(ok:bool,label:String)->void:
 	if not ok:failures.append(label)
 func run()->void:
 	var game=load("res://tools/voxel_battle/class_arena.tscn").instantiate();game.set_script(TestArena);root.add_child(game);game.set_process(false);game.set_physics_process(false);game.start_host("Supply",28783,100,10,false)
+	# This fixture exercises infantry supply; a default tank at the origin occludes its transfer rays.
+	game.battery_tanks.reset()
 	for id in [2,3]:game._add_player(id,"Supply %d"%id)
 	game.classes.choose(2,"technician");game._spawn(2);game.classes.choose(3,"medic");game._spawn(3)
 	for id in game.players:game.players[id].team=0
@@ -18,8 +20,8 @@ func run()->void:
 		check(rules.level(id)==0 and rules.dispenser_limit(id)==1,"Starting specialist has one box")
 		check(rules.deploy(id,Vector3.ZERO),"Initial specialist deployment")
 		var first:int=rules.next_dispenser
-		game.clock+=29.999;check(not rules.deploy(id,Vector3.ONE) and rules.dispensers.has(first),"Early deployment rejected without destroying old box")
-		game.clock+=.001;check(rules.deploy(id,Vector3.ONE) and not rules.dispensers.has(first),"Deployment at 30 seconds replaces oldest at one-box limit")
+		game.clock+=14.999;check(not rules.deploy(id,Vector3.ONE) and rules.dispensers.has(first),"Early deployment rejected without destroying old box")
+		game.clock+=.001;check(rules.deploy(id,Vector3.ONE) and not rules.dispensers.has(first),"Deployment at 15 seconds replaces oldest at one-box limit")
 		rules.award(id,4999);check(rules.level(id)==9 and rules.dispenser_limit(id)==1,"One box through level nine")
 		rules.award(id,1);check(rules.level(id)==10 and rules.dispenser_limit(id)==2,"Second box unlocks at 5000 class XP")
 		game.clock+=30;check(rules.deploy(id,Vector3(2,0,0)),"Second deployment fits level-ten limit")
@@ -38,15 +40,18 @@ func run()->void:
 	game.grenades.state(1).counts[0]=0
 	check(rules.transfer(key,1,99)==0,"Grenade costs at least 100 units")
 	check(rules.transfer(key,1,100)==100 and game.grenades.state(1).counts[0]==1 and not rules.dispensers.has(key),"Shocktrooper grenade costs 100 and exhausted box is removed")
+	check(is_equal_approx(rules.ensure(2).dispenser_ready,game.clock+15.),"Depletion starts fifteen-second replacement cooldown")
 	game.clock+=30;rules.deploy(2,Vector3.ZERO);key=rules.next_dispenser
+	check(rules.transfer(key,1,300)==200 and game.grenades.state(1).counts[0]==3,"Resupply restores the three-grenade loadout without charging for a fourth")
 	check(rules.transfer(key,1,100)==0,"A full grenade inventory cannot drain a box")
 	game.players[1].team=1;game.grenades.state(1).counts[0]=0;check(rules.transfer(key,1,100)==0,"Enemy cannot draw supplies");game.players[1].team=0
 	game.fighters[2].position=Vector3.ZERO;game.fighters[1].position=Vector3(100,0,0);game.fighters[3].position=Vector3(100,0,0)
 	rules.dispensers={key:rules.dispensers[key]}
+	var before_pack:int=rules.dispensers[key].remaining
 	tech.ammo[2]=6
 	for tick in 149:game.tick_class_tools(.1)
 	check(tech.ammo[2]==6,"Continuous contact accrues pack credit without issuing partial charges")
-	game.tick_class_tools(.1);check(tech.ammo[2]==9 and rules.dispensers[key].remaining==700,"Live transfer loop supplies full pack after 300 units accrue")
+	game.tick_class_tools(.1);check(tech.ammo[2]==9 and rules.dispensers[key].remaining==before_pack-300,"Live transfer loop supplies full pack after 300 units accrue")
 	for w in [5,11]:
 		var d:Dictionary=game.armory.data(w)
 		check(is_equal_approx(d.reload,3*game.armory.data(4).reload),"Launcher pack reload lasts three magazine reloads")

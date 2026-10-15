@@ -1,0 +1,21 @@
+{
+  "server_pid": 513515,
+  "address": "127.0.0.1:27781",
+  "scene": "res://tools/voxel_battle/technician_test.tscn",
+  "reset": "F8 or RESET TECHNICIAN TEST in the menu",
+  "client_launcher": "/home/blux/.cache/cq-technician-cabin-20261015-185931/run-client.sh",
+  "output": "/home/blux/.cache/cq-technician-cabin-20261015-185931",
+  "class": "technician",
+  "primary_ammo": 3,
+  "secondary_ammo": 1,
+  "vehicle_hp": 40,
+  "client_pid": 513727,
+  "server_left_running": true,
+  "utc": "2026-10-15T17:00:08.883644+00:00",
+  "collectors": {
+    "client": 513728,
+    "server": 513729
+  },
+  "branch": "experimental/cq-voxelspace",
+  "native_library_sha256": "05fbf253b0ac967534c66b1375160ab0da3c90fe8e6bed9c4fd9318ac5fb16a2"
+}

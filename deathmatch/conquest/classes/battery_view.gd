@@ -43,10 +43,11 @@ func lock_transport_view()->bool:
 			game.xr_rig.global_position+=eye-game.xr_rig.head.global_position
 	elif game.camera:game.camera.global_position=eye
 	return true
-func _process(_delta:float)->void:
+func _process(delta:float)->void:
 	# Runs after the ordinary camera and XR rig updates, including while menus
 	# are open. Earlier seat assignment is overwritten by the rig's own process.
 	lock_transport_view()
+	if game.is_vr() and game.xr_rig.transport_wheel:game.xr_rig.transport_wheel.update(delta)
 func create_view() -> void:
 	viewport=SubViewport.new();viewport.name="STBatteryScopeFeed";viewport.size=Vector2i(640,360);viewport.world_3d=game.get_world_3d();viewport.render_target_update_mode=SubViewport.UPDATE_DISABLED;viewport.audio_listener_enable_3d=false;add_child(viewport)
 	sensor=Camera3D.new();sensor.physics_interpolation_mode=Node.PHYSICS_INTERPOLATION_MODE_OFF;sensor.fov=75;sensor.near=.08;sensor.far=1600;sensor.cull_mask&=~PRIVATE_LAYER;viewport.add_child(sensor);sensor.make_current()

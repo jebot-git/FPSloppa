@@ -17,9 +17,17 @@ void vr_port_tests() {
   p->pose.left.origin={0,1.65,-.18};p->pose.right.origin={.3,1.0,-.3};
   check(c->toggle_nvg(h)&&p->classes.nvg,"either-hand visor touch accepts natural forehead height");
   p->classes.nvg_ready=0;p->pose.left.origin={-.3,1.,-.3};p->pose.right.origin={0,1.7,-.18};
-  check(c->toggle_nvg(h)&&!p->classes.nvg,"weapon hand can also toggle visor");
+  check(!c->toggle_nvg(h),"occupied weapon hand cannot toggle visor");
+  p->input.weapon_held=false;
+  check(c->toggle_nvg(h)&&!p->classes.nvg,"empty weapon hand can also toggle visor");
   p->classes.nvg_ready=0;p->pose.right.origin={.3,1.,-.3};
   check(!c->toggle_nvg(h),"remote hand positions cannot toggle visor");
+  p->pose.left.origin={0,1.65,-.18};p->physical[p->weapon].carry=1;
+  check(!c->toggle_nvg(h),"hand carrying reload ammunition cannot toggle visor");
+  p->physical[p->weapon].carry=0;p->physical[p->weapon].grab=Grab::RACK;
+  check(!c->toggle_nvg(h),"hand cocking a weapon cannot toggle visor");
+  p->physical[p->weapon].grab=Grab::NONE;p->grenade_primed=true;p->grenade_hand=0;
+  check(!c->toggle_nvg(h),"hand holding an armed grenade cannot toggle visor");
  }
  check(nvg_direct({0,0,-1},{0,0,-8}),"direct lamp look causes NVG glare");
  check(!nvg_direct({0,0,-1},{.7,0,-8}),"peripheral lamp cannot white out NVG");
@@ -95,6 +103,19 @@ void vr_port_tests() {
   Reload r;r.init(7);r.cq_weapon=w;Pose p;p.tracked=true;p.has_offhand=true;p.head.origin={0,1.65,0};p.weapon.origin={0,1.1,-.3};p.left.origin=p.weapon.apply(cq_geometry(w).support*.65);p.offhand=p.left;
   r.sample(2,7,100,7,p,false,false,0,0,false,true);r.sample(2,7,100,7,p,true,false,.033,.033,false,true);
   check(r.grab==Grab::NONE,"pistol support contact does not accidentally grab the slide");
+ }
+ for(int w:{0,1,2,3,4,9,10})for(bool left:{false,true})for(bool use_trigger:{false,true}) {
+  Reload r;r.init(7);r.cq_weapon=w;r.ready=false;
+  Pose pose;pose.tracked=true;pose.has_offhand=true;pose.left_handed=left;pose.head.origin={0,1.65,0};pose.weapon.origin={0,1.1,-.3};
+  auto &hand=left?pose.right:pose.left;hand.origin=pose.weapon.apply(cq_geometry(w).rack*.65);pose.offhand=hand;
+  int geometry=(w==2||w==9||w==3)?2:7;
+  r.sample(geometry,7,100,7,pose,false,false,0,0,false,true);
+  r.sample(geometry,7,100,7,pose,!use_trigger,false,.033,.033,use_trigger,true);
+  check(r.grab==Grab::RACK,"CQ slide/charging handle accepts grip or offhand trigger in either handedness");
+  for(int i=1;i<=5;++i){hand.origin.z+=.012;r.sample(geometry,7,100,7,pose,!use_trigger,false,.033+i*.033,.033+i*.033,use_trigger,true);}
+  check(r.pulled&&r.stroke>.9&&!r.ready,"held trigger or grip physically retracts bolt without premature chambering");
+  r.sample(geometry,7,100,7,pose,false,false,.25,.25,false,true);
+  check(r.ready&&r.grab==Grab::NONE&&r.mag,"releasing cocking control chambers the gun without extracting its magazine");
  }
  for(int w:{0,1,2,3,4,9,10})for(bool left:{false,true}) {
   Reload r;r.init(7);r.cq_weapon=w;Pose p;p.tracked=true;p.has_offhand=true;p.left_handed=left;p.head.origin={0,1.65,0};p.weapon.origin={0,1.1,-.3};auto &hand=left?p.right:p.left;hand.origin=p.weapon.apply(cq_geometry(w).magazine*.65);p.offhand=hand;

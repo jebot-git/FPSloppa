@@ -16,6 +16,7 @@ var pool_stats: Dictionary={"activations":0,"straight_tracers":0,"curved_tracers
 var batches: Array=[]
 var emission_budget:=64
 func _ready() -> void:
+	physics_interpolation_mode=Node.PHYSICS_INTERPOLATION_MODE_OFF
 	prepare_shape_pool()
 	for smoke in [false,true]:
 		var draw:=MultiMeshInstance3D.new();var mm:=MultiMesh.new()

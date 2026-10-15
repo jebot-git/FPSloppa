@@ -215,24 +215,29 @@ void Core::round_state(Host &host) {
   round_awarded_ = false;
 }
 void Core::drag(Player &p, Host &host) {
-  if (p.classes.role != Role::MEDIC || !p.input.drag ||
-      time_ - p.last_input > .35)
-    return;
-  V hand = p.position +
-           B::yaw(p.yaw).apply(
-               p.pose.tracked
-                   ? (p.pose.left_handed ? p.pose.right : p.pose.left).origin
-                   : V{0, .4, -.6});
-  for (auto &b : players_)
-    if (b.active && b.incapacitated && same_team(p, b)) {
-      if ((hand - b.position - V{0, .35, 0}).length() > .6)
-        continue;
-      V motion = (hand - V{0, .35, 0} - b.position).limited(step_ * 2);
-      V actual = host.room_move(b.handle, B::yaw(b.yaw).inverse(motion), b.yaw);
-      b.position = b.position + actual;
-      break;
+  if (p.classes.role != Role::MEDIC || !p.input.drag || p.input.blocked ||
+      time_ - p.last_input > .35) {p.drag_target={};return;}
+  V hand = p.position + B::yaw(p.yaw).apply(p.pose.tracked
+      ? (p.pose.left_handed ? p.pose.right : p.pose.left).origin : V{0,.4,-.6});
+  auto *target=resolve(p.drag_target);
+  if(target && (!target->incapacitated || !same_team(p,*target) ||
+      (hand-target->position-B::yaw(target->yaw).apply(p.drag_anchor)).length()>1.5)) {p.drag_target={};target=nullptr;}
+  if(!target) {
+    double nearest=.6;
+    for(auto &b:players_)if(b.active && b.incapacitated && same_team(p,b)) {
+      double distance=(hand-patient_contact(b.position,damage_yaw(b),hand)).length();
+      if(distance<=nearest) {nearest=distance;target=&b;}
     }
+    if(target) {p.drag_target=target->handle;p.drag_anchor=B::yaw(target->yaw).inverse(hand-target->position);}
+  }
+  if(!target)return;
+  V chest=patient_contact(target->position,damage_yaw(*target),hand);
+  if(host.world_trace(hand,chest,p.handle).blocked) {p.drag_target={};return;}
+  V motion=(hand-target->position-B::yaw(target->yaw).apply(p.drag_anchor)).limited(step_*2);
+  V actual=host.room_move(target->handle,B::yaw(target->yaw).inverse(motion),target->yaw);
+  target->position=target->position+actual;
 }
+
 void Core::melee(Player &p, Host &host) {
   for (size_t hand = 0; hand < 2; ++hand) {
     auto &state = p.melee_state[hand];

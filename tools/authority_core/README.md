@@ -1,6 +1,6 @@
 # Resident CQ authority
 
-The dedicated unified-map CQ server uses the resident C++ authority by default. Godot retains ENet admission/transport, UTX assets, scene lifecycle, navigation queries and Jolt integration. No authority or adaptive flags are required. `--cq-script-authority` retains the older script authority for regression comparisons. Both ends require `fpsloppa-cq-frontier-28-headlights`.
+The dedicated unified-map CQ server uses the resident C++ authority by default. Godot retains ENet admission/transport, UTX assets, scene lifecycle, navigation queries and Jolt integration. No authority or adaptive flags are required. `--cq-script-authority` retains the older script authority for regression comparisons. Both ends require `fpsloppa-cq-frontier-29-vr-mechanics`.
 
 ## Ownership and reuse
 

@@ -22,7 +22,7 @@ void transport_tests() {
  check(c->add_vehicle(VehicleKind::TRANSPORT,{},0,-1)<0,"transport requires allied team");
  int index=c->add_vehicle(VehicleKind::TRANSPORT,{},0,0);
  const auto &rocket=vehicle_profile(VehicleKind::ROCKET),&transport=vehicle_profile(VehicleKind::TRANSPORT);
- check(transport.forward==rocket.forward&&transport.reverse==rocket.reverse&&transport.turn==rocket.turn&&transport.acceleration==rocket.acceleration,"transport mobility matches rocket tank");
+ check(transport.forward==rocket.forward*1.2&&transport.reverse==rocket.reverse*1.2&&transport.turn==rocket.turn&&transport.acceleration==rocket.acceleration,"transport is 20 percent faster while retaining rocket steering and acceleration");
  check(transport.capacity==0&&transport.pair==0&&transport.hp==100,"transport unarmed with battery damage profile and 100 HP");
  std::array<Handle,8> riders;
  for(int seat=0;seat<8;++seat){riders[seat]=c->join(seat+1,0,transport_pods[seat].entry,1<<4,{1000,1000,1000,1000});input(*c,riders[seat],0);use(*c,riders[seat]);c->advance(world);check(c->resolve(riders[seat])->vehicle==index&&c->resolve(riders[seat])->vehicle_seat==seat,"all eight authored seats board from their own entry");if(seat<6)check(!c->vehicles()[index].pilot.id,"side pod passenger never silently becomes driver");}
@@ -78,6 +78,24 @@ void transport_tests() {
   check(v.speed>0&&v.yaw<0,"reverse throttle does not flip steering before forward motion stops");
   v.speed=-2.;v.yaw=0;braking.seq=seq++;braking.z=-1;drive->submit(h,braking);drive->advance(w);
   check(v.speed<0&&v.yaw>0,"forward throttle retains reverse steering until reverse motion stops");
+ }
+ // Wheel steering must not reduce the independent throttle axis.
+ {
+  TransportWorld w;auto wheel=std::make_unique<Core>();wheel->configure_cq(cfg);
+  int vi=wheel->add_vehicle(VehicleKind::TRANSPORT,{},0,0);
+  auto driver=wheel->join(501,0,transport_pods[6].entry,1<<4,{100,100,100,100});
+  input(*wheel,driver,0);use(*wheel,driver);wheel->advance(w);
+  Command cmd;cmd.life=driver.life;cmd.seq=1;cmd.weapon=4;cmd.x=1;cmd.z=-1;
+  check(wheel->submit(driver,cmd),"independent full wheel and throttle admitted");wheel->advance(w);
+  auto *p=wheel->resolve(driver);
+  check(p->input.x==1&&p->input.z==-1,"full steering preserves full throttle for native transport driver");
+  cmd.seq=2;cmd.x=8;cmd.z=-8;wheel->submit(driver,cmd);wheel->advance(w);
+  check(p->input.x==1&&p->input.z==-1,"native wheel axes individually bounded");
+  cmd.seq=3;cmd.blocked=true;wheel->submit(driver,cmd);double yaw=wheel->vehicles()[vi].yaw;wheel->advance(w);
+  check(wheel->vehicles()[vi].yaw==yaw,"blocked driver cannot steer with wheel input");
+  input(*wheel,driver,4,false,0,true);wheel->advance(w);
+  cmd.seq=5;cmd.blocked=false;cmd.x=1;cmd.z=1;wheel->submit(driver,cmd);wheel->advance(w);
+  check(std::hypot(p->input.x,p->input.z)<=1.000001,"dismounted player returns to circular foot-movement bound");
  }
  // Every authored vehicle keeps its identity and placement across destruction.
  {

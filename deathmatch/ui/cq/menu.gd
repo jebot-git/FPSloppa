@@ -52,5 +52,22 @@ static func setup(hud)->void:
 	# are inherited arena features and do not apply to the CQ class mode.
 	retire(hud.votes_panel.selector);retire(hud.votes_panel.call_map);retire(hud.votes_panel.call_loadout)
 	hud.votes_button.text="TEAMS & BALANCE"
-	hud.suicide.text="RESPAWN";hud.suicide.tooltip_text="Return after the normal respawn delay."
+	refresh_respawn(hud,game.local_state())
 	book.navigate("home")
+
+static func refresh_respawn(hud,state:Dictionary)->void:
+	var game=hud.game
+	var deploying:bool=state.get("dead",false) or game.squads.local().get("staging",false)
+	hud.suicide.text="RESPAWN" if deploying else "SUICIDE"
+	hud.suicide.tooltip_text="Choose a squad and spawn point on the deployment map. The normal respawn delay applies." if deploying else "Kill yourself and return to deployment after the normal respawn delay."
+	hud.suicide.disabled=game.demos.playing or state.is_empty() or (state.get("spectator",false) and not deploying) or game.intermission>0 or game.lobby.active()
+static func activate_respawn(hud)->void:
+	var game=hud.game
+	var state:Dictionary=game.local_state()
+	refresh_respawn(hud,state)
+	if hud.suicide.disabled:return
+	if state.get("dead",false) or game.squads.local().get("staging",false):
+		game.squads.open_map();return
+	game.request_suicide()
+	game.menu_open=false;hud.show_menu(false)
+	Input.mouse_mode=Input.MOUSE_MODE_VISIBLE if game.is_vr() else Input.MOUSE_MODE_CAPTURED

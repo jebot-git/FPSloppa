@@ -1,0 +1,28 @@
+{
+	"ammo": [
+		14,
+		120,
+		0,
+		0
+	],
+	"armor": 100,
+	"failures": [],
+	"grenade": {
+		"audible": true,
+		"audio_sources": [
+			{
+				"kind": "cq_field_ordnance_impact",
+				"playing": true,
+				"position": "(-641.0, 2.535047, 781.2797)",
+				"stream": ""
+			}
+		],
+		"detonation": true,
+		"flight": true,
+		"position": "(-641.0, 2.535047, 781.2797)",
+		"primed": true,
+		"visual_shapes": 2
+	},
+	"hp": 100.0,
+	"role": 0
+}

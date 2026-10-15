@@ -1,0 +1,42 @@
+{
+  "client-console.log.gz": {
+    "source": "/home/blux/.cache/cq-vr-test-20261015/162245/client-console.log",
+    "uncompressed_sha256": "c529807ac40f8cd4ae29432331700b30613bfbfece8d5afe331973968a06f1cb",
+    "uncompressed_bytes": 31304,
+    "compressed_sha256": "8b0323c270774ae72317a34f55c60bdb154438b5977dba8a431233e71b032cec",
+    "compressed_bytes": 4089,
+    "window_filtered": false
+  },
+  "client-gameplay.jsonl.gz": {
+    "source": "/home/blux/.cache/cq-vr-test-20261015/162245/client-gameplay.jsonl",
+    "uncompressed_sha256": "71616cf0b0530fabb2badc64aecbe51d0a610145466d7b2bd2ec24d8fa778e5b",
+    "uncompressed_bytes": 249871,
+    "compressed_sha256": "04cfea68bb8569bfb9f9895e49ca851f7b78440359a9bf585849fbb50fca09a2",
+    "compressed_bytes": 18255,
+    "window_filtered": false
+  },
+  "client-process-wivrn.jsonl.gz": {
+    "source": "/home/blux/.cache/cq-vr-test-20261015/162245/client-process-wivrn.jsonl",
+    "uncompressed_sha256": "7f5dec47232e680a96a52bf9c95d04e2343f32800a0c19769ed997a1dc7d8e81",
+    "uncompressed_bytes": 5227157,
+    "compressed_sha256": "dd7715aae4d48e70eb2528962411a71e0de0e97e3f6e52f7111b123092faa308",
+    "compressed_bytes": 367918,
+    "window_filtered": false
+  },
+  "server-server-process.jsonl.gz": {
+    "source": "/home/blux/.cache/cq-vr-test-20261015/162245/server/server-process.jsonl",
+    "uncompressed_sha256": "919122932db88009140c1d8fdbe80d3e30fee1e249859b125483b40c73494335",
+    "uncompressed_bytes": 943436,
+    "compressed_sha256": "81f85ac2923ebed523c05574ceb9cfb758199a0f1c3aca6d354be0b967ab6734",
+    "compressed_bytes": 59939,
+    "window_filtered": true
+  },
+  "server-journal.log.gz": {
+    "source": "/home/blux/.cache/cq-vr-test-20261015/162245/server/journal.log",
+    "uncompressed_sha256": "92af4ed41a0d78f839fe3331088328a866d90de3edd96319eecee14e81fd36de",
+    "uncompressed_bytes": 129781,
+    "compressed_sha256": "511beb97320f2ea039f2b722d71f1571dc1e766e4970b37f7b5201be23b01d0c",
+    "compressed_bytes": 5218,
+    "window_filtered": false
+  }
+}

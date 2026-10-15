@@ -1,0 +1,107 @@
+{
+  "session": "20261015T142245Z",
+  "status": "Implemented locally on experimental/cq-voxelspace. Native, simulated, rendered and loopback checks; no new live headset validation or remote deployment.",
+  "findings": [
+    {
+      "id": "designator_laser",
+      "report": "Target designator emits no visible laser.",
+      "status": "implemented_pending_headset_validation",
+      "change": "Include held airstrike designator and draw an emissive camera-facing beam from the modeled muzzle."
+    },
+    {
+      "id": "medic_injector",
+      "report": "Medic injector is missing; a blaster pistol appears instead.",
+      "status": "implemented_pending_headset_validation",
+      "change": "Fix medical utility identifier and preserve injector equipment slot; mount at back of hip."
+    },
+    {
+      "id": "red_dot_zero",
+      "report": "Raise red dot and adjust zeroing so the barrel does not obstruct it.",
+      "status": "implemented_pending_headset_validation",
+      "change": "Apply slight 4.2 mm asset-space rise (15% of 28 mm reticle window); explicit 50 m zero shared with native ballistics. Keep optic housing unchanged."
+    },
+    {
+      "id": "shocktroop_grenade",
+      "report": "Armed shocktroop grenade is not launched when thrown.",
+      "status": "implemented_pending_headset_validation",
+      "change": "Bind arming and release to physical throwing hand; preserve recent peak throw motion through release."
+    },
+    {
+      "id": "technician_drill",
+      "report": "Technician drill is replaced by the primary launcher.",
+      "status": "implemented_pending_headset_validation",
+      "change": "Fix engineering utility identifier and preserve repair-tool slot; mount at back of hip."
+    },
+    {
+      "id": "class_boxes",
+      "report": "Medic and technician cannot deploy boxes.",
+      "status": "implemented_pending_headset_validation",
+      "change": "Give class boxes a separate reachable shoulder model and reliable native deploy action independent of gun switching cooldown."
+    },
+    {
+      "id": "pistol_support_grip",
+      "report": "Offhand pistol grip forces the weapon angle downwards.",
+      "status": "implemented_pending_headset_validation",
+      "change": "Keep pistol wrist orientation during offhand stabilization."
+    },
+    {
+      "id": "transport_seats",
+      "report": "Move transport driver and cabin passenger positions slightly forward.",
+      "status": "implemented_pending_headset_validation",
+      "change": "Move front two seats 0.25 m forward in shared runtime/native geometry."
+    },
+    {
+      "id": "scope_hud",
+      "report": "Hide HUD while viewing through a scope.",
+      "status": "implemented_pending_headset_validation",
+      "change": "Exclude HUD and readouts from scope camera and hide stereo status surface during scope use."
+    },
+    {
+      "id": "menu_locomotion",
+      "report": "Keep map and menu in front of the player while locomoting.",
+      "status": "implemented_pending_headset_validation",
+      "change": "Follow locomotion/body yaw using a fixed body-relative menu transform."
+    },
+    {
+      "id": "jungle_ambience",
+      "report": "Reauthor jungle ambience to remove cityscape sounds and lower overall ambience volume.",
+      "status": "implemented_pending_headset_validation",
+      "change": "Reauthor original deterministic air/insect/bird loops without urban recordings; lower jungle beds 8 dB and other beds 6 dB."
+    },
+    {
+      "id": "grass_audio",
+      "report": "Increase grass volume slightly.",
+      "status": "implemented_pending_headset_validation",
+      "change": "Increase running/crawling grass by 3 dB; walking remains silent."
+    },
+    {
+      "id": "massacre_charge_panel",
+      "report": "Restore charging information on the Massacre launcher info panel.",
+      "status": "implemented_pending_headset_validation",
+      "change": "Restore a gun-mounted charge percentage/time/ready/reloading label above launcher geometry."
+    },
+    {
+      "id": "transport_speed",
+      "report": "Increase transport speed slightly.",
+      "status": "implemented_pending_headset_validation",
+      "change": "Increase native and presentation transport forward/reverse speed 20% to 12/6 m/s."
+    },
+    {
+      "id": "water_swimming",
+      "report": "Water kills the player before there is an opportunity to swim.",
+      "status": "implemented_pending_headset_validation",
+      "change": "Native bounded swim movement and buoyancy, 12-second breathing reserve, then gradual drowning damage."
+    },
+    {
+      "id": "suicide_reliability",
+      "report": "Suicide requires multiple button presses to register.",
+      "status": "implemented_pending_headset_validation",
+      "change": "Accept authenticated alive-player suicide with blocked or stale movement input; retain lifecycle guards."
+    },
+    {
+      "id": "cloak_held_orientation",
+      "status": "implemented_pending_headset_validation",
+      "change": "Use controller grip frame, rotate authored Y cylinder to thumb axis, retain original 18 cm size; stowed transform remains independent."
+    }
+  ]
+}

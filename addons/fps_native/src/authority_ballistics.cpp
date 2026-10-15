@@ -48,7 +48,7 @@ const VehicleProfile &vehicle_profile(VehicleKind kind) {
         {0, 1.06728, 1.30121},
         3.79844,
         .18},
-       {100,transport_size,10,5,.65,4,0,0,0,0,0,0,{},0,0}}};
+       {100,transport_size,12,6,.65,4,0,0,0,0,0,0,{},0,0}}};
   return profiles[size_t(kind)];
 }
 Ballistic ballistic(V start, V target, double speed, double gravity,

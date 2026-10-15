@@ -81,6 +81,10 @@ public:
   FPSAuthority();
   ~FPSAuthority();
   bool request_restart();
+  Dictionary prepare_medic_test(int64_t, int64_t);
+  Dictionary prepare_technician_test(int64_t);
+  Dictionary prepare_scout_test(int64_t, int64_t);
+  Dictionary prepare_shocktroop_test(int64_t);
   bool configure_world(Node3D *);
   bool configure_tick_rate(int hz);
   bool configure_adaptive_tick();

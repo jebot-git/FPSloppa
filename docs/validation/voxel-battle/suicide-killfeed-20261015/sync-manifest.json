@@ -1,0 +1,4021 @@
+{
+  "branch": "experimental/cq-voxelspace",
+  "local_head": "1a6f952cc4433d24df407550766e99dc2c09db30",
+  "remote_head": "1a6f952cc4433d24df407550766e99dc2c09db30",
+  "git_fetch_succeeded": true,
+  "synced_files": 802,
+  "unavailable": [],
+  "files": [
+    {
+      "path": ".gitignore",
+      "sha": "80b24857a5b9465084db11ba1aee0d58d45e76b1",
+      "mode": "100644"
+    },
+    {
+      "path": "ASSET_CREDITS.md",
+      "sha": "8a25eb0d9a2ac95cb88027842e592d63ea01e733",
+      "mode": "100644"
+    },
+    {
+      "path": "addons/fps_native/src/authority.cpp",
+      "sha": "23d8303dbcb65c161c8efaa5d5e4e249d2ce7155",
+      "mode": "100644"
+    },
+    {
+      "path": "addons/fps_native/src/authority.h",
+      "sha": "83c99c72439dc8729b20ef32dd73ab96d15075bd",
+      "mode": "100644"
+    },
+    {
+      "path": "addons/fps_native/src/authority_abilities.cpp",
+      "sha": "dadbdd8939d3530e893beb3916edb4612743c4c6",
+      "mode": "100644"
+    },
+    {
+      "path": "addons/fps_native/src/authority_ai.cpp",
+      "sha": "b093667fb2990b039d32e63ed0c27f34a4d05bae",
+      "mode": "100644"
+    },
+    {
+      "path": "addons/fps_native/src/authority_core.cpp",
+      "sha": "d39bb99400bdb9bbdb4a8623f8965d3a797695c6",
+      "mode": "100644"
+    },
+    {
+      "path": "addons/fps_native/src/authority_core.h",
+      "sha": "9f062082d54fd7b61d016c6322ee957093409586",
+      "mode": "100644"
+    },
+    {
+      "path": "addons/fps_native/src/authority_cq.h",
+      "sha": "5f0f5b539a5417bf09d5fb7428395fd89967cf3f",
+      "mode": "100644"
+    },
+    {
+      "path": "addons/fps_native/src/authority_entities.cpp",
+      "sha": "538244cf2cb7c5d7c0dbf50b3f4c6f13ecfcacbc",
+      "mode": "100644"
+    },
+    {
+      "path": "addons/fps_native/src/authority_gameplay.cpp",
+      "sha": "46b2cc476c030c186c7d6376ae33fa5312033b85",
+      "mode": "100644"
+    },
+    {
+      "path": "addons/fps_native/src/authority_melee.cpp",
+      "sha": "ae58f212dfef43d990e35a2e9d61975728365bd1",
+      "mode": "100644"
+    },
+    {
+      "path": "addons/fps_native/src/authority_melee.h",
+      "sha": "48bd5be250cade5f13c83f4bf659bed0e7b90b26",
+      "mode": "100644"
+    },
+    {
+      "path": "addons/fps_native/src/authority_protocol.cpp",
+      "sha": "a2d1f4878b551d3124d0d0725010585d65450ced",
+      "mode": "100644"
+    },
+    {
+      "path": "addons/fps_native/src/authority_round.cpp",
+      "sha": "18b698fdd3d7ba6174de1448e1ed11d5fd001053",
+      "mode": "100644"
+    },
+    {
+      "path": "addons/fps_native/src/authority_squads.cpp",
+      "sha": "1a92d2ed911a79469c19a30b9d62989eea1ba67a",
+      "mode": "100644"
+    },
+    {
+      "path": "addons/fps_native/src/authority_tick.h",
+      "sha": "263563784e8f741216be6e069e081cf351f0f247",
+      "mode": "100644"
+    },
+    {
+      "path": "addons/fps_native/src/authority_utilities.cpp",
+      "sha": "62ac1cf7185b2cf996bbd0e9feb0080aef94e5e4",
+      "mode": "100644"
+    },
+    {
+      "path": "addons/fps_native/src/authority_vehicles.cpp",
+      "sha": "7769fc6f85752227699824c8b5e187aa1748a6ea",
+      "mode": "100644"
+    },
+    {
+      "path": "addons/fps_native/src/authority_world.cpp",
+      "sha": "9efa09ed111fe06b8152d45a40412d87428b2b39",
+      "mode": "100644"
+    },
+    {
+      "path": "addons/fps_native/src/backend.h",
+      "sha": "3dd167e1b437d31cde692ea072ca42d89dee2dca",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/arena.gd",
+      "sha": "1da812259c08e097284662406a3a09edfa132846",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/audio/cq_field/CC-BY-3.0.txt",
+      "sha": "1a16e05564d2aaa880bbe9e506a0a0226d8742cc",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/audio/cq_field/CC0-1.0.txt",
+      "sha": "0e259d42c996742e9e3cba14c677129b2c1b6311",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/audio/cq_field/SOURCES.md",
+      "sha": "439f52b7c9977690fcf2c01fa0487fe0b076dbde",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/audio/cq_field/assault.wav",
+      "sha": "4a02fe9d274e91fcfddff44f4da447e39032c1da",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/audio/cq_field/beam.wav",
+      "sha": "b1ee34031159e8955d4dff959366e791c6192edf",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/audio/cq_field/bolt_pull.wav",
+      "sha": "894b5ec3be7147312e8696dc962cb121b800ca3d",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/audio/cq_field/bolt_release.wav",
+      "sha": "309653f1b7518bb38a1dfd045343545b234a7d0b",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/audio/cq_field/building_collapse.wav",
+      "sha": "e458c868bf75e776c372657da4ad28815f717948",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/audio/cq_field/burst_pistol.wav",
+      "sha": "3ab6eb79fe11f177d950052629a72eeab95ca89e",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/audio/cq_field/carbine.wav",
+      "sha": "068f908524fa25ab7a443c4fcffd486093b52ede",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/audio/cq_field/charge.wav",
+      "sha": "6c9f1f6a1aa9928f0dc3ea5287676e017eb357f6",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/audio/cq_field/cloak_off.wav",
+      "sha": "bbcc2fcf654a61d1a2df82ba9a4cd22f38e0c138",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/audio/cq_field/cloak_on.wav",
+      "sha": "1dadd457b238d979ea6871a28a827aa588220e67",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/audio/cq_field/deploy.wav",
+      "sha": "35a607d8f90914af2e3db0d44a917816925f98e5",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/audio/cq_field/empty.wav",
+      "sha": "fe8e327f3311c46b45d13c50828e89a6a02b7855",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/audio/cq_field/energy_impact.wav",
+      "sha": "13c897222bd488865ec12c5a8a8659af620f6f04",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/audio/cq_field/engine_heavy.wav",
+      "sha": "702e256aeb00b61a5b114d2aa14c0aa2a7c9435e",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/audio/cq_field/engine_hover.wav",
+      "sha": "38ddc151b2dcfdfa3fe542b34eed4c69a61f1a24",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/audio/cq_field/engine_start.wav",
+      "sha": "f8f55fc009b82d8753a57d89fc3796b33736c5c2",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/audio/cq_field/engine_stop.wav",
+      "sha": "5d8758e454f7e21ee75dc4ce5162cd18b8b6930c",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/audio/cq_field/engine_transport.wav",
+      "sha": "06005cbd488fa0aa48ab2aa90cdcbb4835426673",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/audio/cq_field/forest_day.ogg",
+      "sha": "d7eb8a1abdf52a0eb928a5a149c3fef00d875dc6",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/audio/cq_field/forest_night.ogg",
+      "sha": "3347f154a57d2b0d36d88dd01a90ba2ab2b95495",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/audio/cq_field/guided_launcher.wav",
+      "sha": "dd80e1ad1e4c2669c13f79e0e08fd5b44248c485",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/audio/cq_field/industrial.ogg",
+      "sha": "110aa8372f3bb13a878065ce331ddf1c646fcbc4",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/audio/cq_field/inject_loop.wav",
+      "sha": "31760f9ee9f8bf9f9287b30ef8aaa4f257ee092e",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/audio/cq_field/inject_start.wav",
+      "sha": "4a9f3e481bdd6facb24c5aa4acbb0947db7e9f38",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/audio/cq_field/jetpack_ignite.wav",
+      "sha": "425148098e131d7b00f353a516708333a880c9d5",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/audio/cq_field/jetpack_thrust.wav",
+      "sha": "692693960ed584ce1f067a3adaf1f98238c46912",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/audio/cq_field/launcher.wav",
+      "sha": "1837dce4a6a5459b6088ba65cbc5339b827add54",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/audio/cq_field/lock_acquire.wav",
+      "sha": "5042821b100b269bdd35d5da834665f6de978d55",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/audio/cq_field/lock_ready.wav",
+      "sha": "a4b6bb7074115f2b538fbdbbbbe8fd4464ba2a35",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/audio/cq_field/magazine_in.wav",
+      "sha": "ecf8e7999e4055e97d116e8444ec4128c23c0b88",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/audio/cq_field/magazine_out.wav",
+      "sha": "43374107ee99d74dca3eb7755c08da552a541386",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/audio/cq_field/manifest.json",
+      "sha": "3b86e7c6f672d6f56991bf6f9158d0b7ac2716ba",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/audio/cq_field/nvg_toggle.wav",
+      "sha": "0d6f094a2e9bd83862a3afef09aa897d07253a1a",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/audio/cq_field/ordnance_impact.wav",
+      "sha": "d20e791675cdaefb0140c496030fc2b623496e64",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/audio/cq_field/pistol.wav",
+      "sha": "b0fc4b869d8ba336fde4b68c60cbcef84a10602e",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/audio/cq_field/pistol_suppressed.wav",
+      "sha": "54715b3cd5a7fb003a8b3b392611dd11a9906b30",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/audio/cq_field/rain.wav",
+      "sha": "7c9813c53518d9158b49684f9a99c0d07cc1fdd4",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/audio/cq_field/repair.wav",
+      "sha": "4c60d4a4ce60bee84cf283fd871b905b91d0ef66",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/audio/cq_field/revive.wav",
+      "sha": "a4b6bb7074115f2b538fbdbbbbe8fd4464ba2a35",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/audio/cq_field/river.ogg",
+      "sha": "e86465ff80618d7de48fed72d52f538c9b220a4a",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/audio/cq_field/rocket_tank_launch.wav",
+      "sha": "7b6b3d46243eece800f920d507832a47512967c0",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/audio/cq_field/rocket_tank_travel.wav",
+      "sha": "e20f66ab0503bac9700f4ed7f5ea84fe027dc0e0",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/audio/cq_field/smg.wav",
+      "sha": "566d92bb6568e156ab5235e2726766e184e9a894",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/audio/cq_field/sources.json",
+      "sha": "4dc259819eb50f0c8532069dec9345cd8b52ec72",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/audio/cq_field/submerged.ogg",
+      "sha": "0a7f75ad28d408e2a26e789360a3028faca95601",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/audio/cq_field/supply.wav",
+      "sha": "7e735b8a06ecff08474b4b993b234d3e5590eb41",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/audio/cq_field/swim.wav",
+      "sha": "8cd9ba53a9da679c4f104e716476d01c2ce79a44",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/audio/cq_field/tank_heavy_fire.wav",
+      "sha": "9448a76f30f3a1a6b9a3e1654f37cffc3e2d3eee",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/audio/cq_field/tank_light_fire.wav",
+      "sha": "8eb064fd4f8f9d14431cf82d69dbd15e17b33b29",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/audio/cq_field/thunder.wav",
+      "sha": "2febd4723168804075385cae46ba6fbeb9f401bb",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/audio/cq_field/turret_fire.wav",
+      "sha": "11e8822ed56fc7ec1e163b02b1e1e497d360dbd6",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/audio/cq_field/water_enter.wav",
+      "sha": "6626f00c435084111d693cd3154a448f86365c3c",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/audio/cq_field/water_exit.wav",
+      "sha": "d6cf8eac6303e795e63fdc35ca98169430eaa7a1",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/audio/spatial.gd",
+      "sha": "1438c3a7e54075301ccaed76c0238b71cce03948",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/audio/weather/README.md",
+      "sha": "dc028e94c19356376f6db4912fe770b5819d5264",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/audio/weather/rain.wav",
+      "sha": "478bc60660f751395e4a54cb1d7070ab6a7cd377",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/audio/weather/thunder.wav",
+      "sha": "7381590dc35c71f32d48b18bb70c750184ac2682",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/avatars/vertex_animation.gdshader",
+      "sha": "a27b2ec79563f776056dcf2126a818024605edf1",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/avatars/vertex_animation.gdshaderinc",
+      "sha": "76f0766db6075b755e7e0d3671e1084e341078bd",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/avatars/vertex_lighting.gdshader",
+      "sha": "5eb7bce45061c9664901048820bbbdb3c72c829e",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/avatars/visual_loader.gd",
+      "sha": "42d0c5a1d5526d9707a096211509682f7c06d76d",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/conquest/classes/airstrike.gd",
+      "sha": "b6377eb1afb0565c63076a8854ae201168190f9b",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/conquest/classes/armory.gd",
+      "sha": "63b770bf1b0aaa965753699c4c07caca17e29567",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/conquest/classes/battery_tank.gd",
+      "sha": "6a188fff611b2bc1859c607f2c9a07d316ac0e32",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/conquest/classes/battery_view.gd",
+      "sha": "0f971a641661019f34f0b2d10d32026f6374485f",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/conquest/classes/combat.gd",
+      "sha": "47c93080f54759e4b980219044dbd2761aacb9e6",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/conquest/classes/designation_guide.gd",
+      "sha": "f78c9b5835eb219a41a007ccc05cc07a6d4b4bb9",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/conquest/classes/designation_guide.gd.uid",
+      "sha": "fa057c2eed6ca43e5f9ca52fc57b61f6ca91b235",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/conquest/classes/equipment_audio.gd",
+      "sha": "1079de0f524bf1482fa4273bb99eba531ac3f728",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/conquest/classes/field_audio.gd",
+      "sha": "7dcf01866d9f6da05bf52d764bcca7f8d11cd5a4",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/conquest/classes/field_audio.gd.uid",
+      "sha": "87a194be38ae83ba6c3990ac6802a00e1188eccf",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/conquest/classes/grenades.gd",
+      "sha": "15c3b06b9a36e15ed5e8246bf8b3801ce36336d4",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/conquest/classes/icons/spotted/LICENSE.txt",
+      "sha": "a214e0d55bcd6b613464c4b59fa3dc678d9beafb",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/conquest/classes/icons/spotted/heavy.svg",
+      "sha": "5c174a150158d59183ec64cf030de50d3f59f0f0",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/conquest/classes/icons/spotted/light.svg",
+      "sha": "316ce1cf7be01366b763f3fc29bd5ea1485ab2de",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/conquest/classes/icons/spotted/medic.svg",
+      "sha": "2f9718bc0ca376292598da47693188ddd488192b",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/conquest/classes/icons/spotted/rocket.svg",
+      "sha": "1d97f3e6856c707b673bd5b4598c13691a915b04",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/conquest/classes/icons/spotted/scout.svg",
+      "sha": "c354e6a731b277b215ab37cd8e1254ce7fab7c04",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/conquest/classes/icons/spotted/shocktroop.svg",
+      "sha": "0e770164bb3980ac81d395b2604f25ab1b39b407",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/conquest/classes/icons/spotted/technician.svg",
+      "sha": "5001204cc417eb7e470f853247d1a55e090607f2",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/conquest/classes/icons/spotted/transport.svg",
+      "sha": "45294a1393a73527bbb3f34c890c34243c5f9e28",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/conquest/classes/jetpack_audio.gd",
+      "sha": "085836ffc60e20eaf71b2f95996dec4781eda667",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/conquest/classes/match.gd",
+      "sha": "88ee29f04b47605b07ced81853002038444d1586",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/conquest/classes/night_vision.gd",
+      "sha": "88e80d709f32da895a881f950b6aa9677c84f68c",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/conquest/classes/reload_audio.gd",
+      "sha": "fc442f72a79998b5622cd6b1d314ccfbe443897e",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/conquest/classes/spotted_markers.gd",
+      "sha": "2e14fe7c867700182e0be710fd8ba120809d1d12",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/conquest/classes/spotted_markers.gd.uid",
+      "sha": "3d753094ec60bab765d9c5fe92a1428e53a6534a",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/conquest/classes/spotting.gd",
+      "sha": "74c7d05adc1443cb64b06c9a01c99b7fbbc0cc83",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/conquest/classes/transport_geometry.gd",
+      "sha": "82a5fb5ac38bceae340f651b1311248c63c07e10",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/conquest/classes/transport_hull.gdshader",
+      "sha": "0b5bb2094e42c2f1ca9e38b7c58a27b76c779524",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/conquest/classes/turrets.gd",
+      "sha": "948de7f0ca9a2a3c1df55021b48249b6d116d6c1",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/conquest/classes/vehicle_headlights.gd",
+      "sha": "ea443f8ba97e1dc51177cd98d17f353e321c68f7",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/conquest/classes/vehicle_health.gd",
+      "sha": "fa7af19d0e23e9ccf7b344b0beab7320a0f668e6",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/conquest/classes/vehicle_lock.gd",
+      "sha": "fc6ca1df42ba5235a4cb962c9366d5085bfe9494",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/experimental/combat.gd",
+      "sha": "9a676077c4706567b0f300495b25149fd543f86f",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/models/hover_tanks/SOURCES.md",
+      "sha": "f0634db28664a20a5716ad2b63e49de643495fa5",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/models/hover_tanks/light.glb",
+      "sha": "0430a8d8b7147b7a0809f438190f6fced3e6eb49",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/modes/match.gd",
+      "sha": "ee178df3cbbad38c4e73b000fe4dfb59faa4cf05",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/native/authority_protocol.gd",
+      "sha": "dc410176794e4df5914a7a7405b06335100a1461",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/native/cq_authority.gd",
+      "sha": "918ea0427e8ad783112ed7da2cb0c6f7988a678a",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/native/cq_presentation.gd",
+      "sha": "3cf4273571f6116dcda8dfe39f64daf42c0ea56f",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/server/config.gd",
+      "sha": "2eb8b64c09af96fada84461db848e28bcdbf70e4",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/settings/bindings_panel.gd",
+      "sha": "0e59d43c2b144e69cf1324026aa07e310d67f316",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/settings/panel.gd",
+      "sha": "f563ca70d28110b9721f549d11df659823610268",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/tests/cq_airstrike.gd",
+      "sha": "02468bbfb78e2b1da77210eb2f622e6e60ebd512",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/tests/cq_battery_tank.gd",
+      "sha": "53f973c44e4b8ca39e327d00b56e96b0ca358cbb",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/tests/cq_collapse_catalog.gd",
+      "sha": "3c6d5b4958eb77cbf607d56270166dff76ada627",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/tests/cq_collapse_catalog.gd.uid",
+      "sha": "736f07b1d99907fda4d4a1c52b7c1b6afcfea2f1",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/tests/cq_collapse_damage.gd",
+      "sha": "8e819ddbf5382207acdafe45e17fad2e4df5b8f3",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/tests/cq_collapse_damage.gd.uid",
+      "sha": "62aabc2beedc1bf39d7becf657a896ea1920847c",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/tests/cq_collapse_effects.gd",
+      "sha": "e6166495341b8568a8254da49352fbf7452ed444",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/tests/cq_collapse_effects.gd.uid",
+      "sha": "2e7d27fc3db5d3aa34d70620bbea9b4b1670728e",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/tests/cq_collapse_fixture.gd",
+      "sha": "373435a8122bad564d65cb6eb40fd0c05daea84d",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/tests/cq_collapse_fixture.gd.uid",
+      "sha": "bd78320cc50190a186299c02c63ffd597f74d0eb",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/tests/cq_collapse_network.gd",
+      "sha": "e29b2ee6256bf22b30f168249f37b65d5d6caaf6",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/tests/cq_collapse_network.gd.uid",
+      "sha": "0e7570a3a956e80c5a199fdcb4d26150b380567e",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/tests/cq_designation_markers.gd",
+      "sha": "9b2d368c24530853d320b5109a7553b463c0dabb",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/tests/cq_designation_markers.gd.uid",
+      "sha": "42f63343430f2637a62ecfc6568b4d8ad7c11bb1",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/tests/cq_destruction.gd",
+      "sha": "16ec9a20c79617a55752902f8fc07dcad1f8fbcb",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/tests/cq_destruction.gd.uid",
+      "sha": "c8a16c0ee2c9f2ff25b5cdd02c6bbdd24eda539e",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/tests/cq_destruction_network.gd",
+      "sha": "3c3d6cf163b86729c137e4e7de5459618026fcf6",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/tests/cq_destruction_network.gd.uid",
+      "sha": "9f0c9920ff1c8e80e7cdc9231686cc88291b4734",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/tests/cq_field_audio.gd",
+      "sha": "313c4ff81ee69949f0d66a138567915478fa4902",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/tests/cq_field_audio.gd.uid",
+      "sha": "935b056c7d713ef10b045111929c06f3a7254181",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/tests/cq_field_integration.gd",
+      "sha": "753a0207828962718de06591de86e2f9541570db",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/tests/cq_field_integration.gd.uid",
+      "sha": "e309ceff61f3aadc21a2581e5e967523a66e23cb",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/tests/cq_field_pack.gd",
+      "sha": "0cea5674f3adc0ed87985ca0ce7f96bfc7083b8b",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/tests/cq_field_pack.gd.uid",
+      "sha": "7f81cd8652c1f3207fc76229e5c0b8c5c9788afe",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/tests/cq_foliage_lighting.gd",
+      "sha": "a97f39c66229a5c79a23bc570ce78615d801a2a1",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/tests/cq_foliage_lighting.gd.uid",
+      "sha": "e3dcde5f66fa9902bc6246c0acc68f51ea73ca37",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/tests/cq_grass_concealment.gd",
+      "sha": "0073ab362511c47cc4be64852dc885a2c6ea5a12",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/tests/cq_grass_concealment.gd.uid",
+      "sha": "baa0a935d2c3edd3d259f21c53ddca6bf0222606",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/tests/cq_headlights.gd",
+      "sha": "9bb08c3514308edfd35745f939ca4b837dda7f0b",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/tests/cq_live_audio.gd",
+      "sha": "6980522e7192afe299b5eca2ea2dfd72debacc22",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/tests/cq_menu.gd",
+      "sha": "1117146b67a7efff296ea72a9402d515d9fa7f4f",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/tests/cq_stereo_vehicle.gd",
+      "sha": "485021a894e25933b11f1f25e549390d29e84d9d",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/tests/cq_stereo_vehicle.gd.uid",
+      "sha": "577331e88e8df4911710befac8ac4a5b58c2b0a2",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/tests/cq_structural_collapse.gd",
+      "sha": "20561e4373bb48730160d87368198dd675099439",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/tests/cq_structural_collapse.gd.uid",
+      "sha": "8eb9716aaa76f8edd451b9420ae9045c01cf609d",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/tests/cq_transport.gd",
+      "sha": "939c5b028ca2ee8a5baa343adbf133e63673f870",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/tests/cq_turret.gd",
+      "sha": "9183892f04228df83d2a0a75e89058219259f5a9",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/tests/cq_turret_axes.gd",
+      "sha": "1762ec8886b4e1e46ed1e3bb3c196eacfc6e4bf1",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/tests/cq_vehicle_view_motion.gd",
+      "sha": "ccc93d00617d1fb03a915f649599fdf281ebea0c",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/tests/cq_vehicle_view_motion.gd.uid",
+      "sha": "ac04922a56f347b949131281ee4ede611c7172e6",
+      "mode": "100644"
+    },
+    {
+      "path": "deathmatch/vr/rig.gd",
+      "sha": "471884ed7b43dad78d3a40c0b9f554deffbeba76",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/CQ-COVER-RANGES.md",
+      "sha": "6f1919dc8ab9d1c5cd80988269ebde5ec8e57986",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/CQ-DESIGNATION-MARKERS.md",
+      "sha": "4e034da5149b517b35cc6ad693f44a43fc911728",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/CQ-DESTRUCTION.md",
+      "sha": "69bf00b78c0fc89526a00b676aae9ded9ffd4fe2",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/CQ-FRONTIER-AUDIO.md",
+      "sha": "ae595a6636e50aeccd15a8ed06434bdd9b1a48d0",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/CQ-VEHICLE-VIEW.md",
+      "sha": "4ab9ad16dd7446bd18ce8ab487f90520c5200320",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/CQ-WEATHER.md",
+      "sha": "f98b1e67e50f255552a0c48c144d9b1bdc94ed7c",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/NATIVE-CQ-BACKEND.md",
+      "sha": "c4a3cbf4056bcd114f9b19332eb5d6fac36c411d",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/audio/cq-field-20261015/README.md",
+      "sha": "3c186831ed605e9939809f2392f23f5ab2d6dfcc",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/audio/cq-field-20261015/audition.ogg",
+      "sha": "88d7efab4d213c66d763da61fdaffc70c4fbf3ee",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/audio/cq-field-20261015/timings.json",
+      "sha": "3edc66563c1be58d5451fa0ed7cfca070f683964",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/audio/cq-vehicles-20261015/README.md",
+      "sha": "1dc8a859a39b1b20b997daadf240e933af523cb5",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/audio/cq-vehicles-20261015/audacity-mcp-receipt.json",
+      "sha": "4ae3925c906eaf8753482ca7234d459c800e01e0",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/audio/cq-vehicles-20261015/audition.wav",
+      "sha": "3ca085525ee45fd6ae48a880a40065b9ae4c6909",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/audio/cq-vehicles-20261015/recipes.json",
+      "sha": "b2f76fd4057f28441ecd1ffdd52da6959e2f2698",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/audio/cq-vehicles-20261015/timings.json",
+      "sha": "3b0617cf7a25010c904323b7e2020dea3c405ed0",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/audio/cq-weapons-20261015/README.md",
+      "sha": "c4e90191032eab94ce9365ebe47f2eca32e4a12f",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/audio/cq-weapons-20261015/audacity-mcp-receipt.json",
+      "sha": "b86f0ca651ee9e15f45c1d528966311fc0998e9f",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/audio/cq-weapons-20261015/recipes.json",
+      "sha": "52235c3af1e5675ca58713f07d9d608e9b0ad21c",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/audio/cq-weapons-20261015/runtime-cadence.wav",
+      "sha": "91be608b12d61d238b8491c283139b11f78674f3",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/audio/cq-weapons-20261015/timings.json",
+      "sha": "1a3ce055b4e0ee898de2fb7d6925d3a744bdaffb",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/REPORT.md",
+      "sha": "5900fa819ca53338198a29ba61dbdfd6e68bc646",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-64-normal/clients-000.log",
+      "sha": "6bcb58f467474ea974e26daf5cad5a66f0e99ab0",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-64-normal/clients-004.log",
+      "sha": "0d5537e6d0029d6218c7d3bb16862210764d09c5",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-64-normal/clients-008.log",
+      "sha": "03a50a78d996e9525f8809885d06804c8b4e8271",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-64-normal/clients-012.log",
+      "sha": "4177a6e96f9485e8422a2578b93e6cf4be8cfb71",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-64-normal/clients-016.log",
+      "sha": "af79583d8c7434d23c6799f54f3987381e190abf",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-64-normal/clients-020.log",
+      "sha": "16c6f8c889b514afe60adaf626659696467d91bd",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-64-normal/clients-024.log",
+      "sha": "d9b72dc97bff6e0a8e19e6c94a5c2ea5584701e2",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-64-normal/clients-028.log",
+      "sha": "cba55842e119b0658525e45c69723545ed92ff04",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-64-normal/clients-032.log",
+      "sha": "e193878618efaade41e36083aaa1989ed2a80652",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-64-normal/clients-036.log",
+      "sha": "04e476350b38fe7d9bf931a23676eb78f029c241",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-64-normal/clients-040.log",
+      "sha": "ee99035ed4e6c916622d79405407126c8d3fa38c",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-64-normal/clients-044.log",
+      "sha": "45b411da8a5b5eeee5229233b125696eafac2b14",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-64-normal/clients-048.log",
+      "sha": "18d4b67f358cc4bb0fc46ab1836c9953f132baae",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-64-normal/clients-052.log",
+      "sha": "023a2144badb1aa9a2e18365378915909659bfff",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-64-normal/clients-056.log",
+      "sha": "68cb1ecb65afaca9184d5db01638689373f1584f",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-64-normal/clients-060.log",
+      "sha": "461672171ad801758f715eaae3119cae0a068008",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-64-normal/release-sha256.json",
+      "sha": "612ab110f079175db6870d8cca4e7c1d481655ee",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-64-normal/resources.json",
+      "sha": "b0362c21e5115d6e38c03de71c5de1a0ca5b2277",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-64-normal/server.json",
+      "sha": "4fb3ba8a039f260d8d00acccd7e249a607fc65df",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-64-normal/server.json.admission.json",
+      "sha": "fe2e3b6a745b5683760f763c1d246509a67de144",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-64-normal/server.log",
+      "sha": "3370ddbd97dcc33ea94d3587e8c7763fa2080d51",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-64-normal/summary.json",
+      "sha": "1b185fd51e90bf05bd08b3acc785ef30371dca5d",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-arena-clean/desktop.json",
+      "sha": "d3a5c193748f40bf50001c0218b7c83deba66d78",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-arena-clean/desktop.log",
+      "sha": "fd5b908a299fdbf754e679801ec8ed6761607298",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-arena-clean/release-sha256.json",
+      "sha": "831be7840044c518ce0b3b84cec8e636f266b868",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-arena-clean/server.cfg",
+      "sha": "afd81d624545446cb45331aa35b1161fbecef7b8",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-arena-clean/server.log",
+      "sha": "e27796841ffc84c619ca293c6686a97f81a81eba",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-arena-clean/summary.json",
+      "sha": "29386a6f647bf95590cb83d79881a34cb47c8cc2",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-arena/desktop.json",
+      "sha": "5db29c1458ddd88b59ff235e63023a573f27c4f9",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-arena/desktop.log",
+      "sha": "f4e3afdc7145ef7ec70d1b5592157c12eda875ab",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-arena/release-sha256.json",
+      "sha": "7f6996df9b7ec9996efd54a21a57be0870dd05d5",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-arena/server.cfg",
+      "sha": "afd81d624545446cb45331aa35b1161fbecef7b8",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-arena/server.log",
+      "sha": "caf93be896ddc496b434c9409b8fe90f26754586",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-arena/summary.json",
+      "sha": "79869e8775917ddb44d5c383be3670731ad6f376",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-final-health.json",
+      "sha": "4cd65b16cb59d02755f2f82c71653a7a731b9379",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-service-before-final.json",
+      "sha": "f154822c99e0b339a7a3e703cc4faee29a972f8c",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-v2-64-normal/clients-000.log",
+      "sha": "fc051ffa2ab42c4e06fdd80bab857ccf7c47d338",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-v2-64-normal/clients-004.log",
+      "sha": "daea66e40af1e8777cfd72222130faf4315c169c",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-v2-64-normal/clients-008.log",
+      "sha": "b526df3da34fcd1eef00fad8ce8e582a36787091",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-v2-64-normal/clients-012.log",
+      "sha": "5a301431af8243347cb0c54a6f13bb069001190b",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-v2-64-normal/clients-016.log",
+      "sha": "fae6024af534aecc0eaf59adedb4f52db69d5ce3",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-v2-64-normal/clients-020.log",
+      "sha": "39a0435328c7278d1342ef19c4588376a40f291a",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-v2-64-normal/clients-024.log",
+      "sha": "dad854903754faddc02d8b4b678f3fae01029230",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-v2-64-normal/clients-028.log",
+      "sha": "03b404098d29f86ef5a7ebdcd37a704314fa1b89",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-v2-64-normal/clients-032.log",
+      "sha": "eb837f73134427acac9e93cb799c2cf92f44775c",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-v2-64-normal/clients-036.log",
+      "sha": "1fbdc2d2ee975169d7bfc6de94e89e6d87b6f07a",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-v2-64-normal/clients-040.log",
+      "sha": "675704e64041ce618aefbf172f29bc4f8cb527c7",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-v2-64-normal/clients-044.log",
+      "sha": "888543a7a7d1364c4db7a7a5a9962d602db7eaa3",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-v2-64-normal/clients-048.log",
+      "sha": "1c597cf9462e548780b7c0ce43617b84d6ddb781",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-v2-64-normal/clients-052.log",
+      "sha": "5c5e52e367ee00049d2e8ba077690fec772f3d1c",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-v2-64-normal/clients-056.log",
+      "sha": "a127800e72f270d2adb6690d46aaca0c26c7604e",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-v2-64-normal/clients-060.log",
+      "sha": "54c669e3abde8628437e7c78b41a088837366e88",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-v2-64-normal/release-sha256.json",
+      "sha": "86320c759df0a14e45003fa1d09147caafbf9df7",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-v2-64-normal/resources.json",
+      "sha": "f1b6f98c87ec0b3024c49e10f97a2444f7d090fb",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-v2-64-normal/server.json",
+      "sha": "dbfb6055abf320e10962d2a7e4565cd8b6e3d801",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-v2-64-normal/server.json.admission.json",
+      "sha": "1b8e06a46f9de52c9f4f73c1d035205c8c97a7f7",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-v2-64-normal/server.log",
+      "sha": "8c84c99cf88987d3c1fe8e124b572808302939af",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-v2-64-normal/summary.json",
+      "sha": "a8250b9d3186f21700be4e48b815adf02695395f",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-v2-64-pressure/clients-000.log",
+      "sha": "2db7d56afbd67cb70e9c17145cdbf785542465e5",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-v2-64-pressure/clients-004.log",
+      "sha": "1ed5c4ee55fd69831622e5b8701d3429dc56c9bf",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-v2-64-pressure/clients-008.log",
+      "sha": "51fca1285824b370544452fade0b21aac0529b09",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-v2-64-pressure/clients-012.log",
+      "sha": "e16fbdc0b40084b804d417225c929472ab5d15c4",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-v2-64-pressure/clients-016.log",
+      "sha": "5e23337a0141251c58d6a2693e42a4129c7bb7ed",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-v2-64-pressure/clients-020.log",
+      "sha": "d37e7a6442ea6ac85456b7a5da4c90da7635487f",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-v2-64-pressure/clients-024.log",
+      "sha": "7db143f177fdb28d53799e99946dcf37005d2401",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-v2-64-pressure/clients-028.log",
+      "sha": "44c721f76ff3cb5dc4c20b07400665e8e7c0afe0",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-v2-64-pressure/clients-032.log",
+      "sha": "e6beb7a1fe2244c93fad790f6ad3b801a497c704",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-v2-64-pressure/clients-036.log",
+      "sha": "d25d225172e8cdf13231ddaad0404cabcbeabb24",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-v2-64-pressure/clients-040.log",
+      "sha": "eb5b3943bab9a5cbe7b70f30b94792a9bace170d",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-v2-64-pressure/clients-044.log",
+      "sha": "43b0fa4b6370b8e263ed54a40061fb60603bce5c",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-v2-64-pressure/clients-048.log",
+      "sha": "4afa6b90f75ef788d9fe9aaf57f125a15d64584f",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-v2-64-pressure/clients-052.log",
+      "sha": "ec0396fbe9a81ca977a7e408183f6a022b15fa22",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-v2-64-pressure/clients-056.log",
+      "sha": "7ea91ff82a058cbb192356c186a05408b34afddc",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-v2-64-pressure/clients-060.log",
+      "sha": "fd634df29d3af8be7a199ce9af9253f1dc2fe22f",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-v2-64-pressure/release-sha256.json",
+      "sha": "86320c759df0a14e45003fa1d09147caafbf9df7",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-v2-64-pressure/resources.json",
+      "sha": "b5a3dd6859c0a21e81f8e736c5b760be8ffc50a3",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-v2-64-pressure/server.json",
+      "sha": "76e6139b53aaa5cd2316efd380ca85158868e7a6",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-v2-64-pressure/server.json.admission.json",
+      "sha": "1ddd34753ba7a25e68ad297e730d550cb630dd18",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-v2-64-pressure/server.log",
+      "sha": "e2937b5bb4fca9906493b949b56c4689cc02aef0",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-v2-64-pressure/summary.json",
+      "sha": "9bf21d94ee5735ff1847f709e225b93b7802daf1",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-v3-64-normal/clients-000.log",
+      "sha": "789d1b135f9ecd9a62021b4b2ece24ae9fa31926",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-v3-64-normal/clients-004.log",
+      "sha": "1b46ccb20d5c05a1e75cf456aadd502afa62e3d6",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-v3-64-normal/clients-008.log",
+      "sha": "49a9787871d80089cda22ddba921fbaa7f0163ba",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-v3-64-normal/clients-012.log",
+      "sha": "51c879a123825ca8408331b2e8cb4a8749b8c067",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-v3-64-normal/clients-016.log",
+      "sha": "ca50f93cc13a1cb6c1288e1afa057881a2c6fa94",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-v3-64-normal/clients-020.log",
+      "sha": "1a6fe8a71534cbfdb4a29c3c2b71808110ef9b78",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-v3-64-normal/clients-024.log",
+      "sha": "74e5d2aa553633c3d94d519963ba77d88d67dc0d",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-v3-64-normal/clients-028.log",
+      "sha": "23593912fe5d85900fc191861a33b0685bde83b9",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-v3-64-normal/clients-032.log",
+      "sha": "36d9dbb990ad212634ae92233db42668a48cc4ba",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-v3-64-normal/clients-036.log",
+      "sha": "f57f71dc98da34a77518e77d3c6486e7e5a55a4b",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-v3-64-normal/clients-040.log",
+      "sha": "72c1e041465df86fcf27ed895e0effd5d33ae14a",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-v3-64-normal/clients-044.log",
+      "sha": "fa866c4c085d195fb62197183b4fa85a823b81b0",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-v3-64-normal/clients-048.log",
+      "sha": "b2ae6d1d6cc397bdb12775cec07ceaa6ba2d9c4d",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-v3-64-normal/clients-052.log",
+      "sha": "6a4887e200c3105cdd04d98b38140818180a6920",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-v3-64-normal/clients-056.log",
+      "sha": "490cea8ce36dd9663f85c45399b37402568001dc",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-v3-64-normal/clients-060.log",
+      "sha": "ceac7fef1d42d5f0f5a6871d2bc23d37471a9054",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-v3-64-normal/release-sha256.json",
+      "sha": "c718a237e20692cd88244deea5aafc8789e69347",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-v3-64-normal/resources.json",
+      "sha": "413b3cddd1bb4c11fa94b5ac0fbe43f5f1ffd30c",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-v3-64-normal/server.json",
+      "sha": "ef861007fc592f8f025b60f40388bb1926481293",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-v3-64-normal/server.json.admission.json",
+      "sha": "2c61888c5a591c3dba7889b1d598dcd41de5ba0c",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-v3-64-normal/server.log",
+      "sha": "cee3ef7aedb3cda3bdc0e160bfeb52facff19f46",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-v3-64-normal/summary.json",
+      "sha": "92923bcadf5103997f61c3ef0ac878dd7c3e27c1",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-v3-64-pressure/clients-000.log",
+      "sha": "3bc3a2fce5b7f721d65f3aa9c0902217d9d24440",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-v3-64-pressure/clients-004.log",
+      "sha": "81105d18bd50bcd88349f8c1f03c736aaac242b9",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-v3-64-pressure/clients-008.log",
+      "sha": "55095b7db8789a8ba412745872ad1b2b64b8762f",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-v3-64-pressure/clients-012.log",
+      "sha": "d6e47c39d943bc63fdb3974d67bb5404e47b890a",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-v3-64-pressure/clients-016.log",
+      "sha": "03d03e1394b54a5eeb2bd6b3913c66ea5d105aa2",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-v3-64-pressure/clients-020.log",
+      "sha": "f9c25658db1071c2a0901337aaf11ee6253fdcd8",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-v3-64-pressure/clients-024.log",
+      "sha": "1a421cc1a48618287702e807da44c51d98b4be45",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-v3-64-pressure/clients-028.log",
+      "sha": "6f54abe97c3c07302372cd2fd9880315feca7c1c",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-v3-64-pressure/clients-032.log",
+      "sha": "55331a92ef5e15b1326b7cf71c5fd78d822eb0d1",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-v3-64-pressure/clients-036.log",
+      "sha": "0e20c4845ef7e4479a6a812896acc6a6ce262fca",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-v3-64-pressure/clients-040.log",
+      "sha": "6cb5b0af0a4883d65bbd82b2a518ff434602c447",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-v3-64-pressure/clients-044.log",
+      "sha": "edb107513a36a6957b5bd515954bb775989eb745",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-v3-64-pressure/clients-048.log",
+      "sha": "b220549059b2b5dc29bce7ec9cf21ced1abfcc5f",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-v3-64-pressure/clients-052.log",
+      "sha": "f3ed7d780b9c83623631391c2a92ea3dc51e8d7c",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-v3-64-pressure/clients-056.log",
+      "sha": "717d935b21a10b49cfd7a17d2cffffc4d3b7f75b",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-v3-64-pressure/clients-060.log",
+      "sha": "705bf69978d280d9ba168cd8e6783bef01d9b511",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-v3-64-pressure/release-sha256.json",
+      "sha": "c718a237e20692cd88244deea5aafc8789e69347",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-v3-64-pressure/resources.json",
+      "sha": "c77c8e3aeb9c9568051ee15e7b6a7642c828812d",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-v3-64-pressure/server.json",
+      "sha": "005637820aa5d92da9c029143feec26b2bf2d347",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-v3-64-pressure/server.json.admission.json",
+      "sha": "84d6620aca32d3817f6ab690b64b847ce425b946",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-v3-64-pressure/server.log",
+      "sha": "65b4170a4a7e82c363b48cf2062eb3e2712030a2",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-v3-64-pressure/summary.json",
+      "sha": "e7eac9b762d8183727af1c36d590c58da221fb83",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-v4-64-normal/clients-000.log",
+      "sha": "53fa9e9802900b04a84889d3f4e7c1e163c05bf4",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-v4-64-normal/clients-004.log",
+      "sha": "b3a9965a361a323083757ce50a0c107b161c2b68",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-v4-64-normal/clients-008.log",
+      "sha": "ec2af22f2be362cd05addd01785d57f9e8ce31a8",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-v4-64-normal/clients-012.log",
+      "sha": "47e50c41350eac6726f1d341cf18741c63957782",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-v4-64-normal/clients-016.log",
+      "sha": "a9fbedf69159156778b57c1f0db698b4f24df253",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-v4-64-normal/clients-020.log",
+      "sha": "3bbc61e239d50e635afacddb01c2990d04a03262",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-v4-64-normal/clients-024.log",
+      "sha": "e5ca345e239bf770e4986579a3a41874892efeef",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-v4-64-normal/clients-028.log",
+      "sha": "2c195868fc316b7ceaf9df6c0709b5fa71c8369e",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-v4-64-normal/clients-032.log",
+      "sha": "d598bab1c5b666c270ac3847469eb7db348f9869",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-v4-64-normal/clients-036.log",
+      "sha": "17e9d4726127061a38ec1fc719c7b06d62023afc",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-v4-64-normal/clients-040.log",
+      "sha": "6cab85d6d88169036847e8467517565786e40542",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-v4-64-normal/clients-044.log",
+      "sha": "83f0f7f873a5db3a0b0931181e6a86cf906baaa5",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-v4-64-normal/clients-048.log",
+      "sha": "c8fae84f6f1f322b4fa6ace0a42c39204472b90f",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-v4-64-normal/clients-052.log",
+      "sha": "5ba4e2eb09530ec8b532f607b20f1dabe9c30753",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-v4-64-normal/clients-056.log",
+      "sha": "a205958bff0d5177c2d5f9239d0d507d001e48ab",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-v4-64-normal/clients-060.log",
+      "sha": "11a367f8d7a4ede4bbef692af8cc8976db179f5e",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-v4-64-normal/release-sha256.json",
+      "sha": "ebd69957249f3c7e87605df7191551acb63f4d9d",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-v4-64-normal/resources.json",
+      "sha": "bf3e2a73c9af2fa7b0a8273c0513486d2c4ae2d0",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-v4-64-normal/server.json",
+      "sha": "1cee46724ecd694a5b4e65e121f4f48fb4c52041",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-v4-64-normal/server.json.admission.json",
+      "sha": "3b2d30300e5930267154e95029b18e901a08c9e8",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-v4-64-normal/server.log",
+      "sha": "60433f911a57d6014520ca9f2037546150c51f04",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/adaptive-20261015-v4-64-normal/summary.json",
+      "sha": "b9e2fea1d697b25554e342c2919ce435a74d32c1",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/comparison.json",
+      "sha": "ca57cd41a3150ea42e0f00d3cfac77e52f29aec1",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/cq-script-parse.log",
+      "sha": "ef295ec7a107867bd87e58236a2532ecbef02742",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/cq-server.patch.json",
+      "sha": "43646ca23fe5998f0ed477573ff23ac34b3b15da",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/entry-script-parse.log",
+      "sha": "ef295ec7a107867bd87e58236a2532ecbef02742",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/native-source-sha256.json",
+      "sha": "1974342cbc04db6b9bbe37b4674ac6be0c16817c",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/native-source-verification.json",
+      "sha": "78cbd1ba4a25deb8de1e33ff99feea601721bee4",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/native-tests.json",
+      "sha": "fbc16f72542e4cfabd4a0088eb9c750b06c71a02",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/pack-source-verification.json",
+      "sha": "ba125f85d5968ddf927b3c3f22b56b3be6d9cc17",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/tool-tests.log",
+      "sha": "cd90c7b1b2bad90b30923f02cde46b57354d9771",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/v2-cq-server.patch.json",
+      "sha": "5992c2b1aa702b17db3e70f94141c498543536f9",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/v2-native-source-sha256.json",
+      "sha": "fef7b36fc90652e0607cabac2f64f322892b0e79",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/v2-native-source-verification.json",
+      "sha": "0cb0b87c443f4a278656d72c7c4b5a11f22feb13",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/v3-cq-server.patch.json",
+      "sha": "f30d9b3979e3737a3b21fc4af8e1962ec2fc47e1",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/v4-cq-server.patch.json",
+      "sha": "872c21cca252708a36bb3ddbeb4acbe246ae0380",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-64-20261015/v5-cq-server.patch.json",
+      "sha": "a5398ede84701a443a76029bab2c8fbe9f5874e6",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-default-20261015/REPORT.md",
+      "sha": "7cde0a2f1b80f3a87d18b37029ad965e991d3b1f",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-default-20261015/client-warmup-patch.json",
+      "sha": "fe96147b3689e03ebbea7589434390441f55e58a",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-default-20261015/config-test.log",
+      "sha": "001c59a0f95c41ece9b42c1587d1a329c29b007a",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-default-20261015/default/desktop.json",
+      "sha": "fb1ae5d43d13a335e37cd048d37a568681ebe0a1",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-default-20261015/default/desktop.log",
+      "sha": "1d4bd445cb3f9a0000f0aa1abb1ef21ef8d60333",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-default-20261015/default/release-sha256.json",
+      "sha": "6871d8e0cf8fa669e09aed60560954b566814418",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-default-20261015/default/server.cfg",
+      "sha": "3daeaef472e19386874d15d067ae54dfca1da95c",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-default-20261015/default/server.log",
+      "sha": "d94a9516043936a4fdde966d316a4756d25043e6",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-default-20261015/default/summary.json",
+      "sha": "3a856ee8be6e1e845f82a5d540e5b87723b4ba9c",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-default-20261015/diagnostic/desktop.json",
+      "sha": "70e32b01c7a9f695c40cce260021b1d0b84b0894",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-default-20261015/diagnostic/desktop.log",
+      "sha": "473b576eee2511b32bb8d9d68844bcc0c32cf96f",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-default-20261015/diagnostic/release-sha256.json",
+      "sha": "1a8c41bf2fa73c1297593626619b9977c02ce880",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-default-20261015/diagnostic/server.cfg",
+      "sha": "3daeaef472e19386874d15d067ae54dfca1da95c",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-default-20261015/diagnostic/server.log",
+      "sha": "eea0166f524be6ce11de51d6841b42cb2b5b1595",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-default-20261015/diagnostic/summary.json",
+      "sha": "5352f49dd76b464b40fabaf2a4ffa1db1f8d7f88",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-default-20261015/first-attempt/desktop.json",
+      "sha": "2e53fe39dd3bdf1a28a1990dd26ee17c4751b5fb",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-default-20261015/first-attempt/desktop.log",
+      "sha": "eb30ff4042d920208419874605007c92961203c9",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-default-20261015/first-attempt/release-sha256.json",
+      "sha": "970d34147938fadeb06f9296fdc4e8af3eaaa773",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-default-20261015/first-attempt/server.cfg",
+      "sha": "3daeaef472e19386874d15d067ae54dfca1da95c",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-default-20261015/first-attempt/server.log",
+      "sha": "7e543e2ff6a919f1426c3af7408a5c83103a9746",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-default-20261015/first-attempt/summary.json",
+      "sha": "4c80156c6e0c76fb4c1e2d2b1554eabcebd54f03",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-default-20261015/fixed30/desktop.json",
+      "sha": "d0d75522513361b6171845e5a56002ab637b0e49",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-default-20261015/fixed30/desktop.log",
+      "sha": "90590f7e50cc497a9dc1678ed3fd9b158369af9c",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-default-20261015/fixed30/release-sha256.json",
+      "sha": "6871d8e0cf8fa669e09aed60560954b566814418",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-default-20261015/fixed30/server.cfg",
+      "sha": "2eca9ea5aea3ab59f974ed6a3972a2bfc4455d39",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-default-20261015/fixed30/server.log",
+      "sha": "d0c29649ce5f78e6fe73a91952b1f1b989777e33",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-default-20261015/fixed30/summary.json",
+      "sha": "a87e7e95d6f68441f2fbeb03829e3fa0630593e5",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-default-20261015/live-service-after.txt",
+      "sha": "ebfdd4146b1fff434cbd6380bdf5a188febce059",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-default-20261015/second-attempt/desktop.json",
+      "sha": "622c516b91e6140d29c0d88208974342f6d8c457",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-default-20261015/second-attempt/desktop.log",
+      "sha": "3b17a238e4907c295c9a4bfc30b3e16820d6dd20",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-default-20261015/second-attempt/release-sha256.json",
+      "sha": "970d34147938fadeb06f9296fdc4e8af3eaaa773",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-default-20261015/second-attempt/server.cfg",
+      "sha": "3daeaef472e19386874d15d067ae54dfca1da95c",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-default-20261015/second-attempt/server.log",
+      "sha": "e654d1a92492ef298b8bbf30b4107cc89dc9e51a",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-default-20261015/second-attempt/summary.json",
+      "sha": "4d8bcca8023a099bf4676ba72224926cfe00b0a0",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-default-20261015/server-script-patch.json",
+      "sha": "2ae7c14d012a88d6460735351e4f04bf4b54d7e3",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/adaptive-default-20261015/tool-tests.log",
+      "sha": "3860e82b29d1e01353af3ee8940ceaed1dcffc1d",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/REPORT.md",
+      "sha": "498ed7b41c6cd5d80ea5863048c74d897592ca85",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/comparison.json",
+      "sha": "d669839f20269d47e2106f53c6c2454aebab0dec",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/diagnostic-pack.patch.json",
+      "sha": "981c82aaffdaf7169ec665382f6687f467bc4b55",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/experimental-pack.patch.json",
+      "sha": "fb02456cd37f950ca3604b7d0cea74912c3ca0e7",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/experimental-source-verification.json",
+      "sha": "9c3e1f26fb89e11b336418477fae04344b05e348",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-128-final/clients-000.log",
+      "sha": "9617e68272d618205a6ec277633359c16b1b2ce0",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-128-final/clients-004.log",
+      "sha": "e6645054b80466575a37c23bd09416a160c88c55",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-128-final/clients-008.log",
+      "sha": "372af633301d2946b4c94c6c249bdfb22eec0c4d",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-128-final/clients-012.log",
+      "sha": "3ff1323f92964d2b29ac5d779bb4124d90958e25",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-128-final/clients-016.log",
+      "sha": "08b1eba630633ae1752a55ef9027c60cd4d62dad",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-128-final/clients-020.log",
+      "sha": "36ad1b165833d1abadcd4ca0ae45e9b23d3b41da",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-128-final/clients-024.log",
+      "sha": "7cf555e51ed33042a6c5f292769c6176a61e5a02",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-128-final/clients-028.log",
+      "sha": "48ee2d1e2f7ee08f49b33d1a8f57cb5cb1c1880b",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-128-final/clients-032.log",
+      "sha": "7a1c5c49d5c58dfa5aa187f8fc2459e92513b2dc",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-128-final/clients-036.log",
+      "sha": "c88b1142e14bf7046a76f8f8ee6808ebcaa8bb9f",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-128-final/clients-040.log",
+      "sha": "4ed36157af1b4eb4c70a93aab1adce8b4c1a160a",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-128-final/clients-044.log",
+      "sha": "782d54e2b584accdbf8b90ad914d7f4f64754f6a",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-128-final/clients-048.log",
+      "sha": "375b8458f151f103a2cca5a5eeae44644194f9be",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-128-final/clients-052.log",
+      "sha": "6d4fae661fb4d6a4326e7fc5cdc46659c62d6386",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-128-final/clients-056.log",
+      "sha": "0064f83ac59a4bdf16c0261c6ae811bef65e8b12",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-128-final/clients-060.log",
+      "sha": "0141606257c9443b93d352872283060245e7a128",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-128-final/clients-064.log",
+      "sha": "742b2cf2e45b821f1cffd66fdce7f33d9b81e6d4",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-128-final/clients-068.log",
+      "sha": "8f8a89eba099ba4eab5d681059eeb1808e306c46",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-128-final/clients-072.log",
+      "sha": "321913bf0c1a1e6a096513485c665a5a2f935690",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-128-final/clients-076.log",
+      "sha": "6dceecfbc0c50c2c359049c429dd48293d047a1e",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-128-final/clients-080.log",
+      "sha": "878eeef9d8428a2575c4585c88b29aef897a27a7",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-128-final/clients-084.log",
+      "sha": "db1448cce89fd5be323eef9071fac7404c1a3445",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-128-final/clients-088.log",
+      "sha": "0ea6d4499a72e35265c10273b0edf881d7440c3d",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-128-final/clients-092.log",
+      "sha": "23aec94db07b9259906e05fb1f760bf00cb375de",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-128-final/clients-096.log",
+      "sha": "7c299b958b5a90645c82998f271efa74d4a8b4f3",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-128-final/clients-100.log",
+      "sha": "57d48d25d9f30f322e9315474f64f56f598ad900",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-128-final/clients-104.log",
+      "sha": "6ab08287b34f8d51c8daf3f8f9da95615a236e9b",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-128-final/clients-108.log",
+      "sha": "b5a48a5dfd2ab4d0ca4004899967ee59abca7f21",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-128-final/clients-112.log",
+      "sha": "2cbaada44cd17d524d89e61b93ae99dda2a78dbb",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-128-final/clients-116.log",
+      "sha": "86823ee1484fd5f7411cd9964c73c9694363864f",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-128-final/clients-120.log",
+      "sha": "8dfbf6acb36424111f7ac72042924427cdd68849",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-128-final/clients-124.log",
+      "sha": "2f470f4cc4b07d920b5eb236fad54a5b4e8176d8",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-128-final/release-sha256.json",
+      "sha": "29b043567c86b97156be1c86741517462b4dc9f0",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-128-final/resources.json",
+      "sha": "b1c5f79c83ca91a6b089234b437b5c367506149f",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-128-final/server.json",
+      "sha": "1cd1ee4c41716856aecb60e64bf35621340d6a8c",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-128-final/server.json.admission.json",
+      "sha": "99c4f0d3de6b5b2d897453d69e0bac20441f7ae0",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-128-final/server.log",
+      "sha": "faa0aee0f73d6f95b9750a1355ca8545dd3ad603",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-128-final/summary.json",
+      "sha": "1cf8628165ca146023b40894e2276aeedc95df4d",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-128-ready/clients-000.log",
+      "sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-128-ready/clients-004.log",
+      "sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-128-ready/clients-008.log",
+      "sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-128-ready/clients-012.log",
+      "sha": "697bbc372b5d333e179a3642c66bb1cd187b93f8",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-128-ready/clients-016.log",
+      "sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-128-ready/clients-020.log",
+      "sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-128-ready/clients-024.log",
+      "sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-128-ready/clients-028.log",
+      "sha": "697bbc372b5d333e179a3642c66bb1cd187b93f8",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-128-ready/clients-032.log",
+      "sha": "697bbc372b5d333e179a3642c66bb1cd187b93f8",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-128-ready/clients-036.log",
+      "sha": "697bbc372b5d333e179a3642c66bb1cd187b93f8",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-128-ready/clients-040.log",
+      "sha": "697bbc372b5d333e179a3642c66bb1cd187b93f8",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-128-ready/clients-044.log",
+      "sha": "697bbc372b5d333e179a3642c66bb1cd187b93f8",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-128-ready/clients-048.log",
+      "sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-128-ready/clients-052.log",
+      "sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-128-ready/clients-056.log",
+      "sha": "697bbc372b5d333e179a3642c66bb1cd187b93f8",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-128-ready/clients-060.log",
+      "sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-128-ready/clients-064.log",
+      "sha": "697bbc372b5d333e179a3642c66bb1cd187b93f8",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-128-ready/clients-068.log",
+      "sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-128-ready/clients-072.log",
+      "sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-128-ready/clients-076.log",
+      "sha": "697bbc372b5d333e179a3642c66bb1cd187b93f8",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-128-ready/clients-080.log",
+      "sha": "697bbc372b5d333e179a3642c66bb1cd187b93f8",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-128-ready/clients-084.log",
+      "sha": "697bbc372b5d333e179a3642c66bb1cd187b93f8",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-128-ready/clients-088.log",
+      "sha": "697bbc372b5d333e179a3642c66bb1cd187b93f8",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-128-ready/clients-092.log",
+      "sha": "697bbc372b5d333e179a3642c66bb1cd187b93f8",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-128-ready/clients-096.log",
+      "sha": "697bbc372b5d333e179a3642c66bb1cd187b93f8",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-128-ready/clients-100.log",
+      "sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-128-ready/clients-104.log",
+      "sha": "697bbc372b5d333e179a3642c66bb1cd187b93f8",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-128-ready/clients-108.log",
+      "sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-128-ready/clients-112.log",
+      "sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-128-ready/clients-116.log",
+      "sha": "697bbc372b5d333e179a3642c66bb1cd187b93f8",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-128-ready/clients-120.log",
+      "sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-128-ready/clients-124.log",
+      "sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-128-ready/release-sha256.json",
+      "sha": "e909ddede67d336b4d1f6c21590488008400acd0",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-128-ready/resources.json",
+      "sha": "358cb9d630b6ccf6ae7fba51a7ddc24c04e56d60",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-128-ready/server.json.admission.json",
+      "sha": "ad26a08dc79a4013b4894bdf07d9afcef3df9ea3",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-128-ready/server.log",
+      "sha": "c3919f2dad018d96d9c1075a5d7815d6450d0cb5",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-128-ready/summary.json",
+      "sha": "4284cd71f663f4b1739fc85483f28ffd44a651f8",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-128-reload/clients-000.log",
+      "sha": "9914876e0bda8d7f52cf004e271944104fbc7b8f",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-128-reload/clients-004.log",
+      "sha": "f00b8010ad5bc7e399cacc2c197b5c3ebadbe3e9",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-128-reload/clients-008.log",
+      "sha": "c33e3fac0241d9d76040545e321b2d8fc4df999c",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-128-reload/clients-012.log",
+      "sha": "e854657e2bbd755e301a2235bf38accc9e2eeb0e",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-128-reload/clients-016.log",
+      "sha": "16607482f8d5eac9c192e8d038a70d212270b263",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-128-reload/clients-020.log",
+      "sha": "62f9104e222a77eb2c7a69768118a9a43558cbc3",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-128-reload/clients-024.log",
+      "sha": "56c06cc47d1b685aa8571b4fa840b7c010cfde17",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-128-reload/clients-028.log",
+      "sha": "addbd304aa6ee62e6c9325a142bc8cca70c413dd",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-128-reload/clients-032.log",
+      "sha": "7cccaa70ee1474f107f4b12742986739634cee83",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-128-reload/clients-036.log",
+      "sha": "b29f68c56ad16e81589b26ecf06acadbb63163d3",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-128-reload/clients-040.log",
+      "sha": "f705bf7c5ab96215050394b298a8775a2021bb78",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-128-reload/clients-044.log",
+      "sha": "346bb5035bdedc5fa7896d90425f7bae8a8ab74a",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-128-reload/clients-048.log",
+      "sha": "a11935d781ca02b5ab1619cc7d2dc82b7cec12f9",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-128-reload/clients-052.log",
+      "sha": "5368df5703b37af9bfc13c2a4c91812167af4cb1",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-128-reload/clients-056.log",
+      "sha": "bb871a2c4360ac7ee295f0338e9f91a36e6f2177",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-128-reload/clients-060.log",
+      "sha": "c9c9fcc6c8606ecd91d7e3651f568e161ffba00b",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-128-reload/clients-064.log",
+      "sha": "22ad502c1d307bcabcc7ce44406cbe2946275fa9",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-128-reload/clients-068.log",
+      "sha": "eb9b67117a653bfd4e3cfbee32ee67aa37da298d",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-128-reload/clients-072.log",
+      "sha": "3bdf5990a37b240b13737d4c79eda8cfaea4d062",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-128-reload/clients-076.log",
+      "sha": "3e9f9873cd7673321cc18e01a103cfb9e88e2dde",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-128-reload/clients-080.log",
+      "sha": "9d5e7c128edd796ec3321015e933eedb26979294",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-128-reload/clients-084.log",
+      "sha": "d816e38a3e36bf592ebe0e3e9d4c24f200a18b2d",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-128-reload/clients-088.log",
+      "sha": "bef2334ec30d195ff9f277ab73258c6ccd3b307e",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-128-reload/clients-092.log",
+      "sha": "45b2b2ddef9558e9cfa2a90b68d983f1cbf4cb5c",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-128-reload/clients-096.log",
+      "sha": "2d080c45b091755b602f7c234a28cc8a26727b6b",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-128-reload/clients-100.log",
+      "sha": "90b4dc5277d8b714cff12186476263056a41cd82",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-128-reload/clients-104.log",
+      "sha": "694494de2f4525173b6f96aee349600098001fc3",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-128-reload/clients-108.log",
+      "sha": "30fc271030c2ea33725d48aafaaca93ed9fdf5b6",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-128-reload/clients-112.log",
+      "sha": "25e1667719998bc33fd4818e448a5280b697579c",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-128-reload/clients-116.log",
+      "sha": "c47d6283950a9e2bd8f859bec5651e9fe1bb7625",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-128-reload/clients-120.log",
+      "sha": "07d630b52bfac7e14f1b9d2dafdaa86437ee5788",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-128-reload/clients-124.log",
+      "sha": "1dfb968bc18b79b3215ea2fc845e2cacab07c240",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-128-reload/release-sha256.json",
+      "sha": "38c9e79f5dd9f23213da74b81f87917d2d2a2835",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-128-reload/resources.json",
+      "sha": "c71bf16a4f1ac301879eeef95121c5bfc8387fdb",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-128-reload/server.json",
+      "sha": "56d581185042199499f3e4e02ee100799db942d6",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-128-reload/server.json.admission.json",
+      "sha": "b7b3db7204c88ffc889e4bdc19887c2283fcad1c",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-128-reload/server.log",
+      "sha": "26006b91091bba3b633f23ea3c56a8c937abe82d",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-128-reload/summary.json",
+      "sha": "676f4455e29c864fdf6f2f6df6ce5e42eefe03b0",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-4-60-smoke/clients-000.log",
+      "sha": "b3acf6a106bbdf31c47d92d57416babd4345b0fa",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-4-60-smoke/release-sha256.json",
+      "sha": "90423ce8f4b986e1c3a9856684aa00a0d7831c7a",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-4-60-smoke/resources.json",
+      "sha": "dfd7c4d2ebd2812ac3ba73422f690f1036d4c477",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-4-60-smoke/server.json",
+      "sha": "c23d3ff8ade6eeafc04c39d380055596c3e2319a",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-4-60-smoke/server.json.admission.json",
+      "sha": "2d512ac631d656f1eb410500d90a8bde7450709c",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-4-60-smoke/server.log",
+      "sha": "a129d950a645f805453a7e714c68225a5e600efa",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-4-60-smoke/summary.json",
+      "sha": "81ec3bea0c5b471def4f5075d330829ddd9b8692",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-64-60-final/clients-000.log",
+      "sha": "602d78ad1f6a6a502c5a9938d0caf02cea6f185a",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-64-60-final/clients-004.log",
+      "sha": "82f494bfc05a3bb0d5ac526001b77fd7a30b4ec8",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-64-60-final/clients-008.log",
+      "sha": "e9b2b14d708ec5234aeecc1874bfdd344602cef7",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-64-60-final/clients-012.log",
+      "sha": "c84ad88a9cb334ac42bffe542047bdaadd4b0327",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-64-60-final/clients-016.log",
+      "sha": "c8dff31138d3607ebc14e466c958e3db54e55607",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-64-60-final/clients-020.log",
+      "sha": "beb9a79793bb27f4ec5a4d824ba9eb7d6b32dc91",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-64-60-final/clients-024.log",
+      "sha": "8436b0ce63a608db898307208ff2ccc9490407d7",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-64-60-final/clients-028.log",
+      "sha": "da94d67e73aa81b29ecbde26ce090fc909c2f3a6",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-64-60-final/clients-032.log",
+      "sha": "de9ec5e975f51dfe899e1cb940eade1c631d106b",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-64-60-final/clients-036.log",
+      "sha": "5ecdeef2e1b9834857dd60fb13fec30076850e40",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-64-60-final/clients-040.log",
+      "sha": "592cf857a2944f5d76a0324204663f93f9649651",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-64-60-final/clients-044.log",
+      "sha": "6ba61a93c14d145fe2b8ce244b0716ed35ad7df1",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-64-60-final/clients-048.log",
+      "sha": "c742fa321584eb085745a6fd1a2d345e427e064d",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-64-60-final/clients-052.log",
+      "sha": "b337d2617ed5150156f46c91aff6126a0d2b9957",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-64-60-final/clients-056.log",
+      "sha": "a34aeb4f6fe1edfb460535f7f089e0d320755a7e",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-64-60-final/clients-060.log",
+      "sha": "95d52d0b75c70be7fbe7b988ec555a067dfeed30",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-64-60-final/release-sha256.json",
+      "sha": "38c9e79f5dd9f23213da74b81f87917d2d2a2835",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-64-60-final/resources.json",
+      "sha": "72ff687372cec631ae711d624227e092d103bacd",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-64-60-final/server.json",
+      "sha": "79c7e0807bb345e6ecc40665ddde826f51209fb7",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-64-60-final/server.json.admission.json",
+      "sha": "43c66e026ed77f295a77a82aa0018568c2ffa4e9",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-64-60-final/server.log",
+      "sha": "80cb394a3bb07b7f2bbb65586e8c8efe271befaf",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-64-60-final/summary.json",
+      "sha": "6a9eb12263daefc2878c4b3235e2cce328695082",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-environment.json",
+      "sha": "1f99a8e112d6a3ba7d94b45709d86b8fa5e258fa",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-final-health.json",
+      "sha": "eb4c151abe7edd33d5269742f51fb506e6e387c9",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-original-source.json",
+      "sha": "9f7b8276964b43dfeebb69037693ad3f5da500b5",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-service-events.json",
+      "sha": "df6e016e40a0dd9e6531c71291719b120f804bd5",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/native-tests.json",
+      "sha": "ac76aefa139d559703cf7fe1e6fc3803e6577d34",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/original-source-verification.json",
+      "sha": "35c9b6def8b32ceb2fdd7e6b2690d2e76831f9e3",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/tool-tests.log",
+      "sha": "eda2c1c0484e9ffdc6acce6ec1a9725dae862b47",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/capacity-128-60hz-20261015/working-change.patch",
+      "sha": "6f27368b2103d57fa68b71fa735a8e88bef6e10d",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/collapse-profile-20261015/README.md",
+      "sha": "1d8e1d854d54363fb0f0cbe377d5e7f13c52ac8c",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/collapse-profile-20261015/frames-360.csv",
+      "sha": "60903958a07c978341d8ca34b32faee658af4e79",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/collapse-profile-20261015/frames-720.csv",
+      "sha": "b97ce3aa19e6532004a3802f085eb572e9e38547",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/collapse-profile-20261015/results.json",
+      "sha": "9878a02d175282fe991d7346cb34bfea41ebbdb2",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/cover-ranges-20261015/README.md",
+      "sha": "7dc06238dfa530a5c574d77b57d7fa1099bf7d9a",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/cover-ranges-20261015/client-functional.log",
+      "sha": "725dcbae5f61b33088a263e3f420445233acd9cb",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/cover-ranges-20261015/client-shutdown.log",
+      "sha": "ef295ec7a107867bd87e58236a2532ecbef02742",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/cover-ranges-20261015/launcher-reload.log",
+      "sha": "2668703d74f280ec6e7202e77f301b75648a0ecc",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/cover-ranges-20261015/linux-build.json",
+      "sha": "e6f7a3fa886ffa301263c53165fedd2601ea39c4",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/cover-ranges-20261015/linux-server-build.json",
+      "sha": "20a93923c5b8db5d0abcff00c1d4d14d9d2537ea",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/cover-ranges-20261015/native-core-tests.log",
+      "sha": "0751c3da0ca76f4dda32b854d60f1f4b8f27e55d",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/cover-ranges-20261015/script-parse.log",
+      "sha": "ef295ec7a107867bd87e58236a2532ecbef02742",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/cover-ranges-20261015/script-tests.log",
+      "sha": "f54a64f5917b6658bf8efc2391d9271a4d358ab8",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/cover-ranges-20261015/server-functional.json",
+      "sha": "4189a9363a70ae09dec75bd9c35823d1a3a8ba20",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/cover-ranges-20261015/source-sha256.json",
+      "sha": "874a3dcc8d5cc2cf82dd96e43d293b4e2f9b47cf",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/designation-markers-20261015/README.md",
+      "sha": "555d8a04ed66ec5a53fd354791742a5b7a84bcd0",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/designation-markers-20261015/client.log",
+      "sha": "984e703fb12c552b176840d4b5a541ebd9903599",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/designation-markers-20261015/markers.png",
+      "sha": "fc5411829eb4f88f1ad147dbcfe68cd3f9726365",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/designation-markers-20261015/parse.log",
+      "sha": "ef295ec7a107867bd87e58236a2532ecbef02742",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/designation-markers-20261015/tests.log",
+      "sha": "5123fcfc7191ca73c9c39ac90d60f17608cbd6bd",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/desktop-aim-audio-menu-20261015/README.md",
+      "sha": "84e2711ce910319210ec2791b12fc0df39230a7a",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/desktop-aim-audio-menu-20261015/settings-audio.png",
+      "sha": "4de4bae1451f3d81cd97a0b615f315b3b0fc33d8",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/destruction-20261015/README.md",
+      "sha": "d2b6e0645b469491749e9c11cc8dda2a42d4699f",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/destruction-20261015/breached.png",
+      "sha": "d4b9e03f6b797f61aeea32afde488e7ad8624681",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/destruction-20261015/breakup.png",
+      "sha": "2d29ba2c4f001d8744e4aa209cb7806d664cb902",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/destruction-20261015/checks.json",
+      "sha": "e09753e9c4a469ec543a72e74014c103fd07a6db",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/destruction-20261015/intact.png",
+      "sha": "8c85edf30f5365c7aeffa97fe295197b65a90a02",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/destruction-20261015/results.json",
+      "sha": "1e0e92e0e0ccb93a61631b38d82ad5fea722a774",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/destruction-20261015/server-results.json",
+      "sha": "c63b2f25b2fcaf83c3df41f8b9b0097014cde2b7",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/field-audio-20261015/README.md",
+      "sha": "3a15fa65212ee1b6e1cba47d0dc82d019faeb494",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/field-audio-20261015/audacity-install.json",
+      "sha": "2fee460d214e6921e2306439d3cac33a31c4ad3f",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/field-audio-20261015/audacity-mcp-receipt.json",
+      "sha": "b6d56a21555e47f0462a1f14bd5948b3faacd81d",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/field-audio-20261015/client-integration.log",
+      "sha": "04acf18f22a125035bb0ff3b2adcab68ca832c07",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/field-audio-20261015/existing-equipment-audio.log",
+      "sha": "ac7dcbecd0e90c3028366f9059642b2780c0e4a3",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/field-audio-20261015/existing-live-audio.log",
+      "sha": "d929283b5b752ec19f1219282c03a364d3b6bbca",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/field-audio-20261015/field-tests.log",
+      "sha": "68ef705466465d148f7cea3baa8a81f1ecfa00b1",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/field-audio-20261015/imported-pack.log",
+      "sha": "5aae3f617d3f18f878fc82c9b58b486df0d999bd",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/field-audio-20261015/quality.json",
+      "sha": "af9091a570a8b19de6c43bbb305a13c7d681b295",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/field-audio-20261015/results.json",
+      "sha": "74d2177ccad648790bfd85c10efd57b8e22ea33f",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/field-audio-20261015/signal-quality.log",
+      "sha": "7ad0acce5d9e408b839d9f11778dec1bc815d969",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/field-audio-20261015/source-sha256.json",
+      "sha": "e945f2a1d79258656ed57da056bf8d8c5cf81dbf",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/field-audio-20261015/source-verification.log",
+      "sha": "6af676f98e66003bd2f816ff78c830c7660339b5",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/foliage-lighting-20261015/README.md",
+      "sha": "9afc10b125e7c01d60e24f2f499482f96fa1f7ba",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/foliage-lighting-20261015/before-night.png",
+      "sha": "3783a76f5c85df3a760097e358d0fc209716059d",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/foliage-lighting-20261015/day.png",
+      "sha": "befd367428042e09f0d309d9ee2ce4735a8e21bb",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/foliage-lighting-20261015/lightning.png",
+      "sha": "aa0ec08281422073a364d05768850d016623a18f",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/foliage-lighting-20261015/local-shade.png",
+      "sha": "46a56fe8029def0bd4892e7232cb30c4402e5dab",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/foliage-lighting-20261015/night.png",
+      "sha": "8ce9a239dae3d5dcabaa889c288af6c5043f8f84",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/foliage-lighting-20261015/render.log",
+      "sha": "fc6b3578e6e18571a534e45bf48a9a118b1ac748",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/foliage-lighting-20261015/results.json",
+      "sha": "346a3918f59d77a422686ecd09b9cf0029a6b111",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/foliage-lighting-20261015/source-sha256.json",
+      "sha": "d1df9108b01bea462cf2f7c96e7ec8fab4fa3967",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/foliage-lighting-20261015/storm.png",
+      "sha": "2127c6b4e8be98e3e54bbaac787ef7f4a9e56a16",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/foliage-lighting-20261015/world-smoke.log",
+      "sha": "119a5eda9359434dbac5284587a08b1518664b37",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/foliage-lighting-20261015/world_smoke.gd",
+      "sha": "4dd26b96a410f31db4a4362747daa2141e9c6be1",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/headlight-comparison-20261015/README.md",
+      "sha": "219f42c888e73c2d800d737c7a76cca08e546a6c",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/headlight-comparison-20261015/avatar-shader/1-pixel_bake.png",
+      "sha": "0a7e0620bfd8cd34e8e2d1b37ad227459ecc3b49",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/headlight-comparison-20261015/avatar-shader/1-vertex_bake.png",
+      "sha": "38aa5b2bb9144cc0eec710190dc406048370fabd",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/headlight-comparison-20261015/avatar-shader/32-pixel_bake.png",
+      "sha": "6fd94e5f1a1005ceda29fc1254b2a515fbd3bf2d",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/headlight-comparison-20261015/avatar-shader/32-vertex_bake.png",
+      "sha": "678bd5089c83fbd78c35947e17565fcfa65d1574",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/headlight-comparison-20261015/avatar-shader/frames.csv",
+      "sha": "9d674b3cc9e8e7b0b4d9d5fae506a6f833bf758d",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/headlight-comparison-20261015/avatar-shader/results.json",
+      "sha": "7c857ce1cf942db062b3da3a2659da7e6704d3a8",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/headlight-comparison-20261015/comparison.html",
+      "sha": "9540c8ccf8a242902c7cc7e1ddc12d840ce1402b",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/headlight-comparison-20261015/driver-mixed.png",
+      "sha": "ecd369246bb8ffd1d129e3f9d8a2117b7c02eafe",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/headlight-comparison-20261015/driver-off.png",
+      "sha": "e45f82f0f211388a6c88ce99fcb0b3530478b351",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/headlight-comparison-20261015/driver-vertex.png",
+      "sha": "cf11102a58bd65a9ed96deeff96a8fa0639bd9ab",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/headlight-comparison-20261015/driver8-mixed.png",
+      "sha": "1dfa93b8444a30bb2fddd981b1620a67fe525ead",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/headlight-comparison-20261015/driver8-off.png",
+      "sha": "9273676058b9a1fe7654b9fbb3d23ea7cea76a7a",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/headlight-comparison-20261015/driver8-vertex.png",
+      "sha": "82754599f78740fc8ce21c54e81361dac4e1565f",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/headlight-comparison-20261015/driver8_player-mixed.png",
+      "sha": "6a1d6855a44ab4de1b9dafe9fae8e0d89c8fb0eb",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/headlight-comparison-20261015/driver8_player-off.png",
+      "sha": "8c3d84499ba567d8f422b539bea533105893f8e4",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/headlight-comparison-20261015/driver8_player-vertex.png",
+      "sha": "ece3f8864a18d5d58028fbbcb19c45ac78f6b1a6",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/headlight-comparison-20261015/driver_player-mixed.png",
+      "sha": "bb8334300c0656fcc3f58ec45a6fa12ccc8a3a80",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/headlight-comparison-20261015/driver_player-off.png",
+      "sha": "2762e4f420c016a5fa8d1761bc132bda8db3da90",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/headlight-comparison-20261015/driver_player-vertex.png",
+      "sha": "6c9d5beebb514692c2358c839bbd2b9167e29e9e",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/headlight-comparison-20261015/factory-mixed.png",
+      "sha": "1ebdefc64dc876841bb7f26cf02affdb7918f1b1",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/headlight-comparison-20261015/factory-off.png",
+      "sha": "6ac3c9a2eae803c06fcd0430fa80beb5e373a9c0",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/headlight-comparison-20261015/factory-vertex.png",
+      "sha": "2f8e72c6395ad3ac5b605a9c5113794d5a68096c",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/headlight-comparison-20261015/frames.csv",
+      "sha": "d99b5a07f16cb7d60364b8c6ab1a80063eeb5f78",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/headlight-comparison-20261015/results.json",
+      "sha": "a6f4383b3921ac8c90d2302c431f3fe9d12e6825",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/headlight-comparison-20261015/road-mixed.png",
+      "sha": "ab303de19f0482112fcecad1c05eccd72400744f",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/headlight-comparison-20261015/road-off.png",
+      "sha": "7ae067bc5792030a3a1ffd18fddae18184c12e96",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/headlight-comparison-20261015/road-vertex.png",
+      "sha": "ab303de19f0482112fcecad1c05eccd72400744f",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/headlight-comparison-20261015/validation.json",
+      "sha": "42b33c5bc8a662cddb6bf8d9db4cfaf677bfc587",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/headlight-evaluation-20261015/README.md",
+      "sha": "6f7b59cfd55d96ff1398d946bce77c850923dc22",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/headlight-evaluation-20261015/geometry.json",
+      "sha": "1e6060095e994815634f311d77a630e37aed9df1",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/headlight-evaluation-20261015/transport-checks.json",
+      "sha": "e9e2d1d828bc0179ad8b6b4ff5fa894d98323185",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/live-20261015/activation.json",
+      "sha": "9c5b71693c1985df42ca605f0284882184c427d8",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/live-20261015/checks.json",
+      "sha": "8f1aec325a783db298ab0d212428fbfae43e5b2b",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/live-20261015/deployment-source.json",
+      "sha": "104079add14e6b1b8cb89946f2c68968a111c4b5",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/live-20261015/live-health.json",
+      "sha": "543456ca795e360fbe13c7122f9bcd57e70065c9",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/live-20261015/local-smoke.json",
+      "sha": "d17210b88116339f8142cfadf6247f553fa2a91e",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/live-20261015/release-sha256.json",
+      "sha": "9aa241b935e61a0770dfc2a7e2a04a2b603f6b0b",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/live-20261015/vps-smoke.json",
+      "sha": "91598885df234cd3b29365a0901c45ec7eb019e5",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/live-20261015/wan-observer.json",
+      "sha": "f81471d1b8f38003d70b60b4b6c9ea2505022683",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/physical-melee-20261015/README.md",
+      "sha": "369615b7aa405321e60013064f862a604daa9879",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/prebuilt-collapse-20261015/README.md",
+      "sha": "afc05e48c9432afa296d9090307e0729e4e1a1dc",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/prebuilt-collapse-20261015/capture-clear.png",
+      "sha": "ff389116860ef99e411b3f644b58d43f12a7a448",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/prebuilt-collapse-20261015/checks.json",
+      "sha": "fd0b224f1016a537a50402f75737d0aaf9f74b15",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/prebuilt-collapse-20261015/collapse.png",
+      "sha": "00650465d8406fd045346083702179d83151d27b",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/prebuilt-collapse-20261015/collapsed.png",
+      "sha": "9eb97656a37801fa10d7efd1d22c3b2d00930f89",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/prebuilt-collapse-20261015/frames-720.csv",
+      "sha": "3b3cea76d2f71b5f3de4ea19773868826802f2f4",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/prebuilt-collapse-20261015/profile.json",
+      "sha": "0ae7aeb44e60d5a060cdedb4634bf3b1438e8e2f",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/prebuilt-collapse-20261015/render-results.json",
+      "sha": "b8c65facfed2d66e4492abcdd8c68ffde8a0af95",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/prebuilt-collapse-20261015/rubble-close.png",
+      "sha": "021b077ffc19bd40b31be6410e5e2309efed57bb",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/prebuilt-collapse-20261015/server-results.json",
+      "sha": "d78091cdf2720fb392f3ffd2828122967499eaf7",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/structural-collapse-20261015/README.md",
+      "sha": "b23bd14ccc4c33da30abbe4d94d6f8cad15146f2",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/structural-collapse-20261015/checks.json",
+      "sha": "6349b75ec9d79bb2940c440f88431b1350cfe108",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/structural-collapse-20261015/collapse.png",
+      "sha": "bf7bfd49cad2c2d74aea313f1552b5ac2dfd8d1d",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/structural-collapse-20261015/collapsed.png",
+      "sha": "0b573f33280f32f37bcccebfd480615572ab47ee",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/structural-collapse-20261015/intact.png",
+      "sha": "011454bf2b31eb5c4626ace947102f29b10ec177",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/structural-collapse-20261015/results.json",
+      "sha": "d748f266aa72fd8470e7fa98349d8c5dc5645588",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/structural-collapse-20261015/server-results.json",
+      "sha": "1fdb98eaa871746a45c3c1bacae7300acb4e61b1",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/transport-seat-lock-20261015.json",
+      "sha": "382da564eec3f0eb7ca53ac425acbd77cd195492",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/turret-axes-20261015/README.md",
+      "sha": "a9223bed2fecd8b7b2a3a7571e1309a08f4fa127",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/turret-axes-20261015/asset-check.json",
+      "sha": "c0e34e34ed0f7bb313fd3690e158c579d291ac45",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/turret-axes-20261015/axes-test.log",
+      "sha": "82acc38553fc61652d532983af09ead722e6a975",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/turret-axes-20261015/axes.png",
+      "sha": "35e09ad0911e4a072694906af8b649d04c2692c9",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/turret-axes-20261015/hover-regression.log",
+      "sha": "6a749f17b35d7c97ffe52af5b2b0d960e5f4b628",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/turret-axes-20261015/visual-test.log",
+      "sha": "78871fe5d3d0be36cda8bc6a3e9ea3f7f7c456d5",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/vehicle-audio-20261015/README.md",
+      "sha": "226c2d77d61986b61ed69087a58ae70537439d81",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/vehicle-audio-20261015/authoring.json",
+      "sha": "300e69228fc934dd262243788673196677f869dd",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/vehicle-audio-20261015/client.log",
+      "sha": "984e703fb12c552b176840d4b5a541ebd9903599",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/vehicle-audio-20261015/mixer.log",
+      "sha": "88f53f11da9c8e6f0d8072e900d17d8750143bac",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/vehicle-audio-20261015/package.log",
+      "sha": "618ef3ee3b28492d3e7e7390c67a5157ef8f9055",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/vehicle-audio-20261015/quality.log",
+      "sha": "7d897b0a6c26d8c0d8f5b30c5b7e8b074988924a",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/vehicle-audio-20261015/runtime-quality.json",
+      "sha": "5574186792e1f232cc392c8a2aa9b225c19aeadd",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/vehicle-view-motion-20261015/README.md",
+      "sha": "e0cf9e887a2f0e9b2f35cedcd7821ae5988d9c6a",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/vehicle-view-motion-20261015/hover-regression.log",
+      "sha": "6a749f17b35d7c97ffe52af5b2b0d960e5f4b628",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/vehicle-view-motion-20261015/parse.log",
+      "sha": "ef295ec7a107867bd87e58236a2532ecbef02742",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/vehicle-view-motion-20261015/transport-regression.log",
+      "sha": "254b57b463b47ae54b38dbb1659c725cca9e18bb",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/vehicle-view-motion-20261015/turret-axes.log",
+      "sha": "82acc38553fc61652d532983af09ead722e6a975",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/vehicle-view-motion-20261015/view-motion.log",
+      "sha": "c547280224f9c9ffc9ee191976f837d0246a71c4",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/vehicle-view-motion-20261015/vr-stereo.log",
+      "sha": "6d9da32a85fcbce9138de90a90192732becf70c9",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/weapon-audio-20261015/README.md",
+      "sha": "6374f9ee267d7e4037e3a4b6326ecd41982318be",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/weapon-audio-20261015/runtime-quality.json",
+      "sha": "6ecc72678c85005a18c42c88818f827e7572e933",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/weapon-audio-20261015/signals.json",
+      "sha": "67ce039f17bc0a9a9e138ec413f9ac519ff2c8bc",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/weather-20261015/0.png",
+      "sha": "95fe28a01cfa9df84e0663ea8e352bcf9669e34d",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/weather-20261015/1.png",
+      "sha": "00581ed0e000bbe75e6a6d4ad607db187f11aded",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/weather-20261015/2.png",
+      "sha": "3351704889076f929a262859e00529f06e854432",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/weather-20261015/3.png",
+      "sha": "a90f9f18efe2850079fc3e09f302ddb126b3db99",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/weather-20261015/REPORT.md",
+      "sha": "c9d4409187cc4001f43add6b05212d663deff173",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/weather-20261015/lightning.png",
+      "sha": "8fbe62c5fefb19156968858a7ceea3bdb3447d05",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/weather-20261015/night.png",
+      "sha": "cb33dfa57381e6d38d601edb363f46aa8a21c14d",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/weather-20261015/nvg-lightning.png",
+      "sha": "777c532c040090371ede67edf1aa4f288db648a2",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/weather-20261015/nvg-recovered.png",
+      "sha": "1fe979dbc03261adaa7ce7f497e11377a1694ed0",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/weather-20261015/nvg-regression.log",
+      "sha": "b08e2c06a8764b4c124b4b07e0793d9aec57f659",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/weather-20261015/parse.log",
+      "sha": "ef295ec7a107867bd87e58236a2532ecbef02742",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/weather-20261015/policy-network.log",
+      "sha": "5ddeccc5e549055bb80736c3b1435e3cf1f5cf55",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/weather-20261015/render.log",
+      "sha": "5bd95a1f5fa21be2e4352e799b86d61c5d00e17f",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/weather-20261015/results.json",
+      "sha": "70d22feb4c612e94b18488e2ba76fe7a8c68ef44",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/voxel-battle/weather-20261015/source-sha256.json",
+      "sha": "c5d88a71c3e6fe5dcbacd6082ded2335d4d4331d",
+      "mode": "100644"
+    },
+    {
+      "path": "experimental-assets/destruction/README.md",
+      "sha": "f7a832ce5422d1004b1b3df5d39ca326d4c1707b",
+      "mode": "100644"
+    },
+    {
+      "path": "experimental-assets/destruction/wall_shards.tscn",
+      "sha": "c0a069c06112bdf823a8e520ee846645efd324da",
+      "mode": "100644"
+    },
+    {
+      "path": "experimental-assets/destruction/wall_topology.res",
+      "sha": "3cb04e559ad6d35f42dc3a830c7cd6f89aa001e3",
+      "mode": "100644"
+    },
+    {
+      "path": "project.godot",
+      "sha": "8c75e13a1e1cbadd2a1fab86ce8a048720107d81",
+      "mode": "100644"
+    },
+    {
+      "path": "tools/authority_core/README.md",
+      "sha": "9ab26a05d92fbc262b0c3ebafa46c03772e41013",
+      "mode": "100644"
+    },
+    {
+      "path": "tools/authority_core/arena_client.gd",
+      "sha": "190b0724814a5799a85786ed9d2f2daca2c97612",
+      "mode": "100644"
+    },
+    {
+      "path": "tools/authority_core/destruction_functional.gd",
+      "sha": "6016b8a0f9ee2732cb05863450b64e5bebb9d20b",
+      "mode": "100644"
+    },
+    {
+      "path": "tools/authority_core/destruction_functional.gd.uid",
+      "sha": "fddbc5476569e8a71ef8af5e7d6cdb84b585a917",
+      "mode": "100644"
+    },
+    {
+      "path": "tools/authority_core/driver.gd",
+      "sha": "f3fc651e2bc5e1fe3a2d4e58940fe7cb82ffbb25",
+      "mode": "100644"
+    },
+    {
+      "path": "tools/authority_core/entity_tests.cpp",
+      "sha": "c31edee52c4dfbb68f59e955f9b2a5be6e91d906",
+      "mode": "100644"
+    },
+    {
+      "path": "tools/authority_core/gameplay_tests.cpp",
+      "sha": "ea9ca5784fe159d51192462d76b1b24506889434",
+      "mode": "100644"
+    },
+    {
+      "path": "tools/authority_core/grass_functional.gd",
+      "sha": "86db632356211f8152f1ddbaeda5807e65ef2261",
+      "mode": "100644"
+    },
+    {
+      "path": "tools/authority_core/grass_functional.gd.uid",
+      "sha": "6d296f3a2931466f11be631c3c0de0fa698b6d7d",
+      "mode": "100644"
+    },
+    {
+      "path": "tools/authority_core/host.gd",
+      "sha": "7c1beadf74c4e7343a7ca65376406d9f9f13fa8a",
+      "mode": "100644"
+    },
+    {
+      "path": "tools/authority_core/run_arena_suite.py",
+      "sha": "4becc659d2ba0bdf29d039e270c15e3e1ae2ed99",
+      "mode": "100644"
+    },
+    {
+      "path": "tools/authority_core/server_defaults_test.gd",
+      "sha": "3ab6552f20ed800bb4a07ebb41881f89cd67cabc",
+      "mode": "100644"
+    },
+    {
+      "path": "tools/authority_core/tests.cpp",
+      "sha": "f0c9db9ee21083771776518ef36de967a7dfd0b6",
+      "mode": "100644"
+    },
+    {
+      "path": "tools/authority_core/transport_functional.gd",
+      "sha": "f273a858174d63be51e744b2397270edbfa24f21",
+      "mode": "100644"
+    },
+    {
+      "path": "tools/authority_core/transport_tests.cpp",
+      "sha": "e60c80eaa0d786f446e361d89d4341dbaff4414f",
+      "mode": "100644"
+    },
+    {
+      "path": "tools/cq_assets/build_spotted_markers.py",
+      "sha": "9193d074b92a940a3f9aa8c050f844ee372afda9",
+      "mode": "100644"
+    },
+    {
+      "path": "tools/cq_assets/preview_spotted_markers.gd",
+      "sha": "1dcaa411becdcc2d0c76c8db0478d5b8e5cc840d",
+      "mode": "100644"
+    },
+    {
+      "path": "tools/cq_assets/preview_spotted_markers.gd.uid",
+      "sha": "a1ad141e8f5d3819784616feb715ca638d5588f6",
+      "mode": "100644"
+    },
+    {
+      "path": "tools/cq_audio/audition_field_audio.py",
+      "sha": "46b9d7a3974a0af0d013cf1e7f3a1e23f9d4353c",
+      "mode": "100644"
+    },
+    {
+      "path": "tools/cq_audio/build_collapse.py",
+      "sha": "f7018e50d52b854ff28cf60f19f5feb6dd6a3366",
+      "mode": "100644"
+    },
+    {
+      "path": "tools/cq_audio/build_field_audio.py",
+      "sha": "5c20c0a0e785dd8c34736c85c2658e902f6c161c",
+      "mode": "100644"
+    },
+    {
+      "path": "tools/cq_audio/edit_field_sources.py",
+      "sha": "e122bfab0caff347ae9932d806cdbc9cc3613a1a",
+      "mode": "100644"
+    },
+    {
+      "path": "tools/cq_audio/fetch_field_sources.py",
+      "sha": "c1bdd2db0177ef98deb9d1a24bc0414d460c20f3",
+      "mode": "100644"
+    },
+    {
+      "path": "tools/cq_audio/reauthor_vehicles.py",
+      "sha": "c03540e4e0747d12d656ff1150408489231554d6",
+      "mode": "100644"
+    },
+    {
+      "path": "tools/cq_audio/reauthor_weapons.py",
+      "sha": "3f392b190655e6c2962bed81722f4c6fdf3f1194",
+      "mode": "100644"
+    },
+    {
+      "path": "tools/cq_audio/test_field_pack.py",
+      "sha": "845cc3f055483094e618b209437f38d1b91d5062",
+      "mode": "100644"
+    },
+    {
+      "path": "tools/cq_audio/tier_reserve/.gdignore",
+      "sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "mode": "100644"
+    },
+    {
+      "path": "tools/cq_audio/tier_reserve/README.md",
+      "sha": "04bfef397be39e55da383a460d04c1c5ed0a75fd",
+      "mode": "100644"
+    },
+    {
+      "path": "tools/cq_audio/tier_reserve/manifest.json",
+      "sha": "4c9f98c9868f6526783e1264164ace3db5560f07",
+      "mode": "100644"
+    },
+    {
+      "path": "tools/cq_audio/tier_reserve/reserve_blaster_01.wav",
+      "sha": "973ea1373d56428d9d18d8a6a773ce92707719d5",
+      "mode": "100644"
+    },
+    {
+      "path": "tools/cq_audio/tier_reserve/reserve_blaster_02.wav",
+      "sha": "44f82f56ff645474fe053e77aec3575bc51aaed2",
+      "mode": "100644"
+    },
+    {
+      "path": "tools/cq_audio/tier_reserve/reserve_blaster_03.wav",
+      "sha": "7bb5914ecdc402d5db636920e5cfdfc624b8f308",
+      "mode": "100644"
+    },
+    {
+      "path": "tools/cq_audio/tier_reserve/reserve_blaster_04.wav",
+      "sha": "8b0101174a4293e5ec5d48aea9bfea38995301d2",
+      "mode": "100644"
+    },
+    {
+      "path": "tools/cq_audio/tier_reserve/reserve_blaster_05.wav",
+      "sha": "d41114dfe2cdae75971815b25da2473831bdb0fe",
+      "mode": "100644"
+    },
+    {
+      "path": "tools/cq_audio/tier_reserve/reserve_blaster_06.wav",
+      "sha": "bea62f1502fce4970a656545c82d148e32011eef",
+      "mode": "100644"
+    },
+    {
+      "path": "tools/cq_audio/tier_reserve/reserve_blaster_07.wav",
+      "sha": "402afb05fa0a60b8fbaae7b6d685c5b26cef408f",
+      "mode": "100644"
+    },
+    {
+      "path": "tools/cq_audio/tier_reserve/reserve_blaster_08.wav",
+      "sha": "67935439d1f710ba7ed8aca821d74689aa36783f",
+      "mode": "100644"
+    },
+    {
+      "path": "tools/cq_audio/tier_reserve/reserve_heavy_pistol.wav",
+      "sha": "e5de8a5c2a5ecf29c8804a87f122eef9bff61025",
+      "mode": "100644"
+    },
+    {
+      "path": "tools/cq_audio/tier_reserve/reserve_plasma_01.wav",
+      "sha": "3d686aee38b3a4bbd52d5218edf9a2d2cae0fc40",
+      "mode": "100644"
+    },
+    {
+      "path": "tools/cq_audio/tier_reserve/reserve_plasma_02.wav",
+      "sha": "bde21dcabd3d1166af94162ebc2a81c0020eea05",
+      "mode": "100644"
+    },
+    {
+      "path": "tools/cq_audio/tier_reserve/reserve_plasma_03.wav",
+      "sha": "becfd45a0243afd37c207fff57abcafef1b8409f",
+      "mode": "100644"
+    },
+    {
+      "path": "tools/cq_audio/tier_reserve/reserve_plasma_04.wav",
+      "sha": "4507bb98e7dea0ee98859f36f71e9ac423f3f575",
+      "mode": "100644"
+    },
+    {
+      "path": "tools/cq_audio/tier_reserve/reserve_pulse.wav",
+      "sha": "578943f6e853b5491c085d1fcea365972f9e4981",
+      "mode": "100644"
+    },
+    {
+      "path": "tools/cq_audio/validate_field_audio.py",
+      "sha": "9311d7b16d18ee643e0528fead68dd92bd7b4feb",
+      "mode": "100644"
+    },
+    {
+      "path": "tools/cq_audio/vehicle_sources.json",
+      "sha": "7595a363091665068de044bdc485516c3a9749db",
+      "mode": "100644"
+    },
+    {
+      "path": "tools/cq_audio/weapon_sources.json",
+      "sha": "4d4b86af201244b38a4a5e7d9f9e8d5b5fc5fbb9",
+      "mode": "100644"
+    },
+    {
+      "path": "tools/frontier_vps/README.md",
+      "sha": "591397b21b65fb9b9626f0f99a0dad139d1f0c0b",
+      "mode": "100644"
+    },
+    {
+      "path": "tools/frontier_vps/entry.gd",
+      "sha": "910d768ae99626c50f5132abf0f12be679950387",
+      "mode": "100644"
+    },
+    {
+      "path": "tools/frontier_vps/package.py",
+      "sha": "5df05de0ba7bbe83f72b73662b341c983e2b150f",
+      "mode": "100644"
+    },
+    {
+      "path": "tools/frontier_vps/patch_probe_pack.py",
+      "sha": "d302399dd22604c4da028ae995b921e7e47188c5",
+      "mode": "100644"
+    },
+    {
+      "path": "tools/frontier_vps/resident_driver.gd",
+      "sha": "2a747459233f0a9fd29789f1f5c9e14723ede35f",
+      "mode": "100644"
+    },
+    {
+      "path": "tools/frontier_vps/run_adaptive_arena.py",
+      "sha": "33a3ca60982b893d7ed0c26727a6bed60c49ecbc",
+      "mode": "100644"
+    },
+    {
+      "path": "tools/frontier_vps/run_capacity_case.py",
+      "sha": "97c7a7220b1eda0b0e0c2017b4341f0aeec4b68e",
+      "mode": "100644"
+    },
+    {
+      "path": "tools/frontier_vps/test_capacity_tools.py",
+      "sha": "8459989bd93efe9d76611fd3732155e5f805e6d6",
+      "mode": "100644"
+    },
+    {
+      "path": "tools/hover_tanks/export_tanks.py",
+      "sha": "95d4f60da669dbf8f2891bd24643625fb26827e5",
+      "mode": "100644"
+    },
+    {
+      "path": "tools/streamed_heightfield/terrain.gdshader",
+      "sha": "6767c0120d19386db9c7e9d31b0e221097364f7e",
+      "mode": "100644"
+    },
+    {
+      "path": "tools/voxel_battle/ambience.gd",
+      "sha": "d47939c44284e03856161aaa5996fac8cc10f7bb",
+      "mode": "100644"
+    },
+    {
+      "path": "tools/voxel_battle/bake_destruction_topology.gd",
+      "sha": "bdc8076145762b10a09762996f6a11a9307170fe",
+      "mode": "100644"
+    },
+    {
+      "path": "tools/voxel_battle/bake_destruction_topology.gd.uid",
+      "sha": "2f53bfc2334ffcd71d39255b8e45278f87f54075",
+      "mode": "100644"
+    },
+    {
+      "path": "tools/voxel_battle/bake_wall_shards.gd",
+      "sha": "ad67a25a422989bc524520c1b5999f49ba96cf73",
+      "mode": "100644"
+    },
+    {
+      "path": "tools/voxel_battle/bake_wall_shards.gd.uid",
+      "sha": "776c492a85bc9424f33db2c8a01da8ed6ae8dbc9",
+      "mode": "100644"
+    },
+    {
+      "path": "tools/voxel_battle/baked_card.gdshader",
+      "sha": "1f16b9fc13e10558f8d5651313d99e897648b7e5",
+      "mode": "100644"
+    },
+    {
+      "path": "tools/voxel_battle/baked_lighting.gd",
+      "sha": "d4c82287fb9d230da26a42152ca3580f47e02e20",
+      "mode": "100644"
+    },
+    {
+      "path": "tools/voxel_battle/baked_lighting.gdshaderinc",
+      "sha": "46d8619e2ef476b1857f4a395c234015f153bae7",
+      "mode": "100644"
+    },
+    {
+      "path": "tools/voxel_battle/baked_surface.gdshader",
+      "sha": "f15655fd2ae96d7878acaa4fb3fae4edc68f63ec",
+      "mode": "100644"
+    },
+    {
+      "path": "tools/voxel_battle/benchmark_destruction.gd",
+      "sha": "4406e51efc0b25d03fa5d9062018d81623175ecd",
+      "mode": "100644"
+    },
+    {
+      "path": "tools/voxel_battle/benchmark_destruction.gd.uid",
+      "sha": "857abee70bbfe4922696c36c1494ac00274a1857",
+      "mode": "100644"
+    },
+    {
+      "path": "tools/voxel_battle/bots.gd",
+      "sha": "bb1ba7f0eec6d373da268d8938b34e3cdd336d21",
+      "mode": "100644"
+    },
+    {
+      "path": "tools/voxel_battle/class_arena.gd",
+      "sha": "d2fc193e151750d240c32ff096c797f87d83b9fe",
+      "mode": "100644"
+    },
+    {
+      "path": "tools/voxel_battle/collapse_assets.gd",
+      "sha": "07c59b9fa6a722085b5f29d66369144941a23bb3",
+      "mode": "100644"
+    },
+    {
+      "path": "tools/voxel_battle/collapse_assets.gd.uid",
+      "sha": "9fddb2d198c82f9e1dd010251e5a162af684d48a",
+      "mode": "100644"
+    },
+    {
+      "path": "tools/voxel_battle/collapse_dust.gdshader",
+      "sha": "107c275c87782eeef4ad7e7fb0ec4150a7bbd8b4",
+      "mode": "100644"
+    },
+    {
+      "path": "tools/voxel_battle/collapse_dust.gdshader.uid",
+      "sha": "319e728a396aac389ed1d17c714cfdae2c9ac089",
+      "mode": "100644"
+    },
+    {
+      "path": "tools/voxel_battle/collapse_rubble.gdshader",
+      "sha": "514f5e25b4e414c9f16570c9328b9f06fe30243f",
+      "mode": "100644"
+    },
+    {
+      "path": "tools/voxel_battle/collapse_rubble.gdshader.uid",
+      "sha": "15223c6f2343d4a4a930801279b08ad7c61a72df",
+      "mode": "100644"
+    },
+    {
+      "path": "tools/voxel_battle/compare_avatar_lighting.gd",
+      "sha": "2087797698ffd757bd34b6ec67e624c206188908",
+      "mode": "100644"
+    },
+    {
+      "path": "tools/voxel_battle/compare_headlights.gd",
+      "sha": "b067d9c383c8f1e8b69ea1abb8ec5beffae565be",
+      "mode": "100644"
+    },
+    {
+      "path": "tools/voxel_battle/cq_classes.cfg",
+      "sha": "4204ea505a3577b13f12e6f46d8106c0dc6cb303",
+      "mode": "100644"
+    },
+    {
+      "path": "tools/voxel_battle/destruction.gd",
+      "sha": "b1c28d2fb1d104f704b31c37b2e0566e53585423",
+      "mode": "100644"
+    },
+    {
+      "path": "tools/voxel_battle/destruction.gd.uid",
+      "sha": "a4376dd9ff1a18a9c975921985cb6c09bc146ff4",
+      "mode": "100644"
+    },
+    {
+      "path": "tools/voxel_battle/evaluate_headlights.gd",
+      "sha": "cdac8d40c8059596724eb1002bb08a907c9b99d2",
+      "mode": "100644"
+    },
+    {
+      "path": "tools/voxel_battle/generate_weather_audio.py",
+      "sha": "32fbf81b561aec77bc48c7e7fa166638791051fa",
+      "mode": "100644"
+    },
+    {
+      "path": "tools/voxel_battle/grass_cover.gd",
+      "sha": "9bdcd113538c9417ce494c6655a18c3b48598271",
+      "mode": "100644"
+    },
+    {
+      "path": "tools/voxel_battle/grass_cover.gd.uid",
+      "sha": "ec458655269bf089dd2d7d790db1846ffdfe7cb0",
+      "mode": "100644"
+    },
+    {
+      "path": "tools/voxel_battle/headlight_probe.gdshaderinc",
+      "sha": "0f921352c68057586a0dbe57582266bab0df0166",
+      "mode": "100644"
+    },
+    {
+      "path": "tools/voxel_battle/headlights.gdshaderinc",
+      "sha": "e651fb17d01dd22825040f68a323e23b9c23e21f",
+      "mode": "100644"
+    },
+    {
+      "path": "tools/voxel_battle/jungle_sky.gdshader",
+      "sha": "3f911ab6419316bf39bdb56e1ca64ea777f5af06",
+      "mode": "100644"
+    },
+    {
+      "path": "tools/voxel_battle/map.gd",
+      "sha": "ab2271cfa7a1a9356440b27c039c9941127af992",
+      "mode": "100644"
+    },
+    {
+      "path": "tools/voxel_battle/preview_weather.gd",
+      "sha": "4094ae54b75526147a53523f64fc1e677f69c38a",
+      "mode": "100644"
+    },
+    {
+      "path": "tools/voxel_battle/preview_weather.gd.uid",
+      "sha": "77c862b104ca20833a6c92fdaf18e807f300848e",
+      "mode": "100644"
+    },
+    {
+      "path": "tools/voxel_battle/profile_collapse.gd",
+      "sha": "9128644b9fbc4b03722560e45d743246ca348390",
+      "mode": "100644"
+    },
+    {
+      "path": "tools/voxel_battle/profile_collapse.gd.uid",
+      "sha": "1579778808fb707b99a9b220a57c3c75a1f58da4",
+      "mode": "100644"
+    },
+    {
+      "path": "tools/voxel_battle/structural_integrity.gd",
+      "sha": "aa7b19929070275b768fe40bc2c48bad4106411b",
+      "mode": "100644"
+    },
+    {
+      "path": "tools/voxel_battle/structural_integrity.gd.uid",
+      "sha": "27052f389ca93eceec55cc499f7bdb003b99a76d",
+      "mode": "100644"
+    },
+    {
+      "path": "tools/voxel_battle/summarize_avatar_lighting.py",
+      "sha": "435914e17160299096fecde27ad176591680728d",
+      "mode": "100644"
+    },
+    {
+      "path": "tools/voxel_battle/summarize_headlights.py",
+      "sha": "51021749fd99a39faabe9f9649e22f4cf9e3578f",
+      "mode": "100644"
+    },
+    {
+      "path": "tools/voxel_battle/test_weather.gd",
+      "sha": "ead8646170a2fb828d7dc6997ab48388632f620a",
+      "mode": "100644"
+    },
+    {
+      "path": "tools/voxel_battle/test_weather.gd.uid",
+      "sha": "e044b5410e1fc2a5ad72648f16d268eaf5a97141",
+      "mode": "100644"
+    },
+    {
+      "path": "tools/voxel_battle/tree_svo.gdshader",
+      "sha": "5c1a78ca61c437ca5a200b1df865959e654566cc",
+      "mode": "100644"
+    },
+    {
+      "path": "tools/voxel_battle/water.gdshader",
+      "sha": "36fac10ec35f600cc7f141416b17a9c9df7c4f25",
+      "mode": "100644"
+    },
+    {
+      "path": "tools/voxel_battle/weather.gd",
+      "sha": "78d257372f0914a37d9db4b981128a78287dd0de",
+      "mode": "100644"
+    },
+    {
+      "path": "tools/voxel_battle/weather.gd.uid",
+      "sha": "ffb12d412e45ce887fdf7a609d8145e1853013ff",
+      "mode": "100644"
+    },
+    {
+      "path": "tools/voxel_battle/weather_schedule.gd",
+      "sha": "a2da88e384bb3e5a747b1abef4a11714210f3202",
+      "mode": "100644"
+    },
+    {
+      "path": "tools/voxel_battle/weather_schedule.gd.uid",
+      "sha": "9b42c586b7007e2992142342ce5bcc83361ba15a",
+      "mode": "100644"
+    }
+  ],
+  "git_fast_forward_succeeded": true
+}

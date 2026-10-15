@@ -322,6 +322,8 @@ func _build_menu(root: Control) -> void:
 	)
 	var session_actions:=VBoxContainer.new();match_page.add_child(session_actions)
 	suicide=button(session_actions,"SUICIDE · −1 FRAG",func():
+		if game.has_method("draw_class_players"):
+			preload("res://deathmatch/ui/cq/menu.gd").activate_respawn(self);return
 		game.request_suicide()
 		game.menu_open=false;show_menu(false)
 		Input.mouse_mode=Input.MOUSE_MODE_VISIBLE if game.is_vr() else Input.MOUSE_MODE_CAPTURED
@@ -463,6 +465,7 @@ func _process(_delta: float) -> void:
 	var state: Dictionary = game.local_state()
 	var viewed_id: int=game.demos.selected_player if game.demos.playing else multiplayer.get_unique_id()
 	suicide.disabled=game.demos.playing or state.is_empty() or state.get("dead",true) or state.get("spectator",false) or game.intermission>0 or game.lobby.active() or game.match_mode.special.blocked(viewed_id)
+	if game.has_method("draw_class_players"):preload("res://deathmatch/ui/cq/menu.gd").refresh_respawn(self,state)
 	if state.is_empty(): return
 	var d: Dictionary = game.match_mode.fortress.weapon_data(viewed_id,state.weapon)
 	vitals.text = "%03d  HEALTH    %03d  ARMOR" % [state.hp,state.armor]

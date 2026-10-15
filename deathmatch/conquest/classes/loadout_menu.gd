@@ -4,6 +4,7 @@ var game
 var hud
 var selected_class:="shocktroop"
 var buttons:Array=[]
+var progress_panels:Dictionary={}
 var summary:Label
 var pending:=false
 var calibration_confirmed:=false
@@ -18,9 +19,11 @@ func setup(arena,interface) -> void:
 		hud.button(classes_page,role.to_upper(),choose_class.bind(role))
 	var loadout=pages.add_page("cq_loadout","LOADOUT","cq_classes")
 	summary=Label.new();summary.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART;loadout.add_child(summary)
+	add_progress(loadout,"ALL")
 	hud.button(loadout,"CHANGE CLASS",func():pages.navigate("cq_classes"))
 	for slot in ["PRIMARY","SECONDARY","UTILITY"]:
 		var slot_page=pages.add_page("cq_"+slot.to_lower(),slot+" EQUIPMENT","cq_loadout")
+		add_progress(slot_page,slot)
 		pages.link("cq_loadout","cq_"+slot.to_lower(),slot+" EQUIPMENT")
 		for role in game.classes.CLASSES:
 			var rows:Array=game.classes.UTILITIES[role] if slot=="UTILITY" else (game.classes.progression.secondaries if slot=="SECONDARY" else game.classes.progression.tracks)[role]
@@ -38,6 +41,27 @@ func setup(arena,interface) -> void:
 	var preview=preload("res://deathmatch/vr/calibration_preview.gd").new();calibration.add_child(preview);preview.setup(game)
 	hud.button(calibration,"BACK TO DEPLOYMENT",func():game.squads.open_map() if game.active else pages.navigate("cq_prepare"))
 	refresh()
+func add_progress(parent:Node,slot:String)->void:
+	var label:=Label.new();label.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART;parent.add_child(label)
+	var bar:=ProgressBar.new();bar.custom_minimum_size.y=12;bar.show_percentage=false;bar.mouse_filter=Control.MOUSE_FILTER_IGNORE
+	for part in ["background","fill"]:
+		var style:=StyleBoxFlat.new();style.bg_color=Color("65e0d5") if part=="fill" else Color("102630");bar.add_theme_stylebox_override(part,style)
+	parent.add_child(bar);progress_panels[slot]={"label":label,"bar":bar}
+func refresh_progress(xp:int)->void:
+	for slot in progress_panels:
+		var panel:Dictionary=progress_panels[slot]
+		var next:Dictionary={};var previous:=0
+		for row in buttons:
+			if row.role!=selected_class or (slot!="ALL" and row.slot!=slot):continue
+			if row.xp<=xp:previous=maxi(previous,row.xp)
+			elif next.is_empty() or row.xp<next.xp:next=row
+		if next.is_empty():
+			panel.label.text="%s · %d CLASS XP\nALL %s UNLOCKED"%[selected_class.to_upper(),xp,"EQUIPMENT" if slot=="ALL" else slot+" EQUIPMENT"]
+			panel.bar.value=100.;panel.bar.tooltip_text="All equipment unlocked for this class."
+		else:
+			panel.label.text="NEXT UNLOCK · %s\n%d / %d CLASS XP · %d XP TO GO"%[next.name,xp,next.xp,next.xp-xp]
+			panel.bar.value=100.*float(xp-previous)/float(next.xp-previous)
+			panel.bar.tooltip_text="Progress from the previous unlock to the next unlock."
 func begin_deployment()->void:
 	pending=true;calibration_confirmed=false;selected_class=game.classes.ensure(game.multiplayer.get_unique_id()).get("next","shocktroop");game.menu_open=true;hud.show_menu(true);hud.menu_pages.navigate("cq_prepare");refresh()
 func deploy()->void:
@@ -61,9 +85,10 @@ func refresh() -> void:
 	var state:Dictionary=game.classes.states.get(game.multiplayer.get_unique_id(),{})
 	var xp:int=state.get("xp",{}).get(selected_class,0)
 	summary.text=selected_class.to_upper()+" · LEVEL %d · %d CLASS XP\nChoices apply on your next spawn. T2 utility kits unlock at level 15.\nNVG visor included · offhand trigger above forehead · N on desktop."%[game.classes.progression.level(xp),xp]
+	refresh_progress(xp)
 	if state.is_empty():summary.text+="\nJoin or start a match to select equipment."
 	for row in buttons:
 		row.button.visible=row.role==selected_class
 		row.button.disabled=state.is_empty() or xp<row.xp
 		var choice=state.get("utility_choices",{}).get(row.role,game.classes.UTILITIES[row.role][0].id) if row.slot=="UTILITY" else state.get("secondary_choices" if row.slot=="SECONDARY" else "primary_choices",{}).get(row.role,8 if row.role=="scout" else 2) if row.slot=="SECONDARY" else state.get("primary_choices",{}).get(row.role,game.classes.progression.STARTERS[row.role][0])
-		row.button.text=("✓ " if row.value==choice else "")+"T%d · "%row.tier+row.name+(" · LOCKED LEVEL %d · %d / %d XP"%[game.classes.progression.level(row.xp),xp,row.xp] if xp<row.xp else "")
+		row.button.text=("✓ " if row.value==choice else "")+"T%d · "%row.tier+row.name+(" · LOCKED LEVEL %d · %d XP TO GO"%[game.classes.progression.level(row.xp),row.xp-xp] if xp<row.xp else "")

@@ -1,0 +1,20 @@
+{
+  "utc": "2026-10-15T17:41:19.616898+00:00",
+  "branch": "experimental/cq-voxelspace",
+  "changes": [
+    "Shocktrooper starts with 3 HE grenades; ammo-box cap is 3; airstrike kit still replaces grenades",
+    "Empty grenade inventory hides shoulder model and denies pickup; local pending throw gates cooldown",
+    "Native slide/rack accepts offhand trigger or grip; local hand claiming matches native slide contact region",
+    "NVG activation requires a free hand; blocked trigger presses do not activate after freeing the hand"
+  ],
+  "validation": {
+    "native_checks": 917606,
+    "vr_controller_checks": 28,
+    "native_build": "passed",
+    "fixture": "fixture.json",
+    "supply": "supply.log",
+    "diff_check": "passed"
+  },
+  "native_sha256": "9f23ac49484a44d69395855c6147c911a29b9897960c2cbeb3f09e57fc9ca161",
+  "running_session": "Existing shocktrooper session was left running; changes require restarting both local server and client."
+}

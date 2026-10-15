@@ -8,7 +8,7 @@ var live_start:=0
 var phase:=0.
 var tracked_test:=OS.get_cmdline_user_args().has("--authority-tracked")
 var actions:Dictionary={}
-var observed:Dictionary={"native":false,"grenade_selected":false,"grenade_flying":false,"nvg":false,"dead":false,"gibbed":false,"respawn":false,"team_change":false,"jetpack":false,"poses":false,"squad":false,"destruction":false}
+var observed:Dictionary={"native":false,"grenade_selected":false,"grenade_flying":false,"nvg":false,"dead":false,"gibbed":false,"respawn":false,"team_change":false,"team_presentation":false,"jetpack":false,"poses":false,"squad":false,"destruction":false}
 var first_life:=0
 var last_life:=0
 var first_team:=-1
@@ -53,6 +53,7 @@ func _physics_process(delta:float)->void:
    var frame:Dictionary=resident.client_frame
    if frame.get("players",{}).has(mine):
     var p:Dictionary=frame.players[mine];observed.squad=observed.squad or p.get("squad",-1)>=0
+    observed.team_presentation=observed.team_presentation or phase>12. and state.team==p.team and state.team!=first_team
     if p.dead and frame.mode.time>=p.respawn_at and once("deploy-life:"+str(p.life),0.):resident.request(12,0)
     if p.staging and phase>10 and once("squad-life:"+str(p.life),0.):resident.request(11,-1);resident.request(12,0)
     observed_shots+=maxi(0,int(p.shots)-previous_shots);previous_shots=p.shots
@@ -72,7 +73,7 @@ func _physics_process(delta:float)->void:
 func finish_test(timeout:bool=false)->void:
  completed=true
  var failures:Array=[]
- for key in ["native","grenade_selected","grenade_flying","nvg","dead","gibbed","respawn","team_change","jetpack","squad"]:
+ for key in ["native","grenade_selected","grenade_flying","nvg","dead","gibbed","respawn","team_change","team_presentation","jetpack","squad"]:
   if not observed[key]:failures.append(key)
  if tracked_test and not observed.poses:failures.append("poses")
  if observed_shots<1:failures.append("shooting")

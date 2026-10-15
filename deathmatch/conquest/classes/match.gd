@@ -12,7 +12,9 @@ func check_limit() -> void:
 func result() -> String:
 	var winner:int=objectives.rules.winner
 	return ("DRAW" if winner<0 else TEAMS[winner]+" WINS")+" · %d : %d"%scores
-func draw_objectives() -> void:objectives.draw()
+func draw_objectives() -> void:
+	objectives.draw()
+	game.draw_class_players()
 func configure(settings:Dictionary) -> void:
 	var config:=settings.duplicate();config.sv_gametype="tdm";super.configure(config)
 	if game.dedicated:Engine.physics_ticks_per_second=settings.get("sv_cq_tick_rate",60)
@@ -129,6 +131,8 @@ func receive(data:Dictionary) -> void:
 		if not row.get("charge",{}).is_empty():
 			var charge:Dictionary=row.charge.duplicate(true);charge.at+=offset;game.variant_combat.charges[id]=charge
 		var state:Dictionary=row.state.duplicate(true)
+		# Native team changes and fixture resets supersede the original join roster.
+		if state.has("team") and game.players.has(id):game.players[id].team=state.team
 		if state.has("nb"):state.nb+=offset
 		if state.has("turret_ready"):state.turret_ready+=offset
 		if state.has("airstrike_ready"):state.airstrike_ready+=offset

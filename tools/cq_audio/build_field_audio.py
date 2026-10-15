@@ -89,3 +89,7 @@ build_vehicle_reports()
 
 # Building destruction reuses the final CC0 explosion/thunder edits.
 import build_collapse
+
+# User-selected tropical recordings supersede the interim synthesized beds.
+from reauthor_jungle import build as build_jungle_beds
+build_jungle_beds()

@@ -1,9 +1,10 @@
 extends Control
 ## Transparent, noninteractive HUD drawn into a head-relative stereo surface.
 const W=preload("res://deathmatch/weapons.gd")
+const KILLFEED_HEIGHT=100
 const CHAT_HEIGHT=132
 const NOTIFY_HEIGHT=56
-const VIEW_SIZE=Vector2i(960,292+CHAT_HEIGHT+NOTIFY_HEIGHT)
+const VIEW_SIZE=Vector2i(960,292+KILLFEED_HEIGHT+CHAT_HEIGHT+NOTIFY_HEIGHT)
 var cq:=false
 var radio_scope:=0
 func update_radio_scope(scope:int)->void:
@@ -15,7 +16,7 @@ func configure_cq()->void:
 	cq=true;cq_font=preload("res://deathmatch/ui/cq/theme.gd").FONT
 	theme=preload("res://deathmatch/ui/cq/theme.gd").theme()
 	cq_panel=preload("res://deathmatch/ui/cq/hud.gd").surface()
-	for line in chat_labels:line.add_theme_color_override("font_color",preload("res://deathmatch/ui/cq/theme.gd").INK)
+	for line in chat_labels+kill_labels:line.add_theme_color_override("font_color",preload("res://deathmatch/ui/cq/theme.gd").INK)
 	queue_redraw()
 func backdrop(rect:Rect2,color:Color)->void:
 	if cq:draw_style_box(cq_panel,rect)
@@ -23,15 +24,23 @@ func backdrop(rect:Rect2,color:Color)->void:
 var player_status: Dictionary={}
 func update_player_status(data: Dictionary) -> void:
 	if data!=player_status:player_status=data;queue_redraw()
+var kill_labels:Array[Label]=[]
+var kill_messages:=PackedStringArray()
 var chat_labels: Array[Label]=[]
 var chat_messages:=PackedStringArray()
 
 func _ready() -> void:
 	if not cq:
 		legacy_panel=StyleBoxFlat.new();legacy_panel.bg_color=Color(.10,.075,.05,.80);legacy_panel.border_color=Color("a88550");legacy_panel.set_border_width_all(2)
+	for i in 3:
+		var line:=Label.new();line.position=Vector2(20,4+i*32);line.size=Vector2(920,30)
+		line.add_theme_font_size_override("font_size",20)
+		line.add_theme_color_override("font_color",preload("res://deathmatch/ui/cq/theme.gd").INK if cq else INK)
+		line.text_overrun_behavior=TextServer.OVERRUN_TRIM_ELLIPSIS
+		line.mouse_filter=Control.MOUSE_FILTER_IGNORE;add_child(line);kill_labels.append(line)
 	for i in 2:
 		var line:=Label.new()
-		line.position=Vector2(20,4+i*64)
+		line.position=Vector2(20,KILLFEED_HEIGHT+4+i*64)
 		line.size=Vector2(920,60)
 		line.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART
 		line.max_lines_visible=3
@@ -41,6 +50,18 @@ func _ready() -> void:
 		line.mouse_filter=Control.MOUSE_FILTER_IGNORE
 		add_child(line);chat_labels.append(line)
 	_refresh_chat()
+
+func update_killfeed(entries:Array,now:float)->void:
+	var next:=PackedStringArray()
+	for entry in entries:
+		if entry.until>now:next.append(entry.text)
+	while next.size()>3:next.remove_at(0)
+	if next==kill_messages:return
+	kill_messages=next
+	for i in kill_labels.size():
+		var index:=i-(3-kill_messages.size())
+		kill_labels[i].text=kill_messages[index] if index>=0 else ""
+	queue_redraw()
 
 func update_chat(entries: Array,now: float) -> void:
 	var next:=PackedStringArray()
@@ -90,9 +111,11 @@ func label(at: Vector2,value: String,font_size: int,color: Color=INK) -> void:
 	if cq and color in [INK,Color("d8bc8b"),Color("b9a98e"),Color("ffcf80")]:color=preload("res://deathmatch/ui/cq/theme.gd").INK
 	draw_string(cq_font if cq else ThemeDB.fallback_font,at,value,HORIZONTAL_ALIGNMENT_LEFT,-1,font_size,preload("res://deathmatch/ui/cq/theme.gd").INK if cq and color==INK else color)
 func _draw() -> void:
+	for i in kill_labels.size():
+		if not kill_labels[i].text.is_empty():backdrop(Rect2(4,2+i*32,952,30),Color(.10,.075,.05,.88))
 	for i in chat_labels.size():
-		if not chat_labels[i].text.is_empty():backdrop(Rect2(4,2+i*64,952,62),Color(.10,.075,.05,.88))
-	draw_set_transform(Vector2(0,CHAT_HEIGHT))
+		if not chat_labels[i].text.is_empty():backdrop(Rect2(4,KILLFEED_HEIGHT+2+i*64,952,62),Color(.10,.075,.05,.88))
+	draw_set_transform(Vector2(0,KILLFEED_HEIGHT+CHAT_HEIGHT))
 	if not player_status.is_empty():
 		var team: int=player_status.team
 		var color: Color=Color("ff9c88") if team==0 else Color("91caff") if team==1 else INK
@@ -102,7 +125,7 @@ func _draw() -> void:
 			backdrop(Rect2(748,0,208,27),Color(.10,.075,.05,.90));label(Vector2(762,22),player_status.team_text,20,color)
 		if not player_status.carrier.is_empty():
 			backdrop(Rect2(4,28,952,27),Color(.10,.075,.05,.94));label(Vector2(20,50),player_status.carrier,21,Color("ffdf86"))
-	draw_set_transform(Vector2(0,CHAT_HEIGHT+NOTIFY_HEIGHT))
+	draw_set_transform(Vector2(0,KILLFEED_HEIGHT+CHAT_HEIGHT+NOTIFY_HEIGHT))
 	if not capture_text.is_empty():
 		backdrop(Rect2(4,0,952,70),Color(.23,.06,.04,.94) if capture_team==0 else Color(.035,.10,.23,.94))
 		label(Vector2(20,28),capture_text.left(82),22,Color("fff0bf"))
@@ -112,7 +135,7 @@ func _draw() -> void:
 		var lines:=vote_text.split("\n")
 		label(Vector2(20,25),lines[0].left(86),20,Color("ffcf80"))
 		label(Vector2(20,53),lines[1],21,Color("ffcf80"))
-	draw_set_transform(Vector2(0,CHAT_HEIGHT+NOTIFY_HEIGHT+72))
+	draw_set_transform(Vector2(0,KILLFEED_HEIGHT+CHAT_HEIGHT+NOTIFY_HEIGHT+72))
 	if not network.is_empty():
 		if network.show:label(Vector2(16,205),"↓ ASSETS %d%%"%network.percent,18,Color("d8bc8b"))
 		label(Vector2(832,205),"HOST" if network.host else "%d ms"%network.ping if network.ping>0 else "— ms",18,Color("b9a98e"))

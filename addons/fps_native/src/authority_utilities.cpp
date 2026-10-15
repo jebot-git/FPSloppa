@@ -74,8 +74,9 @@ void Core::actions(Player &p, Host &host) {
       choose_gear(p.handle, a.a, a.b, a.c);
       continue;
     }
-    if (a.kind == ActionKind::SUICIDE && cq.enabled && !p.input.blocked &&
-        points.winner == -2 && time_ - p.last_input <= .35) {
+    // Menu actions remain valid while movement/fire input is blocked.
+    if (a.kind == ActionKind::SUICIDE && cq.enabled &&
+        points.winner == -2 && !p.staging) {
       if (!p.dead)
         damage(p.handle, p.handle, 10000, DamageKind::VEHICLE_DESTROYED);
       p.want_respawn = true;
@@ -96,6 +97,14 @@ void Core::actions(Player &p, Host &host) {
       damage(p.handle, p.handle, 10000, DamageKind::VEHICLE_DESTROYED);
       break;
     case ActionKind::USE:
+      if (a.a == 6 && p.vehicle < 0 && (p.owned & (1 << 6))) {
+        if(a.b==1 || a.b==2) {drop_box(p,a.b-1,host);break;}
+        if(a.b!=0)break;
+        const int weapon = p.weapon; const bool fire = p.input.fire;
+        const double cooldown=p.cooldown;
+        p.weapon = 6; p.input.fire = true; p.cooldown=0; utility(p, host);
+        p.cooldown=std::max(cooldown,p.cooldown);p.weapon = weapon; p.input.fire = fire; break;
+      }
       if (vehicle_use(p, host))
         break;
       if (p.vehicle >= 0)
@@ -125,7 +134,10 @@ void Core::actions(Player &p, Host &host) {
     case ActionKind::GRENADE_ARM:
       if (p.grenade_count > 0 && p.grenade_ready <= time_ && p.vehicle < 0 &&
           !p.grenade_primed) {
-        p.grenade_selected = true;p.grenade_offhand = a.a!=1;
+        p.grenade_hand = a.a >= 2 && a.a <= 3 ? a.a-2 :
+            (a.a == 1 ? (p.pose.left_handed ? 0 : 1) : (p.pose.left_handed ? 1 : 0));
+        p.grenade_selected = true;p.grenade_offhand = p.grenade_hand != (p.pose.left_handed ? 0 : 1);
+        p.throw_peak_velocity = {}; p.throw_peak_until = 0;
         p.grenade_primed = true;
         p.grenade_until = time_ + 10;
       }
@@ -159,14 +171,15 @@ bool Core::throw_grenade(Player &p, Host &host) {
   if (p.input.vr) {
     if (!p.pose.tracked || time_ - p.pose_stamp > .16)
       return false;
-    V local = p.grenade_offhand ? (p.pose.left_handed ? p.pose.right : p.pose.left).origin
-                               : (p.pose.left_handed ? p.pose.left : p.pose.right).origin;
+    const bool left = p.grenade_hand >= 0 ? p.grenade_hand == 0 :
+        (p.grenade_offhand ? !p.pose.left_handed : p.pose.left_handed);
+    V local = (left ? p.pose.left : p.pose.right).origin;
     from = p.position + B::yaw(p.yaw).apply(local);
-    V bounded = p.throw_velocity.limited(12);
+    V bounded = (time_ <= p.throw_peak_until ? p.throw_peak_velocity : p.throw_velocity).limited(12);
     double gain = 1 + 3.8 * std::clamp((bounded.length() - .65) / 1.35, 0., 1.);
     velocity = (bounded * gain).limited(40);
-    if (velocity.length() >= .8)
-      velocity = p.pose.weapon.basis.z.unit() * -velocity.length();
+    const B &free_aim = left == p.pose.left_handed && p.pose.has_offhand ? p.pose.offhand.basis : p.pose.weapon.basis;
+    if (velocity.length() >= .8) velocity = free_aim.z.unit() * -velocity.length();
     velocity = B::yaw(p.yaw).apply(velocity);
     direction =
         velocity.length() > .1 ? velocity.unit() : weapon_pose(p).basis.z * -1;

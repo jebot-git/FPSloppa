@@ -1,5 +1,7 @@
 #include "authority_core.h"
+#include "authority_transport_geometry.h"
 #include <memory>
+#include <cstring>
 using namespace cqauthority;
 extern void check(bool, const char *);
 namespace {
@@ -74,6 +76,208 @@ void tick(Core &c, World &world, int &seq, bool fire = false, int weapon = -1,
 }
 } // namespace
 void cq_rules_tests() {
+  // Physical injector: contact, latched drift, release and native revival.
+  {
+    auto c=game();World world;
+    auto medic=role(*c,join(*c,1,0),Role::MEDIC), victim=join(*c,2,0), enemy=join(*c,3,1);
+    auto *m=c->resolve(medic), *v=c->resolve(victim);m->position={0,0,-.35};v->position={};v->invulnerable=0;c->damage(victim,enemy,100);
+    Command cmd;cmd.life=medic.life;cmd.weapon=7;cmd.fire=true;cmd.weapon_held=true;cmd.pose.tracked=true;
+    cmd.pose.head.origin={0,1.65,0};cmd.pose.left.origin={-.3,1,-.2};cmd.pose.right.origin={0,.35,-.756375};cmd.pose.weapon.origin=cmd.pose.right.origin;cmd.pose.weapon.basis=B::yaw(3.141592653589793);
+    for(int i=0;i<40;++i){cmd.seq=i;c->submit(medic,cmd);c->advance(world);}
+    check(v->inject_progress>1,"tracked authored injector tip starts revival");
+    cmd.pose.right.origin.x=.5;cmd.pose.weapon.origin=cmd.pose.right.origin;
+    for(int i=40;i<50;++i){cmd.seq=i;c->submit(medic,cmd);c->advance(world);}
+    check(v->inject_progress>1.5,"latched injection tolerates wrist drift");
+    cmd.seq=50;cmd.fire=false;c->submit(medic,cmd);c->advance(world);check(v->inject_progress==0,"trigger release cancels injection latch");
+    cmd.pose.right.origin.x=0;cmd.pose.weapon.origin=cmd.pose.right.origin;cmd.fire=true;
+    for(int i=51;i<145;++i){cmd.seq=i;c->submit(medic,cmd);c->advance(world);}
+    check(!v->incapacitated && v->hp==35 && m->classes.xp[2]==75,"tracked injector revives once after three seconds");
+  }
+  // Native dragging retains a life-bound patient while either hand pulls.
+  for(bool right:{false,true}) {
+    auto c=game();World world;
+    auto medic=role(*c,join(*c,1,0),Role::MEDIC), victim=join(*c,2,0), enemy=join(*c,3,1);
+    auto *m=c->resolve(medic), *v=c->resolve(victim);m->position={0,0,-.35};v->position={};v->invulnerable=0;c->damage(victim,enemy,100);
+    Command cmd;cmd.life=medic.life;cmd.weapon=4;cmd.drag=true;cmd.pose.tracked=true;cmd.pose.left_handed=right;cmd.pose.head.origin={0,1.65,0};cmd.pose.left.origin={-.3,1,-.2};cmd.pose.right.origin={.3,1,-.2};
+    auto &hand=right?cmd.pose.right:cmd.pose.left;hand.origin={0,.35,-.65};cmd.pose.weapon=right?cmd.pose.left:cmd.pose.right;
+    cmd.seq=0;c->submit(medic,cmd);c->advance(world);check(m->drag_target==victim,"physical hand contact latches allied patient");
+    check(v->position.length()<.001,"gripping visible prone torso does not yank body origin");
+    hand.origin.z=.15;
+    for(int i=1;i<=15;++i){cmd.seq=i;c->submit(medic,cmd);c->advance(world);}
+    check(v->position.z>.5,"latched drag follows beyond initial contact radius");
+    double at=v->position.z;cmd.seq=16;cmd.drag=false;c->submit(medic,cmd);c->advance(world);check(!m->drag_target.id&&v->position.z==at,"release stops native drag");
+  }
+  // Native cabin repair is restricted to a technician in the front passenger seat.
+  {
+    struct CabinWorld:World {
+      VehicleMoved move_vehicle(const Vehicle &v,V velocity,double dt)override {
+        V at=v.position+velocity*dt;at.y=std::max(0.,at.y);velocity.y=0;
+        return {at,velocity,{0,1,0},at.y,true,true};
+      }
+    } world;
+    auto c=game();auto h=role(*c,join(*c,1,0),Role::TECHNICIAN);auto *p=c->resolve(h);
+    int index=c->add_vehicle(VehicleKind::TRANSPORT,{},0,0);
+    auto &v=const_cast<Vehicle&>(c->vehicles()[size_t(index)]);v.hp=40;p->position=transport_pods[7].entry;
+    Command cmd;cmd.life=h.life;cmd.seq=0;cmd.weapon=7;cmd.vr=true;cmd.weapon_held=true;cmd.pose.tracked=true;cmd.pose.head.origin={0,1.65,0};cmd.pose.left.origin={-.3,1,-.3};cmd.pose.right.origin={.3,1,-.3};cmd.pose.weapon=cmd.pose.right;
+    c->submit(h,cmd);Action board;board.seq=0;c->queue_action(h,board);c->advance(world);
+    check(p->vehicle==index && p->vehicle_seat==7,"technician boards front cabin passenger seat");
+    cmd.fire=true;for(int i=1;i<=30;++i){cmd.seq=i;c->submit(h,cmd);c->advance(world);}
+    check(std::abs(v.hp-(40+30*30*c->step_seconds()))<.01,"held repair tool repairs own cabin transport at thirty HP per second");
+    check(p->classes.xp[3]==int(30*30*c->step_seconds()/10),"cabin repair awards actual restoration XP");
+    cmd.seq=31;cmd.fire=false;c->submit(h,cmd);c->advance(world);double hp=v.hp;
+    check(v.hp==hp,"released repair trigger stops cabin repair");
+    v.seats[7]={};v.seats[0]=h;p->vehicle_seat=0;
+    cmd.seq=32;cmd.fire=true;c->submit(h,cmd);c->advance(world);
+    check(v.hp==hp,"side pod cannot repair from its seat");
+    v.seats[0]={};v.seats[6]=h;v.pilot=h;p->vehicle_seat=6;
+    cmd.seq=33;c->submit(h,cmd);c->advance(world);check(v.hp==hp,"driver cannot repair while driving");
+  }
+  // Both classes hide the carried box and permit a replacement after 15 seconds.
+  for(Role r:{Role::MEDIC,Role::TECHNICIAN}) {
+    auto c=game();World world;auto h=role(*c,join(*c,1,0),r);auto *p=c->resolve(h);p->position={};
+    Command cmd;cmd.life=h.life;cmd.seq=0;cmd.weapon=6;cmd.pose.tracked=true;cmd.pose.head.origin={0,1.65,0};cmd.pose.left.origin={-.3,1,-.2};cmd.pose.right.origin={.3,1,-.2};cmd.pose.weapon=cmd.pose.right;
+    c->submit(h,cmd);c->advance(world);
+    Action a;a.seq=0;a.kind=ActionKind::USE;a.a=6;a.b=2;c->queue_action(h,a);c->advance(world);
+    const Box *box=nullptr;for(auto &b:c->boxes())if(b.active)box=&b;
+    check(box!=nullptr,"both class boxes drop from a tracked hand");
+    if(!box)continue;
+    auto key=box->key;double ready=p->classes.box_ready;
+    check(std::abs(ready-c->time()-15.)<.001,"first physical drop starts fifteen-second cooldown");
+    cmd.seq=1;cmd.pose.right.origin={.5,1,-.5};cmd.pose.weapon=cmd.pose.right;c->submit(h,cmd);c->advance(world);
+    a.seq=1;c->queue_action(h,a);c->advance(world);
+    check(box->key==key && p->classes.box_ready==ready,"cooldown rejects an immediate replacement");
+    while(c->time()+c->step_seconds()<ready){++cmd.seq;c->submit(h,cmd);c->advance(world);}
+    check(!c->deploy_box(h,{0,0,0}),"replacement remains locked until fifteen seconds");
+    ++cmd.seq;c->submit(h,cmd);c->advance(world);
+    a.seq=2;c->queue_action(h,a);c->advance(world);
+    Box *replacement=nullptr;int count=0;for(auto &b:c->boxes())if(b.active){++count;replacement=const_cast<Box*>(&b);}
+    check(count==1 && replacement && replacement->key!=key,"replacement after fifteen seconds retires original at one-box limit");
+    if(!replacement)continue;
+    // Force real health/ammunition consumption of the last supply unit.
+    replacement->remaining=1;if(r==Role::MEDIC)p->hp=99;else p->ammo[0]=0;
+    replacement->airborne=false;replacement->position=p->position;replacement->credit[0]=1.;replacement->lives[0]=p->handle.life;
+    ++cmd.seq;c->submit(h,cmd);c->advance(world);
+    check(!replacement->active,"depletion removes the deployed box");
+    check(std::abs(p->classes.box_ready-c->time()-15.)<.001,"depletion starts fifteen-second replacement cooldown");
+  }
+  // A thrown box supplies only after landing, inside a three-metre ground radius.
+  {
+    struct SupplyWorld:World {Hit sweep_world(V a,V b,double,Handle h,uint64_t)override{return world_trace(a,b,h);}} world;
+    auto c=game();auto medic=role(*c,join(*c,1,0),Role::MEDIC);auto *m=c->resolve(medic);m->position={};m->hp=35;
+    Command cmd;cmd.life=medic.life;cmd.seq=0;cmd.weapon=6;cmd.pose.tracked=true;cmd.pose.left_handed=true;cmd.pose.head.origin={0,1.65,0};cmd.pose.left.origin={-.3,1,-.2};cmd.pose.right.origin={.3,1,-.2};cmd.pose.weapon=cmd.pose.left;
+    c->submit(medic,cmd);c->advance(world);m->hand_velocity[0]={2,1,0};m->hand_peak_until[0]=0;
+    Action release;release.kind=ActionKind::USE;release.seq=0;release.a=6;release.b=1;check(c->queue_action(medic,release),"physical box release admitted");c->advance(world);
+    const Box *box=nullptr;for(auto &b:c->boxes())if(b.active){box=&b;break;}
+    check(box&&box->airborne&&m->hp==35,"box cannot heal in hand or in flight");
+    if(box) {
+      V origin=box->position;
+      for(int i=1;i<60&&box->airborne;++i){cmd.seq=i;cmd.weapon=4;c->submit(medic,cmd);c->advance(world);}
+      check(box->active&&!box->airborne&&box->position.y<.05&&box->position.x>origin.x+.1,"thrown box lands on world geometry");
+      auto near=join(*c,2,0),far=join(*c,3,0);c->resolve(near)->position=box->position+V{2.99,0,0};c->resolve(far)->position=box->position+V{3.01,0,0};c->resolve(near)->hp=35;c->resolve(far)->hp=35;
+      for(int i=60;i<90;++i){cmd.seq=i;c->submit(medic,cmd);c->advance(world);}
+      check(c->resolve(near)->hp>35&&c->resolve(far)->hp==35,"ground medical box heals inside three metres only");
+      check(!c->queue_action(medic,release),"duplicate release cannot spawn another box");
+    }
+  }
+
+  {
+    auto c=game();World world;auto h=join(*c,913,0);
+    std::array<uint8_t,60> packet{};packet[0]='C';packet[1]='Q';packet[2]='I';packet[3]='3';packet[28]=2;
+    for(int i=0;i<4;++i){packet[4+i]=uint8_t(h.life>>(i*8));}
+    float value=3.;std::memcpy(packet.data()+48,&value,4);
+    check(c->submit_packet(h.id,packet.data(),packet.size()),"CQI3 swimming wire admitted");c->advance(world);
+    check(c->resolve(h)->input.swim.length()==1.,"untrusted swim speed is bounded");
+    packet[8]=1;value=std::numeric_limits<float>::quiet_NaN();std::memcpy(packet.data()+48,&value,4);
+    check(!c->submit_packet(h.id,packet.data(),packet.size()),"nonfinite swim rejected transactionally");
+    value=0.;std::memcpy(packet.data()+48,&value,4);
+    check(!c->submit_packet(h.id,packet.data(),packet.size()-1),"truncated swim wire rejected");
+    check(c->submit_packet(h.id,packet.data(),packet.size()),"bad swim cannot poison next sequence");
+  }
+
+  for (int hz : {30, 60}) {
+    auto c = game(); World world;
+    check(c->configure_tick_rate(hz), "menu suicide tick rate");
+    auto h = join(*c, 901, 0);
+    Command input; input.life = h.life; input.seq = 0; input.weapon = 2; input.blocked = true;
+    check(c->submit(h, input), "menu-blocked input accepted");
+    c->advance(world);
+    Action action; action.kind = ActionKind::SUICIDE; action.seq = 0;
+    c->resolve(h)->last_input=-10;
+    check(c->queue_action(h, action), "suicide menu action accepted");
+    c->advance(world);
+    auto *p = c->resolve(h);
+    check(p->dead && p->deaths == 1, "suicide works with menu-blocked input and spawn protection");
+    check(p->respawn_at > c->time() && p->want_respawn, "suicide preserves normal respawn delay");
+    check(!c->queue_action(h, action), "replayed suicide rejected");
+    action.seq = 1; c->queue_action(h, action); c->advance(world);
+    check(p->deaths == 1, "dead suicide cannot award another death");
+  }
+
+  for (int hz : {30,60}) {
+    struct WaterWorld:World {bool wet=true;bool water(V at) override{return wet && at.y<4.;}} world;
+    auto c=std::make_unique<Core>();CqConfig cfg;cfg.enabled=true;cfg.auto_respawn=false;cfg.water_level=4.;c->configure_cq(cfg);c->configure_tick_rate(hz);
+    auto h=join(*c,910,0);c->resolve(h)->position={0,0,0};
+    auto input=[&](int seq,V stroke=V{}){Command in;in.life=h.life;in.seq=seq;in.weapon=2;in.swim=stroke;check(c->submit(h,in),"swimming input accepted");c->advance(world);};
+    for(int i=0;i<hz*10;++i)input(i);
+    check(!c->resolve(h)->dead && c->resolve(h)->hp==100,"water grants a twelve-second breathing interval");
+    for(int i=hz*10;i<hz*13;++i)input(i);
+    check(!c->resolve(h)->dead && c->resolve(h)->hp<100,"prolonged submersion damages gradually rather than instant kill");
+    world.wet=false;input(hz*13);
+    check(c->resolve(h)->air_left==12.,"surfacing restores breathing time");
+    world.wet=true;
+    for(int i=hz*13+1;i<hz*14;++i)input(i,{0,0,-1});
+    check(c->resolve(h)->position.z<-2. && c->resolve(h)->position.y>0.5,"swim stroke moves and buoys swimmer towards surface");
+    const double hp=c->resolve(h)->hp;
+    for(int i=hz*14;i<hz*15;++i)input(i,{0,0,-1});
+    check(c->resolve(h)->hp==hp,"resurfacing avoids further drowning damage");
+  }
+  for (int hand : {0,1}) {
+    auto c=game();World world;auto h=join(*c,911,0);auto *p=c->resolve(h);
+    p->position={};p->pose.tracked=true;p->pose.has_offhand=true;p->pose.head.origin={0,1.65,0};
+    p->pose.left.origin={-.3,1.2,-.3};p->pose.right.origin={.3,1.2,-.3};
+    p->pose.weapon=p->pose.right;p->pose.offhand=p->pose.left;p->pose.offhand.basis=B::yaw(.5);
+    Command in;in.life=h.life;in.seq=0;in.weapon=2;in.pose=p->pose;in.vr=true;in.weapon_held=false;
+    c->submit(h,in);c->advance(world);
+    Action arm;arm.kind=ActionKind::GRENADE_ARM;arm.seq=0;arm.a=2+hand;c->queue_action(h,arm);c->advance(world);
+    check(p->grenade_primed && p->grenade_hand==hand,"grenade binds explicit physical hand");
+    for(int i=1;i<=4;++i){in.seq=i;(hand==0?in.pose.left:in.pose.right).origin.y+=.05;c->submit(h,in);c->advance(world);}
+    // Release can occur after the hand has stopped: retain recent bounded swing power.
+    in.seq=5;c->submit(h,in);c->advance(world);
+    Action release;release.kind=ActionKind::GRENADE_THROW;release.seq=1;c->queue_action(h,release);c->advance(world);
+    bool launched=false;
+    for(const auto &g:c->grenades())if(g.active){launched=g.velocity.length()>3.;check((g.velocity.unit()-B::yaw(hand==0?0.:.5).apply({0,0,-1})).length()<.3,"grenade follows the free hand's aim");}
+    check(launched && !p->grenade_primed && p->grenade_count==2,"armed grenade launches once from either hand after release");
+    int seq=6;int action_seq=2;
+    auto sync_pose=[&](){in.pose.weapon.origin=in.pose.right.origin;in.pose.offhand.origin=in.pose.left.origin;};
+    for(int remaining:{1,0}) {
+      p->position.x+=100; // Keep earlier blasts away from the control fixture.
+      for(int frame=0;frame<24;++frame){in.seq=seq++;c->submit(h,in);c->advance(world);}
+      arm.seq=action_seq++;c->queue_action(h,arm);c->advance(world);
+      check(p->grenade_primed,"each remaining loadout grenade arms after cooldown");
+      for(int frame=0;frame<4;++frame){in.seq=seq++;(hand==0?in.pose.left:in.pose.right).origin.y+=.04;sync_pose();check(c->submit(h,in),"repeated throw keeps hand and aim origins coherent");c->advance(world);}
+      release.seq=action_seq++;c->queue_action(h,release);c->advance(world);
+      bool fresh=false;for(const auto &g:c->grenades())fresh|=g.active && g.age<.1 && g.velocity.length()>3.;
+      check(fresh&&!p->grenade_primed&&p->grenade_count==remaining,"second and third grenades physically launch and consume exactly one charge");
+    }
+    arm.seq=action_seq++;c->queue_action(h,arm);c->advance(world);
+    check(!p->grenade_primed&&p->grenade_count==0,"empty grenade inventory cannot arm a phantom fourth grenade");
+    p->position.x+=100;
+    auto technician=role(*c,join(*c,913,0),Role::TECHNICIAN);c->resolve(technician)->position=p->position+V{2,0,0};
+    check(c->deploy_box(technician,p->position),"technician ammo box deployed for grenade resupply regression");
+    for(int frame=0;frame<600 && p->grenade_count<3;++frame){in.seq=seq++;c->submit(h,in);c->advance(world);}
+    check(p->grenade_count==3,"ammo box restores the three-grenade loadout");
+    c->clear_supply(technician);arm.seq=action_seq++;c->queue_action(h,arm);c->advance(world);
+    for(int frame=0;frame<4;++frame){in.seq=seq++;(hand==0?in.pose.left:in.pose.right).origin.y+=.04;sync_pose();check(c->submit(h,in),"repeated throw keeps hand and aim origins coherent");c->advance(world);}
+    release.seq=action_seq++;c->queue_action(h,release);c->advance(world);
+    check(p->grenade_count==2&&!p->grenade_primed,"resupplied grenade throws again with the same tracked hand");
+  }
+  for(Role role : {Role::MEDIC,Role::TECHNICIAN}) {
+    auto c=game();World world;auto h=join(*c,912,0);auto *p=c->resolve(h);p->classes.next=role;p->dead=true;h=c->respawn(h,{0,0,0});p=c->resolve(h);
+    Command input;input.life=h.life;input.seq=0;input.weapon=p->weapon;c->submit(h,input);c->advance(world);p->cooldown=.28;
+    Action deploy;deploy.seq=0;deploy.kind=ActionKind::USE;deploy.a=6;c->queue_action(h,deploy);c->advance(world);
+    bool box=false;for(const auto &b:c->boxes())box|=b.active && b.owner.id==h.id;
+    check(box,"medic/technician explicit box action deploys from held primary");
+  }
   // Exercise authority dispatch as well as the golden-reference swing sampler.
   for (int hz : {30, 60}) {
     auto c = game(); World world;
@@ -246,7 +450,7 @@ void cq_rules_tests() {
     tick(*c, world, seq);
     check(c->deploy_box(tech, c->resolve(tech)->position), "first dispenser");
     check(!c->deploy_box(tech, c->resolve(tech)->position),
-          "30 second dispenser cooldown");
+          "15 second dispenser cooldown");
     for (int n = 0; n < 3; ++n) {
       for (int i = 0; i < 901; ++i)
         tick(*c, world, seq);

@@ -2,13 +2,13 @@ extends RefCounted
 ## CQ class abilities. Only the authority mutates gameplay; snapshots drive visuals.
 const CLASSES=["shocktroop","scout","medic","technician"]
 const Progression=preload("res://deathmatch/conquest/classes/progression.gd")
-const UTILITIES={"shocktroop":[{"id":"jetpack","name":"JETPACK / HE GRENADE","tier":1},{"id":"airstrike","name":"AIRSTRIKE · DESIGNATOR / 300 s","tier":2,"xp":Progression.UTILITY_XP}],"scout":[{"id":"recon","name":"RECON KIT · CLOAK / DESIGNATOR","tier":1},{"id":"recon_drone","name":"RECON DRONE · 100 m / 120 s","tier":2,"xp":Progression.UTILITY_XP}],"medic":[{"id":"medical","name":"MEDICAL KIT · INJECTOR / HEALTH DISPENSER","tier":1},{"id":"healing_grenade","name":"HEALING GRENADE · 3 / 5 m FIELD","tier":2,"xp":Progression.UTILITY_XP}],"technician":[{"id":"engineering","name":"ENGINEERING KIT · REPAIR / AMMO DISPENSER","tier":1},{"id":"turret","name":"AUTONOMOUS TURRET · 12 SHOTS / 120 s","tier":2,"xp":Progression.UTILITY_XP}]}
+const UTILITIES={"shocktroop":[{"id":"jetpack","name":"JETPACK / 3 HE GRENADES","tier":1},{"id":"airstrike","name":"AIRSTRIKE · DESIGNATOR / 300 s","tier":2,"xp":Progression.UTILITY_XP}],"scout":[{"id":"recon","name":"RECON KIT · CLOAK / DESIGNATOR","tier":1},{"id":"recon_drone","name":"RECON DRONE · 100 m / 120 s","tier":2,"xp":Progression.UTILITY_XP}],"medic":[{"id":"medical","name":"MEDICAL KIT · INJECTOR / HEALTH DISPENSER","tier":1},{"id":"healing_grenade","name":"HEALING GRENADE · 3 / 5 m FIELD","tier":2,"xp":Progression.UTILITY_XP}],"technician":[{"id":"engineering","name":"ENGINEERING KIT · REPAIR / AMMO DISPENSER","tier":1},{"id":"turret","name":"AUTONOMOUS TURRET · 12 SHOTS / 120 s","tier":2,"xp":Progression.UTILITY_XP}]}
 const CLOAK_SECONDS:=10.0
 const CLOAK_COOLDOWN:=30.0 # Measured from activation; cancelling never resets it.
 const BLEED_SECONDS:=10.0
 const INJECTION_SECONDS:=3.0
 const DISPENSER_CAPACITY:=1000
-const DISPENSER_COOLDOWN:=30.0
+const DISPENSER_COOLDOWN:=15.0
 const Supply=preload("res://deathmatch/conquest/classes/armory.gd")
 var host: WeakRef
 var game:
@@ -122,6 +122,7 @@ func status(id:int) -> String:
 	if role(id)=="shocktroop" and s.get("equipped_utility","jetpack")=="airstrike":
 		var lock:Dictionary=game.airstrike.pending.get(id,{})
 		text+=" · TARGETING %.1f / 5s"%(game.clock-lock.at) if not lock.is_empty() else " · AIRSTRIKE "+("READY" if s.get("airstrike_ready",0.0)<=game.clock else "%.1fs"%(s.airstrike_ready-game.clock))
+	if grenade_kind(id)==0:text+=" · HE GRENADES %d/3"%game.grenades.state(id).counts[0]
 	if healing_grenades(id):text+=" · HEALING GRENADES %d/3"%game.grenades.state(id).counts[3]
 	if role(id)=="technician" and s.get("equipped_utility","engineering")=="turret":
 		var key:int=game.turrets.owner_key(id)
@@ -154,7 +155,7 @@ func needs_supply(key:int,target:int) -> bool:
 	for i in limits.size():
 		if limits[i]-s.ammo[i]>=(Supply.ORDNANCE_PACK_SIZE if i==2 else 1):return true
 	var kind:int=grenade_kind(target)
-	return kind>=0 and game.grenades.state(target).counts[kind]<(3 if kind==3 else 1)
+	return kind>=0 and game.grenades.state(target).counts[kind]<3
 func transfer(key:int,target:int,requested:int) -> int:
 	if not authority() or not dispensers.has(key) or not alive(target) or requested<=0:return 0
 	var box:Dictionary=dispensers[key];var s:Dictionary=game.players[target]
@@ -173,12 +174,14 @@ func transfer(key:int,target:int,requested:int) -> int:
 				var n:int=mini(amount-restored,missing);s.ammo[i]+=n;restored+=n
 		if has_grenade(target) and amount-restored>=Supply.GRENADE_RESUPPLY_COST:
 			var grenades:Dictionary=game.grenades.state(target)
-			var kind:int=grenade_kind(target);var limit:int=3 if kind==3 else 1
+			var kind:int=grenade_kind(target);var limit:int=3
 			var count:int=mini(limit-grenades.counts[kind],(amount-restored)/Supply.GRENADE_RESUPPLY_COST)
 			if count>0:grenades.counts[kind]+=count;grenades.shoulder=kind;restored+=count*Supply.GRENADE_RESUPPLY_COST
 		amount=restored
 	box.remaining-=amount
-	if box.remaining<=0:dispensers.erase(key)
+	if box.remaining<=0:
+		if states.has(box.owner):states[box.owner].dispenser_ready=maxf(states[box.owner].dispenser_ready,game.clock+DISPENSER_COOLDOWN)
+		dispensers.erase(key)
 	if amount>0 and target!=box.owner:
 		box.xp_credit+=amount
 		var xp:int=int(box.xp_credit/10.0);box.xp_credit-=xp*10;award(box.owner,xp)

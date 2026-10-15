@@ -12,7 +12,7 @@ func run():
  check(placements.size()==4,"four transports on map")
  check(placements.filter(func(p):return p.team==0).size()==2 and placements.filter(func(p):return p.team==1).size()==2,"two transports per allied team")
  var rocket:Dictionary=Tanks.PROFILES.rocket;var transport:Dictionary=Tanks.PROFILES.transport
- check([transport.forward,transport.reverse,transport.turn,transport.acceleration]==[rocket.forward,rocket.reverse,rocket.turn,rocket.acceleration],"script transport has rocket mobility")
+ check([transport.forward,transport.reverse,transport.turn,transport.acceleration]==[rocket.forward*1.2,rocket.reverse*1.2,rocket.turn,rocket.acceleration],"script transport is 20 percent faster with rocket steering")
  check(transport.capacity==0 and transport.pair==0,"script transport is unarmed")
  check(transport.hp==100 and transport.hp==rocket.hp,"script transport shares battery tank 100 HP")
  var model:Node3D=load(transport.model).instantiate();root.add_child(model)

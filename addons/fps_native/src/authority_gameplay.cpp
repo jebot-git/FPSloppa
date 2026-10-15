@@ -1,4 +1,5 @@
 #include "authority_core.h"
+#include "authority_weapon_geometry.h"
 namespace cqauthority {
 int Core::collapse_region(V lo, V hi, Host &host) {
   if (!cq.enabled || points.winner != -2 || !lo.finite() || !hi.finite() ||
@@ -124,7 +125,7 @@ void Core::spawn_class(Player &p) {
   p.respawn_at = 0;
   p.vehicle = -1;p.vehicle_seat=-1;
   p.grenade_count = c.role == Role::MEDIC && c.equipped_t2         ? 3
-                    : c.role == Role::SHOCKTROOP && !c.equipped_t2 ? 1
+                    : c.role == Role::SHOCKTROOP && !c.equipped_t2 ? 3
                                                                    : 0;
   p.grenade_primed = false;
   p.designation = {};
@@ -169,6 +170,9 @@ void Core::trim_boxes(Session who, int limit) {
     --count;
   }
 }
+void Core::clear_supply(Handle h) {
+  if(auto *p=resolve(h))trim_boxes(session(*p),0);
+}
 bool Core::deploy_box(Handle h, V at) {
   auto *p = resolve(h);
   if (!cq.enabled || !p || !alive(*p) || p->input.blocked || p->vehicle >= 0 ||
@@ -197,8 +201,24 @@ bool Core::deploy_box(Handle h, V at) {
   slot->team = p->team;
   slot->health = p->classes.role == Role::MEDIC;
   slot->position = at;
-  p->classes.box_ready = time_ + 30;
+  p->classes.box_ready = time_ + BOX_REDEPLOY_SECONDS;
   return true;
+}
+bool Core::drop_box(Player &p,int hand,Host &host) {
+  if(!p.pose.tracked || hand<0 || hand>1)return false;
+  B body=B::yaw(p.yaw);
+  V start=p.position+body.apply((hand==0?p.pose.left:p.pose.right).origin);
+  if(!cq.enabled || !alive(p) || p.input.blocked || p.vehicle>=0 || !start.finite() ||
+     (start-p.position).length()>2.8 || p.classes.replaces_box() ||
+     (p.classes.role!=Role::MEDIC && p.classes.role!=Role::TECHNICIAN) ||
+     host.world_trace(p.position+V{0,.8,0},start,p.handle).blocked)return false;
+  if(!deploy_box(p.handle,start))return false;
+  for(auto &box:boxes_)if(box.active && box.key==next_entity_-1 && box.owner==session(p)) {
+    V velocity=time_<=p.hand_peak_until[size_t(hand)]?p.hand_peak_velocity[size_t(hand)]:p.hand_velocity[size_t(hand)];
+    box.velocity=body.apply(velocity.limited(6))+p.velocity.limited(3);
+    box.airborne=true;box.flight_age=0;return true;
+  }
+  return false;
 }
 int Core::supply(Box &box, Player &p, int requested) {
   if (!alive(p) || p.team != box.team || requested <= 0 || !box.active)
@@ -223,7 +243,7 @@ int Core::supply(Box &box, Player &p, int requested) {
     }
     int limit = p.classes.role == Role::MEDIC && p.classes.equipped_t2 ? 3
                 : p.classes.role == Role::SHOCKTROOP && !p.classes.equipped_t2
-                    ? 1
+                    ? 3
                     : 0;
     if (amount - spent >= 100 && p.grenade_count < limit) {
       int n = std::min(limit - p.grenade_count, (amount - spent) / 100);
@@ -233,8 +253,11 @@ int Core::supply(Box &box, Player &p, int requested) {
     amount = spent;
   }
   box.remaining -= amount;
-  if (box.remaining <= 0)
+  if (box.remaining <= 0) {
     box.active = false;
+    if(auto *source=owner(box.owner))
+      source->classes.box_ready=std::max(source->classes.box_ready,time_+BOX_REDEPLOY_SECONDS);
+  }
   if (amount > 0 && session(p) != box.owner) {
     box.xp_credit += amount;
     int xp = int(box.xp_credit / 10);
@@ -289,7 +312,21 @@ bool Core::toggle_nvg(Handle h) {
     if (!p->pose.tracked)
       return false;
     bool near = false;
-    for (auto hand : {p->pose.left, p->pose.right}) {
+    for (int index=0;index<2;++index) {
+      const bool primary=index==(p->pose.left_handed?0:1);
+      const auto &reload=p->physical[p->weapon];
+      if ((primary && p->input.weapon_held) ||
+          (!primary && (reload.grab!=Grab::NONE || reload.carry>0 || p->input.reload_grip)) ||
+          (p->grenade_primed && p->grenade_hand==index))continue;
+      auto hand=index==0?p->pose.left:p->pose.right;
+      // A trigger press already touching a reload anchor belongs to the gun,
+      // including the first packet before the reload state acquires its grab.
+      if(!primary && p->input.reload_trigger) {
+        V local=p->pose.weapon.inverse(hand.origin)/.65;
+        const auto &geometry=cq_geometry(p->weapon);
+        if((local-geometry.rack).length()*.65<.15 ||
+           (local-geometry.magazine).length()*.65<.15 || pouch_contains(p->pose,hand.origin))continue;
+      }
       V relative = p->pose.head.inverse(hand.origin);
       near |= std::abs(relative.x) < .28 && relative.y > -.02 && relative.y < .45 &&
               relative.z > -.38 && relative.z < .18;
@@ -320,11 +357,25 @@ double Core::spot_range(const Player &p) const {
 void Core::tick_classes(Host &host) {
   for (auto &box : boxes_)
     if (box.active) {
+      if(box.airborne) {
+        box.flight_age+=step_;
+        box.velocity.y-=9.8*step_;
+        V end=box.position+box.velocity*step_;
+        Hit hit=host.sweep_world(box.position,end,.12,{},box.key);
+        if(hit.blocked) {
+          box.position=hit.position+hit.normal*.025;
+          if(hit.normal.y>=.65) {box.airborne=false;box.velocity={};}
+          else box.velocity=(box.velocity-hit.normal*(1.5*box.velocity.dot(hit.normal)))*.5;
+        } else box.position=end;
+        if(box.flight_age>8 || host.water(box.position))box.active=false;
+        // An airborne supply box cannot heal or supply ammunition.
+        continue;
+      }
       for (size_t i = 0; i < MAX_PLAYERS; ++i) {
         auto &p = players_[i];
         V chest = p.position + V{0, .9, 0};
         if (!alive(p) || p.team != box.team ||
-            (chest - box.position).length() > 4 ||
+            (box.health ? (std::hypot(chest.x-box.position.x,chest.z-box.position.z)>3 || std::abs(chest.y-box.position.y)>1.8) : (chest-box.position).length()>4) ||
             host.world_trace(box.position + V{0, .15, 0}, chest, p.handle)
                 .blocked) {
           box.credit[i] = 0;
@@ -337,7 +388,7 @@ void Core::tick_classes(Host &host) {
           int limit =
               p.classes.role == Role::MEDIC && p.classes.equipped_t2 ? 3
               : p.classes.role == Role::SHOCKTROOP && !p.classes.equipped_t2
-                  ? 1
+                  ? 3
                   : 0;
           needs |= p.grenade_count < limit;
         }
@@ -356,16 +407,20 @@ void Core::tick_classes(Host &host) {
       }
     }
   for (auto &p : players_)
-    if (alive(p) && p.vehicle < 0 && !p.input.blocked)
+    if (alive(p) && !p.input.blocked)
       repair(p, host);
   for (auto &a : players_)
     if (alive(a) && a.vehicle < 0 && !a.input.blocked && a.weapon == 7 &&
         a.input.fire && a.classes.role == Role::MEDIC) {
-      V tip = weapon_pose(a).apply({0, 0, -.12});
+      V tip = weapon_pose(a).apply(a.pose.tracked ? cq_injector_tip() : V{0,0,-.12});
       for (auto &b : players_)
         if (b.active && b.incapacitated && same_team(a, b)) {
-          V chest = b.position + V{0, .35, 0};
-          if ((tip - chest).length() <= .25 &&
+          V chest = patient_contact(b.position,damage_yaw(b),tip);
+          // Once the needle has made contact, keep administering while the
+          // trigger is held within natural hand reach; rendering pins the hand.
+          bool latched=b.injector==a.handle && b.inject_progress>0;
+          double reach=latched && a.pose.tracked ? .8 : a.pose.tracked ? .35 : .25;
+          if ((tip - chest).length() <= reach && (a.position-b.position).length()<=2.5 &&
               !host.world_trace(tip, chest, a.handle).blocked) {
             inject(a.handle, b.handle, step_);
             break;

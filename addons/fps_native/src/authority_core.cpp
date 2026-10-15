@@ -163,7 +163,7 @@ bool Core::submit(Handle h, const Command &c) {
       !std::isfinite(c.x) || !std::isfinite(c.z) || !std::isfinite(c.yaw) ||
       !std::isfinite(c.pitch) || std::abs(c.yaw) > 1e6 ||
       std::abs(c.pitch) > 1.570797 || c.weapon < 0 || c.weapon >= 12 ||
-      !(p->owned & (1 << c.weapon)) || !c.pose.valid() || !c.room.finite()) {
+      !(p->owned & (1 << c.weapon)) || !c.pose.valid() || !c.room.finite() || !c.swim.finite()) {
     ++counters.rejected;
     return false;
   }
@@ -177,6 +177,7 @@ bool Core::submit(Handle h, const Command &c) {
   safe.pitch = std::clamp(safe.pitch, -1.5707963267948966, 1.5707963267948966);
   if (safe.pose.tracked && safe.pose.has_height)
     safe.pose.height = std::clamp(safe.pose.height, .80, 1.65);
+  safe.swim = safe.swim.limited(1);
   safe.room = validate_room(safe.room, safe.pose);
   safe.vr = safe.vr || safe.pose.tracked;
   if (safe.vr && !safe.pose.tracked)
@@ -186,7 +187,16 @@ bool Core::submit(Handle h, const Command &c) {
     ++counters.rejected;
     return false;
   }
-  if (n > 1) {
+  // A transport wheel and its throttle are independent controls. Keep the
+  // native driver/seat gate, and clamp each axis instead of reducing throttle
+  // whenever the wheel is turned. Foot movement retains the circular bound.
+  bool transport_driver = p->vehicle >= 0 && size_t(p->vehicle) < vehicles_.size() &&
+      vehicles_[size_t(p->vehicle)].kind == VehicleKind::TRANSPORT &&
+      vehicles_[size_t(p->vehicle)].pilot == h;
+  if (transport_driver) {
+    safe.x = std::clamp(safe.x, -1., 1.);
+    safe.z = std::clamp(safe.z, -1., 1.);
+  } else if (n > 1) {
     safe.x /= n;
     safe.z /= n;
   }
@@ -200,9 +210,9 @@ bool Core::submit(Handle h, const Command &c) {
 bool Core::submit_packet(int64_t peer_id, const uint8_t *data, size_t size) {
   auto *p = find(peer_id);
   if (!p || !data || size < 30 || data[0] != 'C' || data[1] != 'Q' ||
-      data[2] != 'I' || (data[3] != '1' && data[3] != '2') ||
+      data[2] != 'I' || (data[3] != '1' && data[3] != '2' && data[3] != '3') ||
       (data[29] & 128) || (data[3] == '1' && size != 30) ||
-      (data[3] == '2' && (size < 48 || size > 310))) {
+      (data[3] != '1' && (size < 48 || size > 322))) {
     ++counters.rejected;
     return false;
   }
@@ -234,7 +244,7 @@ bool Core::submit_packet(int64_t peer_id, const uint8_t *data, size_t size) {
   c.crouch = bits & 16;
   c.prone = bits & 32;
   c.blocked = bits & 64;
-  if (data[3] == '2') {
+  if (data[3] != '1') {
     uint16_t flags = uint16_t(data[30]) | uint16_t(data[31]) << 8;
     if (((flags & 16384) && !(flags & 8192))) {
       ++counters.rejected;
@@ -254,7 +264,7 @@ bool Core::submit_packet(int64_t peer_id, const uint8_t *data, size_t size) {
     c.jetpack = flags & 64;
     c.offhand_fire = flags & 128;
     size_t base = c.pose.tracked ? (c.pose.has_offhand ? 288 : 240) : 48;
-    if (size != base + ((flags & 256) ? 4 : 0) + ((flags & 4096) ? 18 : 0) ||
+    if (size != base + ((flags & 256) ? 4 : 0) + ((flags & 4096) ? 18 : 0) + (data[3]=='3' ? 12 : 0) ||
         (!c.pose.tracked && (flags & 28))) {
       ++counters.rejected;
       return false;
@@ -269,6 +279,10 @@ bool Core::submit_packet(int64_t peer_id, const uint8_t *data, size_t size) {
       c.fire_event = u32(at + 12);
       c.fire_weapon = data[at + 16];
       c.fire_mask = data[at + 17];
+    }
+    if (data[3]=='3') {
+      const size_t at=size-12;
+      c.swim={scalar(at),scalar(at+4),scalar(at+8)};
     }
     c.room = {scalar(32), scalar(36), scalar(40)};
     c.pose.height = scalar(44);
@@ -321,16 +335,29 @@ void Core::consume(Player &p) {
         if (physical.initialised)
           physical.interrupt();
     if (c.pose.tracked && p.pose.tracked &&
-        c.pose.left_handed == p.pose.left_handed &&
         c.stamp - p.pose_stamp >= .008 && c.stamp - p.pose_stamp <= .16) {
-      V before = ((p.grenade_primed && !p.grenade_offhand) ? (p.pose.left_handed ? p.pose.left : p.pose.right) : (p.pose.left_handed ? p.pose.right : p.pose.left)).origin -
-                 p.pose.head.origin;
-      V after = ((p.grenade_primed && !p.grenade_offhand) ? (c.pose.left_handed ? c.pose.left : c.pose.right) : (c.pose.left_handed ? c.pose.right : c.pose.left)).origin -
-                c.pose.head.origin;
-      p.throw_velocity =
-          ((after - before) / (c.stamp - p.pose_stamp)).limited(12);
-    } else if (c.stamp > p.pose_stamp)
+      for (size_t side=0;side<2;++side) {
+        V before=(side==0?p.pose.left:p.pose.right).origin-p.pose.head.origin;
+        V after=(side==0?c.pose.left:c.pose.right).origin-c.pose.head.origin;
+        p.hand_velocity[side]=((after-before)/(c.stamp-p.pose_stamp)).limited(8);
+        if(time_>p.hand_peak_until[side] || p.hand_velocity[side].length2()>=p.hand_peak_velocity[side].length2()) {
+          p.hand_peak_velocity[side]=p.hand_velocity[side];p.hand_peak_until[side]=time_+.12;
+        }
+      }
+      const bool left = p.grenade_primed && p.grenade_hand >= 0
+                            ? p.grenade_hand == 0 : !c.pose.left_handed;
+      V before = (left ? p.pose.left : p.pose.right).origin - p.pose.head.origin;
+      V after = (left ? c.pose.left : c.pose.right).origin - c.pose.head.origin;
+      p.throw_velocity = ((after-before)/(c.stamp-p.pose_stamp)).limited(12);
+      if (time_ > p.throw_peak_until || p.throw_velocity.length2() >= p.throw_peak_velocity.length2()) {
+        p.throw_peak_velocity = p.throw_velocity;
+        p.throw_peak_until = time_ + .12;
+      }
+    } else if (c.stamp > p.pose_stamp) {
+      p.hand_velocity={};p.hand_peak_velocity={};p.hand_peak_until={};
       p.throw_velocity = {};
+      p.throw_peak_velocity = {}; p.throw_peak_until = 0;
+    }
     if (c.offhand_fire && !p.input.offhand_fire)
       p.nvg_pending = true;
     p.pose = c.pose;
@@ -404,6 +431,40 @@ void Core::movement(Player &p, Host &host) {
     p.pose.has_height = true;
   }
   p.stamina = std::max(0., p.stamina - step_);
+  const bool wet = cq.enabled && host.water(p.position+V{0,.2,0});
+  if (wet) {
+    const double eye = p.pose.tracked ? p.pose.head.origin.y : std::max(.3,p.height-.17);
+    const bool submerged = host.water(p.position+V{0,eye,0});
+    if (submerged) {
+      p.air_left=std::max(0.,p.air_left-step_);
+      if (p.air_left<=1e-8 && time_>=p.drown_at) {
+        damage(p.handle,{},10,DamageKind::WATER);p.drown_at=time_+1.;
+        if (p.dead) return;
+      }
+    } else {p.air_left=12.;p.drown_at=0;}
+    V stroke=B::yaw(p.yaw).apply(c.blocked ? V{} : c.swim);
+    V wish=B::yaw(p.yaw).apply(c.blocked ? V{} : V{c.x,0,c.z});
+    V target=(wish*3.5+stroke*4.5).limited(5.5);
+    const auto sample=terrain.water_sample(p.position.x,p.position.z);
+    const double level=terrain.configured ? sample.y : cq.water_level;
+    // Active strokes buoy the tracked head to the surface. Resting sinks gently.
+    target.y=stroke.length2()>.0025 ? std::clamp((level+.15-p.position.y-eye)*4.,-2.,3.) : -.35;
+    if (std::abs(c.swim.y)>.05) target.y=stroke.y*4.5;
+    if (!c.blocked && (c.jump || p.jump_pending)) target.y=5.5;
+    p.velocity=p.velocity+(target-p.velocity)*std::min(1.,step_*8.);
+    auto moved=host.move({p.handle,p.position,p.velocity,height,p.yaw,p.grounded,false},step_);
+    if(moved.position.finite()&&moved.velocity.finite()){
+      p.position=moved.position;p.velocity=moved.velocity;p.grounded=moved.grounded;
+    }
+    p.jetpack={};p.jump_held=c.jump;
+    if (p.pose.tracked && p.room.length2()>0) {
+      V applied=host.room_move(p.handle,p.room,p.yaw);
+      if(applied.finite()){p.position=p.position+applied;V shift=B::yaw(p.yaw).inverse(applied);p.room=p.room-shift;p.pose.rebase(shift);}
+    }
+    if(p.position.y<cq.fall_limit)damage(p.handle,{},10000,DamageKind::FALL);
+    return;
+  }
+  p.air_left=12.;p.drown_at=0;
   bool ground = p.grounded && p.velocity.y <= 0;
   bool jumping =
       ground && p.height >= .8 && (p.jump_pending || (c.jump && !p.jump_held));
@@ -439,8 +500,6 @@ void Core::movement(Player &p, Host &host) {
         p.pose.rebase(shift);
       }
     }
-    if (cq.enabled && host.water(p.position))
-      damage(p.handle, {}, 10000, DamageKind::WATER);
     if (p.position.y < (cq.enabled ? cq.fall_limit : -200))
       damage(p.handle, {}, 10000, DamageKind::FALL);
     return;
@@ -514,8 +573,6 @@ void Core::movement(Player &p, Host &host) {
       p.pose.rebase(shift);
     }
   }
-  if (cq.enabled && host.water(p.position))
-    damage(p.handle, {}, 10000, DamageKind::WATER);
   if (p.position.y < (cq.enabled ? cq.fall_limit : -200))
     damage(p.handle, {}, 10000, DamageKind::FALL);
 }
@@ -679,7 +736,7 @@ bool Core::fire(Player &p, Host &host, bool paid) {
     V offset=p.recoil.shot(p.weapon,time_,std::hypot(p.velocity.x,p.velocity.z),p.grounded,p.height,p.pose.tracked,supported,correction,random_unit()*2-1,random_unit()*2-1);
     // Use the actual tracked/desktop sight basis; palm position never recoils.
     B sight=p.pose.tracked?B::yaw(p.yaw).product(p.pose.weapon.basis):basis;
-    direction=sight.apply(offset).unit();
+    direction=sight.apply(p.pose.tracked ? B::euler({cq_geometry(p.weapon).zero_pitch,0,0}).apply(offset) : offset).unit();
   }
   if (!paid) {
     consume_ammo(p, 1);

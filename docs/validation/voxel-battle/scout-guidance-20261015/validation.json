@@ -1,0 +1,22 @@
+{
+  "utc": "2026-10-15T17:11:19.595271+00:00",
+  "branch": "experimental/cq-voxelspace",
+  "native_build": "passed",
+  "script_parse": "passed",
+  "guidance_checks": 53,
+  "fixture_check": "fixture-check.json",
+  "live_output": "/home/blux/.cache/cq-scout-test-20261015-191044",
+  "scope": "loopback-only scout fixture; normal CQ guidance permissions unchanged",
+  "live_readiness": {
+    "xr_ready": true,
+    "scout_ready": true,
+    "script_errors": false,
+    "client_alive": true,
+    "server_alive": true,
+    "analytics": {
+      "client-process.jsonl": 101434,
+      "server-process.jsonl": 25649,
+      "client-gameplay.jsonl": 2741
+    }
+  }
+}

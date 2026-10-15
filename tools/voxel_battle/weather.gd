@@ -62,6 +62,8 @@ func _process(delta:float)->void:
  rain.global_position=eye+Vector3(0,14,0)
  collider.global_position=Vector3(snappedf(eye.x,4),snappedf(eye.y+48,4),snappedf(eye.z,4))
  if rain.amount!=maximum:rain.amount=maximum
+ var visor:bool="classes" in game and game.night_vision.enabled_for(game.multiplayer.get_unique_id())
+ rain.draw_pass_1.material.albedo_color=Color(.09,.65,.17,.22) if visor else Color(.65,.75,.85,.32)
  environment=lighting().sky_environment
  if environment:
   environment.fog_enabled=true;environment.volumetric_fog_enabled=false
@@ -104,7 +106,12 @@ func create_effects()->void:
  process.collision_mode=ParticleProcessMaterial.COLLISION_HIDE_ON_CONTACT
  rain.process_material=process
  var mesh:=QuadMesh.new();mesh.size=Vector2(.018,.65)
- var material:=StandardMaterial3D.new();material.shading_mode=BaseMaterial3D.SHADING_MODE_UNSHADED;material.transparency=BaseMaterial3D.TRANSPARENCY_ALPHA_HASH
+ # Hashed alpha turns each streak into opaque stipple, enlarged by XR VRS.
+ # Soft blended streaks do not write noisy foreground depth over the scene.
+ var material:=StandardMaterial3D.new();material.shading_mode=BaseMaterial3D.SHADING_MODE_UNSHADED;material.transparency=BaseMaterial3D.TRANSPARENCY_ALPHA;material.depth_draw_mode=BaseMaterial3D.DEPTH_DRAW_DISABLED
+ var gradient:=Gradient.new();gradient.set_color(0,Color.WHITE);gradient.set_color(1,Color(1,1,1,0))
+ var mask:=GradientTexture2D.new();mask.width=16;mask.height=64;mask.gradient=gradient;mask.fill=GradientTexture2D.FILL_RADIAL;mask.fill_from=Vector2(.5,.5);mask.fill_to=Vector2(1,.5)
+ material.albedo_texture=mask
  material.albedo_color=Color(.65,.75,.85,.32);material.billboard_mode=BaseMaterial3D.BILLBOARD_PARTICLES;material.cull_mode=BaseMaterial3D.CULL_DISABLED
  mesh.material=material;rain.draw_pass_1=mesh;add_child(rain)
  collider=GPUParticlesCollisionHeightField3D.new();collider.size=Vector3(48,192,48);collider.resolution=GPUParticlesCollisionHeightField3D.RESOLUTION_256

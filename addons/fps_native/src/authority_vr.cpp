@@ -209,11 +209,13 @@ int Reload::sample(int geometry, int clip, int total, int capacity,
     return clip;
   }
   V hip_hand = hip_frame(pose).inverse(hand.origin);
-  bool pressed = held && !grip, released = !held && grip;
+  bool pressed = held && !grip;
   bool eject_edge = eject_pressed && !eject;
   bool mag_held = separate_trigger ? magazine_trigger : held;
   bool mag_pressed = mag_held && !(separate_trigger ? trigger : grip);
   bool mag_released = !mag_held && (separate_trigger ? trigger : grip);
+  bool rack_held = held || (separate_trigger && magazine_trigger);
+  bool rack_released = !rack_held && (grip || (separate_trigger && trigger));
   grip = held;
   trigger = magazine_trigger;
   eject = eject_pressed;
@@ -286,7 +288,7 @@ int Reload::sample(int geometry, int clip, int total, int capacity,
       }
     }
   } else if (grab == Grab::RACK) {
-    if (held) {
+    if (rack_held) {
       stroke = std::clamp((local.z - anchor.z) / .065, 0., 1.);
       if (stroke > .90 && now - started >= .10)
         pulled = true;
@@ -294,7 +296,7 @@ int Reload::sample(int geometry, int clip, int total, int capacity,
         chamber(clip);
         grab = Grab::NONE;
       }
-    } else if (released) {
+    } else if (rack_released) {
       if (pulled)
         chamber(clip);
       else {
@@ -314,7 +316,7 @@ int Reload::sample(int geometry, int clip, int total, int capacity,
       anchor = local;
       started = now;
       ++event;
-    } else if (pressed && !pack &&
+    } else if ((pressed || (separate_trigger && mag_pressed)) && !pack &&
                (hand.origin - closest(hand.origin, rack_start, rack_end))
                        .length() < .105 &&
                !((ready || cq_weapon >= 0) && handguard)) {

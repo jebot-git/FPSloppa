@@ -6,8 +6,9 @@ static func encode_input(c:Dictionary)->PackedByteArray:
  var pose:Dictionary=c.get("xr",{});var tracked:=not pose.is_empty();var offhand:=tracked and pose.has("offhand_weapon")
  var redundant:bool=c.has("jump_event") or c.has("jetpack_event") or c.has("fire_event")
  var vr:bool=c.get("vr_device",tracked);var rewind:bool=c.has("view_time");var extended:bool=c.get("offhand_fire",false) or c.get("reload_trigger",false) or c.get("reload_grip",false) or c.has("weapon_held") or vr or tracked or c.get("jetpack",false) or rewind or c.get("cq_drag",false) or c.get("melee",false) or c.get("respawn",false) or redundant
- var bytes:=PackedByteArray();bytes.resize(((288 if offhand else 240) if tracked else 48 if extended else 30)+(4 if rewind else 0)+(18 if redundant else 0))
- for i in 4:bytes[i]="CQI2".to_ascii_buffer()[i] if extended else "CQI1".to_ascii_buffer()[i]
+ var swimming:bool=c.has("swim");extended=extended or swimming
+ var bytes:=PackedByteArray();bytes.resize(((288 if offhand else 240) if tracked else 48 if extended else 30)+(4 if rewind else 0)+(18 if redundant else 0)+(12 if swimming else 0))
+ for i in 4:bytes[i]="CQI3".to_ascii_buffer()[i] if swimming else "CQI2".to_ascii_buffer()[i] if extended else "CQI1".to_ascii_buffer()[i]
  bytes.encode_u32(4,c.life);bytes.encode_u32(8,c.seq);bytes.encode_float(12,c.move.x);bytes.encode_float(16,c.move.y);bytes.encode_float(20,c.yaw);bytes.encode_float(24,c.pitch);bytes[28]=c.weapon
  bytes[29]=int(c.fire)|(int(c.jump)<<1)|(int(c.reload)<<2)|(int(c.slow)<<3)|(int(c.crouch)<<4)|(int(c.prone)<<5)|(int(c.blocked)<<6)
  if extended:
@@ -25,6 +26,7 @@ static func encode_input(c:Dictionary)->PackedByteArray:
   var edge:Variant=c.get("fire_event",[])
   if edge is Array and edge.size()==3:
    bytes.encode_u32(tail+12,edge[0]);bytes[tail+16]=edge[1];bytes[tail+17]=edge[2]
+ if swimming:_put_vector(bytes,bytes.size()-12,c.swim)
  return bytes
 static func _put_vector(bytes:PackedByteArray,offset:int,v:Vector3)->void:
  bytes.encode_float(offset,v.x);bytes.encode_float(offset+4,v.y);bytes.encode_float(offset+8,v.z)

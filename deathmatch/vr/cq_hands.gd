@@ -13,6 +13,7 @@ var carried:Node3D
 var ammo_weapon:=-1
 var ammo_readout:Label3D
 var chamber_readout:Label3D
+var weapon_readout:Node3D
 var previous:Dictionary={}
 var cloak=preload("res://deathmatch/vr/cq_cloak.gd").new()
 var debris:Array=[]
@@ -28,7 +29,9 @@ func claims_hand(primary:Transform3D,support:Transform3D)->bool:
  if state.get("carry",0)>0 or state.get("grab","")!="" or state.get("stroke",0.)>.05:return true
  var weapon:=Art.held_transform(primary,w,Art.VR_SCALE,"cq_shocktroop")
  if rig.game.bindings.vr_pressed(rig,"offhand_fire") and support.origin.distance_to(weapon*Models.anchor(w,"magazine_anchor"))<.12:return true
- if rig.game.bindings.vr_pressed(rig,"support") and support.origin.distance_to(weapon*Models.anchor(w,"rack_anchor"))<.09 and support.origin.distance_to(weapon*Models.anchor(w,"rack_anchor"))<support.origin.distance_to(weapon*Models.anchor(w,"support_anchor")):return true
+ var rack:Vector3=weapon*(Models.anchor(w,"rack_anchor")+Vector3.BACK*.065*state.get("stroke",0.))
+ var rack_top:Vector3=rack+weapon.basis.y.normalized()*(.08 if w in [2,3,9] else 0.)
+ if (rig.game.bindings.vr_pressed(rig,"support") or rig.game.bindings.vr_pressed(rig,"offhand_fire")) and support.origin.distance_to(Geometry3D.get_closest_point_to_segment(support.origin,rack,rack_top))<.105 and support.origin.distance_to(weapon*Models.anchor(w,"rack_anchor"))<support.origin.distance_to(weapon*Models.anchor(w,"support_anchor")):return true
  var pose:Dictionary=rig.sample_raw_pose()
  return not pose.is_empty() and Hip.recovery_contains(pose,rig.origin.transform*support.origin)
 func mount(primary:bool)->Transform3D:
@@ -39,7 +42,7 @@ func update(delta:float,valid:bool)->void:
  var support:XRController3D=rig.right if rig.left_handed else rig.left
  var pressed:bool=main.get_float("grip")>.6
  var slots:Array=preload("res://deathmatch/conquest/classes/equipment_slots.gd").equipped(game,mine)
- sample_hold(slots,main.global_position,pressed,valid and not rig.cq_utility.held)
+ sample_hold(slots,main.global_position,pressed,valid and not rig.cq_utility.held and (rig.medic_interactions==null or rig.medic_interactions.drag_hand!=(0 if rig.left_handed else 1)))
  if slots.size()==2:
   for i in 2:
    var w:int=slots[i]
@@ -61,8 +64,8 @@ func update(delta:float,valid:bool)->void:
   var support_aim:XRController3D=rig.right_aim if rig.left_handed else rig.left_aim
   carried.global_transform=Models.ammunition_pose(support.global_transform,support_aim.global_transform)
   if not is_instance_valid(ammo_readout):
-   ammo_readout=Label3D.new();ammo_readout.font=preload("res://deathmatch/ui/cq/theme.gd").FONT;ammo_readout.font_size=36;ammo_readout.pixel_size=.001;ammo_readout.billboard=BaseMaterial3D.BILLBOARD_ENABLED;add_child(ammo_readout)
-   chamber_readout=Label3D.new();chamber_readout.font=ammo_readout.font;chamber_readout.font_size=24;chamber_readout.pixel_size=.0008;chamber_readout.billboard=BaseMaterial3D.BILLBOARD_ENABLED;add_child(chamber_readout)
+   ammo_readout=Label3D.new();ammo_readout.layers=1<<18;ammo_readout.font=preload("res://deathmatch/ui/cq/theme.gd").FONT;ammo_readout.font_size=36;ammo_readout.pixel_size=.001;ammo_readout.billboard=BaseMaterial3D.BILLBOARD_ENABLED;add_child(ammo_readout)
+   chamber_readout=Label3D.new();chamber_readout.layers=1<<18;chamber_readout.font=ammo_readout.font;chamber_readout.font_size=24;chamber_readout.pixel_size=.0008;chamber_readout.billboard=BaseMaterial3D.BILLBOARD_ENABLED;add_child(chamber_readout)
   var ammo:Dictionary=preload("res://deathmatch/ui/cq/hud.gd").ammo_readout(game,mine)
   var rounds:int=state.get("carried_rounds",0) if state.get("carry",0)==4 else mini(ammo.capacity,ammo.reserve+ammo.loaded)
   ammo_readout.visible=carried.visible;ammo_readout.text="%02d / %02d"%[rounds,ammo.capacity];ammo_readout.modulate=Color("ff827a") if rounds==0 else Color("73e5df");ammo_readout.global_position=carried.global_position+Vector3.UP*.10
@@ -75,6 +78,10 @@ func update(delta:float,valid:bool)->void:
    rig.feedback(.25,.06,true)
    while debris.size()>4:debris.pop_front().node.queue_free()
  cloak.update(valid and game.classes.cloaked(mine),rig.hand_models+[rig.gun,rig.shoulder_utility,carried]+holsters.values().map(func(h):return h.node))
+ var show_panel:bool=valid and w==5 and is_instance_valid(rig.gun) and rig.gun.visible
+ if show_panel and not is_instance_valid(weapon_readout):
+  weapon_readout=preload("res://deathmatch/vr/weapon_display.gd").new();add_child(weapon_readout);weapon_readout.setup()
+ if is_instance_valid(weapon_readout):weapon_readout.update_display(rig.gun,game.variant_combat.charge_label(mine).trim_suffix(" · "),game.variant_combat.charges.has(mine),show_panel)
  previous=state.duplicate();previous.weapon=w
  if not valid and is_instance_valid(carried):carried.hide()
  if not valid and is_instance_valid(ammo_readout):ammo_readout.hide();chamber_readout.hide()

@@ -1,4 +1,6 @@
 #include "authority.h"
+#include "authority_transport_geometry.h"
+#include <godot_cpp/classes/os.hpp>
 #include <godot_cpp/classes/box_shape3d.hpp>
 #include <godot_cpp/classes/cylinder_shape3d.hpp>
 #include <godot_cpp/classes/engine.hpp>
@@ -77,6 +79,10 @@ bool number(const Variant &v) {
 }
 } // namespace
 void FPSAuthority::_bind_methods() {
+  ClassDB::bind_method(D_METHOD("prepare_technician_test", "id"), &FPSAuthority::prepare_technician_test);
+  ClassDB::bind_method(D_METHOD("prepare_scout_test", "id", "technician_id"), &FPSAuthority::prepare_scout_test);
+  ClassDB::bind_method(D_METHOD("prepare_shocktroop_test", "id"), &FPSAuthority::prepare_shocktroop_test);
+  ClassDB::bind_method(D_METHOD("prepare_medic_test", "medic_id", "bot_id"), &FPSAuthority::prepare_medic_test);
   ClassDB::bind_method(D_METHOD("collapse_region", "minimum", "maximum"), &FPSAuthority::collapse_region);
   ClassDB::bind_method(D_METHOD("stage_player", "id"), &FPSAuthority::stage_player);
   ClassDB::bind_method(D_METHOD("configure_stress", "id", "enabled"),
@@ -257,7 +263,7 @@ bool FPSAuthority::submit(int64_t id, const Dictionary &d) {
     if (k != "life" && k != "seq" && k != "weapon" && k != "move" &&
         k != "yaw" && k != "pitch" && k != "fire" && k != "jump" &&
         k != "reload" && k != "slow" && k != "crouch" && k != "prone" &&
-        k != "blocked" && k != "xr" && k != "room" && k != "reload_grip" && k != "reload_trigger" &&
+        k != "blocked" && k != "xr" && k != "room" && k != "swim" && k != "reload_grip" && k != "reload_trigger" &&
         k != "vr_device" && k != "jetpack" && k != "offhand_fire")
       return false;
   }
@@ -279,6 +285,10 @@ bool FPSAuthority::submit(int64_t id, const Dictionary &d) {
         return false;
     } else if (!read_pose(pose, c.pose))
       return false;
+  }
+  if (d.has("swim")) {
+    if (d["swim"].get_type()!=Variant::VECTOR3) return false;
+    c.swim=cv(d["swim"]);
   }
   if (d.has("room")) {
     if (d["room"].get_type() != Variant::VECTOR3)
@@ -618,6 +628,9 @@ cqauthority::Moved FPSAuthority::move(const cqauthority::Motion &m, double) {
   auto it = actors.find(m.actor.id);
   if (!actor || it == actors.end())
     return {m.position, {}, m.height, false};
+  if(auto *p=core.resolve(m.actor);p && p->incapacitated) {
+    actor->set_collision_layer(0);actor->set_collision_mask(1);
+  }
   double height = m.height;
   actor->set_rotation(Vector3(0, m.yaw, 0));
   actor->set_velocity(gv(m.velocity));
@@ -749,6 +762,7 @@ cqauthority::V FPSAuthority::room_move(cqauthority::Handle h,
   auto *actor = body(h.id);
   if (!actor)
     return {};
+  if(auto *p=core.resolve(h);p && p->incapacitated) {actor->set_collision_layer(0);actor->set_collision_mask(1);}
   auto before = actor->get_global_position();
   actor->move_and_collide(gv(cqauthority::B::yaw(yaw).apply(requested)));
   return cv(actor->get_global_position() - before);
@@ -827,6 +841,10 @@ bool FPSAuthority::advance() {
       core.leave(item.second.handle);
       identities.erase(uint64_t(item.second.body));
     }
+  for(auto &item:actors)if(auto *p=core.find(item.first))if(auto *actor=body(item.first)) {
+    actor->set_collision_layer(p->dead || p->incapacitated || p->vehicle>=0 ? 0 : 2);
+    actor->set_collision_mask(p->vehicle>=0 ? 0 : p->incapacitated ? 1 : 3);
+  }
   core.advance(*this);
   sync_turrets();
   for (auto it = actors.begin(); it != actors.end();) {
@@ -839,9 +857,9 @@ bool FPSAuthority::advance() {
       it->second.handle = p->handle;
       identities[uint64_t(it->second.body)] = p->handle;
     }
-    if (p->dead) {
-      if (auto *actor = body(it->first))
-        actor->set_collision_layer(0);
+    if (auto *actor = body(it->first)) {
+      actor->set_collision_layer(p->dead || p->incapacitated || p->vehicle>=0 ? 0 : 2);
+      actor->set_collision_mask(p->vehicle>=0 ? 0 : p->incapacitated ? 1 : 3);
     }
     ++it;
   }
@@ -1090,4 +1108,99 @@ Dictionary FPSAuthority::squad_roster() const {
  Dictionary result;if(!on_owner())return result;
  for(const auto &p:core.players())if(p.active)result[p.handle.id]=p.squad<0?-1:p.team*4+p.squad;
  return result;
+}
+
+Dictionary FPSAuthority::prepare_medic_test(int64_t medic_id, int64_t bot_id) {
+  // Local fixture setup only: never an RPC or an ordinary production-world API.
+  auto *root=world();
+  if(!on_owner() || advancing || !root || !bool(root->get_meta("cq_medic_test",false)) ||
+     !OS::get_singleton()->get_cmdline_user_args().has("--cq-medic-test") || medic_id<=0 || bot_id>=0)
+    return {};
+  auto *medic=core.find(medic_id);auto *patient=core.find(bot_id);
+  if(!medic || !patient || medic->vehicle>=0 || patient->vehicle>=0) return {};
+  core.clear_supply(medic->handle);
+  cqauthority::V at=medic->spawn_position;
+  at.y=ground_height(at.x,at.z)+.03;
+  medic->classes.next=cqauthority::Role::MEDIC;
+  medic->classes.utility_t2[2]=false;medic->classes.primary_t2[2]=false;
+  medic->dead=true;auto player=core.respawn(medic->handle,at);medic=core.resolve(player);
+  if(!medic)return {};
+  medic->bot=false;medic->staging=false;medic->team=0;medic->squad=0;
+  medic->hp=35;medic->armor=0;medic->invulnerable=0;medic->yaw=0;
+  medic->classes.box_ready=0;medic->cooldown=0;
+  teleport(player,at);
+  patient=core.find(bot_id);patient->dead=true;patient->classes.next=cqauthority::Role::SHOCKTROOP;
+  cqauthority::V beside=at+cqauthority::V{.8,0,-.9};beside.y=ground_height(beside.x,beside.z)+.03;
+  auto bot=core.respawn(patient->handle,beside);patient=core.resolve(bot);
+  if(!patient)return {};
+  patient->bot=false;patient->staging=false;patient->team=0;patient->squad=0;
+  patient->hp=1;patient->armor=0;patient->invulnerable=0;patient->yaw=0;
+  patient->incapacitated=true;patient->bleed_remaining=300.;patient->injury_tick=core.tick();
+  patient->velocity={};patient->input.blocked=true;teleport(bot,beside);
+  Dictionary result;result["medic"]=inspect(medic_id);result["patient"]=inspect(bot_id);return result;
+}
+
+Dictionary FPSAuthority::prepare_technician_test(int64_t id) {
+  auto *root=world();
+  if(!on_owner() || advancing || !root || !bool(root->get_meta("cq_technician_test",false)) ||
+     !OS::get_singleton()->get_cmdline_user_args().has("--cq-technician-test") || id<=0)return {};
+  auto *p=core.find(id);if(!p)return {};
+  cqauthority::Vehicle *transport=nullptr;
+  for(const auto &v:core.vehicles())if(v.active && v.kind==cqauthority::VehicleKind::TRANSPORT && v.team==0) {
+    bool occupied=false;for(auto h:v.seats)occupied|=h.id && h.id!=id;
+    if(!occupied){transport=&const_cast<cqauthority::Vehicle&>(v);break;}
+  }
+  if(!transport) {
+    int index=core.add_vehicle(cqauthority::VehicleKind::TRANSPORT,p->spawn_position,0,0);
+    if(index<0)return {};
+    transport=&const_cast<cqauthority::Vehicle&>(core.vehicles()[size_t(index)]);
+  }
+  if(p->vehicle>=0) {
+    auto &old=const_cast<cqauthority::Vehicle&>(core.vehicles()[size_t(p->vehicle)]);
+    for(auto &h:old.seats)if(h.id==id)h={};if(old.pilot.id==id)old.pilot={};
+  }
+  auto &v=*transport;v.seats={};v.pilot={};v.position=v.spawn;v.yaw=v.spawn_yaw;
+  v.hp=40;v.velocity={};v.speed=0;v.fall_speed=0;v.visual_y=v.position.y;v.respawn_at=0;
+  sync_vehicle(v);
+  auto at=v.position+cqauthority::B::yaw(v.yaw).apply(cqauthority::V{3.4,0,-2.65});at.y=ground_height(at.x,at.z)+.03;
+  core.clear_supply(p->handle);p->classes.next=cqauthority::Role::TECHNICIAN;
+  p->classes.utility_t2[3]=false;p->classes.primary_t2[3]=false;p->classes.secondary_t2[3]=false;
+  p->dead=true;auto h=core.respawn(p->handle,at);p=core.resolve(h);if(!p)return {};
+  p->bot=false;p->staging=false;p->team=0;p->squad=0;p->hp=100;p->armor=50;p->invulnerable=0;
+  p->yaw=v.yaw+1.5707963267948966;p->classes.box_ready=0;p->cooldown=0;
+  p->ammo[0]=1;p->clips[2]=1;p->ammo[2]=3;p->clips[5]=3;teleport(h,at);
+  Dictionary result;result["technician"]=inspect(id);result["vehicle_key"]=int64_t(v.key);result["vehicle_hp"]=v.hp;return result;
+}
+
+Dictionary FPSAuthority::prepare_scout_test(int64_t id,int64_t technician_id) {
+  auto *root=world();
+  if(!on_owner() || advancing || !root || !bool(root->get_meta("cq_scout_test",false)) ||
+     !OS::get_singleton()->get_cmdline_user_args().has("--cq-scout-test") || id<=0 || technician_id>=0)return {};
+  auto *p=core.find(id);auto *tech=core.find(technician_id);
+  if(!p || !tech || p->vehicle>=0 || tech->vehicle>=0)return {};
+  auto at=p->spawn_position;at.y=ground_height(at.x,at.z)+.03;
+  core.clear_supply(p->handle);p->classes.next=cqauthority::Role::SCOUT;
+  p->classes.utility_t2[1]=false;p->classes.primary_t2[1]=false;p->classes.secondary_t2[1]=false;
+  p->dead=true;auto h=core.respawn(p->handle,at);p=core.resolve(h);if(!p)return {};
+  p->bot=false;p->staging=false;p->team=0;p->squad=0;p->hp=100;p->armor=0;p->invulnerable=0;p->yaw=0;p->cooldown=0;teleport(h,at);
+  tech=core.find(technician_id);tech->classes.next=cqauthority::Role::TECHNICIAN;tech->classes.primary_t2[3]=false;tech->classes.utility_t2[3]=false;
+  auto behind=at+cqauthority::V{0,0,100};behind.y=ground_height(behind.x,behind.z)+.03;
+  tech->dead=true;auto ally=core.respawn(tech->handle,behind);tech=core.resolve(ally);if(!tech)return {};
+  tech->bot=false;tech->staging=false;tech->team=0;tech->squad=0;tech->hp=100;tech->armor=50;tech->invulnerable=0;tech->yaw=0;
+  tech->velocity={};tech->input.blocked=true;teleport(ally,behind);
+  Dictionary result;result["scout"]=inspect(id);result["technician"]=inspect(technician_id);return result;
+}
+
+Dictionary FPSAuthority::prepare_shocktroop_test(int64_t id) {
+  auto *root=world();
+  if(!on_owner() || advancing || !root || !bool(root->get_meta("cq_shocktroop_test",false)) ||
+     !OS::get_singleton()->get_cmdline_user_args().has("--cq-shocktroop-test") || id<=0)return {};
+  auto *p=core.find(id);if(!p || p->vehicle>=0)return {};
+  auto at=p->spawn_position;at.y=ground_height(at.x,at.z)+.03;
+  core.clear_supply(p->handle);p->classes.next=cqauthority::Role::SHOCKTROOP;
+  p->classes.utility_t2[0]=false;p->classes.primary_t2[0]=false;p->classes.secondary_t2[0]=false;
+  p->dead=true;auto h=core.respawn(p->handle,at);p=core.resolve(h);if(!p)return {};
+  p->bot=false;p->staging=false;p->team=0;p->squad=0;p->hp=100;p->armor=100;
+  p->invulnerable=0;p->yaw=0;p->cooldown=0;teleport(h,at);
+  return inspect(id);
 }

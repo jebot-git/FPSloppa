@@ -70,3 +70,23 @@ Fourteen further takes are edited in `tools/cq_audio/tier_reserve/`, with their 
 [Pixabay Content License summary](https://pixabay.com/service/license-summary/) and [full terms](https://pixabay.com/service/terms/). These two derivatives are not CC0 and are supplied as integrated game effects. Their original MP3s remain in the ignored authoring cache. They were downloaded by the user, then copied from local Downloads because automated Pixabay requests returned HTTP 403. Exact input hashes, source pages and layer recipes are recorded in the manifests. Do not relabel these derivatives under the project's source-code license.
 
 [Audition, recipes and Audacity MCP receipt](../../../docs/audio/cq-vehicles-20261015/README.md). Six masters were mixed/filtered/faded/normalized/exported through Audacity MCP; the runtime build performs 24 kHz PCM16 encoding and loop construction. `tools/cq_audio/reauthor_vehicles.py` reproduces this pass. Manually downloaded Pixabay sources must be supplied in the documented cache paths; source validation checks their hashes.
+
+## User-selected jungle recordings, 2026-10-15
+
+The five original WAVs supplied by the user as **CC0-1.0** replace the interim synthesized day/night beds. Original WAV hashes, authors from the supplied filenames, source pages and exact layer recipes are pinned in `tools/cq_audio/jungle_mix.json` and `sources.json`. These are original user downloads, not the older HQ-preview sources described above. The user's CC0 declaration is recorded; the source pages were not independently retrievable during this pass.
+
+| Recording | Author | Source |
+| --- | --- | --- |
+| 653743__nonamethefish__peruvian-amazon-birds-frogs-daytime.wav | nonamethefish | [Freesound](https://freesound.org/people/nonamethefish/sounds/653743/) |
+| 653742__nonamethefish__peruvian-amazon-frogs-birds-jungle.wav | nonamethefish | [Freesound](https://freesound.org/people/nonamethefish/sounds/653742/) |
+| 332727__sethlind__birds-and-bugs-in-the-woods-of-costa-rica.wav | sethlind | [Freesound](https://freesound.org/people/sethlind/sounds/332727/) |
+| 619311__nicotep__ambiente_lacandon.wav | nicotep | [Freesound](https://freesound.org/people/nicotep/sounds/619311/) |
+| 276067__anne82__jungleathmo.wav | anne82 | [Freesound](https://freesound.org/people/anne82/sounds/276067/) |
+
+Daytime layers Peruvian daytime birds/frogs, Costa Rican birds/bugs, Lacandon ambience and a quiet jungleathmo bed. Nighttime layers the Peruvian frog recording with jungleathmo and Lacandon. All five supplied recordings are used across the pair. No music or synthetic replacement bed is added.
+
+Source excerpts are band-limited, DC-corrected, level-matched and crossfaded into 128-second stereo stems. Audacity MCP applies the pinned per-layer gain ratios and exports stereo masters. Runtime finishing applies an eight-second equal-power tail/head overlap, quiet peak/RMS trim and 24 kHz stereo Vorbis encoding; each final loop is 120 seconds. Existing adaptive day/night/POI mixing, ambience slider and quiet runtime gains remain in effect.
+
+Audacity's track-properties gain command did not change the actual audio gain in this installation. The final masters instead use verified `effect_amplify` ratios; exports correlate above 0.999 with the intended weighted source mix. Intermediate drafts are not used by the game.
+
+Copy the five original WAVs into ignored `tools/audio-sources/cq-field/`, then run `python3 tools/cq_audio/reauthor_jungle.py`. `--stems DIRECTORY` prepares the editable layers; `--master-dir DIRECTORY` consumes Audacity's `forest_day.wav` and `forest_night.wav` exports. The ordinary field-audio build invokes this pass last, so rebuilding does not restore the old synthesized ambience. [Audition, verification and Audacity receipt](../../../docs/audio/cq-jungle-20261015/README.md).

@@ -25,6 +25,7 @@ func run()->void:
  check(Runtime.available("FPSAuthority"),"new authority registered")
  if not failures.is_empty():quit(1);return
  authority=ClassDB.instantiate("FPSAuthority");world=Node3D.new();root.add_child(world)
+ check(authority.prepare_medic_test(1,-1).is_empty(),"medic fixture mutation unavailable to normal authority worlds")
  box(Vector3(0,-.5,0),Vector3(80,1,80))
  var first:=actor(1,Vector3.ZERO);var body:CharacterBody3D=first[0];var life:int=first[1]
  Engine.physics_ticks_per_second=60

@@ -1,0 +1,86 @@
+{
+  "session": "20261015T142245Z",
+  "status": "Recorded for follow-up; no gameplay fixes applied during this analytics review.",
+  "findings": [
+    {
+      "id": "designator_laser",
+      "report": "Target designator emits no visible laser.",
+      "status": "user_reported"
+    },
+    {
+      "id": "medic_injector",
+      "report": "Medic injector is missing; a blaster pistol appears instead.",
+      "status": "user_reported"
+    },
+    {
+      "id": "red_dot_zero",
+      "report": "Raise red dot and adjust zeroing so the barrel does not obstruct it.",
+      "status": "user_reported"
+    },
+    {
+      "id": "shocktroop_grenade",
+      "report": "Armed shocktroop grenade is not launched when thrown.",
+      "status": "user_reported"
+    },
+    {
+      "id": "technician_drill",
+      "report": "Technician drill is replaced by the primary launcher.",
+      "status": "user_reported"
+    },
+    {
+      "id": "class_boxes",
+      "report": "Medic and technician cannot deploy boxes.",
+      "status": "user_reported"
+    },
+    {
+      "id": "pistol_support_grip",
+      "report": "Offhand pistol grip forces the weapon angle downwards.",
+      "status": "user_reported"
+    },
+    {
+      "id": "transport_seats",
+      "report": "Move transport driver and cabin passenger positions slightly forward.",
+      "status": "user_reported"
+    },
+    {
+      "id": "scope_hud",
+      "report": "Hide HUD while viewing through a scope.",
+      "status": "user_reported"
+    },
+    {
+      "id": "menu_locomotion",
+      "report": "Keep map and menu in front of the player while locomoting.",
+      "status": "user_reported"
+    },
+    {
+      "id": "jungle_ambience",
+      "report": "Reauthor jungle ambience to remove cityscape sounds and lower overall ambience volume.",
+      "status": "user_reported"
+    },
+    {
+      "id": "grass_audio",
+      "report": "Increase grass volume slightly.",
+      "status": "user_reported"
+    },
+    {
+      "id": "massacre_charge_panel",
+      "report": "Restore charging information on the Massacre launcher info panel.",
+      "status": "user_reported"
+    },
+    {
+      "id": "transport_speed",
+      "report": "Increase transport speed slightly.",
+      "status": "user_reported"
+    },
+    {
+      "id": "water_swimming",
+      "report": "Water kills the player before there is an opportunity to swim.",
+      "status": "user_reported"
+    },
+    {
+      "id": "suicide_reliability",
+      "report": "Suicide requires multiple button presses to register.",
+      "status": "user_reported"
+    }
+  ]
+}

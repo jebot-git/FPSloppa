@@ -3,14 +3,14 @@ extends RefCounted
 const ROLES=["shocktroop","scout","medic","technician"]
 const PRIMARY=[4,9,4,5]
 const ADVANCED=[1,10,3,11]
-const UTILITY=[["jetpack","airstrike"],["recon","recon_drone"],["health","healing_grenade"],["ammo","turret"]]
+const UTILITY=[["jetpack","airstrike"],["recon","recon_drone"],["medical","healing_grenade"],["engineering","turret"]]
 static func project(frame:Dictionary,origin:float,epoch:int,duration:float)->Array:
  var mode:Dictionary={"kind":"tdm","scores":frame.mode.scores,"bases":[],"flags":[],"hill":Vector3.ZERO,"owner":-1,"friendly_fire":false,"announcer":false,"weapon_rules":"ut99","locomotion":{},"movement_ack":{},"ordnance":{},"cq_points":{"scores":frame.mode.scores,"winner":frame.mode.winner},"class_mode":{"clock":origin+frame.mode.time,"lighting_time":frame.mode.lighting_time}}
  var players:Array=[];var shots:Array=[];var watermark:=-1
  for id in frame.players:
   var p:Dictionary=frame.players[id]
   if not p.has("class") or not p.has("owned"):return []
-  var c:Dictionary=p["class"];var state:Dictionary={"squad":p.get("squad",-1),"combat_until":origin+p.get("combat_until",0.),"class":ROLES[c.role],"next":ROLES[c.next],"xp":{},"nv":p.nvg,"nb":origin+c.blind_until,"cloak_until":origin+c.cloak_until,"cloak_ready":origin+c.cloak_ready,"dispenser_ready":origin+c.box_ready,"drone_ready":origin+c.drone_ready,"airstrike_ready":origin+c.strike_ready,"turret_ready":origin+c.turret_ready,"primary_choices":{},"secondary_choices":{},"utility_choices":{},"equipped_utility":UTILITY[c.role][int(c.equipped_t2)],"weapon_held":p.get("weapon_held",true)}
+  var c:Dictionary=p["class"];var state:Dictionary={"team":p.team,"squad":p.get("squad",-1),"combat_until":origin+p.get("combat_until",0.),"class":ROLES[c.role],"next":ROLES[c.next],"xp":{},"nv":p.nvg,"nb":origin+c.blind_until,"cloak_until":origin+c.cloak_until,"cloak_ready":origin+c.cloak_ready,"dispenser_ready":origin+c.box_ready,"drone_ready":origin+c.drone_ready,"airstrike_ready":origin+c.strike_ready,"turret_ready":origin+c.turret_ready,"primary_choices":{},"secondary_choices":{},"utility_choices":{},"equipped_utility":UTILITY[c.role][int(c.equipped_t2)],"weapon_held":p.get("weapon_held",true)}
   for i in 4:
    state.xp[ROLES[i]]=c.xp[i];state.primary_choices[ROLES[i]]=ADVANCED[i] if c.primary_t2&(1<<i) else PRIMARY[i];state.secondary_choices[ROLES[i]]=0 if c.secondary_t2&(1<<i) else 8 if i==1 else 2;state.utility_choices[ROLES[i]]=UTILITY[i][int(bool(c.utility_t2&(1<<i)))]
   var clips:Dictionary={}
@@ -21,7 +21,7 @@ static func project(frame:Dictionary,origin:float,epoch:int,duration:float)->Arr
   if p.inject_progress>0:mode["ci:"+str(id)]={"medic":p.injector,"progress":p.inject_progress,"touched":origin+frame.mode.time}
   if p.designation.active:mode["cl:"+str(id)]={"start":p.designation.start,"position":p.designation.position,"direction":p.designation.direction,"until":origin+p.designation.until,"team":p.team,"life":p.life}
   var jet:Dictionary=p.get("jetpack",{}).duplicate()
-  mode.locomotion[id]={"height":p.height,"grounded":p.grounded,"cs16_stamina":p.stamina,"jetpack":jet,"jump_ack":p.jump_ack,"jetpack_ack":p.jetpack_ack,"fire_ack":p.fire_ack};mode.movement_ack[id]=p.last_seq
+  mode.locomotion[id]={"incapacitated":p.incapacitated,"height":p.height,"grounded":p.grounded,"cs16_stamina":p.stamina,"jetpack":jet,"jump_ack":p.jump_ack,"jetpack_ack":p.jetpack_ack,"fire_ack":p.fire_ack};mode.movement_ack[id]=p.last_seq
   players.append([id,p.position,p.velocity,p.yaw,p.pitch,p.hp,p.armor,p.dead,p.weapon,Array(p.ammo),p.owned,p.kills,p.deaths,0,p.life,maxf(0,p.respawn_at-frame.mode.time),p.invulnerable>frame.mode.time,p.cooldown,p.xr,0.,p.get("staging",false),Vector2.ZERO])
   mode["cg:"+str(id)]=[[p.grenades if c.role==0 else 0,0,0,p.grenades if c.role==2 else 0],(3 if c.role==2 and c.equipped_t2 else 0) if p.grenade_selected else -1,p.grenade_primed,p.grenade_offhand,3 if c.role==2 and c.equipped_t2 else 0]
  for i in frame.mode.zones.size():mode["cqo:"+str(i)]=frame.mode.zones[i]

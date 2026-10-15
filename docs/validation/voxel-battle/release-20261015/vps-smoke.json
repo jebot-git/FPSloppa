@@ -1,0 +1,36 @@
+{
+  "passed": true,
+  "release": "/home/blux/fpsloppa-cq/releases/20261015-cq-native-vr17-live64",
+  "hashes_verified": true,
+  "client_exit": 0,
+  "client": {
+    "failures": [],
+    "observed": {
+      "dead": true,
+      "destruction": true,
+      "gibbed": true,
+      "grenade_flying": true,
+      "grenade_selected": true,
+      "jetpack": true,
+      "native": true,
+      "nvg": true,
+      "poses": false,
+      "respawn": true,
+      "squad": true,
+      "team_change": true,
+      "team_presentation": true
+    },
+    "shots": 17,
+    "tick": 4020,
+    "tracked": false,
+    "warmup_seconds": 8.0
+  },
+  "ready": {
+    "adaptive_tick": true,
+    "destruction": true,
+    "map_epoch": 0,
+    "max_clients": 64,
+    "physics_hz": 60,
+    "players": 0
+  }
+}

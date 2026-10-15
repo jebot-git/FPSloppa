@@ -1,8 +1,9 @@
 extends "res://tools/voxel_battle/preview_battery_tank.gd"
+var revival_timers=preload("res://deathmatch/conquest/classes/revival_timers.gd").new() # Legacy timer asset preview only.
 const HOVER_OUTPUT:="res://test-results/hover-tanks"
 func _process(delta:float) -> bool:
 	super._process(delta)
-	if game:game.revival_timers.draw(game)
+	if game:revival_timers.draw(game)
 	return false
 func shot(name:String) -> void:
 	await create_timer(.8).timeout;await RenderingServer.frame_post_draw;root.get_texture().get_image().save_png(HOVER_OUTPUT+"/"+name+".png");print("HOVER_CAPTURE ",name)
@@ -24,8 +25,8 @@ func run() -> void:
 	var point:Vector3=tanks.rows[4].position+Vector3(4,0,0);game.fighters[1].position=point+Vector3(0,0,-3);game.fighters[2].position=point;game.classes.incapacitate(2,1,"TEST",false,false,false);game.fighters[2].update_height(.65)
 	game.camera.position=point+Vector3(0,1.6,-3);game.camera.look_at(point+Vector3.UP*.5);game.camera.fov=65;await settle()
 	for fraction in [1.0,.5,.15]:
-		game.classes.downed[2].remaining=10*fraction;game.revival_timers.draw(game);await shot("medic-revival-"+str(int(fraction*100)))
-	ok=game.revival_timers.nodes.has(2) and game.revival_timers.nodes[2].visible and ok
-	game.classes.downed.erase(2);game.revival_timers.draw(game);await process_frame;ok=not game.revival_timers.nodes.has(2) and ok
+		game.classes.downed[2].remaining=10*fraction;revival_timers.draw(game);await shot("medic-revival-"+str(int(fraction*100)))
+	ok=revival_timers.nodes.has(2) and revival_timers.nodes[2].visible and ok
+	game.classes.downed.erase(2);revival_timers.draw(game);await process_frame;ok=not revival_timers.nodes.has(2) and ok
 	FileAccess.open(HOVER_OUTPUT+"/result.json",FileAccess.WRITE).store_string(JSON.stringify({"renderer":RenderingServer.get_current_rendering_method(),"light_triangles":702,"heavy_triangles":2229,"light_count":4,"heavy_count":2,"scope_and_medic_timer":ok},"\t"))
 	print("HOVER_PREVIEW_RESULT ",ok);map.terrain.shutdown();game.battle_map=null;game.disconnect_game();game.free();quit(0 if ok else 1)

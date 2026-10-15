@@ -2077,6 +2077,7 @@ func _snapshot(data: Array,items: PackedByteArray,remaining: float,pause: float,
 		if id!=mine or demos.playing:actor.visual_grounded=mode_state.get("locomotion",{}).get(id,{}).get("grounded",absf(row[2].y)<.5)
 		actor.visual_pitch = row[4]
 		actor.visual_weapon = row[8]
+		actor.incapacitated=mode_state.get("locomotion",{}).get(id,{}).get("incapacitated",false)
 		actor.spectator=s.spectator
 		actor.show_alive(not s.dead,id==mine and not dedicated)
 		if id==mine:

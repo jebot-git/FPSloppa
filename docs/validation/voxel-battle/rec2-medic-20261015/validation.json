@@ -1,0 +1,98 @@
+{
+  "date": "2026-10-15T16:23:26.443142+00:00",
+  "branch": "experimental/cq-voxelspace",
+  "video": {
+    "path": "/home/blux/Downloads/rec2.mp4",
+    "sha256": "e263fcaf3bc7e153bc200e94e03ed24ddd206d615a2eb8075361b19f477de84f",
+    "seconds": 62.90016,
+    "observations": [
+      "Visible prone body extends forward of previous root-only grab point.",
+      "At approximately 48 seconds health is 54, rising to 100 by approximately 58 seconds while no box is visible."
+    ]
+  },
+  "fixes": [
+    "Raised rear specialist tool mount 18 cm above the prior hip-relative origin.",
+    "Restored CQ draw_class_players through the actual match objective render hook; health/ammo box models follow native snapshot positions.",
+    "Tracked gripping selects the prone body centre line including torso/head; patient interaction is evaluated before holster/equipment pickup.",
+    "Native dragging retains the original local grab anchor and moves the patient through world collision.",
+    "Incapacitated native and client bodies have collision layer 0 / world-only mask 1; CQ analytical damage detection remains active. Normal collision returns on revival.",
+    "Both health and ammo boxes disappear from the shoulder during cooldown and return after 15 seconds. Native authority rejects early replacement. Depletion starts a new 15-second cooldown. Class box limits still retire the oldest box on replacement."
+  ],
+  "checks": {
+    "native_core": {
+      "checks": 917468,
+      "passed": true,
+      "includes_64_player_3600_tick_replay": true
+    },
+    "asan_ubsan": {
+      "checks": 917468,
+      "passed": true
+    },
+    "real_jolt_medic": {
+      "checks": 1325,
+      "passed": true
+    },
+    "real_jolt_authority": {
+      "checks": 593,
+      "passed": true
+    },
+    "xr_gesture": {
+      "checks": 19,
+      "passed": true
+    },
+    "cq_live_mechanics": {
+      "checks": 36,
+      "passed": true
+    },
+    "gd_supply_balance": {
+      "passed": true,
+      "fixture_fix": "Removed default tank at origin which occluded supply line-of-sight rays."
+    },
+    "production_arena": {
+      "passed": true,
+      "desktop": true,
+      "tracked": true,
+      "bots": 4,
+      "authored_navmesh_warnings": 19,
+      "source_manifest": "checks/arena-summary.json"
+    }
+  },
+  "known_diagnostics": [
+    "Existing XR glove material UID warnings fall back to text paths.",
+    "Supply fixture shutdown retains its existing 29 ObjectDB / 13 resources exit diagnostics."
+  ],
+  "live_test": {
+    "status": "OpenXR client connected; fixture ready",
+    "path": "/home/blux/.cache/cq-rec2-medic-20261015-1823",
+    "address": "127.0.0.1:27781",
+    "remote_deployed_server_modified": false,
+    "verified_utc": "2026-10-15T16:24:17.720382+00:00",
+    "launch": {
+      "utc": "2026-10-15T16:23:38.948304+00:00",
+      "client_pid": 501749,
+      "server_pid": 501481,
+      "collectors": {
+        "client": 501750,
+        "server": 501751
+      },
+      "address": "127.0.0.1:27781",
+      "branch": "experimental/cq-voxelspace",
+      "protocol": "fpsloppa-cq-frontier-29-vr-mechanics",
+      "native_library_sha256": "9a0d4bf4a563591778b824f52f7acf7484e946d5570f86d84fcd7c3faef54d2d",
+      "output": "/home/blux/.cache/cq-rec2-medic-20261015-1823"
+    },
+    "runtime": "Meta Quest Pro on WiVRn 26.9.3",
+    "ready": {
+      "medic_hp": 35,
+      "patient_hp": 1,
+      "patient_incapacitated": true
+    },
+    "analytics": [
+      "client-gameplay.jsonl",
+      "client-process.jsonl including WiVRn performance",
+      "server-process.jsonl",
+      "server.log health events"
+    ],
+    "reset": "F8 or RESET MEDIC TEST in the menu"
+  }
+}

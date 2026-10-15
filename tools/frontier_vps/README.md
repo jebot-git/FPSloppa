@@ -5,14 +5,26 @@ The live target is `blux@87.106.27.237` (Ubuntu 24.04, AMD EPYC-Milan, 12 vCPU,
 4.7.2, CS movement, resident native authority, adaptive 60/30 Hz physics, 200-point CQ and a
 32-player default. It does not deploy the legacy district worker stack.
 
-The live release as of **2026-10-15** is `20261015-cq-headlights-destruction64`,
-from `b7de5c2` on `experimental/cq-voxelspace`. It explicitly uses **64 player
+The live release as of **2026-10-15** is `20261015-cq-native-vr17-live64`,
+version `0.17v-cq-experimental` on `experimental/cq-voxelspace`. It uses **64 player
 slots**, adaptive **60 Hz / 30 Hz fallback**, and `--cq-destruction`. The live
-systemd override is `90-live-options.conf`; normal source defaults remain
-unchanged. Both local and isolated VPS package admission tests passed, including
-the replicated destruction flag. [Deployment records](../../docs/validation/voxel-battle/live-20261015/)
-include activation settings, checksums, source commit and smoke results.
+systemd override is `90-live-options.conf`. Both local packaged clients and the
+isolated VPS candidate passed multiplayer admission checks. [Release validation](../../docs/validation/voxel-battle/release-20261015/)
+records activation settings, pack hashes and results. Sustained 64-player load
+remains experimental.
 
+Build game-only Linux/Windows clients and a Linux dedicated server with
+`python3 tools/frontier_vps/build_release.py --output /new/build/directory` after
+building portable native libraries for all three targets. The clients connect to
+`87.106.27.237:7777` by default; explicit `-- --connect HOST --port PORT` overrides
+this preset. Launcher/updater, authoring assets and interactive test scenes are
+excluded. Validate shipped clients using `test_release.py --bundle BUILD
+--config CONFIG --output NEWDIR --wine`. After committing/tagging, archive with
+`archive_release.py --build BUILD` and publish using
+`python3 tools/publish_release.py --prerelease`.
+
+Keep legacy `sv_maxclients "32"`: its validator caps that setting at 32.
+The CQ-specific `sv_cq_maxclients "64"` selects the actual live CQ capacity.
 
 Ordinary `--server --config server.cfg` startup selects native authority and starts
 at 60 Hz, falling back to 30 Hz under pressure and recovering after sustained
@@ -24,7 +36,7 @@ already running deployment. See [the governor policy](../authority_core/README.m
 
 Runtime layout:
 
-- `~/fpsloppa-cq/releases/20261015-cq-headlights-destruction64/cq-server{,.pck}`: versioned runtime and resource pack.
+- `~/fpsloppa-cq/releases/20261015-cq-native-vr17-live64/cq-server{,.pck}`: versioned runtime and resource pack.
 - `~/fpsloppa-cq/current`: active release symlink.
 - `~/fpsloppa-cq/server.cfg`: production settings, `set sv_cq_maxclients "64"`, `set sv_cq_adaptive_tick "1"`, `set sv_cq_tick_rate "60"`.
 - `fpsloppa-cq.service`: system service running as `blux`; logs in journald.

@@ -72,6 +72,7 @@ func play(kind: String,where: Vector3,volume: float=-8) -> void:
 	var player: AudioStreamPlayer3D=create_player()
 	configure(player)
 	player.stream=source
+	player.set_meta("sound_kind",kind)
 	if kind.begins_with("weapon_"):
 		volume += float(WeaponLevels.TRIM_DB.get(player.stream.resource_path.get_file(),0.0))
 	player.volume_db=volume
@@ -80,6 +81,9 @@ func play(kind: String,where: Vector3,volume: float=-8) -> void:
 	player.pitch_scale=randf_range(.985,1.015) if kind.begins_with("weapon_") else randf_range(.97,1.03)
 	if kind=="ba2_stomp":
 		player.max_distance=100;player.unit_size=8
+		if player.has_method("play_stream"):player.set("min_attenuation_distance",player.unit_size)
+	if kind=="cq_field_ordnance_impact":
+		player.max_distance=180;player.unit_size=12
 		if player.has_method("play_stream"):player.set("min_attenuation_distance",player.unit_size)
 	if kind in ["jump","land"]:
 		player.max_distance=28;player.unit_size=3.5

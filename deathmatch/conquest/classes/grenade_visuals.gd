@@ -29,6 +29,14 @@ static func model(_kind:int) -> Node3D:
 	var result:Node3D=load("res://deathmatch/weapons/cq/grenade.glb").instantiate()
 	preload("res://tools/voxel_battle/baked_lighting.gd").convert_node(result)
 	return result
+static func show_armed(root:Node3D,armed:bool)->void:
+	var indicator:MeshInstance3D=root.get_node_or_null("ArmedIndicator")
+	if not indicator and armed:
+		indicator=MeshInstance3D.new();indicator.name="ArmedIndicator"
+		var ring:=TorusMesh.new();ring.inner_radius=.025;ring.outer_radius=.031;ring.rings=12;ring.ring_segments=6;indicator.mesh=ring;indicator.position.y=.073
+		var finish:=StandardMaterial3D.new();finish.shading_mode=BaseMaterial3D.SHADING_MODE_UNSHADED;finish.albedo_color=Color("ffb33d");indicator.material_override=finish;indicator.cast_shadow=GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+		root.add_child(indicator)
+	if indicator:indicator.visible=armed
 func cloud() -> Node3D:
 	var root:=Node3D.new();var puff:=QuadMesh.new();puff.size=Vector2(2,2)
 	var mat:=ShaderMaterial.new();mat.shader=preload("res://deathmatch/conquest/classes/smoke.gdshader")

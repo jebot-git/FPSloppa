@@ -2,7 +2,7 @@ extends RefCounted
 ## Server-authoritative DE utility. Separate equipment slots preserve gun IDs.
 const ITEMS=[110,111,112,113]
 const NAMES=["HE GRENADE","FLASHBANG","SMOKE GRENADE","HEALING GRENADE"]
-const LIMITS=[1,2,1,3]
+const LIMITS=[3,2,1,3]
 const PRICES=[300,200,300,100]
 const FUSE=1.5
 const SMOKE_TIME=20.0

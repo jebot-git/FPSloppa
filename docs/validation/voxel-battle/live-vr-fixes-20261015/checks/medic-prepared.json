@@ -1,0 +1,14 @@
+{
+  "server_pid": 476638,
+  "address": "127.0.0.1:27779",
+  "scene": "res://tools/voxel_battle/medic_test.tscn",
+  "medic_hp": 35,
+  "medic_armour": 0,
+  "patient_hp": 1,
+  "patient_incapacitated": true,
+  "patient_bleedout_seconds": 300,
+  "reset": "F8 or RESET MEDIC TEST in the menu",
+  "client_launcher": "/home/blux/.cache/cq-medic-test-20261015-ready/run-client.sh",
+  "output": "/home/blux/.cache/cq-medic-test-20261015-ready",
+  "server_left_running": true
+}

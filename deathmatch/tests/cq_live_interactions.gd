@@ -33,6 +33,7 @@ func run():
  for side in 2:
   rig.cq_utility.reset()
   for t in trackers:t.set_input("grip",0.);t.set_input("trigger",0.)
+  rig.cq_utility.update(.7,true)
   var mount:Vector3=rig.origin.to_local(rig.shoulder_mount(false).origin)
   trackers[side].set_pose("grip",Transform3D(Basis.IDENTITY,mount),Vector3.ZERO,Vector3.ZERO,XRPose.XR_TRACKING_CONFIDENCE_HIGH)
   await process_frame;rig.cq_utility.update(.016,true)
@@ -41,7 +42,40 @@ func run():
   rig.update_shoulder_utility(true)
   var expected:Transform3D=preload("res://deathmatch/conquest/classes/grenade_visuals.gd").held_pose(rig.cq_utility.hand().global_transform,side==0)
   check(rig.shoulder_utility.global_transform.is_equal_approx(expected),"grenade uses CS grip pose on chosen hand "+str(side))
+  trackers[side].set_input("trigger",1.);await process_frame;rig.cq_utility.update(.016,true);rig.update_shoulder_utility(true)
+  var armed_indicator:MeshInstance3D=rig.shoulder_utility.get_node_or_null("ArmedIndicator")
+  check(rig.cq_utility.armed and armed_indicator!=null and armed_indicator.visible,"trigger arms grenade with visible confirmation in either hand "+str(side))
   trackers[side].set_input("grip",0.);await process_frame;rig.cq_utility.update(.016,true);check(not rig.cq_utility.held,"release returns unarmed shoulder equipment "+str(side))
+  rig.update_shoulder_utility(true)
+  check(not armed_indicator.visible,"arming indicator clears after release "+str(side))
+ rig.cq_utility.update(.7,true)
+ var utility_state:Dictionary=game.grenades.state(game.multiplayer.get_unique_id())
+ utility_state.counts[0]=0;rig.update_shoulder_utility(true)
+ check(not rig.shoulder_utility.visible and not rig.cq_utility.grenade_available(),"empty authoritative grenade inventory hides the shoulder model")
+ for t in trackers:t.set_input("grip",0.);t.set_input("trigger",0.)
+ await process_frame;rig.cq_utility.update(.016,true)
+ trackers[1].set_input("grip",1.);await process_frame;rig.cq_utility.update(.016,true)
+ check(not rig.cq_utility.held,"empty inventory cannot produce a phantom grenade grab")
+ utility_state.counts[0]=1;rig.update_shoulder_utility(true)
+ check(rig.shoulder_utility.visible,"resupply restores the shoulder grenade")
+ trackers[1].set_input("grip",0.);await process_frame;rig.cq_utility.update(.016,true)
+ trackers[1].set_input("grip",1.);await process_frame;rig.cq_utility.update(.016,true)
+ check(rig.cq_utility.held,"resupplied grenade can be grabbed again")
+ rig.cq_utility.reset()
+ for t in trackers:t.set_input("grip",0.);t.set_input("trigger",0.)
+ game.menu_open=false;rig.cq_hands.holding=true
+ var visor_pose:Dictionary=game.VRPoses.neutral();visor_pose.right.origin=visor_pose.head.origin+Vector3(0,.1,-.1)
+ var vision=game.night_vision;var request_before:int=vision.request_sequence
+ trackers[1].set_input("trigger",1.);await process_frame
+ var visor_command:Dictionary={"xr":visor_pose,"fire":true,"offhand_fire":false}
+ vision.local_input(visor_command)
+ check(vision.request_sequence==request_before and visor_command.fire,"looking down at an occupied weapon hand cannot steal its trigger for NVG")
+ rig.cq_hands.holding=false;vision.local_input(visor_command)
+ check(vision.request_sequence==request_before,"freeing a hand with trigger already held cannot accidentally activate NVG")
+ trackers[1].set_input("trigger",0.);await process_frame;vision.local_input(visor_command)
+ trackers[1].set_input("trigger",1.);await process_frame;vision.local_input(visor_command)
+ check(vision.request_sequence==request_before+1,"empty hand with fresh trigger press can activate NVG")
+ trackers[1].set_input("trigger",0.)
  trackers[1].set_input("by_button",true);trackers[0].set_input("by_button",false);await process_frame
  check(game.bindings.vr_pressed(rig,"reload") and not game.bindings.vr_pressed(rig,"menu") and not game.bindings.vr_pressed(rig,"scores"),"weapon B/Y is reserved for ejection")
  trackers[1].set_input("by_button",false);trackers[0].set_input("by_button",true);await process_frame

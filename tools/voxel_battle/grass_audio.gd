@@ -18,7 +18,7 @@ func setup(arena) -> void:
 	for i in 3:streams.append(load("res://deathmatch/audio/jungle/rustle_%d.wav"%i))
 	for i in VOICES:
 		var player:=AudioStreamPlayer3D.new();player.max_distance=RADIUS;player.unit_size=2
-		player.attenuation_model=AudioStreamPlayer3D.ATTENUATION_INVERSE_DISTANCE;player.volume_db=-26;player.max_db=-20
+		player.attenuation_model=AudioStreamPlayer3D.ATTENUATION_INVERSE_DISTANCE;player.volume_db=-23;player.max_db=-17
 		player.bus="ArenaEffects" if AudioServer.get_bus_index("ArenaEffects")>=0 else "Master"
 		add_child(player);voices.append(player)
 func contains(point:Vector3) -> bool:
@@ -67,5 +67,5 @@ func emit_rustle(point:Vector3,prone:bool=false) -> void:
 	if voices.is_empty():return
 	var voice:AudioStreamPlayer3D=voices[emissions%VOICES]
 	voice.stop();voice.stream=streams[emissions%3];voice.global_position=point+Vector3.UP*.3
-	voice.volume_db=-32 if prone else -26;voice.pitch_scale=.93+float(emissions%7)*.025
+	voice.volume_db=-29 if prone else -23;voice.pitch_scale=.93+float(emissions%7)*.025
 	voice.play();emissions+=1
