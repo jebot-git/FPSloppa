@@ -90,6 +90,7 @@ struct Host {
   }
   virtual void teleport(Handle, V) {}
   virtual bool water(V) { return false; }
+  virtual bool grass_cover(V) { return false; }
   virtual V room_move(Handle, V requested, double yaw) {
     return B::yaw(yaw).apply(requested);
   }
@@ -99,6 +100,7 @@ struct Player {
   Handle handle;
   int team = 0, squad = -1;
   double combat_until = 0;
+  bool grass_concealed = false;
   bool active = false, dead = false, grounded = false, jump_held = false,
        bot = false, stress = false, staging = false;
   V position, velocity;
@@ -348,6 +350,9 @@ public:
   bool toggle_nvg(Handle);
   bool queue_action(Handle, const Action &);
   double spot_range(const Player &) const;
+  static double detection_scale(const Player &p) {
+    return p.grass_concealed && p.height <= .7 && p.vehicle < 0 ? .25 : 1.;
+  }
   const auto &boxes() const { return boxes_; }
   const auto &fields() const { return fields_; }
   void advance(Host &);

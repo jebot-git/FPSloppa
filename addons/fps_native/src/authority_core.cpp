@@ -14,13 +14,13 @@ const std::array<Weapon, 12> &weapons() {
        {0, 7, .35, 25, 0, 0, 100},
        {1, 40, .06, 12, 150, 0, 60, 0, .015},
        {1, 30, .12, 18, 70, 0, 160, 0, .035},
-       {2, 3, 1, 100, 25, 12, 250, 120, 5, 6.6, 1, 3, .35},
+       {2, 3, 1, 100, 55, 12, 825, 120, 5, 6.6, 1, 3, .35},
        {},
        {},
        {},
        {0, 7, .6, 40, 0, 0, 200},
        {1, 10, .8, 55, 0, 0, 250},
-       {2, 3, 1, 100, 40, 0, 400, 120, 5, 6.6}}};
+       {2, 3, 1, 100, 40, 0, 600, 120, 5, 6.6}}};
   return w;
 }
 Core::Core() { frame_.reserve(512 * 1024); }
@@ -1140,6 +1140,11 @@ void Core::advance(Host &host) {
     }
   if (cq.enabled)
     record_history();
+  // Ground concealment is host-derived at 10 Hz, independent of simulation Hz.
+  if (cq.enabled && clock_units_ / 6 != previous_clock_units / 6)
+    for (auto &p : players_)
+      if (p.active)
+        p.grass_concealed = !p.dead && p.vehicle < 0 && p.height <= .7 && host.grass_cover(p.position);
   auto b = Clock::now();
   if (cq.enabled && points.winner == -2)
     tick_locks(host);

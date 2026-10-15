@@ -127,7 +127,7 @@ func definition(owner_id:int,weapon:int,extra:Dictionary) -> Dictionary:
 		var team:int=extra.get("cq_team",game.players.get(owner_id,{}).get("team",0))
 		data.color=Color("ff3c39") if team==0 else Color("3b8dff")
 	if extra.get("turret_shot",false):data.name="TURRET ORDNANCE";data.guided=false;data.gravity=0.0;data.speed=40.0;data.fuse=4.0
-	if extra.has("hover_shot"):data.name="%s TANK ORDNANCE"%str(extra.hover_shot).to_upper();data.inherit=.5
+	if extra.has("hover_shot"):data.name="%s TANK ORDNANCE"%str(extra.hover_shot).to_upper();data.inherit=.5;data.fuse=10.0
 	if extra.get("battery_shot",false):data.merge({"name":"BATTERY MORTAR","kind":"tribes_mortar","speed":sqrt(5000.0*20),"gravity":20.0,"inherit":.5,"damage":152,"splash":152,"blast_radius":20.0,"radius":.3,"fuse":90.0,"arm":2.0,"bounce":.1,"guided":false,"quake_rocket":false,"direct_random":0,"cq_effect":"ordnance"},true)
 	if weapon==3:data.cq_bullet=true
 	return data

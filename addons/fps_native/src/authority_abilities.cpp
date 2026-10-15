@@ -210,7 +210,7 @@ void Core::tick_turrets(Host &host) {
       if (time_ < t.fire_at)
         continue;
       V origin = t.position + V{0, 1.15, 0}, target;
-      double nearest = 10000;
+      double nearest = 150 * 150;
       uint64_t vehicle = 0;
       Handle player;
       for (auto &v : vehicles_)
@@ -230,7 +230,8 @@ void Core::tick_turrets(Host &host) {
               p.classes.cloak_until <= time_) {
             V at = p.position + V{0, p.height * .5, 0};
             double distance = (at - origin).length2();
-            if (distance < nearest &&
+            double radius = 150 * detection_scale(p);
+            if (distance <= radius * radius && distance < nearest &&
                 !host.world_trace(origin, at, p.handle).blocked) {
               nearest = distance;
               target = at;
@@ -299,7 +300,7 @@ void Core::tick_locks(Host &host) {
         if (v.active && v.hp > 0 && v.team >= 0 && v.team != p.team) {
           V target = v.position + V{0, .8, 0}, delta = target - pose.origin;
           double alignment = forward.dot(delta.unit());
-          if (delta.length() > 200 || alignment <= score ||
+          if (delta.length() > 500 || alignment <= score ||
               host.entity_ray(pose.origin, target, v.key).blocked)
             continue;
           score = alignment;

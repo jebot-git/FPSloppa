@@ -2,6 +2,8 @@ extends RefCounted
 const Attribution=preload("res://deathmatch/server/attribution.gd")
 ## Team-shared name/icon spotting. Authority checks world LOS at 10 Hz.
 const ICONS={"shocktroop":"\ue000","scout":"\ue001","medic":"\ue002","technician":"\ue003"}
+const GrassCover=preload("res://tools/voxel_battle/grass_cover.gd")
+const GRASS_RANGE_SCALE:=.25
 const MEMORY:=10.0
 const RANGE:=75.0
 const SCOUT_RANGE:=150.0
@@ -50,7 +52,8 @@ func _attributed_tick(game) -> void:
 			var key:=Vector2i(team,target)
 			if seen.has(key):continue
 			var body=game.fighters[target]
-			if game.fighters[observer].position.distance_squared_to(body.position)>radius*radius:continue
+			var target_radius:float=radius*detection_scale(game,target)
+			if game.fighters[observer].position.distance_squared_to(body.position)>target_radius*target_radius:continue
 			for height in [body.eye_height(),body.eye_height()*.55]:
 				var end:Vector3=body.position+Vector3.UP*height
 				if Attribution.ray(game.get_world_3d().direct_space_state,PhysicsRayQueryParameters3D.create(origin,end,1),"query.spotting.tick.ray").is_empty():
@@ -80,3 +83,9 @@ static func range_for(game,id:int) -> float:
 	if "battle_map" in game and game.battle_map and game.battle_map.lighting:fraction=game.battle_map.lighting.light_fraction()
 	var minimum:float=(100.0 if scout else 50.0) if state.get("nv",false) else (25.0 if scout else 15.0)
 	return lerpf(minimum,SCOUT_RANGE if scout else RANGE,clampf(fraction,0,1))
+
+static func detection_scale(game,target:int)->float:
+	if not game.fighters.has(target):return 1.
+	var body=game.fighters[target]
+	if body.stance!="prone" or game.battery_tanks.mounted(target):return 1.
+	return GRASS_RANGE_SCALE if GrassCover.contains(body.position) else 1.

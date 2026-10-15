@@ -370,7 +370,7 @@ void Core::tick_classes(Host &host) {
           if (b.active && !b.dead && !b.staging && b.team != a.team &&
               b.classes.cloak_until <= time_ &&
               b.spotted[a.team] <= time_ + 9.8 &&
-              (b.position - a.position).length2() <= radius * radius) {
+              (b.position - a.position).length2() <= radius * radius * detection_scale(b) * detection_scale(b)) {
             for (double h : {std::min(1.48, b.height - .17),
                              std::min(1.48, b.height - .17) * .55})
               if (!host.world_trace(origin, b.position + V{0, h, 0}, a.handle)

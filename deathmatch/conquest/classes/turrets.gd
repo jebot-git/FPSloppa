@@ -4,7 +4,7 @@ const Attribution=preload("res://deathmatch/server/attribution.gd")
 const Lighting=preload("res://tools/voxel_battle/baked_lighting.gd")
 const HP:=200
 const AMMO:=12
-const RANGE:=100.0
+const RANGE:=150.0
 const COOLDOWN:=120.0
 const INTERVAL:=1.5
 const HALF:=1.0
@@ -92,7 +92,8 @@ func target(key:int,vehicles:Dictionary) -> Dictionary:
 		if not game.classes.alive(id) or s.team==row.team or s.team not in [0,1] or game.classes.cloaked(id) or game.match_mode.fortress.walkers.mounted(id):continue
 		var point:Vector3=game.fighters[id].position+Vector3.UP*minf(.8,game.fighters[id].collision_height*.5)
 		var range_squared:float=row.position.distance_squared_to(game.fighters[id].position)
-		if range_squared>RANGE*RANGE or range_squared>=distance:continue
+		var radius:float=RANGE*game.spotting.detection_scale(game,id)
+		if range_squared>radius*radius or range_squared>=distance:continue
 		var candidate:Dictionary={"name":"p:"+str(id),"position":point,"node":null}
 		if clear_line(key,origin,candidate):best=candidate;distance=range_squared
 	return best

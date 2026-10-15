@@ -6,7 +6,7 @@ random server seed and the existing synchronized lighting clock. Clients request
 the seed through an authenticated, rate-limited reliable RPC after admission;
 late joins derive the current blend immediately. Round/map epoch refreshes keep
 the session seed, and reconnects clear cached state. Protocol
-`fpsloppa-cq-frontier-23-weather` requires matching client and server packages.
+`fpsloppa-cq-frontier-24-cover-ranges` requires matching client and server packages.
 
 One random phase in the first day establishes a fixed weather opportunity every
 1,200 seconds, the full lighting cycle. Opportunities are therefore at least one

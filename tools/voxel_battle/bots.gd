@@ -66,3 +66,7 @@ func jetpack_steer(id: int,brain: Dictionary) -> void:
 		if not navigation.ray(actor.position+Vector3.UP*height,landing+Vector3.UP*height).is_empty():return
 	if not navigation.ray(actor.position+Vector3.UP,actor.position+Vector3.UP*8).is_empty():return
 	game.players[id].jetpack_pending=true;boosts+=1
+
+func visible(id:int,other:int)->bool:
+	if game.fighters[id].position.distance_squared_to(game.fighters[other].position)>pow(minf(60.,game.spotting.range_for(game,id))*game.spotting.detection_scale(game,other),2):return false
+	return super.visible(id,other)

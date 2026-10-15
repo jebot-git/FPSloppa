@@ -264,3 +264,8 @@ FPSAuthority::~FPSAuthority() {
         node->queue_free();
   }
 }
+
+bool FPSAuthority::grass_cover(cqauthority::V at) {
+  auto *root = world();
+  return root && root->has_method("grass_cover_at") && bool(root->call("grass_cover_at", gv(at)));
+}

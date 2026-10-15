@@ -414,7 +414,7 @@ void Core::tick_vehicles(Host &host) {
             for (int barrel = 0; barrel < profile.pair; ++barrel)
               launch_external(pilot->handle, v.team, 11, origins[barrel],
                               v.direction * 40 + v.velocity * .5, 100, 120, 5,
-                              0, 4, .025, v.key, 0);
+                              0, 10, .025, v.key, 0);
             --v.rounds;
             v.next = time_ + profile.interval;
             v.shot_at = time_;

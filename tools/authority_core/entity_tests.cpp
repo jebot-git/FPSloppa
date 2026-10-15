@@ -4,8 +4,21 @@ using namespace cqauthority;
 extern void check(bool, const char *);
 namespace {
 struct World : Host {
-  bool drowned = false;
+  bool drowned = false, grass = false;
+  bool grass_cover(V) override { return grass; }
   int seated = 0;
+  uint64_t hull_key = 0;
+  V hull_at;
+  Hit sweep_world(V a, V b, double, Handle h, uint64_t ignore) override {
+    double face = hull_at.z + 2.4;
+    if (hull_key && hull_key != ignore && a.z > face && b.z <= face) {
+      double t = (face-a.z)/(b.z-a.z); V at = a+(b-a)*t;
+      if (std::abs(at.x-hull_at.x) < 1.1 && at.y >= hull_at.y && at.y <= hull_at.y+2) {
+        Hit hit{true, {}, at, {0,0,1}}; hit.entity = hull_key; hit.entity_kind = 1; return hit;
+      }
+    }
+    return world_trace(a,b,h);
+  }
   double floor = 0;
   Moved move(const Motion &m, double dt) override {
     V p = m.position + m.velocity * dt;
@@ -109,6 +122,8 @@ void entity_tests() {
     check(c->vehicles()[tank].position.z < -.5,
           "tank motion joystick advances hull");
     check(c->vehicles()[tank].rounds == 4, "light tank single-shot cadence");
+    for (auto &shot : c->projectiles_state())
+      if (shot.active) check(shot.age + shot.remaining >= 7.5, "light tank projectile survives at least 300m flight");
     check(c->vehicles()[tank].visual_y - c->vehicles()[tank].position.y <= .5,
           "hover clearance at most half metre");
     check(c->resolve(h)->shots == 0,
@@ -147,6 +162,8 @@ void entity_tests() {
     int count = 0;
     for (auto &s : c->projectiles_state())
       count += s.active;
+    for (auto &shot : c->projectiles_state())
+      if (shot.active) check(shot.age + shot.remaining >= 7.5, "heavy tank projectile survives at least 300m flight");
     check(count == 2 && c->vehicles()[0].rounds == 3,
           "heavy tank consumes one volley for two barrel shots");
     check(c->leave(h), "disconnect mounted pilot");
@@ -159,7 +176,8 @@ void entity_tests() {
     World world;
     auto c = make();
     auto scout = add(*c, 1, 0, {}, Role::SCOUT, true);
-    auto target = add(*c, 2, 1, {0, 0, -1000});
+    auto target = add(*c, 2, 1, {80, 0, -1000});
+    world.grass = true;
     input(*c, scout, 0);
     input(*c, target, 0);
     use(*c, scout, 0);
@@ -176,11 +194,13 @@ void entity_tests() {
     check(ready > 120, "recon two minute cooldown");
     for (int i = 1; i < 710; ++i) {
       input(*c, scout, i);
-      input(*c, target, i);
+      Command prone; prone.life = target.life; prone.seq = i; prone.weapon = c->resolve(target)->weapon; prone.prone = true;
+      check(c->submit(target, prone), "prone recon target input");
       c->advance(world);
     }
+    check(c->resolve(target)->grass_concealed && Core::detection_scale(*c->resolve(target)) == .25, "recon target is concealed from ground detection");
     check(c->resolve(target)->spotted[0] > c->time(),
-          "swept recon detects enemy along route");
+          "swept recon ignores grass concealment at 80m cross-track");
     int alerts = 0;
     for (auto &e : c->events())
       alerts += e.seq && e.kind == EventKind::RECON_ALERT;
@@ -192,7 +212,7 @@ void entity_tests() {
     World world;
     auto c = make();
     auto tech = add(*c, 1, 0, {}, Role::TECHNICIAN, true);
-    auto target = add(*c, 2, 1, {0, 0, -30});
+    auto target = add(*c, 2, 1, {0, 0, -149});
     for (int i = 0; i < 100; ++i) {
       input(*c, tech, i, 6, i < 20);
       input(*c, target, i);
@@ -203,7 +223,7 @@ void entity_tests() {
       if (t.active) {
         ++count;
         check(t.ammo < 12 && t.target_player == target,
-              "turret autonomously acquires infantry and spends ammo");
+              "turret autonomously acquires infantry at 149m");
       }
     check(count == 1, "T2 technician places one turret");
     check(c->resolve(tech)->classes.turret_ready > 120,
@@ -323,4 +343,54 @@ void entity_tests() {
     check(c->cq.light_fraction > 0 && c->cq.light_fraction < 1,
           "dawn progressively brightens");
   }
+  {
+    World world; world.grass = true;
+    auto c = make();
+    auto tech = add(*c, 1, 0, {}, Role::TECHNICIAN, true);
+    auto target = add(*c, 2, 1, {0, 0, -40});
+    auto step = [&](int index) {
+      input(*c, tech, index, 6, index < 20);
+      Command cmd; cmd.life = target.life; cmd.seq = index; cmd.weapon = c->resolve(target)->weapon; cmd.prone = true;
+      check(c->submit(target, cmd), "concealed turret target input"); c->advance(world);
+    };
+    for (int i = 0; i < 100; ++i) step(i);
+    int turrets = 0;
+    for (auto &t : c->turrets()) if (t.active) { ++turrets; check(t.ammo == 12, "turret cannot acquire prone grass target at 40m"); }
+    check(turrets == 1, "concealment turret fixture deployed");
+    c->resolve(target)->position.z = -35;
+    for (int i = 100; i < 160; ++i) step(i);
+    for (auto &t : c->turrets()) if (t.active) check(t.ammo < 12, "turret acquires prone grass target inside 37.5m");
+  }
+  {
+    World world;
+    auto c = make();
+    auto tech = add(*c, 1, 0, {}, Role::TECHNICIAN);
+    auto *p = c->resolve(tech); p->owned |= uint16_t(1 << 11); p->weapon = 11; p->clips[11] = 3;
+    int tank = c->add_vehicle(VehicleKind::LIGHT, {0, 0, -499}, 0, 1);
+    world.hull_key = c->vehicles()[tank].key; world.hull_at = c->vehicles()[tank].position;
+    bool locked = false;
+    for (int i = 0; i < 500; ++i) {
+      Command cmd; cmd.life = tech.life; cmd.seq = i; cmd.weapon = 11; cmd.fire = i == 60;
+      check(c->submit(tech, cmd), "long-range guided command"); c->advance(world);
+      locked |= c->resolve(tech)->lock_elapsed >= 1.5;
+    }
+    check(locked && c->resolve(tech)->shots == 1, "guided launcher acquires and fires at 499m");
+    check(c->vehicles()[tank].hp < 250, "guided missile reaches and damages hull near 500m");
+  }
+
+  {
+    World world;
+    auto c = make();
+    auto tech = add(*c, 1, 0, {}, Role::TECHNICIAN);
+    bool reached = false;
+    for (int i = 0; i < 230; ++i) {
+      Command cmd; cmd.life = tech.life; cmd.seq = i; cmd.weapon = 5;
+      cmd.pitch = 3.141592653589793/4; cmd.fire = i < 20;
+      check(c->submit(tech, cmd), "ballistic range input"); c->advance(world);
+      for (auto &shot : c->projectiles_state())
+        if (shot.active && shot.weapon == 5 && std::abs(shot.position.z) >= 200 && shot.position.y > 0) reached = true;
+    }
+    check(reached, "actual launcher projectile reaches 200m above level ground on an arc");
+  }
+
 }

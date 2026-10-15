@@ -6,7 +6,8 @@ namespace {
 struct World : Host {
   Handle target{};
   V target_position;
-  bool actor_hit = false;
+  bool actor_hit = false, grass = false;
+  bool grass_cover(V) override { return grass; }
   Moved move(const Motion &m, double dt) override {
     V position = m.position + m.velocity * dt, velocity = m.velocity;
     bool floor = position.y <= 0;
@@ -329,4 +330,43 @@ void cq_rules_tests() {
     tick(*c, world, seq);
     check(!c->resolve(a)->classes.nvg, "native NVG action toggles");
   }
+  {
+    auto c = game();
+    World world;
+    auto observer = join(*c, 1, 0), target = join(*c, 2, 1);
+    c->resolve(observer)->position = {0, 0, 0};
+    c->resolve(target)->position = {20, 0, 0};
+    int seq = 0;
+    auto advance = [&](bool prone, int count) {
+      for (int n = 0; n < count; ++n) {
+        for (auto handle : {observer, target}) {
+          Command cmd; cmd.life = handle.life; cmd.seq = ++seq;
+          cmd.weapon = c->resolve(handle)->weapon;
+          cmd.prone = handle == target && prone;
+          check(c->submit(handle, cmd), "concealment fixture input");
+        }
+        c->advance(world);
+      }
+    };
+    advance(true, 3);
+    check(c->resolve(target)->spotted[0] > c->time(), "prone on bare ground remains visible at 20m");
+    world.grass = true; c->resolve(target)->spotted = {};
+    advance(true, 3);
+    check(c->resolve(target)->grass_concealed && Core::detection_scale(*c->resolve(target)) == .25,
+          "native prone grass cover has 75 percent reduction");
+    check(c->resolve(target)->spotted[0] == 0, "native 20m target exceeds 18.75m concealed range");
+    c->resolve(target)->position.x = 10; advance(true, 3);
+    check(c->resolve(target)->spotted[0] > c->time(), "native target inside concealed range is spotted");
+    c->resolve(target)->position.x = 20; advance(true, 3);
+    check(c->resolve(target)->spotted[0] > c->time(), "native concealment preserves existing memory");
+    advance(true, 310);
+    check(c->resolve(target)->spotted[0] <= c->time(), "native concealment prevents memory refresh outside range");
+    advance(false, 3);
+    check(c->resolve(target)->spotted[0] > c->time() && Core::detection_scale(*c->resolve(target)) == 1,
+          "standing cancels concealment");
+    check(weapons()[5].speed * weapons()[5].speed / weapons()[5].gravity >= 200,
+          "native launcher ballistic envelope reaches 200m");
+    check(weapons()[11].range >= 500, "native guided missile supports 500m travel");
+  }
+
 }

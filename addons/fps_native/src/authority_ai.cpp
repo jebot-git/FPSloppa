@@ -35,7 +35,8 @@ void Core::tick_bots(Host &host) {
         if (alive(target) && target.team != p.team && target.vehicle < 0 &&
             target.classes.cloak_until <= time_) {
           double distance = (target.position - p.position).length2();
-          if (distance > range * range)
+          double radius = range * detection_scale(target);
+          if (distance > radius * radius)
             continue;
           for (size_t i = 0; i < nearest.size(); ++i)
             if (distance < nearest[i].first) {

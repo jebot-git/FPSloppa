@@ -34,6 +34,7 @@ class FPSAuthority : public RefCounted, private cqauthority::Host {
   cqauthority::Hit entity_ray(cqauthority::V, cqauthority::V,
                               uint64_t) override;
   bool clear_exit(cqauthority::Handle, cqauthority::V, uint64_t) override;
+  bool grass_cover(cqauthority::V) override;
   void seat(cqauthority::Handle, cqauthority::V, bool) override;
   void sync_vehicle(const cqauthority::Vehicle &) override;
   cqauthority::VehicleMoved move_vehicle(const cqauthority::Vehicle &,

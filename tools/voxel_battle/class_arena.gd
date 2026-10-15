@@ -489,7 +489,7 @@ func _play_variant_shot_fx(id:int,weapon:int,alternate:bool) -> void:
 	if headless:return
 	if id==multiplayer.get_unique_id():visual_cooldown=armory.data(weapon,alternate).cycle
 	if field_audio:field_audio.shot(weapon,_weapon_transform(id).origin)
-const CLASS_PROTOCOL:="fpsloppa-cq-frontier-23-weather"
+const CLASS_PROTOCOL:="fpsloppa-cq-frontier-24-cover-ranges"
 func connection_protocol() -> String:return CLASS_PROTOCOL
 func _collect(_id:int) -> void:pass # CQ resupplies through its class dispensers.
 func on_player_died(id:int) -> void:
@@ -500,7 +500,7 @@ func on_player_died(id:int) -> void:
 
 static func map_identity() -> String:
 	var digest:=HashingContext.new();digest.start(HashingContext.HASH_SHA256)
-	for file in ["landscape","architecture","outer_architecture","hydrology","waterways","map","stair_ramps","water_contents","baked_lighting","jungle_sky","light_fixtures","weather_schedule","weather"]:
+	for file in ["landscape","architecture","outer_architecture","hydrology","waterways","map","stair_ramps","water_contents","baked_lighting","jungle_sky","light_fixtures","weather_schedule","weather","grass_cover"]:
 		digest.update(FileAccess.get_file_as_bytes("res://tools/voxel_battle/"+file+".gd"))
 	for path in ["res://experimental-assets/jungle/lighting/bake.json","res://experimental-assets/jungle/lighting/irradiance.png","res://experimental-assets/jungle/lighting/dawn.png","res://experimental-assets/jungle/lighting/skybox.png","res://tools/voxel_battle/baked_lighting.gdshaderinc","res://tools/voxel_battle/jungle_sky.gdshader"]:
 		digest.update(FileAccess.get_file_as_bytes(path))
@@ -658,3 +658,6 @@ func _weapon_transform(id:int,offhand:bool=false) -> Transform3D:
 func projectile_sound(explosive:bool,weapon:int)->String:
 	if weapon==3 and not explosive:return "impact"
 	return "cq_field_ordnance_impact" if explosive else "cq_field_energy_impact"
+
+func grass_cover_at(point:Vector3)->bool:
+	return preload("res://tools/voxel_battle/grass_cover.gd").contains(point)

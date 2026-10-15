@@ -1,7 +1,7 @@
 extends RefCounted
 const Attribution=preload("res://deathmatch/server/attribution.gd")
 ## Stinger-style acquisition: a fresh weapon aim, enemy hull, clear LOS and continuous dwell.
-const RANGE:=200.0
+const RANGE:=500.0
 const DWELL:=1.5
 const CONE:=6.0
 var locks:Dictionary={}
