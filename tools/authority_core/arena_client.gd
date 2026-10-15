@@ -8,7 +8,7 @@ var live_start:=0
 var phase:=0.
 var tracked_test:=OS.get_cmdline_user_args().has("--authority-tracked")
 var actions:Dictionary={}
-var observed:Dictionary={"native":false,"grenade_selected":false,"grenade_flying":false,"nvg":false,"dead":false,"gibbed":false,"respawn":false,"team_change":false,"jetpack":false,"poses":false,"squad":false}
+var observed:Dictionary={"native":false,"grenade_selected":false,"grenade_flying":false,"nvg":false,"dead":false,"gibbed":false,"respawn":false,"team_change":false,"jetpack":false,"poses":false,"squad":false,"destruction":false}
 var first_life:=0
 var last_life:=0
 var first_team:=-1
@@ -38,6 +38,7 @@ func _physics_process(delta:float)->void:
  var now:=Time.get_ticks_msec()
  if active and resident.received_tick>0:
   observed.native=true
+  observed.destruction=is_instance_valid(destruction) and destruction.enabled
   # Let admission, deployment and ENet startup settle before timed ability checks.
   # Keep sending ordinary idle commands throughout, as in the load fixtures.
   var local_frame:Dictionary=resident.client_frame.get("players",{}).get(multiplayer.get_unique_id(),{})

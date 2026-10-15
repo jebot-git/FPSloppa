@@ -286,7 +286,8 @@ void Core::tick_vehicles(Host &host) {
     double delta = desired - v.speed;
     v.speed += std::clamp(delta, -step_ * profile.acceleration * mobility,
                           step_ * profile.acceleration * mobility);
-    v.yaw -= x * profile.turn * mobility * step_;
+    // Steering follows actual travel direction, including braking through zero.
+    v.yaw -= x * profile.turn * mobility * step_ * (v.speed < 0 ? -1. : 1.);
     V horizontal = B::yaw(v.yaw).apply({0, 0, -v.speed});
     V next = v.position + horizontal * step_;
     if (std::abs(next.x) > cq.map_limit - 4 ||

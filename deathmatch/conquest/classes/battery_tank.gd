@@ -352,7 +352,7 @@ func tick(delta:float) -> void:
 		row.headlight_held=not valid or light_trigger
 		var old:Vector3=row.position;var node=bodies[key];var mobility:=mobility_at(row.position)
 		row.speed=move_toward(row.speed,-move.y*(config.forward if move.y<0 else config.reverse)*mobility,delta*config.acceleration*mobility)
-		row.yaw-=move.x*config.turn*mobility*delta
+		row.yaw-=move.x*config.turn*mobility*delta*(-1. if row.speed<0 else 1.)
 		node.rotation.y=row.yaw
 		var horizontal:Vector3=Basis(Vector3.UP,row.yaw)*Vector3.FORWARD*row.speed
 		# Retain the map boundary; water entry is fatal instead of an invisible barrier.

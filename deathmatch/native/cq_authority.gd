@@ -80,7 +80,7 @@ func initialise()->bool:
   if core.attach_vehicle(["rocket","light","heavy","transport"].find(row.kind),body,float(row.yaw),int(row.team))<0:return false
  for id in game.players:
   if not game.players[id].spectator and not attach(id):return false
- print("CQ_RESIDENT_READY ",JSON.stringify({"map_epoch":epoch,"players":lives.size(),"physics_hz":Engine.physics_ticks_per_second,"adaptive_tick":adaptive_tick}))
+ print("CQ_RESIDENT_READY ",JSON.stringify({"map_epoch":epoch,"players":lives.size(),"physics_hz":Engine.physics_ticks_per_second,"adaptive_tick":adaptive_tick,"max_clients":game.max_clients,"destruction":is_instance_valid(game.destruction) and game.destruction.enabled}))
  return true
 func attach(id:int)->bool:
  if not core or lives.has(id) or not game.fighters.has(id):return lives.has(id)

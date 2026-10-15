@@ -23,6 +23,7 @@ def main():
     parser.add_argument('--output', type=Path, required=True)
     parser.add_argument('--port', type=int, default=28009)
     parser.add_argument('--fixed-hz', type=int, choices=[30, 60], help='Verify explicit fixed-rate override instead of adaptive defaults')
+    parser.add_argument('--destruction', action='store_true', help='Enable destruction and verify its replicated client setting')
     args = parser.parse_args()
     bundle = args.bundle.resolve()
     out = args.output.resolve()
@@ -40,10 +41,10 @@ def main():
     base = ['stdbuf', '-oL', '-eL', str(bundle/'cq-server'), '--headless', '--xr-mode', 'off', '--']
     jobs = []
     result = {'passed': False, 'requested_mode': 'fixed' if args.fixed_hz else 'adaptive_default',
-              'requested_hz': args.fixed_hz or 60}
+              'requested_hz': args.fixed_hz or 60, 'destruction': args.destruction}
     try:
         with (out/'server.log').open('w') as server_log, (out/'desktop.log').open('w') as client_log:
-            server = subprocess.Popen(base+['--server', '--config', str(out/'server.cfg')],
+            server = subprocess.Popen(base+['--server', '--config', str(out/'server.cfg')]+(['--cq-destruction'] if args.destruction else []),
                                       stdout=server_log, stderr=subprocess.STDOUT, start_new_session=True)
             jobs.append(server)
             deadline = time.monotonic()+120
@@ -58,6 +59,8 @@ def main():
             result['client_exit_code'] = client.wait(timeout=120)
             result['client'] = json.loads((out/'desktop.json').read_text())
             result['passed'] = result['client_exit_code'] == 0 and not result['client']['failures']
+            if args.destruction and not result['client'].get('observed', {}).get('destruction'):
+                result['passed'] = False
     except Exception as error:
         result['error'] = str(error)
     finally:

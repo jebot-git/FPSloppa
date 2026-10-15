@@ -48,6 +48,12 @@ func run():
  tanks.draw();check(tanks.models[key].get_node("HeadlightLenses").visible,"gameplay draw enables real vehicle lamp faces")
  game.players[7].offhand_fire=false;tanks.tick(1./30);game.players[7].offhand_fire=true;tanks.tick(1./30);check(not row.headlights,"script fresh press switches headlights off")
  game.players[7].offhand_fire=false;game.players[1].offhand_fire=false
+ for travel in [-1.,1.]:
+  for turn in [-1.,1.]:
+   row.speed=travel*2.;row.yaw=0.;game.players[7].move=Vector2(turn,-travel);game.players[7].last_input=game.clock;tanks.tick(1./30)
+   check(row.yaw*turn*travel<0,"script steering follows forward/reverse travel direction")
+ game.players[7].move=Vector2.ZERO;row.speed=0.;row.yaw=0.
+
 
  var view=load("res://deathmatch/conquest/classes/battery_view.gd").new();game.add_child(view);view.setup(game,tanks)
  var mask:int=game.camera.cull_mask;var env=game.camera.environment;view.update()
