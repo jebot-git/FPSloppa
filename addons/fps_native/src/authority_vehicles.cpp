@@ -175,7 +175,7 @@ int Core::damage_vehicle(uint64_t key, int team, double amount, DamageKind kind,
     return 0;
   for (auto &v : vehicles_)
     if (v.active && v.key == key) {
-      if (v.hp <= 0 || team == v.team)
+      if (v.hp <= 0)
         return 0;
       int dealt = std::min(
           int(v.hp),
@@ -212,9 +212,10 @@ bool Core::launch_external(Handle h, int team, int weapon, V origin, V velocity,
       s.sweep_radius = sweep_radius;
       s.ignore_entity = ignore;
       s.target_vehicle = target;
-      s.quake = weapon == 5 || weapon == 11;
-      s.arm = weapon == 5 ? 2 : 0;
-      s.bounce = weapon == 5 ? .1 : 0;
+      // External weapon 5 is the rocket-tank barrage, not a timed mortar.
+      s.quake = weapon == 11;
+      s.arm = 0;
+      s.bounce = 0;
       return true;
     }
   ++counters.projectile_full;
@@ -463,7 +464,7 @@ void Core::tick_vehicles(Host &host) {
                     v.barrage_time};
       }
       if (launch_external(v.pilot, v.team, 5, origin, solution.velocity, 152,
-                          152, 20, 20, ROCKET_TANK_FUSE, .3, v.key, 0)) {
+                          152, 30, 20, ROCKET_TANK_FUSE, .3, v.key, 0)) {
         --v.remaining;
         v.next = time_ + .15;
         v.shot_at = time_;

@@ -16,6 +16,12 @@ func draw_objectives() -> void:objectives.draw()
 func configure(settings:Dictionary) -> void:
 	var config:=settings.duplicate();config.sv_gametype="tdm";super.configure(config)
 	if game.dedicated:Engine.physics_ticks_per_second=settings.get("sv_cq_tick_rate",60)
+func allows_friendly_damage(title:String) -> bool:
+	if friendly_fire or title in ["HE GRENADE","AIRSTRIKE","BATTERY MORTAR","TURRET ORDNANCE","VEHICLE DESTROYED","BLEEDOUT"] or title.ends_with("TANK ORDNANCE"):return true
+	for weapon in game.armory.SLOT_COUNT:
+		var data:Dictionary=game.armory.data(weapon)
+		if data.name==title and data.get("splash",0)>0:return true
+	return false
 func killed(victim:int,attacker:int) -> void:
 	if not game.multiplayer.is_server() or game.intermission>0:return
 	fortress.walkers.departed(victim);drop(victim)

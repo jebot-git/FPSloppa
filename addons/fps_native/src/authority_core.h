@@ -80,6 +80,8 @@ struct Host {
   virtual bool clear_exit(Handle, V, uint64_t) { return true; }
   virtual void seat(Handle h, V at, bool) { teleport(h, at); }
   virtual void sync_vehicle(const Vehicle &) {}
+  // Gameplay collision changes; host may implement a bounded destruction experiment.
+  virtual void ordnance_impact(V, double, double) {}
   virtual VehicleMoved move_vehicle(const Vehicle &v, V velocity, double dt) {
     return {v.position + velocity * dt,
             velocity,

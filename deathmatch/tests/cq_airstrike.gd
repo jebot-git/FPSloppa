@@ -82,7 +82,7 @@ func run() -> void:
 	var direct:Array=damage.damage_log.filter(func(r):return r.id==2);var splash:Array=damage.damage_log.filter(func(r):return r.id==3)
 	check(direct.size()==1 and direct[0].amount==300,"Real downward collision delivers exactly 300 direct damage without double splash")
 	check(splash.size()==1 and splash[0].amount>200 and splash[0].amount<300,"Nearby enemy receives the existing 300-point rocket splash falloff")
-	check(damage.damage_log.all(func(r):return r.id in [2,3]),"Splash honors team protection and 18.75 m radius")
+	check(damage.damage_log.any(func(r):return r.id==4) and damage.damage_log.any(func(r):return r.id==5),"Airstrike hits allies and targets beyond the old radius")
 	var wall:=StaticBody3D.new();wall.collision_layer=1;wall.position=Vector3(1.5,height+1,0);var shape:=CollisionShape3D.new();var box:=BoxShape3D.new();box.size=Vector3(.2,4,12);shape.shape=box;wall.add_child(shape);damage.get_node("Map").add_child(wall)
 	await physics_frame;await physics_frame;damage.damage_log.clear();damage.airstrike.impact(row,0)
 	check(damage.damage_log.filter(func(r):return r.id==3).is_empty(),"Solid cover blocks rocket splash line of sight")

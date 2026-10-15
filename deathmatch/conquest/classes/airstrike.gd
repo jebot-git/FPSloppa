@@ -7,7 +7,7 @@ const TARGET_SECONDS:=5.0
 const COOLDOWN:=300.0
 const COUNT:=12
 const DAMAGE:=300
-const RADIUS:=18.75 # Existing rocket falloff: 300 - distance * 16.
+const RADIUS:=35.0 # Broad area bombardment with linear falloff to the edge.
 const SPACING:=18.0
 const INTERVAL:=.3
 const SPEED:=SPACING/INTERVAL
@@ -88,11 +88,11 @@ func impact(row:Dictionary,index:int) -> void:
 	var where:Vector3=hit.position if hit.hit else Vector3(p.x,ground,p.z)
 	if hit.hit and hit.id!=0:game._damage(hit.id,row.owner,DAMAGE,"AIRSTRIKE",false,where,Vector3.DOWN)
 	if hit.hit:game._damage_map_hit(hit,row.owner,DAMAGE,"ordnance")
-	game.variant_combat.blast(where+Vector3.UP*.08,row.owner,DAMAGE,RADIUS,"AIRSTRIKE",hit.id if hit.hit else 0,true)
+	game.variant_combat.blast(where+Vector3.UP*.08,row.owner,DAMAGE,RADIUS,"AIRSTRIKE",hit.id if hit.hit else 0,false)
 	for vehicle in game.get_tree().get_nodes_in_group("cq_repairable_vehicles"):
 		if vehicle.hp<=0 or vehicle.get("service")==game.battery_tanks or vehicle==hit.get("cq_vehicle"):continue
 		var distance:float=where.distance_to(vehicle.global_position)
-		if distance<RADIUS and game.variant_combat.vehicle_lock.clear_line(game,where,{"position":vehicle.global_position,"node":vehicle}):vehicle.damage(row.team,maxi(0,int((DAMAGE-distance*16)*.5)))
+		if distance<RADIUS and game.variant_combat.vehicle_lock.clear_line(game,where,{"position":vehicle.global_position,"node":vehicle}):vehicle.damage(row.team,maxi(0,int(DAMAGE*(1-distance/RADIUS)*.5)),"ordnance")
 	game._cq_airstrike_fx.rpc(where)
 func receive(new_flights:Dictionary,new_pending:Dictionary,offset:float) -> void:
 	flights=new_flights.duplicate(true);pending=new_pending.duplicate(true)

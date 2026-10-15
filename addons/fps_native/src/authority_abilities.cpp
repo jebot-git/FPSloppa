@@ -129,10 +129,10 @@ void Core::tick_flights(Host &host) {
           blast.team = f.team;
           blast.weapon = 11;
           blast.splash = 300;
-          blast.radius = 18.75;
+          blast.radius = 35;
           blast.damage = 300;
           impact(blast, {true, {}, where + V{0, .08, 0}}, host);
-          emit(EventKind::AIRSTRIKE, f.caller, where, {}, f.delivered, 18.75,
+          emit(EventKind::AIRSTRIKE, f.caller, where, {}, f.delivered, 35,
                f.key);
         }
       } else if (tick_ % 3 == 0) {

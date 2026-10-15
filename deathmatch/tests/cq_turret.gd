@@ -7,7 +7,7 @@ class Vehicle extends StaticBody3D:
 	func _ready() -> void:
 		collision_layer=1;add_to_group("cq_repairable_vehicles");var shape:=CollisionShape3D.new();var box:=BoxShape3D.new();box.size=Vector3(3,2,3);shape.shape=box;add_child(shape)
 	func owns_collider(node) -> bool:return node==self
-	func damage(_team:int,amount:int) -> void:hp-=amount
+	func damage(_team:int,amount:int,_kind:String="infantry") -> void:hp-=amount
 var failures:Array=[]
 func check(ok:bool,label:String) -> void:
 	print("PASS " if ok else "FAIL ",label)
@@ -42,8 +42,8 @@ func run() -> void:
 	game.clock+=1.49;service.tick();check(row.ammo==11,"Moderate fire interval blocks early repeat")
 	game.clock+=.12;service.tick();check(row.ammo==10,"Turret fires again after 1.5-second interval")
 	vehicle.team=0;game.clock+=.11;service.tick();check(row.target=="p:2","Friendly vehicle is ignored and enemy infantry acquired")
-	game.fighters[2].position=origin+Vector3(100.1,0,0);check(service.target(key,game.variant_combat.vehicle_lock.targets(game)).is_empty(),"Targets beyond 100 metres are ignored")
-	game.fighters[2].position=origin+Vector3(100,0,0);check(service.target(key,game.variant_combat.vehicle_lock.targets(game)).get("name","")=="p:2","Enemy at 100-metre boundary can be targeted")
+	game.fighters[2].position=origin+Vector3(Turrets.RANGE+.1,0,0);check(service.target(key,game.variant_combat.vehicle_lock.targets(game)).is_empty(),"Targets beyond turret range are ignored")
+	game.fighters[2].position=origin+Vector3(Turrets.RANGE,0,0);check(service.target(key,game.variant_combat.vehicle_lock.targets(game)).get("name","")=="p:2","Enemy at turret range boundary can be targeted")
 	var wall:=StaticBody3D.new();wall.collision_layer=1;var shape:=CollisionShape3D.new();var box:=BoxShape3D.new();box.size=Vector3(.3,5,5);shape.shape=box;wall.add_child(shape);game.get_node("Map").add_child(wall);wall.position=origin+Vector3(5,2,0)
 	await physics_frame;await physics_frame
 	check(service.target(key,game.variant_combat.vehicle_lock.targets(game)).is_empty(),"Solid world geometry blocks autonomous target acquisition")
@@ -57,7 +57,8 @@ func run() -> void:
 	check(not service.deploy(1) and service.rows.has(previous),"Invalid or obstructed placement preserves old turret and cooldown readiness")
 	ready(game);check(service.deploy(1) and service.rows.size()==1 and not service.rows.has(previous),"New placement replaces old turret, keeping one per owner")
 	key=service.rows.keys()[0];row=service.rows[key]
-	service.damage(key,3,100);check(row.hp==200,"Friendly fire disabled protects turret from allied damage")
+	service.damage(key,3,100);check(row.hp==200,"Small arms retain allied turret protection")
+	service.damage(key,3,10,-1,"ordnance");check(row.hp==190,"Allied ordnance damages deployable turret");row.hp=200
 	await physics_frame;await physics_frame
 	var ray:Dictionary=game._trace(row.position+Vector3(0,1,-4),row.position+Vector3(0,1,4),2)
 	check(ray.has("cq_turret"),"Turret participates in real weapon collision traces")

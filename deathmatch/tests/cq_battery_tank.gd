@@ -16,7 +16,7 @@ func step(game,count:int,fire:bool=false,move:=Vector2.ZERO) -> void:
 func run() -> void:
 	var game=load("res://tools/voxel_battle/class_arena.tscn").instantiate();game.set_script(TestArena);root.add_child(game);game.set_process(false);game.set_physics_process(false);game.start_host("Battery",28803,100,10,false)
 	var tanks=game.battery_tanks;tanks.configure()
-	check(tanks.rows.size()==8 and tanks.rows[0].poi=="west ridge relay" and tanks.rows[1].poi=="canyon crossing","Two original batteries plus six hover tanks available")
+	check(tanks.rows.size()==12 and tanks.rows[0].poi=="west ridge relay" and tanks.rows[1].poi=="canyon crossing","Two batteries, six hover tanks and four transports available")
 	for key in tanks.rows:tanks.rows[key].position=Vector3(key*50,.03,0);tanks.rows[key].yaw=0;tanks.rows[key].visual_y=.03+(0 if key<2 else .25);tanks.pose_body(key)
 	game.players[1].team=0;game.players[1].input_blocked=false;game.players[1].last_input=game.clock;game.players[1].invulnerable=0;game.fighters[1].position=Vector3(3.5,.03,0)
 	await physics_frame;await physics_frame
@@ -26,7 +26,7 @@ func run() -> void:
 	var hp:int=game.players[1].hp;game._damage(1,2,1000,"INFANTRY",false);check(game.players[1].hp==hp,"Seated crew cannot be damaged as exposed infantry")
 	check(tanks.damage(0,1,100,"infantry")==0 and tanks.rows[0].hp==100,"Infantry weapons cannot damage hull")
 	check(tanks.damage(0,1,80,"grenade")==40 and tanks.rows[0].hp==60,"Grenade damage is halved")
-	check(tanks.damage(0,0,100,"ordnance")==0,"Friendly fire policy protects allied hull")
+	check(tanks.damage(0,0,10,"ordnance")==10,"Allied ordnance damages hull");tanks.rows[0].hp=60
 	check(tanks.bodies[0].repair(0,20)==20 and tanks.rows[0].hp==80,"Existing technician repair service restores living allied hull")
 	var contact:Dictionary=game._trace(Vector3(10,1,0),Vector3(-10,1,0),2)
 	game._damage_map_hit(contact,2,1000);check(contact.get("cq_vehicle")==tanks.bodies[0] and tanks.rows[0].hp==80,"Actual infantry collision trace hits hull without damaging it")
@@ -41,7 +41,7 @@ func run() -> void:
 	await step(game,25,true)
 	check(game.projectiles.size()==8 and tanks.rows[0].left==0 and tanks.rows[0].reload_at-game.clock>29,"Held trigger launches eight shots and starts thirty-second reload after final shot")
 	var p:Dictionary=game.projectiles.values()[0]
-	check(p.definition.gravity==20 and is_equal_approx(p.definition.speed,sqrt(5500)) and p.definition.arm==2 and p.definition.bounce==.1 and not p.definition.guided,"Battery uses ST mortar gravity, speed, arming, bounce and unguided flight")
+	check(p.definition.gravity==20 and is_equal_approx(p.definition.speed,sqrt(5000.0*20)) and p.definition.arm==0 and p.definition.bounce==0 and p.definition.blast_radius==30 and not p.definition.guided,"Barrage uses impact detonation, 30m blast and unguided ballistic flight")
 	var impacts:Array=[]
 	for projectile in game.projectiles.values():
 		var extra:Dictionary=projectile.extra;var landing:Vector3=projectile.position+projectile.velocity*extra.barrage_time-Vector3.UP*10*extra.barrage_time*extra.barrage_time
@@ -61,15 +61,17 @@ func run() -> void:
 	game.players[1].xr={};game.players[1].vr_device=false;game.players[1].fire=false;game.players[1].last_input=game.clock
 	game.classes.choose(1,"technician");game.classes.states[1]["class"]="technician";game.classes.states[2]["class"]="scout"
 	game.designations[2]={"team":0,"position":tanks.rows[0].position+Vector3(0,0,-100),"until":game.clock+1}
+	game.players[1].move=Vector2.ZERO;tanks.rows[0].speed=0;tanks.rows[0].velocity=Vector3.ZERO
 	var help:Dictionary=tanks.helper(1);check(not help.is_empty() and (help.origin+help.velocity*help.time-Vector3.UP*10*help.time*help.time).distance_to(game.designations[2].position)<.01,"Technician sees physically accurate scout-designated mortar solution")
 	# Align with the laser aid, then fire: designation never removes the spread.
 	game.players[1].yaw=atan2(-help.direction.x,-help.direction.z);game.players[1].pitch=asin(help.direction.y)
 	tanks.rows[0].direction=help.direction;tanks.rows[0].reload_at=0;tanks.rows[0].next=0;tanks.rows[0].velocity=Vector3.ZERO
 	game.projectiles.clear();await step(game,1,true)
+	var locked_center:Vector3=game.projectiles.values()[0].extra.barrage_center
 	game.players[1].yaw+=.7 # Hand motion cannot drag an active salvo off its footprint.
 	await step(game,31,true)
 	var marker:Vector3=game.designations[2].position
-	check(game.projectiles.size()==8 and game.projectiles.values().all(func(projectile):return projectile.extra.barrage_center.distance_to(marker)<.2 and projectile.extra.barrage_target.distance_to(marker)<Tanks.BARRAGE_RADIUS+.2),"Laser-assisted barrage stays within locked footprint even while turning aim")
+	check(game.projectiles.size()==8 and game.projectiles.values().all(func(projectile):return projectile.extra.barrage_center.distance_to(locked_center)<.001 and projectile.extra.barrage_target.distance_to(locked_center)<Tanks.BARRAGE_RADIUS+.01),"Laser-assisted barrage stays within locked footprint even while turning aim")
 	check(game.projectiles.values().any(func(projectile):return projectile.extra.barrage_target.distance_to(marker)>3),"Laser designation cannot produce eight pinpoint impacts")
 	game.players[1].fire=false
 	game.classes.states[1]["class"]="medic";check(tanks.helper(1).is_empty(),"Other classes do not receive technician targeting aid")
@@ -100,5 +102,5 @@ func run() -> void:
 				var point:Vector3=placement.position+Vector3(x,0,z)
 				if absf(Tanks.Landscape.surface(point.x,point.z).x-placement.position.y)>.2:level=false
 		check(level,placement.poi+" footprint lies on level authored terrain")
-	game.match_mode.reset();check(tanks.rows.size()==8 and tanks.rows.values().all(func(row):return row.hp==tanks.profile(row).hp and row.pilot==0 and row.left==0),"Round reset restores all eight empty vehicles")
+	game.match_mode.reset();check(tanks.rows.size()==12 and tanks.rows.values().all(func(row):return row.hp==tanks.profile(row).hp and row.pilot==0 and row.left==0),"Round reset restores all twelve empty vehicles")
 	print("CQ_BATTERY_RESULT ",JSON.stringify(failures));game.disconnect_game();game.free();quit(0 if failures.is_empty() else 1)

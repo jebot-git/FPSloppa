@@ -57,6 +57,7 @@ func assign_team(spectator: bool) -> int:
 	for s in game.players.values():
 		if not s.spectator and s.get("team",-1)>=0:count[s.team]+=1
 	return 0 if count[0]<=count[1] else 1
+func allows_friendly_damage(_title: String) -> bool:return friendly_fire
 func same_team(a: int,b: int) -> bool:
 	return team_game() and game.players.has(a) and game.players.has(b) and game.players[a].team>=0 and game.players[a].team==game.players[b].team
 func reset() -> void:

@@ -38,8 +38,8 @@ void transport_tests() {
  input(*c,riders[6],31,false,0,true);c->advance(world);check(!c->vehicles()[index].pilot.id&&c->resolve(riders[6])->vehicle<0,"driver exit leaves dedicated seat vacant");
  input(*c,riders[2],31);use(*c,riders[2],1);c->advance(world);check(c->vehicles()[index].pilot==riders[2]&&c->resolve(riders[2])->vehicle_seat==6&&!c->vehicles()[index].seats[2].id,"passenger use moves into vacant driver cockpit");
  auto key=c->vehicles()[index].key;
- check(c->damage_vehicle(key,1,20,DamageKind::BULLET,enemy,world)==0,"transport immune to infantry bullets");check(c->damage_vehicle(key,0,20,DamageKind::ORDNANCE,riders[6],world)==0,"allied ordnance protection retained");
- check(c->damage_vehicle(key,1,20,DamageKind::GRENADE,enemy,world)==10&&c->vehicles()[index].hp==90,"half grenade damage retained");check(c->damage_vehicle(key,1,20,DamageKind::ORDNANCE,enemy,world)==20&&c->vehicles()[index].hp==70,"full hostile ordnance damage retained");
+ check(c->damage_vehicle(key,1,20,DamageKind::BULLET,enemy,world)==0,"transport immune to infantry bullets");check(c->damage_vehicle(key,0,20,DamageKind::ORDNANCE,riders[6],world)==20,"allied ordnance damages transport");
+ check(c->damage_vehicle(key,1,20,DamageKind::GRENADE,enemy,world)==10&&c->vehicles()[index].hp==70,"half grenade damage retained");check(c->damage_vehicle(key,1,20,DamageKind::ORDNANCE,enemy,world)==20&&c->vehicles()[index].hp==50,"full hostile ordnance damage retained");
  c->damage_vehicle(key,1,10000,DamageKind::ORDNANCE,enemy,world);
  for(int i:{0,1,2,4,5,7})check(c->resolve(riders[i])->dead&&c->resolve(riders[i])->vehicle<0,"wreck releases every remaining occupant");
  c->request_restart();c->advance(world);check(c->vehicles()[index].hp==100&&!c->vehicles()[index].pilot.id,"round reset restores full transport");for(auto seat:c->vehicles()[index].seats)check(!seat.id,"reset clears every seat generation");

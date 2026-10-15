@@ -6,7 +6,8 @@ namespace {
 struct World : Host {
   bool drowned = false, grass = false;
   bool grass_cover(V) override { return grass; }
-  int seated = 0;
+  int seated = 0, breaches = 0;
+  void ordnance_impact(V, double, double) override { ++breaches; }
   uint64_t hull_key = 0;
   V hull_at;
   Hit sweep_world(V a, V b, double, Handle h, uint64_t ignore) override {
@@ -92,6 +93,35 @@ void use(Core &c, Handle h, int seq) {
 }
 } // namespace
 void entity_tests() {
+  for (int hz : {30, 60}) {
+    auto c = make(); World world;
+    check(c->configure_tick_rate(hz), "ordnance fixture rate");
+    int tank = c->add_vehicle(VehicleKind::ROCKET, {}, 0, 0);
+    auto driver = add(*c, 1, 0, {3.5, 0, 0});
+    auto ally = add(*c, 2, 0, {100, 0, 0});
+    check(!c->damage(ally, driver, 10), "small arms retain allied protection");
+    check(c->damage(ally, driver, 10, DamageKind::ORDNANCE), "ordnance hurts allies");
+    check(c->damage(ally, driver, 10, DamageKind::GRENADE), "HE grenades hurt allies");
+    check(c->resolve(ally)->hp == 80, "friendly ordnance preserves normal damage amount");
+    int xp = c->resolve(driver)->classes.xp[0];
+    c->damage(ally, driver, 1000, DamageKind::ORDNANCE);
+    check(c->resolve(ally)->dead && c->resolve(driver)->kills == -1 &&
+          c->resolve(driver)->classes.xp[0] == xp && c->points.scores[0] == 0,
+          "collateral death penalizes kill count without XP or objective reward");
+    input(*c, driver, 0); use(*c, driver, 0); c->advance(world);
+    check(c->resolve(driver)->vehicle == tank, "barrage fixture boards rocket tank");
+    bool inspected = false;
+    for (int tick = 1; tick <= hz * 2; ++tick) {
+      input(*c, driver, tick, -1, tick == 1); c->advance(world);
+      for (const auto &shot : c->projectiles_state())
+        if (shot.active) {
+          inspected = true;
+          check(shot.radius == 30 && shot.arm == 0 && shot.bounce == 0 && !shot.stuck,
+                "barrage has 30m radius and first-impact fuse at both tick rates");
+        }
+    }
+    check(inspected && world.breaches > 0, "rocket impact dispatches environmental damage immediately");
+  }
   {
     World world;
     auto c = make();
@@ -112,8 +142,8 @@ void entity_tests() {
     check(c->damage_vehicle(key, 1, 100, DamageKind::GRENADE, enemy, world) ==
               50,
           "tank grenade damage halved");
-    check(!c->damage_vehicle(key, 0, 100, DamageKind::ORDNANCE, h, world),
-          "allied ordnance does not damage tank");
+    check(c->damage_vehicle(key, 0, 10, DamageKind::ORDNANCE, h, world) == 10,
+          "allied ordnance damages tank");
     for (int i = 1; i < 31; ++i) {
       input(*c, h, i, -1, true, 0, -1);
       input(*c, enemy, i);
@@ -129,7 +159,7 @@ void entity_tests() {
     check(c->resolve(h)->shots == 0,
           "mounted pilot does not fire infantry weapon");
     check(c->damage_vehicle(key, 1, 500, DamageKind::ORDNANCE, enemy, world) ==
-              200,
+              190,
           "tank ordnance full remaining damage");
     check(c->resolve(h)->dead && !c->resolve(h)->incapacitated,
           "destroyed occupied tank gibs pilot");
@@ -266,7 +296,15 @@ void entity_tests() {
       }
     check(count == 1 && c->resolve(h)->classes.strike_ready > 300,
           "five second lock calls one bomber with five minute cooldown");
+    V first; double impact_at = 0;
+    for (const auto &f : c->flights()) if (f.active && f.strike) { first = f.target; impact_at = f.impact_at; }
+    auto friendly = add(*c, 2, 0, first + V{25, 0, 0});
+    bool friendly_checked = false;
     for (int i = 175; i < 450; ++i) {
+      if (!friendly_checked && c->time() >= impact_at) {
+        check(c->resolve(friendly)->hp < 100, "airstrike damages allies 25m away beyond old radius");
+        friendly_checked = true;
+      }
       if(!c->resolve(h)->dead) input(*c, h, i, 8);
       c->advance(world);
     }

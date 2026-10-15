@@ -19,6 +19,7 @@ var terrain
 var structures
 var collision_rows: Dictionary={}
 var geometry: Array=[]
+var wall_bodies:Dictionary={}
 var spawn_positions: Array[Vector3]=[]
 var routes: Array[Vector3]=[]
 var waterways
@@ -33,9 +34,10 @@ func build(graphics: bool, physics: bool=true, baking:bool=false) -> void:
 		# Uniform scale avoids GodotPhysics' nonuniform HeightMap scaling issue.
 		collider.scale=Vector3.ONE*Landscape.EXTENT/(COLLISION_SIDE-1)
 		body.add_child(collider)
-		for row in layout.boxes:
+		for index in layout.boxes.size():
+			var row:Dictionary=layout.boxes[index]
 			var p: Vector3=Landscape.CENTERS[row.kind]+row.center
-			add_box(p,row.size)
+			wall_bodies[index]=add_box(p,row.size)
 		if stair_ramps_enabled:
 			stair_ramps=preload("res://tools/voxel_battle/stair_ramps.gd").apply(self)
 			assert(not stair_ramps.is_empty(),"Authored stair collision generation failed")
@@ -79,11 +81,11 @@ func build(graphics: bool, physics: bool=true, baking:bool=false) -> void:
 			for levels in variants:
 				for mesh in levels:lighting.convert_mesh(mesh)
 		lighting.convert_node(self);lighting.fixtures(self)
-func add_box(p: Vector3,size: Vector3) -> void:
+func add_box(p: Vector3,size: Vector3) -> StaticBody3D:
 	var body:=StaticBody3D.new();body.position=p;add_child(body)
 	var shape:=BoxShape3D.new();shape.size=size
 	var collider:=CollisionShape3D.new();collider.shape=shape;body.add_child(collider)
-	geometry.append(AABB(p-size*.5,size))
+	geometry.append(AABB(p-size*.5,size));return body
 func seed_collision() -> void:
 	# Spatially grouped authoritative colliders; rendering residency has no effect.
 	var shapes:=Scenery.collision_shapes()

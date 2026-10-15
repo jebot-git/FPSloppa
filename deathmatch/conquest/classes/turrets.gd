@@ -116,10 +116,10 @@ func tick() -> void:
 		row.ammo-=1;row.fire_at=game.clock+INTERVAL;row.shot_at=game.clock
 		game._cq_turret_shot.rpc(origin,row.direction,row.team)
 		if row.ammo<=0:remove(key)
-func damage(key:int,attacker:int,amount:float,projectile:int=-1) -> void:
+func damage(key:int,attacker:int,amount:float,projectile:int=-1,kind:String="infantry") -> void:
 	if not game.multiplayer.is_server() or not rows.has(key) or amount<=0 or game.intermission>0 or game.lobby.active():return
 	var row:Dictionary=rows[key];var team:int=game.players.get(attacker,{}).get("team",-1)
-	if attacker!=row.owner and team==row.team and not game.match_mode.friendly_fire:return
+	if attacker!=row.owner and team==row.team and not game.match_mode.friendly_fire and kind not in ["ordnance","grenade"]:return
 	row.hp=maxi(0,row.hp-roundi(amount))
 	if projectile>=0:direct[key]=projectile
 	if row.hp<=0:remove(key)
@@ -128,7 +128,7 @@ func blast(where:Vector3,owner:int,damage_points:int,radius:float,quake:bool) ->
 		if game.variant_combat.active_projectile>=0 and direct.get(key,-1)==game.variant_combat.active_projectile:continue
 		var row:Dictionary=rows[key];var point:Vector3=row.position+Vector3.UP*.7;var distance:float=where.distance_to(point)
 		if distance>=radius or not clear_line(key,where,{"position":point,"node":null}):continue
-		damage(key,owner,maxf(0,damage_points-distance*16) if quake else damage_points*(1-distance/radius))
+		damage(key,owner,maxf(0,damage_points-distance*16) if quake else damage_points*(1-distance/radius),-1,"ordnance")
 func receive(data:Dictionary,offset:float) -> void:
 	rows=data.duplicate(true)
 	for key in bodies.keys():

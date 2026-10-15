@@ -128,7 +128,7 @@ func definition(owner_id:int,weapon:int,extra:Dictionary) -> Dictionary:
 		data.color=Color("ff3c39") if team==0 else Color("3b8dff")
 	if extra.get("turret_shot",false):data.name="TURRET ORDNANCE";data.guided=false;data.gravity=0.0;data.speed=40.0;data.fuse=4.0
 	if extra.has("hover_shot"):data.name="%s TANK ORDNANCE"%str(extra.hover_shot).to_upper();data.inherit=.5;data.fuse=10.0
-	if extra.get("battery_shot",false):data.merge({"name":"BATTERY MORTAR","kind":"tribes_mortar","speed":sqrt(5000.0*20),"gravity":20.0,"inherit":.5,"damage":152,"splash":152,"blast_radius":20.0,"radius":.3,"fuse":90.0,"arm":2.0,"bounce":.1,"guided":false,"quake_rocket":false,"direct_random":0,"cq_effect":"ordnance"},true)
+	if extra.get("battery_shot",false):data.merge({"name":"BATTERY MORTAR","kind":"tribes_mortar","speed":sqrt(5000.0*20),"gravity":20.0,"inherit":.5,"damage":152,"splash":152,"blast_radius":30.0,"radius":.3,"fuse":90.0,"arm":0.0,"bounce":0.0,"guided":false,"quake_rocket":false,"direct_random":0,"cq_effect":"ordnance"},true)
 	if weapon==3:data.cq_bullet=true
 	return data
 
@@ -143,7 +143,7 @@ func explode(id:int,where:Vector3,ignore:int=0,hull_impact:int=0) -> void:
 				var distance:float=where.distance_to(vehicle.global_position)
 				if distance>d.blast_radius:continue
 				var target:Dictionary={"position":vehicle.global_position,"node":vehicle}
-				if vehicle_lock.clear_line(game,where,target):vehicle.damage(p.extra.get("cq_team",-1),maxi(0,int((d.splash-distance*12.8)*.5)))
+				if vehicle_lock.clear_line(game,where,target):vehicle.damage(p.extra.get("cq_team",-1),maxi(0,int(d.splash*(1-distance/d.blast_radius)*.5)),"ordnance")
 	super.explode(id,where,ignore,hull_impact)
 
 func tick_projectile(id:int,delta:float,movement_start:Dictionary,targets) -> void:
@@ -158,18 +158,13 @@ func blast(where:Vector3,owner_id:int,damage:int,radius:float,title:String,ignor
 	var kind:String="ordnance" if title=="AIRSTRIKE" or p.get("definition",{}).get("cq_effect","")=="ordnance" else "infantry"
 	game.battery_tanks.blast(where,p.get("extra",{}).get("cq_team",game.players.get(owner_id,{}).get("team",-1)),damage,radius,kind,quake_falloff,active_projectile,owner_id)
 	super.blast(where,owner_id,damage,radius,title,ignore,quake_falloff,hull_impact,ignite)
+	if kind=="ordnance" and game.multiplayer.is_server():game.cq_ordnance_impact(where,damage,radius)
 
 func tick_battery(id:int,delta:float,movement_start:Dictionary,targets) -> void:
-	# Port of main ST combat's mortar arming/bounce path, on the shared projectile store.
+	# Rocket-tank missiles detonate on first impact, including before two seconds.
 	var p:Dictionary=game.projectiles[id];var d:Dictionary=p.definition;p.life-=delta
-	var age:float=d.fuse-p.life
-	if p.life<=0 or p.stuck and age>=d.arm:explode(id,p.position);return
-	if p.stuck:return
+	if p.life<=0:explode(id,p.position);return
 	var end:Vector3=p.position+p.velocity*delta-Vector3.UP*d.gravity*delta*delta*.5;p.velocity.y-=d.gravity*delta
-	var hit:Dictionary=game._trace(p.position,end,p.owner if age<.25 else 0,0,d.radius,{} if p.fresh else movement_start,targets.candidates(p.position,end,d.radius));p.fresh=false
-	if not hit.hit:p.position=end;p.direction=p.velocity.normalized();return
-	if age>=d.arm:explode(id,hit.position);return
-	var ray:Dictionary=Attribution.ray(game.get_world_3d().direct_space_state,PhysicsRayQueryParameters3D.create(p.position,end+p.velocity.normalized()*(d.radius+.2),1),"query.combat.tick_battery.ray")
-	var normal:Vector3=ray.get("normal",-p.velocity.normalized());p.position=hit.position+normal*(d.radius+.015);p.velocity=p.velocity.bounce(normal)*d.bounce
-	if p.velocity.length()<1.0:p.stuck=true;p.velocity=Vector3.ZERO
-	game._variant_bounce_fx.rpc(p.position,p.weapon)
+	var hit:Dictionary=game._trace(p.position,end,p.owner,0,d.radius,{} if p.fresh else movement_start,targets.candidates(p.position,end,d.radius));p.fresh=false
+	if hit.hit:explode(id,hit.position);return
+	p.position=end;p.direction=p.velocity.normalized()

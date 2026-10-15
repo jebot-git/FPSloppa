@@ -1757,7 +1757,7 @@ func _damage(victim: int,attacker: int,amount: int,weapon_name: String,bypass: b
 	if match_mode.fortress.walkers.mounted(victim) and not bypass and not hull_contact:return
 	var telefrag:=weapon_name=="TELEFRAG" and bypass
 	if s.spectator or s.dead or (match_mode.special.blocked(victim) and not (telefrag and match_mode.special.frozen.has(victim))) or intermission>0 or (s.invulnerable>clock and not bypass): return
-	if attacker!=victim and match_mode.same_team(victim,attacker) and not match_mode.friendly_fire and not telefrag: return
+	if attacker!=victim and match_mode.same_team(victim,attacker) and not match_mode.allows_friendly_damage(weapon_name) and not telefrag: return
 	if not bypass and match_mode.fortress.walkers.heavy_ordnance_only and match_mode.fortress.walkers.mounted(victim) and not match_mode.fortress.walkers.accepts_pilot_weapon(weapon_name,heavy_automatic):
 		server_log.record("titan_hull_blocked",{"victim":victim,"attacker":attacker,"weapon":weapon_name,"raw_damage":amount,"blast":blast},2)
 		return

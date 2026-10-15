@@ -183,6 +183,7 @@ func detonate(id: int):
 			# Geometry shields players; damage follows the project's armor/FF rules.
 			if not rules.ray_surface(p.position,target).is_empty():continue
 			game._damage(victim,p.owner,roundi(100*(1-distance/radius)),"HE GRENADE",false,p.position,(target-p.position).normalized())
+		game.cq_ordnance_impact(p.position,100,350.0/32)
 		game._de_grenade_fx.rpc(p.position,0)
 	else:
 		for victim in game.players:

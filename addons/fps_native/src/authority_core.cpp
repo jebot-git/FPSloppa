@@ -537,7 +537,8 @@ bool Core::damage(Handle victim, Handle source, double amount, DamageKind kind,
       (points.winner != -2 || (p->invulnerable > time_ && !bypass) ||
        (p->vehicle >= 0 && !bypass)))
     return false;
-  if (a && a != p && same_team(*a, *p))
+  if (a && a != p && same_team(*a, *p) && !bypass &&
+      kind != DamageKind::ORDNANCE && kind != DamageKind::GRENADE)
     return false;
   double dealt = amount;
   if (cq.enabled && p->armor > 0 && !bypass) {
@@ -597,12 +598,14 @@ bool Core::damage(Handle victim, Handle source, double amount, DamageKind kind,
     p->respawn_at = time_ + 2;
     ++p->deaths;
     ++counters.deaths;
-    if (a && a != p) {
+    if (a && a != p && !same_team(*a, *p)) {
       ++a->kills;
       if (cq.enabled) {
         a->classes.award(100);
         points.kill(a->team);
       }
+    } else if (a && a != p && same_team(*a, *p)) {
+      --a->kills; // Collateral kills never award class XP or objective points.
     }
   } else
     feedback(false, false);
@@ -899,7 +902,7 @@ void Core::impact(const Projectile &s, const Hit &hit, Host &host) {
   if (hit.entity)
     damage_vehicle(hit.entity, s.team, s.damage, kind, s.owner, host, s.credit);
   for (auto &t : turrets_)
-    if (t.active && t.key == hit.entity && t.team != s.team) {
+    if (t.active && t.key == hit.entity && (ordnance || t.team != s.team)) {
       t.hp -= s.damage;
       if (t.hp <= 0)
         t.active = false;
@@ -907,7 +910,7 @@ void Core::impact(const Projectile &s, const Hit &hit, Host &host) {
 
   if (hit.actor.id) {
     auto *target = resolve(hit.actor);
-    if (target && (!(cq.enabled || s.team) || target->team != s.team ||
+    if (target && (ordnance || !(cq.enabled || s.team) || target->team != s.team ||
                    target->handle == s.owner ||
                    (s.credit.id && session(*target) == s.credit)))
       damage(hit.actor, s.owner,
@@ -920,7 +923,7 @@ void Core::impact(const Projectile &s, const Hit &hit, Host &host) {
     return;
   for (auto &p : players_)
     if (p.active && !p.dead && !p.staging && p.handle != hit.actor) {
-      if ((cq.enabled || s.team) && p.team == s.team && p.handle != s.owner &&
+      if (!ordnance && (cq.enabled || s.team) && p.team == s.team && p.handle != s.owner &&
           (!s.credit.id || session(p) != s.credit))
         continue;
       auto center =
@@ -956,7 +959,7 @@ void Core::impact(const Projectile &s, const Hit &hit, Host &host) {
     }
   if (cq.enabled) {
     for (auto &v : vehicles_)
-      if (v.active && v.hp > 0 && v.key != hit.entity && v.team != s.team) {
+      if (v.active && v.hp > 0 && v.key != hit.entity) {
         V center = v.position + V{0, .5, 0};
         double distance = std::max(0., (center - hit.position).length() -
                                            (cq.enabled ? .3 : 0));
@@ -966,7 +969,7 @@ void Core::impact(const Projectile &s, const Hit &hit, Host &host) {
                          kind, s.owner, host, s.credit);
       }
     for (auto &t : turrets_)
-      if (t.active && t.key != hit.entity && t.team != s.team) {
+      if (t.active && t.key != hit.entity) {
         double d = (t.position - hit.position).length();
         if (d < s.radius &&
             !host.entity_ray(hit.position, t.position + V{0, .5, 0}, t.key)
@@ -976,6 +979,7 @@ void Core::impact(const Projectile &s, const Hit &hit, Host &host) {
             t.active = false;
         }
       }
+    host.ordnance_impact(hit.position, std::max(s.damage, s.splash), s.radius);
   }
 }
 void Core::projectiles(Host &host) {

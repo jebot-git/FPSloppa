@@ -12,8 +12,8 @@ func repair(request_team:int,amount:int) -> int:
 
 @export var aircraft:=false
 signal destroyed
-func damage(attacker_team:int,amount:int) -> int:
-	if not multiplayer.is_server() or attacker_team==team or hp<=0 or amount<=0:return 0
+func damage(attacker_team:int,amount:int,kind:String="infantry") -> int:
+	if not multiplayer.is_server() or (attacker_team==team and kind not in ["ordnance","grenade"]) or hp<=0 or amount<=0:return 0
 	var dealt:=mini(hp,amount);hp-=dealt
 	if hp==0:destroyed.emit()
 	return dealt

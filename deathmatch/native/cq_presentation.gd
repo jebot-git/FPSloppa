@@ -46,9 +46,9 @@ static func project(frame:Dictionary,origin:float,epoch:int,duration:float)->Arr
   var g:Dictionary=frame.grenades[key];mode["ch:"+str(key)]=[key,g.kind,g.owner,g.position,g.velocity,g.age,false]
  for key in frame.projectiles:
   var p:Dictionary=frame.projectiles[key];var direction:Vector3=p.velocity.normalized();shots.append([key,p.position,p.owner,p.weapon,direction,atan2(-direction.x,-direction.z),asin(clampf(direction.y,-1,1))]);watermark=maxi(watermark,key);var extra:Dictionary={"cq_team":p.team}
-  if p.weapon==5 and p.arm>0:extra.battery_shot=true
+  if p.weapon==5 and is_equal_approx(p.gravity,20.) and p.radius>.1:extra.battery_shot=true
   var definition:Dictionary={} # Full authored definitions are built by the existing spawn path.
-  if extra.get("battery_shot",false):definition={"kind":"tribes_mortar","gravity":p.gravity,"radius":p.radius,"arm":p.arm,"fuse":90.,"splash":152.,"blast_radius":20.,"speed":sqrt(100000.),"damage":152.,"bounce":.1,"guided":false,"cq_effect":"ordnance"}
+  if extra.get("battery_shot",false):definition={"kind":"tribes_mortar","gravity":p.gravity,"radius":p.radius,"arm":p.arm,"fuse":90.,"splash":152.,"blast_radius":30.,"speed":sqrt(100000.),"damage":152.,"bounce":0.,"guided":false,"cq_effect":"ordnance"}
   mode.ordnance[key]={"velocity":p.velocity,"life":p.remaining,"stuck":p.stuck,"extra":extra}
   if not definition.is_empty():mode.ordnance[key].definition=definition
  var scores:Array=frame.mode.scores;var winner:int=frame.mode.winner;var message:String="" if winner==-2 else "DRAW" if winner<0 else ["RED WINS","BLUE WINS"][winner]

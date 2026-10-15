@@ -91,6 +91,11 @@ void FPSAuthority::seat(cqauthority::Handle h, cqauthority::V at,
     actor->set_collision_mask(mounted ? 0 : 3);
   }
 }
+void FPSAuthority::ordnance_impact(cqauthority::V at, double damage, double radius) {
+  if (auto *node = world())
+    if (node->has_method("cq_ordnance_impact"))
+      node->call("cq_ordnance_impact", gv(at), damage, radius);
+}
 void FPSAuthority::sync_vehicle(const cqauthority::Vehicle &v) {
   auto it = entity_bodies.find(v.key);
   if (it == entity_bodies.end())

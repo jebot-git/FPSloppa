@@ -37,6 +37,7 @@ class FPSAuthority : public RefCounted, private cqauthority::Host {
   bool grass_cover(cqauthority::V) override;
   void seat(cqauthority::Handle, cqauthority::V, bool) override;
   void sync_vehicle(const cqauthority::Vehicle &) override;
+  void ordnance_impact(cqauthority::V, double, double) override;
   cqauthority::VehicleMoved move_vehicle(const cqauthority::Vehicle &,
                                          cqauthority::V, double) override;
   double ground_height(double, double) override;

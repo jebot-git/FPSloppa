@@ -1,0 +1,59 @@
+{
+  "native": {
+    "checks": 915862,
+    "ok": true,
+    "collision_legacy_misses": 211,
+    "collision_legacy_late": 56,
+    "replay_players": 64,
+    "replay_ticks": 3600
+  },
+  "destruction": {
+    "cells": 3,
+    "checks": 18,
+    "failures": [],
+    "last_rebuild_us": 182,
+    "shard_cap": 96
+  },
+  "native_client": {
+    "checks": 28,
+    "failures": []
+  },
+  "native_server": {
+    "checks": 28,
+    "failures": []
+  },
+  "early_client": {
+    "broken": [
+      1
+    ],
+    "enabled": true,
+    "label": "early",
+    "ok": true,
+    "passage_clear": true,
+    "revision": 1,
+    "synced": true
+  },
+  "late_client": {
+    "broken": [
+      1
+    ],
+    "enabled": true,
+    "label": "late",
+    "ok": true,
+    "passage_clear": true,
+    "revision": 1,
+    "synced": true
+  },
+  "airstrike": {
+    "passed": 54,
+    "failed": []
+  },
+  "battery": {
+    "passed": 66,
+    "failed": []
+  },
+  "turret": {
+    "passed": 39,
+    "failed": []
+  }
+}

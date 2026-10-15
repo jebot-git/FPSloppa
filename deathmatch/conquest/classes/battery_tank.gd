@@ -396,7 +396,7 @@ func destroy(key:int,attacker:int=0,reason:String="VEHICLE DESTROYED") -> void:
 func damage(key:int,team:int,amount:int,kind:String,attacker:int=0) -> int:
 	if not multiplayer.is_server() or not rows.has(key) or amount<=0 or game.intermission>0 or game.lobby.active():return 0
 	var row:Dictionary=rows[key]
-	if row.hp<=0 or kind not in ["ordnance","grenade"] or (team==row.team and not game.match_mode.friendly_fire):return 0
+	if row.hp<=0 or kind not in ["ordnance","grenade"]:return 0
 	var dealt:int=mini(row.hp,roundi(amount*(.5 if kind=="grenade" else 1.0)));row.hp-=dealt
 	if row.hp==0:destroy(key,attacker)
 	return dealt

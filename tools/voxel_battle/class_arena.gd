@@ -4,6 +4,7 @@ var squads=preload("res://deathmatch/conquest/classes/squads.gd").new()
 var resident=preload("res://deathmatch/native/cq_authority.gd").new()
 var battery_tanks=preload("res://deathmatch/conquest/classes/battery_tank.gd").new()
 var grass_audio
+var destruction
 var weather=preload("res://tools/voxel_battle/weather.gd").new()
 var jungle_ambience
 var equipment_audio
@@ -141,6 +142,7 @@ func _suicide_for(id:int) -> bool:
 	return super._suicide_for(id)
 func _restart_round() -> void:
 	if resident.serving() and resident.core:resident.core.request_restart();return
+	if is_instance_valid(destruction):destruction.clear_state();destruction.revision+=1;destruction.publish()
 	super._restart_round()
 func start_join(player_name:String,address:String,port:int,spectator:bool=false) -> void:
 	weather.reset();resident.reset_client();super.start_join(player_name,address,port,spectator)
@@ -478,7 +480,7 @@ func _play_variant_shot_fx(id:int,weapon:int,alternate:bool) -> void:
 	if headless:return
 	if id==multiplayer.get_unique_id():visual_cooldown=armory.data(weapon,alternate).cycle
 	if field_audio:field_audio.shot(weapon,_weapon_transform(id).origin)
-const CLASS_PROTOCOL:="fpsloppa-cq-frontier-24-cover-ranges"
+const CLASS_PROTOCOL:="fpsloppa-cq-frontier-25-ordnance-breaches"
 func connection_protocol() -> String:return CLASS_PROTOCOL
 func _collect(_id:int) -> void:pass # CQ resupplies through its class dispensers.
 func on_player_died(id:int) -> void:
@@ -489,17 +491,24 @@ func on_player_died(id:int) -> void:
 
 static func map_identity() -> String:
 	var digest:=HashingContext.new();digest.start(HashingContext.HASH_SHA256)
-	for file in ["landscape","architecture","outer_architecture","hydrology","waterways","map","stair_ramps","water_contents","baked_lighting","jungle_sky","light_fixtures","weather_schedule","weather","grass_cover"]:
+	for file in ["landscape","architecture","outer_architecture","hydrology","waterways","map","stair_ramps","water_contents","baked_lighting","jungle_sky","light_fixtures","weather_schedule","weather","grass_cover","destruction"]:
 		digest.update(FileAccess.get_file_as_bytes("res://tools/voxel_battle/"+file+".gd"))
 	for path in ["res://experimental-assets/jungle/lighting/bake.json","res://experimental-assets/jungle/lighting/irradiance.png","res://experimental-assets/jungle/lighting/dawn.png","res://experimental-assets/jungle/lighting/skybox.png","res://tools/voxel_battle/baked_lighting.gdshaderinc","res://tools/voxel_battle/jungle_sky.gdshader"]:
 		digest.update(FileAccess.get_file_as_bytes(path))
 	return digest.finish().hex_encode()
+func cq_ordnance_impact(at:Vector3,damage:float,radius:float)->void:
+	if is_instance_valid(destruction):destruction.impact(at,damage,radius)
+
 func _load_map(map_id:String) -> bool:
+	if is_instance_valid(destruction):destruction.free();destruction=null
 	if resident.serving() and resident.core:resident.reset_instance()
 	spotted_markers.clear();spotted_markers.next_update=0.
 	recon_drone.reset();airstrike.reset();healing_field.reset();turrets.reset();battery_tanks.reset()
 	var loaded:bool=super._load_map(map_id)
-	if loaded:map_sha=map_identity();battery_tanks.configure()
+	if loaded:
+		map_sha=map_identity();battery_tanks.configure()
+		destruction=preload("res://tools/voxel_battle/destruction.gd").new();destruction.name="Destruction";add_child(destruction)
+		destruction.setup(self,battle_map,not headless,OS.get_cmdline_user_args().has("--cq-destruction"))
 	return loaded
 func _peer_left(id:int) -> void:
 	if resident.serving():resident.detach(id)
@@ -523,13 +532,14 @@ func _trace(start:Vector3,end:Vector3,exclude:int,rewind:float=0.0,radius:float=
 			if vehicle.hp>0 and vehicle.owns_collider(contact.collider):hit["cq_vehicle"]=vehicle;break
 	return hit
 func _damage_map_hit(hit:Dictionary,id:int,amount:float,kind:String="") -> void:
-	if hit.has("cq_turret"):turrets.damage(hit.cq_turret,id,amount,variant_combat.active_projectile)
+	if kind.is_empty():kind="ordnance" if variant_combat.active_projectile>=0 and projectiles.get(variant_combat.active_projectile,{}).get("definition",{}).get("cq_effect","")=="ordnance" else "infantry"
+	if hit.has("cq_turret"):turrets.damage(hit.cq_turret,id,amount,variant_combat.active_projectile,kind)
 	if multiplayer.is_server() and hit.has("cq_vehicle"):
 		var vehicle=hit.cq_vehicle
 		if vehicle.get("service")==battery_tanks:
 			var p:Dictionary=projectiles.get(variant_combat.active_projectile,{})
-			battery_tanks.damage(vehicle.key,p.get("extra",{}).get("cq_team",players.get(id,{}).get("team",-1)),int(amount),kind if not kind.is_empty() else "ordnance" if not p.is_empty() and p.definition.get("cq_effect","")=="ordnance" else "infantry",id)
-		else:vehicle.damage(players.get(id,{}).get("team",-1),int(amount))
+			battery_tanks.damage(vehicle.key,p.get("extra",{}).get("cq_team",players.get(id,{}).get("team",-1)),int(amount),kind,id)
+		else:vehicle.damage(players.get(id,{}).get("team",-1),int(amount),kind)
 		if variant_combat.active_projectile>=0:vehicle.set_meta("cq_direct_projectile",variant_combat.active_projectile)
 	super._damage_map_hit(hit,id,amount)
 func request_equipment(role_name:String,weapon:int,secondary:bool) -> void:
@@ -596,7 +606,7 @@ func _cq_airstrike_fx(where:Vector3) -> void:
 	if headless:return
 	if effects:effects.play("cq_field_ordnance_impact",where,-3)
 	_weapon_visuals().burst("ut99",where,5,"rocket",{"cq_effect":"ordnance","color":Color("ffba62")})
-const RADIUS_AIRSTRIKE:=18.75
+const RADIUS_AIRSTRIKE:=35.0
 
 @rpc("authority","call_local","reliable",1)
 func _cq_turret_shot(where:Vector3,direction:Vector3,team:int) -> void:

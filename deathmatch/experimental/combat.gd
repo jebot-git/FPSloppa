@@ -209,7 +209,7 @@ func blast(where: Vector3,owner_id: int,damage: int,radius: float,title: String,
 		var s: Dictionary=game.players[id]
 		if id==ignore or s.dead or s.spectator or s.invulnerable>game.clock:continue
 		if not game.match_mode.fortress.walkers.accepts_explosion(id,where,hull_impact):continue
-		if id!=owner_id and game.match_mode.same_team(id,owner_id) and not game.match_mode.friendly_fire:continue
+		if id!=owner_id and game.match_mode.same_team(id,owner_id) and not game.match_mode.allows_friendly_damage(title):continue
 		var target: Vector3=game.fighters[id].position+Vector3.UP*minf(.8,game.fighters[id].collision_height*.5)
 		target=game.match_mode.fortress.walkers.blast_target(id,where,target)
 		var distance:=maxf(0,where.distance_to(target)-.3)

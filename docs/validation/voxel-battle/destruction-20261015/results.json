@@ -1,0 +1,49 @@
+{
+	"adapter": "Intel(R) Graphics (ADL-N)",
+	"bombardment": {
+		"draw_calls": 14.0,
+		"frames": 30,
+		"max_ms": 28.569,
+		"mean_ms": 12.2902333333333,
+		"p95_ms": 15.58,
+		"triangles": 55810.0
+	},
+	"bombardment_collision_us": 10598,
+	"bombardment_mesh_us": 20127,
+	"breached": {
+		"draw_calls": 6.0,
+		"frames": 90,
+		"max_ms": 26.152,
+		"mean_ms": 13.4879555555556,
+		"p95_ms": 14.123,
+		"triangles": 54866.0
+	},
+	"breakup": {
+		"draw_calls": 13.0,
+		"frames": 15,
+		"max_ms": 14.972,
+		"mean_ms": 11.4087333333333,
+		"p95_ms": 14.972,
+		"triangles": 51790.0
+	},
+	"broken": 24,
+	"catalog_cells": 3769,
+	"catalog_walls": 1446,
+	"first_impact_collision_us": 6273,
+	"first_impact_mesh_us": 8676,
+	"intact": {
+		"draw_calls": 5.0,
+		"frames": 90,
+		"max_ms": 29.352,
+		"mean_ms": 15.7224444444444,
+		"p95_ms": 27.147,
+		"triangles": 51632.0
+	},
+	"renderer": "forward_plus",
+	"resolution": [
+		1280,
+		720
+	],
+	"scope": "Full streamed map, real colliders, one factory breach then twelve coalesced impacts. No players/AI; desktop GPU only, not a 64-player or VR performance claim.",
+	"shard_limit": 96
+}

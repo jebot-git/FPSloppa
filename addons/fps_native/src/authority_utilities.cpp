@@ -241,7 +241,7 @@ void Core::tick_grenades(Host &host) {
         continue;
       }
       for (auto &p : players_)
-        if (alive(p) && (p.team != g.team || session(p) == g.owner)) {
+        if (alive(p)) {
           V target = p.position + V{0, .9, 0};
           double distance = (target - g.position).length();
           double radius = 350. / 32;
@@ -253,7 +253,7 @@ void Core::tick_grenades(Host &host) {
                  false, g.owner);
         }
       for (auto &v : vehicles_)
-        if (v.active && v.hp > 0 && v.team != g.team) {
+        if (v.active && v.hp > 0) {
           double d = (v.position - g.position).length();
           double radius = 350. / 32;
           if (d < radius &&
@@ -263,6 +263,15 @@ void Core::tick_grenades(Host &host) {
                            DamageKind::GRENADE, {g.owner.id, g.life}, host,
                            g.owner);
         }
+      for (auto &t : turrets_)
+        if (t.active) {
+          double d = (t.position - g.position).length(), radius = 350. / 32;
+          if (d < radius && !host.entity_ray(g.position, t.position + V{0, .5, 0}, t.key).blocked) {
+            t.hp -= std::round(100 * (1 - d / radius));
+            if (t.hp <= 0) t.active = false;
+          }
+        }
+      host.ordnance_impact(g.position, 100, 350. / 32);
       emit(EventKind::GRENADE, {g.owner.id, g.life}, g.position, {}, g.kind,
            350. / 32, g.key);
     }
