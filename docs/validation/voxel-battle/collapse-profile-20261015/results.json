@@ -1,0 +1,1020 @@
+[
+  {
+    "adapter": "Intel(R) Graphics (ADL-N)",
+    "renderer": "forward_plus",
+    "resolution": [
+      1280,
+      720
+    ],
+    "scope": "Full map, no players. Direct failed factory-storey support set; no preceding breaches. CPU-call wall durations can include driver/synchronization waits; thread_cpu_us comes from Linux /proc/thread-self/schedstat execution nanoseconds and excludes descheduling/waits (kernel accounting granularity applies). Viewport GPU timestamps can lag and exclude CPU scripts/uploads. Other owned Godot processes suspended during capture.",
+    "vsync": false,
+    "events": [
+      {
+        "animation_calls": [
+          {
+            "thread_cpu_us": 13131.25,
+            "wall_us": 13430
+          }
+        ],
+        "collapse_detail": {
+          "animation_us": 13586,
+          "bodies": 115,
+          "id": 10,
+          "total_us": 14140
+        },
+        "frame": 210,
+        "mesh_thread_cpu_us": 6517.462,
+        "mesh_us": 6743,
+        "mode": "full",
+        "repeat": 0,
+        "replacement_calls": [
+          {
+            "lod": 0,
+            "us": 3632
+          },
+          {
+            "lod": 1,
+            "us": 3052
+          }
+        ],
+        "trigger_thread_cpu_us": 20779.052,
+        "trigger_us": 22301,
+        "setup_wall_ms": 29.044,
+        "setup_thread_cpu_ms": 27.296514,
+        "baseline": {
+          "wall_ms": {
+            "median": 3.1885,
+            "p95": 5.583,
+            "max": 5.677
+          },
+          "gpu_ms": {
+            "median": 2.68899989128113,
+            "p95": 3.0239999294281,
+            "max": 3.06299996376038
+          }
+        },
+        "initial_20_frames": {
+          "wall_ms": {
+            "median": 3.2495000000000003,
+            "p95": 32.065,
+            "max": 32.065
+          },
+          "gpu_ms": {
+            "median": 2.74000000953674,
+            "p95": 3.12400007247925,
+            "max": 3.12400007247925
+          },
+          "render_cpu_ms": {
+            "median": 0.3264999985694885,
+            "p95": 1.12100005149841,
+            "max": 1.12100005149841
+          },
+          "setup_cpu_ms": {
+            "median": 0.041,
+            "p95": 0.151,
+            "max": 0.151
+          },
+          "service_process_us": {
+            "median": 110.5,
+            "p95": 130,
+            "max": 130
+          }
+        },
+        "later_frames_through_expiry": {
+          "wall_ms": {
+            "median": 3.2625,
+            "p95": 5.662,
+            "max": 5.76
+          },
+          "gpu_ms": {
+            "median": 2.75200009346008,
+            "p95": 3.09100008010864,
+            "max": 3.15599989891052
+          },
+          "service_process_us": {
+            "median": 106.0,
+            "p95": 129,
+            "max": 266
+          }
+        }
+      },
+      {
+        "animation_calls": [],
+        "collapse_detail": {
+          "animation_us": 0,
+          "bodies": 115,
+          "id": 10,
+          "total_us": 600
+        },
+        "frame": 734,
+        "mesh_thread_cpu_us": 6662.69,
+        "mesh_us": 10735,
+        "mode": "no_animation",
+        "repeat": 0,
+        "replacement_calls": [
+          {
+            "lod": 0,
+            "us": 6864
+          },
+          {
+            "lod": 1,
+            "us": 3786
+          }
+        ],
+        "trigger_thread_cpu_us": 0.0,
+        "trigger_us": 886,
+        "setup_wall_ms": 11.621,
+        "setup_thread_cpu_ms": 6.66269,
+        "baseline": {
+          "wall_ms": {
+            "median": 3.3369999999999997,
+            "p95": 5.724,
+            "max": 6.793
+          },
+          "gpu_ms": {
+            "median": 2.806999921798705,
+            "p95": 3.16300010681152,
+            "max": 3.21700000762939
+          }
+        },
+        "initial_20_frames": {
+          "wall_ms": {
+            "median": 3.3595,
+            "p95": 13.514,
+            "max": 13.514
+          },
+          "gpu_ms": {
+            "median": 2.802500009536745,
+            "p95": 3.17000007629395,
+            "max": 3.17000007629395
+          },
+          "render_cpu_ms": {
+            "median": 0.28199999034404755,
+            "p95": 0.566999971866608,
+            "max": 0.566999971866608
+          },
+          "setup_cpu_ms": {
+            "median": 0.026,
+            "p95": 0.053,
+            "max": 0.053
+          },
+          "service_process_us": {
+            "median": 20.0,
+            "p95": 28,
+            "max": 28
+          }
+        },
+        "later_frames_through_expiry": {
+          "wall_ms": {
+            "median": 3.333,
+            "p95": 5.713,
+            "max": 6.775
+          },
+          "gpu_ms": {
+            "median": 2.82500004768372,
+            "p95": 3.18199992179871,
+            "max": 3.38199996948242
+          },
+          "service_process_us": {
+            "median": 22.0,
+            "p95": 31,
+            "max": 230
+          }
+        }
+      },
+      {
+        "animation_calls": [
+          {
+            "thread_cpu_us": 12455.444,
+            "wall_us": 17386
+          }
+        ],
+        "collapse_detail": {},
+        "frame": 1248,
+        "mesh_thread_cpu_us": 0.0,
+        "mesh_us": 8,
+        "mode": "animation_only",
+        "repeat": 0,
+        "replacement_calls": [],
+        "trigger_thread_cpu_us": 12455.444,
+        "trigger_us": 17519,
+        "setup_wall_ms": 17.527,
+        "setup_thread_cpu_ms": 12.455444,
+        "baseline": {
+          "wall_ms": {
+            "median": 3.4005,
+            "p95": 5.885,
+            "max": 6.255
+          },
+          "gpu_ms": {
+            "median": 2.89300000667572,
+            "p95": 3.21900010108948,
+            "max": 3.26500010490417
+          }
+        },
+        "initial_20_frames": {
+          "wall_ms": {
+            "median": 3.4805,
+            "p95": 19.391,
+            "max": 19.391
+          },
+          "gpu_ms": {
+            "median": 2.927000045776365,
+            "p95": 3.2720000743866,
+            "max": 3.2720000743866
+          },
+          "render_cpu_ms": {
+            "median": 0.29700000584125497,
+            "p95": 0.391999989748001,
+            "max": 0.391999989748001
+          },
+          "setup_cpu_ms": {
+            "median": 0.034,
+            "p95": 0.045,
+            "max": 0.045
+          },
+          "service_process_us": {
+            "median": 36.0,
+            "p95": 49,
+            "max": 49
+          }
+        },
+        "later_frames_through_expiry": {
+          "wall_ms": {
+            "median": 3.714,
+            "p95": 6.01,
+            "max": 7.823
+          },
+          "gpu_ms": {
+            "median": 3.01799988746643,
+            "p95": 3.32999992370605,
+            "max": 3.45799994468689
+          },
+          "service_process_us": {
+            "median": 38,
+            "p95": 58,
+            "max": 279
+          }
+        }
+      },
+      {
+        "animation_calls": [
+          {
+            "thread_cpu_us": 12675.89,
+            "wall_us": 13745
+          }
+        ],
+        "collapse_detail": {
+          "animation_us": 14025,
+          "bodies": 115,
+          "id": 10,
+          "total_us": 14762
+        },
+        "frame": 1733,
+        "mesh_thread_cpu_us": 7075.754,
+        "mesh_us": 6707,
+        "mode": "full",
+        "repeat": 1,
+        "replacement_calls": [
+          {
+            "lod": 0,
+            "us": 3680
+          },
+          {
+            "lod": 1,
+            "us": 2968
+          }
+        ],
+        "trigger_thread_cpu_us": 19676.549,
+        "trigger_us": 21754,
+        "setup_wall_ms": 28.461,
+        "setup_thread_cpu_ms": 26.752303,
+        "baseline": {
+          "wall_ms": {
+            "median": 3.6425,
+            "p95": 5.667,
+            "max": 7.707
+          },
+          "gpu_ms": {
+            "median": 2.9724999666214,
+            "p95": 3.25500011444092,
+            "max": 3.34500002861023
+          }
+        },
+        "initial_20_frames": {
+          "wall_ms": {
+            "median": 3.678,
+            "p95": 30.704,
+            "max": 30.704
+          },
+          "gpu_ms": {
+            "median": 2.980999946594235,
+            "p95": 3.21000003814697,
+            "max": 3.21000003814697
+          },
+          "render_cpu_ms": {
+            "median": 0.316000014543533,
+            "p95": 0.542999982833862,
+            "max": 0.542999982833862
+          },
+          "setup_cpu_ms": {
+            "median": 0.041,
+            "p95": 0.103,
+            "max": 0.103
+          },
+          "service_process_us": {
+            "median": 106.0,
+            "p95": 145,
+            "max": 145
+          }
+        },
+        "later_frames_through_expiry": {
+          "wall_ms": {
+            "median": 3.644,
+            "p95": 5.654,
+            "max": 5.864
+          },
+          "gpu_ms": {
+            "median": 2.98600006103516,
+            "p95": 3.2590000629425,
+            "max": 3.32500004768372
+          },
+          "service_process_us": {
+            "median": 96,
+            "p95": 120,
+            "max": 284
+          }
+        }
+      },
+      {
+        "animation_calls": [],
+        "collapse_detail": {
+          "animation_us": 0,
+          "bodies": 115,
+          "id": 10,
+          "total_us": 621
+        },
+        "frame": 2232,
+        "mesh_thread_cpu_us": 7147.846,
+        "mesh_us": 11598,
+        "mode": "no_animation",
+        "repeat": 1,
+        "replacement_calls": [
+          {
+            "lod": 0,
+            "us": 8499
+          },
+          {
+            "lod": 1,
+            "us": 3037
+          }
+        ],
+        "trigger_thread_cpu_us": 638.998,
+        "trigger_us": 896,
+        "setup_wall_ms": 12.494,
+        "setup_thread_cpu_ms": 7.786843999999999,
+        "baseline": {
+          "wall_ms": {
+            "median": 3.53,
+            "p95": 5.878,
+            "max": 6.032
+          },
+          "gpu_ms": {
+            "median": 2.983999967575075,
+            "p95": 3.23699998855591,
+            "max": 3.31800007820129
+          }
+        },
+        "initial_20_frames": {
+          "wall_ms": {
+            "median": 3.4885,
+            "p95": 14.365,
+            "max": 14.365
+          },
+          "gpu_ms": {
+            "median": 2.999500036239625,
+            "p95": 3.24900007247925,
+            "max": 3.24900007247925
+          },
+          "render_cpu_ms": {
+            "median": 0.30050000548362754,
+            "p95": 0.542999982833862,
+            "max": 0.542999982833862
+          },
+          "setup_cpu_ms": {
+            "median": 0.0325,
+            "p95": 0.068,
+            "max": 0.068
+          },
+          "service_process_us": {
+            "median": 20.5,
+            "p95": 31,
+            "max": 31
+          }
+        },
+        "later_frames_through_expiry": {
+          "wall_ms": {
+            "median": 3.496,
+            "p95": 5.908,
+            "max": 8.792
+          },
+          "gpu_ms": {
+            "median": 2.99000000953674,
+            "p95": 3.26699995994568,
+            "max": 3.58299994468689
+          },
+          "service_process_us": {
+            "median": 21,
+            "p95": 34,
+            "max": 1298
+          }
+        }
+      },
+      {
+        "animation_calls": [
+          {
+            "thread_cpu_us": 13224.395,
+            "wall_us": 18850
+          }
+        ],
+        "collapse_detail": {},
+        "frame": 2725,
+        "mesh_thread_cpu_us": 0.0,
+        "mesh_us": 7,
+        "mode": "animation_only",
+        "repeat": 1,
+        "replacement_calls": [],
+        "trigger_thread_cpu_us": 13224.395,
+        "trigger_us": 18966,
+        "setup_wall_ms": 18.973,
+        "setup_thread_cpu_ms": 13.224395000000001,
+        "baseline": {
+          "wall_ms": {
+            "median": 3.512,
+            "p95": 6.055,
+            "max": 6.22
+          },
+          "gpu_ms": {
+            "median": 3.00500011444092,
+            "p95": 3.31699991226196,
+            "max": 3.3659999370575
+          }
+        },
+        "initial_20_frames": {
+          "wall_ms": {
+            "median": 3.5585,
+            "p95": 20.78,
+            "max": 20.78
+          },
+          "gpu_ms": {
+            "median": 3.028499960899355,
+            "p95": 3.22099995613098,
+            "max": 3.22099995613098
+          },
+          "render_cpu_ms": {
+            "median": 0.309000000357628,
+            "p95": 0.472000002861023,
+            "max": 0.472000002861023
+          },
+          "setup_cpu_ms": {
+            "median": 0.033,
+            "p95": 0.045,
+            "max": 0.045
+          },
+          "service_process_us": {
+            "median": 37.5,
+            "p95": 59,
+            "max": 59
+          }
+        },
+        "later_frames_through_expiry": {
+          "wall_ms": {
+            "median": 3.536,
+            "p95": 5.891,
+            "max": 6.044
+          },
+          "gpu_ms": {
+            "median": 3.025500059127805,
+            "p95": 3.37800002098083,
+            "max": 3.47399997711182
+          },
+          "service_process_us": {
+            "median": 36.0,
+            "p95": 53,
+            "max": 320
+          }
+        }
+      }
+    ],
+    "captured_frames": 3135
+  },
+  {
+    "adapter": "Intel(R) Graphics (ADL-N)",
+    "renderer": "forward_plus",
+    "resolution": [
+      640,
+      360
+    ],
+    "scope": "Full map, no players. Direct failed factory-storey support set; no preceding breaches. CPU-call wall durations can include driver/synchronization waits; thread_cpu_us comes from Linux /proc/thread-self/schedstat execution nanoseconds and excludes descheduling/waits (kernel accounting granularity applies). Viewport GPU timestamps can lag and exclude CPU scripts/uploads. Other owned Godot processes suspended during capture.",
+    "vsync": false,
+    "events": [
+      {
+        "animation_calls": [
+          {
+            "thread_cpu_us": 12619.389,
+            "wall_us": 12935
+          }
+        ],
+        "collapse_detail": {
+          "animation_us": 13088,
+          "bodies": 115,
+          "id": 10,
+          "total_us": 13677
+        },
+        "frame": 210,
+        "mesh_thread_cpu_us": 6334.946,
+        "mesh_us": 6897,
+        "mode": "full",
+        "repeat": 0,
+        "replacement_calls": [
+          {
+            "lod": 0,
+            "us": 3847
+          },
+          {
+            "lod": 1,
+            "us": 2991
+          }
+        ],
+        "trigger_thread_cpu_us": 20619.767,
+        "trigger_us": 20898,
+        "setup_wall_ms": 27.795,
+        "setup_thread_cpu_ms": 26.954712999999998,
+        "baseline": {
+          "wall_ms": {
+            "median": 1.2175,
+            "p95": 2.733,
+            "max": 4.168
+          },
+          "gpu_ms": {
+            "median": 0.9715000092983245,
+            "p95": 1.1710000038147,
+            "max": 1.18700003623962
+          }
+        },
+        "initial_20_frames": {
+          "wall_ms": {
+            "median": 1.6829999999999998,
+            "p95": 31.216,
+            "max": 31.216
+          },
+          "gpu_ms": {
+            "median": 1.00199997425079,
+            "p95": 1.19700002670288,
+            "max": 1.19700002670288
+          },
+          "render_cpu_ms": {
+            "median": 0.284500002861023,
+            "p95": 1.35399997234344,
+            "max": 1.35399997234344
+          },
+          "setup_cpu_ms": {
+            "median": 0.036,
+            "p95": 0.156,
+            "max": 0.156
+          },
+          "service_process_us": {
+            "median": 101.0,
+            "p95": 153,
+            "max": 153
+          }
+        },
+        "later_frames_through_expiry": {
+          "wall_ms": {
+            "median": 1.395,
+            "p95": 3.03,
+            "max": 6.785
+          },
+          "gpu_ms": {
+            "median": 1.02699995040894,
+            "p95": 1.20000004768372,
+            "max": 1.2389999628067
+          },
+          "service_process_us": {
+            "median": 92.0,
+            "p95": 111,
+            "max": 251
+          }
+        }
+      },
+      {
+        "animation_calls": [],
+        "collapse_detail": {
+          "animation_us": 1,
+          "bodies": 115,
+          "id": 10,
+          "total_us": 535
+        },
+        "frame": 1326,
+        "mesh_thread_cpu_us": 6804.922,
+        "mesh_us": 7485,
+        "mode": "no_animation",
+        "repeat": 0,
+        "replacement_calls": [
+          {
+            "lod": 0,
+            "us": 3772
+          },
+          {
+            "lod": 1,
+            "us": 3653
+          }
+        ],
+        "trigger_thread_cpu_us": 228.892,
+        "trigger_us": 821,
+        "setup_wall_ms": 8.306,
+        "setup_thread_cpu_ms": 7.033814,
+        "baseline": {
+          "wall_ms": {
+            "median": 1.306,
+            "p95": 2.439,
+            "max": 5.041
+          },
+          "gpu_ms": {
+            "median": 1.0635000467300402,
+            "p95": 1.25,
+            "max": 1.25800001621246
+          }
+        },
+        "initial_20_frames": {
+          "wall_ms": {
+            "median": 1.4725000000000001,
+            "p95": 10.136,
+            "max": 10.136
+          },
+          "gpu_ms": {
+            "median": 1.050999999046325,
+            "p95": 1.23000001907349,
+            "max": 1.23000001907349
+          },
+          "render_cpu_ms": {
+            "median": 0.2504999935626985,
+            "p95": 0.430000007152557,
+            "max": 0.430000007152557
+          },
+          "setup_cpu_ms": {
+            "median": 0.018,
+            "p95": 0.079,
+            "max": 0.079
+          },
+          "service_process_us": {
+            "median": 18.0,
+            "p95": 22,
+            "max": 22
+          }
+        },
+        "later_frames_through_expiry": {
+          "wall_ms": {
+            "median": 1.332,
+            "p95": 2.854,
+            "max": 5.7
+          },
+          "gpu_ms": {
+            "median": 1.09500002861023,
+            "p95": 1.27600002288818,
+            "max": 1.35300004482269
+          },
+          "service_process_us": {
+            "median": 17,
+            "p95": 24,
+            "max": 101
+          }
+        }
+      },
+      {
+        "animation_calls": [
+          {
+            "thread_cpu_us": 12194.131,
+            "wall_us": 14186
+          }
+        ],
+        "collapse_detail": {},
+        "frame": 2481,
+        "mesh_thread_cpu_us": 0.0,
+        "mesh_us": 8,
+        "mode": "animation_only",
+        "repeat": 0,
+        "replacement_calls": [],
+        "trigger_thread_cpu_us": 12194.131,
+        "trigger_us": 14308,
+        "setup_wall_ms": 14.316,
+        "setup_thread_cpu_ms": 12.194130999999999,
+        "baseline": {
+          "wall_ms": {
+            "median": 1.3275000000000001,
+            "p95": 3.126,
+            "max": 3.226
+          },
+          "gpu_ms": {
+            "median": 1.11750000715256,
+            "p95": 1.32000005245209,
+            "max": 1.33299994468689
+          }
+        },
+        "initial_20_frames": {
+          "wall_ms": {
+            "median": 1.3895,
+            "p95": 16.111,
+            "max": 16.111
+          },
+          "gpu_ms": {
+            "median": 1.164499998092655,
+            "p95": 1.32799994945526,
+            "max": 1.32799994945526
+          },
+          "render_cpu_ms": {
+            "median": 0.236999996006489,
+            "p95": 0.314000010490417,
+            "max": 0.314000010490417
+          },
+          "setup_cpu_ms": {
+            "median": 0.022,
+            "p95": 0.036,
+            "max": 0.036
+          },
+          "service_process_us": {
+            "median": 30.5,
+            "p95": 92,
+            "max": 92
+          }
+        },
+        "later_frames_through_expiry": {
+          "wall_ms": {
+            "median": 1.413,
+            "p95": 3.436,
+            "max": 8.843
+          },
+          "gpu_ms": {
+            "median": 1.19500005245209,
+            "p95": 1.37899994850159,
+            "max": 1.48699998855591
+          },
+          "service_process_us": {
+            "median": 31,
+            "p95": 41,
+            "max": 200
+          }
+        }
+      },
+      {
+        "animation_calls": [
+          {
+            "thread_cpu_us": 12655.718,
+            "wall_us": 13206
+          }
+        ],
+        "collapse_detail": {
+          "animation_us": 13346,
+          "bodies": 115,
+          "id": 10,
+          "total_us": 13914
+        },
+        "frame": 3546,
+        "mesh_thread_cpu_us": 5337.856,
+        "mesh_us": 6873,
+        "mode": "full",
+        "repeat": 1,
+        "replacement_calls": [
+          {
+            "lod": 0,
+            "us": 3761
+          },
+          {
+            "lod": 1,
+            "us": 3057
+          }
+        ],
+        "trigger_thread_cpu_us": 19935.909,
+        "trigger_us": 21236,
+        "setup_wall_ms": 28.109,
+        "setup_thread_cpu_ms": 25.273765,
+        "baseline": {
+          "wall_ms": {
+            "median": 1.447,
+            "p95": 3.435,
+            "max": 4.506
+          },
+          "gpu_ms": {
+            "median": 1.1750000119209298,
+            "p95": 1.38699996471405,
+            "max": 1.40900003910065
+          }
+        },
+        "initial_20_frames": {
+          "wall_ms": {
+            "median": 1.5295,
+            "p95": 30.381,
+            "max": 30.381
+          },
+          "gpu_ms": {
+            "median": 1.18349999189377,
+            "p95": 1.31900000572205,
+            "max": 1.31900000572205
+          },
+          "render_cpu_ms": {
+            "median": 0.2660000026226045,
+            "p95": 1.09399998188019,
+            "max": 1.09399998188019
+          },
+          "setup_cpu_ms": {
+            "median": 0.0325,
+            "p95": 0.077,
+            "max": 0.077
+          },
+          "service_process_us": {
+            "median": 86.5,
+            "p95": 104,
+            "max": 104
+          }
+        },
+        "later_frames_through_expiry": {
+          "wall_ms": {
+            "median": 1.571,
+            "p95": 3.656,
+            "max": 7.329
+          },
+          "gpu_ms": {
+            "median": 1.20500004291534,
+            "p95": 1.40400004386902,
+            "max": 1.46599996089935
+          },
+          "service_process_us": {
+            "median": 86.0,
+            "p95": 103,
+            "max": 296
+          }
+        }
+      },
+      {
+        "animation_calls": [],
+        "collapse_detail": {
+          "animation_us": 0,
+          "bodies": 115,
+          "id": 10,
+          "total_us": 567
+        },
+        "frame": 4546,
+        "mesh_thread_cpu_us": 7492.693,
+        "mesh_us": 9688,
+        "mode": "no_animation",
+        "repeat": 1,
+        "replacement_calls": [
+          {
+            "lod": 0,
+            "us": 4793
+          },
+          {
+            "lod": 1,
+            "us": 4831
+          }
+        ],
+        "trigger_thread_cpu_us": 664.991,
+        "trigger_us": 844,
+        "setup_wall_ms": 10.532,
+        "setup_thread_cpu_ms": 8.157684,
+        "baseline": {
+          "wall_ms": {
+            "median": 1.404,
+            "p95": 2.71,
+            "max": 3.042
+          },
+          "gpu_ms": {
+            "median": 1.1884999871253998,
+            "p95": 1.40199995040894,
+            "max": 1.40699994564056
+          }
+        },
+        "initial_20_frames": {
+          "wall_ms": {
+            "median": 1.434,
+            "p95": 12.424,
+            "max": 12.424
+          },
+          "gpu_ms": {
+            "median": 1.179499983787535,
+            "p95": 1.39300000667572,
+            "max": 1.39300000667572
+          },
+          "render_cpu_ms": {
+            "median": 0.2504999935626985,
+            "p95": 0.333999991416931,
+            "max": 0.333999991416931
+          },
+          "setup_cpu_ms": {
+            "median": 0.017,
+            "p95": 0.039,
+            "max": 0.039
+          },
+          "service_process_us": {
+            "median": 17.0,
+            "p95": 21,
+            "max": 21
+          }
+        },
+        "later_frames_through_expiry": {
+          "wall_ms": {
+            "median": 1.471,
+            "p95": 2.958,
+            "max": 15.369
+          },
+          "gpu_ms": {
+            "median": 1.20299994945526,
+            "p95": 1.40100002288818,
+            "max": 1.47200000286102
+          },
+          "service_process_us": {
+            "median": 18,
+            "p95": 24,
+            "max": 165
+          }
+        }
+      },
+      {
+        "animation_calls": [
+          {
+            "thread_cpu_us": 12559.104,
+            "wall_us": 15140
+          }
+        ],
+        "collapse_detail": {},
+        "frame": 5615,
+        "mesh_thread_cpu_us": 0.0,
+        "mesh_us": 8,
+        "mode": "animation_only",
+        "repeat": 1,
+        "replacement_calls": [],
+        "trigger_thread_cpu_us": 12559.104,
+        "trigger_us": 15268,
+        "setup_wall_ms": 15.276,
+        "setup_thread_cpu_ms": 12.559104,
+        "baseline": {
+          "wall_ms": {
+            "median": 1.444,
+            "p95": 2.61,
+            "max": 3.316
+          },
+          "gpu_ms": {
+            "median": 1.220499992370605,
+            "p95": 1.43799996376038,
+            "max": 1.44500005245209
+          }
+        },
+        "initial_20_frames": {
+          "wall_ms": {
+            "median": 1.4705,
+            "p95": 17.032,
+            "max": 17.032
+          },
+          "gpu_ms": {
+            "median": 1.261500000953675,
+            "p95": 1.4889999628067,
+            "max": 1.4889999628067
+          },
+          "render_cpu_ms": {
+            "median": 0.2514999955892565,
+            "p95": 0.486000001430511,
+            "max": 0.486000001430511
+          },
+          "setup_cpu_ms": {
+            "median": 0.023,
+            "p95": 0.035,
+            "max": 0.035
+          },
+          "service_process_us": {
+            "median": 32.5,
+            "p95": 49,
+            "max": 49
+          }
+        },
+        "later_frames_through_expiry": {
+          "wall_ms": {
+            "median": 1.4945,
+            "p95": 2.777,
+            "max": 5.573
+          },
+          "gpu_ms": {
+            "median": 1.26400005817413,
+            "p95": 1.47399997711182,
+            "max": 1.53799998760223
+          },
+          "service_process_us": {
+            "median": 32.0,
+            "p95": 42,
+            "max": 473
+          }
+        }
+      }
+    ],
+    "captured_frames": 6599
+  }
+]
