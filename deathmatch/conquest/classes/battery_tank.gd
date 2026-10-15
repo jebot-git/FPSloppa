@@ -401,15 +401,17 @@ func draw() -> void:
 			if row.kind=="transport":Transport.prepare_windows(node);Transport.prepare_seats(node)
 			models[key]=node
 		models[key].position=visual_origin(row);models[key].basis=visual_basis(row);models[key].visible=row.hp>0
-		var yaw_node:Node3D=models[key].find_child("Yaw",true,false)
-		if yaw_node:
-			var normal:Vector3=row.get("normal",Vector3.UP);yaw_node.global_basis=Basis.looking_at((row.direction-normal*row.direction.dot(normal)).normalized(),normal)
-		var aim:Node3D=models[key].find_child("Aim",true,false)
-		if aim:aim.global_basis=Basis.looking_at(row.direction,row.get("normal",Vector3.UP) if absf(row.direction.dot(row.get("normal",Vector3.UP)))<.99 else Vector3.RIGHT)
+		pose_turret(models[key],row)
 	for id in game.fighters:
 		if mounted(id) and is_instance_valid(game.fighters[id].avatar):game.fighters[id].avatar.hide()
 	if not view:view=preload("res://deathmatch/conquest/classes/battery_view.gd").new();add_child(view);view.setup(game,self)
 	draw_helper();view.update()
+static func pose_turret(model:Node3D,row:Dictionary)->void:
+	var yaw_node:Node3D=model.find_child("Yaw",true,false)
+	if yaw_node:
+		var normal:Vector3=row.get("normal",Vector3.UP);yaw_node.global_basis=Basis.looking_at((row.direction-normal*row.direction.dot(normal)).normalized(),normal)
+	var aim:Node3D=model.find_child("Aim",true,false)
+	if aim:aim.global_basis=Basis.looking_at(row.direction,row.get("normal",Vector3.UP) if absf(row.direction.dot(row.get("normal",Vector3.UP)))<.99 else Vector3.RIGHT)
 func helper(id:int) -> Dictionary:
 	if not mounted(id):return {}
 	return preload("res://deathmatch/conquest/classes/designation_guide.gd").for_player(game,id)

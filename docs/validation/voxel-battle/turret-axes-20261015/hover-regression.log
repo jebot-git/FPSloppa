@@ -1,0 +1,54 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+DM_HOST_READY port=28807 practice=false
+PASS Four light and two heavy tanks plus two existing rocket batteries
+PASS Board light using shared Use controls
+PASS Infantry immunity and full initial HP light
+PASS Half grenade and full ordnance damage light
+PASS Repair respects type HP cap and allied team light
+PASS Barrel elevation constrained light
+PASS Barrel depression constrained light
+PASS Tracked hand follows aim inside pitch limits light
+PASS Exact magazine/paired volley count light
+PASS Reload starts after final volley light
+PASS No shot before reload deadline light
+PASS Unlimited ammo refills at deadline light
+PASS Direct unguided ordnance definition light
+PASS Hover clearance stays below half a metre and barrel follows hull light
+PASS Shared drive and hull turn light
+PASS Mobility profile light
+PASS Board heavy using shared Use controls
+PASS Infantry immunity and full initial HP heavy
+PASS Half grenade and full ordnance damage heavy
+PASS Repair respects type HP cap and allied team heavy
+PASS Barrel elevation constrained heavy
+PASS Barrel depression constrained heavy
+PASS Tracked hand follows aim inside pitch limits heavy
+PASS Exact magazine/paired volley count heavy
+PASS Reload starts after final volley heavy
+PASS No shot before reload deadline heavy
+PASS Unlimited ammo refills at deadline heavy
+PASS Direct unguided ordnance definition heavy
+PASS Heavy pair fires simultaneously from distinct barrels
+PASS Hover clearance stays below half a metre and barrel follows hull heavy
+PASS Shared drive and hull turn heavy
+PASS Mobility profile heavy
+DM_EVENT Hover  →  Enemy   ·   HEAVY TANK CRUSH
+PASS Heavy run-over immediately gibs incapacitated troops
+PASS Medic sees allied revival pie within 100m
+PASS Non-medics cannot see revival pie
+PASS Enemy revival clock remains private
+PASS Revival pie follows authoritative remaining time
+PASS Revived player loses timer
+PASS Repair tool restores heavy vehicle at 30 HP/s through actual contact loop
+PASS Sloping support keeps hover hull at 25 cm and fits its floor normal
+PASS All vehicle profiles replicate in independent snapshot records
+PASS Client copies magazine and relative reload without aliasing
+PASS Model has separate yaw and barrel pitch pivots light
+PASS Model has separate yaw and barrel pitch pivots heavy
+CQ_HOVER_RESULT []
+Disconnected.
+WARNING: 26 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 12 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

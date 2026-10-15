@@ -45,6 +45,11 @@ for kind,file,length in [('light','lightning.blend',4.8),('heavy','aegis2.blend'
   else:emission.inputs['Color'].default_value=(.12,.25,.3,1)
   tree.links.new(emission.outputs[0],output.inputs['Surface'])
  bpy.ops.object.select_all(action='SELECT');bpy.context.view_layer.objects.active=meshes[0];bpy.ops.object.join();joined=bpy.context.object
+ # Vertices are already baked into normalized tank coordinates. Joining can
+ # retain the source active object's translation; it must not be applied again
+ # to copied meshes or rotate around the yaw/pitch pivots at runtime.
+ joined.matrix_world=Matrix.Identity(4)
+ bpy.context.view_layer.update()
  # Retain source UV as input, bake into a new packed layout.
  if not joined.data.uv_layers.active:
   joined.data.uv_layers.new(name='Source');bpy.ops.object.mode_set(mode='EDIT');bpy.ops.mesh.select_all(action='SELECT');bpy.ops.uv.smart_project(island_margin=.015);bpy.ops.object.mode_set(mode='OBJECT')
@@ -77,7 +82,7 @@ for kind,file,length in [('light','lightning.blend',4.8),('heavy','aegis2.blend'
  yaw=bpy.data.objects.new('Yaw',None);bpy.context.collection.objects.link(yaw);yaw.location=pivot
  aim=bpy.data.objects.new('Aim',None);bpy.context.collection.objects.link(aim);aim.parent=yaw
  for part in ['Turret','Barrel']:
-  obj=nodes[part];obj.data.transform(Matrix.Translation(-pivot));obj.parent=yaw if part=='Turret' else aim
+  obj=nodes[part];obj.data.transform(Matrix.Translation(-pivot));obj.parent=yaw if part=='Turret' else aim;obj.matrix_parent_inverse=Matrix.Identity(4);obj.matrix_basis=Matrix.Identity(4)
  # All gun muzzle positions derive from the actual barrel vertices in rest pose.
  coords=[v.co for v in nodes['Barrel'].data.vertices];front=max(v.y for v in coords)
  xs=[v.x for v in coords if v.y>front-.08]
