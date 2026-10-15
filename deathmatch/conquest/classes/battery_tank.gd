@@ -411,37 +411,13 @@ func draw() -> void:
 	if not view:view=preload("res://deathmatch/conquest/classes/battery_view.gd").new();add_child(view);view.setup(game,self)
 	draw_helper();view.update()
 func helper(id:int) -> Dictionary:
-	var key:=key_for(id)
-	if key<0 or rows[key].kind!="rocket" or game.classes.role(id)!="technician" or not game.classes.alive(id):return {}
-	var row:Dictionary=rows[key];var origin:=muzzle(row,8-row.left);var best:Dictionary={};var score:=-2.0
-	for scout in game.designations:
-		var target:Dictionary=game.designations[scout]
-		if game.classes.role(scout)!="scout" or target.until<game.clock or target.team!=row.team:continue
-		var alignment:float=row.direction.dot((target.position-origin).normalized())
-		if alignment>score:best=target;score=alignment
-	if best.is_empty():return {}
-	for high in [false,true]:
-		var aim_row:=row.duplicate();var solution:Dictionary={}
-		# The muzzle moves as the barrel turns; converge the aid on its aimed origin.
-		for iteration in 6:
-			origin=muzzle(aim_row,0)
-			solution=Ballistics.solve(origin,best.position,SPEED,GRAVITY,row.velocity*INHERIT,high)
-			if solution.is_empty():break
-			aim_row.direction=solution.direction
-		if solution.is_empty() or not Ballistics.clear(get_world_3d().direct_space_state,origin,solution,GRAVITY):continue
-		solution["origin"]=origin;solution["target"]=best.position;return solution
-	return {}
+	if not mounted(id):return {}
+	return preload("res://deathmatch/conquest/classes/designation_guide.gd").for_player(game,id)
 func draw_helper() -> void:
 	if game.clock>=next_helper:
 		next_helper=game.clock+.1;helper_points.clear()
 		var solution:=helper(game.multiplayer.get_unique_id())
-		if not solution.is_empty():
-			var previous:Vector3=solution.origin
-			for i in 25:
-				var t:float=solution.time*(i+1)/25;var point:Vector3=solution.origin+solution.velocity*t-Vector3.UP*GRAVITY*t*t*.5;helper_points.append(previous);helper_points.append(point);previous=point
-			var aim:Vector3=solution.origin+solution.direction*8
-			var side:Vector3=solution.direction.cross(Vector3.UP).normalized()*.12
-			helper_points.append_array(PackedVector3Array([aim-side,aim+side,aim-Vector3.UP*.12,aim+Vector3.UP*.12]))
+		helper_points=preload("res://deathmatch/conquest/classes/designation_guide.gd").points(solution)
 	if not helper_points.is_empty() or is_instance_valid(helper_mesh):helper_mesh=game.line_visual(helper_points,Color(.4,1,.8,.8),helper_mesh)
 
 static func normalise_model(model:Node3D) -> AABB:

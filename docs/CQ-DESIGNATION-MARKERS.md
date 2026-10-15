@@ -1,0 +1,13 @@
+# Technician designation guides and enemy markers
+
+Technicians see a trajectory/aim cross for a live allied laser designation when their held weapon or driven vehicle can reach it. The guide uses current gameplay speed, gravity, projectile lifetime and nominal range; hitscan weapons use their configured distance. Tools and unarmed transports have no aiming guide. Vehicle passengers do not receive the driver's aid.
+
+The T1 launcher now uses its actual 55 m/s launch speed and 12 m/s² gravity, replacing the stale 25 m/s helper. The guided launcher supports its 600 m flight envelope (its existing 500 m lock-acquisition rule is unchanged). Light/heavy tank guides use the 40 m/s shell and ten-second lifetime; the rocket tank retains its 5 km ballistic envelope. Vehicle velocity inheritance, muzzle convergence and gun elevation limits are accounted for. An expired, opposing-team, obstructed, unreachable or lifetime-limited designation is skipped so another eligible target can be shown. The existing designator acquisition range is unchanged; a nearby ally can designate a target for a more distant technician. Guides are cosmetic, not automatic aim or guaranteed homing locks.
+
+Eight original CC0 vector markers identify spotted enemies: shocktroop, scout, medic, technician, light tank, heavy tank, rocket tank and transport. Infantry symbols match the class language (bolt, target, cross and gear); vehicle silhouettes and text distinguish the four driven hull types. The sprites remain a constant screen size, with captions and a dark backing for contrast. Existing friendly class/name badges remain in place.
+
+Markers consume the existing team spotting state, including its ten-second memory and cloak/recon handling. A vehicle marker requires a living, spotted enemy driver and an intact occupied hull. Enemy infantry markers/nameplates are suppressed while mounted; empty hulls do not gain enemy markers. The marker service does not acquire targets, change LOS/range modifiers or add network messages. Native and script authority already supply the state it consumes.
+
+Guides and markers update at 10 Hz on clients; headless hosts create no marker sprites. Removed targets, expired spotting and disconnects release marker nodes; map loads also clear the marker history. There are at most one marker per eligible enemy player or driven vehicle, with eight cached textures.
+
+[Preview and validation](validation/voxel-battle/designation-markers-20261015/README.md). Rebuild the artwork with `python3 tools/cq_assets/build_spotted_markers.py`. Render the gallery with Godot's `tools/cq_assets/preview_spotted_markers.gd`. Run `deathmatch/tests/cq_designation_markers.gd` for trajectory, range, obstruction, visibility and resource checks.

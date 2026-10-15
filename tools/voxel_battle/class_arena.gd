@@ -18,10 +18,12 @@ var recon_drone=preload("res://deathmatch/conquest/classes/recon_drone.gd").new(
 var night_vision=preload("res://deathmatch/conquest/classes/night_vision.gd").new()
 var loadout_menu
 var revival_timers=preload("res://deathmatch/conquest/classes/revival_timers.gd").new()
+var spotted_markers=preload("res://deathmatch/conquest/classes/spotted_markers.gd").new()
 var spotting=preload("res://deathmatch/conquest/classes/spotting.gd").new()
 var classes=preload("res://deathmatch/conquest/classes/rules.gd").new()
 func _ready() -> void:
 	add_child(squads);squads.setup(self)
+	add_child(spotted_markers);spotted_markers.setup(self)
 	resident.name="ResidentCQ";add_child(resident);resident.setup(self)
 	weather.name="Weather";add_child(weather);weather.setup(self)
 	# Client prediction and authority must select the same backend at startup.
@@ -244,7 +246,7 @@ func draw_class_players() -> void:
 			tag.pixel_size=.0015
 			tag.set_meta("cq_prefix",spotting.ICONS[classes.role(id)]+" ")
 			tag.set_player_name(str(tag.get_meta("cq_prefix"))+players[id].name,team,tint)
-			tag.visible=spotting.visible(self,mine,id)
+			tag.visible=spotting.visible(self,mine,id) and (friendly or not battery_tanks.mounted(id))
 func request_class(role:String) -> void:
 	if resident.serving():resident.action(multiplayer.get_unique_id(),5,resident.Presentation.ROLES.find(role))
 	elif multiplayer.is_server():classes.choose(multiplayer.get_unique_id(),role)
@@ -402,22 +404,9 @@ func draw_class_tools() -> void:
 	if clock<helper_next:
 		arc_mesh=line_visual(helper_points,Color(.4,1,.8,.6),arc_mesh);return
 	helper_next=clock+.1
+	var guide=preload("res://deathmatch/conquest/classes/designation_guide.gd")
 	var points:=PackedVector3Array()
-	if classes.role(mine)=="technician" and not battery_tanks.mounted(mine) and players.get(mine,{}).get("weapon",-1)==5 and classes.alive(mine):
-		var shot:Dictionary=_shot_solution(mine)
-		for row in designations.values():
-			if row.until<clock or row.team!=players[mine].team:continue
-			# Same low/high trajectory solution and world-clearance test as ST mortar.
-			var ballistics=preload("res://deathmatch/conquest/classes/ballistics.gd")
-			for high in [false,true]:
-				var solution:Dictionary=ballistics.solve(shot.origin,row.position,25.0,12.0,Vector3.ZERO,high)
-				if solution.is_empty() or not ballistics.clear(get_world_3d().direct_space_state,shot.origin,solution,12.0):continue
-				var previous:Vector3=shot.origin
-				for i in 25:
-					var t:float=solution.time*(i+1)/25;var point:Vector3=shot.origin+solution.velocity*t-Vector3.UP*6*t*t
-					points.append(previous);points.append(point);previous=point
-				break
-			break
+	if not battery_tanks.mounted(mine):points=guide.points(guide.for_player(self,mine))
 	helper_points=points
 	arc_mesh=line_visual(points,Color(.4,1,.8,.6),arc_mesh)
 var grenade_adapter=preload("res://deathmatch/conquest/classes/grenade_adapter.gd").new()
@@ -507,6 +496,7 @@ static func map_identity() -> String:
 	return digest.finish().hex_encode()
 func _load_map(map_id:String) -> bool:
 	if resident.serving() and resident.core:resident.reset_instance()
+	spotted_markers.clear();spotted_markers.next_update=0.
 	recon_drone.reset();airstrike.reset();healing_field.reset();turrets.reset();battery_tanks.reset()
 	var loaded:bool=super._load_map(map_id)
 	if loaded:map_sha=map_identity();battery_tanks.configure()
