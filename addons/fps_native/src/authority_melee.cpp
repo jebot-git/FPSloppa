@@ -85,7 +85,7 @@ MeleeSample MeleeState::sample(const Pose &p, double now, int current_weapon) {
   MeleeSample out;
   if (speed >= 1 && distance >= .025 && armed && now >= ready_at) {
     armed = false;
-    ready_at = now + .8;
+    ready_at = now + MELEE_COOLDOWN;
     swing_until = now + .22;
     hit = false;
     out.started = true;

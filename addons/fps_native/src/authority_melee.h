@@ -6,6 +6,8 @@ struct MeleeSample {
   bool active = false, started = false;
   std::array<std::array<V, 2>, 16> segments{};
 };
+// FPSloppa deathmatch/melee.gd shared activation delay, including both hands.
+constexpr double MELEE_COOLDOWN = .8;
 struct MeleeState {
   bool previous = false, armed = true, hit = false, left = false;
   int weapon = 0;

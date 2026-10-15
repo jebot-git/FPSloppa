@@ -236,7 +236,8 @@ void Core::drag(Player &p, Host &host) {
 void Core::melee(Player &p, Host &host) {
   for (size_t hand = 0; hand < 2; ++hand) {
     auto &state = p.melee_state[hand];
-    if (!p.input.melee || time_ - p.last_input > .35 || p.charge_at > 0 ||
+    if (!p.input.melee || (p.input.vr && !p.input.weapon_held) ||
+        time_ - p.last_input > .35 || p.charge_at > 0 ||
         (hand && (!p.input.vr || p.weapon != 2 || !p.pose.has_offhand))) {
       state.reset();
       continue;
@@ -265,14 +266,14 @@ void Core::melee(Player &p, Host &host) {
     } else {
       if (time_ < state.ready_at)
         continue;
-      state.ready_at = time_ + .14;
+      state.ready_at = time_ + MELEE_COOLDOWN;
       state.hit = false;
       sample.active = sample.started = true;
       auto pose = weapon_pose(p);
       sample.segments[0] = {pose.origin, pose.apply({0, 0, -1.25})};
     }
     if (sample.started) {
-      p.melee_ready = time_ + .14;
+      p.melee_ready = time_ + MELEE_COOLDOWN;
       p.melee_state[1 - hand].swing_until = 0;
       p.invulnerable = 0;
       p.classes.cloak_until = 0;

@@ -74,6 +74,54 @@ void tick(Core &c, World &world, int &seq, bool fire = false, int weapon = -1,
 }
 } // namespace
 void cq_rules_tests() {
+  // Exercise authority dispatch as well as the golden-reference swing sampler.
+  for (int hz : {30, 60}) {
+    auto c = game(); World world;
+    check(c->configure_tick_rate(hz), "melee fixture tick rate");
+    auto attacker = join(*c, 1, 0), victim = join(*c, 2, 1);
+    auto *p = c->resolve(attacker);
+    p->position = {}; p->weapon = 2;
+    p->invulnerable = 0; c->resolve(victim)->invulnerable = 0;
+    world.actor_hit = true; world.target = victim;
+    world.target_position = {0, 1, -1};
+    int seq = 0; bool offhand = false;
+    auto step = [&](double x, bool held = true, bool vr = true, bool tracked = true) {
+      Command cmd; cmd.life = attacker.life; cmd.seq = seq++;
+      cmd.weapon = 2; cmd.melee = true; cmd.vr = vr; cmd.weapon_held = held;
+      cmd.pose.tracked = vr && tracked; cmd.pose.has_offhand = offhand;
+      cmd.pose.head.origin = {0, 1.65, 0};
+      cmd.pose.weapon.origin = {x, 1.1, -.6};
+      cmd.pose.offhand.origin = {-x, 1.1, -.6};
+      cmd.pose.right = cmd.pose.weapon; cmd.pose.left = cmd.pose.offhand;
+      check(c->submit(attacker, cmd), "melee fixture input accepted");
+      c->advance(world);
+    };
+    step(-.8, false); step(-.65, false); step(-.45, false);
+    check(p->melee_ready == 0 && c->resolve(victim)->hp == 100,
+          "unheld tracked weapon cannot melee even with forged melee input");
+    step(-.8); step(-.65); step(-.45);
+    check(c->resolve(victim)->hp == 90, "held tracked weapon whip deals FPSloppa 10 damage once");
+    double ready = p->melee_ready;
+    check(std::abs(ready - (c->time() - 1. / hz + .8)) < 1e-9,
+          "both hands share FPSloppa 0.8 second cooldown");
+    for (int i = 0; i < hz; ++i) step(i % 2 ? -.45 : -.3);
+    check(c->resolve(victim)->hp == 90 && p->melee_ready == ready,
+          "continuous flailing cannot rearm after cooldown");
+    step(-.45); // Stop moving to rearm before a deliberate second swing.
+    step(-.3);
+    check(c->resolve(victim)->hp == 80, "rested weapon can melee again after cooldown");
+    ready = p->melee_ready; offhand = true;
+    step(-.3, false); step(-.3); step(-.15);
+    check(p->melee_ready == ready && c->resolve(victim)->hp == 80,
+          "release, regrip and alternating hands cannot bypass activation delay");
+    for (int i = 0; i < hz; ++i) step(-.3, true, true, false);
+    check(c->resolve(victim)->hp == 80, "lost tracking cannot deal melee damage");
+    step(-.3, true, false);
+    ready = p->melee_ready;
+    for (int i = 0; i < hz / 2; ++i) step(-.3, true, false);
+    check(p->melee_ready == ready && c->resolve(victim)->hp == 70,
+          "desktop melee also retains shared 0.8 second delay");
+  }
   {
     ClassState state;
     for (int xp : {0, 499, 500, 2499, 2500, 4999, 5000, 7499, 7500, 20000}) {
