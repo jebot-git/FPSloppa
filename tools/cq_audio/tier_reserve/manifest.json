@@ -1,0 +1,408 @@
+{
+  "reserve_blaster_01": {
+    "file": "reserve_blaster_01.wav",
+    "sources": [
+      "fs_480872"
+    ],
+    "loop": false,
+    "seconds": 0.95,
+    "rate": 24000,
+    "channels": 1,
+    "peak_dbfs": -3.098039388656616,
+    "rms_dbfs": -20.676761627197266,
+    "sha256": "a4eb56d6fc247fc64ee2456b7f3a8a55f147b6a4fa8d9da54932e6cef1e3ae71",
+    "master_sha256": "3c5a1ac031465e8ceb9185f8eeed489fcffdf5ef7431d070102b01c451bbe7c4",
+    "edit": "Isolated single-shot layers; relative gain/playback-rate preparation; Audacity MCP mix, high/low-pass, attack/tail fades, DC removal and normalization; mono 24 kHz PCM16 runtime encoding",
+    "recipe": {
+      "high": 120,
+      "low": 11000,
+      "peak": 0.7,
+      "layers": [
+        [
+          "fs_480872",
+          3,
+          0.95,
+          1,
+          1
+        ]
+      ]
+    }
+  },
+  "reserve_blaster_02": {
+    "file": "reserve_blaster_02.wav",
+    "sources": [
+      "fs_480872"
+    ],
+    "loop": false,
+    "seconds": 0.95,
+    "rate": 24000,
+    "channels": 1,
+    "peak_dbfs": -3.098039388656616,
+    "rms_dbfs": -21.01156234741211,
+    "sha256": "5ac2be820b0f1e7b5bee95b6c59f3f064aec1ec6b506d1953e819f8314f158fd",
+    "master_sha256": "f64462ad4f2cbc088359110750c90e3a1a7923888a04fecd44e039af5865d328",
+    "edit": "Isolated single-shot layers; relative gain/playback-rate preparation; Audacity MCP mix, high/low-pass, attack/tail fades, DC removal and normalization; mono 24 kHz PCM16 runtime encoding",
+    "recipe": {
+      "high": 120,
+      "low": 11000,
+      "peak": 0.7,
+      "layers": [
+        [
+          "fs_480872",
+          9,
+          0.95,
+          1,
+          1
+        ]
+      ]
+    }
+  },
+  "reserve_blaster_03": {
+    "file": "reserve_blaster_03.wav",
+    "sources": [
+      "fs_480872"
+    ],
+    "loop": false,
+    "seconds": 0.95,
+    "rate": 24000,
+    "channels": 1,
+    "peak_dbfs": -3.098039388656616,
+    "rms_dbfs": -21.49051856994629,
+    "sha256": "91a7bad00ec1352962048a716d61d13bc06b22d854564b62e648f6ab8e8596e3",
+    "master_sha256": "9effb360c7ec52d31f62bc92f55e0415392480df6e88ca8aaf1782fefd5ca227",
+    "edit": "Isolated single-shot layers; relative gain/playback-rate preparation; Audacity MCP mix, high/low-pass, attack/tail fades, DC removal and normalization; mono 24 kHz PCM16 runtime encoding",
+    "recipe": {
+      "high": 120,
+      "low": 11000,
+      "peak": 0.7,
+      "layers": [
+        [
+          "fs_480872",
+          12,
+          0.95,
+          1,
+          1
+        ]
+      ]
+    }
+  },
+  "reserve_blaster_04": {
+    "file": "reserve_blaster_04.wav",
+    "sources": [
+      "fs_480872"
+    ],
+    "loop": false,
+    "seconds": 0.95,
+    "rate": 24000,
+    "channels": 1,
+    "peak_dbfs": -3.098039388656616,
+    "rms_dbfs": -22.15625762939453,
+    "sha256": "cdb37ad6ec19c8e9237961e43b76bdf822864d4708a490b1e6a1b2bb9a40f7f6",
+    "master_sha256": "47153592858ec1566c388a9ca9ba937c07a44167daffb368838734b23bb3efb0",
+    "edit": "Isolated single-shot layers; relative gain/playback-rate preparation; Audacity MCP mix, high/low-pass, attack/tail fades, DC removal and normalization; mono 24 kHz PCM16 runtime encoding",
+    "recipe": {
+      "high": 120,
+      "low": 11000,
+      "peak": 0.7,
+      "layers": [
+        [
+          "fs_480872",
+          15,
+          0.95,
+          1,
+          1
+        ]
+      ]
+    }
+  },
+  "reserve_blaster_05": {
+    "file": "reserve_blaster_05.wav",
+    "sources": [
+      "fs_480872"
+    ],
+    "loop": false,
+    "seconds": 0.95,
+    "rate": 24000,
+    "channels": 1,
+    "peak_dbfs": -3.098039388656616,
+    "rms_dbfs": -21.924728393554688,
+    "sha256": "76002fd2a5960ee8a22fd388061af13ade7e7c73d5c594f49c6571ca170b28fd",
+    "master_sha256": "7e4701f0e0353c1bae306cbfa48fbea17b9a4b75c504e5a1be8a84af2862943f",
+    "edit": "Isolated single-shot layers; relative gain/playback-rate preparation; Audacity MCP mix, high/low-pass, attack/tail fades, DC removal and normalization; mono 24 kHz PCM16 runtime encoding",
+    "recipe": {
+      "high": 120,
+      "low": 11000,
+      "peak": 0.7,
+      "layers": [
+        [
+          "fs_480872",
+          18,
+          0.95,
+          1,
+          1
+        ]
+      ]
+    }
+  },
+  "reserve_blaster_06": {
+    "file": "reserve_blaster_06.wav",
+    "sources": [
+      "fs_480872"
+    ],
+    "loop": false,
+    "seconds": 0.95,
+    "rate": 24000,
+    "channels": 1,
+    "peak_dbfs": -3.098039388656616,
+    "rms_dbfs": -20.4194278717041,
+    "sha256": "a192710b5e25a6897070bd6e522e38753ad309239c186f77dfd2ec6a83d42e52",
+    "master_sha256": "86be602827323adc50a8c96c899837947f77c3681d62883c352896de89e73153",
+    "edit": "Isolated single-shot layers; relative gain/playback-rate preparation; Audacity MCP mix, high/low-pass, attack/tail fades, DC removal and normalization; mono 24 kHz PCM16 runtime encoding",
+    "recipe": {
+      "high": 120,
+      "low": 11000,
+      "peak": 0.7,
+      "layers": [
+        [
+          "fs_480872",
+          21,
+          0.95,
+          1,
+          1
+        ]
+      ]
+    }
+  },
+  "reserve_blaster_07": {
+    "file": "reserve_blaster_07.wav",
+    "sources": [
+      "fs_480872"
+    ],
+    "loop": false,
+    "seconds": 0.95,
+    "rate": 24000,
+    "channels": 1,
+    "peak_dbfs": -3.098039388656616,
+    "rms_dbfs": -19.96664810180664,
+    "sha256": "7b952b35606fcfdbe511796394b1b30135a2b6efe0a19ad53f23965cb308e5a3",
+    "master_sha256": "78909d013b8c9d1644932af2a892a30c8b8bc87bc9abe8c430c7fd841a30547b",
+    "edit": "Isolated single-shot layers; relative gain/playback-rate preparation; Audacity MCP mix, high/low-pass, attack/tail fades, DC removal and normalization; mono 24 kHz PCM16 runtime encoding",
+    "recipe": {
+      "high": 120,
+      "low": 11000,
+      "peak": 0.7,
+      "layers": [
+        [
+          "fs_480872",
+          24,
+          0.95,
+          1,
+          1
+        ]
+      ]
+    }
+  },
+  "reserve_blaster_08": {
+    "file": "reserve_blaster_08.wav",
+    "sources": [
+      "fs_480872"
+    ],
+    "loop": false,
+    "seconds": 0.95,
+    "rate": 24000,
+    "channels": 1,
+    "peak_dbfs": -3.098039388656616,
+    "rms_dbfs": -20.31467056274414,
+    "sha256": "0172b6bd1e5242a58fe64f92453fea7116600e108ab7741c9e7d32ea9c9ffcba",
+    "master_sha256": "bf14f4005c2ec6689c3a568c85f82270dd2b442cb3b363989e81ff3498a72d73",
+    "edit": "Isolated single-shot layers; relative gain/playback-rate preparation; Audacity MCP mix, high/low-pass, attack/tail fades, DC removal and normalization; mono 24 kHz PCM16 runtime encoding",
+    "recipe": {
+      "high": 120,
+      "low": 11000,
+      "peak": 0.7,
+      "layers": [
+        [
+          "fs_480872",
+          27,
+          0.95,
+          1,
+          1
+        ]
+      ]
+    }
+  },
+  "reserve_plasma_01": {
+    "file": "reserve_plasma_01.wav",
+    "sources": [
+      "fs_330293"
+    ],
+    "loop": false,
+    "seconds": 0.8,
+    "rate": 24000,
+    "channels": 1,
+    "peak_dbfs": -3.098039388656616,
+    "rms_dbfs": -26.101070404052734,
+    "sha256": "088a3fb24fcd91db97010443595c5d69cea372fe2cf4fb3ebdeb56059e829c72",
+    "master_sha256": "297604c63c593a6251274cbebd7eb72188b009dda2eec33830a875f611e6ca43",
+    "edit": "Isolated single-shot layers; relative gain/playback-rate preparation; Audacity MCP mix, high/low-pass, attack/tail fades, DC removal and normalization; mono 24 kHz PCM16 runtime encoding",
+    "recipe": {
+      "high": 100,
+      "low": 11000,
+      "peak": 0.7,
+      "layers": [
+        [
+          "fs_330293",
+          1.98,
+          0.8,
+          1,
+          1
+        ]
+      ]
+    }
+  },
+  "reserve_plasma_02": {
+    "file": "reserve_plasma_02.wav",
+    "sources": [
+      "fs_330293"
+    ],
+    "loop": false,
+    "seconds": 0.8,
+    "rate": 24000,
+    "channels": 1,
+    "peak_dbfs": -3.098039388656616,
+    "rms_dbfs": -23.037731170654297,
+    "sha256": "522f0b761028d7f7e35c3b5b0692fd79c18eeb128447e4f4d09e164cda5fa637",
+    "master_sha256": "ec23d4593f2e4eb305fa9e7fb06d3257a14d88559c01f0049663d1a54afbc1bb",
+    "edit": "Isolated single-shot layers; relative gain/playback-rate preparation; Audacity MCP mix, high/low-pass, attack/tail fades, DC removal and normalization; mono 24 kHz PCM16 runtime encoding",
+    "recipe": {
+      "high": 100,
+      "low": 11000,
+      "peak": 0.7,
+      "layers": [
+        [
+          "fs_330293",
+          3.6,
+          0.8,
+          1,
+          1
+        ]
+      ]
+    }
+  },
+  "reserve_plasma_03": {
+    "file": "reserve_plasma_03.wav",
+    "sources": [
+      "fs_330293"
+    ],
+    "loop": false,
+    "seconds": 0.8,
+    "rate": 24000,
+    "channels": 1,
+    "peak_dbfs": -3.098039388656616,
+    "rms_dbfs": -19.305063247680664,
+    "sha256": "a8d428c6870d23ae053ec830eb6f532e7d3ef32408f147203bfbe586d546674b",
+    "master_sha256": "1746ca956fd808bf9aef55a385c1ceefbbca7ca7c7da3b340697de7a04012d89",
+    "edit": "Isolated single-shot layers; relative gain/playback-rate preparation; Audacity MCP mix, high/low-pass, attack/tail fades, DC removal and normalization; mono 24 kHz PCM16 runtime encoding",
+    "recipe": {
+      "high": 100,
+      "low": 11000,
+      "peak": 0.7,
+      "layers": [
+        [
+          "fs_330293",
+          5.21,
+          0.8,
+          1,
+          1
+        ]
+      ]
+    }
+  },
+  "reserve_plasma_04": {
+    "file": "reserve_plasma_04.wav",
+    "sources": [
+      "fs_330293"
+    ],
+    "loop": false,
+    "seconds": 0.8,
+    "rate": 24000,
+    "channels": 1,
+    "peak_dbfs": -3.098039388656616,
+    "rms_dbfs": -21.31819725036621,
+    "sha256": "cef0400ca84e28cf7920330e7d31865a55cf7f5181d1ea7f429197b0898d786f",
+    "master_sha256": "2309e195a66f70e2ee88b8889e1bc3f6a8dd351b95008f524c5a4dbb6b2a83ed",
+    "edit": "Isolated single-shot layers; relative gain/playback-rate preparation; Audacity MCP mix, high/low-pass, attack/tail fades, DC removal and normalization; mono 24 kHz PCM16 runtime encoding",
+    "recipe": {
+      "high": 100,
+      "low": 11000,
+      "peak": 0.7,
+      "layers": [
+        [
+          "fs_330293",
+          6.76,
+          0.8,
+          1,
+          1
+        ]
+      ]
+    }
+  },
+  "reserve_heavy_pistol": {
+    "file": "reserve_heavy_pistol.wav",
+    "sources": [
+      "fs_378185"
+    ],
+    "loop": false,
+    "seconds": 1.5,
+    "rate": 24000,
+    "channels": 1,
+    "peak_dbfs": -2.8533496856689453,
+    "rms_dbfs": -20.979007720947266,
+    "sha256": "95a0d6797908b2653ac38faae9dca6ef72acb117400ccab2fe1bf17f85a7b30d",
+    "master_sha256": "0c19f14bc2bf75fd5906dc637f386bc6d2d2e4b863048a7f580490525ea1dfe3",
+    "edit": "Isolated single-shot layers; relative gain/playback-rate preparation; Audacity MCP mix, high/low-pass, attack/tail fades, DC removal and normalization; mono 24 kHz PCM16 runtime encoding",
+    "recipe": {
+      "high": 75,
+      "low": 9500,
+      "peak": 0.72,
+      "layers": [
+        [
+          "fs_378185",
+          0.09,
+          1.5,
+          1,
+          1
+        ]
+      ]
+    }
+  },
+  "reserve_pulse": {
+    "file": "reserve_pulse.wav",
+    "sources": [
+      "fs_697894"
+    ],
+    "loop": false,
+    "seconds": 0.34,
+    "rate": 24000,
+    "channels": 1,
+    "peak_dbfs": -3.7417330741882324,
+    "rms_dbfs": -23.762596130371094,
+    "sha256": "62d4a6d5ea7f9cb54408fd35c644e00bf89dd8979f7106956807ec7c2e105684",
+    "master_sha256": "ba737a53d7c694416a9ff5385263a09d24164450c7d1b4e35267e36ffef92f14",
+    "edit": "Isolated single-shot layers; relative gain/playback-rate preparation; Audacity MCP mix, high/low-pass, attack/tail fades, DC removal and normalization; mono 24 kHz PCM16 runtime encoding",
+    "recipe": {
+      "high": 180,
+      "low": 10500,
+      "peak": 0.65,
+      "layers": [
+        [
+          "fs_697894",
+          6.49,
+          0.34,
+          1,
+          1
+        ]
+      ]
+    }
+  }
+}

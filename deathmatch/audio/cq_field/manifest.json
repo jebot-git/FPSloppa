@@ -142,58 +142,150 @@
   "carbine": {
     "file": "carbine.wav",
     "sources": [
-      "blacklodge"
+      "fs_466834",
+      "fs_480872"
     ],
     "loop": false,
-    "seconds": 0.32,
+    "seconds": 0.43,
     "rate": 24000,
     "channels": 1,
-    "peak_dbfs": -3.2073888778686523,
-    "rms_dbfs": -18.8721866607666,
-    "sha256": "cce6286bcfcb3bb241d65037d15fe7ec956ee259252456ca74b912737604ce81",
-    "edit": "Audacity MCP trim, high/low-pass and normalize; resample/pitch, DC removal, edge fade"
+    "peak_dbfs": -3.098039388656616,
+    "rms_dbfs": -19.539216995239258,
+    "sha256": "0f1ebb6d3159a22d402a4c5a2ea0f51ca4da294fa9bbf62b99fd31078f30e2f5",
+    "master_sha256": "de2d1e44f449a8e27d8a5ee3e3bce1da5f8e3fc64780bb8786e7d202c746d992",
+    "edit": "Isolated single-shot layers; relative gain/playback-rate preparation; Audacity MCP mix, high/low-pass, attack/tail fades, DC removal and normalization; mono 24 kHz PCM16 runtime encoding",
+    "recipe": {
+      "high": 130,
+      "low": 11000,
+      "peak": 0.7,
+      "layers": [
+        [
+          "fs_466834",
+          0,
+          0.43,
+          1,
+          1
+        ],
+        [
+          "fs_480872",
+          0,
+          0.32,
+          1,
+          0.22
+        ]
+      ]
+    }
   },
   "assault": {
     "file": "assault.wav",
     "sources": [
-      "blacklodge"
+      "fs_466868",
+      "fs_697894"
     ],
     "loop": false,
-    "seconds": 0.3913333333333333,
+    "seconds": 0.29,
     "rate": 24000,
     "channels": 1,
-    "peak_dbfs": -4.247066974639893,
-    "rms_dbfs": -15.19091510772705,
-    "sha256": "f6266cb8b11b8e68f1b4771e63c93effab5f834554761dc7220ea2fd85e46c3e",
-    "edit": "Audacity MCP trim, high/low-pass and normalize; resample/pitch, DC removal, edge fade"
+    "peak_dbfs": -3.478503704071045,
+    "rms_dbfs": -18.354026794433594,
+    "sha256": "d607a36bc004e6c3b5ed07894528dfa8f6b1fdadb2e15e8310e204914ef28bfc",
+    "master_sha256": "34881bd2f5042cbcabf712ad2ff2ce7dc8d277d0bdfc26eb8799d39c9e8b41d9",
+    "edit": "Isolated single-shot layers; relative gain/playback-rate preparation; Audacity MCP mix, high/low-pass, attack/tail fades, DC removal and normalization; mono 24 kHz PCM16 runtime encoding",
+    "recipe": {
+      "high": 170,
+      "low": 10000,
+      "peak": 0.67,
+      "layers": [
+        [
+          "fs_466868",
+          0,
+          0.25,
+          1.18,
+          0.8
+        ],
+        [
+          "fs_697894",
+          2,
+          0.29,
+          1,
+          0.4
+        ]
+      ]
+    }
   },
   "beam": {
     "file": "beam.wav",
     "sources": [
-      "blacklodge"
+      "fs_531861",
+      "fs_480872"
     ],
     "loop": false,
-    "seconds": 0.75,
+    "seconds": 1.02275,
     "rate": 24000,
     "channels": 1,
-    "peak_dbfs": -3.098039388656616,
-    "rms_dbfs": -16.408306121826172,
-    "sha256": "33e5a882a896c5f64219e62a0d61a67431458ff6df369ee5984ad21d9d37996a",
-    "edit": "Audacity MCP trim, high/low-pass and normalize; resample/pitch, DC removal, edge fade"
+    "peak_dbfs": -2.615365505218506,
+    "rms_dbfs": -21.680124282836914,
+    "sha256": "74994417ae346bab5b29233b45b9d732f079ccf363956b5490b458e79ed689fd",
+    "master_sha256": "df7095cc539d0eeaf19ba34ae430ea0316eab43b77fe77090b13779fbbb218a8",
+    "edit": "Isolated single-shot layers; relative gain/playback-rate preparation; Audacity MCP mix, high/low-pass, attack/tail fades, DC removal and normalization; mono 24 kHz PCM16 runtime encoding",
+    "recipe": {
+      "high": 70,
+      "low": 11000,
+      "peak": 0.74,
+      "layers": [
+        [
+          "fs_531861",
+          0.13,
+          0.9,
+          0.88,
+          0.8
+        ],
+        [
+          "fs_480872",
+          6,
+          0.8,
+          0.9,
+          0.45
+        ]
+      ]
+    }
   },
   "burst_pistol": {
     "file": "burst_pistol.wav",
     "sources": [
-      "blacklodge"
+      "fs_330293",
+      "fs_697894"
     ],
     "loop": false,
-    "seconds": 0.47041666666666665,
+    "seconds": 0.3606666666666667,
     "rate": 24000,
     "channels": 1,
-    "peak_dbfs": -3.098039388656616,
-    "rms_dbfs": -18.487239837646484,
-    "sha256": "c0c5b2ed0577dba2c417e10de513908e77f06828e4ec3819bc0f2a8a4161c53f",
-    "edit": "Audacity MCP trim, high/low-pass and normalize; resample/pitch, DC removal, edge fade"
+    "peak_dbfs": -3.7417330741882324,
+    "rms_dbfs": -23.470245361328125,
+    "sha256": "1cc927319836d9c3a412fbbc334db58cd68a97f0e884f68e17e249c8e47caf8a",
+    "master_sha256": "8c15c7440f768202a84d364d9319e744b93cc57df836e4dd6efd78ecbff46ca9",
+    "edit": "Isolated single-shot layers; relative gain/playback-rate preparation; Audacity MCP mix, high/low-pass, attack/tail fades, DC removal and normalization; mono 24 kHz PCM16 runtime encoding",
+    "recipe": {
+      "high": 200,
+      "low": 10500,
+      "peak": 0.65,
+      "layers": [
+        [
+          "fs_330293",
+          0.31,
+          0.44,
+          1.22,
+          0.75
+        ],
+        [
+          "fs_697894",
+          0,
+          0.27,
+          1.12,
+          0.3
+        ]
+      ]
+    }
   },
   "launcher": {
     "file": "launcher.wav",
@@ -240,44 +332,113 @@
   "pistol": {
     "file": "pistol.wav",
     "sources": [
-      "tabasco_existing"
+      "tabasco_existing",
+      "fs_378185"
     ],
     "loop": false,
-    "seconds": 0.38,
+    "seconds": 0.45716666666666667,
     "rate": 24000,
     "channels": 1,
-    "peak_dbfs": -2.8533496856689453,
-    "rms_dbfs": -17.131994247436523,
-    "sha256": "ffe7e98a3d4f9dd84c446bb415912a72d0719e1904b24516f169a8e1b160cc27",
-    "edit": "trim, DC removal, band-limit, peak/RMS trim, short edge fades"
+    "peak_dbfs": -2.8533504009246826,
+    "rms_dbfs": -17.874399185180664,
+    "sha256": "035daff26624752624797c49bc4ad1540e74dc88c4b2bf9f28c02f091c0e2874",
+    "master_sha256": "e6129c86b5cbf736c83f57f82c51d2734970b0ffae9692b477a77f2dc1a52765",
+    "edit": "Isolated single-shot layers; relative gain/playback-rate preparation; Audacity MCP mix, high/low-pass, attack/tail fades, DC removal and normalization; mono 24 kHz PCM16 runtime encoding",
+    "recipe": {
+      "high": 90,
+      "low": 10000,
+      "peak": 0.72,
+      "layers": [
+        [
+          "tabasco_existing",
+          0,
+          0.3,
+          1,
+          1
+        ],
+        [
+          "fs_378185",
+          0.09,
+          0.48,
+          1.05,
+          0.22
+        ]
+      ]
+    }
   },
   "smg": {
     "file": "smg.wav",
     "sources": [
-      "tabasco_existing"
+      "tabasco_existing",
+      "fs_531861"
     ],
     "loop": false,
-    "seconds": 0.14,
+    "seconds": 0.11866666666666667,
     "rate": 24000,
     "channels": 1,
     "peak_dbfs": -3.8764004707336426,
-    "rms_dbfs": -14.042350769042969,
-    "sha256": "3e11d6a37e4e665778a7f5f26d1707d0c22b4a7b390b515f4e11f0e7a4e44670",
-    "edit": "trim, DC removal, band-limit, peak/RMS trim, short edge fades"
+    "rms_dbfs": -16.188209533691406,
+    "sha256": "4c72bf33f211c2cd1b712e6491e26ad1c0bb2f1524ec6231a114a0681a91ee05",
+    "master_sha256": "abae10061c56edc9aed26c6c7ca567a95aa54c9ad35da7fc44a9c08adc2cd689",
+    "edit": "Isolated single-shot layers; relative gain/playback-rate preparation; Audacity MCP mix, high/low-pass, attack/tail fades, DC removal and normalization; mono 24 kHz PCM16 runtime encoding",
+    "recipe": {
+      "high": 180,
+      "low": 9000,
+      "peak": 0.64,
+      "layers": [
+        [
+          "tabasco_existing",
+          0,
+          0.14,
+          1.18,
+          1
+        ],
+        [
+          "fs_531861",
+          0.13,
+          0.16,
+          1.35,
+          0.16
+        ]
+      ]
+    }
   },
   "pistol_suppressed": {
     "file": "pistol_suppressed.wav",
     "sources": [
-      "tabasco_existing"
+      "tabasco_existing",
+      "fs_378185"
     ],
     "loop": false,
-    "seconds": 0.19,
+    "seconds": 0.2,
     "rate": 24000,
     "channels": 1,
-    "peak_dbfs": -7.535014629364014,
-    "rms_dbfs": -18.248966217041016,
-    "sha256": "c1705e456d448c22cf901f3ba576c43e4b98b72f271c38df619fef3ec5bdcab3",
-    "edit": "trim, DC removal, band-limit, peak/RMS trim, short edge fades"
+    "peak_dbfs": -7.535013675689697,
+    "rms_dbfs": -20.884357452392578,
+    "sha256": "8c1bbb6d4d23c7005a9aa67c3dd4bf3ee60609532b9b08fe7c183646a7facee9",
+    "master_sha256": "cc1b10e874a4a47f301997395da69290adefbbdcc235dd25ff6614a6b2377a0c",
+    "edit": "Isolated single-shot layers; relative gain/playback-rate preparation; Audacity MCP mix, high/low-pass, attack/tail fades, DC removal and normalization; mono 24 kHz PCM16 runtime encoding",
+    "recipe": {
+      "high": 160,
+      "low": 2600,
+      "peak": 0.42,
+      "layers": [
+        [
+          "tabasco_existing",
+          0,
+          0.2,
+          1.12,
+          1
+        ],
+        [
+          "fs_378185",
+          0.09,
+          0.24,
+          1.2,
+          0.12
+        ]
+      ]
+    }
   },
   "jetpack_thrust": {
     "file": "jetpack_thrust.wav",
@@ -521,16 +682,39 @@
   "energy_impact": {
     "file": "energy_impact.wav",
     "sources": [
-      "scifi"
+      "fs_344809",
+      "fs_330293"
     ],
     "loop": false,
-    "seconds": 0.14883333333333335,
+    "seconds": 0.192625,
     "rate": 24000,
     "channels": 1,
     "peak_dbfs": -3.7417330741882324,
-    "rms_dbfs": -21.740787506103516,
-    "sha256": "4b88aca957bb89a52e697011ebc8e6e7317b4fe982115a128b6c39f62a19108c",
-    "edit": "trim, DC removal, band-limit, peak/RMS trim, short edge fades"
+    "rms_dbfs": -16.936662673950195,
+    "sha256": "8bae8a8ba13a404fb857206b82f4e8ab4c2b06962df300c94f8b4eeb55eeb487",
+    "master_sha256": "9418f354315628537cc4eb3c5d7cec9b5801b161c61eb46d60d8d7dfce54e64b",
+    "edit": "Isolated single-shot layers; relative gain/playback-rate preparation; Audacity MCP mix, high/low-pass, attack/tail fades, DC removal and normalization; mono 24 kHz PCM16 runtime encoding",
+    "recipe": {
+      "high": 350,
+      "low": 8500,
+      "peak": 0.65,
+      "layers": [
+        [
+          "fs_344809",
+          0.03,
+          0.26,
+          1.35,
+          1
+        ],
+        [
+          "fs_330293",
+          8.13,
+          0.23,
+          1.5,
+          0.18
+        ]
+      ]
+    }
   },
   "ordnance_impact": {
     "file": "ordnance_impact.wav",

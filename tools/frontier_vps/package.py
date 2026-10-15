@@ -10,6 +10,8 @@ with tempfile.TemporaryDirectory(prefix='cq-frontier-package-') as tmp:
  # LPMAC authoring/source files are not runtime assets; ship its optimized GLB/manifest only.
  shutil.rmtree(stage/'tools/ground_transport',ignore_errors=True)
  shutil.rmtree(stage/'tools/cloak_device',ignore_errors=True)
+ # Unassigned sound-design candidates are offline authoring assets.
+ shutil.rmtree(stage/'tools/cq_audio/tier_reserve',ignore_errors=True)
  (stage/'.godot/imported').mkdir(parents=True)
  for imp in stage.rglob('*.import'):
   for resource in re.findall(r'res://\.godot/imported/[^"\r\n]+',imp.read_text()):

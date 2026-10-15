@@ -78,3 +78,7 @@ a=decode(source('motor_loop'));a=np.tile(a,(8,1));emit('industrial',loop(a,.25),
 # Existing project CC0 source is credited by original provenance too.
 sources.append({'id':'tabasco_existing','author':'Tabasco','license':'CC0-1.0','page':'https://opengameart.org/content/gunshot-sounds','file':'deathmatch/audio/recorded/weapon_2_0.wav','sha256':hashlib.sha256(recorded.read_bytes()).hexdigest(),'source_quality':'existing project edit of original gunshot recording'})
 (OUT/'sources.json').write_text(json.dumps(list({r['id']:r for r in sources}.values()),indent=2)+'\n');(OUT/'manifest.json').write_text(json.dumps(manifest,indent=2)+'\n')
+
+# Latest user-directed weapon pass supersedes the original weapon masters.
+from reauthor_weapons import build as build_weapon_reports
+build_weapon_reports()

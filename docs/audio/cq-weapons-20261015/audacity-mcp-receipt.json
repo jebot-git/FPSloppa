@@ -1,0 +1,3708 @@
+[
+  {
+    "tool": "project_new",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "project_import_audio",
+    "arguments": {
+      "path": "/home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/weapons/layers/pistol_0.wav"
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "project_import_audio",
+    "arguments": {
+      "path": "/home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/weapons/layers/pistol_1.wav"
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_all",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "track_mix_and_render",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_all",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "effect_high_pass_filter",
+    "arguments": {
+      "frequency": 90,
+      "rolloff": "dB12"
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "effect_low_pass_filter",
+    "arguments": {
+      "frequency": 10000,
+      "rolloff": "dB12"
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_region",
+    "arguments": {
+      "start": 0,
+      "end": 0.001
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "effect_fade_in",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_region",
+    "arguments": {
+      "start": 0.3871428571428571,
+      "end": 0.45714285714285713
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "effect_fade_out",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_all",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "normalize",
+    "arguments": {
+      "peak_level_db": -3,
+      "remove_dc": true
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "project_export_audio",
+    "arguments": {
+      "path": "/home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/weapons/pistol.wav",
+      "num_channels": 1
+    },
+    "result": {
+      "raw": "Exported to WAV format: /home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/weapons/pistol.wav\nBatchCommand finished: OK",
+      "success": true,
+      "message": "Exported to WAV format: /home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/weapons/pistol.wav",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_all",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "track_remove",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "project_import_audio",
+    "arguments": {
+      "path": "/home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/weapons/layers/pistol_suppressed_0.wav"
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "project_import_audio",
+    "arguments": {
+      "path": "/home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/weapons/layers/pistol_suppressed_1.wav"
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_all",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "track_mix_and_render",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_all",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "effect_high_pass_filter",
+    "arguments": {
+      "frequency": 160,
+      "rolloff": "dB12"
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "effect_low_pass_filter",
+    "arguments": {
+      "frequency": 2600,
+      "rolloff": "dB12"
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_region",
+    "arguments": {
+      "start": 0,
+      "end": 0.001
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "effect_fade_in",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_region",
+    "arguments": {
+      "start": 0.13,
+      "end": 0.2
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "effect_fade_out",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_all",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "normalize",
+    "arguments": {
+      "peak_level_db": -3,
+      "remove_dc": true
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "project_export_audio",
+    "arguments": {
+      "path": "/home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/weapons/pistol_suppressed.wav",
+      "num_channels": 1
+    },
+    "result": {
+      "raw": "Exported to WAV format: /home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/weapons/pistol_suppressed.wav\nBatchCommand finished: OK",
+      "success": true,
+      "message": "Exported to WAV format: /home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/weapons/pistol_suppressed.wav",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_all",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "track_remove",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "project_import_audio",
+    "arguments": {
+      "path": "/home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/weapons/layers/smg_0.wav"
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "project_import_audio",
+    "arguments": {
+      "path": "/home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/weapons/layers/smg_1.wav"
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_all",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "track_mix_and_render",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_all",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "effect_high_pass_filter",
+    "arguments": {
+      "frequency": 180,
+      "rolloff": "dB12"
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "effect_low_pass_filter",
+    "arguments": {
+      "frequency": 9000,
+      "rolloff": "dB12"
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_region",
+    "arguments": {
+      "start": 0,
+      "end": 0.001
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "effect_fade_in",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_region",
+    "arguments": {
+      "start": 0.04864406779661018,
+      "end": 0.11864406779661019
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "effect_fade_out",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_all",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "normalize",
+    "arguments": {
+      "peak_level_db": -3,
+      "remove_dc": true
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "project_export_audio",
+    "arguments": {
+      "path": "/home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/weapons/smg.wav",
+      "num_channels": 1
+    },
+    "result": {
+      "raw": "Exported to WAV format: /home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/weapons/smg.wav\nBatchCommand finished: OK",
+      "success": true,
+      "message": "Exported to WAV format: /home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/weapons/smg.wav",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_all",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "track_remove",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "project_import_audio",
+    "arguments": {
+      "path": "/home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/weapons/layers/carbine_0.wav"
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "project_import_audio",
+    "arguments": {
+      "path": "/home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/weapons/layers/carbine_1.wav"
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_all",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "track_mix_and_render",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_all",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "effect_high_pass_filter",
+    "arguments": {
+      "frequency": 130,
+      "rolloff": "dB12"
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "effect_low_pass_filter",
+    "arguments": {
+      "frequency": 11000,
+      "rolloff": "dB12"
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_region",
+    "arguments": {
+      "start": 0,
+      "end": 0.001
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "effect_fade_in",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_region",
+    "arguments": {
+      "start": 0.36,
+      "end": 0.43
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "effect_fade_out",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_all",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "normalize",
+    "arguments": {
+      "peak_level_db": -3,
+      "remove_dc": true
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "project_export_audio",
+    "arguments": {
+      "path": "/home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/weapons/carbine.wav",
+      "num_channels": 1
+    },
+    "result": {
+      "raw": "Exported to WAV format: /home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/weapons/carbine.wav\nBatchCommand finished: OK",
+      "success": true,
+      "message": "Exported to WAV format: /home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/weapons/carbine.wav",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_all",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "track_remove",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "project_import_audio",
+    "arguments": {
+      "path": "/home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/weapons/layers/assault_0.wav"
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "project_import_audio",
+    "arguments": {
+      "path": "/home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/weapons/layers/assault_1.wav"
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_all",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "track_mix_and_render",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_all",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "effect_high_pass_filter",
+    "arguments": {
+      "frequency": 170,
+      "rolloff": "dB12"
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "effect_low_pass_filter",
+    "arguments": {
+      "frequency": 10000,
+      "rolloff": "dB12"
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_region",
+    "arguments": {
+      "start": 0,
+      "end": 0.001
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "effect_fade_in",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_region",
+    "arguments": {
+      "start": 0.21999999999999997,
+      "end": 0.29
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "effect_fade_out",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_all",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "normalize",
+    "arguments": {
+      "peak_level_db": -3,
+      "remove_dc": true
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "project_export_audio",
+    "arguments": {
+      "path": "/home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/weapons/assault.wav",
+      "num_channels": 1
+    },
+    "result": {
+      "raw": "Exported to WAV format: /home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/weapons/assault.wav\nBatchCommand finished: OK",
+      "success": true,
+      "message": "Exported to WAV format: /home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/weapons/assault.wav",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_all",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "track_remove",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "project_import_audio",
+    "arguments": {
+      "path": "/home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/weapons/layers/beam_0.wav"
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "project_import_audio",
+    "arguments": {
+      "path": "/home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/weapons/layers/beam_1.wav"
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_all",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "track_mix_and_render",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_all",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "effect_high_pass_filter",
+    "arguments": {
+      "frequency": 70,
+      "rolloff": "dB12"
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "effect_low_pass_filter",
+    "arguments": {
+      "frequency": 11000,
+      "rolloff": "dB12"
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_region",
+    "arguments": {
+      "start": 0,
+      "end": 0.001
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "effect_fade_in",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_region",
+    "arguments": {
+      "start": 0.9527272727272726,
+      "end": 1.0227272727272727
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "effect_fade_out",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_all",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "normalize",
+    "arguments": {
+      "peak_level_db": -3,
+      "remove_dc": true
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "project_export_audio",
+    "arguments": {
+      "path": "/home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/weapons/beam.wav",
+      "num_channels": 1
+    },
+    "result": {
+      "raw": "Exported to WAV format: /home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/weapons/beam.wav\nBatchCommand finished: OK",
+      "success": true,
+      "message": "Exported to WAV format: /home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/weapons/beam.wav",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_all",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "track_remove",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "project_import_audio",
+    "arguments": {
+      "path": "/home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/weapons/layers/burst_pistol_0.wav"
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "project_import_audio",
+    "arguments": {
+      "path": "/home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/weapons/layers/burst_pistol_1.wav"
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_all",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "track_mix_and_render",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_all",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "effect_high_pass_filter",
+    "arguments": {
+      "frequency": 200,
+      "rolloff": "dB12"
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "effect_low_pass_filter",
+    "arguments": {
+      "frequency": 10500,
+      "rolloff": "dB12"
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_region",
+    "arguments": {
+      "start": 0,
+      "end": 0.001
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "effect_fade_in",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_region",
+    "arguments": {
+      "start": 0.29065573770491804,
+      "end": 0.36065573770491804
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "effect_fade_out",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_all",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "normalize",
+    "arguments": {
+      "peak_level_db": -3,
+      "remove_dc": true
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "project_export_audio",
+    "arguments": {
+      "path": "/home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/weapons/burst_pistol.wav",
+      "num_channels": 1
+    },
+    "result": {
+      "raw": "Exported to WAV format: /home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/weapons/burst_pistol.wav\nBatchCommand finished: OK",
+      "success": true,
+      "message": "Exported to WAV format: /home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/weapons/burst_pistol.wav",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_all",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "track_remove",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "project_import_audio",
+    "arguments": {
+      "path": "/home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/weapons/layers/energy_impact_0.wav"
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "project_import_audio",
+    "arguments": {
+      "path": "/home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/weapons/layers/energy_impact_1.wav"
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_all",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "track_mix_and_render",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_all",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "effect_high_pass_filter",
+    "arguments": {
+      "frequency": 350,
+      "rolloff": "dB12"
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "effect_low_pass_filter",
+    "arguments": {
+      "frequency": 8500,
+      "rolloff": "dB12"
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_region",
+    "arguments": {
+      "start": 0,
+      "end": 0.001
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "effect_fade_in",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_region",
+    "arguments": {
+      "start": 0.12259259259259259,
+      "end": 0.1925925925925926
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "effect_fade_out",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_all",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "normalize",
+    "arguments": {
+      "peak_level_db": -3,
+      "remove_dc": true
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "project_export_audio",
+    "arguments": {
+      "path": "/home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/weapons/energy_impact.wav",
+      "num_channels": 1
+    },
+    "result": {
+      "raw": "Exported to WAV format: /home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/weapons/energy_impact.wav\nBatchCommand finished: OK",
+      "success": true,
+      "message": "Exported to WAV format: /home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/weapons/energy_impact.wav",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_all",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "track_remove",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "project_import_audio",
+    "arguments": {
+      "path": "/home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/weapons/layers/reserve_blaster_01_0.wav"
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_all",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_all",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "effect_high_pass_filter",
+    "arguments": {
+      "frequency": 120,
+      "rolloff": "dB12"
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "effect_low_pass_filter",
+    "arguments": {
+      "frequency": 11000,
+      "rolloff": "dB12"
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_region",
+    "arguments": {
+      "start": 0,
+      "end": 0.001
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "effect_fade_in",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_region",
+    "arguments": {
+      "start": 0.8799999999999999,
+      "end": 0.95
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "effect_fade_out",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_all",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "normalize",
+    "arguments": {
+      "peak_level_db": -3,
+      "remove_dc": true
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "project_export_audio",
+    "arguments": {
+      "path": "/home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/weapons/reserve_blaster_01.wav",
+      "num_channels": 1
+    },
+    "result": {
+      "raw": "Exported to WAV format: /home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/weapons/reserve_blaster_01.wav\nBatchCommand finished: OK",
+      "success": true,
+      "message": "Exported to WAV format: /home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/weapons/reserve_blaster_01.wav",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_all",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "track_remove",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "project_import_audio",
+    "arguments": {
+      "path": "/home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/weapons/layers/reserve_blaster_02_0.wav"
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_all",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_all",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "effect_high_pass_filter",
+    "arguments": {
+      "frequency": 120,
+      "rolloff": "dB12"
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "effect_low_pass_filter",
+    "arguments": {
+      "frequency": 11000,
+      "rolloff": "dB12"
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_region",
+    "arguments": {
+      "start": 0,
+      "end": 0.001
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "effect_fade_in",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_region",
+    "arguments": {
+      "start": 0.8799999999999999,
+      "end": 0.95
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "effect_fade_out",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_all",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "normalize",
+    "arguments": {
+      "peak_level_db": -3,
+      "remove_dc": true
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "project_export_audio",
+    "arguments": {
+      "path": "/home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/weapons/reserve_blaster_02.wav",
+      "num_channels": 1
+    },
+    "result": {
+      "raw": "Exported to WAV format: /home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/weapons/reserve_blaster_02.wav\nBatchCommand finished: OK",
+      "success": true,
+      "message": "Exported to WAV format: /home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/weapons/reserve_blaster_02.wav",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_all",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "track_remove",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "project_import_audio",
+    "arguments": {
+      "path": "/home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/weapons/layers/reserve_blaster_03_0.wav"
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_all",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_all",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "effect_high_pass_filter",
+    "arguments": {
+      "frequency": 120,
+      "rolloff": "dB12"
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "effect_low_pass_filter",
+    "arguments": {
+      "frequency": 11000,
+      "rolloff": "dB12"
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_region",
+    "arguments": {
+      "start": 0,
+      "end": 0.001
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "effect_fade_in",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_region",
+    "arguments": {
+      "start": 0.8799999999999999,
+      "end": 0.95
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "effect_fade_out",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_all",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "normalize",
+    "arguments": {
+      "peak_level_db": -3,
+      "remove_dc": true
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "project_export_audio",
+    "arguments": {
+      "path": "/home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/weapons/reserve_blaster_03.wav",
+      "num_channels": 1
+    },
+    "result": {
+      "raw": "Exported to WAV format: /home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/weapons/reserve_blaster_03.wav\nBatchCommand finished: OK",
+      "success": true,
+      "message": "Exported to WAV format: /home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/weapons/reserve_blaster_03.wav",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_all",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "track_remove",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "project_import_audio",
+    "arguments": {
+      "path": "/home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/weapons/layers/reserve_blaster_04_0.wav"
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_all",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_all",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "effect_high_pass_filter",
+    "arguments": {
+      "frequency": 120,
+      "rolloff": "dB12"
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "effect_low_pass_filter",
+    "arguments": {
+      "frequency": 11000,
+      "rolloff": "dB12"
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_region",
+    "arguments": {
+      "start": 0,
+      "end": 0.001
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "effect_fade_in",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_region",
+    "arguments": {
+      "start": 0.8799999999999999,
+      "end": 0.95
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "effect_fade_out",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_all",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "normalize",
+    "arguments": {
+      "peak_level_db": -3,
+      "remove_dc": true
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "project_export_audio",
+    "arguments": {
+      "path": "/home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/weapons/reserve_blaster_04.wav",
+      "num_channels": 1
+    },
+    "result": {
+      "raw": "Exported to WAV format: /home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/weapons/reserve_blaster_04.wav\nBatchCommand finished: OK",
+      "success": true,
+      "message": "Exported to WAV format: /home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/weapons/reserve_blaster_04.wav",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_all",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "track_remove",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "project_import_audio",
+    "arguments": {
+      "path": "/home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/weapons/layers/reserve_blaster_05_0.wav"
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_all",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_all",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "effect_high_pass_filter",
+    "arguments": {
+      "frequency": 120,
+      "rolloff": "dB12"
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "effect_low_pass_filter",
+    "arguments": {
+      "frequency": 11000,
+      "rolloff": "dB12"
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_region",
+    "arguments": {
+      "start": 0,
+      "end": 0.001
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "effect_fade_in",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_region",
+    "arguments": {
+      "start": 0.8799999999999999,
+      "end": 0.95
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "effect_fade_out",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_all",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "normalize",
+    "arguments": {
+      "peak_level_db": -3,
+      "remove_dc": true
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "project_export_audio",
+    "arguments": {
+      "path": "/home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/weapons/reserve_blaster_05.wav",
+      "num_channels": 1
+    },
+    "result": {
+      "raw": "Exported to WAV format: /home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/weapons/reserve_blaster_05.wav\nBatchCommand finished: OK",
+      "success": true,
+      "message": "Exported to WAV format: /home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/weapons/reserve_blaster_05.wav",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_all",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "track_remove",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "project_import_audio",
+    "arguments": {
+      "path": "/home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/weapons/layers/reserve_blaster_06_0.wav"
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_all",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_all",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "effect_high_pass_filter",
+    "arguments": {
+      "frequency": 120,
+      "rolloff": "dB12"
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "effect_low_pass_filter",
+    "arguments": {
+      "frequency": 11000,
+      "rolloff": "dB12"
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_region",
+    "arguments": {
+      "start": 0,
+      "end": 0.001
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "effect_fade_in",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_region",
+    "arguments": {
+      "start": 0.8799999999999999,
+      "end": 0.95
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "effect_fade_out",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_all",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "normalize",
+    "arguments": {
+      "peak_level_db": -3,
+      "remove_dc": true
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "project_export_audio",
+    "arguments": {
+      "path": "/home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/weapons/reserve_blaster_06.wav",
+      "num_channels": 1
+    },
+    "result": {
+      "raw": "Exported to WAV format: /home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/weapons/reserve_blaster_06.wav\nBatchCommand finished: OK",
+      "success": true,
+      "message": "Exported to WAV format: /home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/weapons/reserve_blaster_06.wav",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_all",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "track_remove",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "project_import_audio",
+    "arguments": {
+      "path": "/home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/weapons/layers/reserve_blaster_07_0.wav"
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_all",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_all",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "effect_high_pass_filter",
+    "arguments": {
+      "frequency": 120,
+      "rolloff": "dB12"
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "effect_low_pass_filter",
+    "arguments": {
+      "frequency": 11000,
+      "rolloff": "dB12"
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_region",
+    "arguments": {
+      "start": 0,
+      "end": 0.001
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "effect_fade_in",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_region",
+    "arguments": {
+      "start": 0.8799999999999999,
+      "end": 0.95
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "effect_fade_out",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_all",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "normalize",
+    "arguments": {
+      "peak_level_db": -3,
+      "remove_dc": true
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "project_export_audio",
+    "arguments": {
+      "path": "/home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/weapons/reserve_blaster_07.wav",
+      "num_channels": 1
+    },
+    "result": {
+      "raw": "Exported to WAV format: /home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/weapons/reserve_blaster_07.wav\nBatchCommand finished: OK",
+      "success": true,
+      "message": "Exported to WAV format: /home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/weapons/reserve_blaster_07.wav",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_all",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "track_remove",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "project_import_audio",
+    "arguments": {
+      "path": "/home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/weapons/layers/reserve_blaster_08_0.wav"
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_all",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_all",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "effect_high_pass_filter",
+    "arguments": {
+      "frequency": 120,
+      "rolloff": "dB12"
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "effect_low_pass_filter",
+    "arguments": {
+      "frequency": 11000,
+      "rolloff": "dB12"
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_region",
+    "arguments": {
+      "start": 0,
+      "end": 0.001
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "effect_fade_in",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_region",
+    "arguments": {
+      "start": 0.8799999999999999,
+      "end": 0.95
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "effect_fade_out",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_all",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "normalize",
+    "arguments": {
+      "peak_level_db": -3,
+      "remove_dc": true
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "project_export_audio",
+    "arguments": {
+      "path": "/home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/weapons/reserve_blaster_08.wav",
+      "num_channels": 1
+    },
+    "result": {
+      "raw": "Exported to WAV format: /home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/weapons/reserve_blaster_08.wav\nBatchCommand finished: OK",
+      "success": true,
+      "message": "Exported to WAV format: /home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/weapons/reserve_blaster_08.wav",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_all",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "track_remove",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "project_import_audio",
+    "arguments": {
+      "path": "/home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/weapons/layers/reserve_plasma_01_0.wav"
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_all",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_all",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "effect_high_pass_filter",
+    "arguments": {
+      "frequency": 100,
+      "rolloff": "dB12"
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "effect_low_pass_filter",
+    "arguments": {
+      "frequency": 11000,
+      "rolloff": "dB12"
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_region",
+    "arguments": {
+      "start": 0,
+      "end": 0.001
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "effect_fade_in",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_region",
+    "arguments": {
+      "start": 0.73,
+      "end": 0.8
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "effect_fade_out",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_all",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "normalize",
+    "arguments": {
+      "peak_level_db": -3,
+      "remove_dc": true
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "project_export_audio",
+    "arguments": {
+      "path": "/home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/weapons/reserve_plasma_01.wav",
+      "num_channels": 1
+    },
+    "result": {
+      "raw": "Exported to WAV format: /home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/weapons/reserve_plasma_01.wav\nBatchCommand finished: OK",
+      "success": true,
+      "message": "Exported to WAV format: /home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/weapons/reserve_plasma_01.wav",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_all",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "track_remove",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "project_import_audio",
+    "arguments": {
+      "path": "/home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/weapons/layers/reserve_plasma_02_0.wav"
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_all",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_all",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "effect_high_pass_filter",
+    "arguments": {
+      "frequency": 100,
+      "rolloff": "dB12"
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "effect_low_pass_filter",
+    "arguments": {
+      "frequency": 11000,
+      "rolloff": "dB12"
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_region",
+    "arguments": {
+      "start": 0,
+      "end": 0.001
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "effect_fade_in",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_region",
+    "arguments": {
+      "start": 0.73,
+      "end": 0.8
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "effect_fade_out",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_all",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "normalize",
+    "arguments": {
+      "peak_level_db": -3,
+      "remove_dc": true
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "project_export_audio",
+    "arguments": {
+      "path": "/home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/weapons/reserve_plasma_02.wav",
+      "num_channels": 1
+    },
+    "result": {
+      "raw": "Exported to WAV format: /home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/weapons/reserve_plasma_02.wav\nBatchCommand finished: OK",
+      "success": true,
+      "message": "Exported to WAV format: /home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/weapons/reserve_plasma_02.wav",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_all",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "track_remove",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "project_import_audio",
+    "arguments": {
+      "path": "/home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/weapons/layers/reserve_plasma_03_0.wav"
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_all",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_all",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "effect_high_pass_filter",
+    "arguments": {
+      "frequency": 100,
+      "rolloff": "dB12"
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "effect_low_pass_filter",
+    "arguments": {
+      "frequency": 11000,
+      "rolloff": "dB12"
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_region",
+    "arguments": {
+      "start": 0,
+      "end": 0.001
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "effect_fade_in",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_region",
+    "arguments": {
+      "start": 0.73,
+      "end": 0.8
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "effect_fade_out",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_all",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "normalize",
+    "arguments": {
+      "peak_level_db": -3,
+      "remove_dc": true
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "project_export_audio",
+    "arguments": {
+      "path": "/home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/weapons/reserve_plasma_03.wav",
+      "num_channels": 1
+    },
+    "result": {
+      "raw": "Exported to WAV format: /home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/weapons/reserve_plasma_03.wav\nBatchCommand finished: OK",
+      "success": true,
+      "message": "Exported to WAV format: /home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/weapons/reserve_plasma_03.wav",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_all",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "track_remove",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "project_import_audio",
+    "arguments": {
+      "path": "/home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/weapons/layers/reserve_plasma_04_0.wav"
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_all",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_all",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "effect_high_pass_filter",
+    "arguments": {
+      "frequency": 100,
+      "rolloff": "dB12"
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "effect_low_pass_filter",
+    "arguments": {
+      "frequency": 11000,
+      "rolloff": "dB12"
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_region",
+    "arguments": {
+      "start": 0,
+      "end": 0.001
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "effect_fade_in",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_region",
+    "arguments": {
+      "start": 0.73,
+      "end": 0.8
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "effect_fade_out",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_all",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "normalize",
+    "arguments": {
+      "peak_level_db": -3,
+      "remove_dc": true
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "project_export_audio",
+    "arguments": {
+      "path": "/home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/weapons/reserve_plasma_04.wav",
+      "num_channels": 1
+    },
+    "result": {
+      "raw": "Exported to WAV format: /home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/weapons/reserve_plasma_04.wav\nBatchCommand finished: OK",
+      "success": true,
+      "message": "Exported to WAV format: /home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/weapons/reserve_plasma_04.wav",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_all",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "track_remove",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "project_import_audio",
+    "arguments": {
+      "path": "/home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/weapons/layers/reserve_heavy_pistol_0.wav"
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_all",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_all",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "effect_high_pass_filter",
+    "arguments": {
+      "frequency": 75,
+      "rolloff": "dB12"
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "effect_low_pass_filter",
+    "arguments": {
+      "frequency": 9500,
+      "rolloff": "dB12"
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_region",
+    "arguments": {
+      "start": 0,
+      "end": 0.001
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "effect_fade_in",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_region",
+    "arguments": {
+      "start": 1.43,
+      "end": 1.5
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "effect_fade_out",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_all",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "normalize",
+    "arguments": {
+      "peak_level_db": -3,
+      "remove_dc": true
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "project_export_audio",
+    "arguments": {
+      "path": "/home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/weapons/reserve_heavy_pistol.wav",
+      "num_channels": 1
+    },
+    "result": {
+      "raw": "Exported to WAV format: /home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/weapons/reserve_heavy_pistol.wav\nBatchCommand finished: OK",
+      "success": true,
+      "message": "Exported to WAV format: /home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/weapons/reserve_heavy_pistol.wav",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_all",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "track_remove",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "project_import_audio",
+    "arguments": {
+      "path": "/home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/weapons/layers/reserve_pulse_0.wav"
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_all",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_all",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "effect_high_pass_filter",
+    "arguments": {
+      "frequency": 180,
+      "rolloff": "dB12"
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "effect_low_pass_filter",
+    "arguments": {
+      "frequency": 10500,
+      "rolloff": "dB12"
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_region",
+    "arguments": {
+      "start": 0,
+      "end": 0.001
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "effect_fade_in",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_region",
+    "arguments": {
+      "start": 0.27,
+      "end": 0.34
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "effect_fade_out",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_all",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "normalize",
+    "arguments": {
+      "peak_level_db": -3,
+      "remove_dc": true
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "project_export_audio",
+    "arguments": {
+      "path": "/home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/weapons/reserve_pulse.wav",
+      "num_channels": 1
+    },
+    "result": {
+      "raw": "Exported to WAV format: /home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/weapons/reserve_pulse.wav\nBatchCommand finished: OK",
+      "success": true,
+      "message": "Exported to WAV format: /home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/weapons/reserve_pulse.wav",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_all",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "track_remove",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  }
+]

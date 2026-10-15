@@ -29,3 +29,7 @@ python3 tools/cq_audio/test_field_pack.py --godot /path/to/godot
 The authoring script refuses to overwrite masters; move a previous `tools/audio-sources/cq-field/edited/` directory aside before rerunning it. Downloads are verified against pinned SHA-256 values. The source cache has `.gdignore`, is ignored by Git, and is excluded from the frontier deployment pack. Runtime files and notices are self-contained; none depend on Audacity or network downloads during play.
 
 The Freesound recordings use public HQ MP3 previews; lossless originals were not obtained. OGA sources use original downloads. Asset signal checks and mixer/integration tests do not replace final listening and loudness tuning on the intended headset. No live service deployment was performed.
+
+## Updated energy/projectile reports
+
+The [weapon reauthoring pass](audio/cq-weapons-20261015/README.md) replaces seven reports and the energy impact using the eight user-supplied Freesound CC0 sources. Fourteen extra takes are edited for future tiers without adding weapon assignments. To regenerate the full library, run `tools/cq_audio/reauthor_weapons.py` through the Audacity MCP Python environment before `build_field_audio.py`; the full builder reapplies these latest masters at the end. The offline reserve has `.gdignore` and stays outside the runtime resource graph.

@@ -39,3 +39,22 @@ python3 tools/cq_audio/fetch_field_sources.py
 ```
 
 Fetched originals and intermediates live under the ignored `tools/audio-sources/cq-field/` cache and are excluded from the frontier deployment package. Retain this file, the source manifest and license notice when distributing the edited sounds.
+
+## Weapon reauthoring pass, 2026-10-15
+
+Seven energy/projectile reports and `energy_impact` now use the following user-selected CC0 recordings. The pistol/SMG retain the Tabasco firearm attack, with a quiet layered body; the suppressed pistol uses a lower level and narrow bandwidth. The energy family uses isolated blaster/pulse takes, with a heavier, longer beam report. Launchers and ordnance impacts retain their previous sounds.
+
+| Recording | Author | License |
+| --- | --- | --- |
+| [BLASTER (multiple)](https://freesound.org/people/C3Sabertooth/sounds/480872/) | C3Sabertooth | CC0-1.0 |
+| [blaster shot single 4](https://freesound.org/people/MikeE63/sounds/466868/) | MikeE63 | CC0-1.0 |
+| [enhanced blaster](https://freesound.org/people/MikeE63/sounds/466834/) | MikeE63 | CC0-1.0 |
+| [LAPD 2049 PKD Blaster](https://freesound.org/people/nioczkus/sounds/378185/) | nioczkus | CC0-1.0 |
+| [ScifiHeavyBlasterShot](https://freesound.org/people/SuperPhat/sounds/531861/) | SuperPhat | CC0-1.0 |
+| [JH FX Sci-Fi Energy Weapons 1](https://freesound.org/people/Johnnie_Holiday/sounds/697894/) | Johnnie_Holiday | CC0-1.0 |
+| [Sci-fi gun shot x6](https://freesound.org/people/humanoide9000/sounds/330293/) | humanoide9000 | CC0-1.0 |
+| [laserblast effect](https://freesound.org/people/LimitSnap_Creations/sounds/344809/) | LimitSnap_Creations | CC0-1.0 |
+
+These inputs are public HQ MP3 previews, with pinned download URLs and hashes. Layer isolation, relative gains and playback rates are recorded in `manifest.json`; Audacity MCP performs the mix, filtering, attack/tail fades, DC removal and normalization. Runtime encoding is mono 24 kHz PCM16. The [authoring recipes, MCP receipt and cadence audition](../../../docs/audio/cq-weapons-20261015/README.md) document the pass.
+
+Fourteen further takes are edited in `tools/cq_audio/tier_reserve/`, with their own manifest and credits; they are intentionally unassigned and excluded from runtime resource scanning and packaging. `reauthor_weapons.py --fetch` downloads verified source inputs; run the script without flags to author through Audacity, or `--build` to encode existing edited masters. Full-library regeneration now finishes with this weapon pass, so it cannot silently restore the older reports.
