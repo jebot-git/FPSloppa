@@ -82,3 +82,7 @@ sources.append({'id':'tabasco_existing','author':'Tabasco','license':'CC0-1.0','
 # Latest user-directed weapon pass supersedes the original weapon masters.
 from reauthor_weapons import build as build_weapon_reports
 build_weapon_reports()
+
+# Apply the vehicle pass after the common ordnance-impact placeholder.
+from reauthor_vehicles import build as build_vehicle_reports
+build_vehicle_reports()

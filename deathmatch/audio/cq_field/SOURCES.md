@@ -1,6 +1,6 @@
 # CQ Frontier field audio sources
 
-Runtime edits by the FPSloppa project. Source licenses apply to each derivative; no original commercial game recordings are included. All sources are CC0-1.0 except the heavy-engine recording, used under CC-BY-3.0. The latter is credited below and its license is retained.
+Runtime edits by the FPSloppa project. Source licenses apply to each derivative; no original commercial game recordings are included. Most sources are CC0-1.0. The heavy-engine recording uses CC-BY-3.0; the rocket-tank launch/travel recordings use the Pixabay Content License. Source-specific credits and terms are retained below.
 
 | Source | Author | License | Download quality |
 | --- | --- | --- | --- |
@@ -58,3 +58,13 @@ Seven energy/projectile reports and `energy_impact` now use the following user-s
 These inputs are public HQ MP3 previews, with pinned download URLs and hashes. Layer isolation, relative gains and playback rates are recorded in `manifest.json`; Audacity MCP performs the mix, filtering, attack/tail fades, DC removal and normalization. Runtime encoding is mono 24 kHz PCM16. The [authoring recipes, MCP receipt and cadence audition](../../../docs/audio/cq-weapons-20261015/README.md) document the pass.
 
 Fourteen further takes are edited in `tools/cq_audio/tier_reserve/`, with their own manifest and credits; they are intentionally unassigned and excluded from runtime resource scanning and packaging. `reauthor_weapons.py --fetch` downloads verified source inputs; run the script without flags to author through Audacity, or `--build` to encode existing edited masters. Full-library regeneration now finishes with this weapon pass, so it cannot silently restore the older reports.
+
+## Vehicle fire and explosions, 2026-10-15
+
+- **Battle at Sea**, by **Thimras**, [OpenGameArt](https://opengameart.org/content/battle-at-sea), [CC0-1.0](https://creativecommons.org/publicdomain/zero/1.0/): original Ogg downloads `cannon_fire_1`, `cannon_hit_cannon_1`, `cannon_hit_1`, `cannon_hit_wall_no_splash`. These form distinct light/heavy/turret firing reports and the shared ordnance explosion; a quiet cannon transient reinforces the rocket launch.
+- **Katyusha Rocket (Multiple)**, by **kuiycb**, [Pixabay](https://pixabay.com/sound-effects/technology-katyusha-rocket-multiple-114774/), **Pixabay Content License**: a short single-launch excerpt, mixed with cannon attack and filtered/faded for the rocket tank's eight-round cadence.
+- **Rocket Loop**, by **Mozfoo (Freesound)**, distributed by **freesound_community**, [Pixabay](https://pixabay.com/sound-effects/film-special-effects-rocket-loop-99748/), **Pixabay Content License**: interior motor excerpt, Audacity filtering/normalization, followed by mono conversion, gain trim and a 120 ms loop crossfade.
+
+[Pixabay Content License summary](https://pixabay.com/service/license-summary/) and [full terms](https://pixabay.com/service/terms/). These two derivatives are not CC0 and are supplied as integrated game effects. Their original MP3s remain in the ignored authoring cache. They were downloaded by the user, then copied from local Downloads because automated Pixabay requests returned HTTP 403. Exact input hashes, source pages and layer recipes are recorded in the manifests. Do not relabel these derivatives under the project's source-code license.
+
+[Audition, recipes and Audacity MCP receipt](../../../docs/audio/cq-vehicles-20261015/README.md). Six masters were mixed/filtered/faded/normalized/exported through Audacity MCP; the runtime build performs 24 kHz PCM16 encoding and loop construction. `tools/cq_audio/reauthor_vehicles.py` reproduces this pass. Manually downloaded Pixabay sources must be supplied in the documented cache paths; source validation checks their hashes.

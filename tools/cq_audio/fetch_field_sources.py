@@ -7,6 +7,7 @@ def fetch(row):
  if row['id']=='tabasco_existing':return
  target=CACHE/row['file'];target.parent.mkdir(parents=True,exist_ok=True)
  if not target.exists() or hashlib.sha256(target.read_bytes()).hexdigest()!=row['sha256']:
+  if not row.get('download'):raise FileNotFoundError('Place manually downloaded source at '+str(target)+'; source: '+row['page'])
   temp=target.with_suffix(target.suffix+'.part')
   with urllib.request.urlopen(row['download'],timeout=120) as response, temp.open('wb') as output:
    while chunk:=response.read(1024*1024):output.write(chunk)

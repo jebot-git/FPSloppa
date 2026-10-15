@@ -719,16 +719,47 @@
   "ordnance_impact": {
     "file": "ordnance_impact.wav",
     "sources": [
-      "scifi"
+      "sea_cannon_hit_cannon_1",
+      "sea_cannon_hit_1",
+      "sea_cannon_hit_wall_no_splash"
     ],
     "loop": false,
-    "seconds": 1.8402083333333332,
+    "seconds": 2.8,
     "rate": 24000,
     "channels": 1,
-    "peak_dbfs": -2.158108949661255,
-    "rms_dbfs": -25.369979858398438,
-    "sha256": "fc34930240c83e68f81e0ff0849932a52571a83c52712ec30cbcbc96b009f407",
-    "edit": "trim, DC removal, band-limit, peak/RMS trim, short edge fades"
+    "peak_dbfs": -2.1581075191497803,
+    "rms_dbfs": -19.769899368286133,
+    "sha256": "cd43ee566cba3f883e01e6949fb243bfe2eb71b0096d7ee32e8ca0cf2ad5a1b6",
+    "master_sha256": "ecd3b24b8c85024600d00022255f3690d6d2b616968f5348800553238aa5b948",
+    "recipe": {
+      "high": 40,
+      "low": 10500,
+      "peak": 0.78,
+      "layers": [
+        [
+          "sea_cannon_hit_cannon_1",
+          0,
+          2.3,
+          0.9,
+          0.8
+        ],
+        [
+          "sea_cannon_hit_1",
+          0.01,
+          2.8,
+          1,
+          0.45
+        ],
+        [
+          "sea_cannon_hit_wall_no_splash",
+          0,
+          1.6,
+          0.85,
+          0.22
+        ]
+      ]
+    },
+    "edit": "Isolated original OGA/Pixabay layers; Audacity MCP mix, high/low-pass, attack/tail fades, DC removal, normalization; mono 24 kHz PCM16, gain trim; travel loop uses interior crop and 120 ms end-to-start crossfade"
   },
   "inject_loop": {
     "file": "inject_loop.wav",
@@ -813,5 +844,182 @@
     "rms_dbfs": -29.118639112994487,
     "sha256": "016feeb9ef23b7f6965b839d6cc99d116745fdb35ddf14cf5e6c9a92739e3231",
     "edit": "trim, DC removal, band-limit, peak/RMS trim, short edge fades; end-to-start crossfade"
+  },
+  "tank_light_fire": {
+    "file": "tank_light_fire.wav",
+    "sources": [
+      "sea_cannon_fire_1",
+      "sea_cannon_hit_cannon_1"
+    ],
+    "loop": false,
+    "seconds": 0.84825,
+    "rate": 24000,
+    "channels": 1,
+    "peak_dbfs": -2.8533496856689453,
+    "rms_dbfs": -21.567813873291016,
+    "sha256": "c22968d71b4947df4cc66bc9b98a6a0fd774e06e7c8a827635a5e39a963d3eb8",
+    "master_sha256": "571a052d3bc065e1265839c00e67cafd39d70946feee7a5862edc5f5459a678e",
+    "recipe": {
+      "high": 65,
+      "low": 10500,
+      "peak": 0.72,
+      "layers": [
+        [
+          "sea_cannon_fire_1",
+          0,
+          0.95,
+          1.12,
+          1
+        ],
+        [
+          "sea_cannon_hit_cannon_1",
+          0,
+          0.3,
+          1.15,
+          0.18
+        ]
+      ]
+    },
+    "edit": "Isolated original OGA/Pixabay layers; Audacity MCP mix, high/low-pass, attack/tail fades, DC removal, normalization; mono 24 kHz PCM16, gain trim; travel loop uses interior crop and 120 ms end-to-start crossfade"
+  },
+  "tank_heavy_fire": {
+    "file": "tank_heavy_fire.wav",
+    "sources": [
+      "sea_cannon_fire_1",
+      "sea_cannon_hit_cannon_1"
+    ],
+    "loop": false,
+    "seconds": 1.4634166666666666,
+    "rate": 24000,
+    "channels": 1,
+    "peak_dbfs": -2.3837289810180664,
+    "rms_dbfs": -20.797555923461914,
+    "sha256": "422d4c9f68d175b482868b62ba9daef8c87fd48aa39dd490f15e50d72f0b6ec8",
+    "master_sha256": "2ece206d1e4478a293df5d71a887477d51efbd2181fe85241b4509fe65bf39ed",
+    "recipe": {
+      "high": 45,
+      "low": 9500,
+      "peak": 0.76,
+      "layers": [
+        [
+          "sea_cannon_fire_1",
+          0,
+          1.2,
+          0.82,
+          1
+        ],
+        [
+          "sea_cannon_hit_cannon_1",
+          0,
+          0.5,
+          0.9,
+          0.3
+        ]
+      ]
+    },
+    "edit": "Isolated original OGA/Pixabay layers; Audacity MCP mix, high/low-pass, attack/tail fades, DC removal, normalization; mono 24 kHz PCM16, gain trim; travel loop uses interior crop and 120 ms end-to-start crossfade"
+  },
+  "turret_fire": {
+    "file": "turret_fire.wav",
+    "sources": [
+      "sea_cannon_fire_1",
+      "sea_cannon_hit_wall_no_splash"
+    ],
+    "loop": false,
+    "seconds": 0.5385,
+    "rate": 24000,
+    "channels": 1,
+    "peak_dbfs": -3.3498215675354004,
+    "rms_dbfs": -21.835203170776367,
+    "sha256": "b46fc2d6d6c2ebc967c9b8df4a36fa3f738c8918a532817e56dd68c32631ea4d",
+    "master_sha256": "9484d3cf5b892a79ce8c2c904b34b7db315053bfe90efe72dbc8072b8b5932d7",
+    "recipe": {
+      "high": 100,
+      "low": 10000,
+      "peak": 0.68,
+      "layers": [
+        [
+          "sea_cannon_fire_1",
+          0,
+          0.7,
+          1.3,
+          1
+        ],
+        [
+          "sea_cannon_hit_wall_no_splash",
+          0,
+          0.25,
+          1.25,
+          0.12
+        ]
+      ]
+    },
+    "edit": "Isolated original OGA/Pixabay layers; Audacity MCP mix, high/low-pass, attack/tail fades, DC removal, normalization; mono 24 kHz PCM16, gain trim; travel loop uses interior crop and 120 ms end-to-start crossfade"
+  },
+  "rocket_tank_launch": {
+    "file": "rocket_tank_launch.wav",
+    "sources": [
+      "katyusha",
+      "sea_cannon_fire_1"
+    ],
+    "loop": false,
+    "seconds": 0.28,
+    "rate": 24000,
+    "channels": 1,
+    "peak_dbfs": -4.152166366577148,
+    "rms_dbfs": -16.405536651611328,
+    "sha256": "74eb34f713ae7e82840009d93c33cd2b2ee71f2d8a1b7df7e85fc5a9495032f5",
+    "master_sha256": "7c7ed16e953b6520c5288f09d1fd46566fc6aee8c0246e3069956bb8aac0a206",
+    "recipe": {
+      "high": 100,
+      "low": 10500,
+      "peak": 0.62,
+      "layers": [
+        [
+          "katyusha",
+          0.32,
+          0.28,
+          1,
+          1
+        ],
+        [
+          "sea_cannon_fire_1",
+          0,
+          0.13,
+          1.2,
+          0.12
+        ]
+      ]
+    },
+    "edit": "Isolated original OGA/Pixabay layers; Audacity MCP mix, high/low-pass, attack/tail fades, DC removal, normalization; mono 24 kHz PCM16, gain trim; travel loop uses interior crop and 120 ms end-to-start crossfade"
+  },
+  "rocket_tank_travel": {
+    "file": "rocket_tank_travel.wav",
+    "sources": [
+      "rocket_travel"
+    ],
+    "loop": true,
+    "seconds": 1.23,
+    "rate": 24000,
+    "channels": 1,
+    "peak_dbfs": -7.5350141920419915,
+    "rms_dbfs": -20.43826643543627,
+    "sha256": "dd9e37f5d3f261ff2c0bef0335966a872b8ac9963e33daf12ee29353ab84c206",
+    "master_sha256": "50cf6a8a3a29d7c5f7911bb4f17c983931048841486ddaabcad4de6086e9cfa7",
+    "recipe": {
+      "high": 130,
+      "low": 9000,
+      "peak": 0.42,
+      "layers": [
+        [
+          "rocket_travel",
+          0.12,
+          1.55,
+          1,
+          1
+        ]
+      ]
+    },
+    "edit": "Isolated original OGA/Pixabay layers; Audacity MCP mix, high/low-pass, attack/tail fades, DC removal, normalization; mono 24 kHz PCM16, gain trim; travel loop uses interior crop and 120 ms end-to-start crossfade"
   }
 }

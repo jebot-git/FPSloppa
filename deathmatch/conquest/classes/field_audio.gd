@@ -11,6 +11,7 @@ var voices:Array=[]
 var loops:Dictionary={}
 var seen:Dictionary={}
 var vehicle_seen:Dictionary={}
+var firing_seen:Dictionary={}
 var box_seen:Dictionary={}
 var cooldowns:Dictionary={}
 var elapsed:=0.
@@ -45,6 +46,14 @@ func play_cue(kind:String,at:Vector3,level:float=-12,radius:float=15)->bool:
 func shot(weapon:int,at:Vector3)->void:
  if not SHOTS.has(weapon):return
  play_cue(SHOTS[weapon],at,-12 if weapon==9 else -6 if weapon in [0,1,3,4] else -4,18 if weapon==9 else 110 if weapon in [5,11] else 90)
+static func vehicle_report(kind:String)->String:
+ return {"rocket":"rocket_tank_launch","light":"tank_light_fire","heavy":"tank_heavy_fire","turret":"turret_fire"}.get(kind,"")
+func observe_fire(key:String,shot_at:float,kind:String,at:Vector3,alive:bool=true)->bool:
+ var previous:float=float(firing_seen.get(key,shot_at))
+ firing_seen[key]=maxf(previous,shot_at)
+ if not alive or shot_at<=previous:return false
+ var report:=vehicle_report(kind)
+ return not report.is_empty() and play_cue(report,at,-8 if kind=="turret" else -6,110)
 func local_cue(kind:String)->void:
  if game.headless or not game.active:return
  ui.stream=stream(kind);ui.play();played[kind]=int(played.get(kind,0))+1
@@ -77,7 +86,7 @@ func observe_player(id:int,life:int,state:Dictionary)->Array:
 func clear()->void:
  for source in voices+loops.values():
   if is_instance_valid(source):source.stop();source.queue_free()
- voices.clear();loops.clear();seen.clear();vehicle_seen.clear();box_seen.clear();cooldowns.clear();primed=false
+ voices.clear();loops.clear();seen.clear();vehicle_seen.clear();firing_seen.clear();box_seen.clear();cooldowns.clear();primed=false
  if ui:ui.stop()
 func _process(delta:float)->void:
  if not game:return
@@ -112,11 +121,19 @@ func _process(delta:float)->void:
   if player.dead or player.spectator:continue
   if row.injecting:set_loop("inject:"+str(id),"inject_loop",at,-24,8,wanted)
   if id==mine and row.wet and not previous.is_empty() and at.distance_to(previous.position)>.12 and allow("swim",.65):play_cue("swim",at,-19,10)
+ # Rocket motors follow existing accepted projectile state; no additional network traffic.
+ if game.get("projectiles") is Dictionary:
+  var rockets:Array=game.projectiles.keys()
+  rockets.sort_custom(func(a,b):return camera.global_position.distance_squared_to(game.projectiles[a].position)<camera.global_position.distance_squared_to(game.projectiles[b].position))
+  for key in rockets:
+   var rocket:Dictionary=game.projectiles[key]
+   if not rocket.get("stuck",false) and rocket.get("extra",{}).get("battery_shot",false):set_loop("rocket:"+str(key),"rocket_tank_travel",rocket.position,-18,90,wanted)
  # Only nearby, occupied or moving hulls have running engines. Nearest wins the voice budget.
  var vehicles:Array=game.battery_tanks.rows.keys()
  vehicles.sort_custom(func(a,b):return camera.global_position.distance_squared_to(game.battery_tanks.rows[a].position)<camera.global_position.distance_squared_to(game.battery_tanks.rows[b].position))
  for key in vehicles:
   var row:Dictionary=game.battery_tanks.rows[key];var old:Dictionary=vehicle_seen.get(key,{})
+  observe_fire("vehicle:"+str(key),float(row.get("shot_at",-100.)),row.kind,row.position+Vector3.UP,row.hp>0)
   var running:bool=row.hp>0 and (row.pilot!=0 or absf(row.speed)>.2)
   if not old.is_empty():
    if old.running!=running and row.hp>0:play_cue("engine_start" if running else "engine_stop",row.position,-12,VEHICLE_RANGE)
@@ -127,6 +144,14 @@ func _process(delta:float)->void:
    set_loop("vehicle:"+str(key),kind,row.position+Vector3.UP,-18,VEHICLE_RANGE,wanted,lerpf(.85,1.3,clampf(absf(row.speed)/10,0,1)))
  for key in vehicle_seen.keys():
   if not game.battery_tanks.rows.has(key):vehicle_seen.erase(key)
+ # Replicated firing timestamps work for native and script authority; RPC flashes stay silent.
+ if game.get("turrets"):
+  for key in game.turrets.rows:
+   var row:Dictionary=game.turrets.rows[key]
+   observe_fire("turret:"+str(key),float(row.get("shot_at",-100.)),"turret",row.position+Vector3.UP,row.hp>0)
+ for key in firing_seen.keys():
+  var parts:=str(key).split(":");var id:=int(parts[1])
+  if (parts[0]=="vehicle" and not game.battery_tanks.rows.has(id)) or (parts[0]=="turret" and (not game.get("turrets") or not game.turrets.rows.has(id))):firing_seen.erase(key)
  for key in game.classes.dispensers:
   var box:Dictionary=game.classes.dispensers[key];var old:Dictionary=box_seen.get(key,{})
   if old.is_empty():

@@ -1,0 +1,1094 @@
+[
+  {
+    "tool": "project_new",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "project_import_audio",
+    "arguments": {
+      "path": "/home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/vehicle/layers/rocket_tank_launch_0.wav"
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "project_import_audio",
+    "arguments": {
+      "path": "/home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/vehicle/layers/rocket_tank_launch_1.wav"
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_all",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "track_mix_and_render",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_all",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "effect_high_pass_filter",
+    "arguments": {
+      "frequency": 100,
+      "rolloff": "dB12"
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "effect_low_pass_filter",
+    "arguments": {
+      "frequency": 10500,
+      "rolloff": "dB12"
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_region",
+    "arguments": {
+      "start": 0,
+      "end": 0.001
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "effect_fade_in",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_region",
+    "arguments": {
+      "start": 0.21000000000000002,
+      "end": 0.28
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "effect_fade_out",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_all",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "normalize",
+    "arguments": {
+      "peak_level_db": -3,
+      "remove_dc": true
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "project_export_audio",
+    "arguments": {
+      "path": "/home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/vehicle/rocket_tank_launch.wav",
+      "num_channels": 1
+    },
+    "result": {
+      "raw": "Exported to WAV format: /home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/vehicle/rocket_tank_launch.wav\nBatchCommand finished: OK",
+      "success": true,
+      "message": "Exported to WAV format: /home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/vehicle/rocket_tank_launch.wav",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_all",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "track_remove",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "project_import_audio",
+    "arguments": {
+      "path": "/home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/vehicle/layers/rocket_tank_travel_0.wav"
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_all",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_all",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "effect_high_pass_filter",
+    "arguments": {
+      "frequency": 130,
+      "rolloff": "dB12"
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "effect_low_pass_filter",
+    "arguments": {
+      "frequency": 9000,
+      "rolloff": "dB12"
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_region",
+    "arguments": {
+      "start": 0,
+      "end": 0.001
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "effect_fade_in",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_region",
+    "arguments": {
+      "start": 1.48,
+      "end": 1.55
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "effect_fade_out",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_all",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "normalize",
+    "arguments": {
+      "peak_level_db": -3,
+      "remove_dc": true
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "project_export_audio",
+    "arguments": {
+      "path": "/home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/vehicle/rocket_tank_travel.wav",
+      "num_channels": 1
+    },
+    "result": {
+      "raw": "Exported to WAV format: /home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/vehicle/rocket_tank_travel.wav\nBatchCommand finished: OK",
+      "success": true,
+      "message": "Exported to WAV format: /home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/vehicle/rocket_tank_travel.wav",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_all",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "track_remove",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "project_import_audio",
+    "arguments": {
+      "path": "/home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/vehicle/layers/tank_light_fire_0.wav"
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "project_import_audio",
+    "arguments": {
+      "path": "/home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/vehicle/layers/tank_light_fire_1.wav"
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_all",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "track_mix_and_render",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_all",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "effect_high_pass_filter",
+    "arguments": {
+      "frequency": 65,
+      "rolloff": "dB12"
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "effect_low_pass_filter",
+    "arguments": {
+      "frequency": 10500,
+      "rolloff": "dB12"
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_region",
+    "arguments": {
+      "start": 0,
+      "end": 0.001
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "effect_fade_in",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_region",
+    "arguments": {
+      "start": 0.7782142857142855,
+      "end": 0.8482142857142856
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "effect_fade_out",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_all",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "normalize",
+    "arguments": {
+      "peak_level_db": -3,
+      "remove_dc": true
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "project_export_audio",
+    "arguments": {
+      "path": "/home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/vehicle/tank_light_fire.wav",
+      "num_channels": 1
+    },
+    "result": {
+      "raw": "Exported to WAV format: /home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/vehicle/tank_light_fire.wav\nBatchCommand finished: OK",
+      "success": true,
+      "message": "Exported to WAV format: /home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/vehicle/tank_light_fire.wav",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_all",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "track_remove",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "project_import_audio",
+    "arguments": {
+      "path": "/home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/vehicle/layers/tank_heavy_fire_0.wav"
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "project_import_audio",
+    "arguments": {
+      "path": "/home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/vehicle/layers/tank_heavy_fire_1.wav"
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_all",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "track_mix_and_render",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_all",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "effect_high_pass_filter",
+    "arguments": {
+      "frequency": 45,
+      "rolloff": "dB12"
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "effect_low_pass_filter",
+    "arguments": {
+      "frequency": 9500,
+      "rolloff": "dB12"
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_region",
+    "arguments": {
+      "start": 0,
+      "end": 0.001
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "effect_fade_in",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_region",
+    "arguments": {
+      "start": 1.3934146341463414,
+      "end": 1.4634146341463414
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "effect_fade_out",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_all",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "normalize",
+    "arguments": {
+      "peak_level_db": -3,
+      "remove_dc": true
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "project_export_audio",
+    "arguments": {
+      "path": "/home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/vehicle/tank_heavy_fire.wav",
+      "num_channels": 1
+    },
+    "result": {
+      "raw": "Exported to WAV format: /home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/vehicle/tank_heavy_fire.wav\nBatchCommand finished: OK",
+      "success": true,
+      "message": "Exported to WAV format: /home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/vehicle/tank_heavy_fire.wav",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_all",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "track_remove",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "project_import_audio",
+    "arguments": {
+      "path": "/home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/vehicle/layers/turret_fire_0.wav"
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "project_import_audio",
+    "arguments": {
+      "path": "/home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/vehicle/layers/turret_fire_1.wav"
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_all",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "track_mix_and_render",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_all",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "effect_high_pass_filter",
+    "arguments": {
+      "frequency": 100,
+      "rolloff": "dB12"
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "effect_low_pass_filter",
+    "arguments": {
+      "frequency": 10000,
+      "rolloff": "dB12"
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_region",
+    "arguments": {
+      "start": 0,
+      "end": 0.001
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "effect_fade_in",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_region",
+    "arguments": {
+      "start": 0.46846153846153843,
+      "end": 0.5384615384615384
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "effect_fade_out",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_all",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "normalize",
+    "arguments": {
+      "peak_level_db": -3,
+      "remove_dc": true
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "project_export_audio",
+    "arguments": {
+      "path": "/home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/vehicle/turret_fire.wav",
+      "num_channels": 1
+    },
+    "result": {
+      "raw": "Exported to WAV format: /home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/vehicle/turret_fire.wav\nBatchCommand finished: OK",
+      "success": true,
+      "message": "Exported to WAV format: /home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/vehicle/turret_fire.wav",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_all",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "track_remove",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "project_import_audio",
+    "arguments": {
+      "path": "/home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/vehicle/layers/ordnance_impact_0.wav"
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "project_import_audio",
+    "arguments": {
+      "path": "/home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/vehicle/layers/ordnance_impact_1.wav"
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "project_import_audio",
+    "arguments": {
+      "path": "/home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/vehicle/layers/ordnance_impact_2.wav"
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_all",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "track_mix_and_render",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_all",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "effect_high_pass_filter",
+    "arguments": {
+      "frequency": 40,
+      "rolloff": "dB12"
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "effect_low_pass_filter",
+    "arguments": {
+      "frequency": 10500,
+      "rolloff": "dB12"
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_region",
+    "arguments": {
+      "start": 0,
+      "end": 0.001
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "effect_fade_in",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_region",
+    "arguments": {
+      "start": 2.73,
+      "end": 2.8
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "effect_fade_out",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_all",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "normalize",
+    "arguments": {
+      "peak_level_db": -3,
+      "remove_dc": true
+    },
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "project_export_audio",
+    "arguments": {
+      "path": "/home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/vehicle/ordnance_impact.wav",
+      "num_channels": 1
+    },
+    "result": {
+      "raw": "Exported to WAV format: /home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/vehicle/ordnance_impact.wav\nBatchCommand finished: OK",
+      "success": true,
+      "message": "Exported to WAV format: /home/blux/Documents/Entryway/Godot-voxelspace/tools/audio-sources/cq-field/vehicle/ordnance_impact.wav",
+      "data": {}
+    }
+  },
+  {
+    "tool": "select_all",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  },
+  {
+    "tool": "track_remove",
+    "arguments": {},
+    "result": {
+      "raw": "BatchCommand finished: OK",
+      "success": true,
+      "message": "",
+      "data": {}
+    }
+  }
+]

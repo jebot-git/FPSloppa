@@ -3,7 +3,7 @@ Run with the audacity-mcp-server Python (mcp + numpy), Audacity + mod-script-pip
 Default: prepare isolated layers, author/mix/filter/fade/export in Audacity, encode.
 --build: encode already authored masters. --fetch: fetch pinned source previews.
 """
-import asyncio, hashlib, json, subprocess, sys, urllib.request, wave
+import asyncio, hashlib, json, subprocess, sys, time, urllib.request, wave
 from pathlib import Path
 import numpy as np
 ROOT=Path(__file__).resolve().parents[2]
@@ -42,7 +42,9 @@ def wav(path,a):
 def fetch():
  for row in rows():
   path=CACHE/row['file'];path.parent.mkdir(parents=True,exist_ok=True)
-  if not path.exists():path.write_bytes(urllib.request.urlopen(row['download'],timeout=90).read())
+  if not path.exists():
+   if not row.get('download'):raise FileNotFoundError('Place the manually downloaded source at '+str(path)+'; source: '+row['page'])
+   path.write_bytes(urllib.request.urlopen(row['download'],timeout=90).read())
   assert hashlib.sha256(path.read_bytes()).hexdigest()==row['sha256'],row['id']
 def prepare():
  for name,job in JOBS.items():
@@ -54,6 +56,11 @@ def prepare():
 async def author():
  from mcp import ClientSession, StdioServerParameters
  from mcp.client.stdio import stdio_client
+ # Keep previous exports recoverable and avoid Audacity's modal overwrite prompt.
+ backup=WORK/'previous'/str(time.time_ns())
+ for name in JOBS:
+  master=WORK/f'{name}.wav'
+  if master.exists():backup.mkdir(parents=True,exist_ok=True);master.replace(backup/master.name)
  prepare();receipt=[];WORK.mkdir(parents=True,exist_ok=True)
  async with stdio_client(StdioServerParameters(command='/home/blux/.local/bin/audacity-mcp')) as (r,w):
   async with ClientSession(r,w) as session:

@@ -1,6 +1,6 @@
 # CQ Frontier audio
 
-The voxelspace class mode uses 45 edited OGA/Freesound clips in `deathmatch/audio/cq_field/`. [Audition reel and timestamps](audio/cq-field-20261015/README.md). [Full credits and license terms](../deathmatch/audio/cq_field/SOURCES.md).
+The voxelspace class mode uses 50 edited OGA/Freesound/Pixabay clips in `deathmatch/audio/cq_field/`. [Audition reel and timestamps](audio/cq-field-20261015/README.md). [Full credits and license terms](../deathmatch/audio/cq_field/SOURCES.md).
 
 Forest birds and night insects crossfade with the day cycle. Storm cloud cover lowers the wildlife bed, and radio transmission ducks ambience. Industrial and waterside locations have quiet mechanical/water beds. River audio follows the closest authored river segment within 45 m. Submerged player models hear a filtered water bed even though their viewpoint remains above the surface. Rain and delayed thunder use field recordings through the existing weather system.
 
@@ -33,3 +33,11 @@ The Freesound recordings use public HQ MP3 previews; lossless originals were not
 ## Updated energy/projectile reports
 
 The [weapon reauthoring pass](audio/cq-weapons-20261015/README.md) replaces seven reports and the energy impact using the eight user-supplied Freesound CC0 sources. Fourteen extra takes are edited for future tiers without adding weapon assignments. To regenerate the full library, run `tools/cq_audio/reauthor_weapons.py` through the Audacity MCP Python environment before `build_field_audio.py`; the full builder reapplies these latest masters at the end. The offline reserve has `.gdignore` and stays outside the runtime resource graph.
+
+## Vehicle weapons
+
+[Vehicle audition and source details](audio/cq-vehicles-20261015/README.md). The rocket tank uses a single Katyusha launch excerpt per round and a positional motor loop following each live battery rocket. Light/heavy tanks and the autonomous turret have distinct Battle at Sea cannon mixes. The Battle at Sea explosion mix replaces the shared ordnance impact (also used by launchers, airstrikes and hull destruction).
+
+Firing audio follows the existing replicated `shot_at` timestamp, supporting native and script authority without new RPCs. Initial/repeated/stale snapshots stay silent; script muzzle-flash RPCs no longer duplicate the sound. Rocket loops stop on disappearance, distance culling, disconnect and map reset. All loops share the existing ten-source limit with engines/injection; report voices retain the 32-source cap. The rocket motor can be heard within 90 m, and vehicle/turret reports within 110 m.
+
+To reproduce, place the two manually downloaded Pixabay MP3s at the cache paths in `tools/cq_audio/vehicle_sources.json`, then run `tools/cq_audio/reauthor_vehicles.py` with Audacity MCP's Python environment. Existing masters are backed up before exporting to avoid overwrite dialogs. `build_field_audio.py` reapplies this pass after the earlier weapon edits.

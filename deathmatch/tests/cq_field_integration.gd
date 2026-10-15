@@ -27,6 +27,12 @@ func run()->void:
  if game.spatial.steam.enabled():check(game.field_audio.loops.values().all(func(p):return p.has_method("play_stream")),"Steam Audio handles looped field sources")
  row.pilot=0;row.speed=0;game.field_audio._process(.1)
  check(game.field_audio.loops.is_empty(),"Real hull parking stops engine")
+ var report:String=game.field_audio.vehicle_report(row.kind)
+ var fire_count:int=game.field_audio.played.get(report,0)
+ row.shot_at=game.clock;game.field_audio._process(.1)
+ check(game.field_audio.played.get(report,0)==fire_count+1,"Actual vehicle firing timestamp triggers its authored report")
+ game._cq_turret_shot(Vector3(0,1,-3),Vector3.FORWARD,0)
+ check(game.field_audio.played.get(report,0)==fire_count+1,"Script muzzle-flash RPC does not duplicate snapshot audio")
  check(game.projectile_sound(false,3)=="impact","Projectile SMG retains ballistic impact")
  check(game.projectile_sound(false,4)=="cq_field_energy_impact" and game.projectile_sound(true,11)=="cq_field_ordnance_impact","Native and scripted impact paths select correct damage families")
  var light:=LightClock.new();game.battle_map.lighting=light

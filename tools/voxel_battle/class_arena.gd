@@ -611,7 +611,7 @@ const RADIUS_AIRSTRIKE:=18.75
 @rpc("authority","call_local","reliable",1)
 func _cq_turret_shot(where:Vector3,direction:Vector3,team:int) -> void:
 	if headless:return
-	if field_audio:field_audio.shot(11,where)
+	# Field audio follows replicated shot_at for both script and native authority.
 	_weapon_visuals().burst("ut99",where,11,"energy",{"cq_effect":"energy","color":Color("ff3c39") if team==0 else Color("3b8dff")})
 
 func handle_vehicle_player(id:int,_delta:float) -> bool:return battery_tanks.mounted(id)

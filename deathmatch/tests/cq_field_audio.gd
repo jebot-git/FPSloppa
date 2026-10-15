@@ -28,6 +28,8 @@ class Game extends Node3D:
  var effects=null
  var fighters:Dictionary={}
  var players:Dictionary={}
+ var projectiles:Dictionary={}
+ var turrets:Dictionary={"rows":{}}
  var classes=Classes.new()
  var battery_tanks=preload("res://deathmatch/conquest/classes/battery_tank.gd").new()
  var variant_combat=preload("res://deathmatch/conquest/classes/combat.gd").new()
@@ -91,6 +93,34 @@ func run()->void:
  game.classes.dispensers[1]={"position":Vector3.ZERO,"remaining":1000};audio._process(.1)
  check(audio.played.has("deploy"),"New dispenser has deployment cue")
  game.classes.dispensers[1].remaining=990;audio._process(.1);check(audio.played.has("supply"),"Accepted supply transfer emits one cue")
+ # Vehicle/turret reports observe existing replicated timestamps, never initial history.
+ for kind in ["rocket","light","heavy","turret"]:
+  var key:String="fixture:"+kind
+  check(not audio.observe_fire(key,5.,kind,Vector3.ZERO),"Initial firing snapshot is silent: "+kind)
+  check(audio.observe_fire(key,6.,kind,Vector3.ZERO),"New accepted fire plays: "+kind)
+  check(not audio.observe_fire(key,6.,kind,Vector3.ZERO),"Repeated firing snapshot is silent: "+kind)
+  check(not audio.observe_fire(key,5.,kind,Vector3.ZERO) and not audio.observe_fire(key,6.,kind,Vector3.ZERO),"Out-of-order timestamps do not replay shots: "+kind)
+ check(Field.vehicle_report("transport")=="","Unarmed transport has no report")
+ game.projectiles[101]={"position":Vector3(0,1,0),"extra":{"battery_shot":true}}
+ game.projectiles[102]={"position":Vector3.ZERO,"extra":{}}
+ audio._process(.1)
+ check(audio.loops.has("rocket:101") and not audio.loops.has("rocket:102"),"Only rocket-tank projectiles have motor loops")
+ game.projectiles[101].position=Vector3(1,1,0);audio._process(.1)
+ check(audio.loops["rocket:101"].global_position==Vector3(1,1,0),"Rocket motor follows accepted projectile position")
+ game.projectiles[101].stuck=true;audio._process(.1)
+ check(not audio.loops.has("rocket:101"),"A stopped/stuck missile no longer emits a travel motor")
+ game.projectiles[101].stuck=false;game.projectiles[101].position=Vector3(500,1,0);audio._process(.1)
+ check(not audio.loops.has("rocket:101"),"Distant missile motor is culled")
+ game.projectiles[101].position=Vector3.ZERO;audio._process(.1)
+ check(audio.loops.has("rocket:101"),"Returning missile restarts motor within the shared loop budget")
+ game.projectiles.clear();audio._process(.1)
+ check(not audio.loops.has("rocket:101"),"Rocket termination stops its motor")
+ game.turrets.rows[1]={"position":Vector3.ZERO,"hp":100,"shot_at":1.}
+ audio._process(.1);var turret_count:int=audio.played.get("turret_fire",0)
+ game.turrets.rows[1].shot_at=2.;audio._process(.1)
+ check(audio.played.get("turret_fire",0)==turret_count+1,"Native/script turret timestamps play one report")
+ game.turrets.rows.clear();audio._process(.1)
+ check(not audio.firing_seen.has("turret:1"),"Removed turret releases firing history")
  await create_timer(.5).timeout
  recording.set_recording_active(false);var captured:=recording.get_recording()
  check(captured!=null and captured.data.size()>0,"Audio mixer produces a capture")
