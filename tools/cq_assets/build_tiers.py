@@ -3,6 +3,8 @@ Source silhouettes/UV surface detail are retained with a gunmetal finish. Movabl
 """
 import bpy,bmesh,json,math,sys,struct
 from pathlib import Path
+sys.path.insert(0,str(Path(__file__).resolve().parent))
+import refine_fittings as Fittings
 from mathutils import Vector,Matrix
 ROOT=Path(__file__).resolve().parents[2];SRC=ROOT/'test-results/weapon-sources';OUT=ROOT/'deathmatch/weapons/cq';AUTH=ROOT/'tools/cq_assets/tier_authoring';AUTH.mkdir(exist_ok=True)
 MANIFEST=json.loads((OUT/'manifest.json').read_text())
@@ -326,6 +328,9 @@ def build(job):
  scope=kind=='scope' or key=='scout_pistol'
  mount_z=muzzle.z+.04
  sight=Vector((0,-.04,mount_z+.035))
+ if key in ['smg','smg_t2']:
+  Fittings.remove_smg_optic(body,key);dots,point=Fittings.add_red_dot(key);parts+=dots;sight=Vector((point[0],-point[2],point[1]))
+ if key=='designator':Fittings.aperture(body,Vector((-.019,.390,.190)),Vector((.019,.420,.218)))
  if key=='assault_rifle':
   dots=load(SRC/'red_dot.blend');evaluated(dots);dl,dh=bounds(dots);ds=.13/(dh.y-dl.y)
   for o in dots:
@@ -339,6 +344,9 @@ def build(job):
  if total>budget-16:reduce([body],triangles(body)-(total-(budget-32)),preserve_detail=key in COMPLEX_WEAPONS)
  total=sum(triangles(o) for o in parts);assert total<=budget-16,(key,total)
  parts=bake(parts,key)
+ if key.startswith('smg'):
+  for part in parts:part.data.transform(Matrix.Scale(Fittings.SMG_SCALE,4));part.location*=Fittings.SMG_SCALE
+  for point in [muzzle,mag,rack,support,sight,hi,lo]:point*=Fittings.SMG_SCALE
  for part in parts:
   anchor=mag if part.name=='InsertedAmmo' else rack if part.name=='ChargingHandle' else None
   if anchor is not None:part.data.transform(Matrix.Translation(-anchor));part.location=anchor
@@ -346,18 +354,23 @@ def build(job):
  bpy.ops.object.select_all(action='DESELECT')
  for o in parts:o.select_set(True)
  bpy.context.view_layer.objects.active=parts[0]
+ bpy.context.scene['cq_fittings_refined']=True
  bpy.ops.wm.save_as_mainfile(filepath=str(AUTH/(key+'.blend')),check_existing=False)
  bpy.ops.export_scene.gltf(filepath=str(OUT/(key+'.glb')),export_format='GLB',use_selection=True,export_yup=True,export_animations=False)
  raw=(OUT/(key+'.glb')).read_bytes();gltf=json.loads(raw[20:20+struct.unpack_from('<I',raw,12)[0]])
  total=sum(gltf['accessors'][p['indices']]['count']//3 for mesh in gltf['meshes'] for p in mesh['primitives'])
- data=dict(triangles=total,materials=1,textures=1,texture_size=[1024,1024],muzzle=game(muzzle),magazine_anchor=game(mag),magazine_extract=game(mag_direction),magazine_layout='model specific',rack_anchor=game(rack),support_anchor=game(support),red_dot_position=game(sight),red_dot=key in ['assault_rifle','burst_rifle'],sight_zero_metres=50,optimization_pending=False,triangle_budget=budget,finish='gunmetal',construction='source silhouette; authored open magazine well and independent reload parts',source=filename,reload_kind='slide' if kind=='pistol' else 'pack' if kind=='pack' else 'handle')
+ data=dict(triangles=total,materials=1,textures=1,texture_size=[1024,1024],muzzle=game(muzzle),magazine_anchor=game(mag),magazine_extract=game(mag_direction),magazine_layout='model specific',rack_anchor=game(rack),support_anchor=game(support),red_dot_position=game(sight),red_dot=key in ['assault_rifle','burst_rifle','smg','smg_t2','designator'],sight_zero_metres=50,optimization_pending=False,triangle_budget=budget,finish='gunmetal',construction='source silhouette; authored open magazine well and independent reload parts',source=filename,reload_kind='slide' if kind=='pistol' else 'pack' if kind=='pack' else 'handle')
  # Flush inset readout on the source T2 rear-facing monitor, inside its bezel.
  if key=='guided_launcher':data.update(guidance_monitor=True,monitor_position=[0.,.1611161,-.10653],monitor_size=[.046,.046],monitor_rotation=[0.,0.,0.])
  if scope:data.update(scope_rear=game(Vector((0,-.07,hi.z-.018))),scope_front=game(Vector((0,.06,hi.z-.018))),scope_radius=.035,zoom_steps=[1.5] if kind=='scope' else [1.5,3.,6.])
  if key=='scout_pistol':
   rear=Vector((0,(-1.99-grip.y)*scale,(1.68-grip.z)*scale));front=Vector((0,(3.62-grip.y)*scale,rear.z))
   data.update(scope_rear=game(rear),scope_front=game(front),scope_radius=.43*scale,red_dot_position=game(rear),reload_kind='slide')
- if key.startswith('smg'):data.update(aim_laser=True,laser_anchor=game(Vector((0,hi.y*.7,hi.z-.025))))
+ if key in Fittings.SUPPORT:data['support_anchor']=Fittings.SUPPORT[key]
+ if key.startswith('smg'):data['authored_scale_reduction']=Fittings.SMG_SCALE
+ if key in ['smg','smg_t2']:data['red_dot_size']=[.035*Fittings.SMG_SCALE,.026*Fittings.SMG_SCALE]
+ if key=='smg_t3':data.update(aim_laser=True,laser_anchor=game(Vector((0,hi.y*.7,hi.z-.025*Fittings.SMG_SCALE))))
+ if key=='designator':data.update(red_dot_position=[.00004,.20484,-.395],red_dot_size=[.034,.024],sight_aperture={'minimum':[-.019,.190,-.420],'maximum':[.019,.218,-.390]})
  if key=='beam_pistol':data.update(scope_monitor=True,monitor_anchor=[-.17,.18,-.13],monitor_size=[.15,.095],monitor_zoom=3.)
  if key=='burst_rifle':
   source_rear=rotation@Vector((-1.1795475,.268947,1.82477));source_front=rotation@Vector((-.306768,.268947,1.82477))
@@ -389,7 +402,7 @@ def recolor_carbine():
 
  for o in objects:o.hide_render=False;o.hide_viewport=False;o.hide_set(False)
  evaluated(objects);parts=bake(objects,'carbine')
- data=MANIFEST['carbine']
+ data=MANIFEST['carbine'];data['support_anchor']=Fittings.SUPPORT['carbine']
  for part in parts:
   field='magazine_anchor' if part.name=='InsertedAmmo' else 'rack_anchor' if part.name=='ChargingHandle' else None
   if field:

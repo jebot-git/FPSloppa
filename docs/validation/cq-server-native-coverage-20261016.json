@@ -1,0 +1,164 @@
+{
+  "scope": "experimental/cq-voxelspace dedicated CQ server at 7a05214 plus current weapon-fitting changes; local source inspection, not a live VPS binary audit",
+  "default_path": {
+    "native_enabled": "deathmatch/native/cq_authority.gd:configure_server enables unless --cq-script-authority",
+    "dispatch": "tools/voxel_battle/class_arena.gd:_physics_process calls resident.physics and returns; bypasses legacy gameplay and bots.tick",
+    "core": "addons/fps_native/src/authority_core.cpp:Core::advance"
+  },
+  "bot_server": {
+    "decision_loop": "native C++: addons/fps_native/src/authority_ai.cpp:Core::tick_bots",
+    "covered": [
+      "perception/LOS selection",
+      "target lead and ballistic aiming",
+      "CQ objective planning",
+      "route following and stuck jumps",
+      "weapon selection, firing and reload input",
+      "some class utility decisions",
+      "native movement, projectiles, damage and respawn"
+    ],
+    "remaining_script": [
+      "deathmatch/server/bot_population.gd:maintain admission, replacement and count maintenance (1 Hz bridge cadence)",
+      "tools/voxel_battle/bots.gd:setup builds navigation; its inherited GDScript tick is bypassed by native dedicated CQ",
+      "addons/fps_native/src/authority_world.cpp:FPSAuthority::navigate calls class_arena.resident_navigation",
+      "tools/voxel_battle/jungle_routing.gd:path/local_path orchestrates road graph and bounded NavigationServer3D query"
+    ],
+    "engine_distinction": "NavigationServer3D and AStar3D search algorithms are engine-native; hierarchical routing policy, path marshaling and setup remain GDScript.",
+    "parity_limit": "The native planner is not a line-for-line port of deathmatch/bots.gd. It emits a bounded CQ subset; legacy non-CQ modes/practice retain the GDScript bot controller.",
+    "verification": "Native protocol tests exercise negative bot IDs, navigation following, firing, authoritative projectile damage and snapshot identity; full core suite passes 919593 checks.",
+    "decision_gaps_observed": [
+      "Core::tick_bots has no explicit vehicle boarding/tactics decision code.",
+      "No explicit jetpack activation, medic revive/drag, or scout cloak decision code in this CQ planner; do not assume parity with all legacy bot behaviors."
+    ]
+  },
+  "native_gameplay": [
+    "typed persistent player state and input consumption",
+    "movement/stance/VR interaction and physical reload",
+    "weapons, projectile simulation, damage and hit attribution",
+    "vehicle/seat/weapon simulation",
+    "class tools, incapacitation/revival, grenades, spotting",
+    "capture/scoring, squads, respawn and round control",
+    "terrain/water gameplay sampling",
+    "adaptive tick governor",
+    "binary snapshot construction"
+  ],
+  "remaining_script_or_hybrid": [
+    {
+      "area": "Bot navigation and population",
+      "files": [
+        "deathmatch/server/bot_population.gd",
+        "tools/voxel_battle/bots.gd",
+        "tools/voxel_battle/jungle_routing.gd",
+        "deathmatch/bot_ai/navigation.gd"
+      ],
+      "work": "Admission/counts, nav setup/bake and route orchestration. Core requests each active bot route approximately every 0.8 s.",
+      "priority": "Profile first; batch/cache/stagger route requests and reduce cross-language calls."
+    },
+    {
+      "area": "Authoritative grass contact",
+      "files": [
+        "addons/fps_native/src/authority_world.cpp:grass_cover",
+        "tools/voxel_battle/class_arena.gd:grass_cover_at",
+        "tools/voxel_battle/grass_cover.gd"
+      ],
+      "work": "Native concealment rule calls GDScript cached tuft generation/contact only for live unmounted prone players at 10 Hz.",
+      "priority": "Useful pure-data candidate for native rewrite; preserve exact planting/RNG/float32 parity."
+    },
+    {
+      "area": "Destruction integration",
+      "files": [
+        "addons/fps_native/src/authority_world.cpp:ordnance_impact",
+        "tools/voxel_battle/destruction.gd",
+        "addons/fps_native/src/destruction_runtime.cpp"
+      ],
+      "work": "C++ helper handles candidates, structural status and mesh patching. Script still manages LOS gating, broken/collapsed dictionaries, collider/scene updates and destruction RPC state. Collapse damage itself returns to native collapse_region.",
+      "priority": "Profile impact/collider commit work; moving numerical work alone cannot remove owner-thread Jolt/scene commits."
+    },
+    {
+      "area": "Snapshot transport and control",
+      "files": [
+        "deathmatch/native/cq_authority.gd:physics/_publish/_part",
+        "deathmatch/network",
+        "deathmatch/server"
+      ],
+      "work": "ENet polling, FastLZ invocation, MTU slicing, per-peer RPC fanout, control/vote publication and joins remain scripted. Native core already constructs the binary frame; FastLZ and ENet implementations are engine-native.",
+      "priority": "Profile 20 Hz fanout and copies at target population; candidate for native batching."
+    },
+    {
+      "area": "Admission, assets and administration",
+      "files": [
+        "deathmatch/arena.gd",
+        "deathmatch/server",
+        "deathmatch/avatars/network.gd",
+        "deathmatch/maps/network.gd",
+        "deathmatch/native/cq_authority.gd:attach/save_profile"
+      ],
+      "work": "Config/RCON/logging, authentication/admission, avatar/map transfer, asset validation, votes, profile save/restore and native-world setup remain GDScript.",
+      "priority": "Mostly cold/event-driven; lower priority without measured spikes."
+    },
+    {
+      "area": "Scene and map lifecycle",
+      "files": [
+        "tools/voxel_battle/map.gd",
+        "tools/streamed_heightfield",
+        "tools/voxel_battle/native_landscape.gd",
+        "tools/voxel_battle/native_environment.gd"
+      ],
+      "work": "Map/collision/scene orchestration and resource setup remain scripts, with native world generation/selection helpers. Jolt integration itself is C++/engine-native.",
+      "priority": "Separate startup/residency timings from steady-state server ticks."
+    },
+    {
+      "area": "Weather presentation and synchronization",
+      "files": [
+        "tools/voxel_battle/weather.gd",
+        "tools/voxel_battle/weather_schedule.gd"
+      ],
+      "work": "Seed RPCs and schedule sampling remain scripted; dedicated headless path returns before rain/audio/GPU work. Native authority handles day/night exposure gameplay.",
+      "priority": "Low headless cost expected; measure before porting."
+    },
+    {
+      "area": "Legacy reference authority and other gamemodes",
+      "files": [
+        "deathmatch/arena.gd:_server_tick",
+        "tools/voxel_battle/class_arena.gd:_server_tick",
+        "deathmatch/bots.gd",
+        "deathmatch/conquest/classes"
+      ],
+      "work": "Old Dictionary-based reference simulation remains selectable with --cq-script-authority and for non-dedicated/practice paths. Its presence does not imply the default dedicated CQ server executes it.",
+      "priority": "Retain as regression reference unless intentionally removing compatibility."
+    }
+  ],
+  "caveat": "This is an ownership/call-path audit. No percentage of CPU time or expected speedup is claimed without profiling the target server.",
+  "verification": {
+    "weapon_fittings": {
+      "checks": 20,
+      "failures": []
+    },
+    "launcher_regression": {
+      "checks": 23,
+      "failures": []
+    },
+    "asset_validation": "all GLBs pass triangle/material/texture/UV/movable-part checks",
+    "native_geometry": "generated C++ header matches client manifest",
+    "native_core": {
+      "checks": 919593,
+      "ok": true,
+      "collision_legacy_misses": 211,
+      "collision_legacy_late": 56,
+      "replay_players": 64,
+      "replay_ticks": 3600
+    },
+    "local_bot_host": {
+      "bots": 4,
+      "failures": [],
+      "maximum_displacement": 102.624862670898,
+      "maximum_shots": 0,
+      "ticks": 600
+    },
+    "local_bot_notes": [
+      "Native default dedicated authority confirmed with 4 bots; 600 ticks after navigation ready; maximum displacement 102.62 m.",
+      "No encounters/shots in this short map smoke; native bot firing/damage validated separately in the core suite.",
+      "Authored jungle navmesh emits edge merge warnings. This run is not a capacity benchmark."
+    ],
+    "legacy_vr_fixture": "cq_vr_port.gd has stale expectations of charging handles on slide-reload pistols, then aborts at line 65 on missing headless HUD; not counted as passed. No physical HMD test."
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "scope": "Lowered model-specific support anchors, 30% authored SMG reduction, open T1/T2 red dots and clear designator sight; synchronized native geometry",
+  "render_gallery": "test-results/weapon-sources/fittings-20261016/gallery.html",
+  "validation": {
+    "weapon_fittings": {
+      "checks": 20,
+      "failures": []
+    },
+    "launcher_regression": {
+      "checks": 23,
+      "failures": []
+    },
+    "asset_validation": "all GLBs pass triangle/material/texture/UV/movable-part checks",
+    "native_geometry": "generated C++ header matches client manifest",
+    "native_core": {
+      "checks": 919593,
+      "ok": true,
+      "collision_legacy_misses": 211,
+      "collision_legacy_late": 56,
+      "replay_players": 64,
+      "replay_ticks": 3600
+    },
+    "local_bot_host": {
+      "bots": 4,
+      "failures": [],
+      "maximum_displacement": 102.624862670898,
+      "maximum_shots": 0,
+      "ticks": 600
+    },
+    "local_bot_notes": [
+      "Native default dedicated authority confirmed with 4 bots; 600 ticks after navigation ready; maximum displacement 102.62 m.",
+      "No encounters/shots in this short map smoke; native bot firing/damage validated separately in the core suite.",
+      "Authored jungle navmesh emits edge merge warnings. This run is not a capacity benchmark."
+    ],
+    "legacy_vr_fixture": "cq_vr_port.gd has stale expectations of charging handles on slide-reload pistols, then aborts at line 65 on missing headless HUD; not counted as passed. No physical HMD test."
+  },
+  "render_command": "DISPLAY=:0 Godot --xr-mode off --audio-driver Dummy --path . --script tools/cq_assets/preview_vr_weapons.gd -- --output res://test-results/weapon-sources/fittings-20261016"
+}

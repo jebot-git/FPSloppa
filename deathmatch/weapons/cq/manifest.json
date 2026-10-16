@@ -29,9 +29,9 @@
       -0.08271999657154083
     ],
     "support_anchor": [
-      0.0,
-      0.06722874939441681,
-      -0.1804799884557724
+      0,
+      -0.018,
+      -0.14
     ],
     "red_dot_position": [
       0.0,
@@ -78,7 +78,7 @@
     ],
     "support_anchor": [
       0,
-      -0.025,
+      -0.065,
       -0.07
     ],
     "red_dot_position": [
@@ -157,7 +157,7 @@
     ],
     "support_anchor": [
       0,
-      0.08,
+      -0.005,
       -0.24
     ],
     "sight_zero_metres": 50.0,
@@ -167,7 +167,7 @@
     "triangle_budget": 5000
   },
   "designator": {
-    "triangles": 328,
+    "triangles": 340,
     "materials": 1,
     "textures": 1,
     "texture_size": [
@@ -201,18 +201,34 @@
       -0.29952001571655273
     ],
     "red_dot_position": [
-      0.0,
-      0.21498791873455048,
-      0.03999999910593033
+      4e-05,
+      0.20484,
+      -0.395
     ],
-    "red_dot": false,
+    "red_dot": true,
     "sight_zero_metres": 50,
     "optimization_pending": false,
     "triangle_budget": 5000,
     "finish": "gunmetal",
     "construction": "source silhouette; authored open magazine well and independent reload parts",
     "source": "emg.blend",
-    "reload_kind": "handle"
+    "reload_kind": "handle",
+    "red_dot_size": [
+      0.034,
+      0.024
+    ],
+    "sight_aperture": {
+      "minimum": [
+        -0.019,
+        0.19,
+        -0.42
+      ],
+      "maximum": [
+        0.019,
+        0.218,
+        -0.39
+      ]
+    }
   },
   "massacre": {
     "triangles": 2930,
@@ -244,9 +260,9 @@
       -0.2076359987258911
     ],
     "support_anchor": [
-      0.0,
-      0.08657229691743851,
-      -0.4530239999294281
+      0,
+      -0.065,
+      -0.555
     ],
     "red_dot_position": [
       0.0,
@@ -432,7 +448,7 @@
     "held_scale": 1.15
   },
   "smg": {
-    "triangles": 2448,
+    "triangles": 2487,
     "materials": 1,
     "textures": 1,
     "texture_size": [
@@ -441,13 +457,13 @@
     ],
     "muzzle": [
       0.0,
-      0.21828456223011017,
-      -0.31659996509552
+      0.1527991935610771,
+      -0.221619975566864
     ],
     "magazine_anchor": [
       0.0,
-      0.14399999380111694,
-      0.28349998593330383
+      0.10079999566078185,
+      0.19844999015331266
     ],
     "magazine_extract": [
       0.0,
@@ -456,21 +472,21 @@
     ],
     "magazine_layout": "model specific",
     "rack_anchor": [
-      0.04500000178813934,
-      0.21828456223011017,
-      -0.07000000029802322
+      0.03150000125169754,
+      0.1527991935610771,
+      -0.04900000020861625
     ],
     "support_anchor": [
-      0.0,
-      0.1632845550775528,
-      -0.15196798741817474
+      0,
+      0.035,
+      -0.109
     ],
     "red_dot_position": [
       0.0,
-      0.2932845652103424,
-      0.03999999910593033
+      0.23784878956835825,
+      0.1292321476730096
     ],
-    "red_dot": false,
+    "red_dot": true,
     "sight_zero_metres": 50,
     "optimization_pending": false,
     "triangle_budget": 5000,
@@ -478,12 +494,11 @@
     "construction": "source silhouette; authored open magazine well and independent reload parts",
     "source": "fwp.blend",
     "reload_kind": "handle",
-    "aim_laser": true,
-    "laser_anchor": [
-      0.0,
-      0.3265949487686157,
-      -0.22161997854709625
-    ]
+    "red_dot_size": [
+      0.0245,
+      0.018199999999999997
+    ],
+    "authored_scale_reduction": 0.7
   },
   "assault_rifle": {
     "triangles": 4897,
@@ -515,9 +530,9 @@
       -0.16579200327396393
     ],
     "support_anchor": [
-      0.0,
-      0.07052817195653915,
-      -0.3617280125617981
+      0,
+      -0.015,
+      -0.36
     ],
     "red_dot_position": [
       0.0,
@@ -563,9 +578,9 @@
       -0.08456800132989883
     ],
     "support_anchor": [
-      0.0,
-      0.09114361554384232,
-      -0.18451200425624847
+      0,
+      -0.018,
+      -0.15
     ],
     "red_dot_position": [
       0.0,
@@ -611,9 +626,9 @@
       -0.16909199953079224
     ],
     "support_anchor": [
-      0.0,
-      0.13878397643566132,
-      -0.3689279854297638
+      0,
+      0.045,
+      -0.34
     ],
     "red_dot_position": [
       0.0,
@@ -1122,9 +1137,9 @@
       -0.20966000854969025
     ],
     "support_anchor": [
-      0.0,
-      0.06552552431821823,
-      -0.45744001865386963
+      0,
+      -0.005,
+      -0.457
     ],
     "red_dot_position": [
       0.0,
@@ -1156,7 +1171,7 @@
     ]
   },
   "smg_t2": {
-    "triangles": 2001,
+    "triangles": 2047,
     "materials": 1,
     "textures": 1,
     "texture_size": [
@@ -1165,13 +1180,13 @@
     ],
     "muzzle": [
       0.0,
-      0.2507633566856384,
-      -0.6326600909233093
+      0.17553434967994688,
+      -0.4428620636463165
     ],
     "magazine_anchor": [
       0.0,
-      -0.035999998450279236,
-      -0.3059999942779541
+      -0.025199998915195462,
+      -0.21419999599456785
     ],
     "magazine_extract": [
       0.0,
@@ -1180,21 +1195,21 @@
     ],
     "magazine_layout": "model specific",
     "rack_anchor": [
-      0.04500000178813934,
-      0.2507633566856384,
-      -0.13918522000312805
+      0.03150000125169754,
+      0.17553434967994688,
+      -0.09742965400218963
     ],
     "support_anchor": [
-      0.0,
-      0.19576334953308105,
-      -0.3036768436431885
+      0,
+      0.045,
+      -0.25
     ],
     "red_dot_position": [
       0.0,
-      0.3257633447647095,
-      0.03999999910593033
+      0.24624878572981912,
+      -0.10176785107529282
     ],
-    "red_dot": false,
+    "red_dot": true,
     "sight_zero_metres": 50,
     "optimization_pending": false,
     "triangle_budget": 5000,
@@ -1202,12 +1217,11 @@
     "construction": "source silhouette; authored open magazine well and independent reload parts",
     "source": "fwp.blend",
     "reload_kind": "handle",
-    "aim_laser": true,
-    "laser_anchor": [
-      0.0,
-      0.37435784935951233,
-      -0.44286206364631653
-    ]
+    "red_dot_size": [
+      0.0245,
+      0.018199999999999997
+    ],
+    "authored_scale_reduction": 0.7
   },
   "smg_t3": {
     "triangles": 1600,
@@ -1219,13 +1233,13 @@
     ],
     "muzzle": [
       0.0,
-      0.1811496466398239,
-      -0.6566999554634094
+      0.12680475264787675,
+      -0.45968996882438656
     ],
     "magazine_anchor": [
       0.0,
-      -0.06299999356269836,
-      -0.476999968290329
+      -0.04409999549388885,
+      -0.3338999778032303
     ],
     "magazine_extract": [
       0.0,
@@ -1234,19 +1248,19 @@
     ],
     "magazine_layout": "model specific",
     "rack_anchor": [
-      0.04500000178813934,
-      0.1811496466398239,
-      -0.14447398483753204
+      0.03150000125169754,
+      0.12680475264787675,
+      -0.10113178938627243
     ],
     "support_anchor": [
-      0.0,
-      0.12614963948726654,
-      -0.31521597504615784
+      0,
+      0.015,
+      -0.278
     ],
     "red_dot_position": [
       0.0,
-      0.25614964962005615,
-      0.03999999910593033
+      0.17930475473403928,
+      0.02799999937415123
     ],
     "red_dot": false,
     "sight_zero_metres": 50,
@@ -1259,9 +1273,10 @@
     "aim_laser": true,
     "laser_anchor": [
       0.0,
-      0.302573025226593,
-      -0.4596899747848511
-    ]
+      0.2118011176586151,
+      -0.32178298234939573
+    ],
+    "authored_scale_reduction": 0.7
   },
   "burst_rifle": {
     "triangles": 6607,
@@ -1293,9 +1308,9 @@
       -0.19038529694080353
     ],
     "support_anchor": [
-      0.0,
-      0.0805402472615242,
-      -0.4153861105442047
+      0,
+      -0.005,
+      -0.415
     ],
     "red_dot_position": [
       -0.0012441396247595549,
@@ -1355,9 +1370,9 @@
       -0.2600599527359009
     ],
     "support_anchor": [
-      0.0,
-      0.1802312582731247,
-      -0.5674035549163818
+      0,
+      0.065,
+      -0.567
     ],
     "red_dot_position": [
       0.0,
@@ -1418,9 +1433,9 @@
       -0.0
     ],
     "support_anchor": [
-      2.2785613396081317e-08,
-      0.13279403746128082,
-      -0.3018046021461487
+      0,
+      0.082,
+      -0.553
     ],
     "red_dot_position": [
       0.0,

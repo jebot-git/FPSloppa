@@ -4,7 +4,7 @@ const Models=preload("res://deathmatch/conquest/classes/models.gd")
 const Art=preload("res://deathmatch/art.gd")
 const Glove=preload("res://deathmatch/vr/glove_fingers.gd")
 const Support=preload("res://deathmatch/vr/aim_support.gd")
-const OUTPUT="res://test-results/weapon-sources/vr-held-20261016"
+var output:="res://test-results/weapon-sources/vr-held-20261016"
 const ROWS=[
  {"class":"SHOCKTROOP","slots":[4,1,14]},
  {"class":"MEDIC","slots":[3,12,13]},
@@ -49,11 +49,13 @@ func clear():
 func capture(filename:String):
  for i in 12:await process_frame
  await RenderingServer.frame_post_draw
- var picture:=viewport.get_texture().get_image();assert(picture.save_png(OUTPUT+"/"+filename+".png")==OK)
+ var picture:=viewport.get_texture().get_image();assert(picture.save_png(output+"/"+filename+".png")==OK)
  print("VR_WEAPON_RENDER ",filename," ",picture.get_size())
 func run():
  assert(DisplayServer.get_name()!="headless")
- DirAccess.make_dir_recursive_absolute(OUTPUT);root.size=Vector2i(960,640)
+ var args:=OS.get_cmdline_user_args();var index:=args.find("--output")
+ if index>=0 and index+1<args.size():output=args[index+1]
+ DirAccess.make_dir_recursive_absolute(output);root.size=Vector2i(960,640)
  viewport=SubViewport.new();viewport.size=Vector2i(2400,1800);viewport.msaa_3d=Viewport.MSAA_4X;viewport.own_world_3d=true;viewport.render_target_update_mode=SubViewport.UPDATE_ALWAYS;root.add_child(viewport)
  world=Node3D.new();viewport.add_child(world)
  var env:=WorldEnvironment.new();env.environment=Environment.new();env.environment.background_mode=Environment.BG_COLOR;env.environment.background_color=Color("26323c");env.environment.ambient_light_source=Environment.AMBIENT_SOURCE_COLOR;env.environment.ambient_light_color=Color.WHITE;env.environment.ambient_light_energy=.9;world.add_child(env)
@@ -87,5 +89,15 @@ func run():
  for state in ["search","acquiring","locked","in-flight"]:
   panel.update_guidance(launcher,{"elapsed":.75} if state=="acquiring" else {"ready":true} if state in ["locked","in-flight"] else {},{},0.,true,8.2 if state=="in-flight" else -1.)
   await capture("t2-screen-"+state)
- FileAccess.open(OUTPUT+"/render.json",FileAccess.WRITE).store_string(JSON.stringify({"renderer":RenderingServer.get_current_rendering_method(),"gpu":RenderingServer.get_video_adapter_name(),"models":records,"scope":"Actual runtime models, attachments, glove assets, artist finger curls and CQ held/support transforms; synthetic neutral controller poses, studio lighting. First-person views are desktop renders, not HMD captures. T2 closeups use demonstration lock/lifetime data."},"  "))
+ # Real model aperture, with a checker target behind it to expose opaque lenses.
+ camera.projection=Camera3D.PROJECTION_PERSPECTIVE;camera.fov=35.;camera.near=.005
+ for slot in [3,12,8]:
+  clear();var model:Node3D=add_weapon(slot,Vector3.ZERO,false)
+  var at:Vector3=model.global_transform*Models.anchor(slot,"red_dot_position")
+  camera.position=at+Vector3.BACK*.13;camera.look_at(at+Vector3.FORWARD*.3)
+  var target:=MeshInstance3D.new();var quad:=QuadMesh.new();quad.size=Vector2(.3,.3);target.mesh=quad
+  var material:=ShaderMaterial.new();var shader:=Shader.new();shader.code="shader_type spatial;render_mode unshaded;void fragment(){float check=mod(floor(UV.x*16.0)+floor(UV.y*16.0),2.0);ALBEDO=mix(vec3(.08,.5,.6),vec3(.9,.75,.2),check);}"
+  material.shader=shader;target.material_override=material;holder.add_child(target);target.global_position=at+Vector3.FORWARD*.3
+  await capture(Models.entry(slot,"cq_technician")+"-sight")
+ FileAccess.open(output+"/render.json",FileAccess.WRITE).store_string(JSON.stringify({"renderer":RenderingServer.get_current_rendering_method(),"gpu":RenderingServer.get_video_adapter_name(),"models":records,"scope":"Actual runtime models, attachments, glove assets, artist finger curls and CQ held/support transforms; synthetic neutral controller poses, studio lighting. First-person views are desktop renders, not HMD captures. T2 closeups use demonstration lock/lifetime data."},"  "))
  world.free();quit()

@@ -22,7 +22,9 @@ static func weapon(id:int,rules:String) -> Node3D:
 	if data.has("zoom_steps"):node.set_meta("zoom_steps",data.zoom_steps)
 	if data.get("red_dot",false):node.set_meta("red_dot",true)
 	if data.get("red_dot",false) and not data.has("scope_rear"):
-		var dot:=MeshInstance3D.new();var aperture:=QuadMesh.new();aperture.size=Vector2(.028,.028);dot.mesh=aperture
+		var dot:=MeshInstance3D.new();var aperture:=QuadMesh.new();aperture.size=Vector2(.028,.028)
+		if data.has("red_dot_size"):aperture.size=Vector2(data.red_dot_size[0],data.red_dot_size[1])
+		dot.mesh=aperture
 		var finish:=ShaderMaterial.new();finish.shader=preload("res://deathmatch/conquest/classes/red_dot.gdshader");dot.material_override=finish;dot.cast_shadow=GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 		node.add_child(dot);dot.name="AlignedRedDot";dot.position=Vector3(0,.234 if id==4 else .164,-.09)
 		if data.has("red_dot_position"):
