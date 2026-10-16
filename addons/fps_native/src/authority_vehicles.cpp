@@ -1,5 +1,6 @@
 #include "authority_core.h"
 #include "authority_transport_geometry.h"
+#include "authority_bike_geometry.h"
 namespace cqauthority {
 double Core::random_unit() {
   random_state_ ^= random_state_ >> 12;
@@ -10,7 +11,7 @@ double Core::random_unit() {
 
 int Core::add_vehicle(VehicleKind kind, V at, double yaw, int team) {
   if (tick_ || !cq.enabled || !at.finite() || !std::isfinite(yaw) ||
-      size_t(kind) > 3 || team < -1 || team > 1 ||
+      size_t(kind) > 4 || team < -1 || team > 1 ||
       (kind == VehicleKind::TRANSPORT && team < 0))
     return -1;
   for (size_t i = 0; i < MAX_VEHICLES; ++i)
@@ -26,7 +27,7 @@ int Core::add_vehicle(VehicleKind kind, V at, double yaw, int team) {
       v.hp = vehicle_profile(kind).hp;
       v.rounds = vehicle_profile(kind).capacity;
       v.direction = B::yaw(yaw).apply({0, 0, -1});
-      v.visual_y = at.y + (kind == VehicleKind::ROCKET || kind == VehicleKind::TRANSPORT ? 0 : .25);
+      v.visual_y = at.y + (kind == VehicleKind::ROCKET || kind == VehicleKind::TRANSPORT || kind == VehicleKind::BIKE ? 0 : .25);
       return int(i);
     }
   return -1;
@@ -85,7 +86,7 @@ bool Core::vehicle_use(Player &p, Host &host) {
   if(v.pilot==p.handle)v.headlight_held=true;
   p.vehicle_seat=chosen_seat;
   p.vehicle = chosen;
-  p.position = chosen_seat>=0 ? transport_seat(v,chosen_seat) : v.position;
+  p.position = chosen_seat>=0 ? transport_seat(v,chosen_seat) : v.kind==VehicleKind::BIKE ? bike_seat(v) : v.position;
   p.velocity = {};
   p.jetpack.mode = 0;
   p.jetpack.tap = 0;
@@ -104,7 +105,7 @@ bool Core::vehicle_leave(Player &p, Host &host, bool forced) {
     return false;
   auto &v = vehicles_[p.vehicle];
   V point{infinity, infinity, infinity};
-  V door{3.2,0,0};
+  V door=v.kind==VehicleKind::BIKE ? V{1.15,0,.3} : V{3.2,0,0};
   if (v.kind==VehicleKind::TRANSPORT && p.vehicle_seat>=0 && p.vehicle_seat<8)
     door=transport_pods[size_t(p.vehicle_seat)].entry;
   std::array<V,8> exits{{door,door+V{door.x<0?-.8:.8,0,0},V{3.2,0,0},V{-3.2,0,0},V{0,0,5},V{0,0,-5},V{4.2,0,2},V{-4.2,0,2}}};
@@ -142,7 +143,7 @@ bool Core::vehicle_leave(Player &p, Host &host, bool forced) {
 void Core::destroy_vehicle(Vehicle &v, Handle attacker, Host &host, bool water,
                            Session credit) {
   if (v.respawn_at > 0) return;
-  v.respawn_at = time_ + (v.kind == VehicleKind::TRANSPORT ? 120. : 180.);
+  v.respawn_at = time_ + ((v.kind == VehicleKind::TRANSPORT || v.kind == VehicleKind::BIKE) ? 120. : 180.);
   if(v.kind==VehicleKind::TRANSPORT) {
     auto occupants=v.seats;
     v.hp=0;v.remaining=0;v.rounds=0;v.speed=0;v.velocity={};host.sync_vehicle(v);
@@ -237,7 +238,7 @@ void Core::respawn_vehicle(Vehicle &v, Host &host) {
   v.yaw = v.spawn_yaw = yaw;
   v.hp = vehicle_profile(kind).hp;
   v.rounds = vehicle_profile(kind).capacity;
-  v.visual_y = spawn.y + (kind == VehicleKind::ROCKET || kind == VehicleKind::TRANSPORT ? 0 : .25);
+  v.visual_y = spawn.y + (kind == VehicleKind::ROCKET || kind == VehicleKind::TRANSPORT || kind == VehicleKind::BIKE ? 0 : .25);
   v.direction = B::yaw(yaw).apply({0, 0, -1});
   host.sync_vehicle(v);
 }
@@ -260,6 +261,9 @@ void Core::tick_vehicles(Host &host) {
         } else if(p->jump_pending && !p->input.blocked) vehicle_leave(*p,host);
       }
       v.pilot=v.seats[6];
+    }
+    if(v.kind==VehicleKind::BIKE) if(auto *rider=resolve(v.pilot)) {
+      if(rider->jump_pending && !rider->input.blocked) vehicle_leave(*rider,host);
     }
     auto *pilot = resolve(v.pilot);
     if (v.pilot.id && (!pilot || !alive(*pilot))) {
@@ -286,8 +290,13 @@ void Core::tick_vehicles(Host &host) {
     double delta = desired - v.speed;
     v.speed += std::clamp(delta, -step_ * profile.acceleration * mobility,
                           step_ * profile.acceleration * mobility);
+    if(v.kind==VehicleKind::BIKE) v.speed=std::max(0.,v.speed);
     // Steering follows actual travel direction, including braking through zero.
-    v.yaw -= x * profile.turn * mobility * step_ * (v.speed < 0 ? -1. : 1.);
+    // Wheeled transports cannot pivot on the spot or steer with idle pedals.
+    // Tracked tanks retain their independent pivot steering.
+    if ((v.kind != VehicleKind::TRANSPORT && v.kind != VehicleKind::BIKE) ||
+        (std::abs(z) > .001 && std::abs(v.speed) > .05))
+      v.yaw -= x * profile.turn * mobility * step_ * (v.speed < 0 ? -1. : 1.);
     V horizontal = B::yaw(v.yaw).apply({0, 0, -v.speed});
     V next = v.position + horizontal * step_;
     if (std::abs(next.x) > cq.map_limit - 4 ||
@@ -341,7 +350,7 @@ void Core::tick_vehicles(Host &host) {
         }
         v.direction = raw.unit();
       }
-      pilot->position = v.kind==VehicleKind::TRANSPORT ? transport_seat(v,pilot->vehicle_seat) : v.position;
+      pilot->position = v.kind==VehicleKind::TRANSPORT ? transport_seat(v,pilot->vehicle_seat) : v.kind==VehicleKind::BIKE ? bike_seat(v) : v.position;
       pilot->velocity = {};
       host.seat(pilot->handle, pilot->position, true);
       if (std::abs(v.speed) >= 1) {
@@ -364,7 +373,7 @@ void Core::tick_vehicles(Host &host) {
                                                 : DamageKind::RUNOVER);
           }
       }
-      if (v.kind!=VehicleKind::TRANSPORT && valid && pilot->input.fire && v.remaining == 0 &&
+      if (v.kind!=VehicleKind::TRANSPORT && v.kind!=VehicleKind::BIKE && valid && pilot->input.fire && v.remaining == 0 &&
           time_ >= v.reload_at && time_ >= v.next) {
         if (v.kind == VehicleKind::ROCKET) {
           V start = vehicle_muzzle(v),

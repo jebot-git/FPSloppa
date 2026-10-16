@@ -3,9 +3,12 @@ const Wheel=preload("res://deathmatch/vr/transport_wheel.gd")
 const Geometry=preload("res://deathmatch/conquest/classes/transport_geometry.gd")
 class Controller extends Node3D:
  var grip:=0.
+ var trigger:=0.
+ var primary_click:=false
  var stick:=Vector2.ZERO
  var tracked:=true
- func get_float(_action):return grip
+ func get_float(action):return grip if action=="grip" else trigger
+ func is_button_pressed(_action):return primary_click
  func get_vector2(_action):return stick
  func get_has_tracking_data():return tracked
 class Service extends RefCounted:
@@ -54,12 +57,17 @@ func run():
  rig.left.global_position=frame*Vector3(cos(PI+PI/4)*Geometry.WHEEL_RADIUS,sin(PI+PI/4)*Geometry.WHEEL_RADIUS,0);wheel.update(.016)
  check(absf(wheel.angle-PI/4)<.0001 and wheel.command().x<0,"counterclockwise hand movement steers left")
  check(rig.hand_models[0].global_position.distance_to(rig.left.global_position)<.001,"gripped hand follows exact wheel attachment")
- rig.right.stick=Vector2(0,1)
- check(wheel.command().y==-1,"right weapon-hand up gives full throttle while steering")
- rig.right.stick=Vector2(0,-1)
- check(wheel.command().y==1,"weapon-hand down brakes then reverses")
- rig.left_handed=true;rig.left.stick=Vector2(0,.59);rig.right.stick=Vector2.ZERO
- check(absf(wheel.command().y+.5)<.001,"left-handed weapon stick uses proportional throttle")
+ rig.right.trigger=1.
+ check(wheel.command().y==-1,"weapon trigger gives full throttle while steering")
+ rig.left.trigger=1.
+ check(wheel.command().y==1,"offhand trigger has braking/reverse priority")
+ check(not wheel.headlights_pressed(),"pedal triggers do not activate headlights")
+ rig.right.primary_click=true;check(wheel.headlights_pressed(),"weapon joystick press controls headlights");rig.right.primary_click=false
+ rig.left_handed=true;rig.left.trigger=.59;rig.right.trigger=0.
+ check(absf(wheel.command().y+.5)<.001,"left-handed weapon trigger uses proportional throttle")
+ rig.left.primary_click=true;check(wheel.headlights_pressed(),"left-handed main joystick controls headlights");rig.left.primary_click=false
+ rig.left.trigger=0.;rig.right.trigger=0.;rig.left.stick=Vector2(0,1)
+ check(wheel.command().y==0.,"joystick no longer accelerates physical steering")
  rig.right.grip=1.;wheel.update(.016)
  check(not wheel.hands[1].is_empty(),"second hand attaches independently")
  var before:float=wheel.angle

@@ -1,8 +1,9 @@
 #include "authority_cq.h"
 #include "authority_transport_geometry.h"
+#include "authority_bike_geometry.h"
 namespace cqauthority {
 const VehicleProfile &vehicle_profile(VehicleKind kind) {
-  static const std::array<VehicleProfile, 4> profiles = {
+  static const std::array<VehicleProfile, 5> profiles = {
       {{100,
         {4.5, 1.7, 4.8},
         10,
@@ -48,7 +49,8 @@ const VehicleProfile &vehicle_profile(VehicleKind kind) {
         {0, 1.06728, 1.30121},
         3.79844,
         .18},
-       {100,transport_size,12,6,.65,4,0,0,0,0,0,0,{},0,0}}};
+       {100,transport_size,12,6,.65,4,0,0,0,0,0,0,{},0,0},
+       {50,bike_size,24,0,1.05,8,0,0,0,0,0,0,{},0,0}}};
   return profiles[size_t(kind)];
 }
 Ballistic ballistic(V start, V target, double speed, double gravity,

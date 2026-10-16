@@ -273,14 +273,17 @@ func _local_command() -> Dictionary:
 	command.reload_trigger=bindings.vr_pressed(xr_rig,"offhand_fire") and xr_rig.cq_hands.holding if is_vr() else false
 	command.cq_drag=command.reload_grip if is_vr() else bindings.pressed("use")
 	if battery_tanks.mounted(multiplayer.get_unique_id()):
-		var transport:bool=battery_tanks.rows[battery_tanks.key_for(multiplayer.get_unique_id())].kind=="transport"
+		var transport:bool=battery_tanks.rows[battery_tanks.key_for(multiplayer.get_unique_id())].kind in ["transport","bike"]
 		if is_vr():
 			var stick:Vector2=bindings.axis(xr_rig,"move") if not command.input_blocked else Vector2.ZERO
 			command.move=Vector2(stick.x,-stick.y).limit_length(1) if stick.length()>=.18 else Vector2.ZERO
 			command.fire=bindings.vr_pressed(xr_rig,"fire") and not command.input_blocked
-			if transport and bindings.physical_transport_steering:command.move=xr_rig.transport_wheel.command() if xr_rig.transport_wheel and not command.input_blocked else Vector2.ZERO
+			if transport and (bindings.physical_transport_steering or battery_tanks.rows[battery_tanks.key_for(multiplayer.get_unique_id())].kind=="bike"):command.move=xr_rig.transport_wheel.command() if xr_rig.transport_wheel and not command.input_blocked else Vector2.ZERO
 		command.reload=false;command.reload_grip=false;command.reload_trigger=false;command.cq_drag=false;command.physical=false;command.melee=false;command.offhand_fire=false;command.alt_fire=false;command.room=Vector3.ZERO;command.crouch=false;command.prone=false
-		command.offhand_fire=not command.input_blocked and (bindings.vr_pressed(xr_rig,"offhand_fire") if is_vr() else bindings.pressed("offhand_fire"))
+		# Mounted offhand_fire is the existing native headlight edge channel;
+		# keep the support trigger free for physical transport braking.
+		command.offhand_fire=not command.input_blocked and ((xr_rig.left if xr_rig.left_handed else xr_rig.right).is_button_pressed("primary_click") if is_vr() else bindings.pressed("offhand_fire"))
+		if transport and is_vr() and xr_rig.transport_wheel:command.offhand_fire=not command.input_blocked and xr_rig.transport_wheel.headlights_pressed()
 		if transport:command.fire=false
 		else:command.jump=false
 
@@ -307,10 +310,12 @@ func designate(id:int) -> void:
 	var solution:Dictionary=_shot_solution(id)
 	if solution.blocked:airstrike.cancel(id);return
 	var direction:Vector3=-_weapon_transform(id).basis.z
-	var start:Vector3=solution.origin;var hit:Dictionary=_trace(start,start+direction*200,id,_shot_rewind(id))
+	var start:Vector3=solution.origin;var hit:Dictionary=_trace(start,start+direction*(2000. if airstrike.equipped(id) else 200.),id,_shot_rewind(id))
 	if not hit.hit:airstrike.cancel(id);return
 	designations[id]={"team":s.team,"start":start,"position":hit.position,"target":hit.id,"until":clock+.45,"life":s.serial}
-	if airstrike.equipped(id):airstrike.designate(id,hit,direction);return
+	if airstrike.equipped(id):
+		var bearing:Vector3=direction if Vector2(direction.x,direction.z).length()>.05 else Basis(Vector3.UP,s.yaw)*Vector3.FORWARD
+		airstrike.designate(id,hit,bearing);return
 	if hit.id!=0 and not match_mode.same_team(id,hit.id) and clock>=float(classes.states[id].get("designation_xp_at",0)):
 		classes.award(id,10);classes.states[id].designation_xp_at=clock+5
 func tick_class_tools(delta:float) -> void:
@@ -498,7 +503,7 @@ func shot_emission(id:int,weapon:int) -> Dictionary:
 	if weapon==9:recipe.radius=.4;recipe.energy=.12
 	return recipe
 func _play_variant_shot_fx(id:int,weapon:int,alternate:bool) -> void:
-	if id==multiplayer.get_unique_id() and is_vr():xr_rig.weapon_kick.shot(2 if weapon in [0,2,9,10] else 6,xr_rig.support_aim.engaged)
+	if id==multiplayer.get_unique_id() and is_vr():xr_rig.weapon_kick.shot(weapon,xr_rig.support_aim.engaged)
 	if not resident.enabled and weapon not in [6,7,8] and players.has(id):
 		var muzzle:Vector3=preload("res://deathmatch/conquest/classes/models.gd").muzzle(weapon,"cq_"+classes.role(id))*(.65 if not players[id].xr.is_empty() else 1.)
 		night_vision.flash(_weapon_transform(id)*muzzle,18,.08 if weapon==9 else .14,.07 if weapon==9 else .12)
@@ -506,7 +511,7 @@ func _play_variant_shot_fx(id:int,weapon:int,alternate:bool) -> void:
 	if headless:return
 	if id==multiplayer.get_unique_id():visual_cooldown=armory.data(weapon,alternate).cycle
 	if field_audio:field_audio.shot(weapon,_weapon_transform(id).origin)
-const CLASS_PROTOCOL:="fpsloppa-cq-frontier-29-vr-mechanics"
+const CLASS_PROTOCOL:="fpsloppa-cq-frontier-31-bikes"
 func connection_protocol() -> String:return CLASS_PROTOCOL
 func _collect(_id:int) -> void:pass # CQ resupplies through its class dispensers.
 func on_player_died(id:int) -> void:
@@ -562,7 +567,7 @@ func _peer_left(id:int) -> void:
 	variant_combat.magazines.states.erase(id);variant_combat.charges.erase(id);variant_combat.vehicle_lock.locks.erase(id);spotting.spotted.erase(id)
 
 func _trace(start:Vector3,end:Vector3,exclude:int,rewind:float=0.0,radius:float=0.0,movement_start:Dictionary={},candidates:Variant=null) -> Dictionary:
-	var filtered:Array=players.keys().filter(func(id):return not battery_tanks.mounted(id)) if candidates==null else candidates.filter(func(id):return not battery_tanks.mounted(id))
+	var filtered:Array=players.keys().filter(func(id):return not battery_tanks.protected_rider(id)) if candidates==null else candidates.filter(func(id):return not battery_tanks.protected_rider(id))
 	var hit:Dictionary=super._trace(start,end,exclude,rewind,radius,movement_start,filtered)
 	if not hit.hit:return hit
 	var contact:Dictionary=Attribution.ray(get_world_3d().direct_space_state,PhysicsRayQueryParameters3D.create(start,hit.position+(end-start).normalized()*.05,1),"query.class_arena._trace.ray")
@@ -656,7 +661,7 @@ func _cq_turret_shot(where:Vector3,direction:Vector3,team:int) -> void:
 
 func handle_vehicle_player(id:int,_delta:float) -> bool:return battery_tanks.mounted(id)
 func _damage(victim:int,attacker:int,amount:int,weapon_name:String,bypass:bool=false,impact:Vector3=Vector3.INF,direction:Vector3=Vector3.ZERO,blast:bool=false,hull_contact:bool=false,heavy_automatic:bool=false,headshot:bool=false) -> void:
-	if battery_tanks.mounted(victim) and not bypass:return
+	if battery_tanks.protected_rider(victim) and not bypass:return
 	super._damage(victim,attacker,amount,weapon_name,bypass,impact,direction,blast,hull_contact,heavy_automatic,headshot)
 @rpc("authority","call_local","reliable",0)
 func _projectile_spawn(id:int,owner_id:int,weapon:int,pos:Vector3,direction:Vector3,yaw:float,pitch:float,extra:Dictionary={}) -> void:

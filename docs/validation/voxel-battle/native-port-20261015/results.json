@@ -1,0 +1,688 @@
+{
+  "created_utc": "2026-10-15T21:07:16.394114+00:00",
+  "branch": "experimental/cq-voxelspace",
+  "base_commit": "2ab5a07f3d5dcddb8c457fbebb868220e6abfe79",
+  "scope": "Stages 1-3 native runtime work. CPU fixtures and desktop Vulkan rendering; no headset frame-pacing or populated live-server performance claim.",
+  "cpu": "12th Gen Intel Core i7-12700",
+  "gpu": "Intel(R) Arc(tm) A770 Graphics (DG2)",
+  "implementation": {
+    "world": "FPSWorld caches native grass/tree rows, transforms, bounds and spatial priorities. Bounded grass selection, partial far selection, tree LOD/culling, compact bulk instance uploads, terrain sample generation, atlas payloads, residency planning and terrain visibility are native. Terrain worker count remains two; uploads now have an 800 us admission budget in addition to the two-upload cap.",
+    "motion": "FPSMovement supplies native CS client prediction/collision/stairs, correction sweeps and batched vehicle interpolation. Authority and prediction share CS horizontal math and the stair collision helper. Jetpack prediction reuses authority Jetpack tick/moved. Scene/input/seat presentation remains Godot-owned.",
+    "destruction": "FPSDestruction owns packed cell/column/topology data, candidate ordering, support status and baked-attribute-preserving mesh patch generation. Immutable mesh sources decode during loading. One worker job at a time, per-site revision coalescing, round-generation rejection and owner-thread visual commits; gameplay and collision update immediately.",
+    "animation": "Unchanged; optional follow-up contingent on profiling."
+  },
+  "remaining_script_work": [
+    "Authored landscape/road setup and tree/grass candidate generation within terrain workers.",
+    "Godot task scheduling, texture and mesh resource commits, scene construction and collision-node lifecycle.",
+    "Input collection, room-scale orchestration, prediction history/reconciliation bookkeeping and vehicle presentation wiring.",
+    "Authored structural graph setup, reliable destruction replication and cosmetic effect orchestration."
+  ],
+  "new_test_results": {
+    "world": {
+      "checks": 56,
+      "color_error": 7.09019730038563e-07,
+      "failures": [],
+      "height_error": 0.000518798828125,
+      "native_tile_mean_us": 3819.0,
+      "reference_tile_mean_us": 82442.5
+    },
+    "grass": {
+      "checks": 22,
+      "failures": [],
+      "max_transform_error": 1.19209289550781e-07,
+      "native_mean_us": 371.888888888889,
+      "reference_mean_us": 8450.11111111111,
+      "resident": 32400
+    },
+    "trees": {
+      "checks": 32,
+      "failures": [],
+      "max_error": 0.0,
+      "native_mean_us": 126.5,
+      "reference_mean_us": 2359.06666666667
+    },
+    "motion": {
+      "checks": 16,
+      "failures": [],
+      "horizontal_error": 3.814697265625e-06
+    },
+    "destruction": {
+      "checks": 61,
+      "commit_usec": 117,
+      "discarded": 2,
+      "failures": [],
+      "submitted": 4
+    }
+  },
+  "new_checks": 187,
+  "renderer_validation": {
+    "capacity": 2048,
+    "checks": 4288,
+    "distance_m": 96.0,
+    "errors": [],
+    "evicted": 469,
+    "loaded": 714,
+    "lod_counts": [
+      600,
+      400,
+      600,
+      0,
+      56,
+      84,
+      0,
+      28,
+      42,
+      0,
+      28,
+      42
+    ],
+    "max_draws_per_eye": 12,
+    "peak_jobs": 2,
+    "peak_resident_tufts": 196676,
+    "peak_tiles": 245,
+    "resident_species": [
+      181859,
+      6792,
+      4106,
+      3919
+    ],
+    "resident_tufts": 196676,
+    "triangles": 95616,
+    "visible_tufts": 1880
+  },
+  "integration": {
+    "native_core": {
+      "checks": 266458,
+      "ok": true,
+      "replay_players": 64,
+      "replay_ticks": 3600
+    },
+    "native_stairs": {
+      "checks": 174,
+      "failures": []
+    },
+    "native_transport": {
+      "checks": 481,
+      "failures": []
+    },
+    "authority_terrain": {
+      "checks": 15506,
+      "failures": []
+    },
+    "authority_destruction": {
+      "checks": 28,
+      "failures": []
+    },
+    "transport_wheel": {
+      "checks": 25,
+      "failures": []
+    },
+    "jetpack": {
+      "checks": 44,
+      "failures": [],
+      "flights": [
+        {
+          "air_seconds": 2.03333333333334,
+          "apex_metres": 6.80688142776489,
+          "horizontal_metres": 32.4933172464371,
+          "hz": 30
+        },
+        {
+          "air_seconds": 2.05,
+          "apex_metres": 6.72691488265991,
+          "horizontal_metres": 32.7666471004486,
+          "hz": 60
+        },
+        {
+          "air_seconds": 2.05,
+          "apex_metres": 6.7251124382019,
+          "horizontal_metres": 32.7766502201557,
+          "hz": 120
+        }
+      ]
+    },
+    "cs_movement": {
+      "checks": 31,
+      "failures": []
+    },
+    "movement_attribution": {
+      "failures": [],
+      "scope_count": 5
+    },
+    "graphical_transport": {
+      "checks": 72,
+      "failures": []
+    }
+  },
+  "collapse_profiles": {
+    "native": {
+      "adapter": "Intel(R) Arc(tm) A770 Graphics (DG2)",
+      "async_native": true,
+      "events": [
+        {
+          "animation_calls": [
+            {
+              "thread_cpu_us": 0.0,
+              "wall_us": 12
+            }
+          ],
+          "collapse_detail": {
+            "animation_us": 89,
+            "bodies": 115,
+            "damage_us": 2,
+            "id": 10,
+            "total_us": 407
+          },
+          "frame": 210,
+          "mesh_thread_cpu_us": 997.875,
+          "mesh_us": 25,
+          "mode": "full",
+          "repeat": 0,
+          "replacement_calls": [],
+          "trigger_thread_cpu_us": 0.0,
+          "trigger_us": 632
+        },
+        {
+          "animation_calls": [],
+          "collapse_detail": {
+            "animation_us": 0,
+            "bodies": 115,
+            "damage_us": 4,
+            "id": 10,
+            "total_us": 313
+          },
+          "frame": 2425,
+          "mesh_thread_cpu_us": 0.0,
+          "mesh_us": 18,
+          "mode": "no_animation",
+          "repeat": 0,
+          "replacement_calls": [],
+          "trigger_thread_cpu_us": 807.438,
+          "trigger_us": 441
+        },
+        {
+          "animation_calls": [
+            {
+              "thread_cpu_us": 0.0,
+              "wall_us": 24
+            }
+          ],
+          "collapse_detail": {},
+          "frame": 4951,
+          "mesh_thread_cpu_us": 0.0,
+          "mesh_us": 1,
+          "mode": "animation_only",
+          "repeat": 0,
+          "replacement_calls": [],
+          "trigger_thread_cpu_us": 0.0,
+          "trigger_us": 48
+        },
+        {
+          "animation_calls": [
+            {
+              "thread_cpu_us": 0.0,
+              "wall_us": 14
+            }
+          ],
+          "collapse_detail": {
+            "animation_us": 79,
+            "bodies": 115,
+            "damage_us": 2,
+            "id": 10,
+            "total_us": 389
+          },
+          "frame": 7551,
+          "mesh_thread_cpu_us": 0.0,
+          "mesh_us": 20,
+          "mode": "full",
+          "repeat": 1,
+          "replacement_calls": [],
+          "trigger_thread_cpu_us": 0.0,
+          "trigger_us": 626
+        },
+        {
+          "animation_calls": [],
+          "collapse_detail": {
+            "animation_us": 0,
+            "bodies": 115,
+            "damage_us": 4,
+            "id": 10,
+            "total_us": 274
+          },
+          "frame": 9954,
+          "mesh_thread_cpu_us": 0.0,
+          "mesh_us": 16,
+          "mode": "no_animation",
+          "repeat": 1,
+          "replacement_calls": [],
+          "trigger_thread_cpu_us": 0.0,
+          "trigger_us": 396
+        },
+        {
+          "animation_calls": [
+            {
+              "thread_cpu_us": 0.0,
+              "wall_us": 21
+            }
+          ],
+          "collapse_detail": {},
+          "frame": 12705,
+          "mesh_thread_cpu_us": 0.0,
+          "mesh_us": 2,
+          "mode": "animation_only",
+          "repeat": 1,
+          "replacement_calls": [],
+          "trigger_thread_cpu_us": 0.0,
+          "trigger_us": 45
+        }
+      ],
+      "last_mesh_commit_usec": 465,
+      "mesh_jobs_discarded": 0,
+      "mesh_jobs_submitted": 4,
+      "native_destruction": true,
+      "preparation_us": 28803,
+      "renderer": "forward_plus",
+      "resolution": [
+        1280,
+        720
+      ],
+      "scope": "Full map, no players. Direct failed factory-storey support set; no preceding breaches. CPU-call wall durations can include driver/synchronization waits; thread_cpu_us comes from Linux /proc/thread-self/schedstat execution nanoseconds and excludes descheduling/waits (kernel accounting granularity applies). Viewport GPU timestamps can lag and exclude CPU scripts/uploads. No automatic suspension of other processes.",
+      "vsync": false
+    },
+    "reference": {
+      "adapter": "Intel(R) Arc(tm) A770 Graphics (DG2)",
+      "async_native": false,
+      "events": [
+        {
+          "animation_calls": [
+            {
+              "thread_cpu_us": 0.0,
+              "wall_us": 11
+            }
+          ],
+          "collapse_detail": {
+            "animation_us": 83,
+            "bodies": 115,
+            "damage_us": 1,
+            "id": 10,
+            "total_us": 362
+          },
+          "frame": 210,
+          "mesh_thread_cpu_us": 3974.557,
+          "mesh_us": 8198,
+          "mode": "full",
+          "repeat": 0,
+          "replacement_calls": [
+            {
+              "lod": 0,
+              "us": 5711
+            },
+            {
+              "lod": 1,
+              "us": 2455
+            }
+          ],
+          "trigger_thread_cpu_us": 0.0,
+          "trigger_us": 635
+        },
+        {
+          "animation_calls": [],
+          "collapse_detail": {
+            "animation_us": 0,
+            "bodies": 115,
+            "damage_us": 3,
+            "id": 10,
+            "total_us": 250
+          },
+          "frame": 2388,
+          "mesh_thread_cpu_us": 3974.683,
+          "mesh_us": 4758,
+          "mode": "no_animation",
+          "repeat": 0,
+          "replacement_calls": [
+            {
+              "lod": 0,
+              "us": 3043
+            },
+            {
+              "lod": 1,
+              "us": 1690
+            }
+          ],
+          "trigger_thread_cpu_us": 0.0,
+          "trigger_us": 407
+        },
+        {
+          "animation_calls": [
+            {
+              "thread_cpu_us": 0.0,
+              "wall_us": 21
+            }
+          ],
+          "collapse_detail": {},
+          "frame": 5197,
+          "mesh_thread_cpu_us": 0.0,
+          "mesh_us": 2,
+          "mode": "animation_only",
+          "repeat": 0,
+          "replacement_calls": [],
+          "trigger_thread_cpu_us": 0.0,
+          "trigger_us": 44
+        },
+        {
+          "animation_calls": [
+            {
+              "thread_cpu_us": 0.0,
+              "wall_us": 10
+            }
+          ],
+          "collapse_detail": {
+            "animation_us": 63,
+            "bodies": 115,
+            "damage_us": 2,
+            "id": 10,
+            "total_us": 341
+          },
+          "frame": 7891,
+          "mesh_thread_cpu_us": 3505.673,
+          "mesh_us": 5123,
+          "mode": "full",
+          "repeat": 1,
+          "replacement_calls": [
+            {
+              "lod": 0,
+              "us": 3400
+            },
+            {
+              "lod": 1,
+              "us": 1700
+            }
+          ],
+          "trigger_thread_cpu_us": 723.823,
+          "trigger_us": 583
+        },
+        {
+          "animation_calls": [],
+          "collapse_detail": {
+            "animation_us": 0,
+            "bodies": 115,
+            "damage_us": 3,
+            "id": 10,
+            "total_us": 266
+          },
+          "frame": 10418,
+          "mesh_thread_cpu_us": 3552.334,
+          "mesh_us": 4102,
+          "mode": "no_animation",
+          "repeat": 1,
+          "replacement_calls": [
+            {
+              "lod": 0,
+              "us": 2335
+            },
+            {
+              "lod": 1,
+              "us": 1743
+            }
+          ],
+          "trigger_thread_cpu_us": 600.419,
+          "trigger_us": 422
+        },
+        {
+          "animation_calls": [
+            {
+              "thread_cpu_us": 0.0,
+              "wall_us": 19
+            }
+          ],
+          "collapse_detail": {},
+          "frame": 13242,
+          "mesh_thread_cpu_us": 0.0,
+          "mesh_us": 2,
+          "mode": "animation_only",
+          "repeat": 1,
+          "replacement_calls": [],
+          "trigger_thread_cpu_us": 0.0,
+          "trigger_us": 42
+        }
+      ],
+      "last_mesh_commit_usec": 0,
+      "mesh_jobs_discarded": 0,
+      "mesh_jobs_submitted": 0,
+      "native_destruction": false,
+      "preparation_us": 27559,
+      "renderer": "forward_plus",
+      "resolution": [
+        1280,
+        720
+      ],
+      "scope": "Full map, no players. Direct failed factory-storey support set; no preceding breaches. CPU-call wall durations can include driver/synchronization waits; thread_cpu_us comes from Linux /proc/thread-self/schedstat execution nanoseconds and excludes descheduling/waits (kernel accounting granularity applies). Viewport GPU timestamps can lag and exclude CPU scripts/uploads. No automatic suspension of other processes.",
+      "vsync": false
+    }
+  },
+  "known_baseline_failure": {
+    "test": "deathmatch/tests/prediction_obstacles.gd",
+    "case": "Holding against wall keeps view steady under delayed corrections (quake=true)",
+    "native_failed": true,
+    "gdscript_motion_reference_failed": true,
+    "note": "Recorded on both paths; not classified as introduced by this port."
+  },
+  "fallback_flags": [
+    "--gdscript-world",
+    "--gdscript-motion",
+    "--gdscript-destruction"
+  ],
+  "builds": {
+    "linux": {
+      "target": "linux",
+      "bindings_revision": "507ed9d840c01a3c5b2a39af8bb4000bfac30bf5",
+      "portable_container": true,
+      "sha256": "512419d27d74ccd428aa7fb4a91db2d5f859204fa049787e36146698c2590b66",
+      "source_sha256": {
+        "src/authority.cpp": "7f3fe880e39e628d4f1c3428651813bca94573884b00fcac8a121e1bacefe93d",
+        "src/authority.h": "fd5cef2935ac95bda855c482df2444af9f2dd3a381ebe6e25d0e14e5f3d65d32",
+        "src/authority_abilities.cpp": "7880899394d2b713b09d204fb6f992daf54fff6ceb056df5fd364c3e34ede4bb",
+        "src/authority_ai.cpp": "83af636ac71a3bf682c35e9644ebab07f6837311e65eacbb1345c623031b8ce7",
+        "src/authority_ballistics.cpp": "435562884e2f7d0abe06ab0cb4b889ebe03e9cb82e8b14eeb03337a3afc1ea4c",
+        "src/authority_collision.cpp": "9a06a3325bbf9cfb2c7a8f09e060f145b05106508ab00da2e5d86c4e641dfd33",
+        "src/authority_collision.h": "7824fc89ce1cdc49becafd92a4ceeed7884d25e3b591578c983fc11eada0de15",
+        "src/authority_core.cpp": "53ba0bf0743371e6c0c14f1caa99c19a1f5e664dae3b50b6a352889323af69a2",
+        "src/authority_core.h": "d4a3612ba8021072882b873e50ec79cab6dd78fc24afc34120a00bf90d3c8243",
+        "src/authority_cq.cpp": "2822fd41de4e6e1257da02d13cf974cb9da074c92075fec621052f7cbc47aff8",
+        "src/authority_cq.h": "01638c5511b8df4413e742ae2c6dd2dc707ee4f9a12339ddbc346a3dba233e66",
+        "src/authority_cq_snapshot.cpp": "3b4a704775ea226c1137c2d9149669ee96111724359d3851ef66d05d4de4d916",
+        "src/authority_entities.cpp": "58fc768234aa45ba57e4fc4760888b156557fbb800e03587d3501f97dd802136",
+        "src/authority_gameplay.cpp": "5dd5231c32c983ad2c48ae891ae16f2771c8eeb3585d4af74848c2c67e30fd59",
+        "src/authority_math.h": "52b255675c5def96ba769d7c6e245e8316c3ab9223c5c1489af72830d5e9b10f",
+        "src/authority_melee.cpp": "c2a2725c1bb9d8bbe3807c4f2a70c021682c7a5e7d1e9c9b1ee9e2188ec99a9d",
+        "src/authority_melee.h": "89fce23defd0e2ebf0046ce81ef0bc39f0f10ac9cbc6e2365d98124bd6e0c513",
+        "src/authority_movement.h": "cfcc069390d4b83fc35ef206793c41b6d945e97757d69b781305df0d9da58e98",
+        "src/authority_nvg.h": "60e519853ef1ad99dc8fa7fe4dd72c7724687e026d6967ba5f0d15168cee72f7",
+        "src/authority_protocol.cpp": "4e94e81fade4f1a0a2209c8492c33e44a85d72960dbe6e935f0fc2fa9d93d01e",
+        "src/authority_protocol.h": "ce865ee277f0b53356a025dd82bdec5ca86899665f8ea92baf34a30c476ae957",
+        "src/authority_queries.cpp": "09d735729dd2812d74f68b0cec41d2a956e3c684793c6c77675067907a5214e2",
+        "src/authority_recoil.h": "db57c6a4d82dff3d7fffcec2d6a95c0400551bfa6e975eee5ad448c63a81784b",
+        "src/authority_round.cpp": "75b4e7bdefd6d057a60f849c864d24ccb8ac8be23cfc3a99ce0d05efab948963",
+        "src/authority_snapshot.cpp": "ce1c08ef389af562e55e71f88befae63cee05636523b32fbdccb712d6e9da38f",
+        "src/authority_squads.cpp": "de340747adc74f90b9174a5f40a5a1a391a4acbb18bfcd153d07a3f1cfd96e54",
+        "src/authority_state.cpp": "edbeeedc9b303af922098b20e38abf044fe0e640cfc1d715ba648b60f398bb75",
+        "src/authority_terrain.cpp": "bf92c3539b4e624c93d5d62eb8fa671bf7ca2d0cac042dcb976f6d63b3da0b24",
+        "src/authority_terrain.h": "5f7bdc11c9ddd91ca752b5fc2542adaa3e2a124e654f2555c0f0fd69e9996abf",
+        "src/authority_tick.h": "6fc0cb45d57a31e54923b7719c7246e706faf3c18800f4ebeee253021b8f243f",
+        "src/authority_transport_geometry.h": "34d46a14b582fc90616586c3eaf67dbc23cbb3c478d62835ca2e473e85a4326e",
+        "src/authority_utilities.cpp": "2c9072b1e45e7274f4a76d532d663714dfd6d0abc9e63869e4b844abeea14090",
+        "src/authority_vehicles.cpp": "6ec5192890ae7ffbf1497c4ff7ff076bdba2a788a57bdaf6a1ebd8cbc31bdd0b",
+        "src/authority_vr.cpp": "86645a911629ba8c11f22c83762f83aeefc38263fd8faba89ce8936a9b02f36a",
+        "src/authority_vr.h": "719ffc9da140b8d977896970edadc50744ecc72f73d7775cc26dd545f873090e",
+        "src/authority_weapon_geometry.h": "dbde01814808a34e2ac6697bfcc42cad8cf9a28fc55430c2a6fee376f0e9d4af",
+        "src/authority_wire.h": "01c0e5785d8926642895641a411ff2b95f97f8c1f8dacb7551debcd1092c095a",
+        "src/authority_world.cpp": "513bbffbd62bae4a4770520cf36dfb5b07fe604d9f69868cf53044ec27ad48aa",
+        "src/avatar_channels.cpp": "d504045236d29622cb9008dd554d1574b893572475cedeb402e4aa29ab55af24",
+        "src/backend.cpp": "defa674ab1fbd67bf4889da5dd474e8d37f9ed301a2e56c85e71eca0e0a08b94",
+        "src/backend.h": "063266b806fd34c7838cda0298d88a30f90d089882c503e0cbb6f7ab35f8438b",
+        "src/codec.cpp": "54ef70885b6088c24339547c87379f362b6f120d367901573870978dfc63cb63",
+        "src/codec.h": "04f3dae5d336a192ce912e123f8ec0a4a0ebd1a48cd5514831bd3cb837493cbe",
+        "src/destruction_runtime.cpp": "7b3c77a89d83f43f296e79cd46e8a09ddb977d1fe991944626fdfc1b1df35ce2",
+        "src/destruction_runtime.h": "423084d882b7c58585da53e7baa07cfcdbfd91f5c46de74fdde26c69144f9368",
+        "src/movement_runtime.cpp": "94c9ebc58b230a0735e0c787f9cb3bbb9de4e4f380b5261dba597349e6c49a28",
+        "src/movement_runtime.h": "3f5a15d31d59ae6ceb423dee4c67aea2ff9534e43dff1fd3ef30403f2ac8f52d",
+        "src/network_packing.cpp": "57fe61955dc05e6a483625b6ed3453d270ef69b98c0b4f791c2de8055789c44c",
+        "src/player_simulation.cpp": "4dd1bf2bd0f678774ff56f812e301a090ff6a5fe42e9737c60374c101b985c7f",
+        "src/pose_preparation.cpp": "50b554ad876542e427bb775b078dd96dffc90b89e8fd7cdfc9c9be5de3614f24",
+        "src/poses.cpp": "8e6717dad8ae2e6063da1f9b3210459a3204efc5e9343a066edb775883396103",
+        "src/poses.h": "f2e4376e3d5ecd5ea214f32a0358df871122a67fa63d68b287e4b1138c130e1d",
+        "src/register.cpp": "b7983d987ad2ba7cb51b4b8239b246e2fb2342fcc39513f8b8ba15b7add9a27c",
+        "src/register_server.cpp": "00941e8ac2f7e841ab6b5536a9219370e2a2bd621e59442fc35b44d74486f7db",
+        "src/snapshot_preparation.cpp": "e52e9e734ed30d04e76b9cfe336fac317e55f7bddc3d46550f74914190dc16cf",
+        "src/world_runtime.cpp": "1f9835ea7ddc84e37580a61e2d984f47da9576ada6bc6fa96ddb319a2939f97d",
+        "src/world_runtime.h": "bbcacc419787b0b60cd94f4e8602068226650b4ca6f2483487c17e56ae2e05be",
+        "src/world_terrain.cpp": "7d7b5a1eb0f2147276545c3a1f785f442d40bb660059e60e87de4e492b5b7de3"
+      }
+    },
+    "linux-server": {
+      "target": "linux-server",
+      "bindings_revision": "507ed9d840c01a3c5b2a39af8bb4000bfac30bf5",
+      "portable_container": true,
+      "sha256": "e639f1fd82263611ab463dba49f2098f54daf7bdbbaae175510a341767455c12",
+      "source_sha256": {
+        "src/authority.cpp": "7f3fe880e39e628d4f1c3428651813bca94573884b00fcac8a121e1bacefe93d",
+        "src/authority.h": "fd5cef2935ac95bda855c482df2444af9f2dd3a381ebe6e25d0e14e5f3d65d32",
+        "src/authority_abilities.cpp": "7880899394d2b713b09d204fb6f992daf54fff6ceb056df5fd364c3e34ede4bb",
+        "src/authority_ai.cpp": "83af636ac71a3bf682c35e9644ebab07f6837311e65eacbb1345c623031b8ce7",
+        "src/authority_ballistics.cpp": "435562884e2f7d0abe06ab0cb4b889ebe03e9cb82e8b14eeb03337a3afc1ea4c",
+        "src/authority_collision.cpp": "9a06a3325bbf9cfb2c7a8f09e060f145b05106508ab00da2e5d86c4e641dfd33",
+        "src/authority_collision.h": "7824fc89ce1cdc49becafd92a4ceeed7884d25e3b591578c983fc11eada0de15",
+        "src/authority_core.cpp": "53ba0bf0743371e6c0c14f1caa99c19a1f5e664dae3b50b6a352889323af69a2",
+        "src/authority_core.h": "d4a3612ba8021072882b873e50ec79cab6dd78fc24afc34120a00bf90d3c8243",
+        "src/authority_cq.cpp": "2822fd41de4e6e1257da02d13cf974cb9da074c92075fec621052f7cbc47aff8",
+        "src/authority_cq.h": "01638c5511b8df4413e742ae2c6dd2dc707ee4f9a12339ddbc346a3dba233e66",
+        "src/authority_cq_snapshot.cpp": "3b4a704775ea226c1137c2d9149669ee96111724359d3851ef66d05d4de4d916",
+        "src/authority_entities.cpp": "58fc768234aa45ba57e4fc4760888b156557fbb800e03587d3501f97dd802136",
+        "src/authority_gameplay.cpp": "5dd5231c32c983ad2c48ae891ae16f2771c8eeb3585d4af74848c2c67e30fd59",
+        "src/authority_math.h": "52b255675c5def96ba769d7c6e245e8316c3ab9223c5c1489af72830d5e9b10f",
+        "src/authority_melee.cpp": "c2a2725c1bb9d8bbe3807c4f2a70c021682c7a5e7d1e9c9b1ee9e2188ec99a9d",
+        "src/authority_melee.h": "89fce23defd0e2ebf0046ce81ef0bc39f0f10ac9cbc6e2365d98124bd6e0c513",
+        "src/authority_movement.h": "cfcc069390d4b83fc35ef206793c41b6d945e97757d69b781305df0d9da58e98",
+        "src/authority_nvg.h": "60e519853ef1ad99dc8fa7fe4dd72c7724687e026d6967ba5f0d15168cee72f7",
+        "src/authority_protocol.cpp": "4e94e81fade4f1a0a2209c8492c33e44a85d72960dbe6e935f0fc2fa9d93d01e",
+        "src/authority_protocol.h": "ce865ee277f0b53356a025dd82bdec5ca86899665f8ea92baf34a30c476ae957",
+        "src/authority_queries.cpp": "09d735729dd2812d74f68b0cec41d2a956e3c684793c6c77675067907a5214e2",
+        "src/authority_recoil.h": "db57c6a4d82dff3d7fffcec2d6a95c0400551bfa6e975eee5ad448c63a81784b",
+        "src/authority_round.cpp": "75b4e7bdefd6d057a60f849c864d24ccb8ac8be23cfc3a99ce0d05efab948963",
+        "src/authority_snapshot.cpp": "ce1c08ef389af562e55e71f88befae63cee05636523b32fbdccb712d6e9da38f",
+        "src/authority_squads.cpp": "de340747adc74f90b9174a5f40a5a1a391a4acbb18bfcd153d07a3f1cfd96e54",
+        "src/authority_state.cpp": "edbeeedc9b303af922098b20e38abf044fe0e640cfc1d715ba648b60f398bb75",
+        "src/authority_terrain.cpp": "bf92c3539b4e624c93d5d62eb8fa671bf7ca2d0cac042dcb976f6d63b3da0b24",
+        "src/authority_terrain.h": "5f7bdc11c9ddd91ca752b5fc2542adaa3e2a124e654f2555c0f0fd69e9996abf",
+        "src/authority_tick.h": "6fc0cb45d57a31e54923b7719c7246e706faf3c18800f4ebeee253021b8f243f",
+        "src/authority_transport_geometry.h": "34d46a14b582fc90616586c3eaf67dbc23cbb3c478d62835ca2e473e85a4326e",
+        "src/authority_utilities.cpp": "2c9072b1e45e7274f4a76d532d663714dfd6d0abc9e63869e4b844abeea14090",
+        "src/authority_vehicles.cpp": "6ec5192890ae7ffbf1497c4ff7ff076bdba2a788a57bdaf6a1ebd8cbc31bdd0b",
+        "src/authority_vr.cpp": "86645a911629ba8c11f22c83762f83aeefc38263fd8faba89ce8936a9b02f36a",
+        "src/authority_vr.h": "719ffc9da140b8d977896970edadc50744ecc72f73d7775cc26dd545f873090e",
+        "src/authority_weapon_geometry.h": "dbde01814808a34e2ac6697bfcc42cad8cf9a28fc55430c2a6fee376f0e9d4af",
+        "src/authority_wire.h": "01c0e5785d8926642895641a411ff2b95f97f8c1f8dacb7551debcd1092c095a",
+        "src/authority_world.cpp": "513bbffbd62bae4a4770520cf36dfb5b07fe604d9f69868cf53044ec27ad48aa",
+        "src/avatar_channels.cpp": "d504045236d29622cb9008dd554d1574b893572475cedeb402e4aa29ab55af24",
+        "src/backend.cpp": "defa674ab1fbd67bf4889da5dd474e8d37f9ed301a2e56c85e71eca0e0a08b94",
+        "src/backend.h": "063266b806fd34c7838cda0298d88a30f90d089882c503e0cbb6f7ab35f8438b",
+        "src/codec.cpp": "54ef70885b6088c24339547c87379f362b6f120d367901573870978dfc63cb63",
+        "src/codec.h": "04f3dae5d336a192ce912e123f8ec0a4a0ebd1a48cd5514831bd3cb837493cbe",
+        "src/destruction_runtime.cpp": "7b3c77a89d83f43f296e79cd46e8a09ddb977d1fe991944626fdfc1b1df35ce2",
+        "src/destruction_runtime.h": "423084d882b7c58585da53e7baa07cfcdbfd91f5c46de74fdde26c69144f9368",
+        "src/movement_runtime.cpp": "94c9ebc58b230a0735e0c787f9cb3bbb9de4e4f380b5261dba597349e6c49a28",
+        "src/movement_runtime.h": "3f5a15d31d59ae6ceb423dee4c67aea2ff9534e43dff1fd3ef30403f2ac8f52d",
+        "src/network_packing.cpp": "57fe61955dc05e6a483625b6ed3453d270ef69b98c0b4f791c2de8055789c44c",
+        "src/player_simulation.cpp": "4dd1bf2bd0f678774ff56f812e301a090ff6a5fe42e9737c60374c101b985c7f",
+        "src/pose_preparation.cpp": "50b554ad876542e427bb775b078dd96dffc90b89e8fd7cdfc9c9be5de3614f24",
+        "src/poses.cpp": "8e6717dad8ae2e6063da1f9b3210459a3204efc5e9343a066edb775883396103",
+        "src/poses.h": "f2e4376e3d5ecd5ea214f32a0358df871122a67fa63d68b287e4b1138c130e1d",
+        "src/register.cpp": "b7983d987ad2ba7cb51b4b8239b246e2fb2342fcc39513f8b8ba15b7add9a27c",
+        "src/register_server.cpp": "00941e8ac2f7e841ab6b5536a9219370e2a2bd621e59442fc35b44d74486f7db",
+        "src/snapshot_preparation.cpp": "e52e9e734ed30d04e76b9cfe336fac317e55f7bddc3d46550f74914190dc16cf",
+        "src/world_runtime.cpp": "1f9835ea7ddc84e37580a61e2d984f47da9576ada6bc6fa96ddb319a2939f97d",
+        "src/world_runtime.h": "bbcacc419787b0b60cd94f4e8602068226650b4ca6f2483487c17e56ae2e05be",
+        "src/world_terrain.cpp": "7d7b5a1eb0f2147276545c3a1f785f442d40bb660059e60e87de4e492b5b7de3"
+      }
+    },
+    "windows": {
+      "target": "windows",
+      "bindings_revision": "507ed9d840c01a3c5b2a39af8bb4000bfac30bf5",
+      "portable_container": true,
+      "sha256": "85554e66088178d7d1d480657bc3586ae004c326b3b0dbd5452792ed717518b1",
+      "source_sha256": {
+        "src/authority.cpp": "7f3fe880e39e628d4f1c3428651813bca94573884b00fcac8a121e1bacefe93d",
+        "src/authority.h": "fd5cef2935ac95bda855c482df2444af9f2dd3a381ebe6e25d0e14e5f3d65d32",
+        "src/authority_abilities.cpp": "7880899394d2b713b09d204fb6f992daf54fff6ceb056df5fd364c3e34ede4bb",
+        "src/authority_ai.cpp": "83af636ac71a3bf682c35e9644ebab07f6837311e65eacbb1345c623031b8ce7",
+        "src/authority_ballistics.cpp": "435562884e2f7d0abe06ab0cb4b889ebe03e9cb82e8b14eeb03337a3afc1ea4c",
+        "src/authority_collision.cpp": "9a06a3325bbf9cfb2c7a8f09e060f145b05106508ab00da2e5d86c4e641dfd33",
+        "src/authority_collision.h": "7824fc89ce1cdc49becafd92a4ceeed7884d25e3b591578c983fc11eada0de15",
+        "src/authority_core.cpp": "53ba0bf0743371e6c0c14f1caa99c19a1f5e664dae3b50b6a352889323af69a2",
+        "src/authority_core.h": "d4a3612ba8021072882b873e50ec79cab6dd78fc24afc34120a00bf90d3c8243",
+        "src/authority_cq.cpp": "2822fd41de4e6e1257da02d13cf974cb9da074c92075fec621052f7cbc47aff8",
+        "src/authority_cq.h": "01638c5511b8df4413e742ae2c6dd2dc707ee4f9a12339ddbc346a3dba233e66",
+        "src/authority_cq_snapshot.cpp": "3b4a704775ea226c1137c2d9149669ee96111724359d3851ef66d05d4de4d916",
+        "src/authority_entities.cpp": "58fc768234aa45ba57e4fc4760888b156557fbb800e03587d3501f97dd802136",
+        "src/authority_gameplay.cpp": "5dd5231c32c983ad2c48ae891ae16f2771c8eeb3585d4af74848c2c67e30fd59",
+        "src/authority_math.h": "52b255675c5def96ba769d7c6e245e8316c3ab9223c5c1489af72830d5e9b10f",
+        "src/authority_melee.cpp": "c2a2725c1bb9d8bbe3807c4f2a70c021682c7a5e7d1e9c9b1ee9e2188ec99a9d",
+        "src/authority_melee.h": "89fce23defd0e2ebf0046ce81ef0bc39f0f10ac9cbc6e2365d98124bd6e0c513",
+        "src/authority_movement.h": "cfcc069390d4b83fc35ef206793c41b6d945e97757d69b781305df0d9da58e98",
+        "src/authority_nvg.h": "60e519853ef1ad99dc8fa7fe4dd72c7724687e026d6967ba5f0d15168cee72f7",
+        "src/authority_protocol.cpp": "4e94e81fade4f1a0a2209c8492c33e44a85d72960dbe6e935f0fc2fa9d93d01e",
+        "src/authority_protocol.h": "ce865ee277f0b53356a025dd82bdec5ca86899665f8ea92baf34a30c476ae957",
+        "src/authority_queries.cpp": "09d735729dd2812d74f68b0cec41d2a956e3c684793c6c77675067907a5214e2",
+        "src/authority_recoil.h": "db57c6a4d82dff3d7fffcec2d6a95c0400551bfa6e975eee5ad448c63a81784b",
+        "src/authority_round.cpp": "75b4e7bdefd6d057a60f849c864d24ccb8ac8be23cfc3a99ce0d05efab948963",
+        "src/authority_snapshot.cpp": "ce1c08ef389af562e55e71f88befae63cee05636523b32fbdccb712d6e9da38f",
+        "src/authority_squads.cpp": "de340747adc74f90b9174a5f40a5a1a391a4acbb18bfcd153d07a3f1cfd96e54",
+        "src/authority_state.cpp": "edbeeedc9b303af922098b20e38abf044fe0e640cfc1d715ba648b60f398bb75",
+        "src/authority_terrain.cpp": "bf92c3539b4e624c93d5d62eb8fa671bf7ca2d0cac042dcb976f6d63b3da0b24",
+        "src/authority_terrain.h": "5f7bdc11c9ddd91ca752b5fc2542adaa3e2a124e654f2555c0f0fd69e9996abf",
+        "src/authority_tick.h": "6fc0cb45d57a31e54923b7719c7246e706faf3c18800f4ebeee253021b8f243f",
+        "src/authority_transport_geometry.h": "34d46a14b582fc90616586c3eaf67dbc23cbb3c478d62835ca2e473e85a4326e",
+        "src/authority_utilities.cpp": "2c9072b1e45e7274f4a76d532d663714dfd6d0abc9e63869e4b844abeea14090",
+        "src/authority_vehicles.cpp": "6ec5192890ae7ffbf1497c4ff7ff076bdba2a788a57bdaf6a1ebd8cbc31bdd0b",
+        "src/authority_vr.cpp": "86645a911629ba8c11f22c83762f83aeefc38263fd8faba89ce8936a9b02f36a",
+        "src/authority_vr.h": "719ffc9da140b8d977896970edadc50744ecc72f73d7775cc26dd545f873090e",
+        "src/authority_weapon_geometry.h": "dbde01814808a34e2ac6697bfcc42cad8cf9a28fc55430c2a6fee376f0e9d4af",
+        "src/authority_wire.h": "01c0e5785d8926642895641a411ff2b95f97f8c1f8dacb7551debcd1092c095a",
+        "src/authority_world.cpp": "513bbffbd62bae4a4770520cf36dfb5b07fe604d9f69868cf53044ec27ad48aa",
+        "src/avatar_channels.cpp": "d504045236d29622cb9008dd554d1574b893572475cedeb402e4aa29ab55af24",
+        "src/backend.cpp": "defa674ab1fbd67bf4889da5dd474e8d37f9ed301a2e56c85e71eca0e0a08b94",
+        "src/backend.h": "063266b806fd34c7838cda0298d88a30f90d089882c503e0cbb6f7ab35f8438b",
+        "src/codec.cpp": "54ef70885b6088c24339547c87379f362b6f120d367901573870978dfc63cb63",
+        "src/codec.h": "04f3dae5d336a192ce912e123f8ec0a4a0ebd1a48cd5514831bd3cb837493cbe",
+        "src/destruction_runtime.cpp": "7b3c77a89d83f43f296e79cd46e8a09ddb977d1fe991944626fdfc1b1df35ce2",
+        "src/destruction_runtime.h": "423084d882b7c58585da53e7baa07cfcdbfd91f5c46de74fdde26c69144f9368",
+        "src/movement_runtime.cpp": "94c9ebc58b230a0735e0c787f9cb3bbb9de4e4f380b5261dba597349e6c49a28",
+        "src/movement_runtime.h": "3f5a15d31d59ae6ceb423dee4c67aea2ff9534e43dff1fd3ef30403f2ac8f52d",
+        "src/network_packing.cpp": "57fe61955dc05e6a483625b6ed3453d270ef69b98c0b4f791c2de8055789c44c",
+        "src/player_simulation.cpp": "4dd1bf2bd0f678774ff56f812e301a090ff6a5fe42e9737c60374c101b985c7f",
+        "src/pose_preparation.cpp": "50b554ad876542e427bb775b078dd96dffc90b89e8fd7cdfc9c9be5de3614f24",
+        "src/poses.cpp": "8e6717dad8ae2e6063da1f9b3210459a3204efc5e9343a066edb775883396103",
+        "src/poses.h": "f2e4376e3d5ecd5ea214f32a0358df871122a67fa63d68b287e4b1138c130e1d",
+        "src/register.cpp": "b7983d987ad2ba7cb51b4b8239b246e2fb2342fcc39513f8b8ba15b7add9a27c",
+        "src/register_server.cpp": "00941e8ac2f7e841ab6b5536a9219370e2a2bd621e59442fc35b44d74486f7db",
+        "src/snapshot_preparation.cpp": "e52e9e734ed30d04e76b9cfe336fac317e55f7bddc3d46550f74914190dc16cf",
+        "src/world_runtime.cpp": "1f9835ea7ddc84e37580a61e2d984f47da9576ada6bc6fa96ddb319a2939f97d",
+        "src/world_runtime.h": "bbcacc419787b0b60cd94f4e8602068226650b4ca6f2483487c17e56ae2e05be",
+        "src/world_terrain.cpp": "7d7b5a1eb0f2147276545c3a1f785f442d40bb660059e60e87de4e492b5b7de3"
+      }
+    }
+  },
+  "commands": [
+    "python3 tools/build_gameplay_native.py --target linux --container -j 6",
+    "python3 tools/build_gameplay_native.py --target linux --server --container -j 6",
+    "python3 tools/build_gameplay_native.py --target windows --container -j 6",
+    "godot --headless --xr-mode off --path . --script deathmatch/tests/cq_native_world.gd",
+    "godot --headless --xr-mode off --path . --script deathmatch/tests/cq_native_selection.gd",
+    "godot --headless --xr-mode off --path . --script deathmatch/tests/cq_native_trees.gd",
+    "godot --headless --xr-mode off --path . --script deathmatch/tests/cq_native_motion.gd",
+    "godot --headless --xr-mode off --path . --script deathmatch/tests/cq_native_destruction.gd",
+    "godot --xr-mode off --path . --script tools/voxel_battle/validate_grass.gd -- --output /tmp/cq-native-grass-render-final",
+    "godot --xr-mode off --path . --script tools/voxel_battle/profile_collapse.gd -- --async-native --output /tmp/cq-native-collapse-profile.json",
+    "godot --xr-mode off --path . --script tools/voxel_battle/profile_collapse.gd -- --gdscript-destruction --output /tmp/cq-reference-collapse-profile.json"
+  ]
+}

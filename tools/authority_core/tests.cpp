@@ -409,10 +409,14 @@ void entity_tests();
 void protocol_tests();
 void reference_tests(const std::string &);
 extern int collision_legacy_misses, collision_legacy_late;
+void weapon_tier_tests();
+void bike_tests();
 int main(int argc, char **argv) {
   try {
     if (argc == 2)
       reference_tests(argv[1]);
+    bike_tests();
+    weapon_tier_tests();
     vr_port_tests();
     transport_tests();
     squad_tests();

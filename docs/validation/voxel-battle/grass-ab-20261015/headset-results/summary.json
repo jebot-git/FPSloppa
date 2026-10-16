@@ -1,0 +1,1992 @@
+{
+  "takes": [
+    {
+      "stage": 0,
+      "take": 1,
+      "condition": {
+        "audio": true,
+        "draw": true,
+        "name": "A: normal grass + audio",
+        "play": true,
+        "selection": true
+      },
+      "reason": "complete",
+      "xr": true,
+      "target_hz": 90.0,
+      "phases": {
+        "all": {
+          "seconds": 60.001969,
+          "fps": 77.64745186945449,
+          "wall_ms": {
+            "samples": 4659,
+            "mean": 12.878722687271948,
+            "p50": 11.362,
+            "p95": 21.072,
+            "p99": 29.193,
+            "max": 39.753
+          },
+          "over_budget_5pct": 2126,
+          "over_2budgets": 180,
+          "environment_selection_ms": {
+            "samples": 4659,
+            "mean": 1.9873174500965873,
+            "p50": 1.984,
+            "p95": 2.384,
+            "p99": 2.579,
+            "max": 4.686
+          },
+          "grass_selection_ms": {
+            "samples": 4659,
+            "mean": 1.3865273663876367,
+            "p50": 0.0,
+            "p95": 8.226,
+            "p99": 9.19,
+            "max": 10.388
+          },
+          "grass_audio_ms": {
+            "samples": 4659,
+            "mean": 0.0066007726980038635,
+            "p50": 0.003,
+            "p95": 0.039,
+            "p99": 0.049,
+            "max": 0.575
+          },
+          "gpu_ms": {
+            "samples": 4659,
+            "mean": 2.777936036199376,
+            "p50": 2.62700009346008,
+            "p95": 4.85799980163574,
+            "p99": 5.49300003051758,
+            "max": 6.42000007629395
+          },
+          "audio_scans": 552.0,
+          "audio_cell_builds": 4.0,
+          "audio_emissions": 72.0,
+          "speed": {
+            "samples": 4659,
+            "mean": 5.702600486328684,
+            "p50": 7.81232643127441,
+            "p95": 8.00211048126221,
+            "p99": 8.33838558197021,
+            "max": 8.51552772521973
+          }
+        },
+        "still_head_turn": {
+          "seconds": 19.995719,
+          "fps": 89.76921510049226,
+          "wall_ms": {
+            "samples": 1795,
+            "mean": 11.139676323119778,
+            "p50": 11.096,
+            "p95": 13.692,
+            "p99": 15.287,
+            "max": 19.563
+          },
+          "over_budget_5pct": 582,
+          "over_2budgets": 0,
+          "environment_selection_ms": {
+            "samples": 1795,
+            "mean": 1.8913615598885793,
+            "p50": 1.902,
+            "p95": 2.072,
+            "p99": 2.299,
+            "max": 4.067
+          },
+          "grass_selection_ms": {
+            "samples": 1795,
+            "mean": 0.2169442896935933,
+            "p50": 0.0,
+            "p95": 1.441,
+            "p99": 2.859,
+            "max": 3.098
+          },
+          "grass_audio_ms": {
+            "samples": 1795,
+            "mean": 0.0053075208913649025,
+            "p50": 0.002,
+            "p95": 0.037,
+            "p99": 0.041,
+            "max": 0.052
+          },
+          "gpu_ms": {
+            "samples": 1795,
+            "mean": 2.294937047719291,
+            "p50": 2.22399997711182,
+            "p95": 3.50799989700317,
+            "p99": 3.80399990081787,
+            "max": 4.46999979019165
+          },
+          "audio_scans": 188.0,
+          "audio_cell_builds": 0.0,
+          "audio_emissions": 0.0,
+          "speed": {
+            "samples": 1795,
+            "mean": 3.90510203253924,
+            "p50": 3.48223567008972,
+            "p95": 7.88770723342896,
+            "p99": 7.91556596755981,
+            "max": 7.93164777755737
+          }
+        },
+        "walk": {
+          "seconds": 19.98526,
+          "fps": 75.10535264489928,
+          "wall_ms": {
+            "samples": 1501,
+            "mean": 13.314630246502333,
+            "p50": 11.83,
+            "p95": 20.358,
+            "p99": 26.293,
+            "max": 39.753
+          },
+          "over_budget_5pct": 771,
+          "over_2budgets": 39,
+          "environment_selection_ms": {
+            "samples": 1501,
+            "mean": 2.0639660226515657,
+            "p50": 2.083,
+            "p95": 2.382,
+            "p99": 2.645,
+            "max": 4.686
+          },
+          "grass_selection_ms": {
+            "samples": 1501,
+            "mean": 1.630213857428381,
+            "p50": 0.0,
+            "p95": 7.48,
+            "p99": 7.809,
+            "max": 8.413
+          },
+          "grass_audio_ms": {
+            "samples": 1501,
+            "mean": 0.007346435709526982,
+            "p50": 0.003,
+            "p95": 0.042,
+            "p99": 0.049,
+            "max": 0.575
+          },
+          "gpu_ms": {
+            "samples": 1501,
+            "mean": 2.739286472922877,
+            "p50": 2.58100008964539,
+            "p95": 4.86899995803833,
+            "p99": 5.43400001525879,
+            "max": 6.42000007629395
+          },
+          "audio_scans": 184.0,
+          "audio_cell_builds": 3.0,
+          "audio_emissions": 17.0,
+          "speed": {
+            "samples": 1501,
+            "mean": 6.3251241825168565,
+            "p50": 7.81277656555176,
+            "p95": 8.21169567108154,
+            "p99": 8.41255760192871,
+            "max": 8.51552772521973
+          }
+        },
+        "run": {
+          "seconds": 20.02099,
+          "fps": 68.07855156013763,
+          "wall_ms": {
+            "samples": 1363,
+            "mean": 14.688914159941305,
+            "p50": 15.369,
+            "p95": 27.572,
+            "p99": 31.053,
+            "max": 38.001
+          },
+          "over_budget_5pct": 773,
+          "over_2budgets": 141,
+          "environment_selection_ms": {
+            "samples": 1363,
+            "mean": 2.0292773294203963,
+            "p50": 2.237,
+            "p95": 2.437,
+            "p99": 2.634,
+            "max": 3.868
+          },
+          "grass_selection_ms": {
+            "samples": 1363,
+            "mean": 2.658448275862069,
+            "p50": 0.0,
+            "p95": 9.083,
+            "p99": 9.316,
+            "max": 10.388
+          },
+          "grass_audio_ms": {
+            "samples": 1363,
+            "mean": 0.007482758620689655,
+            "p50": 0.003,
+            "p95": 0.035,
+            "p99": 0.052,
+            "max": 0.297
+          },
+          "gpu_ms": {
+            "samples": 1363,
+            "mean": 3.4565832693613547,
+            "p50": 3.41300010681152,
+            "p95": 5.34600019454956,
+            "p99": 5.61199998855591,
+            "max": 5.87099981307983
+          },
+          "audio_scans": 180.0,
+          "audio_cell_builds": 1.0,
+          "audio_emissions": 55.0,
+          "speed": {
+            "samples": 1363,
+            "mean": 7.384259808833163,
+            "p50": 7.81268501281738,
+            "p95": 7.97178983688354,
+            "p99": 8.1519079208374,
+            "max": 8.3155403137207
+          }
+        }
+      },
+      "quality_flags": [
+        "The first 20 seconds contain movement; the still/head-turn label describes the prompt, not observed stillness."
+      ]
+    },
+    {
+      "stage": 1,
+      "take": 2,
+      "condition": {
+        "audio": false,
+        "draw": true,
+        "name": "B: normal grass, no grass audio",
+        "play": false,
+        "selection": true
+      },
+      "reason": "complete",
+      "xr": true,
+      "target_hz": 90.0,
+      "phases": {
+        "all": {
+          "seconds": 60.011963,
+          "fps": 79.13422195504586,
+          "wall_ms": {
+            "samples": 4749,
+            "mean": 12.63675784375658,
+            "p50": 11.449,
+            "p95": 19.719,
+            "p99": 21.244,
+            "max": 34.274
+          },
+          "over_budget_5pct": 2223,
+          "over_2budgets": 23,
+          "environment_selection_ms": {
+            "samples": 4749,
+            "mean": 1.9376211834070332,
+            "p50": 1.895,
+            "p95": 2.337,
+            "p99": 2.598,
+            "max": 4.891
+          },
+          "grass_selection_ms": {
+            "samples": 4749,
+            "mean": 1.090875552747947,
+            "p50": 0.0,
+            "p95": 7.412,
+            "p99": 7.788,
+            "max": 8.272
+          },
+          "grass_audio_ms": {
+            "samples": 4749,
+            "mean": 0.0,
+            "p50": 0.0,
+            "p95": 0.0,
+            "p99": 0.0,
+            "max": 0.0
+          },
+          "gpu_ms": {
+            "samples": 4749,
+            "mean": 2.9518507082704795,
+            "p50": 3.01300001144409,
+            "p95": 4.76900005340576,
+            "p99": 5.53499984741211,
+            "max": 6.32200002670288
+          },
+          "audio_scans": 0.0,
+          "audio_cell_builds": 0.0,
+          "audio_emissions": 0.0,
+          "speed": {
+            "samples": 4749,
+            "mean": 4.742690431576549,
+            "p50": 6.56326103210449,
+            "p95": 7.86626100540161,
+            "p99": 8.09259033203125,
+            "max": 8.38460826873779
+          }
+        },
+        "still_head_turn": {
+          "seconds": 19.98966,
+          "fps": 89.79642475159658,
+          "wall_ms": {
+            "samples": 1795,
+            "mean": 11.136300835654596,
+            "p50": 10.998,
+            "p95": 13.222,
+            "p99": 14.01,
+            "max": 16.743
+          },
+          "over_budget_5pct": 564,
+          "over_2budgets": 0,
+          "environment_selection_ms": {
+            "samples": 1795,
+            "mean": 1.8531983286908078,
+            "p50": 1.848,
+            "p95": 1.991,
+            "p99": 2.157,
+            "max": 3.274
+          },
+          "grass_selection_ms": {
+            "samples": 1795,
+            "mean": 0.08894094707520891,
+            "p50": 0.0,
+            "p95": 1.113,
+            "p99": 1.399,
+            "max": 1.636
+          },
+          "grass_audio_ms": {
+            "samples": 1795,
+            "mean": 0.0,
+            "p50": 0.0,
+            "p95": 0.0,
+            "p99": 0.0,
+            "max": 0.0
+          },
+          "gpu_ms": {
+            "samples": 1795,
+            "mean": 2.779544290327428,
+            "p50": 3.00600004196167,
+            "p95": 3.59500002861023,
+            "p99": 3.90300011634827,
+            "max": 4.73400020599365
+          },
+          "audio_scans": 0.0,
+          "audio_cell_builds": 0.0,
+          "audio_emissions": 0.0,
+          "speed": {
+            "samples": 1795,
+            "mean": 2.109224353386167,
+            "p50": 0.0,
+            "p95": 7.43132925033569,
+            "p99": 7.81362009048462,
+            "max": 7.8857855796814
+          }
+        },
+        "walk": {
+          "seconds": 19.989558,
+          "fps": 79.04126744573342,
+          "wall_ms": {
+            "samples": 1580,
+            "mean": 12.651618987341772,
+            "p50": 11.624500000000001,
+            "p95": 19.754,
+            "p99": 21.716,
+            "max": 34.274
+          },
+          "over_budget_5pct": 782,
+          "over_2budgets": 14,
+          "environment_selection_ms": {
+            "samples": 1580,
+            "mean": 2.1101651898734177,
+            "p50": 2.1205,
+            "p95": 2.411,
+            "p99": 2.851,
+            "max": 4.891
+          },
+          "grass_selection_ms": {
+            "samples": 1580,
+            "mean": 1.2225569620253165,
+            "p50": 0.0,
+            "p95": 6.965,
+            "p99": 7.681,
+            "max": 8.129
+          },
+          "grass_audio_ms": {
+            "samples": 1580,
+            "mean": 0.0,
+            "p50": 0.0,
+            "p95": 0.0,
+            "p99": 0.0,
+            "max": 0.0
+          },
+          "gpu_ms": {
+            "samples": 1580,
+            "mean": 2.8296310151679607,
+            "p50": 2.7845000028610247,
+            "p95": 4.3289999961853,
+            "p99": 5.46400022506714,
+            "max": 6.04699993133545
+          },
+          "audio_scans": 0.0,
+          "audio_cell_builds": 0.0,
+          "audio_emissions": 0.0,
+          "speed": {
+            "samples": 1580,
+            "mean": 5.6611336087690125,
+            "p50": 6.82246518135071,
+            "p95": 7.81476306915283,
+            "p99": 7.81832313537598,
+            "max": 7.86508464813232
+          }
+        },
+        "run": {
+          "seconds": 20.032745,
+          "fps": 68.58770478034837,
+          "wall_ms": {
+            "samples": 1374,
+            "mean": 14.579872634643378,
+            "p50": 16.939500000000002,
+            "p95": 20.61,
+            "p99": 21.69,
+            "max": 29.399
+          },
+          "over_budget_5pct": 877,
+          "over_2budgets": 9,
+          "environment_selection_ms": {
+            "samples": 1374,
+            "mean": 1.8494985443959242,
+            "p50": 1.638,
+            "p95": 2.349,
+            "p99": 2.521,
+            "max": 4.623
+          },
+          "grass_selection_ms": {
+            "samples": 1374,
+            "mean": 2.2483835516739448,
+            "p50": 0.0,
+            "p95": 7.705,
+            "p99": 8.055,
+            "max": 8.272
+          },
+          "grass_audio_ms": {
+            "samples": 1374,
+            "mean": 0.0,
+            "p50": 0.0,
+            "p95": 0.0,
+            "p99": 0.0,
+            "max": 0.0
+          },
+          "gpu_ms": {
+            "samples": 1374,
+            "mean": 3.317496367156766,
+            "p50": 3.27049994468689,
+            "p95": 5.31699991226196,
+            "p99": 5.80600023269653,
+            "max": 6.32200002670288
+          },
+          "audio_scans": 0.0,
+          "audio_cell_builds": 0.0,
+          "audio_emissions": 0.0,
+          "speed": {
+            "samples": 1374,
+            "mean": 7.126919973343393,
+            "p50": 7.812972784042355,
+            "p95": 8.04767608642578,
+            "p99": 8.27201366424561,
+            "max": 8.38460826873779
+          }
+        }
+      },
+      "quality_flags": [
+        "The first 20 seconds contain movement; the still/head-turn label describes the prompt, not observed stillness."
+      ]
+    },
+    {
+      "stage": 2,
+      "take": 3,
+      "condition": {
+        "audio": true,
+        "draw": true,
+        "name": "C: frozen selection + audio",
+        "play": true,
+        "selection": false
+      },
+      "reason": "complete",
+      "xr": true,
+      "target_hz": 90.0,
+      "phases": {
+        "all": {
+          "seconds": 60.005352,
+          "fps": 89.79199055444253,
+          "wall_ms": {
+            "samples": 5388,
+            "mean": 11.136850779510022,
+            "p50": 11.055499999999999,
+            "p95": 13.086,
+            "p99": 13.641,
+            "max": 15.139
+          },
+          "over_budget_5pct": 1674,
+          "over_2budgets": 0,
+          "environment_selection_ms": {
+            "samples": 5388,
+            "mean": 1.9626683370452858,
+            "p50": 1.942,
+            "p95": 2.351,
+            "p99": 2.572,
+            "max": 4.78
+          },
+          "grass_selection_ms": {
+            "samples": 5388,
+            "mean": 0.0,
+            "p50": 0.0,
+            "p95": 0.0,
+            "p99": 0.0,
+            "max": 0.0
+          },
+          "grass_audio_ms": {
+            "samples": 5388,
+            "mean": 0.0061070898292501855,
+            "p50": 0.002,
+            "p95": 0.04,
+            "p99": 0.05,
+            "max": 0.1
+          },
+          "gpu_ms": {
+            "samples": 5388,
+            "mean": 2.468847994925627,
+            "p50": 2.55050003528595,
+            "p95": 3.4909999370575,
+            "p99": 3.81500005722046,
+            "max": 4.29300022125244
+          },
+          "audio_scans": 571.0,
+          "audio_cell_builds": 0.0,
+          "audio_emissions": 58.0,
+          "speed": {
+            "samples": 5388,
+            "mean": 4.962623683893368,
+            "p50": 5.21610069274902,
+            "p95": 7.85842132568359,
+            "p99": 8.13379764556885,
+            "max": 8.3828067779541
+          }
+        },
+        "still_head_turn": {
+          "seconds": 19.996988,
+          "fps": 89.81352591700309,
+          "wall_ms": {
+            "samples": 1796,
+            "mean": 11.134180400890868,
+            "p50": 11.042,
+            "p95": 13.075,
+            "p99": 13.695,
+            "max": 14.748
+          },
+          "over_budget_5pct": 546,
+          "over_2budgets": 0,
+          "environment_selection_ms": {
+            "samples": 1796,
+            "mean": 1.8621336302895324,
+            "p50": 1.848,
+            "p95": 2.003,
+            "p99": 2.306,
+            "max": 4.178
+          },
+          "grass_selection_ms": {
+            "samples": 1796,
+            "mean": 0.0,
+            "p50": 0.0,
+            "p95": 0.0,
+            "p99": 0.0,
+            "max": 0.0
+          },
+          "grass_audio_ms": {
+            "samples": 1796,
+            "mean": 0.005631403118040089,
+            "p50": 0.002,
+            "p95": 0.04,
+            "p99": 0.043,
+            "max": 0.08
+          },
+          "gpu_ms": {
+            "samples": 1796,
+            "mean": 2.568958239393404,
+            "p50": 2.7375000715255746,
+            "p95": 3.51399993896484,
+            "p99": 3.79299998283386,
+            "max": 4.08799982070923
+          },
+          "audio_scans": 191.0,
+          "audio_cell_builds": 0.0,
+          "audio_emissions": 0.0,
+          "speed": {
+            "samples": 1796,
+            "mean": 2.621683709335852,
+            "p50": 2.664449095726015,
+            "p95": 6.88063716888428,
+            "p99": 7.81224727630615,
+            "max": 7.84598541259766
+          }
+        },
+        "walk": {
+          "seconds": 19.99303,
+          "fps": 89.78128877913953,
+          "wall_ms": {
+            "samples": 1795,
+            "mean": 11.138178272980502,
+            "p50": 11.05,
+            "p95": 13.048,
+            "p99": 13.555,
+            "max": 14.146
+          },
+          "over_budget_5pct": 564,
+          "over_2budgets": 0,
+          "environment_selection_ms": {
+            "samples": 1795,
+            "mean": 2.1613454038997215,
+            "p50": 2.15,
+            "p95": 2.414,
+            "p99": 2.801,
+            "max": 3.868
+          },
+          "grass_selection_ms": {
+            "samples": 1795,
+            "mean": 0.0,
+            "p50": 0.0,
+            "p95": 0.0,
+            "p99": 0.0,
+            "max": 0.0
+          },
+          "grass_audio_ms": {
+            "samples": 1795,
+            "mean": 0.00635766016713092,
+            "p50": 0.002,
+            "p95": 0.042,
+            "p99": 0.049,
+            "max": 0.1
+          },
+          "gpu_ms": {
+            "samples": 1795,
+            "mean": 2.666052924490905,
+            "p50": 2.84400010108948,
+            "p95": 3.61700010299683,
+            "p99": 3.94799995422363,
+            "max": 4.29300022125244
+          },
+          "audio_scans": 190.0,
+          "audio_cell_builds": 0.0,
+          "audio_emissions": 11.0,
+          "speed": {
+            "samples": 1795,
+            "mean": 4.842992104262031,
+            "p50": 5.04799938201904,
+            "p95": 7.8132495880127,
+            "p99": 7.82823801040649,
+            "max": 7.84311151504517
+          }
+        },
+        "run": {
+          "seconds": 20.015334,
+          "fps": 89.78116478096244,
+          "wall_ms": {
+            "samples": 1797,
+            "mean": 11.13819365609349,
+            "p50": 11.081,
+            "p95": 13.136,
+            "p99": 13.73,
+            "max": 15.139
+          },
+          "over_budget_5pct": 564,
+          "over_2budgets": 0,
+          "environment_selection_ms": {
+            "samples": 1797,
+            "mean": 1.8646911519198663,
+            "p50": 1.642,
+            "p95": 2.355,
+            "p99": 2.503,
+            "max": 4.78
+          },
+          "grass_selection_ms": {
+            "samples": 1797,
+            "mean": 0.0,
+            "p50": 0.0,
+            "p95": 0.0,
+            "p99": 0.0,
+            "max": 0.0
+          },
+          "grass_audio_ms": {
+            "samples": 1797,
+            "mean": 0.006332220367278798,
+            "p50": 0.003,
+            "p95": 0.035,
+            "p99": 0.051,
+            "max": 0.091
+          },
+          "gpu_ms": {
+            "samples": 1797,
+            "mean": 2.1718080129368675,
+            "p50": 2.15799999237061,
+            "p95": 3.20199990272522,
+            "p99": 3.38899993896484,
+            "max": 3.77900004386902
+          },
+          "audio_scans": 190.0,
+          "audio_cell_builds": 0.0,
+          "audio_emissions": 47.0,
+          "speed": {
+            "samples": 1797,
+            "mean": 7.42175939883135,
+            "p50": 7.81231307983398,
+            "p95": 8.04438018798828,
+            "p99": 8.2515697479248,
+            "max": 8.3828067779541
+          }
+        }
+      },
+      "quality_flags": [
+        "Frozen grass retained zero instances: this take does not isolate selection from drawing cost.",
+        "The first 20 seconds contain movement; the still/head-turn label describes the prompt, not observed stillness."
+      ]
+    },
+    {
+      "stage": 3,
+      "take": 4,
+      "condition": {
+        "audio": false,
+        "draw": true,
+        "name": "D: frozen selection, no grass audio",
+        "play": false,
+        "selection": false
+      },
+      "reason": "complete",
+      "xr": true,
+      "target_hz": 90.0,
+      "phases": {
+        "all": {
+          "seconds": 60.003204,
+          "fps": 89.77853915934223,
+          "wall_ms": {
+            "samples": 5387,
+            "mean": 11.13851939855207,
+            "p50": 11.037,
+            "p95": 13.207,
+            "p99": 13.855,
+            "max": 15.558
+          },
+          "over_budget_5pct": 1741,
+          "over_2budgets": 0,
+          "environment_selection_ms": {
+            "samples": 5387,
+            "mean": 2.020376090588454,
+            "p50": 2.031,
+            "p95": 2.418,
+            "p99": 2.714,
+            "max": 4.7
+          },
+          "grass_selection_ms": {
+            "samples": 5387,
+            "mean": 0.0,
+            "p50": 0.0,
+            "p95": 0.0,
+            "p99": 0.0,
+            "max": 0.0
+          },
+          "grass_audio_ms": {
+            "samples": 5387,
+            "mean": 0.0,
+            "p50": 0.0,
+            "p95": 0.0,
+            "p99": 0.0,
+            "max": 0.0
+          },
+          "gpu_ms": {
+            "samples": 5387,
+            "mean": 2.558752922217789,
+            "p50": 2.69899988174438,
+            "p95": 3.70000004768372,
+            "p99": 4.1399998664856,
+            "max": 4.90899991989136
+          },
+          "audio_scans": 0.0,
+          "audio_cell_builds": 0.0,
+          "audio_emissions": 0.0,
+          "speed": {
+            "samples": 5387,
+            "mean": 5.279625890411039,
+            "p50": 4.65541791915894,
+            "p95": 7.82145023345947,
+            "p99": 8.03146266937256,
+            "max": 8.35557746887207
+          }
+        },
+        "still_head_turn": {
+          "seconds": 19.992655,
+          "fps": 89.78297279675961,
+          "wall_ms": {
+            "samples": 1795,
+            "mean": 11.137969359331477,
+            "p50": 11.04,
+            "p95": 13.159,
+            "p99": 13.791,
+            "max": 15.154
+          },
+          "over_budget_5pct": 571,
+          "over_2budgets": 0,
+          "environment_selection_ms": {
+            "samples": 1795,
+            "mean": 1.8861649025069638,
+            "p50": 1.881,
+            "p95": 2.042,
+            "p99": 2.441,
+            "max": 4.108
+          },
+          "grass_selection_ms": {
+            "samples": 1795,
+            "mean": 0.0,
+            "p50": 0.0,
+            "p95": 0.0,
+            "p99": 0.0,
+            "max": 0.0
+          },
+          "grass_audio_ms": {
+            "samples": 1795,
+            "mean": 0.0,
+            "p50": 0.0,
+            "p95": 0.0,
+            "p99": 0.0,
+            "max": 0.0
+          },
+          "gpu_ms": {
+            "samples": 1795,
+            "mean": 2.1363749290243166,
+            "p50": 2.12100005149841,
+            "p95": 3.16499996185303,
+            "p99": 3.35700011253357,
+            "max": 4.65799999237061
+          },
+          "audio_scans": 0.0,
+          "audio_cell_builds": 0.0,
+          "audio_emissions": 0.0,
+          "speed": {
+            "samples": 1795,
+            "mean": 3.4887570901584493,
+            "p50": 3.80408239364624,
+            "p95": 6.11746740341187,
+            "p99": 6.55995178222656,
+            "max": 6.63855504989624
+          }
+        },
+        "walk": {
+          "seconds": 20.003427,
+          "fps": 89.78461540615017,
+          "wall_ms": {
+            "samples": 1796,
+            "mean": 11.137765590200445,
+            "p50": 11.0435,
+            "p95": 13.193,
+            "p99": 13.786,
+            "max": 15.558
+          },
+          "over_budget_5pct": 581,
+          "over_2budgets": 0,
+          "environment_selection_ms": {
+            "samples": 1796,
+            "mean": 2.1911648106904233,
+            "p50": 2.175,
+            "p95": 2.431,
+            "p99": 2.82,
+            "max": 4.7
+          },
+          "grass_selection_ms": {
+            "samples": 1796,
+            "mean": 0.0,
+            "p50": 0.0,
+            "p95": 0.0,
+            "p99": 0.0,
+            "max": 0.0
+          },
+          "grass_audio_ms": {
+            "samples": 1796,
+            "mean": 0.0,
+            "p50": 0.0,
+            "p95": 0.0,
+            "p99": 0.0,
+            "max": 0.0
+          },
+          "gpu_ms": {
+            "samples": 1796,
+            "mean": 2.639314031083228,
+            "p50": 2.80200004577637,
+            "p95": 3.54900002479553,
+            "p99": 3.87599992752075,
+            "max": 4.39400005340576
+          },
+          "audio_scans": 0.0,
+          "audio_cell_builds": 0.0,
+          "audio_emissions": 0.0,
+          "speed": {
+            "samples": 1796,
+            "mean": 4.88989492777511,
+            "p50": 4.4209084510803205,
+            "p95": 7.81253051757812,
+            "p99": 7.81556463241577,
+            "max": 7.82104349136353
+          }
+        },
+        "run": {
+          "seconds": 20.007122,
+          "fps": 89.76803360323389,
+          "wall_ms": {
+            "samples": 1796,
+            "mean": 11.13982293986637,
+            "p50": 11.015,
+            "p95": 13.312,
+            "p99": 13.964,
+            "max": 14.781
+          },
+          "over_budget_5pct": 589,
+          "over_2budgets": 0,
+          "environment_selection_ms": {
+            "samples": 1796,
+            "mean": 1.9837238307349665,
+            "p50": 2.19,
+            "p95": 2.453,
+            "p99": 2.781,
+            "max": 3.431
+          },
+          "grass_selection_ms": {
+            "samples": 1796,
+            "mean": 0.0,
+            "p50": 0.0,
+            "p95": 0.0,
+            "p99": 0.0,
+            "max": 0.0
+          },
+          "grass_audio_ms": {
+            "samples": 1796,
+            "mean": 0.0,
+            "p50": 0.0,
+            "p95": 0.0,
+            "p99": 0.0,
+            "max": 0.0
+          },
+          "gpu_ms": {
+            "samples": 1796,
+            "mean": 2.9003346294894783,
+            "p50": 3.10899996757507,
+            "p95": 4.01700019836426,
+            "p99": 4.40199995040894,
+            "max": 4.90899991989136
+          },
+          "audio_scans": 0.0,
+          "audio_cell_builds": 0.0,
+          "audio_emissions": 0.0,
+          "speed": {
+            "samples": 1796,
+            "mean": 7.459228510315009,
+            "p50": 7.81216382980347,
+            "p95": 7.95331811904907,
+            "p99": 8.2042407989502,
+            "max": 8.35557746887207
+          }
+        }
+      },
+      "quality_flags": [
+        "Frozen grass retained zero instances: this take does not isolate selection from drawing cost.",
+        "The first 20 seconds contain movement; the still/head-turn label describes the prompt, not observed stillness."
+      ]
+    },
+    {
+      "stage": 4,
+      "take": 5,
+      "condition": {
+        "audio": false,
+        "draw": false,
+        "name": "E: grass hidden, no grass audio",
+        "play": false,
+        "selection": false
+      },
+      "reason": "complete",
+      "xr": true,
+      "target_hz": 90.0,
+      "phases": {
+        "all": {
+          "seconds": 60.007142,
+          "fps": 89.72265334682994,
+          "wall_ms": {
+            "samples": 5384,
+            "mean": 11.145457280832096,
+            "p50": 11.055,
+            "p95": 13.241,
+            "p99": 13.834,
+            "max": 19.759
+          },
+          "over_budget_5pct": 1794,
+          "over_2budgets": 0,
+          "environment_selection_ms": {
+            "samples": 5384,
+            "mean": 2.0074736255572065,
+            "p50": 2.002,
+            "p95": 2.349,
+            "p99": 2.709,
+            "max": 5.093
+          },
+          "grass_selection_ms": {
+            "samples": 5384,
+            "mean": 0.0,
+            "p50": 0.0,
+            "p95": 0.0,
+            "p99": 0.0,
+            "max": 0.0
+          },
+          "grass_audio_ms": {
+            "samples": 5384,
+            "mean": 0.0,
+            "p50": 0.0,
+            "p95": 0.0,
+            "p99": 0.0,
+            "max": 0.0
+          },
+          "gpu_ms": {
+            "samples": 5384,
+            "mean": 2.296529346288225,
+            "p50": 2.21000003814697,
+            "p95": 3.5460000038147,
+            "p99": 3.87299990653992,
+            "max": 5.99399995803833
+          },
+          "audio_scans": 0.0,
+          "audio_cell_builds": 0.0,
+          "audio_emissions": 0.0,
+          "speed": {
+            "samples": 5384,
+            "mean": 4.869861002178395,
+            "p50": 3.55614185333252,
+            "p95": 7.85826063156128,
+            "p99": 8.10201454162598,
+            "max": 8.31949710845947
+          }
+        },
+        "still_head_turn": {
+          "seconds": 19.99192,
+          "fps": 89.73625344639234,
+          "wall_ms": {
+            "samples": 1794,
+            "mean": 11.143768115942029,
+            "p50": 11.044,
+            "p95": 13.129,
+            "p99": 13.734,
+            "max": 15.128
+          },
+          "over_budget_5pct": 588,
+          "over_2budgets": 0,
+          "environment_selection_ms": {
+            "samples": 1794,
+            "mean": 1.910711259754738,
+            "p50": 1.895,
+            "p95": 2.051,
+            "p99": 2.55,
+            "max": 3.954
+          },
+          "grass_selection_ms": {
+            "samples": 1794,
+            "mean": 0.0,
+            "p50": 0.0,
+            "p95": 0.0,
+            "p99": 0.0,
+            "max": 0.0
+          },
+          "grass_audio_ms": {
+            "samples": 1794,
+            "mean": 0.0,
+            "p50": 0.0,
+            "p95": 0.0,
+            "p99": 0.0,
+            "max": 0.0
+          },
+          "gpu_ms": {
+            "samples": 1794,
+            "mean": 2.208588628399465,
+            "p50": 2.21749997138977,
+            "p95": 3.12599992752075,
+            "p99": 3.45199990272522,
+            "max": 3.80399990081787
+          },
+          "audio_scans": 0.0,
+          "audio_cell_builds": 0.0,
+          "audio_emissions": 0.0,
+          "speed": {
+            "samples": 1794,
+            "mean": 2.9846591074414213,
+            "p50": 3.137643337249755,
+            "p95": 7.81271982192993,
+            "p99": 7.81790971755981,
+            "max": 7.85009479522705
+          }
+        },
+        "walk": {
+          "seconds": 19.99776,
+          "fps": 89.76005312595011,
+          "wall_ms": {
+            "samples": 1795,
+            "mean": 11.140813370473538,
+            "p50": 11.051,
+            "p95": 13.217,
+            "p99": 13.817,
+            "max": 15.643
+          },
+          "over_budget_5pct": 616,
+          "over_2budgets": 0,
+          "environment_selection_ms": {
+            "samples": 1795,
+            "mean": 2.1430206128133706,
+            "p50": 2.144,
+            "p95": 2.359,
+            "p99": 2.882,
+            "max": 4.723
+          },
+          "grass_selection_ms": {
+            "samples": 1795,
+            "mean": 0.0,
+            "p50": 0.0,
+            "p95": 0.0,
+            "p99": 0.0,
+            "max": 0.0
+          },
+          "grass_audio_ms": {
+            "samples": 1795,
+            "mean": 0.0,
+            "p50": 0.0,
+            "p95": 0.0,
+            "p99": 0.0,
+            "max": 0.0
+          },
+          "gpu_ms": {
+            "samples": 1795,
+            "mean": 2.3648685246789025,
+            "p50": 2.18499994277954,
+            "p95": 3.73600006103516,
+            "p99": 4.02199983596802,
+            "max": 4.40700006484985
+          },
+          "audio_scans": 0.0,
+          "audio_cell_builds": 0.0,
+          "audio_emissions": 0.0,
+          "speed": {
+            "samples": 1795,
+            "mean": 4.310637764479124,
+            "p50": 3.18696117401123,
+            "p95": 7.81309509277344,
+            "p99": 7.83930397033691,
+            "max": 7.91462182998657
+          }
+        },
+        "run": {
+          "seconds": 20.017462,
+          "fps": 89.67170763206646,
+          "wall_ms": {
+            "samples": 1795,
+            "mean": 11.151789415041783,
+            "p50": 11.075,
+            "p95": 13.301,
+            "p99": 14.081,
+            "max": 19.759
+          },
+          "over_budget_5pct": 590,
+          "over_2budgets": 0,
+          "environment_selection_ms": {
+            "samples": 1795,
+            "mean": 1.9686350974930362,
+            "p50": 2.157,
+            "p95": 2.379,
+            "p99": 2.751,
+            "max": 5.093
+          },
+          "grass_selection_ms": {
+            "samples": 1795,
+            "mean": 0.0,
+            "p50": 0.0,
+            "p95": 0.0,
+            "p99": 0.0,
+            "max": 0.0
+          },
+          "grass_audio_ms": {
+            "samples": 1795,
+            "mean": 0.0,
+            "p50": 0.0,
+            "p95": 0.0,
+            "p99": 0.0,
+            "max": 0.0
+          },
+          "gpu_ms": {
+            "samples": 1795,
+            "mean": 2.316081893742915,
+            "p50": 2.25699996948242,
+            "p95": 3.5460000038147,
+            "p99": 3.81699991226196,
+            "max": 5.99399995803833
+          },
+          "audio_scans": 0.0,
+          "audio_cell_builds": 0.0,
+          "audio_emissions": 0.0,
+          "speed": {
+            "samples": 1795,
+            "mean": 7.313235882862696,
+            "p50": 7.81209278106689,
+            "p95": 8.00502967834473,
+            "p99": 8.22434234619141,
+            "max": 8.31949710845947
+          }
+        }
+      },
+      "quality_flags": [
+        "The first 20 seconds contain movement; the still/head-turn label describes the prompt, not observed stillness."
+      ]
+    },
+    {
+      "stage": 5,
+      "take": 6,
+      "condition": {
+        "audio": true,
+        "draw": true,
+        "name": "F: normal grass + silent audio queries",
+        "play": false,
+        "selection": true
+      },
+      "reason": "complete",
+      "xr": true,
+      "target_hz": 90.0,
+      "phases": {
+        "all": {
+          "seconds": 60.001746,
+          "fps": 79.61434988908489,
+          "wall_ms": {
+            "samples": 4777,
+            "mean": 12.560549717395855,
+            "p50": 11.365,
+            "p95": 20.329,
+            "p99": 28.496,
+            "max": 39.996
+          },
+          "over_budget_5pct": 2171,
+          "over_2budgets": 131,
+          "environment_selection_ms": {
+            "samples": 4777,
+            "mean": 2.0061590956667366,
+            "p50": 2.01,
+            "p95": 2.445,
+            "p99": 2.877,
+            "max": 5.184
+          },
+          "grass_selection_ms": {
+            "samples": 4777,
+            "mean": 1.163648314841951,
+            "p50": 0.0,
+            "p95": 7.797,
+            "p99": 8.532,
+            "max": 9.579
+          },
+          "grass_audio_ms": {
+            "samples": 4777,
+            "mean": 0.006219593887377015,
+            "p50": 0.003,
+            "p95": 0.036,
+            "p99": 0.044,
+            "max": 0.117
+          },
+          "gpu_ms": {
+            "samples": 4777,
+            "mean": 2.8090588246675523,
+            "p50": 2.84400010108948,
+            "p95": 4.57000017166138,
+            "p99": 5.2649998664856,
+            "max": 6.08199977874756
+          },
+          "audio_scans": 557.0,
+          "audio_cell_builds": 0.0,
+          "audio_emissions": 0.0,
+          "speed": {
+            "samples": 4777,
+            "mean": 4.835939503471573,
+            "p50": 3.79906272888184,
+            "p95": 7.91732692718506,
+            "p99": 8.21341228485107,
+            "max": 8.42730140686035
+          }
+        },
+        "still_head_turn": {
+          "seconds": 19.989782,
+          "fps": 89.64580003924004,
+          "wall_ms": {
+            "samples": 1792,
+            "mean": 11.155012276785714,
+            "p50": 11.1095,
+            "p95": 13.906,
+            "p99": 15.719,
+            "max": 23.442
+          },
+          "over_budget_5pct": 657,
+          "over_2budgets": 1,
+          "environment_selection_ms": {
+            "samples": 1792,
+            "mean": 1.9449408482142858,
+            "p50": 1.93,
+            "p95": 2.16,
+            "p99": 2.718,
+            "max": 4.569
+          },
+          "grass_selection_ms": {
+            "samples": 1792,
+            "mean": 0.29942633928571427,
+            "p50": 0.0,
+            "p95": 2.44,
+            "p99": 3.327,
+            "max": 4.464
+          },
+          "grass_audio_ms": {
+            "samples": 1792,
+            "mean": 0.005952008928571429,
+            "p50": 0.002,
+            "p95": 0.041,
+            "p99": 0.044,
+            "max": 0.094
+          },
+          "gpu_ms": {
+            "samples": 1792,
+            "mean": 2.6390909601801207,
+            "p50": 2.798500061035155,
+            "p95": 3.61199998855591,
+            "p99": 4.30000019073486,
+            "max": 5.18699979782104
+          },
+          "audio_scans": 190.0,
+          "audio_cell_builds": 0.0,
+          "audio_emissions": 0.0,
+          "speed": {
+            "samples": 1792,
+            "mean": 3.8523022353599248,
+            "p50": 3.5371868610382053,
+            "p95": 7.81846237182617,
+            "p99": 7.84895133972168,
+            "max": 7.89722776412964
+          }
+        },
+        "walk": {
+          "seconds": 19.994147,
+          "fps": 80.12344812709439,
+          "wall_ms": {
+            "samples": 1602,
+            "mean": 12.480740948813983,
+            "p50": 11.4695,
+            "p95": 19.313,
+            "p99": 21.377,
+            "max": 29.588
+          },
+          "over_budget_5pct": 751,
+          "over_2budgets": 9,
+          "environment_selection_ms": {
+            "samples": 1602,
+            "mean": 2.0826104868913857,
+            "p50": 2.116,
+            "p95": 2.344,
+            "p99": 2.85,
+            "max": 4.392
+          },
+          "grass_selection_ms": {
+            "samples": 1602,
+            "mean": 0.9555749063670412,
+            "p50": 0.0,
+            "p95": 6.628,
+            "p99": 6.935,
+            "max": 8.317
+          },
+          "grass_audio_ms": {
+            "samples": 1602,
+            "mean": 0.006054307116104869,
+            "p50": 0.003,
+            "p95": 0.034,
+            "p99": 0.046,
+            "max": 0.117
+          },
+          "gpu_ms": {
+            "samples": 1602,
+            "mean": 2.5746760312537575,
+            "p50": 2.5010000467300397,
+            "p95": 4.14599990844727,
+            "p99": 5.20900011062622,
+            "max": 6.08199977874756
+          },
+          "audio_scans": 186.0,
+          "audio_cell_builds": 0.0,
+          "audio_emissions": 0.0,
+          "speed": {
+            "samples": 1602,
+            "mean": 3.7336304272419207,
+            "p50": 2.421532154083255,
+            "p95": 7.88768482208252,
+            "p99": 8.09141159057617,
+            "max": 8.29380702972412
+          }
+        },
+        "run": {
+          "seconds": 20.017817,
+          "fps": 69.088452552044,
+          "wall_ms": {
+            "samples": 1383,
+            "mean": 14.474198843094722,
+            "p50": 15.25,
+            "p95": 27.475,
+            "p99": 30.98,
+            "max": 39.996
+          },
+          "over_budget_5pct": 763,
+          "over_2budgets": 121,
+          "environment_selection_ms": {
+            "samples": 1383,
+            "mean": 1.9969240780911064,
+            "p50": 2.182,
+            "p95": 2.539,
+            "p99": 3.012,
+            "max": 5.184
+          },
+          "grass_selection_ms": {
+            "samples": 1383,
+            "mean": 2.524472161966739,
+            "p50": 0.0,
+            "p95": 8.41,
+            "p99": 8.902,
+            "max": 9.579
+          },
+          "grass_audio_ms": {
+            "samples": 1383,
+            "mean": 0.006757772957339118,
+            "p50": 0.003,
+            "p95": 0.034,
+            "p99": 0.039,
+            "max": 0.105
+          },
+          "gpu_ms": {
+            "samples": 1383,
+            "mean": 3.3007895898232835,
+            "p50": 3.24200010299683,
+            "p95": 5.13800001144409,
+            "p99": 5.54199981689453,
+            "max": 5.93200016021729
+          },
+          "audio_scans": 181.0,
+          "audio_cell_builds": 0.0,
+          "audio_emissions": 0.0,
+          "speed": {
+            "samples": 1383,
+            "mean": 7.387332941342848,
+            "p50": 7.81268548965454,
+            "p95": 8.11767673492432,
+            "p99": 8.287672996521,
+            "max": 8.42730140686035
+          }
+        }
+      },
+      "quality_flags": [
+        "The first 20 seconds contain movement; the still/head-turn label describes the prompt, not observed stillness."
+      ]
+    },
+    {
+      "stage": 6,
+      "take": 7,
+      "condition": {
+        "audio": false,
+        "draw": true,
+        "environment_selection": false,
+        "name": "G: trees/bush selection frozen, no audio",
+        "play": false,
+        "selection": true
+      },
+      "reason": "complete",
+      "xr": true,
+      "target_hz": 90.0,
+      "phases": {
+        "all": {
+          "seconds": 60.001915,
+          "fps": 82.73069284538668,
+          "wall_ms": {
+            "samples": 4964,
+            "mean": 12.087412369057212,
+            "p50": 11.251000000000001,
+            "p95": 19.962,
+            "p99": 21.273,
+            "max": 29.361
+          },
+          "over_budget_5pct": 2216,
+          "over_2budgets": 9,
+          "environment_selection_ms": {
+            "samples": 4964,
+            "mean": 0.0,
+            "p50": 0.0,
+            "p95": 0.0,
+            "p99": 0.0,
+            "max": 0.0
+          },
+          "grass_selection_ms": {
+            "samples": 4964,
+            "mean": 1.1997902900886381,
+            "p50": 0.0,
+            "p95": 7.369,
+            "p99": 8.161,
+            "max": 9.862
+          },
+          "grass_audio_ms": {
+            "samples": 4964,
+            "mean": 0.0,
+            "p50": 0.0,
+            "p95": 0.0,
+            "p99": 0.0,
+            "max": 0.0
+          },
+          "gpu_ms": {
+            "samples": 4964,
+            "mean": 2.9502036679328976,
+            "p50": 3.002500057220455,
+            "p95": 4.88899993896484,
+            "p99": 5.38199996948242,
+            "max": 8.13399982452393
+          },
+          "audio_scans": 0.0,
+          "audio_cell_builds": 0.0,
+          "audio_emissions": 0.0,
+          "speed": {
+            "samples": 4964,
+            "mean": 5.339741905732418,
+            "p50": 5.24501991271973,
+            "p95": 7.86357069015503,
+            "p99": 8.3422269821167,
+            "max": 8.48982715606689
+          }
+        },
+        "still_head_turn": {
+          "seconds": 19.993558,
+          "fps": 89.77891778941998,
+          "wall_ms": {
+            "samples": 1795,
+            "mean": 11.138472423398328,
+            "p50": 11.006,
+            "p95": 13.753,
+            "p99": 15.299,
+            "max": 17.197
+          },
+          "over_budget_5pct": 635,
+          "over_2budgets": 0,
+          "environment_selection_ms": {
+            "samples": 1795,
+            "mean": 0.0,
+            "p50": 0.0,
+            "p95": 0.0,
+            "p99": 0.0,
+            "max": 0.0
+          },
+          "grass_selection_ms": {
+            "samples": 1795,
+            "mean": 0.22989693593314764,
+            "p50": 0.0,
+            "p95": 1.677,
+            "p99": 2.984,
+            "max": 3.8
+          },
+          "grass_audio_ms": {
+            "samples": 1795,
+            "mean": 0.0,
+            "p50": 0.0,
+            "p95": 0.0,
+            "p99": 0.0,
+            "max": 0.0
+          },
+          "gpu_ms": {
+            "samples": 1795,
+            "mean": 2.514185517478454,
+            "p50": 2.70099997520447,
+            "p95": 3.55800008773804,
+            "p99": 3.98900008201599,
+            "max": 4.71299982070923
+          },
+          "audio_scans": 0.0,
+          "audio_cell_builds": 0.0,
+          "audio_emissions": 0.0,
+          "speed": {
+            "samples": 1795,
+            "mean": 3.578478578488475,
+            "p50": 2.96539282798767,
+            "p95": 7.82929801940918,
+            "p99": 7.88024616241455,
+            "max": 8.07644748687744
+          }
+        },
+        "walk": {
+          "seconds": 20.000353,
+          "fps": 85.04849889399452,
+          "wall_ms": {
+            "samples": 1701,
+            "mean": 11.757997060552617,
+            "p50": 11.187,
+            "p95": 19.366,
+            "p99": 20.603,
+            "max": 29.361
+          },
+          "over_budget_5pct": 760,
+          "over_2budgets": 5,
+          "environment_selection_ms": {
+            "samples": 1701,
+            "mean": 0.0,
+            "p50": 0.0,
+            "p95": 0.0,
+            "p99": 0.0,
+            "max": 0.0
+          },
+          "grass_selection_ms": {
+            "samples": 1701,
+            "mean": 1.3640881834215168,
+            "p50": 0.0,
+            "p95": 6.974,
+            "p99": 7.433,
+            "max": 8.203
+          },
+          "grass_audio_ms": {
+            "samples": 1701,
+            "mean": 0.0,
+            "p50": 0.0,
+            "p95": 0.0,
+            "p99": 0.0,
+            "max": 0.0
+          },
+          "gpu_ms": {
+            "samples": 1701,
+            "mean": 2.9914344529556147,
+            "p50": 2.98900008201599,
+            "p95": 4.86999988555908,
+            "p99": 5.22100019454956,
+            "max": 5.61600017547607
+          },
+          "audio_scans": 0.0,
+          "audio_cell_builds": 0.0,
+          "audio_emissions": 0.0,
+          "speed": {
+            "samples": 1701,
+            "mean": 5.60420241785498,
+            "p50": 4.77193927764893,
+            "p95": 7.81367015838623,
+            "p99": 7.82012891769409,
+            "max": 7.82522821426392
+          }
+        },
+        "run": {
+          "seconds": 20.008004,
+          "fps": 73.37063707104417,
+          "wall_ms": {
+            "samples": 1468,
+            "mean": 13.629430517711171,
+            "p50": 16.670499999999997,
+            "p95": 20.905,
+            "p99": 21.769,
+            "max": 24.352
+          },
+          "over_budget_5pct": 821,
+          "over_2budgets": 4,
+          "environment_selection_ms": {
+            "samples": 1468,
+            "mean": 0.0,
+            "p50": 0.0,
+            "p95": 0.0,
+            "p99": 0.0,
+            "max": 0.0
+          },
+          "grass_selection_ms": {
+            "samples": 1468,
+            "mean": 2.1953542234332426,
+            "p50": 0.0,
+            "p95": 8.045,
+            "p99": 8.33,
+            "max": 9.862
+          },
+          "grass_audio_ms": {
+            "samples": 1468,
+            "mean": 0.0,
+            "p50": 0.0,
+            "p95": 0.0,
+            "p99": 0.0,
+            "max": 0.0
+          },
+          "gpu_ms": {
+            "samples": 1468,
+            "mean": 3.4355708441877235,
+            "p50": 3.21099996566772,
+            "p95": 5.22900009155273,
+            "p99": 5.66599988937378,
+            "max": 8.13399982452393
+          },
+          "audio_scans": 0.0,
+          "audio_cell_builds": 0.0,
+          "audio_emissions": 0.0,
+          "speed": {
+            "samples": 1468,
+            "mean": 7.186894726769476,
+            "p50": 7.812594175338745,
+            "p95": 8.20932674407959,
+            "p99": 8.42759227752686,
+            "max": 8.48982715606689
+          }
+        }
+      },
+      "quality_flags": [
+        "The first 20 seconds contain movement; the still/head-turn label describes the prompt, not observed stillness."
+      ]
+    },
+    {
+      "stage": 7,
+      "take": 8,
+      "condition": {
+        "audio": false,
+        "draw": true,
+        "environment_selection": false,
+        "name": "H: all vegetation selection frozen, no audio",
+        "play": false,
+        "selection": false
+      },
+      "reason": "complete",
+      "xr": true,
+      "target_hz": 90.0,
+      "phases": {
+        "all": {
+          "seconds": 60.003295,
+          "fps": 89.77840300270176,
+          "wall_ms": {
+            "samples": 5387,
+            "mean": 11.138536291071096,
+            "p50": 11.036,
+            "p95": 13.285,
+            "p99": 13.837,
+            "max": 15.908
+          },
+          "over_budget_5pct": 1720,
+          "over_2budgets": 0,
+          "environment_selection_ms": {
+            "samples": 5387,
+            "mean": 0.0,
+            "p50": 0.0,
+            "p95": 0.0,
+            "p99": 0.0,
+            "max": 0.0
+          },
+          "grass_selection_ms": {
+            "samples": 5387,
+            "mean": 0.0,
+            "p50": 0.0,
+            "p95": 0.0,
+            "p99": 0.0,
+            "max": 0.0
+          },
+          "grass_audio_ms": {
+            "samples": 5387,
+            "mean": 0.0,
+            "p50": 0.0,
+            "p95": 0.0,
+            "p99": 0.0,
+            "max": 0.0
+          },
+          "gpu_ms": {
+            "samples": 5387,
+            "mean": 3.0189652879759934,
+            "p50": 3.10800004005432,
+            "p95": 4.28299999237061,
+            "p99": 4.58199977874756,
+            "max": 5.32200002670288
+          },
+          "audio_scans": 0.0,
+          "audio_cell_builds": 0.0,
+          "audio_emissions": 0.0,
+          "speed": {
+            "samples": 5387,
+            "mean": 5.737554429271501,
+            "p50": 5.57764387130737,
+            "p95": 7.87779855728149,
+            "p99": 8.1783504486084,
+            "max": 8.4921178817749
+          }
+        },
+        "still_head_turn": {
+          "seconds": 19.999022,
+          "fps": 89.80439143474116,
+          "wall_ms": {
+            "samples": 1796,
+            "mean": 11.135312917594655,
+            "p50": 11.019,
+            "p95": 13.23,
+            "p99": 13.791,
+            "max": 14.404
+          },
+          "over_budget_5pct": 588,
+          "over_2budgets": 0,
+          "environment_selection_ms": {
+            "samples": 1796,
+            "mean": 0.0,
+            "p50": 0.0,
+            "p95": 0.0,
+            "p99": 0.0,
+            "max": 0.0
+          },
+          "grass_selection_ms": {
+            "samples": 1796,
+            "mean": 0.0,
+            "p50": 0.0,
+            "p95": 0.0,
+            "p99": 0.0,
+            "max": 0.0
+          },
+          "grass_audio_ms": {
+            "samples": 1796,
+            "mean": 0.0,
+            "p50": 0.0,
+            "p95": 0.0,
+            "p99": 0.0,
+            "max": 0.0
+          },
+          "gpu_ms": {
+            "samples": 1796,
+            "mean": 3.4818652551662685,
+            "p50": 3.49600005149841,
+            "p95": 4.15299987792969,
+            "p99": 4.31899976730347,
+            "max": 5.18499994277954
+          },
+          "audio_scans": 0.0,
+          "audio_cell_builds": 0.0,
+          "audio_emissions": 0.0,
+          "speed": {
+            "samples": 1796,
+            "mean": 4.63452481781288,
+            "p50": 4.624270439147949,
+            "p95": 7.8642725944519,
+            "p99": 7.89313077926636,
+            "max": 7.9457221031189
+          }
+        },
+        "walk": {
+          "seconds": 19.993464,
+          "fps": 89.77933988827549,
+          "wall_ms": {
+            "samples": 1795,
+            "mean": 11.138420055710306,
+            "p50": 11.042,
+            "p95": 13.252,
+            "p99": 13.825,
+            "max": 15.908
+          },
+          "over_budget_5pct": 582,
+          "over_2budgets": 0,
+          "environment_selection_ms": {
+            "samples": 1795,
+            "mean": 0.0,
+            "p50": 0.0,
+            "p95": 0.0,
+            "p99": 0.0,
+            "max": 0.0
+          },
+          "grass_selection_ms": {
+            "samples": 1795,
+            "mean": 0.0,
+            "p50": 0.0,
+            "p95": 0.0,
+            "p99": 0.0,
+            "max": 0.0
+          },
+          "grass_audio_ms": {
+            "samples": 1795,
+            "mean": 0.0,
+            "p50": 0.0,
+            "p95": 0.0,
+            "p99": 0.0,
+            "max": 0.0
+          },
+          "gpu_ms": {
+            "samples": 1795,
+            "mean": 3.287809472562211,
+            "p50": 3.60999989509583,
+            "p95": 4.48400020599365,
+            "p99": 4.70699977874756,
+            "max": 5.32200002670288
+          },
+          "audio_scans": 0.0,
+          "audio_cell_builds": 0.0,
+          "audio_emissions": 0.0,
+          "speed": {
+            "samples": 1795,
+            "mean": 5.001474373005227,
+            "p50": 5.09437227249146,
+            "p95": 6.84915018081665,
+            "p99": 7.82233428955078,
+            "max": 7.90671110153198
+          }
+        },
+        "run": {
+          "seconds": 20.010809,
+          "fps": 89.751493805173,
+          "wall_ms": {
+            "samples": 1796,
+            "mean": 11.14187583518931,
+            "p50": 11.0445,
+            "p95": 13.337,
+            "p99": 13.978,
+            "max": 15.265
+          },
+          "over_budget_5pct": 550,
+          "over_2budgets": 0,
+          "environment_selection_ms": {
+            "samples": 1796,
+            "mean": 0.0,
+            "p50": 0.0,
+            "p95": 0.0,
+            "p99": 0.0,
+            "max": 0.0
+          },
+          "grass_selection_ms": {
+            "samples": 1796,
+            "mean": 0.0,
+            "p50": 0.0,
+            "p95": 0.0,
+            "p99": 0.0,
+            "max": 0.0
+          },
+          "grass_audio_ms": {
+            "samples": 1796,
+            "mean": 0.0,
+            "p50": 0.0,
+            "p95": 0.0,
+            "p99": 0.0,
+            "max": 0.0
+          },
+          "gpu_ms": {
+            "samples": 1796,
+            "mean": 2.2873708267254393,
+            "p50": 2.170500040054325,
+            "p95": 3.34800004959106,
+            "p99": 3.60899996757507,
+            "max": 4.00400018692017
+          },
+          "audio_scans": 0.0,
+          "audio_cell_builds": 0.0,
+          "audio_emissions": 0.0,
+          "speed": {
+            "samples": 1796,
+            "mean": 7.576254252867072,
+            "p50": 7.8122935295105,
+            "p95": 8.03385734558105,
+            "p99": 8.4238224029541,
+            "max": 8.4921178817749
+          }
+        }
+      },
+      "quality_flags": [
+        "Frozen grass retained zero instances: this take does not isolate selection from drawing cost.",
+        "The first 20 seconds contain movement; the still/head-turn label describes the prompt, not observed stillness."
+      ]
+    }
+  ],
+  "limitations": [
+    "Frame intervals include CPU work, waits and runtime pacing; they are not pure CPU duration.",
+    "Renderer GPU timestamps can lag; direct selection/audio durations are measured on the sample callback frame.",
+    "Do not sum independent percentiles. Compare repeated matched routes and phases, including reversed condition order.",
+    "Frozen selection deliberately holds stale geometry while moving; this condition is diagnostic only.",
+    "Desktop smoke captures do not qualify headset performance."
+  ]
+}

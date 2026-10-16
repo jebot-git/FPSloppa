@@ -1,0 +1,190 @@
+{
+  "generated_at": "2026-10-15T21:50:25.409773+00:00",
+  "branch": "experimental/cq-voxelspace",
+  "host": "Linux-7.2.9-200.nobara.fc44.x86_64-x86_64-with-glibc2.43",
+  "cpu": "12th Gen Intel(R) Core(TM) i7-12700",
+  "ports": {
+    "vegetation": "Seeded tree/grass candidate generation in FPSWorld; authored roads/hydrology preparation remains script. RNG is tile-local; terrain configuration readonly during workers.",
+    "audio": "FPSAudio grass eligibility/distance/cadence history plus cached FPSWorld grass contact cells; spatial source pruning, physics visibility rays, attenuation/filter updates and room probes in C++. Script retains actor-state gathering, resource loading and playback. Audio scene access restricted to owner thread.",
+    "buildings": "FPSWorld cached bounds/LOD hysteresis/frustum/distance selection and packed MultiMesh transforms; refreshed on destruction patches and round restore. Script retains scene setup/GPU buffer submission.",
+    "prediction": "FPSMovement bounded insertion-ordered sample history, acknowledgement guard, error/impulse calculations, contact filtering, pruning and pending-state shifts. Script retains actor lifecycle, stance/jetpack reconciliation and applying corrections. Diagnostics use explicit snapshots; network fast path uses native history size."
+  },
+  "parity_headless": {
+    "checks": 8162,
+    "failures": [],
+    "measurements": {
+      "buildings": {
+        "native_mean_us": 16.81,
+        "reference_mean_us": 56.4,
+        "sites": 64
+      },
+      "grass_audio": {
+        "actors": 64,
+        "events": 2713,
+        "native_mean_us": 72.1722222222222,
+        "reference_mean_us": 213.905555555556
+      },
+      "prediction": {
+        "full_history_native_mean_us": 5.3725,
+        "full_history_reference_mean_us": 48.725,
+        "native_mean_us": 4.525,
+        "reconciliations": 200,
+        "reference_mean_us": 5.245
+      },
+      "spatial_audio": {
+        "native_mean_us": 28.54,
+        "reference_mean_us": 44.4,
+        "sources": 32
+      },
+      "vegetation": {
+        "grass_max_error": 0.0,
+        "native_mean_us": 150.192307692308,
+        "reference_mean_us": 4950.26923076923,
+        "tiles": 52,
+        "tree_max_error": 1.52587890625e-05
+      }
+    }
+  },
+  "parity_vulkan": {
+    "checks": 8162,
+    "failures": [],
+    "measurements": {
+      "buildings": {
+        "native_mean_us": 34.42,
+        "reference_mean_us": 72.12,
+        "sites": 64
+      },
+      "grass_audio": {
+        "actors": 64,
+        "events": 2713,
+        "native_mean_us": 74.9111111111111,
+        "reference_mean_us": 218.188888888889
+      },
+      "prediction": {
+        "full_history_native_mean_us": 5.78,
+        "full_history_reference_mean_us": 49.7425,
+        "native_mean_us": 4.735,
+        "reconciliations": 200,
+        "reference_mean_us": 5.5
+      },
+      "spatial_audio": {
+        "native_mean_us": 28.19,
+        "reference_mean_us": 44.96,
+        "sources": 32
+      },
+      "vegetation": {
+        "grass_max_error": 0.0,
+        "native_mean_us": 150.634615384615,
+        "reference_mean_us": 4959.25,
+        "tiles": 52,
+        "tree_max_error": 1.52587890625e-05
+      }
+    }
+  },
+  "world": {
+    "checks": 56,
+    "color_error": 7.09019730038563e-07,
+    "failures": [],
+    "height_error": 0.000518798828125,
+    "native_tile_mean_us": 2271.0,
+    "reference_tile_mean_us": 86972.25
+  },
+  "grass_render": {
+    "capacity": 2048,
+    "checks": 4288,
+    "distance_m": 96.0,
+    "errors": [],
+    "evicted": 469,
+    "loaded": 714,
+    "lod_counts": [
+      600,
+      400,
+      600,
+      0,
+      56,
+      84,
+      0,
+      28,
+      42,
+      0,
+      28,
+      42
+    ],
+    "max_draws_per_eye": 12,
+    "peak_jobs": 2,
+    "peak_resident_tufts": 196676,
+    "peak_tiles": 245,
+    "resident_species": [
+      181859,
+      6792,
+      4106,
+      3919
+    ],
+    "resident_tufts": 196676,
+    "triangles": 95616,
+    "visible_tufts": 1880
+  },
+  "grass_audio": {
+    "checks": 7,
+    "failures": []
+  },
+  "field_audio": {
+    "checks": 19,
+    "failures": []
+  },
+  "native_destruction": {
+    "checks": 61,
+    "commit_usec": 140,
+    "discarded": 2,
+    "failures": [],
+    "submitted": 4
+  },
+  "builds": {
+    "linux-client": {
+      "source_receipt_valid": true,
+      "sha256": "7d6296190a810b74fdce73babf9338fb36d22f3ed74df2675f99d299d37d3b94",
+      "portable_glibc_check": true,
+      "scope": "GDExtension library; no full client export or deployment"
+    },
+    "linux-server": {
+      "source_receipt_valid": true,
+      "sha256": "d41c7d65a229385c396568ae15ae1406a7485a1a1391840e798fb13e29bfb852",
+      "portable_glibc_check": true,
+      "scope": "GDExtension library; no full client export or deployment"
+    },
+    "windows-client": {
+      "source_receipt_valid": true,
+      "sha256": "d4023c1fb3b18d32e08d5f8373401bdbc54c4d5b855b9554a6e5a4bdd01b8dc6",
+      "portable_glibc_check": null,
+      "scope": "GDExtension library; no full client export or deployment"
+    }
+  },
+  "bakes": {
+    "destruction_topology": "Rebaked wall_topology.res because structures.gd is part of its source fingerprint. Integration passes without stale assertions.",
+    "lighting": "Fingerprint unchanged; geometry authoring and lighting assets unchanged; no lighting rebake needed."
+  },
+  "fixture_adjustments": [
+    "Tree candidate comparison now allows the same <0.01 m terrain-height tolerance as native terrain sampling. Seeded kind/scale/angle remain exact. Observed maximum tree position difference 0.0000152587890625 m, grass rows exact.",
+    "Grass diagnostic now loads fixture tiles through grass.load_tile so native and script caches share the real lifecycle; native audio performs no lazy cell construction.",
+    "Field ambience fixture no longer requires volume above -20 dB; existing authored river level is -21 dB. It checks river proximity and an unmuted source. Production ambience unchanged."
+  ],
+  "known_baseline_failures": [
+    {
+      "test": "prediction_obstacles.gd",
+      "assertion": "Holding against wall keeps view steady under delayed corrections (quake=true)",
+      "native_and_gdscript_motion_reference": true,
+      "note": "Same failure previously recorded before these ports. Other obstacle checks pass."
+    }
+  ],
+  "limits": [
+    "CPU fixture timings are not live headset or end-to-end frame pacing measurements.",
+    "Headless benchmark numbers taken without concurrent builds; Vulkan suite also validates behavior and buffer submission, not a VR performance target.",
+    "Windows library cross-build validated; no Windows runtime test performed.",
+    "No remote deployment or VR launch performed."
+  ],
+  "reference_switches": [
+    "--gdscript-world",
+    "--gdscript-motion",
+    "--gdscript-audio"
+  ]
+}

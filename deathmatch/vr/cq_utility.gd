@@ -27,6 +27,7 @@ func hand()->XRController3D:return rig.left if hand_index==0 else rig.right
 func kind()->String:
  var game=rig.game;var id:int=game.multiplayer.get_unique_id()
  return game.classes.states.get(id,{}).get("equipped_utility",game.classes.UTILITIES[game.classes.role(id)][0].id)
+func slot()->int:return 6 if box_mode or kind()=="turret" else 7 if kind() in ["medical","engineering"] else 8
 func grenade()->bool:return kind() in ["jetpack","healing_grenade"]
 func grenade_count()->int:
  var game=rig.game;var id:int=game.multiplayer.get_unique_id()
@@ -69,7 +70,7 @@ func update(delta:float,valid:bool)->void:
   if not held and not dragging and down and not edges[i] and not rig.shoulder_radio.held and (not grenade() or grenade_available()) and (at_box or controllers[i].global_position.distance_to(tool_mount().origin if kind() in ["medical","engineering"] else rig.shoulder_mount(false).origin)<.25):
    box_mode=at_box
    hand_index=i;saved_weapon=rig.game.desired_weapon;armed=false;trigger_before=false;samples.clear();rig.cq_hands.holding=false
-   if not grenade() and kind() not in ["recon","recon_drone"]:rig.game.desired_weapon=6 if box_mode else 7 if kind() in ["medical","engineering"] else 8
+   if not grenade() and kind() not in ["recon","recon_drone"]:rig.game.desired_weapon=slot()
    rig.feedback(.3,.06,i!=(0 if rig.left_handed else 1))
   edges[i]=down
  if not held:return
@@ -113,7 +114,7 @@ func decorate(command:Dictionary)->void:
  var other:XRController3D=rig.right if hand_index==0 else rig.left;var other_aim:XRController3D=rig.right_aim if hand_index==0 else rig.left_aim
  pose.offhand_weapon=rig.origin.transform*preload("res://deathmatch/vr/poses.gd").held_weapon(other.transform,other_aim.transform)
  command.xr=preload("res://deathmatch/vr/poses.gd").validate(pose)
- command.weapon=rig.game.desired_weapon;command.weapon_held=true
+ command.weapon=slot();command.weapon_held=true
  command.fire=not box_mode and kind() not in ["recon","recon_drone"] and not grenade() and active.get_float("trigger")>.6 and not command.input_blocked
  command.reload=false;command.reload_grip=false;command.reload_trigger=false;command.offhand_fire=false;command.alt_fire=false;command.melee=false;command.cq_drag=false
 

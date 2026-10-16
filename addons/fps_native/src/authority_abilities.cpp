@@ -226,7 +226,7 @@ void Core::tick_turrets(Host &host) {
         }
       if (!vehicle)
         for (auto &p : players_)
-          if (alive(p) && p.team != t.team && p.vehicle < 0 &&
+          if (alive(p) && p.team != t.team && !sheltered(p) &&
               p.classes.cloak_until <= time_) {
             V at = p.position + V{0, p.height * .5, 0};
             double distance = (at - origin).length2();

@@ -32,7 +32,8 @@ vec3 frame_position(int frame, int id) {
 }
 void vertex() {
     int id = int(round(UV2.x));
-    VERTEX = mix(frame_position(int(animation_frames.x), id), frame_position(int(animation_frames.y), id), animation_frames.z);
+    bool seated_bike=animation_frames.z<0.0;
+    VERTEX = seated_bike ? frame_position(reference_frame,id) : mix(frame_position(int(animation_frames.x), id), frame_position(int(animation_frames.y), id), animation_frames.z);
     // CUSTOM0 = authored region (0 body, 1/2 arms, 3 neck/head),
     // inter-bone blend, influence. Complete welded seams share identical weights.
     vec3 weights=CUSTOM0.xyz;
@@ -47,6 +48,19 @@ void vertex() {
         vec3 n=rotate_point(neck_q,p)+neck_t;
         vec3 h=rotate_point(head_q,p)+head_t;
         VERTEX=mix(VERTEX,mix(n,h,weights.y),weights.z*ik_weight);
+    }
+    // Stable straddling pose: thigh forward, shin down, feet beside the hull.
+    // Use reference positions below the pelvis so the running clip cannot leak in.
+    if (seated_bike && weights.x==0.0) {
+        vec3 p=frame_position(reference_frame,id);
+        if (p.y<0.82) {
+            float t=clamp((0.78-p.y)/0.78,0.0,1.0);
+            vec3 hip=vec3(sign(p.x)*0.18,0.78,0.0);
+            vec3 knee=vec3(sign(p.x)*0.29,0.71,-0.36);
+            vec3 foot=vec3(sign(p.x)*0.33,0.32,-0.28);
+            vec3 axis=t<0.5 ? mix(hip,knee,t*2.0) : mix(knee,foot,(t-0.5)*2.0);
+            VERTEX=axis+vec3(p.x-sign(p.x)*0.18,0.0,p.z);
+        }
     }
 	jungle_point=(MODEL_MATRIX*vec4(VERTEX,1.0)).xyz;
 #ifdef AVATAR_VERTEX_BAKED_LIGHT

@@ -129,7 +129,7 @@ void Core::snapshot_entities() {
       if (p.active) {
         append(frame_, p.handle.id);
         append(frame_, p.handle.life);
-        append(frame_, p.owned);
+        append(frame_, uint16_t(p.owned&0xfff));
         for (double n : {p.cooldown, p.invulnerable, p.respawn_at, p.stamina})
           real(frame_, n);
         append(frame_, p.lock_vehicle);

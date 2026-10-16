@@ -12,23 +12,25 @@ bool ClassState::choose(int r, int slot, int value) {
     utility_t2[r] = value == 2;
     return true;
   }
-  static constexpr int t1[4] = {4, 9, 4, 5}, t2[4] = {1, 10, 3, 11};
+  static constexpr int t1[4] = {4, 9, 3, 5}, t2[4] = {1, 10, 12, 11}, t3[4]={14,16,13,15};
   int base = slot == 0 ? t1[r] : (r == 1 ? 8 : 2),
       advanced = slot == 0 ? t2[r] : 0;
+  if(slot==0 && value==t3[r]) { if(level<10)return false;primary_t3[r]=true;primary_t2[r]=false;return true; }
   if (value != base && value != advanced)
     return false;
   if (value == advanced && level < (slot == 0 ? 5 : 10))
     return false;
+  if(slot==0)primary_t3[r]=false;
   (slot == 0 ? primary_t2 : secondary_t2)[r] = value == advanced;
   return true;
 }
 int ClassState::weapon(bool secondary) const {
   int r = int(role);
-  static constexpr int t1[4] = {4, 9, 4, 5}, t2[4] = {1, 10, 3, 11};
+  static constexpr int t1[4] = {4, 9, 3, 5}, t2[4] = {1, 10, 12, 11}, t3[4]={14,16,13,15};
   return secondary ? (secondary_t2[r] ? 0
                       : r == 1        ? 8
                                       : 2)
-                   : (primary_t2[r] ? t2[r] : t1[r]);
+                   : (primary_t3[r] ? t3[r] : primary_t2[r] ? t2[r] : t1[r]);
 }
 void ClassState::award(int amount) {
   if (amount > 0)

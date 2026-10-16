@@ -16,7 +16,7 @@ static func mode(xr,dynamic:bool=true) -> String:
 static func size_from_level(level: int) -> int:
 	return SIZE_LEVELS[clampi(level,0,3)]
 
-static func apply(viewport: Viewport,xr,level: int,fovea_size: int=-1,dynamic:bool=true) -> Dictionary:
+static func apply(viewport: Viewport,xr,level: int,fovea_size: int=-1,dynamic:bool=true,refresh_profile:bool=false) -> Dictionary:
 	level=clampi(level,0,3)
 	fovea_size=size_from_level(level) if fovea_size<0 else clampi(fovea_size,0,3)
 	var active_mode:=mode(xr,dynamic)
@@ -37,7 +37,7 @@ static func apply(viewport: Viewport,xr,level: int,fovea_size: int=-1,dynamic:bo
 			# profile. Keep it allocated while Off disables the viewport's VRS;
 			# otherwise starting/resizing while Off breaks later Off -> On.
 			var profile_level: int=applied_level if applied_level>0 else maxi(1,int(xr.foveation_level))
-			if xr.foveation_level!=profile_level:xr.foveation_level=profile_level
+			if refresh_profile or xr.foveation_level!=profile_level:xr.foveation_level=profile_level
 		if not is_equal_approx(xr.vrs_min_radius,radius):xr.vrs_min_radius=radius
 		if not is_equal_approx(xr.vrs_strength,strength):xr.vrs_strength=strength
 	viewport.vrs_mode=Viewport.VRS_XR if ready and applied_level>0 else Viewport.VRS_DISABLED

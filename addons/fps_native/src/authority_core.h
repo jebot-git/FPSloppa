@@ -12,6 +12,7 @@
 #include <cstdint>
 #include <vector>
 namespace cqauthority {
+constexpr size_t WEAPON_COUNT = 17;
 constexpr size_t MAX_PLAYERS = 128, INPUT_DEPTH = 32, MAX_PROJECTILES = 2048;
 constexpr double DT = 1.0 / 30.0;
 struct Command {
@@ -41,7 +42,7 @@ struct Weapon {
   int burst = 1, salvo = 1;
   double charge = 0;
 };
-const std::array<Weapon, 12> &weapons();
+const std::array<Weapon, WEAPON_COUNT> &weapons();
 struct Motion {
   Handle actor;
   V position, velocity;
@@ -150,16 +151,16 @@ struct Player {
   bool jetpack_enabled = false, reload_held = false, profile_loaded = false,
        want_respawn = false;
   Jetpack jetpack;
-  std::array<Reload, 12> physical;
+  std::array<Reload, WEAPON_COUNT> physical;
   double height = 1.65, hp = 100, yaw = 0, pitch = 0, stamina = 0, cooldown = 0,
          reload_at = 0, charge_at = 0, next_shot = 0, last_input = -1e9;
-  uint16_t owned = 0;
+  uint32_t owned = 0;
   int weapon = 2, reloading = -1, burst_left = 0, salvo_left = 0, kills = 0,
       deaths = 0;
   uint64_t shots = 0;
   int64_t last_seq = -1;
   std::array<int, 4> ammo{}, spawn_ammo{};
-  std::array<int, 12> clips{};
+  std::array<int, WEAPON_COUNT> clips{};
   Command input;
   std::array<Command, INPUT_DEPTH> queue{};
   size_t head = 0, count = 0;
@@ -264,6 +265,7 @@ class Core {
     Handle handle;
     V position;
     double height = 1.65, yaw = 0;
+    bool seated_bike = false;
   };
   struct HistoryFrame {
     double time = 0;
@@ -304,6 +306,7 @@ class Core {
   uint64_t next_projectile_ = 1;
 
 public:
+  bool sheltered(const Player &p) const { return p.vehicle >= 0 && vehicles_[size_t(p.vehicle)].kind != VehicleKind::BIKE; }
   bool extended_frames = false;
   CqConfig cq;
   Terrain terrain;
@@ -319,7 +322,7 @@ public:
   Player *find(int64_t);
   const Player *find(int64_t) const;
   Player *resolve(Handle);
-  Handle join(int64_t, int, V, uint16_t, std::array<int, 4>);
+  Handle join(int64_t, int, V, uint32_t, std::array<int, 4>);
   bool leave(Handle);
   Handle respawn(Handle, V);
   bool submit(Handle, const Command &);

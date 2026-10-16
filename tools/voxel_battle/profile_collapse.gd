@@ -51,6 +51,8 @@ func run()->void:
  assert(OS.get_name()=="Linux" and ProfiledDestruction.thread_cpu_ns()>0,"This probe uses Linux schedstat for main-thread execution timing")
  if OS.get_cmdline_user_args().has("--360"):
   size=Vector2i(640,360);output="res://test-results/collapse-profile-360.json"
+ var args:=OS.get_cmdline_user_args()
+ if args.has("--output"):output=args[args.find("--output")+1]
  root.size=size
  DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_DISABLED)
  Engine.max_fps=0
@@ -85,7 +87,10 @@ func run()->void:
    else:service.apply_breaks(ids,center,mode=="full")
    var trigger_us:=Time.get_ticks_usec()-start
    var trigger_cpu_us:float=(service.thread_cpu_ns()-cpu_start)/1000.
-   cpu_start=service.thread_cpu_ns();start=Time.get_ticks_usec();service.flush_meshes();var mesh_us:=Time.get_ticks_usec()-start
+   cpu_start=service.thread_cpu_ns();start=Time.get_ticks_usec()
+   if args.has("--async-native"):service.flush_meshes_async()
+   else:service.flush_meshes()
+   var mesh_us:=Time.get_ticks_usec()-start
    var mesh_cpu_us:float=(service.thread_cpu_ns()-cpu_start)/1000.
    events.append({"mode":mode,"repeat":repeat,"frame":frames.size(),"trigger_us":trigger_us,"trigger_thread_cpu_us":trigger_cpu_us,"mesh_us":mesh_us,"mesh_thread_cpu_us":mesh_cpu_us,"animation_calls":service.animation_calls.duplicate(),"replacement_calls":service.replacement_calls.duplicate(true),"collapse_detail":service.last_collapse_stats.duplicate() if mode!="animation_only" else {}})
    print("COLLAPSE_PROFILE_EVENT ",JSON.stringify(events[-1]))
@@ -95,9 +100,9 @@ func run()->void:
    while index<180 or Time.get_ticks_usec()<until_usec:
     await frame("event_"+mode+str(repeat),index)
     index+=1
- var report:Dictionary={"adapter":RenderingServer.get_video_adapter_name(),"renderer":RenderingServer.get_current_rendering_method(),"resolution":[size.x,size.y],"vsync":false,"events":events,"frames":frames,"scope":"Full map, no players. Direct failed factory-storey support set; no preceding breaches. CPU-call wall durations can include driver/synchronization waits; thread_cpu_us comes from Linux /proc/thread-self/schedstat execution nanoseconds and excludes descheduling/waits (kernel accounting granularity applies). Viewport GPU timestamps can lag and exclude CPU scripts/uploads. Other owned Godot processes suspended during capture."}
+ var report:Dictionary={"adapter":RenderingServer.get_video_adapter_name(),"renderer":RenderingServer.get_current_rendering_method(),"resolution":[size.x,size.y],"vsync":false,"events":events,"frames":frames,"native_destruction":service.native_destruction!=null,"async_native":args.has("--async-native"),"mesh_jobs_submitted":service.mesh_jobs_submitted,"mesh_jobs_discarded":service.mesh_jobs_discarded,"last_mesh_commit_usec":service.mesh_commit_usec,"scope":"Full map, no players. Direct failed factory-storey support set; no preceding breaches. CPU-call wall durations can include driver/synchronization waits; thread_cpu_us comes from Linux /proc/thread-self/schedstat execution nanoseconds and excludes descheduling/waits (kernel accounting granularity applies). Viewport GPU timestamps can lag and exclude CPU scripts/uploads. No automatic suspension of other processes."}
  report.preparation_us=service.preparation_usec
- DirAccess.make_dir_recursive_absolute("res://test-results")
+ DirAccess.make_dir_recursive_absolute(output.get_base_dir())
  FileAccess.open(output,FileAccess.WRITE).store_string(JSON.stringify(report))
  print("COLLAPSE_PROFILE_SAVED ",output)
  game.queue_free();await process_frame;quit()

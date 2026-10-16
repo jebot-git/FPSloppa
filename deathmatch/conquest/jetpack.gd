@@ -16,6 +16,13 @@ static func fresh() -> Dictionary:
 	return {"mode":0,"age":0.0,"cooldown":0.0,"tap":0.0,"distance":0.0,"heading":Vector2.ZERO,"activation":0,"time":0.0}
 static func tick(actor,direction: Vector3,delta: float,jump: bool) -> bool:
 	var s: Dictionary=actor.jetpack_state
+	if actor.native_movement and actor.jetpack_enabled:
+		var result:Dictionary=actor.native_movement.jetpack_tick(s,actor.velocity,direction,delta,jump,actor.jump_held,actor.jetpack_requested,actor.jetpack_blocked,actor.in_water or actor.frozen or actor.spectator,actor.stance=="prone")
+		if not result.is_empty():
+			actor.jetpack_requested=false;actor.velocity=result.velocity
+			if result.activated:actor.blast_velocity=Vector2.ZERO
+			if result.active:actor.jump_queued=false;actor.floor_grace=0;actor.stepped_last_frame=false
+			return result.active
 	s.time+=delta;s.cooldown=maxf(0,s.cooldown-delta);s.tap=maxf(0,s.tap-delta)
 	var pressed: bool=jump and not actor.jump_held
 	var request: bool=actor.jetpack_requested
@@ -54,6 +61,8 @@ static func tick(actor,direction: Vector3,delta: float,jump: bool) -> bool:
 	actor.jump_queued=false;actor.floor_grace=0;actor.stepped_last_frame=false
 	return true
 static func moved(actor,before: Vector3) -> void:
+	if actor.native_movement:
+		actor.velocity=actor.native_movement.jetpack_moved(actor.jetpack_state,actor.velocity,before,actor.position,actor.is_on_floor(),actor.is_on_ceiling());return
 	var s: Dictionary=actor.jetpack_state
 	s.distance+=Vector2(actor.position.x-before.x,actor.position.z-before.z).length()
 	if actor.is_on_ceiling() and s.mode==2 and s.age<.7:s.age=.7

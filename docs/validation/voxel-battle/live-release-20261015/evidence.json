@@ -1,0 +1,40 @@
+{
+  "raw_logs": "/home/blux/.cache/cq-live-20261015-final",
+  "files": [
+    {
+      "file": "client.log",
+      "bytes": 733844,
+      "sha256": "fee03acfe6fbf217b3e5875a800264a66dc97c16c19e5ab5f2f20e4f5bd3eff2"
+    },
+    {
+      "file": "client-engine.log",
+      "bytes": 730979,
+      "sha256": "fc5caec2fdbfaed2d6ae980dd44a5c6c9668281f87a91a0f5f869b9fd0c90a7b"
+    },
+    {
+      "file": "client-network.jsonl",
+      "bytes": 15504,
+      "sha256": "220e43307c800fe5989058d20cc72fa0f332c70af3a8d6f68bb5e687c4f2c022"
+    },
+    {
+      "file": "server-events.jsonl",
+      "bytes": 746454,
+      "sha256": "9d2163c3086fcee06661615af68399e53a95ff9c6f910462d3a876d7ba3423b6"
+    },
+    {
+      "file": "server-journal.log",
+      "bytes": 594804,
+      "sha256": "faf01465e57ded60bc10e99e325199623c2fb956a50e8bc1d0d8c1da570ee10d"
+    },
+    {
+      "file": "local-runtime-journal.log",
+      "bytes": 129802,
+      "sha256": "be8061385e245af06e69296f101f2d3b57eefd231d8cd8e9ca483c60158107a8"
+    },
+    {
+      "file": "local-gpu-kernel.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ]
+}

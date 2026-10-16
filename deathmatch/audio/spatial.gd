@@ -2,11 +2,13 @@ extends Node3D
 const WeaponLevels = preload("res://deathmatch/audio/weapon_levels.gd")
 ## Shared bounded spatial mixer. Occlusion is a cosmetic static-world ray test.
 var game
+var native_audio=preload("res://deathmatch/native/audio.gd").create()
 var steam
 var active: Array=[]
 var cache: Dictionary={}
 var tick:=0.0
 var room_tick:=0.0
+var source_updates:=0
 var reverb: AudioEffectReverb
 var own_bus:=false
 var effects_bus_owned:=false
@@ -95,10 +97,15 @@ func play(kind: String,where: Vector3,volume: float=-8) -> void:
 	player.finished.connect(player.queue_free)
 	player.play()
 func occluded(from: Vector3,to: Vector3) -> bool:
+	if native_audio:return native_audio.occluded(get_world_3d(),from,to)
 	if from.distance_squared_to(to)<.04: return false
 	return not get_world_3d().direct_space_state.intersect_ray(PhysicsRayQueryParameters3D.create(from,to,1)).is_empty()
 func update_source(player: AudioStreamPlayer3D,dry_db: float) -> void:
 	if not is_instance_valid(game.camera): return
+	if native_audio:
+		native_audio.update_source(get_world_3d(),game.camera.global_position,player,dry_db)
+		source_updates=native_audio.get_source_updates();return
+	source_updates+=1
 	var blocked:=occluded(game.camera.global_position,player.global_position)
 	player.volume_db=dry_db-10 if blocked else dry_db
 	player.attenuation_filter_cutoff_hz=1800 if blocked else 18000
@@ -111,12 +118,18 @@ func _physics_process(delta: float) -> void:
 	tick+=delta; room_tick+=delta
 	if tick>.1:
 		tick=0
-		active=active.filter(is_instance_valid)
-		for player in active:
-			if game.clock>float(player.get_meta("expires",INF)):player.queue_free()
-			else:update_source(player,float(player.get_meta("dry_db",-8)))
+		if native_audio:
+			active=native_audio.spatial_step(active,get_world_3d(),game.camera.global_position,game.clock)
+			source_updates=native_audio.get_source_updates()
+		else:
+			active=active.filter(is_instance_valid)
+			for player in active:
+				if game.clock>float(player.get_meta("expires",INF)):player.queue_free()
+				else:update_source(player,float(player.get_meta("dry_db",-8)))
 	if room_tick>.5 and reverb:
 		room_tick=0
+		if native_audio:
+			reverb.wet=lerpf(reverb.wet,native_audio.room_target(get_world_3d(),game.camera.global_position),.35);return
 		var count:=0
 		var pos: Vector3=game.camera.global_position
 		for dir in [Vector3.UP,Vector3.LEFT,Vector3.RIGHT,Vector3.FORWARD,Vector3.BACK]:

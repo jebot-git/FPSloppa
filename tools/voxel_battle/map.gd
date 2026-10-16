@@ -1,9 +1,9 @@
 extends Node3D
 const Landscape=preload("res://tools/voxel_battle/landscape.gd")
 const Architecture=preload("res://tools/voxel_battle/architecture.gd")
-const Stream=preload("res://tools/streamed_heightfield/stream.gd")
+const Stream=preload("res://tools/streamed_heightfield/native_stream.gd")
 const Structures=preload("res://tools/streamed_heightfield/structures.gd")
-const Scenery=preload("res://tools/voxel_battle/environment.gd")
+const Scenery=preload("res://tools/voxel_battle/native_environment.gd")
 const Grass=preload("res://tools/voxel_battle/grass.gd")
 const LIMIT:=Landscape.EXTENT/2
 const COLLISION_SIDE:=1425
@@ -12,6 +12,7 @@ var physics_enabled:=true
 var stair_ramps_enabled:=true
 var stair_ramps:Dictionary={}
 var environment
+var environment_selection_enabled:=true # Diagnostic freeze; keep submitted trees/bushes.
 var grass
 var environment_colliders:=0
 var layout:=Architecture.new()
@@ -66,7 +67,7 @@ func build(graphics: bool, physics: bool=true, baking:bool=false) -> void:
 				for path in paths:levels.append(load(path))
 				meshes.append(levels)
 	if graphics:
-		terrain=Stream.new();terrain.source=Landscape.new();terrain.coarse_segments=128;terrain.min_height=Landscape.MIN_HEIGHT;terrain.max_height=Landscape.MAX_HEIGHT;add_child(terrain);terrain.setup()
+		terrain=Stream.new();terrain.source=preload("res://tools/voxel_battle/native_landscape.gd").new();terrain.coarse_segments=128;terrain.min_height=Landscape.MIN_HEIGHT;terrain.max_height=Landscape.MAX_HEIGHT;add_child(terrain);terrain.setup()
 		structures=Structures.new();structures.placements=Landscape.sites();structures.factory_base_offset=0
 		structures.world_aabb=AABB(Vector3(-LIMIT,Landscape.MIN_HEIGHT,-LIMIT),Vector3(Landscape.EXTENT,Landscape.MAX_HEIGHT-Landscape.MIN_HEIGHT+40,Landscape.EXTENT))
 		structures.meshes=meshes;add_child(structures);structures.setup()
@@ -102,7 +103,11 @@ func seed_collision() -> void:
 				collider.position.y+=8.5*row.scale
 				body.add_child(collider);environment_colliders+=1
 func update_view(camera: Camera3D) -> void:
-	if terrain!=null:terrain.tick(camera);structures.update(camera);environment.update(camera);grass.update(camera)
+	if terrain!=null:
+		terrain.tick(camera);structures.update(camera)
+		environment.update_ms=0.0
+		if environment_selection_enabled:environment.update(camera)
+		grass.update(camera)
 	if lighting and structures:lighting.update_fixtures(structures)
 
 static func collision_cache_path() -> String:

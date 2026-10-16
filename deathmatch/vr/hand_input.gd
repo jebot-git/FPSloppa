@@ -12,6 +12,12 @@ static func controller_curls(controller: XRController3D) -> PackedFloat32Array:
 	if controller.is_button_pressed("trigger_touch"): trigger=maxf(trigger,.15)
 	return PackedFloat32Array([.85 if thumb else 0.0,trigger,grip,grip,grip])
 
+# Local gloves must use the same inferred joints as the network avatar. This
+# remains independent of body-tracking calibration and its enable switch.
+static func local_sample(controller: XRController3D,side: String) -> PackedFloat32Array:
+	var hand:=XRServer.get_tracker("/user/hand_tracker/"+side) as XRHandTracker
+	return sample(controller,hand)
+
 static func sample(controller: XRController3D,hand: XRHandTracker=null) -> PackedFloat32Array:
 	var curls:=controller_curls(controller)
 	if not hand or not hand.has_tracking_data: return curls

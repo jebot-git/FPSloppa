@@ -24,6 +24,7 @@ func update_display(model:Node3D,text:String,charging:bool,show_panel:bool)->voi
  # leave the text one frame behind the glass.
  if get_parent()!=model:reparent(model,false)
  transform=Transform3D(Basis.IDENTITY,Models.anchor(5,"monitor_position"))
+ var dimensions:Array=Models.metadata(5,"cq_technician").get("monitor_size",[GLASS_SIZE.x,GLASS_SIZE.y]);screen.mesh.size=Vector2(dimensions[0],dimensions[1])
  var formatted:=text.replace(" · ","\n").strip_edges()
  var signature:=formatted+str(charging)
  if signature==last_text:return

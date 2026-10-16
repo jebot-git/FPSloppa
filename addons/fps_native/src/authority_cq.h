@@ -37,7 +37,7 @@ struct Session {
 struct ClassState {
   Role role = Role::SHOCKTROOP, next = Role::SHOCKTROOP;
   std::array<int, 4> xp{};
-  std::array<bool, 4> primary_t2{}, secondary_t2{}, utility_t2{};
+  std::array<bool, 4> primary_t2{}, primary_t3{}, secondary_t2{}, utility_t2{};
   bool equipped_t2 = false;
   double box_ready = 0, cloak_until = 0, cloak_ready = 0, drone_ready = 0,
          strike_ready = 0, turret_ready = 0, nvg_ready = 0, blind_until = 0;
@@ -148,7 +148,7 @@ struct Grenade {
 } // namespace cqauthority
 namespace cqauthority {
 constexpr double ROCKET_TANK_RANGE = 5000, ROCKET_TANK_SPEED = 316.22776601683796, ROCKET_TANK_FUSE = 90;
-enum class VehicleKind : uint8_t { ROCKET, LIGHT, HEAVY, TRANSPORT };
+enum class VehicleKind : uint8_t { ROCKET, LIGHT, HEAVY, TRANSPORT, BIKE };
 struct VehicleProfile {
   double hp = 100;
   V size{4.5, 1.7, 4.8};

@@ -300,6 +300,14 @@ void entity_tests() {
             "ballistic launch speed accuracy");
     }
   }
+  for(double pitch : {-.003, -1.5707963267948966}) {
+    World world;auto c=make();auto h=add(*c,1,0,{},Role::SHOCKTROOP,true);
+    for(int tick=0;tick<180;++tick) {
+      Command command;command.life=h.life;command.seq=tick;command.weapon=8;command.fire=true;command.pitch=pitch;
+      check(c->submit(h,command),"distant/vertical airstrike designation accepted");c->advance(world);
+    }
+    check(c->resolve(h)->classes.strike_ready>c->time(),"distant or downward target launches airstrike after held lock");
+  }
   {
     World world;
     auto c = make();

@@ -48,6 +48,14 @@ func run():
  tanks.draw();check(tanks.models[key].get_node("HeadlightLenses").visible,"gameplay draw enables real vehicle lamp faces")
  game.players[7].offhand_fire=false;tanks.tick(1./30);game.players[7].offhand_fire=true;tanks.tick(1./30);check(not row.headlights,"script fresh press switches headlights off")
  game.players[7].offhand_fire=false;game.players[1].offhand_fire=false
+ for id in [7,8]:
+  game.fighters[id]._process(.016)
+  check(game.fighters[id].vehicle_avatar_visible and game.fighters[id].avatar.visible,"cabin driver and passenger avatars are rendered")
+ game.fighters[2]._process(.016)
+ check(not game.fighters[2].avatar.visible,"enclosed pod avatar remains hidden")
+ for speed in [0.,2.]:
+  row.speed=speed;row.yaw=0.;game.players[7].move=Vector2(1,0);game.players[7].last_input=game.clock;tanks.tick(1./30)
+  check(row.yaw==0.,"script transport cannot turn with idle pedals")
  for travel in [-1.,1.]:
   for turn in [-1.,1.]:
    row.speed=travel*2.;row.yaw=0.;game.players[7].move=Vector2(turn,-travel);game.players[7].last_input=game.clock;tanks.tick(1./30)
@@ -59,6 +67,12 @@ func run():
  var mask:int=game.camera.cull_mask;var env=game.camera.environment;view.update()
  check(view.viewport==null and game.camera.cull_mask==mask and game.camera.environment==env,"transport keeps direct world view without tank scope isolation")
  check(game.match_mode.status(1).contains("JUMP TO DISMOUNT"),"transport HUD explains jump exit")
+ var rig=preload("res://deathmatch/vr/rig.gd").new();game.add_child(rig);rig.setup(game,true);game.xr_rig=rig;rig.set_process(false);rig.calibration_pending=false
+ rig.place_menu();rig.panel.visible=true;game.menu_open=true
+ for step in 3:
+  row.position+=Vector3(3,0,4);tanks.rendered_rows.clear();view._process(.016)
+  check(rig.panel.global_transform.origin.distance_to((rig.global_transform*rig.menu_mount).origin)<.001,"menu follows final cabin transform in same frame")
+ game.menu_open=false
  check(tanks.leave(7) and row.pilot==0,"script driver exit leaves cockpit vacant")
  game.players[4].jump=true;game.players[4].last_input=game.clock;tanks.tick(1./30)
  check(not tanks.mounted(4),"script jump dismounts passenger")

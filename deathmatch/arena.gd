@@ -2069,9 +2069,9 @@ func _snapshot(data: Array,items: PackedByteArray,remaining: float,pause: float,
 		# The owner samples tracking every render frame; network echoes are older.
 		if id!=mine or demos.playing or multiplayer.is_server() or not is_vr():
 			actor.xr_pose=row[18] if row.size()>18 else {}
-			if not multiplayer.is_server() and (id!=mine or demos.playing or not is_vr() and actor.prediction.samples.is_empty()):actor.receive_locomotion(mode_state.get("locomotion",{}).get(id,{}))
+			if not multiplayer.is_server() and (id!=mine or demos.playing or not is_vr() and not actor.prediction.has_samples()):actor.receive_locomotion(mode_state.get("locomotion",{}).get(id,{}))
 		if not multiplayer.is_server(): s.xr=actor.xr_pose
-		if not multiplayer.is_server() and (id!=mine or demos.playing or actor.prediction.samples.is_empty()):
+		if not multiplayer.is_server() and (id!=mine or demos.playing or not actor.prediction.has_samples()):
 			actor.Jetpack.reconcile(actor,mode_state.get("locomotion",{}).get(id,{}).get("jetpack",{}))
 		actor.visual_velocity = row[2]
 		if id!=mine or demos.playing:actor.visual_grounded=mode_state.get("locomotion",{}).get(id,{}).get("grounded",absf(row[2].y)<.5)

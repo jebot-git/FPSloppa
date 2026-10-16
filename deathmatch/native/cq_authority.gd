@@ -77,7 +77,7 @@ func initialise()->bool:
   for child in body.get_children():
    if child is CollisionShape3D:child.position.y+=offset
   body.position=row.position
-  if core.attach_vehicle(["rocket","light","heavy","transport"].find(row.kind),body,float(row.yaw),int(row.team))<0:return false
+  if core.attach_vehicle(["rocket","light","heavy","transport","bike"].find(row.kind),body,float(row.yaw),int(row.team))<0:return false
  for id in game.players:
   if not game.players[id].spectator and not attach(id):return false
  print("CQ_RESIDENT_READY ",JSON.stringify({"map_epoch":epoch,"players":lives.size(),"physics_hz":Engine.physics_ticks_per_second,"adaptive_tick":adaptive_tick,"max_clients":game.max_clients,"destruction":is_instance_valid(game.destruction) and game.destruction.enabled}))
@@ -93,6 +93,7 @@ func attach(id:int)->bool:
  for role in 4:
   var label:String=Presentation.ROLES[role];profile.xp.append(saved.get("xp",{}).get(label,0))
   if saved.get("primary_choices",{}).get(label,-1)==Presentation.ADVANCED[role]:profile.primary|=1<<role
+  if saved.get("primary_choices",{}).get(label,-1)==Presentation.THIRD[role]:profile["primary3"]=profile.get("primary3",0)|(1<<role)
   if saved.get("secondary_choices",{}).get(label,-1)==0:profile.secondary|=1<<role
   if saved.get("utility_choices",{}).get(label,"")==Presentation.UTILITY[role][1]:profile.utility|=1<<role
  profile.cooldowns=[]
@@ -120,7 +121,7 @@ func detach(id:int)->void:
 func input(id:int,c:Dictionary)->void:
  if not core or not lives.has(id) or c.get("map_epoch",epoch)!=epoch:return
  if not game._valid_input_reference(c):return
- if not c.get("input_life") is int or c.input_life<1 or c.input_life>4294967295 or c.seq<0 or c.seq>2147483647 or c.weapon<0 or c.weapon>11:return
+ if not c.get("input_life") is int or c.input_life<1 or c.input_life>4294967295 or c.seq<0 or c.seq>2147483647 or c.weapon<0 or c.weapon>16:return
  for key in ["jump","reload","crouch","prone","input_blocked","vr_device","reload_grip","reload_trigger","offhand_fire","jetpack","cq_drag","melee"]:
   if c.has(key) and not c[key] is bool:return
  var pose:Variant=c.get("xr",{})
@@ -245,8 +246,16 @@ func effects(frame:Dictionary)->void:
    6:game._melee_fx(event.actor,false)
    7:
     var end:Vector3=event.position+event.direction*event.value
-    if event.detail==10:game._cq_beam_impacts(event.position,PackedVector3Array([end]),event.detail,int(event.entity))
-    else:game._impacts(event.position,PackedVector3Array([end]),event.detail)
+    var start:Vector3=event.position
+    # Server confirmation arrives after the local tracked weapon has moved.
+    # Keep the authoritative hit, but attach its cosmetic tracer to the current
+    # rendered barrel rather than the historical controller pose beside it.
+    var mine:int=game.multiplayer.get_unique_id()
+    if event.actor==mine and game.is_vr() and game.players.has(mine) and game.players[mine].serial==event.life and game.xr_rig.gun_id==event.detail and is_instance_valid(game.xr_rig.gun):
+     var muzzle:Vector3=game.xr_rig.gun.to_global(game.xr_rig.gun.get_meta("muzzle",Vector3.ZERO))
+     if muzzle.distance_to(start)<.75 and game.get_world_3d().direct_space_state.intersect_ray(PhysicsRayQueryParameters3D.create(start,muzzle,1)).is_empty():start=muzzle
+    if event.detail in [10,16]:game._cq_beam_impacts(start,PackedVector3Array([end]),event.detail,int(event.entity))
+    else:game._impacts(start,PackedVector3Array([end]),event.detail)
    8:game._de_grenade_fx(event.position,event.detail)
    9:
     if not game.players.has(event.actor) or game.players[event.actor].serial!=event.life:continue
@@ -300,7 +309,7 @@ func save_profile(id:int)->void:
  saved.dispenser_ready=origin+c.box_ready;saved.cloak_ready=origin+c.cloak_ready;saved.drone_ready=origin+c.drone_ready;saved.airstrike_ready=origin+c.strike_ready;saved.turret_ready=origin+c.turret_ready
  saved["class"]=Presentation.ROLES[c.role];saved.next=Presentation.ROLES[c.next];saved.xp={};saved.primary_choices={};saved.secondary_choices={};saved.utility_choices={}
  for role in 4:
-  var label:String=Presentation.ROLES[role];saved.xp[label]=c.xp[role];saved.primary_choices[label]=Presentation.ADVANCED[role] if c.primary&(1<<role) else Presentation.PRIMARY[role];saved.secondary_choices[label]=0 if c.secondary&(1<<role) else 8 if role==1 else 2;saved.utility_choices[label]=Presentation.UTILITY[role][int(bool(c.utility&(1<<role)))]
+  var label:String=Presentation.ROLES[role];saved.xp[label]=c.xp[role];saved.primary_choices[label]=Presentation.THIRD[role] if c.get("primary3",0)&(1<<role) else Presentation.ADVANCED[role] if c.primary&(1<<role) else Presentation.PRIMARY[role];saved.secondary_choices[label]=0 if c.secondary&(1<<role) else 8 if role==1 else 2;saved.utility_choices[label]=Presentation.UTILITY[role][int(bool(c.utility&(1<<role)))]
 func reset_instance()->void:
  if core:
   for id in lives:save_profile(id)

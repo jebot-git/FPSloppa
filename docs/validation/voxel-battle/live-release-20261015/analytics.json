@@ -1,0 +1,441 @@
+{
+  "window_utc": [
+    "2026-10-15T18:14:30Z",
+    "2026-10-15T19:03:00Z"
+  ],
+  "window_local_prague": [
+    "2026-10-15 20:14:30",
+    "2026-10-15 21:03:00"
+  ],
+  "local_headset": "Quest Pro / WiVRn-Pro, 90 Hz",
+  "all_windows": {
+    "windows": 280,
+    "frames": 217495,
+    "seconds": 2801.885043,
+    "weighted_fps": 77.62452658197797,
+    "window_fps": {
+      "samples": 280,
+      "min": 65.3681722369378,
+      "median": 77.1124716195684,
+      "sample_p95": 89.6010804072304,
+      "max": 89.9863652180027
+    },
+    "window_wall_p95_ms": {
+      "samples": 280,
+      "min": 12.942,
+      "median": 24.764,
+      "sample_p95": 28.771,
+      "max": 29.782
+    },
+    "window_render_cpu_p95_ms": {
+      "samples": 280,
+      "min": 0.28600001335144,
+      "median": 0.4245000034570695,
+      "sample_p95": 0.559000015258789,
+      "max": 0.638000011444092
+    },
+    "window_render_gpu_p95_ms": {
+      "samples": 280,
+      "min": 2.95300006866455,
+      "median": 4.452499866485596,
+      "sample_p95": 5.50500011444092,
+      "max": 5.76000022888184
+    },
+    "over_two_budgets_frames": 16493
+  },
+  "active_windows": {
+    "windows": 247,
+    "frames": 192106,
+    "seconds": 2471.619725,
+    "weighted_fps": 77.72473979588426,
+    "window_fps": {
+      "samples": 247,
+      "min": 65.3681722369378,
+      "median": 77.1819425007509,
+      "sample_p95": 89.5643354816112,
+      "max": 89.8269886236467
+    },
+    "window_wall_p95_ms": {
+      "samples": 247,
+      "min": 13.654,
+      "median": 24.724,
+      "sample_p95": 28.601,
+      "max": 29.782
+    },
+    "window_render_cpu_p95_ms": {
+      "samples": 247,
+      "min": 0.303000003099442,
+      "median": 0.428000003099442,
+      "sample_p95": 0.563000023365021,
+      "max": 0.638000011444092
+    },
+    "window_render_gpu_p95_ms": {
+      "samples": 247,
+      "min": 3.07299995422363,
+      "median": 4.44999980926514,
+      "sample_p95": 5.48999977111816,
+      "max": 5.76000022888184
+    },
+    "over_two_budgets_frames": 14328
+  },
+  "by_class": {
+    "medic": {
+      "windows": 29,
+      "frames": 21401,
+      "seconds": 290.26236,
+      "weighted_fps": 73.72984909238663,
+      "window_fps": {
+        "samples": 29,
+        "min": 66.5096864967062,
+        "median": 74.0935423982821,
+        "sample_p95": 77.8888448295439,
+        "max": 79.7970315504264
+      },
+      "window_wall_p95_ms": {
+        "samples": 29,
+        "min": 18.329,
+        "median": 27.083,
+        "sample_p95": 28.179,
+        "max": 29.291
+      },
+      "window_render_cpu_p95_ms": {
+        "samples": 29,
+        "min": 0.33899998664856,
+        "median": 0.375999987125397,
+        "sample_p95": 0.444999992847443,
+        "max": 0.513000011444092
+      },
+      "window_render_gpu_p95_ms": {
+        "samples": 29,
+        "min": 3.64000010490417,
+        "median": 4.63700008392334,
+        "sample_p95": 5.27299976348877,
+        "max": 5.3600001335144
+      },
+      "over_two_budgets_frames": 2833
+    },
+    "scout": {
+      "windows": 53,
+      "frames": 41725,
+      "seconds": 530.309804,
+      "weighted_fps": 78.68042356614626,
+      "window_fps": {
+        "samples": 53,
+        "min": 69.3606031773953,
+        "median": 78.8954003981567,
+        "sample_p95": 89.2875690929981,
+        "max": 89.4833382024268
+      },
+      "window_wall_p95_ms": {
+        "samples": 53,
+        "min": 13.654,
+        "median": 23.832,
+        "sample_p95": 28.601,
+        "max": 29.288
+      },
+      "window_render_cpu_p95_ms": {
+        "samples": 53,
+        "min": 0.308999985456467,
+        "median": 0.437999993562698,
+        "sample_p95": 0.547999978065491,
+        "max": 0.601000010967255
+      },
+      "window_render_gpu_p95_ms": {
+        "samples": 53,
+        "min": 3.22699999809265,
+        "median": 4.64900016784668,
+        "sample_p95": 5.62400007247925,
+        "max": 5.76000022888184
+      },
+      "over_two_budgets_frames": 2966
+    },
+    "shocktroop": {
+      "windows": 109,
+      "frames": 84353,
+      "seconds": 1090.685312,
+      "weighted_fps": 77.3394480258665,
+      "window_fps": {
+        "samples": 109,
+        "min": 65.3681722369378,
+        "median": 76.9851766090875,
+        "sample_p95": 89.5859081366502,
+        "max": 89.8269886236467
+      },
+      "window_wall_p95_ms": {
+        "samples": 109,
+        "min": 13.787,
+        "median": 24.22,
+        "sample_p95": 28.624,
+        "max": 28.942
+      },
+      "window_render_cpu_p95_ms": {
+        "samples": 109,
+        "min": 0.303000003099442,
+        "median": 0.421999990940094,
+        "sample_p95": 0.535000026226044,
+        "max": 0.579999983310699
+      },
+      "window_render_gpu_p95_ms": {
+        "samples": 109,
+        "min": 3.07299995422363,
+        "median": 4.27799987792969,
+        "sample_p95": 5.35799980163574,
+        "max": 5.69299983978271
+      },
+      "over_two_budgets_frames": 6065
+    },
+    "technician": {
+      "windows": 56,
+      "frames": 44627,
+      "seconds": 560.362249,
+      "weighted_fps": 79.63955473381648,
+      "window_fps": {
+        "samples": 56,
+        "min": 69.8537890341725,
+        "median": 78.74245996440305,
+        "sample_p95": 89.6928694168814,
+        "max": 89.7891355146026
+      },
+      "window_wall_p95_ms": {
+        "samples": 56,
+        "min": 13.983,
+        "median": 18.919,
+        "sample_p95": 28.475,
+        "max": 29.782
+      },
+      "window_render_cpu_p95_ms": {
+        "samples": 56,
+        "min": 0.377000004053116,
+        "median": 0.4574999958276745,
+        "sample_p95": 0.60699999332428,
+        "max": 0.638000011444092
+      },
+      "window_render_gpu_p95_ms": {
+        "samples": 56,
+        "min": 3.33899998664856,
+        "median": 4.628000020980835,
+        "sample_p95": 5.48999977111816,
+        "max": 5.625
+      },
+      "over_two_budgets_frames": 2464
+    }
+  },
+  "scope_windows": {
+    "windows": 1,
+    "frames": 825,
+    "seconds": 10.013746,
+    "weighted_fps": 82.3867511718392,
+    "window_fps": {
+      "samples": 1,
+      "min": 82.3867511718392,
+      "median": 82.3867511718392,
+      "sample_p95": 82.3867511718392,
+      "max": 82.3867511718392
+    },
+    "window_wall_p95_ms": {
+      "samples": 1,
+      "min": 21.0,
+      "median": 21.0,
+      "sample_p95": 21.0,
+      "max": 21.0
+    },
+    "window_render_cpu_p95_ms": {
+      "samples": 1,
+      "min": 0.448000013828278,
+      "median": 0.448000013828278,
+      "sample_p95": 0.448000013828278,
+      "max": 0.448000013828278
+    },
+    "window_render_gpu_p95_ms": {
+      "samples": 1,
+      "min": 4.60300016403198,
+      "median": 4.60300016403198,
+      "sample_p95": 4.60300016403198,
+      "max": 4.60300016403198
+    },
+    "over_two_budgets_frames": 37
+  },
+  "nvg_windows": {
+    "windows": 45,
+    "frames": 35204,
+    "seconds": 450.259975,
+    "weighted_fps": 78.18594135532477,
+    "window_fps": {
+      "samples": 45,
+      "min": 69.6418281809204,
+      "median": 78.4441634444602,
+      "sample_p95": 89.3459546320431,
+      "max": 89.7891355146026
+    },
+    "window_wall_p95_ms": {
+      "samples": 45,
+      "min": 14.273,
+      "median": 21.108,
+      "sample_p95": 29.129,
+      "max": 29.782
+    },
+    "window_render_cpu_p95_ms": {
+      "samples": 45,
+      "min": 0.352999985218048,
+      "median": 0.488000005483627,
+      "sample_p95": 0.60699999332428,
+      "max": 0.638000011444092
+    },
+    "window_render_gpu_p95_ms": {
+      "samples": 45,
+      "min": 3.70099997520447,
+      "median": 5.0460000038147,
+      "sample_p95": 5.53000020980835,
+      "max": 5.75799989700317
+    },
+    "over_two_budgets_frames": 2273
+  },
+  "server": {
+    "events": {
+      "health": 581,
+      "peer_connected": 5,
+      "join_stage": 18,
+      "spawn": 4,
+      "player_joined": 4,
+      "match_event": 8,
+      "peer_departure_stage": 5,
+      "peer_disconnected": 5,
+      "damage": 11
+    },
+    "peak_connected_players": 3,
+    "sampled_physics_ms": {
+      "samples": 581,
+      "min": 0.832,
+      "median": 1.61,
+      "sample_p95": 2.126,
+      "max": 7.645
+    },
+    "sampled_process_ms": {
+      "samples": 581,
+      "min": 0.223,
+      "median": 0.548,
+      "sample_p95": 0.734,
+      "max": 2.175
+    },
+    "diagnostics": []
+  },
+  "slowest_windows": [
+    {
+      "utc": "2026-10-15T18:26:24",
+      "class": "shocktroop",
+      "fps": 65.3681722369378,
+      "frame_ms_p95": 26.498,
+      "frame_ms_max": 53.198,
+      "menu": false,
+      "scope": false,
+      "nvg": false,
+      "vehicle": 1
+    },
+    {
+      "utc": "2026-10-15T18:20:34",
+      "class": "shocktroop",
+      "fps": 65.6245121237041,
+      "frame_ms_p95": 26.914,
+      "frame_ms_max": 32.794,
+      "menu": false,
+      "scope": false,
+      "nvg": false,
+      "vehicle": -1
+    },
+    {
+      "utc": "2026-10-15T18:24:44",
+      "class": "shocktroop",
+      "fps": 65.690231622958,
+      "frame_ms_p95": 26.498,
+      "frame_ms_max": 29.346,
+      "menu": false,
+      "scope": false,
+      "nvg": false,
+      "vehicle": 1
+    },
+    {
+      "utc": "2026-10-15T18:26:04",
+      "class": "shocktroop",
+      "fps": 66.284426474,
+      "frame_ms_p95": 26.779,
+      "frame_ms_max": 30.645,
+      "menu": false,
+      "scope": false,
+      "nvg": false,
+      "vehicle": 1
+    },
+    {
+      "utc": "2026-10-15T19:01:26",
+      "class": "medic",
+      "fps": 66.5096864967062,
+      "frame_ms_p95": 27.674,
+      "frame_ms_max": 34.712,
+      "menu": false,
+      "scope": false,
+      "nvg": false,
+      "vehicle": -1
+    },
+    {
+      "utc": "2026-10-15T18:25:44",
+      "class": "shocktroop",
+      "fps": 66.5957909063897,
+      "frame_ms_p95": 25.947,
+      "frame_ms_max": 32.376,
+      "menu": false,
+      "scope": false,
+      "nvg": false,
+      "vehicle": 1
+    },
+    {
+      "utc": "2026-10-15T18:24:34",
+      "class": "shocktroop",
+      "fps": 66.6221586698101,
+      "frame_ms_p95": 27.369,
+      "frame_ms_max": 33.3,
+      "menu": false,
+      "scope": false,
+      "nvg": false,
+      "vehicle": 1
+    },
+    {
+      "utc": "2026-10-15T18:21:04",
+      "class": "shocktroop",
+      "fps": 66.6814158893916,
+      "frame_ms_p95": 27.604,
+      "frame_ms_max": 31.649,
+      "menu": false,
+      "scope": false,
+      "nvg": false,
+      "vehicle": -1
+    },
+    {
+      "utc": "2026-10-15T19:01:16",
+      "class": "medic",
+      "fps": 66.7762969099742,
+      "frame_ms_p95": 28.179,
+      "frame_ms_max": 32.817,
+      "menu": false,
+      "scope": false,
+      "nvg": false,
+      "vehicle": -1
+    },
+    {
+      "utc": "2026-10-15T18:25:54",
+      "class": "shocktroop",
+      "fps": 66.8874117891013,
+      "frame_ms_p95": 26.887,
+      "frame_ms_max": 31.702,
+      "menu": false,
+      "scope": false,
+      "nvg": false,
+      "vehicle": 1
+    }
+  ],
+  "limitations": [
+    "Frame percentiles describe separate 10-second windows; a global frame p95 cannot be reconstructed.",
+    "Vive Pro 2 was reported at 90 Hz (corrected from the earlier 120 Hz report); these saved frame reports are from the local 90 Hz Quest Pro client, not the Vive client.",
+    "No per-frame physics/grass/audio attribution was recorded in this session. New workload grouping is added for subsequent tests.",
+    "Legacy server health fields do not represent all native CQ combat state; they cannot establish kills, ammo usage or dropped input from their unchanged counters.",
+    "Only a small number of clients participated; this is not a 64-player capacity qualification."
+  ]
+}

@@ -61,10 +61,11 @@ static func apply(game: Node,values: Dictionary) -> void:
 	if sun:sun.shadow_enabled=values.shadows
 	if game.is_vr():
 		game.xr_rig.apply_hud_preferences(values)
-		load("res://deathmatch/vr/foveation.gd").apply(viewport,XRServer.find_interface("OpenXR"),int(values.foveation_level),int(values.fovea_size),bool(values.get("foveation_dynamic",true)))
-		var xr=XRServer.find_interface("OpenXR")
-		if xr and xr.is_initialized() and not is_equal_approx(xr.render_target_size_multiplier,values.render_scale):xr.render_target_size_multiplier=values.render_scale
-		viewport.scaling_3d_scale=1.0
+		var guard=game.xr_rig.get_node_or_null("FoveationGuard")
+		if guard==null:
+			guard=load("res://deathmatch/vr/foveation_guard.gd").new()
+			guard.name="FoveationGuard";game.xr_rig.add_child(guard)
+		guard.configure(viewport,XRServer.find_interface("OpenXR"),values)
 	else:
 		viewport.scaling_3d_scale=values.render_scale
 		if is_instance_valid(game.camera):game.camera.fov=values.fov

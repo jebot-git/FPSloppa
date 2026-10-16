@@ -17,6 +17,8 @@ var zoom_steps:Array=CQ_ZOOMS.duplicate()
 var saved_zoom:Dictionary={}
 var optic_key:=""
 static func zoom_fov(base:float,magnification:float) -> float:return rad_to_deg(2*atan(tan(deg_to_rad(base)*.5)/magnification))
+static func aperture_fov(radius:float,eye_distance:float,magnification:float)->float:
+	return rad_to_deg(2*atan(radius/maxf(.025,eye_distance)/maxf(1.,magnification)))
 func step_zoom(axis:float) -> void:
 	if absf(axis)<.25:zoom_latched=false
 	elif absf(axis)>.6 and not zoom_latched:
@@ -36,6 +38,9 @@ func attach(model: Node3D) -> void:
 		viewport.render_target_update_mode=SubViewport.UPDATE_DISABLED;viewport.msaa_3d=Viewport.MSAA_DISABLED;viewport.audio_listener_enable_3d=false
 		add_child(viewport);viewport.world_3d=get_world_3d()
 		camera=Camera3D.new();camera.physics_interpolation_mode=Node.PHYSICS_INTERPOLATION_MODE_OFF;camera.fov=FOV;camera.near=.025;camera.far=220;camera.cull_mask=((1<<20)-1)&~SCOPE_LAYER&~(1<<18)
+		# The optic shares world geometry, but must not run the headset's NVG
+		# compositor before that same effect processes the lens in the main view.
+		camera.compositor=Compositor.new()
 		viewport.add_child(camera);camera.make_current()
 	var mesh:=QuadMesh.new();mesh.size=Vector2.ONE*float(model.get_meta("scope_radius")) *2
 	lens=MeshInstance3D.new();lens.name="ScopeLens";lens.mesh=mesh;lens.layers=SCOPE_LAYER
@@ -58,8 +63,7 @@ func disable() -> void:
 	if surface:surface.set_shader_parameter("enabled",false)
 func update_view(model: Node3D,eye_poses: Array,shot: Transform3D,allowed: bool) -> void:
 	attach(model);disable()
-	if camera:camera.far=300.0 if model and model.has_meta("cq_zoom") else 220.0
-	if camera:camera.fov=zoom_fov(float(rig.game.presentation.get("fov",85.0)),zoom) if model and model.has_meta("cq_zoom") and rig else FOV
+	if camera:camera.far=rig.head.far if rig and is_instance_valid(rig.head) else 1600.0 if model and model.has_meta("cq_zoom") else 220.0
 	if not allowed or not is_instance_valid(lens) or not is_instance_valid(weapon):return
 	var optic:=Transform3D(weapon.global_basis.orthonormalized(),lens.global_position)
 	var quality:=0.0;var nearest:=Vector3.ZERO
@@ -67,6 +71,9 @@ func update_view(model: Node3D,eye_poses: Array,shot: Transform3D,allowed: bool)
 		var score:=eye_quality(optic,eye)
 		if score>quality:quality=score;nearest=eye.origin
 	if quality<=0:return
+	if model.has_meta("cq_zoom"):
+		var radius:float=float(model.get_meta("scope_radius"))*weapon.global_basis.x.length()
+		camera.fov=aperture_fov(radius,(optic.affine_inverse()*nearest).z,zoom)
 	var front: Vector3=weapon.to_global(weapon.get_meta("scope_front"))
 	var space:=get_world_3d().direct_space_state
 	# Neither the lens nor its camera may grant sight through nearby world geometry.

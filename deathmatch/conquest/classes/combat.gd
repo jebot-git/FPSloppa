@@ -16,7 +16,7 @@ func _tick_input(id:int,delta:float) -> void:
 	if game.battery_tanks.mounted(id):return
 	var s:Dictionary=game.players[id]
 	if s.weapon!=5:charges.erase(id)
-	if s.weapon!=0:bursts.erase(id);burst_held.erase(id)
+	if s.weapon!=14:bursts.erase(id);burst_held.erase(id)
 	if not game.classes.alive(id) or game.intermission>0 or game.lobby.active():salvos.erase(id);charges.erase(id);bursts.erase(id);burst_held.erase(id);return
 	if salvos.has(id) and salvos[id].at<=game.clock:
 		if s.weapon!=5 or s.serial!=salvos[id].life:salvos.erase(id)
@@ -47,7 +47,7 @@ func _tick_input(id:int,delta:float) -> void:
 			charges.erase(id);s.ammo[2]-=3;magazines.consume(id,3);s.cooldown=game.armory.data(5).cycle;s.invulnerable=0;s.shots+=1;launch_blast(id)
 			salvos[id]={"left":2,"at":game.clock+game.armory.data(5).salvo_interval,"life":s.serial}
 		return
-	if s.weapon==0:
+	if s.weapon==14:
 		if not s.fire:burst_held.erase(id)
 		if bursts.has(id):
 			if bursts[id].life!=s.serial or bursts[id].at<game.clock-.35 or s.get("input_blocked",false) or game.clock-s.last_input>.35:bursts.erase(id);return
@@ -69,12 +69,14 @@ func fire(id:int,alternate:bool=false,_charge:float=0.0) -> bool:
 	if w not in s.owned or w in [5,6,7,8] or alternate or s.cooldown>0 or game.intermission>0 or game.lobby.active() or s.get("input_blocked",false) or game.clock-s.last_input>.35:return false
 	if d.ammo<0 or s.ammo[d.ammo]<d.cost or magazines.loaded(id)<d.cost or magazines.state(id).get("cycling",-1)==w:return false
 	var lock:Dictionary=vehicle_lock.locks.get(id,{})
-	if w==11 and (not lock.get("ready",false) or lock.get("life",-1)!=s.serial):return false
 	var solution:Dictionary=game._shot_solution(id)
 	if solution.blocked or (d.kind not in ["hitscan","sniper"] and game.projectiles.size()>=MAX_PROJECTILES):return false
 	var basis:Basis=game._weapon_transform(id).basis
-	var accuracy:float=game.fighters[id].accuracy_scale()
-	var direction:Vector3=(-basis.z+basis.x*randf_range(-1,1)*tan(deg_to_rad(d.spread*accuracy))+basis.y*randf_range(-1,1)*tan(deg_to_rad(d.vertical*accuracy))).normalized()
+	var direction:Vector3=preload("res://deathmatch/conquest/classes/models.gd").zero_direction(game._weapon_transform(id),w,"cq_"+game.classes.role(id),solution.origin)
+	var running:float=Vector2(game.fighters[id].velocity.x,game.fighters[id].velocity.z).length()
+	if running>2.5:
+		var cone:float=tan(deg_to_rad(minf(2.5,(running-2.5)*.35)))
+		direction=(direction+basis.x*randf_range(-cone,cone)+basis.y*randf_range(-cone,cone)).normalized()
 	s.ammo[d.ammo]-=d.cost;s.cooldown=d.cycle;s.invulnerable=0;s.shots+=1;game.classes.weapon_used(id)
 	game._variant_shot_fx.rpc(id,w,false)
 	if d.kind in ["hitscan","sniper"]:
@@ -87,16 +89,16 @@ func fire(id:int,alternate:bool=false,_charge:float=0.0) -> bool:
 			damage=roundi(damage*shield.damage/float(d.damage))
 		game._damage_map_hit(hit,id,damage)
 		if hit.id!=0:game._damage(hit.id,id,damage,d.name,false,hit.position,direction,false,hit.get("vehicle",false),false,hit.get("headshot",false))
-		if w==10:game._cq_beam_impacts.rpc(solution.origin,PackedVector3Array([hit.position]),w,s.team)
+		if w in [10,16]:game._cq_beam_impacts.rpc(solution.origin,PackedVector3Array([hit.position]),w,s.team)
 		else:game._impacts.rpc(solution.origin,PackedVector3Array([hit.position]),w)
 	else:
-		var extra:Dictionary={"vehicle_target":lock.get("target",""),"guided_team":s.team} if w==11 else {}
+		var extra:Dictionary={"vehicle_target":lock.get("target","") if lock.get("ready",false) and lock.get("life",-1)==s.serial else "","guided_team":s.team} if w==11 else {}
 		launch(id,w,solution.origin,direction,extra)
 	return true
 func launch_blast(id:int) -> void:
 	var solution:Dictionary=game._shot_solution(id)
 	if solution.blocked:return
-	var direction:Vector3=-game._weapon_transform(id).basis.z
+	var direction:Vector3=preload("res://deathmatch/conquest/classes/models.gd").zero_direction(game._weapon_transform(id),5,"cq_"+game.classes.role(id),solution.origin)
 	launch(id,5,solution.origin,direction,{"guided_team":game.players[id].team})
 	game._variant_shot_fx.rpc(id,5,false)
 func launch(owner_id:int,weapon:int,position:Vector3,direction:Vector3,extra:Dictionary={}) -> int:
@@ -107,7 +109,7 @@ func launch(owner_id:int,weapon:int,position:Vector3,direction:Vector3,extra:Dic
 	return game.projectile_id
 func predict(id:int,command:Dictionary) -> void:
 	if game.battery_tanks.mounted(id):return
-	if game.headless or game.multiplayer.is_server() or not game.players.has(id) or command.weapon in [0,5,6,7,8,11] or game.classes.downed.has(id):return
+	if game.headless or game.multiplayer.is_server() or not game.players.has(id) or command.weapon in [5,6,7,8,11,14] or game.classes.downed.has(id):return
 	var state:Dictionary=game.players[id];var weapon:int=state.weapon
 	if not command.fire or command.weapon!=weapon or command.get("input_blocked",false) or state.dead or state.spectator or game.visual_cooldown>0 or game.intermission>0 or game.lobby.active():return
 	var data:Dictionary=game.armory.data(weapon)
@@ -122,14 +124,15 @@ func predict(id:int,command:Dictionary) -> void:
 func reset() -> void:super.reset();salvos.clear();charges.clear();bursts.clear();burst_held.clear();vehicle_lock.locks.clear();magazines.states.clear()
 func definition(owner_id:int,weapon:int,extra:Dictionary) -> Dictionary:
 	var data:Dictionary=super.definition(owner_id,weapon,extra)
-	if weapon in [0,1,4,5,11]:
+	if weapon in [0,1,4,5,11,14,15]:
 		data.cq_effect="ordnance" if weapon in [5,11] else "energy"
 		var team:int=extra.get("cq_team",game.players.get(owner_id,{}).get("team",0))
 		data.color=Color("ff3c39") if team==0 else Color("3b8dff")
+	if weapon==11:data.guided=false # Vehicle lock guidance owns steering; unlocked rounds stay ballistic.
 	if extra.get("turret_shot",false):data.name="TURRET ORDNANCE";data.guided=false;data.gravity=0.0;data.speed=40.0;data.fuse=4.0
 	if extra.has("hover_shot"):data.name="%s TANK ORDNANCE"%str(extra.hover_shot).to_upper();data.inherit=.5;data.fuse=10.0
 	if extra.get("battery_shot",false):data.merge({"name":"BATTERY MORTAR","kind":"tribes_mortar","speed":sqrt(5000.0*20),"gravity":20.0,"inherit":.5,"damage":152,"splash":152,"blast_radius":30.0,"radius":.3,"fuse":90.0,"arm":0.0,"bounce":0.0,"guided":false,"quake_rocket":false,"direct_random":0,"cq_effect":"ordnance"},true)
-	if weapon==3:data.cq_bullet=true
+	if weapon in [3,12,13]:data.cq_bullet=true
 	return data
 
 func cancel_player(id:int) -> void:

@@ -36,6 +36,7 @@ func killed(victim:int,attacker:int) -> void:
 func status(id:int=0) -> String:
 	if game.battery_tanks.mounted(id):
 		var row:Dictionary=game.battery_tanks.rows[game.battery_tanks.key_for(id)]
+		if row.kind=="bike":return "DESERT BIKE · %d/50 HP · JUMP TO DISMOUNT"%row.hp
 		if row.kind=="transport":return "ALLIED TRANSPORT · %d HP · %d/8 ABOARD · %s · JUMP TO DISMOUNT"%[row.hp,game.battery_tanks.occupants(row).size(),"DRIVER" if row.pilot==id else "PASSENGER"]
 		return "%s · %d HP · USE TO DISMOUNT"%[game.battery_tanks.profile(row).name,row.hp]
 	var text:String="CQ · RED %d BLUE %d / 200"%scores+objectives.status(id)+game.classes.status(id)

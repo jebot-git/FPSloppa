@@ -1,6 +1,7 @@
 extends Node3D
 const Attribution=preload("res://deathmatch/server/attribution.gd")
 ## Shared authoritative rocket/light/heavy vehicle service; no AI or ammunition pool.
+const Bike=preload("res://deathmatch/conquest/classes/bike_geometry.gd")
 const Transport=preload("res://deathmatch/conquest/classes/transport_geometry.gd")
 const Landscape=preload("res://tools/voxel_battle/landscape.gd")
 const Hull=preload("res://deathmatch/conquest/classes/battery_hull.gd")
@@ -24,6 +25,7 @@ const ROAD_MOBILITY:=1.25
 const HOVER_HEIGHT:=.25
 const MAX_HOVER_HEIGHT:=.5
 const PROFILES={
+	"bike":{"name":"DESERT BIKE","hp":50,"size":Vector3(1.14,1.25,3.4),"forward":24.0,"reverse":0.0,"turn":1.05,"acceleration":8.0,"capacity":0,"reload":0.0,"interval":0.0,"pair":0,"pitch_min":0.0,"pitch_max":0.0,"pivot":Vector3.ZERO,"length":0.0,"offset":0.0,"model":"res://deathmatch/models/desert_bike/bike.glb"},
 	"rocket":{"name":"BATTERY TANK","hp":100,"size":SIZE,"forward":FORWARD,"reverse":REVERSE,"turn":TURN,"acceleration":4.0,"capacity":8,"reload":RELOAD,"interval":INTERVAL,"pair":1,"pitch_min":-89.0,"pitch_max":89.0,"pivot":Vector3(0,2.3,0),"length":2.65,"offset":.55,"model":"res://deathmatch/models/battery_tank/battery_tank.glb"},
 	"light":{"name":"LIGHT TANK","hp":250,"size":Vector3(2.2,1.0,4.8),"forward":FORWARD,"reverse":REVERSE,"turn":TURN,"acceleration":4.0,"capacity":5,"reload":10.0,"interval":1.5,"pair":1,"pitch_min":-2.0,"pitch_max":35.0,"pivot":Vector3(0,.88044,1.30787),"length":3.46838,"offset":0.0,"model":"res://deathmatch/models/hover_tanks/light.glb"},
 	"transport":{"name":"ALLIED TRANSPORT","hp":100,"size":Vector3(3.510538,2.820975,8),"forward":12.0,"reverse":6.0,"turn":TURN,"acceleration":4.0,"capacity":0,"reload":0.0,"interval":0.0,"pair":0,"pitch_min":0.0,"pitch_max":0.0,"pivot":Vector3.ZERO,"length":0.0,"offset":0.0,"model":"res://deathmatch/models/ground_transport/transport.glb"},
@@ -38,6 +40,8 @@ var view
 var next_helper:=0.0
 var helper_points:=PackedVector3Array()
 var previous_render:Dictionary={}
+var native_movement=preload("res://deathmatch/native/movement.gd").create()
+var native_render_poses:Dictionary={}
 var rendered_rows:Dictionary={}
 var last_render_receive:=0.
 var headlights=preload("res://deathmatch/conquest/classes/vehicle_headlights.gd").new()
@@ -54,6 +58,12 @@ static func placements() -> Array:
 	for spec in [[0,0,85.],[2,0,85.],[1,1,-85.],[3,1,-85.]]:
 		var at:Vector3=Landscape.CENTERS[spec[0]]+Vector3(spec[2],0,0);at.y=Landscape.surface(at.x,at.z).x+.08
 		result.append({"poi":Landscape.TYPES[spec[0]],"position":at,"yaw":PI*.5 if spec[1]==0 else -PI*.5,"team":spec[1],"kind":"transport"})
+	for i in Landscape.CENTERS.size():
+		# A clear apron outside each capture circle, near its authored approach.
+		var center:Vector3=Landscape.CENTERS[i];var radius:float=Landscape.RADII[i]
+		var at:Vector3=center+Vector3(radius+12.,0,12.)
+		at.y=Landscape.surface(at.x,at.z).x+.08
+		result.append({"poi":Landscape.TYPES[i],"position":at,"yaw":PI*.5,"team":-1,"kind":"bike"})
 	return result
 func reset() -> void:
 	repair_status.clear()
@@ -62,7 +72,7 @@ func reset() -> void:
 		for id in occupants(row):unlock(id)
 	for node in bodies.values()+models.values():
 		if is_instance_valid(node):node.free()
-	bodies.clear();models.clear();rows.clear();previous_render.clear();rendered_rows.clear();last_render_receive=0.;helper_points.clear();next_helper=0.0
+	bodies.clear();models.clear();rows.clear();previous_render.clear();native_render_poses.clear();rendered_rows.clear();last_render_receive=0.;helper_points.clear();next_helper=0.0
 	if view:view.deactivate()
 func configure() -> void:
 	reset()
@@ -71,13 +81,13 @@ func configure() -> void:
 		rows[i]=spawn_row(p)
 		body(i)
 func spawn_row(p:Dictionary) -> Dictionary:
-	return {"spawn":p.duplicate(),"respawn_at":0.0,"poi":p.poi,"position":p.position,"yaw":p.yaw,"team":p.team,"kind":p.kind,"hp":PROFILES[p.kind].hp,"pilot":0,"life":-1,"seats":[0,0,0,0,0,0,0,0],"seat_lives":[0,0,0,0,0,0,0,0],"jump_edges":{},"headlights":false,"headlight_held":true,"direction":Basis(Vector3.UP,p.yaw)*Vector3.FORWARD,"speed":0.0,"velocity":Vector3.ZERO,"left":0,"rounds":PROFILES[p.kind].capacity,"next":0.0,"reload_at":0.0,"shot_at":-100.0,"normal":Vector3.UP,"visual_y":p.position.y+(0.0 if p.kind in ["rocket","transport"] else HOVER_HEIGHT)}
+	return {"spawn":p.duplicate(),"respawn_at":0.0,"poi":p.poi,"position":p.position,"yaw":p.yaw,"team":p.team,"kind":p.kind,"hp":PROFILES[p.kind].hp,"pilot":0,"life":-1,"seats":[0,0,0,0,0,0,0,0],"seat_lives":[0,0,0,0,0,0,0,0],"jump_edges":{},"headlights":false,"headlight_held":true,"direction":Basis(Vector3.UP,p.yaw)*Vector3.FORWARD,"speed":0.0,"velocity":Vector3.ZERO,"left":0,"rounds":PROFILES[p.kind].capacity,"next":0.0,"reload_at":0.0,"shot_at":-100.0,"normal":Vector3.UP,"visual_y":p.position.y+(0.0 if p.kind in ["rocket","transport","bike"] else HOVER_HEIGHT)}
 func body(key:int):
 	if bodies.has(key):return bodies[key]
 	var node:=Hull.new();node.name="BatteryTank_%d"%key;node.service=self;node.key=key;node.collision_layer=1;node.collision_mask=1;node.floor_max_angle=deg_to_rad(30);node.floor_snap_length=.5;node.safe_margin=.02
 	var config:=profile(rows[key]);var shape:=CollisionShape3D.new();var box:=BoxShape3D.new();box.size=config.size;shape.shape=box;node.add_child(shape)
 	var battery:=CollisionShape3D.new();battery.name="TurretCollision";var top:=BoxShape3D.new();top.size=Vector3(2.3,1.4,2.3) if rows[key].kind=="rocket" else Vector3(config.size.x*.7,.65,2.0);battery.shape=top;battery.position=Vector3(0,1.58,0) if rows[key].kind=="rocket" else Vector3(0,config.pivot.y+visual_origin(rows[key]).y-rows[key].position.y-config.size.y*.5,config.pivot.z);node.add_child(battery)
-	if rows[key].kind=="transport":node.remove_child(battery);battery.free()
+	if rows[key].kind in ["transport","bike"]:node.remove_child(battery);battery.free()
 	add_child(node);node.add_to_group("cq_repairable_vehicles");bodies[key]=node
 	pose_body(key);return node
 func pose_body(key:int) -> void:
@@ -96,7 +106,7 @@ func update_clearance(key:int) -> void:
 	Attribution.end(token)
 
 func _attributed_update_clearance(key:int) -> void:
-	var row:Dictionary=rows[key];var height:float=0.0 if row.kind in ["rocket","transport"] else HOVER_HEIGHT
+	var row:Dictionary=rows[key];var height:float=0.0 if row.kind in ["rocket","transport","bike"] else HOVER_HEIGHT
 	row.visual_y=row.position.y+height;row.normal=Vector3.UP
 	# Fit the rendered hull to its actual supporting floor, including structure floors.
 	# Gravity still governs airborne falls; never snap down onto a distant floor.
@@ -108,7 +118,7 @@ func _attributed_update_clearance(key:int) -> void:
 	pose_turret_collider(key)
 func pose_turret_collider(key:int) -> void:
 	var row:Dictionary=rows[key]
-	if row.kind=="transport":return
+	if row.kind in ["transport","bike"]:return
 	if row.kind=="rocket" and row.get("normal",Vector3.UP)==Vector3.UP:
 		bodies[key].get_node("TurretCollision").position=Vector3(0,1.58,0);return
 	var config:=profile(row)
@@ -119,13 +129,15 @@ static func occupants(row:Dictionary)->Array:
 func seat_index(id:int,key:int)->int:return rows[key].get("seats",[]).find(id) if rows[key].kind=="transport" else -1
 func passenger_position(id:int,key:int)->Vector3:
 	var row:Dictionary=rows[key];var index:=seat_index(id,key)
-	return visual_origin(row)+visual_basis(row)*Transport.point(index,"seat") if index>=0 else row.position
+	return visual_origin(row)+visual_basis(row)*Bike.point("seat") if row.kind=="bike" else visual_origin(row)+visual_basis(row)*Transport.point(index,"seat") if index>=0 else row.position
 func repair_tool_mount(id:int)->Transform3D:
 	var row:Dictionary=view_row(key_for(id))
 	return Transform3D(visual_basis(row),visual_origin(row))*Transform3D(Basis(Vector3.RIGHT,-PI/2),Transport.point(7,"seat")+Vector3(0,.95,-.55))
 func can_repair_from_cabin(id:int)->bool:
 	var key:=key_for(id)
 	return key>=0 and rows[key].kind=="transport" and seat_index(id,key)==7 and game.classes.role(id)=="technician" and game.classes.states.get(id,{}).get("equipped_utility","engineering")=="engineering"
+func protected_rider(id:int)->bool:
+	var key:=key_for(id);return key>=0 and rows[key].kind!="bike"
 func mounted(id:int) -> bool:return key_for(id)>=0
 func key_for(id:int) -> int:
 	for key in rows:
@@ -166,7 +178,7 @@ func use(id:int) -> bool:
 	if row.kind=="transport":
 		row.seats[pod]=id;row.seat_lives[pod]=game.players[id].serial;row.jump_edges[id]=game.players[id].get("jump",false)
 		if pod==6:row.pilot=id;row.life=game.players[id].serial
-	else:row.pilot=id;row.life=game.players[id].serial;row.team=game.players[id].team
+	else:row.pilot=id;row.life=game.players[id].serial;row.team=game.players[id].team;row.jump_edges[id]=game.players[id].get("jump",false)
 	if row.pilot==id:row.headlight_held=true
 	game.classes.weapon_used(id);game.airstrike.cancel(id);game.grenades.cancel(id);game.variant_combat.cancel_player(id)
 	game.players[id]["battery_saved_layer"]=game.fighters[id].collision_layer
@@ -223,11 +235,15 @@ func direction(id:int) -> Vector3:
 	var key:=key_for(id)
 	return raw if key<0 else constrain_direction(rows[key],raw)
 func remember_render(key:int,row:Dictionary,remote:bool=false,span:float=.05)->void:
+	native_render_poses.clear()
 	previous_render[key]={"pose":Transform3D(visual_basis(row),visual_origin(row)),"direction":row.direction,"yaw":row.yaw,"kind":row.kind,"remote":remote,"at":Time.get_ticks_usec()/1000000.,"span":span}
 func render_row(key:int,fraction:float=-1.)->Dictionary:
 	var row:Dictionary=rows[key];var result:=row.duplicate()
 	var old:Dictionary=previous_render.get(key,{})
-	if not old.is_empty() and old.kind==row.kind and old.pose.origin.distance_to(visual_origin(row))<20.:
+	if fraction<0 and native_render_poses.has(key):
+		var prepared:Array=native_render_poses[key];var pose:Transform3D=prepared[0]
+		result.position=pose.origin-(visual_origin(row)-row.position);result.visual_y=pose.origin.y;result.normal=pose.basis.y.normalized();result.yaw=prepared[2];result.direction=prepared[1]
+	elif not old.is_empty() and old.kind==row.kind and old.pose.origin.distance_to(visual_origin(row))<20.:
 		var alpha:float=fraction
 		if alpha<0:alpha=(Time.get_ticks_usec()/1000000.-old.at)/old.span if old.remote else Engine.get_physics_interpolation_fraction()
 		alpha=clampf(alpha,0,1)
@@ -237,23 +253,23 @@ func render_row(key:int,fraction:float=-1.)->Dictionary:
 		result.direction=old.direction.slerp(row.direction,alpha).normalized()
 	# Rendering uses fresh local aim; authority still samples validated commands at its tick rate.
 	var mine:int=game.multiplayer.get_unique_id()
-	if row.pilot==mine and game.players.has(mine) and not game.menu_open and row.kind!="transport":
+	if row.pilot==mine and game.players.has(mine) and not game.menu_open and row.kind not in ["transport","bike"]:
 		var raw:Vector3=-game._weapon_transform(mine).basis.z if game.is_vr() else -(Basis(Vector3.UP,game.local_yaw)*Basis(Vector3.RIGHT,game.local_pitch)).z
 		result.direction=constrain_direction(result,raw)
 	return result
 func view_row(key:int)->Dictionary:return rendered_rows[key] if rendered_rows.has(key) else render_row(key)
 func render_passenger_position(id:int,key:int)->Vector3:
 	var row:=view_row(key);var index:=seat_index(id,key)
-	return visual_origin(row)+visual_basis(row)*Transport.point(index,"seat") if index>=0 else row.position
+	return visual_origin(row)+visual_basis(row)*Bike.point("seat") if row.kind=="bike" else visual_origin(row)+visual_basis(row)*Transport.point(index,"seat") if index>=0 else row.position
 func render_transport_eye(id:int,key:int)->Vector3:
 	var row:=view_row(key);var index:=seat_index(id,key)
-	return visual_origin(row)+visual_basis(row)*(Transport.point(index,"seat")+Vector3.UP*Transport.EYE_HEIGHT)
+	return visual_origin(row)+visual_basis(row)*(Bike.point("seat")+Vector3.UP*float(Bike.data().eye_height)) if row.kind=="bike" else visual_origin(row)+visual_basis(row)*(Transport.point(index,"seat")+Vector3.UP*Transport.EYE_HEIGHT)
 func pivot(row:Dictionary) -> Vector3:return visual_origin(row)+visual_basis(row)*profile(row).pivot
 func muzzle(row:Dictionary,shot:int=0) -> Vector3:
 	var config:=profile(row);var side:Vector3=row.direction.cross(row.get("normal",Vector3.UP)).normalized();return pivot(row)+row.direction*config.length+side*(config.offset if shot%2==0 else -config.offset)
 func start_salvo(key:int) -> bool:
 	var row:Dictionary=rows[key];var id:int=row.pilot
-	if row.kind=="transport":return false
+	if row.kind in ["transport","bike"]:return false
 	if id==0 or row.left>0 or game.clock<row.reload_at or game.clock<row.next or not game.classes.alive(id):return false
 	if row.kind!="rocket":return fire_volley(key)
 	var space:=get_world_3d().direct_space_state;var pivot:Vector3=pivot(row)
@@ -350,6 +366,10 @@ func tick(delta:float) -> void:
 				if jump and not row.jump_edges.get(rider,false) and not game.players[rider].get("input_blocked",false):leave(rider)
 				row.jump_edges[rider]=jump
 			id=row.pilot
+		if row.kind=="bike" and id!=0:
+			var jump:bool=game.players[id].get("jump",false)
+			if jump and not row.jump_edges.get(id,false) and not game.players[id].get("input_blocked",false):leave(id);id=row.pilot
+			row.jump_edges[id]=jump
 		if id!=0 and (not game.classes.alive(id) or game.players[id].serial!=row.life):leave(id,true);id=0
 		var move:=Vector2.ZERO;var valid:=false
 		if id!=0:
@@ -360,7 +380,7 @@ func tick(delta:float) -> void:
 		row.headlight_held=not valid or light_trigger
 		var old:Vector3=row.position;var node=bodies[key];var mobility:=mobility_at(row.position)
 		row.speed=move_toward(row.speed,-move.y*(config.forward if move.y<0 else config.reverse)*mobility,delta*config.acceleration*mobility)
-		row.yaw-=move.x*config.turn*mobility*delta*(-1. if row.speed<0 else 1.)
+		if row.kind not in ["transport","bike"] or (absf(move.y)>.001 and absf(row.speed)>.05):row.yaw-=move.x*config.turn*mobility*delta*(-1. if row.speed<0 else 1.)
 		node.rotation.y=row.yaw
 		var horizontal:Vector3=Basis(Vector3.UP,row.yaw)*Vector3.FORWARD*row.speed
 		# Retain the map boundary; water entry is fatal instead of an invisible barrier.
@@ -375,7 +395,7 @@ func tick(delta:float) -> void:
 			if valid:row.direction=direction(id)
 			for rider in occupants(row):seat(rider,key)
 			crush(key,old,row.position)
-			if row.kind!="transport" and valid and game.players[id].fire:start_salvo(key)
+			if row.kind not in ["transport","bike"] and valid and game.players[id].fire:start_salvo(key)
 		if row.left>0 and game.clock>=row.next:
 			var origin:=muzzle(row,8-row.left);var pivot:Vector3=pivot(row)
 			if not Attribution.ray(get_world_3d().direct_space_state,PhysicsRayQueryParameters3D.create(pivot,origin,1,[node.get_rid()]),"query.battery_tank.tick.ray").is_empty():continue
@@ -400,7 +420,7 @@ func destroy(key:int,attacker:int=0,reason:String="VEHICLE DESTROYED") -> void:
 	if not multiplayer.is_server() or not rows.has(key):return
 	var row:Dictionary=rows[key]
 	if row.get("respawn_at",0.0)>0.0:return
-	row.respawn_at=game.clock+(TRANSPORT_RESPAWN if row.kind=="transport" else TANK_RESPAWN)
+	row.respawn_at=game.clock+(TRANSPORT_RESPAWN if row.kind in ["transport","bike"] else TANK_RESPAWN)
 	var riders:Array=occupants(row)
 	row.hp=0;row.left=0;row.rounds=0;row.speed=0.0;row.velocity=Vector3.ZERO;bodies[key].velocity=Vector3.ZERO;bodies[key].collision_layer=0
 	for pilot in riders:
@@ -426,6 +446,8 @@ func blast(where:Vector3,team:int,amount:int,radius:float,kind:String,quake:bool
 		if not Attribution.ray(get_world_3d().direct_space_state,ray,"query.battery_tank.blast.ray").is_empty():continue
 		damage(key,team,maxi(0,roundi(amount-distance*16 if quake else amount*(1-distance/radius))),kind,attacker)
 func receive(data:Dictionary,offset:float) -> void:
+	# Resample at packet arrival; the previous render batch belongs to an older frame.
+	native_render_poses.clear()
 	var prior:Array=[]
 	for row in rows.values():prior.append_array(occupants(row))
 	for key in bodies.keys():
@@ -446,8 +468,19 @@ func receive(data:Dictionary,offset:float) -> void:
 		for id in occupants(rows[key]):seat(id,key)
 	for id in prior:
 		if id!=0 and not mounted(id):unlock(id)
+func prepare_native_render()->void:
+	native_render_poses.clear()
+	if not native_movement:return
+	var ids:=PackedInt64Array();var previous:Array=[];var current:Array=[];var timing:=PackedFloat64Array()
+	for key in rows:
+		var row:Dictionary=rows[key];var old:Dictionary=previous_render.get(key,{})
+		if old.is_empty():continue
+		ids.append(key);previous.append([old.pose,old.direction,old.yaw]);current.append([Transform3D(visual_basis(row),visual_origin(row)),row.direction,row.yaw])
+		timing.append_array(PackedFloat64Array([old.at if old.remote else -1.,old.span,float(old.kind==row.kind),1.,0.]))
+	native_render_poses=native_movement.vehicles(ids,previous,current,timing,Time.get_ticks_usec()/1000000.,Engine.get_physics_interpolation_fraction())
 func draw() -> void:
 	if game.headless:return
+	prepare_native_render()
 	rendered_rows.clear()
 	for key in rows:
 		var row:Dictionary=render_row(key);rendered_rows[key]=row
@@ -460,7 +493,12 @@ func draw() -> void:
 		models[key].get_node("HeadlightLenses").visible=row.hp>0 and row.get("headlights",false)
 		pose_turret(models[key],row)
 	for id in game.fighters:
-		if mounted(id) and is_instance_valid(game.fighters[id].avatar):game.fighters[id].avatar.hide()
+		var actor=game.fighters[id];var aboard:=key_for(id)
+		actor.vehicle_seated=aboard>=0
+		actor.vehicle_avatar_visible=aboard>=0 and (rows[aboard].kind=="bike" or rows[aboard].kind=="transport" and seat_index(id,aboard) in [6,7])
+		actor.vehicle_bike=aboard>=0 and rows[aboard].kind=="bike"
+		if actor.vehicle_bike:actor.vehicle_heading=view_row(aboard).yaw
+		if aboard>=0 and not actor.vehicle_avatar_visible and is_instance_valid(actor.avatar):actor.avatar.hide()
 	if not view:view=preload("res://deathmatch/conquest/classes/battery_view.gd").new();add_child(view);view.setup(game,self)
 	# The VR rig normally follows the interpolated player capsule earlier in the frame.
 	# Seat it on the same rendered hull now, preserving head/controller orientation.

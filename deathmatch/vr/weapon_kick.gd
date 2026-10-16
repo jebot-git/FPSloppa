@@ -1,5 +1,5 @@
 extends RefCounted
-## Render-only recoil. Raw controller poses continue to drive authority/gestures.
+## CQ publishes this same recoil pose to authority; raw hands still drive gestures.
 var pitch:=0.0
 var yaw:=0.0
 var back:=0.0
@@ -15,8 +15,8 @@ func reset():
 	pitch=0.0;yaw=0.0;back=0.0;target=Vector2.ZERO;target_back=0.0
 	start_angles=Vector2.ZERO;start_back=0.0;pending=false;elapsed=1.0
 func shot(slot: int,supported: bool,direction: Vector3=Vector3.ZERO):
-	var strength: float=[0,2.8,3.0,5.0,3.6,1.4,2.3,1.8,2.0,4.5,4.0,1.2][clampi(slot,0,11)]
-	var penalty: float=1.0 if supported or slot in [1,2,10] else 2.0
+	var strength: float=[3.4,3.2,3.,1.6,3.6,1.4,0.,0.,0.,4.5,4.,1.2,1.7,2.,4.8,1.,6.][clampi(slot,0,16)]
+	var penalty: float=.55 if supported else 1.0
 	target=Vector2(minf(deg_to_rad(12),pitch+deg_to_rad(strength)*penalty),0.0)
 	if not direction.is_zero_approx():
 		# The authority supplies the upcoming shot's direction in sight space.

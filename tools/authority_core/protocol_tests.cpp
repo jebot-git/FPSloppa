@@ -142,24 +142,24 @@ void protocol_tests() {
     auto h = c->join(1, 0, {}, 1 << 2, {100, 100, 100, 100});
     ClassState profile;
     profile.xp[0] = 5000;
-    profile.secondary_t2[0] = true;
-    check(c->configure_player(h, profile), "cold T2 secondary profile");
+    profile.primary_t3[0] = true;
+    check(c->configure_player(h, profile), "cold T3 primary profile");
     check(!c->configure_player(h, profile),
           "profile cannot be reapplied to refill ammunition");
     for (int i = 0; i < 12; ++i) {
-      command(*c, h, i, 0);
+      command(*c, h, i, 14);
       c->advance(world);
     }
-    command(*c, h, 12, 0, true);
+    command(*c, h, 12, 14, true);
     c->advance(world);
     for (int i = 13; i < 36; ++i) {
-      command(*c, h, i, 0);
+      command(*c, h, i, 14);
       c->advance(world);
     }
     check(c->resolve(h)->shots == 3,
           "CQ burst completes after trigger release");
     for (int i = 36; i < 70; ++i) {
-      command(*c, h, i, 0, true);
+      command(*c, h, i, 14, true);
       c->advance(world);
     }
     check(c->resolve(h)->shots == 6,

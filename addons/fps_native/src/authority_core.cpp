@@ -1,3 +1,4 @@
+#include "authority_movement.h"
 #include "authority_core.h"
 #include "authority_weapon_geometry.h"
 #include "authority_wire.h"
@@ -5,11 +6,11 @@
 #include <cstring>
 #include <type_traits>
 namespace cqauthority {
-const std::array<Weapon, 12> &weapons() {
+const std::array<Weapon, WEAPON_COUNT> &weapons() {
   // CQ armory numerical values. Utility slots intentionally have no firearm
   // definition.
-  static const std::array<Weapon, 12> w = {
-      {{3, 18, .36, 14, 75, 0, 90, 0, .025, 2.2, 3},
+  static const std::array<Weapon, WEAPON_COUNT> w = {
+      {{0, 12, .24, 30, 75, 0, 90, 0, .025, 2.2, 1},
        {1, 36, .075, 16, 90, 0, 180, 0, .035},
        {0, 7, .35, 25, 0, 0, 100},
        {1, 40, .06, 12, 150, 0, 60, 0, .015},
@@ -20,7 +21,12 @@ const std::array<Weapon, 12> &weapons() {
        {},
        {0, 7, .6, 40, 0, 0, 200},
        {1, 10, .8, 55, 0, 0, 250},
-       {2, 3, 1, 100, 40, 0, 600, 120, 5, 6.6}}};
+       {2, 3, 1, 100, 40, 0, 600, 120, 5, 6.6},
+       {1, 36, .075, 16, 180, 0, 100, 0, .015},
+       {1, 30, .09, 21, 220, 0, 140, 0, .015},
+       {1, 24, .38, 38, 0, 0, 500, 0, .025, 2.2, 3},
+       {1, 120, .045, 13, 240, 0, 240, 0, .025, 6.6},
+       {1, 5, 1.4, 95, 0, 0, 1500, 0, .025, 3.0}}};
   return w;
 }
 Core::Core() { frame_.reserve(512 * 1024); }
@@ -50,11 +56,11 @@ Player *Core::resolve(Handle h) {
   auto *p = find(h.id);
   return p && p->handle == h ? p : nullptr;
 }
-Handle Core::join(int64_t id, int team, V position, uint16_t owned,
+Handle Core::join(int64_t id, int team, V position, uint32_t owned,
                   std::array<int, 4> ammo) {
   if (id == 0 || (!cq.enabled && id < 0) || find(id) || !position.finite() ||
-      team < 0 || team > (cq.enabled ? 1 : 2) || (owned & ~uint16_t(0xfff)) ||
-      !owned || !next_life_)
+      team < 0 || team > (cq.enabled ? 1 : 2) || (owned & ~uint32_t(0x1ffff)) ||
+      !owned || (!cq.enabled && (owned & ~uint32_t(0xfff))) || !next_life_)
     return {};
   if (cq.squads) { int count=0;for (const auto &p:players_) count+=p.active&&p.team==team;if(count>=cq.team_limit)return {}; }
   for (int n : ammo)
@@ -62,7 +68,7 @@ Handle Core::join(int64_t id, int team, V position, uint16_t owned,
       return {};
   // Utilities require the CQ feature adapter and are not accepted by this
   // infantry fixture.
-  for (int i = 0; i < 12; ++i)
+  for (int i = 0; i < int(WEAPON_COUNT); ++i)
     if (!cq.enabled && (owned & (1 << i)) && weapons()[i].ammo < 0)
       return {};
   for (auto &p : players_)
@@ -79,7 +85,7 @@ Handle Core::join(int64_t id, int team, V position, uint16_t owned,
       p.owned = owned;
       p.ammo = ammo;
       p.spawn_ammo = ammo;
-      for (int i = 0; i < 12; ++i)
+      for (int i = 0; i < int(WEAPON_COUNT); ++i)
         if (owned & (1 << i)) {
           if (weapons()[i].ammo >= 0)
             p.clips[i] = std::min(weapons()[i].mag, ammo[weapons()[i].ammo]);
@@ -162,7 +168,7 @@ bool Core::submit(Handle h, const Command &c) {
       c.seq < 0 || c.seq > 2147483647 || c.seq <= p->last_seq ||
       !std::isfinite(c.x) || !std::isfinite(c.z) || !std::isfinite(c.yaw) ||
       !std::isfinite(c.pitch) || std::abs(c.yaw) > 1e6 ||
-      std::abs(c.pitch) > 1.570797 || c.weapon < 0 || c.weapon >= 12 ||
+      std::abs(c.pitch) > 1.570797 || c.weapon < 0 || c.weapon >= int(WEAPON_COUNT) ||
       !(p->owned & (1 << c.weapon)) || !c.pose.valid() || !c.room.finite() || !c.swim.finite()) {
     ++counters.rejected;
     return false;
@@ -191,7 +197,7 @@ bool Core::submit(Handle h, const Command &c) {
   // native driver/seat gate, and clamp each axis instead of reducing throttle
   // whenever the wheel is turned. Foot movement retains the circular bound.
   bool transport_driver = p->vehicle >= 0 && size_t(p->vehicle) < vehicles_.size() &&
-      vehicles_[size_t(p->vehicle)].kind == VehicleKind::TRANSPORT &&
+      (vehicles_[size_t(p->vehicle)].kind == VehicleKind::TRANSPORT || vehicles_[size_t(p->vehicle)].kind == VehicleKind::BIKE) &&
       vehicles_[size_t(p->vehicle)].pilot == h;
   if (transport_driver) {
     safe.x = std::clamp(safe.x, -1., 1.);
@@ -518,32 +524,9 @@ void Core::movement(Player &p, Host &host) {
   }
   bool walk = ground && !jumping;
 
-  double strength = wish.length();
-  double current = horizontal.length();
-  if (walk && current > 0) {
-    double stop = strength > 0 && strength < 1
-                      ? std::min(75. / 32, speed * strength)
-                      : 75. / 32;
-    Motion probe{p.handle, p.position, p.velocity, p.height,
-                 p.yaw,    p.grounded, false};
-    horizontal = horizontal *
-                 (std::max(0., current - std::max(current, stop) * 4 *
-                                             (host.edge(probe) ? 2 : 1) * step_) /
-                  current) *
-                 std::pow(std::max(0., 1 - .19 * p.stamina), step_ * 100);
-  }
-  if (strength > 0) {
-    auto direction = wish.unit();
-    double requested = speed * strength;
-    double available = (walk ? requested : std::min(requested, 30. / 32)) -
-                       horizontal.dot(direction);
-    if (available > 0)
-      horizontal =
-          horizontal +
-          direction * std::min(available, (walk ? 5 : 10) * requested * step_);
-  }
-  if (walk && horizontal.length() < 1. / 32)
-    horizontal = {};
+  Motion probe{p.handle, p.position, p.velocity, p.height, p.yaw, p.grounded, false};
+  horizontal = cs_horizontal(horizontal, wish, speed, walk, step_, p.stamina,
+                             walk && horizontal.length() > 0 && host.edge(probe));
   p.velocity = {horizontal.x,
                 walk ? -.2 : std::max(-62.5, p.velocity.y - 25 * step_ * .5),
                 horizontal.z};
@@ -593,7 +576,7 @@ bool Core::damage(Handle victim, Handle source, double amount, DamageKind kind,
     return false;
   if (cq.enabled &&
       (points.winner != -2 || (p->invulnerable > time_ && !bypass) ||
-       (p->vehicle >= 0 && !bypass)))
+       (sheltered(*p) && !bypass)))
     return false;
   if (a && a != p && same_team(*a, *p) && !bypass &&
       kind != DamageKind::ORDNANCE && kind != DamageKind::GRENADE)
@@ -670,8 +653,6 @@ bool Core::damage(Handle victim, Handle source, double amount, DamageKind kind,
   return true;
 }
 bool Core::fire(Player &p, Host &host, bool paid) {
-  if (cq.enabled && p.weapon == 11 && p.lock_elapsed < 1.5)
-    return false;
   const auto &w = weapons()[p.weapon];
   if (p.staging || p.dead || p.incapacitated || p.vehicle >= 0 || p.input.blocked || (p.input.vr && !p.input.weapon_held) ||
       w.ammo < 0 || p.reloading >= 0 ||
@@ -693,6 +674,7 @@ bool Core::fire(Player &p, Host &host, bool paid) {
   V origin = p.position + V{0, std::min(1.48, p.height - .17), 0};
   V direction{-std::sin(p.yaw) * std::cos(p.pitch), std::sin(p.pitch),
               -std::cos(p.yaw) * std::cos(p.pitch)};
+  if(cq.enabled && !p.pose.tracked) origin=weapon_pose(p).apply(cq_geometry(p.weapon).muzzle*.65);
   if (p.pose.tracked) {
     B body = B::yaw(p.yaw);
     auto held = cq.enabled ? p.pose.weapon : p.reach.weapon_pose(p.pose);
@@ -721,22 +703,19 @@ bool Core::fire(Player &p, Host &host, bool paid) {
     origin = backoff(anchor, origin, fraction);
   }
 
-  if (cq.enabled && p.weapon != 5 && p.weapon != 11) {
+  if (cq.enabled) {
     B basis = weapon_pose(p).basis;
     bool supported = !p.pose.tracked;
-    V axis;
     if(p.pose.tracked && p.pose.has_offhand && p.input.reload_grip &&
        p.physical[p.weapon].grab==Grab::NONE && p.physical[p.weapon].carry==0) {
       auto hand=p.pose.left_handed?p.pose.right:p.pose.left;
-      auto primary=p.pose.left_handed?p.pose.left:p.pose.right;
-      axis=primary.basis.unapply(hand.origin-primary.origin);
       supported=(hand.origin-p.pose.weapon.apply(cq_geometry(p.weapon).support*.65)).length()<.16;
     }
-    double correction=p.recoil.compensation(axis,p.pose_stamp,supported);
-    V offset=p.recoil.shot(p.weapon,time_,std::hypot(p.velocity.x,p.velocity.z),p.grounded,p.height,p.pose.tracked,supported,correction,random_unit()*2-1,random_unit()*2-1);
-    // Use the actual tracked/desktop sight basis; palm position never recoils.
-    B sight=p.pose.tracked?B::yaw(p.yaw).product(p.pose.weapon.basis):basis;
-    direction=sight.apply(p.pose.tracked ? B::euler({cq_geometry(p.weapon).zero_pitch,0,0}).apply(offset) : offset).unit();
+    const auto &geometry=cq_geometry(p.weapon);
+    V running=p.recoil.shot(p.weapon,time_,std::hypot(p.velocity.x,p.velocity.z),p.grounded,p.height,p.pose.tracked,supported,1.,random_unit()*2-1,random_unit()*2-1);
+    B sight=weapon_pose(p).basis;
+    V zero=(geometry.sight*.65+V{0,0,-geometry.zero_distance}-geometry.muzzle*.65).unit();
+    direction=sight.apply((zero+V{running.x,running.y,0}).unit()).unit();
   }
   if (!paid) {
     consume_ammo(p, 1);
@@ -760,11 +739,12 @@ bool Core::fire(Player &p, Host &host, bool paid) {
     slot->sweep_radius = w.splash > 0 ? .025 : w.radius;
     slot->quake = p.weapon == 5 || p.weapon == 11;
     slot->direct_random = p.weapon == 5 ? 20 : 0;
-    slot->target_vehicle = p.weapon == 11 ? p.lock_vehicle : 0;
+    slot->target_vehicle = p.weapon == 11 && p.lock_elapsed >= 1.5 ? p.lock_vehicle : 0;
   } else {
     auto hit = trace_hit(host, origin, origin + direction * w.range, p.handle,
                          0, p.input.view_time);
     double amount = hit.headshot && p.weapon == 9    ? 100
+                    : hit.headshot && p.weapon == 16 ? 190
                     : hit.headshot && p.weapon == 10 ? 110
                                                      : w.damage;
     V end = hit.blocked ? hit.position : origin + direction * w.range;
@@ -805,7 +785,7 @@ bool Core::magazines(Player &p) {
   int &clip = p.clips[w];
   clip = std::min(clip, p.ammo[spec.ammo]);
   auto &state = p.physical[w];
-  bool pack = w == 5 || w == 11;
+  bool pack = w == 5 || w == 11 || w == 15;
   if (w == 11 && p.cycling == 11) {
     if (time_ < p.cycle_at)
       return false;
@@ -827,7 +807,7 @@ bool Core::magazines(Player &p) {
     int before = clip;
     clip =
         state.sample(pack                           ? 12
-                     : (w == 2 || w == 9 || w == 3) ? 2
+                     : (w == 0 || w == 2 || w == 9) ? 2
                                                     : 7,
                      clip, p.ammo[spec.ammo], spec.mag, p.pose,
                      p.input.reload_grip, p.input.reload, time_, p.pose_stamp, p.input.reload_trigger, cq.enabled);
@@ -940,7 +920,7 @@ void Core::combat(Player &p, Host &host) {
     }
     return;
   }
-  if (cq.enabled && (p.weapon==2 || p.weapon==9 || p.weapon==10) && !p.press_pending) return;
+  if (cq.enabled && (p.weapon==2 || p.weapon==9 || p.weapon==10 || p.weapon==16) && !p.press_pending) return;
   if (w.burst > 1 && cq.enabled && p.burst_held)
     return;
   if ((p.input.fire || p.press_pending) && fire(p, host) && w.burst > 1) {
@@ -991,7 +971,7 @@ void Core::impact(const Projectile &s, const Hit &hit, Host &host) {
                                          (cq.enabled ? .3 : 0));
       if (distance >= s.radius)
         continue;
-      if (p.vehicle >= 0)
+      if (sheltered(p))
         continue;
       auto obstruction = cq.enabled
                              ? host.world_trace(hit.position, center, s.owner)
@@ -1151,8 +1131,8 @@ void Core::snapshot() {
       append(frame_, p.shots);
       for (int n : p.ammo)
         append(frame_, uint16_t(n));
-      for (int n : p.clips)
-        append(frame_, uint16_t(n));
+      for (int i=0;i<12;++i)
+        append(frame_, uint16_t(p.clips[i]));
     }
   if (extended_frames)
     snapshot_extended();

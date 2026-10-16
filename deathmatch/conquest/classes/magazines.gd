@@ -18,7 +18,7 @@ func state(id:int) -> Dictionary:
 		if not c.clips.has(s.weapon):c.clips[s.weapon]=mini(d.magazine,s.ammo[d.ammo])
 		c.clips[s.weapon]=mini(c.clips[s.weapon],s.ammo[d.ammo])
 	return c
-func geometry(w:int) -> int:return 12 if w in [5,11] else 2 if w in [2,9,3] else 7
+func geometry(w:int) -> int:return 12 if w in [5,11,15] else 2 if w in [0,2,9] else 7
 func tick(id:int) -> bool:
 	var s:Dictionary=game.players[id];var c:=state(id);var w:int=s.weapon;var d:Dictionary=game.armory.data(w)
 	if d.ammo<0:return true
@@ -33,7 +33,7 @@ func tick(id:int) -> bool:
 		if c.physical.has(w):Reload.chamber(c.physical[w],c.clips[w])
 	if w==5 and game.variant_combat.salvos.has(id):return false
 	# Changing input device cannot turn an already seated, arming VR pack into a ready desktop pack.
-	if not s.vr_device and w in [5,11] and c.physical.has(w) and c.physical[w].get("pack_until",0.0)>game.clock:
+	if not s.vr_device and w in [5,11,15] and c.physical.has(w) and c.physical[w].get("pack_until",0.0)>game.clock:
 		c.reloading=w;c.reload_at=c.physical[w].pack_until;return false
 	var reload_pressed:bool=s.get("reload",false)
 	if s.vr_device:
@@ -42,15 +42,15 @@ func tick(id:int) -> bool:
 		var p:Dictionary=c.physical[w];p.weapon=geometry(w);p.cq_weapon=w
 		var previous_mag:bool=p.mag;var previous_clip:int=c.clips[w]
 		c.clips[w]=Reload.sample(p,geometry(w),c.clips[w],s.ammo[d.ammo],d.magazine,s.xr,s.get("reload_grip",false),reload_pressed,game.clock,true,s.last_input)
-		if w in [5,11]:
+		if w in [5,11,15]:
 			pack_delay(p,previous_mag,previous_clip,c.clips[w],game.clock,d.reload)
 			if p.has("pack_until"):c.reloading=w;c.reload_at=p.pack_until
 		return c.clips[w]>0 and Reload.can_fire(p,geometry(w))
 	if c.reloading>=0 and game.clock>=c.reload_at:
 		c.clips[w]=mini(d.magazine,s.ammo[d.ammo]);c.reloading=-1
-		if w in [5,11] and c.physical.has(w):
+		if w in [5,11,15] and c.physical.has(w):
 			c.physical[w].mag=true;c.physical[w].erase("pack_until");Reload.chamber(c.physical[w],c.clips[w])
-	if c.reloading<0 and (c.clips[w]==0 or reload_pressed and not c.reload_held) and c.clips[w]<mini(d.magazine,s.ammo[d.ammo]) and (s.cooldown<=0 or w in [5,11] and c.clips[w]==0):
+	if c.reloading<0 and (c.clips[w]==0 or reload_pressed and not c.reload_held) and c.clips[w]<mini(d.magazine,s.ammo[d.ammo]) and (s.cooldown<=0 or w in [5,11,15] and c.clips[w]==0):
 		c.reloading=w;c.reload_at=game.clock+d.reload
 	c.reload_held=reload_pressed
 	return c.reloading<0 and c.clips[w]>0

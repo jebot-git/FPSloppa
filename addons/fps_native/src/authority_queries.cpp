@@ -1,6 +1,7 @@
 #include "authority_core.h"
 namespace cqauthority {
 double Core::damage_yaw(const Player &p) const {
+  if(p.vehicle>=0 && !sheltered(p)) return vehicles_[size_t(p.vehicle)].yaw;
   V forward = p.pose.head.basis.z * -1;
   return p.yaw + (p.pose.tracked &&
                           forward.x * forward.x + forward.z * forward.z >= .0001
@@ -13,7 +14,7 @@ void Core::record_history() {
   for (size_t i = 0; i < MAX_PLAYERS; ++i) {
     auto &p = players_[i];
     frame.actors[i] = {p.active && !p.dead && !p.staging, p.handle, p.position, p.height,
-                       damage_yaw(p)};
+                       damage_yaw(p),p.vehicle>=0 && !sheltered(p)};
   }
   history_next_ = (history_next_ + 1) % history_.size();
   history_count_ = std::min(history_count_ + 1, history_.size());
@@ -40,11 +41,12 @@ Hit Core::trace_hit(Host &host, V from, V to, Handle ignore, double radius,
     }
   for (size_t i = 0; i < MAX_PLAYERS; ++i) {
     auto &p = players_[i];
-    if (!p.active || p.dead || p.staging || p.handle == ignore || p.vehicle >= 0)
+    if (!p.active || p.dead || p.staging || p.handle == ignore || sheltered(p))
       continue;
     V position = p.position,
       previous = relative ? p.previous_position : position;
     double height = p.height, yaw = damage_yaw(p);
+    bool seated=p.vehicle>=0 && !sheltered(p);
     if (low || high) {
       auto *a = low ? &low->actors[i] : &high->actors[i];
       auto *b = high ? &high->actors[i] : a;
@@ -58,12 +60,13 @@ Hit Core::trace_hit(Host &host, V from, V to, Handle ignore, double radius,
               : 0;
       position = a->position + (b->position - a->position) * t;
       previous = position;
+      seated=t<.5 ? a->seated_bike : b->seated_bike;
       height = a->height + (b->height - a->height) * t;
       double delta = std::remainder(b->yaw - a->yaw, 6.283185307179586);
       yaw = a->yaw + delta * t;
     }
     auto hit =
-        body_fraction(from - previous, to - position, height, yaw, radius);
+        body_fraction(from - previous, to - position, height, yaw, radius,seated);
     if (hit.fraction >= first)
       continue;
     V point = from + (to - from) * hit.fraction;

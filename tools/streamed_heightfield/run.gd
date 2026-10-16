@@ -173,7 +173,7 @@ func select_mode(variant: String) -> void:
 	stream.set_raster(variant.begins_with("raster"))
 	structures.force_near = variant == "raster_fine"
 	# Each renderer comparison starts with identical structure LOD state.
-	structures.previous_lods.clear()
+	structures.reset_lods()
 	structures.last_position = Vector3.INF
 	if variant.begins_with("columns"):
 		columns = Columns.new()

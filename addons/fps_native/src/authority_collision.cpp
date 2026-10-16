@@ -18,7 +18,7 @@ B align_up(V direction) {
   };
   return {rotate({1, 0, 0}), rotate({0, 1, 0}), rotate({0, 0, 1})};
 }
-BodyGeometry generate(int key) {
+BodyGeometry generate(int key, bool seated=false) {
   BodyGeometry parts;
   bool prone = key < 80;
   V pelvis =
@@ -35,7 +35,7 @@ BodyGeometry generate(int key) {
     parts[at++] = {{upper.basis, upper.apply({side * .38, .12, -.16})},
                    V{.16, .23, .37} * .5};
     V hip = pelvis + V{side * .18, 0, 0},
-      foot{side * (prone ? .28 : .18), .10, prone ? 1.15 : 0};
+      foot=seated ? V{side*.33,.32,-.28} : V{side * (prone ? .28 : .18), .10, prone ? 1.15 : 0};
     V axis = (foot - hip).unit();
     double distance = std::clamp((hip - foot).length(), .02, .719);
     foot = hip + axis * distance;
@@ -57,7 +57,8 @@ BodyGeometry generate(int key) {
   return parts;
 }
 } // namespace
-const BodyGeometry &body_geometry(double height) {
+const BodyGeometry &body_geometry(double height, bool seated) {
+  if(seated) { static const auto bike=generate(165,true);return bike; }
   static const auto table = []() {
     std::vector<BodyGeometry> result;
     result.reserve(101);
@@ -147,7 +148,7 @@ double box_fraction(V start, V end, V half, double radius) {
   }
   return infinity;
 }
-BodyHit body_fraction(V from, V to, double height, double yaw, double radius) {
+BodyHit body_fraction(V from, V to, double height, double yaw, double radius, bool seated) {
   B basis = B::yaw(yaw);
   from = basis.inverse(from);
   to = basis.inverse(to);
@@ -155,7 +156,7 @@ BodyHit body_fraction(V from, V to, double height, double yaw, double radius) {
                                   {1.5, .9, 1.5}, radius)))
     return {};
   BodyHit first;
-  const auto &parts = body_geometry(height);
+  const auto &parts = body_geometry(height,seated);
   for (size_t i = 0; i < parts.size(); ++i) {
     const auto &p = parts[i];
     double t =

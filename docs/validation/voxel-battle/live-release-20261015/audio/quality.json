@@ -1,0 +1,359 @@
+{
+  "forest_day": {
+    "peak_dbfs": -12.62,
+    "rms_dbfs": -32.83,
+    "dc": 1.4194733166661422e-09,
+    "seam": 0.0023218903224915266,
+    "seconds": 120.0
+  },
+  "forest_night": {
+    "peak_dbfs": -15.34,
+    "rms_dbfs": -30.6,
+    "dc": 8.409448781776518e-08,
+    "seam": 0.00885345321148634,
+    "seconds": 120.0
+  },
+  "river": {
+    "peak_dbfs": -5.92,
+    "rms_dbfs": -19.99,
+    "dc": 9.530856459605275e-07,
+    "seam": 0.04097303748130798,
+    "seconds": 39.0
+  },
+  "rain": {
+    "peak_dbfs": -7.96,
+    "rms_dbfs": -29.69,
+    "dc": 1.8519214606271817e-08,
+    "seam": 0.003997802734375,
+    "seconds": 39.0
+  },
+  "thunder": {
+    "peak_dbfs": -1.72,
+    "rms_dbfs": -32.64,
+    "dc": 1.8538319324079566e-08,
+    "seam": 0.0,
+    "seconds": 16.324708333333334
+  },
+  "engine_heavy": {
+    "peak_dbfs": -6.02,
+    "rms_dbfs": -16.83,
+    "dc": 3.298630257830837e-09,
+    "seam": 0.009002685546875,
+    "seconds": 8.480625
+  },
+  "engine_transport": {
+    "peak_dbfs": -6.02,
+    "rms_dbfs": -16.85,
+    "dc": 2.203673155065644e-08,
+    "seam": 0.00140380859375,
+    "seconds": 6.174125
+  },
+  "engine_hover": {
+    "peak_dbfs": -6.38,
+    "rms_dbfs": -15.92,
+    "dc": 1.1975463287683397e-08,
+    "seam": 0.00250244140625,
+    "seconds": 4.034875
+  },
+  "engine_start": {
+    "peak_dbfs": -6.5,
+    "rms_dbfs": -20.89,
+    "dc": 5.347300975699909e-05,
+    "seam": 0.0,
+    "seconds": 1.8010416666666667
+  },
+  "engine_stop": {
+    "peak_dbfs": -3.74,
+    "rms_dbfs": -19.23,
+    "dc": 8.07252581580542e-05,
+    "seam": 0.0,
+    "seconds": 1.8010416666666667
+  },
+  "carbine": {
+    "peak_dbfs": -3.1,
+    "rms_dbfs": -19.54,
+    "dc": 9.924126970872749e-06,
+    "seam": 0.0,
+    "seconds": 0.43
+  },
+  "assault": {
+    "peak_dbfs": -3.48,
+    "rms_dbfs": -18.35,
+    "dc": 2.6387182515463792e-05,
+    "seam": 0.0,
+    "seconds": 0.29
+  },
+  "beam": {
+    "peak_dbfs": -2.62,
+    "rms_dbfs": -21.68,
+    "dc": 9.594400580681395e-06,
+    "seam": 0.0,
+    "seconds": 1.02275
+  },
+  "burst_pistol": {
+    "peak_dbfs": -3.74,
+    "rms_dbfs": -23.47,
+    "dc": 6.557612550750491e-07,
+    "seam": 0.0,
+    "seconds": 0.3606666666666667
+  },
+  "launcher": {
+    "peak_dbfs": -3.1,
+    "rms_dbfs": -18.23,
+    "dc": 1.866615639301017e-05,
+    "seam": 0.0,
+    "seconds": 3.0265
+  },
+  "guided_launcher": {
+    "peak_dbfs": -3.1,
+    "rms_dbfs": -18.23,
+    "dc": 1.7384711100021377e-05,
+    "seam": 0.0,
+    "seconds": 2.3386666666666667
+  },
+  "jetpack_ignite": {
+    "peak_dbfs": -3.78,
+    "rms_dbfs": -17.3,
+    "dc": 0.0002299994812346995,
+    "seam": 0.0,
+    "seconds": 0.38
+  },
+  "pistol": {
+    "peak_dbfs": -2.85,
+    "rms_dbfs": -17.87,
+    "dc": 1.6062615031842142e-05,
+    "seam": 0.0,
+    "seconds": 0.45716666666666667
+  },
+  "smg": {
+    "peak_dbfs": -3.88,
+    "rms_dbfs": -16.19,
+    "dc": 3.929352533305064e-05,
+    "seam": 0.0,
+    "seconds": 0.11866666666666667
+  },
+  "pistol_suppressed": {
+    "peak_dbfs": -7.54,
+    "rms_dbfs": -20.88,
+    "dc": 1.8838247342500836e-05,
+    "seam": 0.0,
+    "seconds": 0.2
+  },
+  "jetpack_thrust": {
+    "peak_dbfs": -3.74,
+    "rms_dbfs": -17.16,
+    "dc": 3.005519033649762e-08,
+    "seam": 0.012603759765625,
+    "seconds": 1.65
+  },
+  "repair": {
+    "peak_dbfs": -7.22,
+    "rms_dbfs": -17.08,
+    "dc": 1.3871626514116997e-08,
+    "seam": 0.000152587890625,
+    "seconds": 1.65
+  },
+  "magazine_out": {
+    "peak_dbfs": -3.74,
+    "rms_dbfs": -28.51,
+    "dc": 2.58933624763813e-07,
+    "seam": 0.0,
+    "seconds": 0.45179166666666665
+  },
+  "magazine_in": {
+    "peak_dbfs": -3.74,
+    "rms_dbfs": -20.22,
+    "dc": 1.8818343505699886e-06,
+    "seam": 0.0,
+    "seconds": 0.2554166666666667
+  },
+  "bolt_pull": {
+    "peak_dbfs": -3.74,
+    "rms_dbfs": -16.91,
+    "dc": 1.6421818145317957e-05,
+    "seam": 0.0,
+    "seconds": 1.0124166666666667
+  },
+  "bolt_release": {
+    "peak_dbfs": -3.74,
+    "rms_dbfs": -16.98,
+    "dc": 2.4601640689070337e-05,
+    "seam": 0.0,
+    "seconds": 0.66975
+  },
+  "deploy": {
+    "peak_dbfs": -3.74,
+    "rms_dbfs": -19.93,
+    "dc": 2.5718404685903806e-06,
+    "seam": 0.0,
+    "seconds": 0.6902083333333333
+  },
+  "nvg_toggle": {
+    "peak_dbfs": -6.94,
+    "rms_dbfs": -31.42,
+    "dc": 2.2649764730431343e-07,
+    "seam": 0.0,
+    "seconds": 0.21333333333333335
+  },
+  "cloak_on": {
+    "peak_dbfs": -6.02,
+    "rms_dbfs": -22.7,
+    "dc": 2.2754333883767686e-07,
+    "seam": 0.0,
+    "seconds": 0.38
+  },
+  "cloak_off": {
+    "peak_dbfs": -6.94,
+    "rms_dbfs": -23.62,
+    "dc": 1.4559427654603496e-06,
+    "seam": 0.0,
+    "seconds": 0.4
+  },
+  "inject_start": {
+    "peak_dbfs": -6.38,
+    "rms_dbfs": -24.43,
+    "dc": 4.285176601115381e-06,
+    "seam": 0.0,
+    "seconds": 0.3
+  },
+  "revive": {
+    "peak_dbfs": -4.44,
+    "rms_dbfs": -16.62,
+    "dc": 6.652417141594924e-07,
+    "seam": 0.0,
+    "seconds": 0.4109583333333333
+  },
+  "supply": {
+    "peak_dbfs": -6.02,
+    "rms_dbfs": -24.7,
+    "dc": 6.84544033902057e-07,
+    "seam": 0.0,
+    "seconds": 0.252625
+  },
+  "empty": {
+    "peak_dbfs": -6.94,
+    "rms_dbfs": -23.72,
+    "dc": 1.0943549000330677e-07,
+    "seam": 0.0,
+    "seconds": 0.255625
+  },
+  "lock_acquire": {
+    "peak_dbfs": -5.19,
+    "rms_dbfs": -20.58,
+    "dc": 6.757657047273824e-07,
+    "seam": 0.0,
+    "seconds": 0.23520833333333332
+  },
+  "lock_ready": {
+    "peak_dbfs": -4.44,
+    "rms_dbfs": -16.62,
+    "dc": 6.652417141594924e-07,
+    "seam": 0.0,
+    "seconds": 0.4109583333333333
+  },
+  "charge": {
+    "peak_dbfs": -6.58,
+    "rms_dbfs": -20.6,
+    "dc": 0.00025802975869737566,
+    "seam": 0.0,
+    "seconds": 0.35
+  },
+  "energy_impact": {
+    "peak_dbfs": -3.74,
+    "rms_dbfs": -16.94,
+    "dc": 1.5427120160893537e-05,
+    "seam": 0.0,
+    "seconds": 0.192625
+  },
+  "ordnance_impact": {
+    "peak_dbfs": -2.16,
+    "rms_dbfs": -19.77,
+    "dc": 4.743848421639996e-06,
+    "seam": 0.0,
+    "seconds": 2.8
+  },
+  "inject_loop": {
+    "peak_dbfs": -12.55,
+    "rms_dbfs": -25.19,
+    "dc": 1.0423921281699222e-08,
+    "seam": 0.007720947265625,
+    "seconds": 4.513458333333333
+  },
+  "water_enter": {
+    "peak_dbfs": -5.19,
+    "rms_dbfs": -17.54,
+    "dc": 9.314483759226277e-05,
+    "seam": 0.0,
+    "seconds": 0.48
+  },
+  "water_exit": {
+    "peak_dbfs": -5.19,
+    "rms_dbfs": -18.08,
+    "dc": 9.680853690952063e-05,
+    "seam": 0.0,
+    "seconds": 0.48
+  },
+  "swim": {
+    "peak_dbfs": -5.19,
+    "rms_dbfs": -17.26,
+    "dc": 0.00019502911891322583,
+    "seam": 0.0,
+    "seconds": 0.35
+  },
+  "submerged": {
+    "peak_dbfs": -10.44,
+    "rms_dbfs": -24.03,
+    "dc": 2.84321195067605e-05,
+    "seam": 0.005368269979953766,
+    "seconds": 7.85
+  },
+  "industrial": {
+    "peak_dbfs": -19.44,
+    "rms_dbfs": -29.12,
+    "dc": 1.07303685581428e-05,
+    "seam": 0.0004183463752269745,
+    "seconds": 14.326
+  },
+  "tank_light_fire": {
+    "peak_dbfs": -2.85,
+    "rms_dbfs": -21.57,
+    "dc": 2.2406240532291122e-05,
+    "seam": 0.0,
+    "seconds": 0.84825
+  },
+  "tank_heavy_fire": {
+    "peak_dbfs": -2.38,
+    "rms_dbfs": -20.8,
+    "dc": 1.5804460417712107e-05,
+    "seam": 0.0,
+    "seconds": 1.4634166666666666
+  },
+  "turret_fire": {
+    "peak_dbfs": -3.35,
+    "rms_dbfs": -21.84,
+    "dc": 2.585398942756001e-05,
+    "seam": 0.0,
+    "seconds": 0.5385
+  },
+  "rocket_tank_launch": {
+    "peak_dbfs": -4.15,
+    "rms_dbfs": -16.41,
+    "dc": 9.868258530332241e-06,
+    "seam": 0.0,
+    "seconds": 0.28
+  },
+  "rocket_tank_travel": {
+    "peak_dbfs": -7.54,
+    "rms_dbfs": -20.44,
+    "dc": 1.8608279361842506e-08,
+    "seam": 0.003173828125,
+    "seconds": 1.23
+  },
+  "building_collapse": {
+    "peak_dbfs": -4.88,
+    "rms_dbfs": -21.85,
+    "dc": 9.281339771405328e-06,
+    "seam": 0.0001220703125,
+    "seconds": 3.5
+  }
+}

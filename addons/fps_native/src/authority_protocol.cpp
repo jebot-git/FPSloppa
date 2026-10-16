@@ -6,7 +6,7 @@ namespace cqauthority {
 bool validate_frame(const uint8_t *data, size_t length, int expected,
                     int64_t tick) {
   if (!data || length < 14 || length > 1048576 || std::memcmp(data, "CQA", 3) ||
-      (data[3] != '1' && data[3] != '2'))
+      (data[3] != '1' && data[3] != '2' && data[3]!='3'))
     return false;
   auto integer = [&](size_t at, size_t size) {
     uint64_t value = 0;
@@ -40,7 +40,7 @@ bool validate_frame(const uint8_t *data, size_t length, int expected,
     ids[i] = integer(at, 8);
     lives[i] = integer(at + 8, 4);
     if (!ids[i] || !lives[i] || data[at + 12] > 2 || data[at + 13] > 1 ||
-        data[at + 14] > 11 || data[at + 15] > 1)
+        data[at + 14] >= (data[3]=='3' ? 17:12) || data[at + 15] > 1)
       return false;
     for (size_t j = 0; j < i; ++j)
       if (ids[j] == ids[i])
@@ -68,14 +68,14 @@ bool validate_frame(const uint8_t *data, size_t length, int expected,
     }
     size_t end = at + size, rows = integer(at, 2);
     at += 2;
-    if (type > 15) {
+    if (type > 16) {
       at = end;
       continue;
     }
-    static constexpr std::array<size_t, 16> row_sizes{
-        {0, 0, 42, 67, 41, 147, 0, 36, 47, 98, 74, 79, 54, 63, 83, 17}},
-        caps{{0, 128, 1536, 2048, 128, 128, 32, 384, 128, 32, 128, 128, 384,
-              1024, 128, 128}};
+    static constexpr std::array<size_t, 17> row_sizes{
+        {0, 0, 42, 67, 41, 147, 0, 36, 47, 98, 74, 79, 54, 63, 83, 17,27}},
+        caps{{0, 128, 2176, 2048, 128, 128, 32, 384, 128, 32, 128, 128, 384,
+              1024, 128, 128,128}};
     if (rows > caps[type])
       return false;
     if (type == 6) {
@@ -98,7 +98,7 @@ bool validate_frame(const uint8_t *data, size_t length, int expected,
       }
       continue;
     }
-    std::array<uint16_t, 128> seen{};
+    std::array<uint32_t, 128> seen{};
     for (size_t i = 0; i < rows; ++i) {
       size_t row_size = row_sizes[type];
       if (type == 1) {
@@ -108,15 +108,15 @@ bool validate_frame(const uint8_t *data, size_t length, int expected,
       }
       if (end - at < row_size)
         return false;
-      if (type == 1 || type == 2 || type == 4 || type == 5 || type == 14 || type == 15) {
+      if (type == 1 || type == 2 || type == 4 || type == 5 || type == 14 || type == 15 || type == 16) {
         int index = player(at);
         if (index < 0)
           return false;
-        uint16_t bit = 1;
+        uint32_t bit = 1;
         if (type == 2) {
-          if (data[at + 12] > 11)
+          if (data[at + 12] >= (data[3]=='3' ? 17:12))
             return false;
-          bit = uint16_t(1) << data[at + 12];
+          bit = uint32_t(1) << data[at + 12];
         }
         if (seen[index] & bit)
           return false;
@@ -157,7 +157,7 @@ bool validate_frame(const uint8_t *data, size_t length, int expected,
         ok = integer(at, 8) && floats(21, 33) && floats(35, 47);
         break;
       case 9:
-        ok = integer(at, 8) && data[at + 8] < 32 && data[at + 9] < 4 &&
+        ok = integer(at, 8) && data[at + 8] < 32 && data[at + 9] < 5 &&
              data[at + 11] <= 3 && floats(24, 96);
         break;
       case 10:
@@ -172,6 +172,8 @@ bool validate_frame(const uint8_t *data, size_t length, int expected,
       case 13:
         ok = integer(at, 8) && data[at + 8] <= 9 && floats(29, 61);
         break;
+      case 16:
+        ok=data[3]=='3' && !(integer(at+12,4)&~131071) && data[at+26]<=15;break;
       case 15:
         ok=data[at+12]<=4&&finite(at+13);break;
       case 14:
@@ -186,9 +188,9 @@ bool validate_frame(const uint8_t *data, size_t length, int expected,
     }
     if (at != end)
       return false;
-    if ((type == 5 || type == 14 || type == 15) && rows != count)
+    if ((type == 5 || type == 14 || type == 15 || type == 16) && rows != count)
       return false;
   }
-  return at == length;
+  return at == length && (data[3]!='3' || (sections & (uint32_t(1)<<16)));
 }
 } // namespace cqauthority

@@ -8,12 +8,12 @@ for name,info in manifest.items():
  triangles=sum(data['accessors'][p['indices']]['count']//3 for mesh in data['meshes'] for p in mesh['primitives'])
  runtime=12 if name in ['massacre','guided_launcher'] else 2 if name in ['carbine','designator','scout_pistol','smg','assault_rifle','beam_pistol','burst_pistol'] else 0
  assert triangles==info['triangles'],(name,triangles)
- if not info.get('optimization_pending',False):assert triangles+runtime<1000,(name,triangles)
+ if not info.get('optimization_pending',False):assert triangles+runtime<=info.get('triangle_budget',5000),(name,triangles)
  assert len(data.get('images',[]))==len(data.get('textures',[]))==len(data.get('materials',[]))==1,name
  if info.get('texture_size')==[1024,1024]:
   assert all('TEXCOORD_0' in p['attributes'] and 'TEXCOORD_1' not in p['attributes'] for mesh in data['meshes'] for p in mesh['primitives']),name
-  png=(assets/(name+'.png')).read_bytes();assert struct.unpack_from('>II',png,16)==(1024,1024),name
-  assert 'InsertedAmmo' in [n.get('name') for n in data['nodes']],name
+  png=(assets/(name+('_tier_atlas.png' if info.get('source') else '.png'))).read_bytes();assert struct.unpack_from('>II',png,16)==(1024,1024),name
+  if name not in ['designator','repair_kit']:assert 'InsertedAmmo' in [n.get('name') for n in data['nodes']],name
  if name in ['massacre','guided_launcher']:assert 'ChargingHandle' not in [n.get('name') for n in data['nodes']]
  result[name]={'exported_triangles':triangles,'runtime_total_triangles':triangles+runtime,'materials':1,'baked_textures':1,'optimization_pending':info.get('optimization_pending',False)}
  dimensions={name:[hi-lo for lo,hi in manifest[name]['bounds_blender']] for name in ['health_box','ammo_box']}

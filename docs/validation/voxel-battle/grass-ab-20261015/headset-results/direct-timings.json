@@ -1,0 +1,105 @@
+{
+  "totals": {
+    "frames": 40695,
+    "seconds": 480.036586,
+    "completed_takes": 8
+  },
+  "stages": [
+    {
+      "stage": 0,
+      "grass_rebuild_frames": 1095,
+      "grass_ms_when_rebuilt_mean": 5.8993890410958905,
+      "grass_ms_when_rebuilt_p95": 9.138,
+      "grass_ms_max": 10.388,
+      "grass_instances_min": 0.0,
+      "grass_instances_max": 1725.0,
+      "terrain_busy_frames": 324,
+      "tree_instances_min": 240.0,
+      "tree_instances_max": 764.0
+    },
+    {
+      "stage": 1,
+      "grass_rebuild_frames": 942,
+      "grass_ms_when_rebuilt_mean": 5.499541401273885,
+      "grass_ms_when_rebuilt_p95": 7.785,
+      "grass_ms_max": 8.272,
+      "grass_instances_min": 0.0,
+      "grass_instances_max": 1746.0,
+      "terrain_busy_frames": 232,
+      "tree_instances_min": 278.0,
+      "tree_instances_max": 778.0
+    },
+    {
+      "stage": 2,
+      "grass_rebuild_frames": 0,
+      "grass_ms_when_rebuilt_mean": 0,
+      "grass_ms_when_rebuilt_p95": 0,
+      "grass_ms_max": 0,
+      "grass_instances_min": 0.0,
+      "grass_instances_max": 0.0,
+      "terrain_busy_frames": 385,
+      "tree_instances_min": 249.0,
+      "tree_instances_max": 771.0
+    },
+    {
+      "stage": 3,
+      "grass_rebuild_frames": 0,
+      "grass_ms_when_rebuilt_mean": 0,
+      "grass_ms_when_rebuilt_p95": 0,
+      "grass_ms_max": 0,
+      "grass_instances_min": 0.0,
+      "grass_instances_max": 0.0,
+      "terrain_busy_frames": 389,
+      "tree_instances_min": 240.0,
+      "tree_instances_max": 790.0
+    },
+    {
+      "stage": 4,
+      "grass_rebuild_frames": 0,
+      "grass_ms_when_rebuilt_mean": 0,
+      "grass_ms_when_rebuilt_p95": 0,
+      "grass_ms_max": 0,
+      "grass_instances_min": 0.0,
+      "grass_instances_max": 0.0,
+      "terrain_busy_frames": 301,
+      "tree_instances_min": 245.0,
+      "tree_instances_max": 775.0
+    },
+    {
+      "stage": 5,
+      "grass_rebuild_frames": 988,
+      "grass_ms_when_rebuilt_mean": 5.626263157894737,
+      "grass_ms_when_rebuilt_p95": 8.51,
+      "grass_ms_max": 9.579,
+      "grass_instances_min": 0.0,
+      "grass_instances_max": 1729.0,
+      "terrain_busy_frames": 311,
+      "tree_instances_min": 244.0,
+      "tree_instances_max": 766.0
+    },
+    {
+      "stage": 6,
+      "grass_rebuild_frames": 1069,
+      "grass_ms_when_rebuilt_mean": 5.5713367633302155,
+      "grass_ms_when_rebuilt_p95": 8.143,
+      "grass_ms_max": 9.862,
+      "grass_instances_min": 0.0,
+      "grass_instances_max": 1710.0,
+      "terrain_busy_frames": 268,
+      "tree_instances_min": 459.0,
+      "tree_instances_max": 459.0
+    },
+    {
+      "stage": 7,
+      "grass_rebuild_frames": 0,
+      "grass_ms_when_rebuilt_mean": 0,
+      "grass_ms_when_rebuilt_p95": 0,
+      "grass_ms_max": 0,
+      "grass_instances_min": 0.0,
+      "grass_instances_max": 0.0,
+      "terrain_busy_frames": 290,
+      "tree_instances_min": 488.0,
+      "tree_instances_max": 488.0
+    }
+  ]
+}

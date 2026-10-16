@@ -23,6 +23,14 @@ static func end(token:int) -> void:
 	var entry:Array=stack.pop_back();var elapsed:int=now-int(entry[1]);var own:int=maxi(0,elapsed-int(entry[2]));var row:Array=totals[entry[0]]
 	row[0]+=1;row[1]+=elapsed;row[2]+=own;row[3]=maxi(row[3],elapsed)
 	if not stack.is_empty():stack[-1][2]+=elapsed
+static func native_scope(label:String,elapsed_us:int)->void:
+	# Native query work is already inside the enclosing movement scope.
+	if not enabled or elapsed_us<0:return
+	var index:int=labels.get(label,-1)
+	if index<0:
+		index=names.size();labels[label]=index;names.append(label);totals.append([0,0,0,0])
+	var row:Array=totals[index];row[0]+=1;row[1]+=elapsed_us;row[2]+=elapsed_us;row[3]=maxi(row[3],elapsed_us)
+	if not stack.is_empty():stack[-1][2]+=elapsed_us
 static func tick(callback_us:int,players:int) -> void:
 	if not enabled:return
 	if not stack.is_empty():errors+=1;stack.clear()

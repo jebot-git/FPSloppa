@@ -79,3 +79,16 @@ func segment(mesh: Node3D,from: Vector3,to: Vector3) -> void:
 	mesh.position=(from+to)*.5
 	mesh.quaternion=Quaternion(Vector3.UP,(to-from).normalized())
 	mesh.scale=Vector3(1,from.distance_to(to),1)
+
+func animate_bike()->void:
+	$Upper.position=Vector3(0,.78,0);$Upper.rotation=Vector3.ZERO
+	$Upper/Head.rotation=Vector3.ZERO
+	$Upper/WeaponModel.hide()
+	var bike=preload("res://deathmatch/conquest/classes/bike_geometry.gd")
+	for i in 2:
+		var side:="Left" if i==0 else "Right";var sign_side:=-1. if i==0 else 1.
+		var hip:=Vector3(sign_side*.18,.78,0);var knee:=Vector3(sign_side*.29,.71,-.36);var foot:=Vector3(sign_side*.33,.32,-.28)
+		segment(get_node(side+"Thigh"),hip,knee);segment(get_node(side+"Shin"),knee,foot);get_node(side+"Boot").position=foot
+		var hand:Vector3=bike.point("steering_pivot")+bike.grip(i)-bike.point("seat")-$Upper.position
+		var shoulder:=Vector3(sign_side*.38,.32,0);var elbow:=shoulder.lerp(hand,.5)+Vector3(sign_side*.06,-.08,.04)
+		segment(get_node("Upper/"+side+"Arm"),shoulder,elbow);segment(get_node("Upper/"+side+"Forearm"),elbow,hand)

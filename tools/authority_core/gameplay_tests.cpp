@@ -98,7 +98,7 @@ void cq_rules_tests() {
     auto c=game();World world;
     auto medic=role(*c,join(*c,1,0),Role::MEDIC), victim=join(*c,2,0), enemy=join(*c,3,1);
     auto *m=c->resolve(medic), *v=c->resolve(victim);m->position={0,0,-.35};v->position={};v->invulnerable=0;c->damage(victim,enemy,100);
-    Command cmd;cmd.life=medic.life;cmd.weapon=4;cmd.drag=true;cmd.pose.tracked=true;cmd.pose.left_handed=right;cmd.pose.head.origin={0,1.65,0};cmd.pose.left.origin={-.3,1,-.2};cmd.pose.right.origin={.3,1,-.2};
+    Command cmd;cmd.life=medic.life;cmd.weapon=3;cmd.drag=true;cmd.pose.tracked=true;cmd.pose.left_handed=right;cmd.pose.head.origin={0,1.65,0};cmd.pose.left.origin={-.3,1,-.2};cmd.pose.right.origin={.3,1,-.2};
     auto &hand=right?cmd.pose.right:cmd.pose.left;hand.origin={0,.35,-.65};cmd.pose.weapon=right?cmd.pose.left:cmd.pose.right;
     cmd.seq=0;c->submit(medic,cmd);c->advance(world);check(m->drag_target==victim,"physical hand contact latches allied patient");
     check(v->position.length()<.001,"gripping visible prone torso does not yank body origin");
@@ -171,7 +171,7 @@ void cq_rules_tests() {
     check(box&&box->airborne&&m->hp==35,"box cannot heal in hand or in flight");
     if(box) {
       V origin=box->position;
-      for(int i=1;i<60&&box->airborne;++i){cmd.seq=i;cmd.weapon=4;c->submit(medic,cmd);c->advance(world);}
+      for(int i=1;i<60&&box->airborne;++i){cmd.seq=i;cmd.weapon=3;c->submit(medic,cmd);c->advance(world);}
       check(box->active&&!box->airborne&&box->position.y<.05&&box->position.x>origin.x+.1,"thrown box lands on world geometry");
       auto near=join(*c,2,0),far=join(*c,3,0);c->resolve(near)->position=box->position+V{2.99,0,0};c->resolve(far)->position=box->position+V{3.01,0,0};c->resolve(near)->hp=35;c->resolve(far)->hp=35;
       for(int i=60;i<90;++i){cmd.seq=i;c->submit(medic,cmd);c->advance(world);}
@@ -334,7 +334,7 @@ void cq_rules_tests() {
       check(state.level() == xp / 500, "500 XP per level");
       check(state.box_limit() == std::clamp(xp / 2500, 1, 3),
             "box level thresholds");
-      check(state.choose(2, 0, 3) == (xp >= 2500), "primary level 5 gate");
+      check(state.choose(2, 0, 12) == (xp >= 2500), "primary level 5 gate");
       check(state.choose(2, 1, 0) == (xp >= 5000), "secondary level 10 gate");
       check(state.choose(2, 2, 2) == (xp >= 7500), "utility level 15 gate");
     }

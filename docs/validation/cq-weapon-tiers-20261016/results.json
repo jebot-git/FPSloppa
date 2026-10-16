@@ -1,0 +1,22 @@
+{
+  "branch": "experimental/cq-voxelspace",
+  "core": {
+    "checks": 267204,
+    "ok": true,
+    "collision_legacy_misses": 0,
+    "collision_legacy_late": 0,
+    "replay_players": 64,
+    "replay_ticks": 3600
+  },
+  "engine": {
+    "checks": 125,
+    "failures": []
+  },
+  "native_builds": {
+    "linux_client": "passed",
+    "linux_server": "passed",
+    "windows_client": "passed"
+  },
+  "headset_test_performed": false,
+  "deployed": false
+}

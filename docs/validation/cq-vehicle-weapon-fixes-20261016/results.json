@@ -1,0 +1,57 @@
+{
+  "native": {
+    "checks": 268437,
+    "ok": true,
+    "collision_legacy_misses": 0,
+    "collision_legacy_late": 0,
+    "replay_players": 64,
+    "replay_ticks": 3600
+  },
+  "tiers": {
+    "checks": 135,
+    "failures": []
+  },
+  "stock_foveation": {
+    "checks": 23,
+    "failures": []
+  },
+  "optics": {
+    "checks": 34,
+    "failures": []
+  },
+  "bike": {
+    "checks": 58,
+    "failures": []
+  },
+  "wheel": {
+    "checks": 25,
+    "failures": []
+  },
+  "live_equipment": {
+    "checks": 52,
+    "failures": []
+  },
+  "network_lineup": {
+    "failures": [],
+    "nearby": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "role": 0,
+    "total_vehicles": 23,
+    "xp": [
+      7500,
+      7500,
+      7500,
+      7500
+    ]
+  },
+  "builds": [
+    "linux-server portable",
+    "linux-client portable",
+    "windows-client MinGW portable"
+  ]
+}

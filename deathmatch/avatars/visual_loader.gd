@@ -46,6 +46,7 @@ static func create_avatar(library:Node,hash:String) -> Node3D:
 static func attachment_profile(m:Dictionary,data:PackedByteArray) -> Dictionary:
 	var profile:Dictionary=m.get("ik_profile",{}).duplicate(true)
 	if profile.is_empty():return profile
+	profile["reference_frame"]=int(m.reference)
 	var targets:={"left":Rig.IK.vec(profile.left[2]),"right":Rig.IK.vec(profile.right[2])}
 	var shoulders:Vector3=(Rig.IK.vec(profile.left[0])+Rig.IK.vec(profile.right[0]))*.5
 	# Back surface sample at the pack contact plate, not an offset from the headset.

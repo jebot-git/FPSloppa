@@ -3,6 +3,7 @@ const Attribution=preload("res://deathmatch/server/attribution.gd")
 signal movement_sound(kind: String,where: Vector3)
 const Art = preload("res://deathmatch/art.gd")
 const CS16=preload("res://deathmatch/movement/cs16.gd")
+var native_movement=preload("res://deathmatch/native/movement.gd").create()
 var cs16_enabled:=false
 var cs16_max_speed:=250.0/32.0
 var cs16_stamina:=0.0
@@ -190,8 +191,8 @@ func _attributed_simulate(input: Vector2, yaw: float, slow: bool, delta: float, 
 	var stroke: Vector3=(basis*swim.limit_length(1.0)) if in_water and swim.is_finite() else Vector3.ZERO
 	if in_water:
 		speed*=.65
-		direction=stroke if stroke_only_water else (direction+stroke).limit_length(1.0)
-		if stroke_only_water:jump=false;jump_queued=false
+		direction=stroke if stroke_only_water and not jump else (direction+stroke).limit_length(1.0)
+		if stroke_only_water:jump_queued=false # Jump remains an independent swim-up control.
 	var swim_vertical_before:=velocity.y
 	var raw_jump:=jump
 	if Jetpack.tick(self,direction,delta,raw_jump):
@@ -235,7 +236,7 @@ func _attributed_simulate(input: Vector2, yaw: float, slow: bool, delta: float, 
 		# Level strokes must not hold the swimmer at zero vertical velocity.
 		if absf(stroke.y)>.05 and not jump and water_boost<=0:velocity.y=move_toward(velocity.y,stroke.y*speed,24.0*delta)
 		velocity.y=maxf(velocity.y,-speed if stroke.y<-.05 else -2.0);jump_queued=false
-		if stroke_only_water and stroke.length()>.05:
+		if stroke_only_water and stroke.length()>.05 and not jump:
 			# Active strokes bring the physical head above water; releasing sinks.
 			var gap:=swim_water_level+.15-(position.y+swim_eye_height)
 			var rise:=clampf(gap*4.0,-1.0,3.0)
@@ -335,7 +336,10 @@ func correct_prediction(requested: Vector3) -> Vector3:
 	# A newer predicted position can already be against an obstacle. Sweep the
 	# correction instead of embedding the capsule and recovering next frame.
 	var remaining:=requested
-	for attempt in 3:
+	if native_movement:
+		native_movement.correct_prediction(self,requested)
+		remaining=Vector3.ZERO
+	for attempt in (0 if native_movement else 3):
 		var hit:=move_and_collide(remaining)
 		if not hit:break
 		remaining=hit.get_remainder().slide(hit.get_normal())
@@ -369,6 +373,7 @@ func set_avatar(model: Node3D, hash: String) -> void:
 	avatar = model
 	avatar_hash = hash
 	add_child(avatar)
+	if not hash.is_empty():preload("res://deathmatch/avatars/native_batch.gd").attach.call_deferred(avatar)
 	if frozen:_apply_frost()
 	show_alive(alive_state,local_player)
 
@@ -385,12 +390,13 @@ func _process(_delta: float) -> void:
 	prediction_view_offset*=exp(-12.0*_delta)
 	view_offset*=exp(-18.0*_delta)
 	_update_jetpack_visual()
-	if vehicle_seated:
+	if vehicle_seated and not vehicle_avatar_visible:
 		if avatar:avatar.hide()
 		if label:label.hide()
 		return
 	if not avatar:return
-	var unarmed: bool=get_parent().lobby.active()
+	if vehicle_seated and label:label.hide()
+	var unarmed: bool=vehicle_seated or get_parent().lobby.active()
 	if avatar:
 		if avatar_hash.is_empty():
 			for weapon in avatar.find_children("WeaponModel","Node3D",true,false):weapon.visible=not unarmed and alive_state
@@ -403,6 +409,8 @@ func _process(_delta: float) -> void:
 	avatar.visible = not spectator and not gibbed and (not local_player or local_body_visible and alive_state) and (alive_state or avatar.death_time<load("res://deathmatch/avatars/death_pose.gd").VISIBLE_TIME)
 	var displayed_velocity: Vector3=velocity if local_player else visual_velocity
 	if avatar_hash.is_empty():
+		if vehicle_bike and alive_state:
+			avatar.rotation.y=vehicle_heading-global_rotation.y;avatar.animate_bike();return
 		if alive_state:avatar.rotation.y=load("res://deathmatch/vr/body_basis.gd").head_yaw(xr_pose,avatar.rotation.y)
 		avatar.animate(_delta,avatar.global_basis.inverse()*displayed_velocity,stance,collision_height,is_supported() if local_player or get_parent().multiplayer.is_server() else visual_grounded,{},false)
 		return
@@ -410,12 +418,21 @@ func _process(_delta: float) -> void:
 		var rules=get_parent().classes
 		var row:Dictionary=rules.states.get(peer_id,{})
 		avatar.set_equipment(row.get("equipped_utility",rules.UTILITIES[rules.role(peer_id)][0].id))
+	avatar.seated_bike=vehicle_bike
+	avatar.seated_heading=vehicle_heading
 	avatar.target_xr_pose=xr_pose
-	avatar.speed = Vector2(displayed_velocity.x,displayed_velocity.z).length()
+	if vehicle_bike and xr_pose.is_empty():
+		var bike=preload("res://deathmatch/conquest/classes/bike_geometry.gd")
+		var heading:=Basis(Vector3.UP,vehicle_heading-global_rotation.y)
+		avatar.target_xr_pose={"head":Transform3D(heading,Vector3(0,1.65,0))}
+		for side in 2:
+			var point:Vector3=bike.point("steering_pivot")+bike.grip(side)-bike.point("seat")
+			avatar.target_xr_pose["left" if side==0 else "right"]=Transform3D(heading,heading*point)
+	avatar.speed = 0. if vehicle_bike else Vector2(displayed_velocity.x,displayed_velocity.z).length()
 	avatar.movement = basis.inverse()*displayed_velocity
-	avatar.stance=stance
+	avatar.stance="stand" if vehicle_bike else stance
 	avatar.collider_height=collision_height
-	avatar.grounded=is_supported() if local_player or get_parent().multiplayer.is_server() else visual_grounded
+	avatar.grounded=true if vehicle_bike else is_supported() if local_player or get_parent().multiplayer.is_server() else visual_grounded
 	avatar.aim_pitch = visual_pitch
 	avatar.set_weapon(visual_weapon)
 
@@ -473,6 +490,9 @@ var cloak_meshes: Array=[]
 var jetpack_attach_raise:=0.0
 var cloak_active:=false
 var vehicle_seated:=false
+var vehicle_avatar_visible:=false
+var vehicle_bike:=false
+var vehicle_heading:=0.0
 var cloak_visibility:=1.0
 var cloak_avatar: Node3D
 func set_cloak_visual(active: bool,friendly: bool,tint: Color,delta: float) -> void:

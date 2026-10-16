@@ -70,6 +70,13 @@ void transport_tests() {
   auto h=drive->join(401,0,kind==3?transport_pods[6].entry:V{3,0,0},1<<4,{100,100,100,100});
   input(*drive,h,0);use(*drive,h);drive->advance(w);check(drive->resolve(h)->vehicle==vi,"steering test driver boards");
   int seq=1;auto &v=const_cast<Vehicle&>(drive->vehicles()[vi]);
+  if(kind==3) {
+   for(double speed:{0.,2.}) {
+    v.speed=speed;v.yaw=0;Command idle;idle.life=h.life;idle.seq=seq++;idle.weapon=4;idle.x=1;idle.z=0;
+    check(drive->submit(h,idle),"idle steering command admitted");drive->advance(w);
+    check(v.yaw==0,"transport wheel cannot turn chassis with idle pedals");
+   }
+  }
   for(int steering:{-1,1}) for(int travel:{-1,1}) {
    v.speed=travel*2.;v.yaw=0;Command cmd;cmd.life=h.life;cmd.seq=seq++;cmd.weapon=4;cmd.x=steering;cmd.z=-travel;check(drive->submit(h,cmd),"steering command admitted");drive->advance(w);
    check(v.yaw*steering*travel<0,"forward and reverse steering yaw follows travel direction");

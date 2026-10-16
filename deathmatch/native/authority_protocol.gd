@@ -37,18 +37,19 @@ static func _transform(bytes:PackedByteArray,offset:int)->Transform3D:
 static func decode_frame(bytes:PackedByteArray)->Dictionary:
  if bytes.size()<14 or bytes.size()>MAX_FRAME:return {}
  var magic:=bytes.slice(0,4).get_string_from_ascii()
- if magic!="CQA1" and magic!="CQA2":return {}
+ if magic!="CQA1" and magic!="CQA2" and magic!="CQA3":return {}
  var count:=bytes.decode_u16(12);var offset:=14
  if count>MAX_PLAYERS or bytes.size()<offset+count*104:return {}
  var result:Dictionary={"tick":bytes.decode_u64(4),"players":{},"projectiles":{},"version":int(magic.right(1))}
  for index in count:
   var id:=bytes.decode_s64(offset);var life:=bytes.decode_u32(offset+8);var team:=bytes[offset+12];var dead:=bytes[offset+13];var weapon:=bytes[offset+14];var grounded:=bytes[offset+15]
-  if id==0 or life==0 or result.players.has(id) or team>2 or dead>1 or weapon>=12 or grounded>1:return {}
+  if id==0 or life==0 or result.players.has(id) or team>2 or dead>1 or weapon>=(17 if magic=="CQA3" else 12) or grounded>1:return {}
   for at in range(offset+16,offset+56,4):
    if not is_finite(bytes.decode_float(at)):return {}
   var ammo:=PackedInt32Array();var clips:=PackedInt32Array()
   for i in 4:ammo.append(bytes.decode_u16(offset+72+i*2))
   for i in 12:clips.append(bytes.decode_u16(offset+80+i*2))
+  for i in 5:clips.append(0)
   result.players[id]={"life":life,"team":team,"dead":bool(dead),"weapon":weapon,"grounded":bool(grounded),"position":_vector(bytes,offset+16),"velocity":_vector(bytes,offset+28),"yaw":bytes.decode_float(offset+40),"pitch":bytes.decode_float(offset+44),"height":bytes.decode_float(offset+48),"hp":bytes.decode_float(offset+52),"last_seq":bytes.decode_s64(offset+56),"shots":bytes.decode_u64(offset+64),"ammo":ammo,"clips":clips,"xr":{},"physical":{}}
   offset+=104
  if magic=="CQA1":return result if offset==bytes.size() else {}
@@ -59,7 +60,7 @@ static func decode_frame(bytes:PackedByteArray)->Dictionary:
   if seen.has(type) or length<2 or length>bytes.size()-offset:return {}
   seen[type]=true
   var end:=offset+length;var rows:=bytes.decode_u16(offset);offset+=2
-  if type in [1,2,4] and rows>(MAX_PLAYERS*12 if type==2 else MAX_PLAYERS):return {}
+  if type in [1,2,4] and rows>(MAX_PLAYERS*17 if type==2 else MAX_PLAYERS):return {}
   if type==3 and rows>2048:return {}
   if type not in [1,2,3,4]:
    if not _cq_section(type,bytes,offset,end,rows,result):return {}
@@ -85,7 +86,7 @@ static func decode_frame(bytes:PackedByteArray)->Dictionary:
     player.xr=pose
    elif type==2:
     var weapon:=bytes[offset+12]
-    if weapon>=12 or player.physical.has(weapon):return {}
+    if weapon>=(17 if magic=="CQA3" else 12) or player.physical.has(weapon):return {}
     var flags:=bytes.decode_u16(offset+15)
     player.physical[weapon]={"clip":bytes.decode_u16(offset+13),"mag":bool(flags&2),"ready":bool(flags&4),"locked":bool(flags&32),"stroke":bytes.decode_float(offset+17),"carry":bytes[offset+21]}
     player.physical[weapon].grab="rack" if flags&8 else "magazine" if flags&1024 else "ammo" if player.physical[weapon].carry>0 else ""
@@ -95,11 +96,14 @@ static func decode_frame(bytes:PackedByteArray)->Dictionary:
     player.jetpack={"mode":bytes[offset+12],"age":bytes.decode_float(offset+13),"cooldown":bytes.decode_float(offset+17),"tap":bytes.decode_float(offset+21),"distance":bytes.decode_float(offset+25),"heading":Vector2(bytes.decode_float(offset+29),bytes.decode_float(offset+33)),"activation":bytes.decode_u32(offset+37)}
    offset+=size
   if offset!=end:return {}
+ if magic=="CQA3":
+  for player in result.players.values():
+   if not player.has("tier_mask"):return {}
  return result if _finite(result) else {}
 
 static func _cq_section(kind:int,b:PackedByteArray,at:int,end:int,rows:int,out:Dictionary)->bool:
- var sizes:Dictionary={5:147,7:36,8:47,9:98,10:74,11:79,12:54,13:63,14:83,15:17}
- var caps:Dictionary={5:128,7:384,8:128,9:32,10:128,11:128,12:384,13:1024,14:128,15:128}
+ var sizes:Dictionary={5:147,7:36,8:47,9:98,10:74,11:79,12:54,13:63,14:83,15:17,16:27}
+ var caps:Dictionary={5:128,7:384,8:128,9:32,10:128,11:128,12:384,13:1024,14:128,15:128,16:128}
  if kind==6:
   if rows>32 or end-at!=29+rows*30:return false
   out.mode={"winner":b.decode_s8(at),"scores":[b.decode_u16(at+1),b.decode_u16(at+3)],"time":b.decode_float(at+5),"light_fraction":b.decode_float(at+9),"epoch":b.decode_u32(at+13),"intermission":b.decode_float(at+17),"lighting_time":b.decode_float(at+21),"remaining":b.decode_float(at+25),"zones":[]};at+=29
@@ -110,17 +114,24 @@ static func _cq_section(kind:int,b:PackedByteArray,at:int,end:int,rows:int,out:D
  var size:int=sizes[kind]
  if rows>caps[kind] or end-at!=rows*size:return false
  var names:Dictionary={7:"boxes",8:"fields",9:"vehicles",10:"turrets",11:"flights",12:"grenades",13:"events"}
- if kind not in [5,14,15]:out[names[kind]]={}
+ if kind not in [5,14,15,16]:out[names[kind]]={}
  for index in rows:
   var key:int=b.decode_u64(at)
-  if kind==15:
+  if kind==16:
+   if out.version!=3 or not out.players.has(key) or out.players[key].life!=b.decode_u32(at+8) or out.players[key].has("tier_mask"):return false
+   var p:Dictionary=out.players[key];var mask:int=b.decode_u32(at+12)
+   if mask&~131071 or b[at+26]>15:return false
+   p.tier_mask=mask;p.primary_t3=b[at+26]
+   for i in 5:p.clips[12+i]=b.decode_u16(at+16+i*2)
+  elif kind==15:
    if not out.players.has(key) or out.players[key].life!=b.decode_u32(at+8) or out.players[key].has("squad") or b[at+12]>4 or not is_finite(b.decode_float(at+13)):return false
    out.players[key].squad=int(b[at+12])-1;out.players[key].combat_until=b.decode_float(at+13)
   elif kind==14:
    if not out.players.has(key) or out.players[key].life!=b.decode_u32(at+8) or out.players[key].has("owned"):return false
    var p:Dictionary=out.players[key];var mask:int=b.decode_u16(at+12);p.owned=[]
    if mask&~4095:return false
-   for i in 12:
+   mask=p.get("tier_mask",mask)
+   for i in 17:
     if mask&(1<<i):p.owned.append(i)
    p.cooldown=b.decode_float(at+14);p.invulnerable=b.decode_float(at+18);p.respawn_at=b.decode_float(at+22);p.stamina=b.decode_float(at+26);p.lock_vehicle=b.decode_u64(at+30);p.lock_elapsed=b.decode_float(at+38);p.melee_ready=b.decode_float(at+42);p.grenade_primed=bool(b[at+46]&1);p.grenade_selected=bool(b[at+46]&2);p.grenade_offhand=bool(b[at+46]&4);p.grenade_ready=b.decode_float(at+47);p.grenade_until=b.decode_float(at+51);p.reloading=b.decode_s8(at+55);p.reload_at=b.decode_float(at+56);p.cycling=b.decode_s8(at+60);p.cycle_at=b.decode_float(at+61);p.charge_at=b.decode_float(at+65);p.salvo_left=b[at+69];p.burst_left=b[at+70];p.jump_ack=b.decode_u32(at+71);p.jetpack_ack=b.decode_u32(at+75);p.fire_ack=b.decode_u32(at+79)
   elif kind==5:

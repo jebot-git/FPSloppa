@@ -47,7 +47,7 @@ func run()->void:
  check(game.jungle_ambience.submerged.volume_db>-20 and game.jungle_ambience.day.volume_db<daylight-12,"Submerged model selects filtered water bed without moving viewpoint")
  game.fighters[mine].underwater=false
  game.camera.global_position=Vector3(-553,28,-650);game.jungle_ambience.scan=0;game.jungle_ambience._process(.25)
- check(game.jungle_ambience.river.volume_db>-20,"Authored river has nearby water ambience")
+ check(game.jungle_ambience.river_near and game.jungle_ambience.river.volume_db>-80,"Authored river has nearby water ambience at its authored quiet level")
  game.camera.global_position=game.BattleMap.Landscape.CENTERS[1]+Vector3.UP*2;game.jungle_ambience.scan=0;game.jungle_ambience._process(3.)
  check(game.jungle_ambience.beds.has(1),"Industrial site loads recorded machine bed")
  check(game.jungle_ambience.day.playing and game.jungle_ambience.night.playing,"Forest loops run in the actual CQ client")

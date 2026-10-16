@@ -51,13 +51,13 @@ void vr_port_tests() {
  auto first=state.shot(4,0,0,true,1.65,true,true,1,.8,.7);
  check((first-V{0,0,-1}).length()<1e-12,"recovered braced first shot follows sight");
  auto follow=state.shot(4,.12,0,true,1.65,true,true,1,.8,.7);
- check(follow.y>first.y,"sustained CS fire adds bloom and climb");
+ check((follow-first).length()<1e-12,"sustained stationary fire has no spray pattern");
  auto recovered=state.shot(4,3,0,true,1.65,true,true,1,.8,.7);
  check((recovered-first).length()<1e-12,"CS recoil recovers after pause");
  RecoilState single,braced;
  auto a=single.shot(4,0,0,true,1.65,true,false,1,.8,.7);
  auto b=braced.shot(4,0,0,true,1.65,true,true,1,.8,.7);
- check(std::abs(a.x)>std::abs(b.x),"unsupported VR long gun has accuracy penalty");
+ check((a-b).length()<1e-12,"grip controls visible recoil without hidden accuracy penalty");
  auto core=std::make_unique<Core>();CqConfig config;config.enabled=true;config.auto_respawn=false;
  check(core->configure_cq(config),"prepare CQ staging test");
  auto h=core->join(1,0,{0,0,0},1<<4,{1000,1000,1000,1000});auto *p=core->resolve(h);p->staging=true;
@@ -117,7 +117,7 @@ void vr_port_tests() {
   r.sample(geometry,7,100,7,pose,false,false,.25,.25,false,true);
   check(r.ready&&r.grab==Grab::NONE&&r.mag,"releasing cocking control chambers the gun without extracting its magazine");
  }
- for(int w:{0,1,2,3,4,9,10})for(bool left:{false,true}) {
+ for(int w:{0,1,2,3,4,5,9,10,11,12,13,14,15,16})for(bool left:{false,true}) {
   Reload r;r.init(7);r.cq_weapon=w;Pose p;p.tracked=true;p.has_offhand=true;p.left_handed=left;p.head.origin={0,1.65,0};p.weapon.origin={0,1.1,-.3};auto &hand=left?p.right:p.left;hand.origin=p.weapon.apply(cq_geometry(w).magazine*.65);p.offhand=hand;
   r.sample(2,7,100,7,p,false,false,0,0,false,true);
   r.sample(2,7,100,7,p,true,false,.033,.033,false,true);
@@ -125,19 +125,19 @@ void vr_port_tests() {
   r.interrupt();r.sample(2,7,100,7,p,false,false,.066,.066,false,true);
   r.sample(2,7,100,7,p,false,false,.1,.1,true,true);
   check(r.grab==Grab::MAGAZINE,"support trigger grips authored CQ magazine with either hand");
-  int clip=7;for(int i=1;i<=5;++i){hand.origin.y-=.02;clip=r.sample(2,clip,100,7,p,false,false,.1+i*.033,.1+i*.033,true,true);}
+  int clip=7;for(int i=1;i<=5;++i){hand.origin=hand.origin+p.weapon.basis.apply(cq_geometry(w).magazine_extract)*.02;clip=r.sample(2,clip,100,7,p,false,false,.1+i*.033,.1+i*.033,true,true);}
   check(!r.mag&&r.carry==4&&r.carried_rounds==6,"trigger draw retains exact magazine rounds and chamber");
-  for(int i=1;i<=5;++i){hand.origin.y+=.02;clip=r.sample(2,clip,100,7,p,false,false,.265+i*.033,.265+i*.033,true,true);}
+  for(int i=1;i<=5;++i){hand.origin=hand.origin-p.weapon.basis.apply(cq_geometry(w).magazine_extract)*.02;clip=r.sample(2,clip,100,7,p,false,false,.265+i*.033,.265+i*.033,true,true);}
   check(r.mag&&clip==7&&r.carry==0,"same physical magazine reinserts with preserved rounds");
  }
- for(int w:{0,1,2,3,4,9,10})for(bool left:{false,true}) {
+ for(int w:{0,1,2,3,4,5,9,10,11,12,13,14,15,16})for(bool left:{false,true}) {
   Reload reload;reload.init(7);reload.cq_weapon=w;Pose pose;pose.tracked=true;pose.has_offhand=true;pose.left_handed=left;pose.head.origin={0,1.65,0};pose.weapon.origin={left?-.3:.3,1.1,-.3};
   auto &hand=left?pose.right:pose.left;hand.origin=pose.weapon.apply(cq_geometry(w).magazine*.65);pose.offhand=hand;
   reload.sample(2,7,100,7,pose,false,false,0,0);
   reload.sample(2,7,100,7,pose,true,false,1./30,1./30);
   check(reload.grab==Grab::MAGAZINE,"actual authored magazine is grabbable both handednesses");
   int clip=7;
-  for(int i=2;i<=5;++i){hand.origin.y-=.02;clip=reload.sample(2,clip,100,7,pose,true,false,double(i)/30,double(i)/30);}
+  for(int i=2;i<=5;++i){hand.origin=hand.origin+pose.weapon.basis.apply(cq_geometry(w).magazine_extract)*.02;clip=reload.sample(2,clip,100,7,pose,true,false,double(i)/30,double(i)/30);}
   check(!reload.mag&&reload.carry==4&&clip==1,"tracked pull removes magazine and preserves chambered round");
  }
 }

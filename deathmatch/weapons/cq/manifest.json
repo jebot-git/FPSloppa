@@ -1,112 +1,118 @@
 {
   "pistol": {
-    "triangles": 595,
+    "triangles": 1578,
     "materials": 1,
     "textures": 1,
     "texture_size": [
       1024,
       1024
     ],
-    "bounds_blender": [
-      [
-        -0.05950000882148743,
-        0.05950001999735832
-      ],
-      [
-        -0.07349999994039536,
-        0.3255000114440918
-      ],
-      [
-        -0.08435000479221344,
-        0.18690000474452972
-      ]
+    "muzzle": [
+      0.0,
+      0.12222874909639359,
+      -0.37599998712539673
+    ],
+    "magazine_anchor": [
+      0.0,
+      -0.019999999552965164,
+      0.009999999776482582
+    ],
+    "magazine_extract": [
+      0.0,
+      -0.9755240082740784,
+      0.2198927104473114
+    ],
+    "magazine_layout": "model specific",
+    "rack_anchor": [
+      0.04500000178813934,
+      0.12222874909639359,
+      -0.08271999657154083
+    ],
+    "support_anchor": [
+      0.0,
+      0.06722874939441681,
+      -0.1804799884557724
+    ],
+    "red_dot_position": [
+      0.0,
+      0.19722874462604523,
+      0.03999999910593033
+    ],
+    "red_dot": false,
+    "sight_zero_metres": 50,
+    "optimization_pending": false,
+    "triangle_budget": 5000,
+    "finish": "gunmetal",
+    "construction": "source silhouette; authored open magazine well and independent reload parts",
+    "source": "fwp.blend",
+    "reload_kind": "slide"
+  },
+  "scout_pistol": {
+    "triangles": 6510,
+    "materials": 1,
+    "textures": 1,
+    "texture_size": [
+      1024,
+      1024
     ],
     "muzzle": [
       0.0,
-      0.10919999331235886,
-      -0.3255000114440918
+      0.10621204227209091,
+      -0.6580028533935547
     ],
-    "construction": "original carbine modules; selective bevels, planar dissolve and octagonal bores",
-    "optimization_pending": false,
     "magazine_anchor": [
-      0,
-      -0.07175,
-      0.00875
+      2.8870999813079834e-08,
+      -0.014739977195858955,
+      -0.00273764505982399
     ],
+    "magazine_extract": [
+      0.0,
+      -0.988693118095398,
+      0.1499534547328949
+    ],
+    "magazine_layout": "model specific",
     "rack_anchor": [
-      0,
-      0.135,
-      -0.0455
+      0.012000000104308128,
+      0.10621204227209091,
+      -0.054999999701976776
     ],
     "support_anchor": [
       0,
-      0.025,
+      -0.025,
       -0.07
-    ]
-  },
-  "scout_pistol": {
-    "triangles": 899,
-    "materials": 1,
-    "textures": 1,
-    "texture_size": [
-      1024,
-      1024
     ],
-    "bounds_blender": [
-      [
-        -0.05950000882148743,
-        0.05950001999735832
-      ],
-      [
-        -0.2773750126361847,
-        0.41475000977516174
-      ],
-      [
-        -0.08435000479221344,
-        0.2533999979496002
-      ]
-    ],
-    "muzzle": [
+    "red_dot_position": [
       0.0,
-      0.10919999331235886,
-      -0.41475000977516174
+      0.15545019507408142,
+      0.10390639305114746
     ],
-    "construction": "original carbine modules; selective bevels, planar dissolve and octagonal bores",
+    "red_dot": false,
+    "sight_zero_metres": 50,
     "optimization_pending": false,
+    "triangle_budget": 7000,
+    "finish": "gunmetal",
+    "construction": "source silhouette; authored open magazine well and independent reload parts",
+    "source": "pistol/pistol.obj",
+    "reload_kind": "slide",
     "scope_rear": [
       0.0,
-      0.22050000727176666,
-      0.042699992656707764
+      0.15545019507408142,
+      0.10390639305114746
     ],
     "scope_front": [
       0.0,
-      0.22050000727176666,
-      -0.21770000457763672
+      0.15545019507408142,
+      -0.22889603674411774
     ],
-    "scope_radius": 0.021,
+    "scope_radius": 0.025508920849870154,
     "zoom_steps": [
       1.5,
       3.0,
       6.0
-    ],
-    "magazine_anchor": [
-      0,
-      -0.07175,
-      0.00875
-    ],
-    "rack_anchor": [
-      0,
-      0.135,
-      -0.0455
-    ],
-    "support_anchor": [
-      0,
-      0.025,
-      -0.07
     ]
   },
   "carbine": {
-    "triangles": 903,
+    "triangles": 1806,
     "materials": 1,
     "textures": 1,
     "texture_size": [
@@ -136,8 +142,8 @@
     "optimization_pending": false,
     "red_dot_position": [
       0.0,
-      0.24419999463558198,
-      -0.07599999755620956
+      0.2442,
+      -0.0392
     ],
     "magazine_anchor": [
       0,
@@ -154,158 +160,164 @@
       0.08,
       -0.24
     ],
-    "sight_zero_metres": 50.0
+    "sight_zero_metres": 50.0,
+    "red_dot": true,
+    "source": "existing optimized carbine",
+    "finish": "gunmetal",
+    "triangle_budget": 5000
   },
   "designator": {
-    "triangles": 955,
+    "triangles": 328,
     "materials": 1,
     "textures": 1,
     "texture_size": [
       1024,
       1024
     ],
-    "bounds_blender": [
-      [
-        -0.06343749910593033,
-        0.06343749910593033
-      ],
-      [
-        -0.07349999994039536,
-        0.3255000114440918
-      ],
-      [
-        -0.08435000479221344,
-        0.226424902677536
-      ]
-    ],
     "muzzle": [
       0.0,
-      0.10919999331235886,
-      -0.3255000114440918
+      0.13998791575431824,
+      -0.6240000128746033
     ],
-    "construction": "original carbine modules; selective bevels, planar dissolve and octagonal bores",
-    "optimization_pending": false,
+    "magazine_anchor": [
+      0.0,
+      0.0,
+      -0.0
+    ],
+    "magazine_extract": [
+      0.0,
+      -1.0,
+      -0.0
+    ],
+    "magazine_layout": "model specific",
+    "rack_anchor": [
+      0.04500000178813934,
+      0.13998791575431824,
+      -0.13728000223636627
+    ],
+    "support_anchor": [
+      0.0,
+      0.08498791605234146,
+      -0.29952001571655273
+    ],
     "red_dot_position": [
       0.0,
-      0.21420000834465028,
-      -0.06650000065565109
+      0.21498791873455048,
+      0.03999999910593033
     ],
-    "magazine_anchor": [
-      0,
-      -0.07175,
-      0.00875
-    ],
-    "rack_anchor": [
-      0,
-      0.135,
-      -0.0455
-    ],
-    "support_anchor": [
-      0,
-      0.025,
-      -0.07
-    ],
-    "sight_zero_metres": 50.0
+    "red_dot": false,
+    "sight_zero_metres": 50,
+    "optimization_pending": false,
+    "triangle_budget": 5000,
+    "finish": "gunmetal",
+    "construction": "source silhouette; authored open magazine well and independent reload parts",
+    "source": "emg.blend",
+    "reload_kind": "handle"
   },
   "massacre": {
-    "triangles": 800,
+    "triangles": 2954,
     "materials": 1,
     "textures": 1,
     "texture_size": [
       1024,
       1024
     ],
-    "bounds_blender": [
-      [
-        -0.1090250015258789,
-        0.07735002785921097
-      ],
-      [
-        -0.2773750126361847,
-        0.6142500042915344
-      ],
-      [
-        -0.07717232406139374,
-        0.23887500166893005
-      ]
-    ],
     "muzzle": [
       0.0,
-      0.10919999331235886,
-      -0.6142500042915344
-    ],
-    "construction": "original carbine modules; selective bevels, planar dissolve and octagonal bores",
-    "optimization_pending": false,
-    "pack_entry": [
-      -0.10849999636411667,
-      0.08924999833106995,
-      -0.18900001049041748
-    ],
-    "pack_direction": [
-      -1,
-      0,
-      0
-    ],
-    "monitor_position": [
-      0.0,
-      0.21175000071525574,
-      -0.04200000315904617
+      0.14157229661941528,
+      -0.9437999725341797
     ],
     "magazine_anchor": [
-      -0.10849999636411667,
-      0.08924999833106995,
-      -0.18900001049041748
+      -0.08640000224113464,
+      0.09180000424385071,
+      -0.3564000427722931
     ],
+    "magazine_extract": [
+      -1.0,
+      0.0,
+      -0.0
+    ],
+    "magazine_layout": "model specific",
     "rack_anchor": [
-      0.03325,
-      0.13125,
-      -0.0455
+      0.04500000178813934,
+      0.14157229661941528,
+      -0.2076359987258911
     ],
     "support_anchor": [
-      0,
-      0.08,
-      -0.24
+      0.0,
+      0.08657229691743851,
+      -0.4530239999294281
+    ],
+    "red_dot_position": [
+      0.0,
+      0.21657229959964752,
+      0.03999999910593033
+    ],
+    "red_dot": false,
+    "sight_zero_metres": 50,
+    "optimization_pending": false,
+    "triangle_budget": 5000,
+    "finish": "gunmetal",
+    "construction": "source silhouette; authored open magazine well and independent reload parts",
+    "source": "massacre/Massacre.obj",
+    "reload_kind": "pack",
+    "monitor_position": [
+      0.0,
+      0.26334241032600403,
+      -0.00699999975040555
+    ],
+    "monitor_size": [
+      0.088,
+      0.058
     ]
   },
   "repair_kit": {
-    "triangles": 779,
-    "source_triangles": 1330,
+    "triangles": 984,
     "materials": 1,
     "textures": 1,
-    "bounds_blender": [
-      [
-        -0.05050618574023247,
-        0.050506189465522766
-      ],
-      [
-        -0.13222138583660126,
-        0.22750000655651093
-      ],
-      [
-        -0.15249864757061005,
-        0.17375995218753815
-      ]
+    "texture_size": [
+      1024,
+      1024
     ],
     "muzzle": [
-      0,
-      0.134,
-      -0.22750000655651093
+      0.0,
+      0.19231021404266357,
+      -0.2963999807834625
     ],
     "magazine_anchor": [
-      0,
-      -0.07175,
-      0.00875
+      0.0,
+      0.0,
+      -0.0
     ],
+    "magazine_extract": [
+      0.0,
+      -1.0,
+      -0.0
+    ],
+    "magazine_layout": "model specific",
     "rack_anchor": [
-      0.03325,
-      0.13125,
-      -0.0455
+      0.04500000178813934,
+      0.19231021404266357,
+      -0.07000000029802322
     ],
     "support_anchor": [
-      0,
-      0.025,
-      -0.07
-    ]
+      0.0,
+      0.1373102068901062,
+      -0.1422719955444336
+    ],
+    "red_dot_position": [
+      0.0,
+      0.2673102021217346,
+      0.03999999910593033
+    ],
+    "red_dot": false,
+    "sight_zero_metres": 50,
+    "optimization_pending": false,
+    "triangle_budget": 5000,
+    "finish": "gunmetal",
+    "construction": "source silhouette; authored open magazine well and independent reload parts",
+    "source": "fwp.blend",
+    "reload_kind": "handle"
   },
   "ammo_box": {
     "triangles": 152,
@@ -429,286 +441,993 @@
     "held_scale": 1.15
   },
   "smg": {
-    "triangles": 903,
+    "triangles": 2448,
     "materials": 1,
     "textures": 1,
     "texture_size": [
       1024,
       1024
     ],
-    "bounds_blender": [
-      [
-        -0.06800001114606857,
-        0.06800001859664917
-      ],
-      [
-        -0.11999999731779099,
-        0.5479999780654907
-      ],
-      [
-        -0.08819694072008133,
-        0.2587713301181793
-      ]
-    ],
     "muzzle": [
       0.0,
-      0.12479998916387558,
-      -0.5479999780654907
-    ],
-    "construction": "original carbine modules; selective bevels, planar dissolve and octagonal bores",
-    "optimization_pending": false,
-    "red_dot_position": [
-      0.0,
-      0.24419999463558198,
-      -0.07599999755620956
+      0.21828456223011017,
+      -0.31659996509552
     ],
     "magazine_anchor": [
-      0,
-      0.0643,
-      -0.22
+      0.0,
+      0.14399999380111694,
+      0.28349998593330383
     ],
+    "magazine_extract": [
+      0.0,
+      -1.0,
+      -0.0
+    ],
+    "magazine_layout": "model specific",
     "rack_anchor": [
-      0.065,
-      0.115,
-      -0.052
+      0.04500000178813934,
+      0.21828456223011017,
+      -0.07000000029802322
     ],
     "support_anchor": [
-      0,
-      0.08,
-      -0.24
+      0.0,
+      0.1632845550775528,
+      -0.15196798741817474
     ],
-    "sight_zero_metres": 50.0
+    "red_dot_position": [
+      0.0,
+      0.2932845652103424,
+      0.03999999910593033
+    ],
+    "red_dot": false,
+    "sight_zero_metres": 50,
+    "optimization_pending": false,
+    "triangle_budget": 5000,
+    "finish": "gunmetal",
+    "construction": "source silhouette; authored open magazine well and independent reload parts",
+    "source": "fwp.blend",
+    "reload_kind": "handle",
+    "aim_laser": true,
+    "laser_anchor": [
+      0.0,
+      0.3265949487686157,
+      -0.22161997854709625
+    ]
   },
   "assault_rifle": {
-    "triangles": 951,
+    "triangles": 4897,
     "materials": 1,
     "textures": 1,
     "texture_size": [
       1024,
       1024
     ],
-    "bounds_blender": [
-      [
-        -0.05950000882148743,
-        0.05950001999735832
-      ],
-      [
-        -0.2773750126361847,
-        0.612500011920929
-      ],
-      [
-        -0.07717232406139374,
-        0.226424902677536
-      ]
-    ],
     "muzzle": [
       0.0,
-      0.10919999331235886,
-      -0.612500011920929
+      0.12552817165851593,
+      -0.753600001335144
     ],
-    "construction": "original carbine modules; selective bevels, planar dissolve and octagonal bores",
-    "optimization_pending": false,
-    "scope_rear": [
-      0.0,
-      0.21000000834465027,
-      -0.05950000137090683
-    ],
-    "scope_front": [
-      0.0,
-      0.21000000834465027,
-      -0.07349999994039536
-    ],
-    "scope_radius": 0.022750000000000003,
-    "zoom_steps": [
-      1.5
-    ],
-    "red_dot": true,
     "magazine_anchor": [
-      0,
-      0.0562625,
-      -0.1925
+      0.0,
+      0.06499999761581421,
+      0.22499999403953552
     ],
+    "magazine_extract": [
+      0.0,
+      -1.0,
+      -0.0
+    ],
+    "magazine_layout": "model specific",
     "rack_anchor": [
-      0.055,
-      0.1,
-      -0.0455
+      0.04500000178813934,
+      0.12552817165851593,
+      -0.16579200327396393
     ],
     "support_anchor": [
-      0,
-      0.08,
-      -0.24
-    ]
-  },
-  "burst_pistol": {
-    "triangles": 955,
-    "materials": 1,
-    "textures": 1,
-    "texture_size": [
-      1024,
-      1024
-    ],
-    "bounds_blender": [
-      [
-        -0.06343749910593033,
-        0.06343749910593033
-      ],
-      [
-        -0.07349999994039536,
-        0.3255000114440918
-      ],
-      [
-        -0.08435000479221344,
-        0.226424902677536
-      ]
-    ],
-    "muzzle": [
       0.0,
-      0.10919999331235886,
-      -0.3255000114440918
+      0.07052817195653915,
+      -0.3617280125617981
     ],
-    "construction": "original carbine modules; selective bevels, planar dissolve and octagonal bores",
-    "optimization_pending": false,
     "red_dot_position": [
       0.0,
-      0.21420000834465028,
-      -0.06650000065565109
+      0.2277117222547531,
+      0.09431058168411255
+    ],
+    "red_dot": true,
+    "sight_zero_metres": 50,
+    "optimization_pending": false,
+    "triangle_budget": 5000,
+    "finish": "gunmetal",
+    "construction": "source silhouette; authored open magazine well and independent reload parts",
+    "source": "fwp.blend",
+    "reload_kind": "handle"
+  },
+  "burst_pistol": {
+    "triangles": 1517,
+    "materials": 1,
+    "textures": 1,
+    "texture_size": [
+      1024,
+      1024
+    ],
+    "muzzle": [
+      0.0,
+      0.1461436152458191,
+      -0.38440001010894775
     ],
     "magazine_anchor": [
-      0,
-      -0.07175,
-      0.00875
+      0.0,
+      0.07500000298023224,
+      -0.17500001192092896
     ],
+    "magazine_extract": [
+      0.0,
+      -1.0,
+      -0.0
+    ],
+    "magazine_layout": "model specific",
     "rack_anchor": [
-      0,
-      0.135,
-      -0.0455
+      0.04500000178813934,
+      0.1461436152458191,
+      -0.08456800132989883
     ],
     "support_anchor": [
-      0,
-      0.025,
-      -0.07
+      0.0,
+      0.09114361554384232,
+      -0.18451200425624847
     ],
-    "sight_zero_metres": 50.0
+    "red_dot_position": [
+      0.0,
+      0.22114361822605133,
+      0.03999999910593033
+    ],
+    "red_dot": false,
+    "sight_zero_metres": 50,
+    "optimization_pending": false,
+    "triangle_budget": 5000,
+    "finish": "gunmetal",
+    "construction": "source silhouette; authored open magazine well and independent reload parts",
+    "source": "fwp.blend",
+    "reload_kind": "slide"
   },
   "beam_pistol": {
-    "triangles": 995,
+    "triangles": 6936,
     "materials": 1,
     "textures": 1,
     "texture_size": [
       1024,
       1024
     ],
-    "bounds_blender": [
-      [
-        -0.06343749910593033,
-        0.06343749910593033
-      ],
-      [
-        -0.07349999994039536,
-        0.39024999737739563
-      ],
-      [
-        -0.08435000479221344,
-        0.2533999979496002
-      ]
-    ],
     "muzzle": [
       0.0,
-      0.10919999331235886,
-      -0.39024999737739563
-    ],
-    "construction": "original carbine modules; selective bevels, planar dissolve and octagonal bores",
-    "optimization_pending": false,
-    "scope_rear": [
-      0.0,
-      0.22050000727176666,
-      0.042699992656707764
-    ],
-    "scope_front": [
-      0.0,
-      0.22050000727176666,
-      -0.21770000457763672
-    ],
-    "scope_radius": 0.021,
-    "zoom_steps": [
-      2.0,
-      4.0,
-      8.0
+      0.1937839835882187,
+      -0.7685999870300293
     ],
     "magazine_anchor": [
-      0,
-      -0.07175,
-      0.00875
+      -0.019275546073913574,
+      0.22712646424770355,
+      -0.11627069860696793
     ],
+    "magazine_extract": [
+      1.0,
+      0.0,
+      -0.0
+    ],
+    "magazine_layout": "model specific",
     "rack_anchor": [
-      0,
-      0.135,
-      -0.0455
+      0.04500000178813934,
+      0.1937839835882187,
+      -0.16909199953079224
     ],
     "support_anchor": [
-      0,
-      0.025,
-      -0.07
-    ]
+      0.0,
+      0.13878397643566132,
+      -0.3689279854297638
+    ],
+    "red_dot_position": [
+      0.0,
+      0.2687839865684509,
+      0.03999999910593033
+    ],
+    "red_dot": false,
+    "sight_zero_metres": 50,
+    "optimization_pending": false,
+    "triangle_budget": 7000,
+    "finish": "gunmetal",
+    "construction": "source silhouette; authored open magazine well and independent reload parts",
+    "source": "energy/Eectric_Rifle_Final.fbx",
+    "reload_kind": "handle",
+    "magazine_reload_path": [
+      [
+        0.212838277220726,
+        -0.0843777284026146,
+        -0.11509538441896439
+      ],
+      [
+        0.212838277220726,
+        -0.08435208350419998,
+        -0.11509431898593903
+      ],
+      [
+        0.212838277220726,
+        -0.08432643115520477,
+        -0.11509324610233307
+      ],
+      [
+        0.212838277220726,
+        -0.08430077880620956,
+        -0.11509217321872711
+      ],
+      [
+        0.212838277220726,
+        -0.08427512645721436,
+        -0.11509109288454056
+      ],
+      [
+        0.212838277220726,
+        -0.08424948155879974,
+        -0.11508998274803162
+      ],
+      [
+        0.212838277220726,
+        -0.08422382920980453,
+        -0.11508887261152267
+      ],
+      [
+        0.212838277220726,
+        -0.08419819921255112,
+        -0.11508775502443314
+      ],
+      [
+        0.212838277220726,
+        -0.08417252451181412,
+        -0.115086629986763
+      ],
+      [
+        0.212838277220726,
+        -0.0841468796133995,
+        -0.11508549004793167
+      ],
+      [
+        0.212838277220726,
+        -0.08412124961614609,
+        -0.11508434265851974
+      ],
+      [
+        0.212838277220726,
+        -0.08409560471773148,
+        -0.11508320271968842
+      ],
+      [
+        0.212838277220726,
+        -0.08406994491815567,
+        -0.1150820255279541
+      ],
+      [
+        0.17958232760429382,
+        -0.0560644157230854,
+        -0.11898039281368256
+      ],
+      [
+        0.106419138610363,
+        0.00602347357198596,
+        -0.12525209784507751
+      ],
+      [
+        0.03325599431991577,
+        0.06704337149858475,
+        -0.12854985892772675
+      ],
+      [
+        -1.1785276754494589e-08,
+        0.0939541906118393,
+        -0.12937232851982117
+      ],
+      [
+        -1.3553944633315496e-08,
+        0.07929623872041702,
+        -0.10914113372564316
+      ],
+      [
+        5.65505375860198e-09,
+        0.04697718471288681,
+        -0.06468627601861954
+      ],
+      [
+        1.7686803133187823e-09,
+        0.014658097177743912,
+        -0.020231343805789948
+      ],
+      [
+        0.0,
+        0.0,
+        -0.0
+      ]
+    ],
+    "magazine_reload_source": "FBX Bone animation, frames 1-101",
+    "reload_motion": {
+      "ReloadReceiver": [
+        {
+          "position": [
+            2.7372357158661487e-10,
+            -2.5960467553431954e-08,
+            3.494321276775736e-08
+          ],
+          "rotation": [
+            -8.311312171827012e-08,
+            1.4210854715202004e-14,
+            -7.265979064621265e-15,
+            1.0
+          ]
+        },
+        {
+          "position": [
+            9.877514361988915e-10,
+            -0.00028675232897512615,
+            -0.003713390324264765
+          ],
+          "rotation": [
+            0.013336891308426857,
+            2.1928592275344272e-10,
+            1.8606685081579144e-09,
+            0.9999110698699951
+          ]
+        },
+        {
+          "position": [
+            9.03105257243908e-10,
+            -0.0005655661225318909,
+            -0.013593166135251522
+          ],
+          "rotation": [
+            0.04871838539838791,
+            -2.8436915044949274e-09,
+            5.489594112617624e-09,
+            0.9988125562667847
+          ]
+        },
+        {
+          "position": [
+            2.4042678958835495e-09,
+            0.0002474151842761785,
+            -0.027665341272950172
+          ],
+          "rotation": [
+            0.09907175600528717,
+            -8.106008309027857e-09,
+            1.0162860775153604e-08,
+            0.995080292224884
+          ]
+        },
+        {
+          "position": [
+            3.1562978897170524e-09,
+            0.002940446138381958,
+            -0.0436951145529747
+          ],
+          "rotation": [
+            0.15682309865951538,
+            -1.4440707296614619e-08,
+            1.5176942369521385e-08,
+            0.9876267313957214
+          ]
+        },
+        {
+          "position": [
+            5.267596137059627e-09,
+            0.007478252053260803,
+            -0.05930356681346893
+          ],
+          "rotation": [
+            0.21404346823692322,
+            -2.0683843970914495e-08,
+            1.987075215481582e-08,
+            0.976824164390564
+          ]
+        },
+        {
+          "position": [
+            5.924067458806803e-09,
+            0.012858927249908447,
+            -0.07233213633298874
+          ],
+          "rotation": [
+            0.263076514005661,
+            -2.5708093431831003e-08,
+            2.3682487082510306e-08,
+            0.9647749662399292
+          ]
+        },
+        {
+          "position": [
+            6.77986733421676e-09,
+            0.01740144193172455,
+            -0.08111022412776947
+          ],
+          "rotation": [
+            0.29705727100372314,
+            -2.84851751075621e-08,
+            2.6187905177721404e-08,
+            0.9548596739768982
+          ]
+        },
+        {
+          "position": [
+            6.6789693775604064e-09,
+            0.01896117627620697,
+            -0.08380959928035736
+          ],
+          "rotation": [
+            0.30769824981689453,
+            -2.7751832831768297e-08,
+            2.6938469233073192e-08,
+            0.9514840245246887
+          ]
+        },
+        {
+          "position": [
+            9.338048556628564e-09,
+            0.03357937932014465,
+            -0.10404115915298462
+          ],
+          "rotation": [
+            0.30787065625190735,
+            -2.5439181428055235e-08,
+            2.695032108590567e-08,
+            0.9514281749725342
+          ]
+        },
+        {
+          "position": [
+            1.4790717983714785e-08,
+            0.06573255360126495,
+            -0.14848102629184723
+          ],
+          "rotation": [
+            0.308042973279953,
+            -2.3126526471628495e-08,
+            2.696216583331079e-08,
+            0.9513724446296692
+          ]
+        },
+        {
+          "position": [
+            2.0243012599507892e-08,
+            0.09791797399520874,
+            -0.1928975135087967
+          ],
+          "rotation": [
+            0.30821534991264343,
+            -2.081387862062911e-08,
+            2.6974008804359073e-08,
+            0.9513165950775146
+          ]
+        },
+        {
+          "position": [
+            2.1969642105545972e-08,
+            0.11259764432907104,
+            -0.21308456361293793
+          ],
+          "rotation": [
+            0.3083876073360443,
+            -1.8501213006061334e-08,
+            2.6985848222693676e-08,
+            0.9512608051300049
+          ]
+        }
+      ],
+      "ReloadGrip": [
+        {
+          "position": [
+            -1.4647167034809172e-08,
+            2.2543659383700287e-08,
+            4.6885627824622134e-08
+          ],
+          "rotation": [
+            -3.7253009566029505e-08,
+            -8.102981041702151e-08,
+            1.445135779931661e-07,
+            1.0
+          ]
+        },
+        {
+          "position": [
+            -1.3287923650295852e-08,
+            -0.0002860321255866438,
+            -0.0037133432924747467
+          ],
+          "rotation": [
+            0.013336931355297565,
+            -8.327968004095965e-08,
+            1.423514675025217e-07,
+            0.9999110698699951
+          ]
+        },
+        {
+          "position": [
+            -1.2727362275199994e-08,
+            -0.0005641289753839374,
+            -0.013593013398349285
+          ],
+          "rotation": [
+            0.04871842637658119,
+            -9.170766901434035e-08,
+            1.399902487264626e-07,
+            0.9988125562667847
+          ]
+        },
+        {
+          "position": [
+            -1.0581000964293708e-08,
+            0.0002495039370842278,
+            -0.02766486257314682
+          ],
+          "rotation": [
+            0.09907179325819016,
+            -1.0394126093160594e-07,
+            1.3704111267998087e-07,
+            0.995080292224884
+          ]
+        },
+        {
+          "position": [
+            -9.183739990703543e-09,
+            0.002943153027445078,
+            -0.04369421303272247
+          ],
+          "rotation": [
+            0.15682314336299896,
+            -1.1762105600610084e-07,
+            1.3328420322977763e-07,
+            0.9876267313957214
+          ]
+        },
+        {
+          "position": [
+            -7.35855110178818e-09,
+            0.007481450214982033,
+            -0.05930208042263985
+          ],
+          "rotation": [
+            0.2140435129404068,
+            -1.3051283076492837e-07,
+            1.2879220889772114e-07,
+            0.9768241047859192
+          ]
+        },
+        {
+          "position": [
+            -5.125524893401234e-09,
+            0.012862571515142918,
+            -0.07232995331287384
+          ],
+          "rotation": [
+            0.2630765736103058,
+            -1.4069365761315566e-07,
+            1.239479416881295e-07,
+            0.9647749662399292
+          ]
+        },
+        {
+          "position": [
+            -3.624517574962738e-09,
+            0.01740543730556965,
+            -0.08110738545656204
+          ],
+          "rotation": [
+            0.2970573604106903,
+            -1.466408150463394e-07,
+            1.1935652821648546e-07,
+            0.9548596739768982
+          ]
+        },
+        {
+          "position": [
+            -3.0801778905242827e-09,
+            0.01896566152572632,
+            -0.08380626887083054
+          ],
+          "rotation": [
+            0.30769824981689453,
+            -1.4660054148407653e-07,
+            1.1582141468124973e-07,
+            0.9514840245246887
+          ]
+        },
+        {
+          "position": [
+            -2.5698518868466635e-09,
+            0.01899150013923645,
+            -0.08384978771209717
+          ],
+          "rotation": [
+            0.30787065625190735,
+            -1.4396395897620096e-07,
+            1.1285097656354992e-07,
+            0.951428234577179
+          ]
+        },
+        {
+          "position": [
+            -2.9912321508618334e-09,
+            0.019017353653907776,
+            -0.08389327675104141
+          ],
+          "rotation": [
+            0.3080430328845978,
+            -1.413262680216576e-07,
+            1.0988065923811519e-07,
+            0.9513723850250244
+          ]
+        },
+        {
+          "position": [
+            -2.4816486643430835e-09,
+            0.01904316246509552,
+            -0.08393675088882446
+          ],
+          "rotation": [
+            0.3082153797149658,
+            -1.3868749704215588e-07,
+            1.0691045559951817e-07,
+            0.9513165950775146
+          ]
+        },
+        {
+          "position": [
+            -2.903782103658159e-09,
+            0.01906903088092804,
+            -0.08398021757602692
+          ],
+          "rotation": [
+            0.3083876371383667,
+            -1.3604761761598638e-07,
+            1.0394034433147681e-07,
+            0.9512608051300049
+          ]
+        }
+      ]
+    },
+    "scope_monitor": true,
+    "monitor_anchor": [
+      -0.17,
+      0.18,
+      -0.13
+    ],
+    "monitor_size": [
+      0.15,
+      0.095
+    ],
+    "monitor_zoom": 3.0
   },
   "guided_launcher": {
-    "triangles": 736,
+    "triangles": 6576,
     "materials": 1,
     "textures": 1,
     "texture_size": [
       1024,
       1024
     ],
-    "bounds_blender": [
-      [
-        -0.1090250015258789,
-        0.07735002785921097
-      ],
-      [
-        -0.2773750126361847,
-        0.6142500042915344
-      ],
-      [
-        -0.07717232406139374,
-        0.23887500166893005
-      ]
+    "muzzle": [
+      0.0,
+      0.12052552402019501,
+      -0.9530000686645508
+    ],
+    "magazine_anchor": [
+      0.0,
+      0.0,
+      -0.12960000336170197
+    ],
+    "magazine_extract": [
+      0.0,
+      -1.0,
+      -0.0
+    ],
+    "magazine_layout": "model specific",
+    "rack_anchor": [
+      0.04500000178813934,
+      0.12052552402019501,
+      -0.20966000854969025
+    ],
+    "support_anchor": [
+      0.0,
+      0.06552552431821823,
+      -0.45744001865386963
+    ],
+    "red_dot_position": [
+      0.0,
+      0.19552552700042725,
+      0.03999999910593033
+    ],
+    "red_dot": false,
+    "sight_zero_metres": 50,
+    "optimization_pending": false,
+    "triangle_budget": 7000,
+    "finish": "gunmetal",
+    "construction": "source silhouette; authored open magazine well and independent reload parts",
+    "source": "akira.blend",
+    "reload_kind": "pack"
+  },
+  "smg_t2": {
+    "triangles": 2001,
+    "materials": 1,
+    "textures": 1,
+    "texture_size": [
+      1024,
+      1024
     ],
     "muzzle": [
       0.0,
-      0.10919999331235886,
-      -0.6142500042915344
-    ],
-    "construction": "original carbine modules; selective bevels, planar dissolve and octagonal bores",
-    "optimization_pending": false,
-    "pack_entry": [
-      -0.10849999636411667,
-      0.08924999833106995,
-      -0.18900001049041748
-    ],
-    "pack_direction": [
-      -1,
-      0,
-      0
-    ],
-    "monitor_position": [
-      0.0,
-      0.21175000071525574,
-      -0.04200000315904617
+      0.2507633566856384,
+      -0.6326600909233093
     ],
     "magazine_anchor": [
-      -0.10849999636411667,
-      0.08924999833106995,
-      -0.18900001049041748
+      0.0,
+      -0.035999998450279236,
+      -0.3059999942779541
     ],
+    "magazine_extract": [
+      0.0,
+      -0.7331140041351318,
+      0.6801058053970337
+    ],
+    "magazine_layout": "model specific",
     "rack_anchor": [
-      0.03325,
-      0.13125,
-      -0.0455
+      0.04500000178813934,
+      0.2507633566856384,
+      -0.13918522000312805
     ],
     "support_anchor": [
-      0,
-      0.08,
-      -0.24
+      0.0,
+      0.19576334953308105,
+      -0.3036768436431885
+    ],
+    "red_dot_position": [
+      0.0,
+      0.3257633447647095,
+      0.03999999910593033
+    ],
+    "red_dot": false,
+    "sight_zero_metres": 50,
+    "optimization_pending": false,
+    "triangle_budget": 5000,
+    "finish": "gunmetal",
+    "construction": "source silhouette; authored open magazine well and independent reload parts",
+    "source": "fwp.blend",
+    "reload_kind": "handle",
+    "aim_laser": true,
+    "laser_anchor": [
+      0.0,
+      0.37435784935951233,
+      -0.44286206364631653
     ]
+  },
+  "smg_t3": {
+    "triangles": 1600,
+    "materials": 1,
+    "textures": 1,
+    "texture_size": [
+      1024,
+      1024
+    ],
+    "muzzle": [
+      0.0,
+      0.1811496466398239,
+      -0.6566999554634094
+    ],
+    "magazine_anchor": [
+      0.0,
+      -0.06299999356269836,
+      -0.476999968290329
+    ],
+    "magazine_extract": [
+      0.0,
+      -1.0,
+      -0.0
+    ],
+    "magazine_layout": "model specific",
+    "rack_anchor": [
+      0.04500000178813934,
+      0.1811496466398239,
+      -0.14447398483753204
+    ],
+    "support_anchor": [
+      0.0,
+      0.12614963948726654,
+      -0.31521597504615784
+    ],
+    "red_dot_position": [
+      0.0,
+      0.25614964962005615,
+      0.03999999910593033
+    ],
+    "red_dot": false,
+    "sight_zero_metres": 50,
+    "optimization_pending": false,
+    "triangle_budget": 5000,
+    "finish": "gunmetal",
+    "construction": "source silhouette; authored open magazine well and independent reload parts",
+    "source": "fwp.blend",
+    "reload_kind": "handle",
+    "aim_laser": true,
+    "laser_anchor": [
+      0.0,
+      0.302573025226593,
+      -0.4596899747848511
+    ]
+  },
+  "burst_rifle": {
+    "triangles": 6607,
+    "materials": 1,
+    "textures": 1,
+    "texture_size": [
+      1024,
+      1024
+    ],
+    "muzzle": [
+      0.0,
+      0.13554024696350098,
+      -0.8653877377510071
+    ],
+    "magazine_anchor": [
+      0.0,
+      0.02500000037252903,
+      -0.24500000476837158
+    ],
+    "magazine_extract": [
+      0.0,
+      -1.0,
+      -0.0
+    ],
+    "magazine_layout": "model specific",
+    "rack_anchor": [
+      0.04500000178813934,
+      0.13554024696350098,
+      -0.19038529694080353
+    ],
+    "support_anchor": [
+      0.0,
+      0.0805402472615242,
+      -0.4153861105442047
+    ],
+    "red_dot_position": [
+      -0.0012441396247595549,
+      0.22215047478675842,
+      0.05659516528248787
+    ],
+    "red_dot": true,
+    "sight_zero_metres": 50,
+    "optimization_pending": false,
+    "triangle_budget": 7000,
+    "finish": "gunmetal",
+    "construction": "source silhouette; authored open magazine well and independent reload parts",
+    "source": "burst_rifle.blend",
+    "reload_kind": "handle",
+    "scope_rear": [
+      -0.0012441396247595549,
+      0.22215047478675842,
+      0.05659516528248787
+    ],
+    "scope_front": [
+      -0.0012441208818927407,
+      0.22215047478675842,
+      -0.2185136079788208
+    ],
+    "scope_radius": 0.03,
+    "zoom_steps": [
+      1.5
+    ]
+  },
+  "railgun": {
+    "triangles": 1238,
+    "materials": 1,
+    "textures": 1,
+    "texture_size": [
+      1024,
+      1024
+    ],
+    "muzzle": [
+      0.0,
+      0.23523126542568207,
+      -1.1820907592773438
+    ],
+    "magazine_anchor": [
+      0.0,
+      -0.02500000037252903,
+      0.125
+    ],
+    "magazine_extract": [
+      0.0,
+      -1.0,
+      -0.0
+    ],
+    "magazine_layout": "model specific",
+    "rack_anchor": [
+      0.04500000178813934,
+      0.23523126542568207,
+      -0.2600599527359009
+    ],
+    "support_anchor": [
+      0.0,
+      0.1802312582731247,
+      -0.5674035549163818
+    ],
+    "red_dot_position": [
+      0.0,
+      0.3102312684059143,
+      0.03999999910593033
+    ],
+    "red_dot": false,
+    "sight_zero_metres": 50,
+    "optimization_pending": false,
+    "triangle_budget": 5000,
+    "finish": "gunmetal",
+    "construction": "source silhouette; authored open magazine well and independent reload parts",
+    "source": "railgun.blend",
+    "reload_kind": "handle",
+    "thermal_range": 150.0,
+    "display_anchor": [
+      0.0016002301126718521,
+      0.31167341869299103,
+      -0.23123885893821716
+    ],
+    "display_size": [
+      0.056007444148971915,
+      0.06880914566873693
+    ],
+    "display_rotation": [
+      0.0,
+      0.0,
+      0.0
+    ]
+  },
+  "energy_minigun": {
+    "triangles": 6613,
+    "materials": 1,
+    "textures": 1,
+    "texture_size": [
+      1024,
+      1024
+    ],
+    "muzzle": [
+      0.0,
+      -0.08450528979301453,
+      -1.3547462224960327
+    ],
+    "magazine_anchor": [
+      0.0,
+      -0.23499999940395355,
+      -0.33862268924713135
+    ],
+    "magazine_extract": [
+      0.0,
+      -1.0,
+      -0.0
+    ],
+    "magazine_layout": "model specific",
+    "rack_anchor": [
+      0.0,
+      0.0,
+      -0.0
+    ],
+    "support_anchor": [
+      2.2785613396081317e-08,
+      0.13279403746128082,
+      -0.3018046021461487
+    ],
+    "red_dot_position": [
+      0.0,
+      -0.009505289606750011,
+      0.03999999910593033
+    ],
+    "red_dot": false,
+    "sight_zero_metres": 50,
+    "optimization_pending": false,
+    "triangle_budget": 7000,
+    "finish": "gunmetal",
+    "construction": "source silhouette; authored open magazine well and independent reload parts",
+    "source": "minigun/MiniGun.blend",
+    "reload_kind": "pack"
   }
 }

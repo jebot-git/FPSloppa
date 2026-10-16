@@ -3,7 +3,6 @@
     "file": "forest_day.ogg",
     "sources": [
       "jungle_peru_day",
-      "jungle_costa_rica",
       "jungle_lacandon",
       "jungle_anne82"
     ],
@@ -11,18 +10,14 @@
     "seconds": 120.0,
     "rate": 24000,
     "channels": 2,
-    "peak_dbfs": -12.730461120605469,
-    "rms_dbfs": -34.1356315612793,
-    "sha256": "5a5a63231c360ae10a80770d6701cac94da8c411ffb1e71f9c146bfc113ba546",
-    "edit": "Five user-selected CC0 WAV source set; band-limited, level-matched excerpts, equal-power source overlaps, Audacity multitrack gains, 8 s equal-power end/start overlap, DC removal, quiet peak/RMS trim; recipe tools/cq_audio/jungle_mix.json",
+    "peak_dbfs": -12.504281997680664,
+    "rms_dbfs": -35.38631820678711,
+    "sha256": "a7d2664ecbb6b744a3b78f16f1656070c713afb1be7b9a354663c909850576eb",
+    "edit": "User-selected CC0 WAV source set; rooster-bearing Costa Rican layer excluded, band-limited, level-matched excerpts, equal-power source overlaps, pinned multitrack gains, 8 s equal-power end/start overlap, DC removal, quiet peak/RMS trim; recipe tools/cq_audio/jungle_mix.json",
     "layers": [
       {
         "source": "jungle_peru_day",
         "gain_db": -6
-      },
-      {
-        "source": "jungle_costa_rica",
-        "gain_db": -12
       },
       {
         "source": "jungle_lacandon",
@@ -33,7 +28,7 @@
         "gain_db": -22
       }
     ],
-    "recipe_sha256": "c19a9844404ddf28a57a73b0f6335905a37d274007ce036d014b522dcca6a86e"
+    "recipe_sha256": "b63ab7693bc325f00c9067e13cc48627d930a3f88a559a6cf9eaede2d85f1891"
   },
   "forest_night": {
     "file": "forest_night.ogg",
@@ -46,10 +41,10 @@
     "seconds": 120.0,
     "rate": 24000,
     "channels": 2,
-    "peak_dbfs": -17.436321258544922,
-    "rms_dbfs": -33.35494613647461,
-    "sha256": "d065dbcaccf3199c12793f137d11bbd51f790d575b00b897e666c37d2cf67b55",
-    "edit": "Five user-selected CC0 WAV source set; band-limited, level-matched excerpts, equal-power source overlaps, Audacity multitrack gains, 8 s equal-power end/start overlap, DC removal, quiet peak/RMS trim; recipe tools/cq_audio/jungle_mix.json",
+    "peak_dbfs": -17.55492401123047,
+    "rms_dbfs": -33.37393569946289,
+    "sha256": "ec7cc8422097f54fce177c4ccc62ca25925d155d6da3556b87f17092a0d99120",
+    "edit": "User-selected CC0 WAV source set; rooster-bearing Costa Rican layer excluded, band-limited, level-matched excerpts, equal-power source overlaps, pinned multitrack gains, 8 s equal-power end/start overlap, DC removal, quiet peak/RMS trim; recipe tools/cq_audio/jungle_mix.json",
     "layers": [
       {
         "source": "jungle_peru_frogs",
@@ -64,7 +59,7 @@
         "gain_db": -20
       }
     ],
-    "recipe_sha256": "c19a9844404ddf28a57a73b0f6335905a37d274007ce036d014b522dcca6a86e"
+    "recipe_sha256": "b63ab7693bc325f00c9067e13cc48627d930a3f88a559a6cf9eaede2d85f1891"
   },
   "river": {
     "file": "river.ogg",

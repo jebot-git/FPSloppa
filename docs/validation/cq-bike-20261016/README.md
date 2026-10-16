@@ -1,0 +1,17 @@
+# Desert Bike and jump swimming — 2026-10-16
+
+Implemented on `experimental/cq-voxelspace`. [Rider preview](rider.png), [asset checks](asset.json), [validation results](results.json).
+
+Tumota’s [Desert Bike](https://blendswap.com/blend/10358) was procured through authenticated BlendSwap MCP using a free download. BlendSwap lists its uploader-declared license as CC0. Source metadata, archive SHA-256 and original license are retained in `deathmatch/models/desert_bike`. Re-fetch through `python tools/cq_assets/fetch_bike.py`; build with Blender `--background --factory-startup --python tools/cq_assets/build_bike.py`, then `python tools/authority_core/generate_bike_geometry.py`. Authentication stays outside the repository.
+
+There is one neutral single-seat bike near each of the 11 POI approaches, in addition to existing vehicles. The source is a futuristic hover bike; its body is optimized to 5,890 triangles, one 1K gunmetal atlas/material and separate movable handlebars. Legacy source constraints are baked and removed. Editable Blender authoring is in `tools/cq_assets/bike_authoring`. Saddle, steering pivot and grip sockets are authored in a shared manifest; native geometry is generated from it.
+
+Base speed is 24m/s (30m/s on roads), acceleration 8m/s² and maximum handlebar yaw 35 degrees. VR uses the transport’s main-hand trigger for acceleration, offhand trigger for priority braking and main joystick press for headlights. Either hand can grip the handlebars and stays attached until release; both-handed steering is averaged. The bike always uses physical steering in VR. Braking clamps at zero and cannot reverse. Desktop driving retains keyboard controls. Jump dismounts, and normal use can also dismount.
+
+The rider remains visible in a fixed seated/straddling pose with hands at the controls. Both downloaded vertex avatars and the procedural fallback are supported. The native avatar path and script reference agree; seated animation uses a fixed reference frame so walking and bobbing do not leak into the pose. VR wheel-attached hand positions are included in replicated poses. Cabin camera/menu following uses the existing final rendered vehicle pose.
+
+The rider is exposed to infantry bullets, melee, ordnance and normal player damage; the bike itself has 50HP and the normal vehicle rules (no infantry bullet damage, half grenade damage, full ordnance damage). Native traces and rewind use seated leg geometry. Bots and turrets can target the exposed rider. Destruction follows existing vehicle occupant rules. Bikes respawn empty at their intended POI location after 120 seconds, matching transports.
+
+Jump is no longer discarded by the client’s stroke-only water movement setting. Holding jump swims upward; hand strokes remain available. The native server already supported jump ascent and is now covered by explicit no-hand-stroke tests at 30 and 60Hz.
+
+Validation passed: 267,972 native checks; 56 Godot bike checks; 72 transport checks; 25 transport control checks; 14,242 native/reference avatar checks with zero position error. Validation includes native bike acceleration/braking/steering, bullet impacts on the mounted rider, vehicle damage, respawn and jump swimming; live Godot bike integration/control checks; transport regression tests; native/reference avatar parity including seated states; Vulkan rider render; and Linux client/server plus Windows native builds. No live server deployment or headset playtest was performed. The new vehicle kind requires matching clients/server (`fpsloppa-cq-frontier-31-bikes`).

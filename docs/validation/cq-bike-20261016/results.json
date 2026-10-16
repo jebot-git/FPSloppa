@@ -1,0 +1,35 @@
+{
+  "branch": "experimental/cq-voxelspace",
+  "native_core": {
+    "checks": 267972,
+    "ok": true,
+    "collision_legacy_misses": 0,
+    "collision_legacy_late": 0,
+    "replay_players": 64,
+    "replay_ticks": 3600
+  },
+  "godot_bike": {
+    "checks": 56,
+    "failures": []
+  },
+  "transport": {
+    "checks": 72,
+    "failures": []
+  },
+  "transport_controls": {
+    "checks": 25,
+    "failures": []
+  },
+  "avatar_parity": {
+    "checks": 14242,
+    "failures": [],
+    "max_position_error": 0.0
+  },
+  "builds": {
+    "linux_client": "passed",
+    "linux_server": "passed",
+    "windows_client": "passed"
+  },
+  "headset_playtest": false,
+  "deployed": false
+}

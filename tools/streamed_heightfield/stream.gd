@@ -17,6 +17,7 @@ const LOAD_RADIUS := 256.0
 const RETAIN_RADIUS := 320.0
 const MAX_JOBS := 2
 const UPLOADS_PER_FRAME := 2
+const UPLOAD_BUDGET_USEC := 800 # Admission budget; an individual GPU upload cannot be preempted.
 const SEGMENTS := [32, 16, 8, 4]
 var height_tiles := Texture2DArray.new()
 var color_tiles := Texture2DArray.new()
@@ -223,8 +224,9 @@ func evict(key: Vector2i) -> void:
 func generate_job(coord: Vector2i) -> void:
 	var begin := Time.get_ticks_usec()
 	var data := source.generate_tile(coord)
-	var heights: Array = Array(data.heights.to_float32_array())
-	data.height_bounds = Vector2(heights.min(), heights.max())
+	if not data.has("height_bounds"):
+		var heights:Array=Array(data.heights.to_float32_array())
+		data.height_bounds=Vector2(heights.min(),heights.max())
 	data.generation_ms = (Time.get_ticks_usec() - begin) / 1000.0
 	mutex.lock()
 	completed.append(data)
@@ -258,7 +260,9 @@ func tick(camera: Camera3D) -> void:
 		update_ms = (Time.get_ticks_usec() - start) / 1000.0
 		return
 	var updated := false
+	var upload_frame_start:=Time.get_ticks_usec()
 	for i in UPLOADS_PER_FRAME:
+		if i>0 and Time.get_ticks_usec()-upload_frame_start>=UPLOAD_BUDGET_USEC:break
 		mutex.lock()
 		var data = null
 		if not completed.is_empty() and WorkerThreadPool.is_task_completed(running[completed[0].coord]):

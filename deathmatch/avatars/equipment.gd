@@ -19,6 +19,8 @@ static func utility(key:String) -> Node3D:
 		preload("res://tools/voxel_battle/baked_lighting.gd").convert_node(node)
 		return node
 	var models=preload("res://deathmatch/conquest/classes/models.gd")
+	if key=="turret":
+		var kit:=Node3D.new();var sentry:Node3D=load("res://deathmatch/models/turret/turret.glb").instantiate();kit.add_child(sentry);sentry.scale=Vector3.ONE*.18;sentry.position=Vector3(0,-.1,-.1);kit.scale=Vector3.ONE*.65;return kit
 	var node:Node3D=models.weapon(7,"cq_medic" if key=="medical" else "cq_technician") if key in ["medical","engineering"] else models.weapon(8,"cq_scout")
 	node.scale=Vector3.ONE*(injector_scale() if key=="medical" else .35)
 	return node

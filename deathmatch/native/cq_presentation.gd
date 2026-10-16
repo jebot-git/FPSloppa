@@ -1,8 +1,9 @@
 extends RefCounted
 ## Client-only projection into the existing presentation/prediction API.
 const ROLES=["shocktroop","scout","medic","technician"]
-const PRIMARY=[4,9,4,5]
-const ADVANCED=[1,10,3,11]
+const PRIMARY=[4,9,3,5]
+const ADVANCED=[1,10,12,11]
+const THIRD=[14,16,13,15]
 const UTILITY=[["jetpack","airstrike"],["recon","recon_drone"],["medical","healing_grenade"],["engineering","turret"]]
 static func project(frame:Dictionary,origin:float,epoch:int,duration:float)->Array:
  var mode:Dictionary={"kind":"tdm","scores":frame.mode.scores,"bases":[],"flags":[],"hill":Vector3.ZERO,"owner":-1,"friendly_fire":false,"announcer":false,"weapon_rules":"ut99","locomotion":{},"movement_ack":{},"ordnance":{},"cq_points":{"scores":frame.mode.scores,"winner":frame.mode.winner},"class_mode":{"clock":origin+frame.mode.time,"lighting_time":frame.mode.lighting_time}}
@@ -12,9 +13,9 @@ static func project(frame:Dictionary,origin:float,epoch:int,duration:float)->Arr
   if not p.has("class") or not p.has("owned"):return []
   var c:Dictionary=p["class"];var state:Dictionary={"team":p.team,"squad":p.get("squad",-1),"combat_until":origin+p.get("combat_until",0.),"class":ROLES[c.role],"next":ROLES[c.next],"xp":{},"nv":p.nvg,"nb":origin+c.blind_until,"cloak_until":origin+c.cloak_until,"cloak_ready":origin+c.cloak_ready,"dispenser_ready":origin+c.box_ready,"drone_ready":origin+c.drone_ready,"airstrike_ready":origin+c.strike_ready,"turret_ready":origin+c.turret_ready,"primary_choices":{},"secondary_choices":{},"utility_choices":{},"equipped_utility":UTILITY[c.role][int(c.equipped_t2)],"weapon_held":p.get("weapon_held",true)}
   for i in 4:
-   state.xp[ROLES[i]]=c.xp[i];state.primary_choices[ROLES[i]]=ADVANCED[i] if c.primary_t2&(1<<i) else PRIMARY[i];state.secondary_choices[ROLES[i]]=0 if c.secondary_t2&(1<<i) else 8 if i==1 else 2;state.utility_choices[ROLES[i]]=UTILITY[i][int(bool(c.utility_t2&(1<<i)))]
+   state.xp[ROLES[i]]=c.xp[i];state.primary_choices[ROLES[i]]=THIRD[i] if p.get("primary_t3",0)&(1<<i) else ADVANCED[i] if c.primary_t2&(1<<i) else PRIMARY[i];state.secondary_choices[ROLES[i]]=0 if c.secondary_t2&(1<<i) else 8 if i==1 else 2;state.utility_choices[ROLES[i]]=UTILITY[i][int(bool(c.utility_t2&(1<<i)))]
   var clips:Dictionary={}
-  for i in 12:clips[i]=p.clips[i]
+  for i in 17:clips[i]=p.clips[i]
   var mag:Dictionary={"serial":p.life,"weapon":p.weapon,"clips":clips,"physical":p.physical,"reloading":p.get("reloading",-1),"reload_at":origin+p.get("reload_at",0.),"cycling":p.get("cycling",-1),"cycle_at":origin+p.get("cycle_at",0.)}
   mode["cp:"+str(id)]={"state":state,"mag":mag,"spot":[origin+p.spotted[0],origin+p.spotted[1]],"lock":{"ready":p.lock_elapsed>=1.5,"elapsed":p.lock_elapsed,"target":str(p.lock_vehicle),"life":p.life} if p.lock_vehicle else {},"charge":{"at":origin+p.charge_at} if p.charge_at>0 else {}}
   if p.incapacitated:mode["cd:"+str(id)]={"remaining":p.bleed_remaining,"attacker":0,"weapon":"INJURY"}
@@ -28,7 +29,7 @@ static func project(frame:Dictionary,origin:float,epoch:int,duration:float)->Arr
  for key in frame.get("boxes",{}):
   var b:Dictionary=frame.boxes[key];mode["cb:"+str(key)]={"owner":b.owner,"team":b.team,"kind":"health" if b.health else "ammo","position":b.position,"remaining":b.remaining}
  for key in frame.get("vehicles",{}):
-  var v:Dictionary=frame.vehicles[key].duplicate();v.kind=["rocket","light","heavy","transport"][v.kind];v.left=v.remaining;v.next+=origin;v.reload_at+=origin;v.shot_at+=origin;v.spawn=v.position;v.speed=v.velocity.length();mode["ctk:"+str(key)]=v
+  var v:Dictionary=frame.vehicles[key].duplicate();v.kind=["rocket","light","heavy","transport","bike"][v.kind];v.left=v.remaining;v.next+=origin;v.reload_at+=origin;v.shot_at+=origin;v.spawn=v.position;v.speed=v.velocity.length();mode["ctk:"+str(key)]=v
  for key in frame.get("vehicles",{}):
   var v:Dictionary=mode["ctk:"+str(key)]
   if v.kind!="transport":continue

@@ -3,7 +3,7 @@
 namespace cqauthority {
 void Core::snapshot_extended() {
   using namespace wire;
-  frame_[3] = '2';
+  frame_[3] = cq.enabled ? '3':'2';
   {
     Section section(frame_, 1);
     uint16_t count = 0;
@@ -34,7 +34,7 @@ void Core::snapshot_extended() {
     append(frame_, count);
     for (auto &p : players_)
       if (p.active)
-        for (int w = 0; w < 12; ++w) {
+        for (int w = 0; w < int(WEAPON_COUNT); ++w) {
           auto &r = p.physical[w];
           if (!r.initialised)
             continue;

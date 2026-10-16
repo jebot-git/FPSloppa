@@ -7,7 +7,7 @@ func advance(delta:float) -> void:
 	blend=move_toward(blend,1.0 if engaged else 0.0,delta/0.08)
 static func supports(weapon:int,rules:String) -> bool:
 	match rules:
-		"cq":return weapon in [0,1,2,3,4,5,9,10,11]
+		"cq":return weapon in [0,1,2,3,4,5,9,10,11,12,13,14,15,16]
 		"cs16":return weapon in [3,4,5,6,7,8,9,11]
 		"quake":return weapon in [2,3,4,5,6,7,8,9]
 		"ut99":return weapon in [1,3,4,5,6,7,8,9,10]
@@ -20,7 +20,7 @@ func solve(primary: Transform3D, support: Transform3D, weapon: int, holding: boo
 	var offset:=support.origin-primary.origin
 	var distance:=offset.length()
 	var forward:=-primary.basis.z
-	var pistol:bool=rules=="cq" and weapon in [0,2,9,10]
+	var pistol:bool=rules=="cq" and weapon in [0,2,9]
 	if not (rules in ["cs16","cq"] and engaged) and (distance<(.035 if pistol else .075 if rules in ["cs16","cq"] or engaged else .12) or distance>(.95 if engaged else .80) or offset.dot(forward)<(.02 if pistol else .06)):engaged=false;return primary
 	var anchor:=Vector3.FORWARD*.32
 	if rules=="tribes":anchor=Vector3(0,.035,-.25)*.65

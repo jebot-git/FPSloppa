@@ -3,6 +3,23 @@ extends Node3D
 const Landscape=preload("res://tools/voxel_battle/landscape.gd")
 const RADIUS:=12.0
 const VOICES:=8
+var native_audio=preload("res://deathmatch/native/audio.gd").create()
+var enabled:=true
+var playback_enabled:=true
+var profiling_enabled:=false
+var update_us:=0
+var scans:=0
+var cell_builds:=0
+func set_enabled(value:bool)->void:
+	enabled=value
+	if not value:
+		for voice in voices:voice.stop()
+		previous.clear();distance.clear();next_at.clear();tick=0.
+		if native_audio:native_audio.grass_clear()
+func set_playback_enabled(value:bool)->void:
+	playback_enabled=value
+	if not value:
+		for voice in voices:voice.stop()
 var game
 var voices:Array=[]
 var streams:Array=[]
@@ -23,6 +40,7 @@ func setup(arena) -> void:
 		add_child(player);voices.append(player)
 func contains(point:Vector3) -> bool:
 	if not is_instance_valid(game.battle_map) or not is_instance_valid(game.battle_map.grass):return false
+	if native_audio and game.battle_map.grass.native_world:return game.battle_map.grass.native_world.grass_contains(point,Landscape.TILE,Landscape.EXTENT)
 	var tiles:Dictionary=game.battle_map.grass.tiles
 	var coordinate:=Landscape.bin_key(Vector2(point.x,point.z))
 	for offset in [Vector2i.ZERO,Vector2i(-1,0),Vector2i(1,0),Vector2i(0,-1),Vector2i(0,1),Vector2i(-1,-1),Vector2i(1,-1),Vector2i(-1,1),Vector2i(1,1)]:
@@ -30,6 +48,7 @@ func contains(point:Vector3) -> bool:
 		if not tiles.has(key):continue
 		if not cells.has(key):
 			var bins:Dictionary={}
+			cell_builds+=1
 			for row:Vector4 in tiles[key].rows:
 				var cell:=Vector2i(floori(row.x/2),floori(row.z/2))
 				if not bins.has(cell):bins[cell]=PackedVector3Array()
@@ -42,12 +61,30 @@ func contains(point:Vector3) -> bool:
 					if absf(point.y-row.y)<1.5 and Vector2(point.x-row.x,point.z-row.z).length_squared()<1.21:return true
 	return false
 func _process(delta:float) -> void:
+	update_us=0
+	if not enabled:return
+	if not profiling_enabled:_update(delta);return
+	var begin:=Time.get_ticks_usec()
+	_update(delta)
+	update_us=Time.get_ticks_usec()-begin
+func _update(delta:float) -> void:
 	if game==null or game.headless or not game.active or not is_instance_valid(game.battle_map) or not is_instance_valid(game.battle_map.grass):return
 	tick+=delta
 	if tick<.1:return
+	scans+=1
 	var interval:=tick
 	tick=0
 	var listener:Vector3=game.xr_rig.head.global_position if game.is_vr() else game.camera.global_position
+	if native_audio and game.battle_map.grass.native_world:
+		var ids:=PackedInt64Array();var positions:=PackedVector3Array();var flags:=PackedByteArray()
+		for id in game.fighters:
+			var actor=game.fighters[id];var player:Dictionary=game.players[id]
+			var grounded:bool=actor.is_supported() if game.multiplayer.is_server() or actor.local_player else actor.visual_grounded
+			ids.append(id);positions.append(actor.position)
+			flags.append((1 if not player.dead and not player.spectator and grounded and not player.get("slow",false) else 0) | (2 if actor.stance=="prone" else 0))
+		var hits:PackedInt32Array=native_audio.grass_step(game.battle_map.grass.native_world,ids,positions,flags,listener,interval,game.clock,Landscape.TILE,Landscape.EXTENT)
+		for index in hits:emit_rustle(positions[index],bool(flags[index]&2))
+		return
 	for key in cells.keys():
 		if not game.battle_map.grass.tiles.has(key):cells.erase(key)
 	for id in previous.keys():
@@ -64,7 +101,7 @@ func _process(delta:float) -> void:
 		distance[id]=0.0;next_at[id]=game.clock+.32
 		emit_rustle(point,actor.stance=="prone")
 func emit_rustle(point:Vector3,prone:bool=false) -> void:
-	if voices.is_empty():return
+	if not enabled or not playback_enabled or voices.is_empty():return
 	var voice:AudioStreamPlayer3D=voices[emissions%VOICES]
 	voice.stop();voice.stream=streams[emissions%3];voice.global_position=point+Vector3.UP*.3
 	voice.volume_db=-29 if prone else -23;voice.pitch_scale=.93+float(emissions%7)*.025

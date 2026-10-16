@@ -1,3 +1,4 @@
+#include "movement_runtime.h"
 #include "authority.h"
 #include "authority_transport_geometry.h"
 #include <godot_cpp/classes/os.hpp>
@@ -82,6 +83,7 @@ void FPSAuthority::_bind_methods() {
   ClassDB::bind_method(D_METHOD("prepare_technician_test", "id"), &FPSAuthority::prepare_technician_test);
   ClassDB::bind_method(D_METHOD("prepare_scout_test", "id", "technician_id"), &FPSAuthority::prepare_scout_test);
   ClassDB::bind_method(D_METHOD("prepare_shocktroop_test", "id"), &FPSAuthority::prepare_shocktroop_test);
+  ClassDB::bind_method(D_METHOD("prepare_vehicle_test", "id"), &FPSAuthority::prepare_vehicle_test);
   ClassDB::bind_method(D_METHOD("prepare_medic_test", "medic_id", "bot_id"), &FPSAuthority::prepare_medic_test);
   ClassDB::bind_method(D_METHOD("collapse_region", "minimum", "maximum"), &FPSAuthority::collapse_region);
   ClassDB::bind_method(D_METHOD("stage_player", "id"), &FPSAuthority::stage_player);
@@ -171,7 +173,7 @@ int64_t FPSAuthority::attach_actor(int64_t id, CharacterBody3D *actor,
                                    const PackedInt32Array &ammo) {
   if (!on_owner() || advancing || !actor || !shape ||
       !actor->is_inside_tree() || shape->get_parent() != actor ||
-      ammo.size() != 4 || owned < 1 || owned > 4095 ||
+      ammo.size() != 4 || owned < 1 || owned > 131071 ||
       identities.count(uint64_t(actor->get_instance_id())))
     return 0;
   Ref<CylinderShape3D> hull = shape->get_shape();
@@ -183,7 +185,7 @@ int64_t FPSAuthority::attach_actor(int64_t id, CharacterBody3D *actor,
       return 0;
   }
   auto h = core.join(id, team, cv(actor->get_global_position()),
-                     uint16_t(owned), {ammo[0], ammo[1], ammo[2], ammo[3]});
+                     uint32_t(owned), {ammo[0], ammo[1], ammo[2], ammo[3]});
   if (!h.id)
     return 0;
   // Give each body an exclusive mutable collider; shared scene resources cannot
@@ -239,7 +241,7 @@ bool FPSAuthority::submit(int64_t id, const Dictionary &d) {
     if (d[key].get_type() != Variant::BOOL)
       return false;
   int64_t life = d["life"], weapon = d["weapon"];
-  if (life < 1 || life > UINT32_MAX || weapon < 0 || weapon >= 12)
+  if (life < 1 || life > UINT32_MAX || weapon < 0 || weapon >= int(cqauthority::WEAPON_COUNT))
     return false;
   Vector2 v = d["move"];
   cqauthority::Command c;
@@ -637,39 +639,9 @@ cqauthority::Moved FPSAuthority::move(const cqauthority::Motion &m, double) {
   // Match Fighter.step_up: sweep up/forward/down only from grounded walking.
   // The successful sweep consumes horizontal travel; never move it twice.
   auto step = [&]() {
+    if (!m.step || !m.grounded || m.velocity.y > 0) return false;
     Vector3 travel = gv({m.velocity.x * core.step_seconds(), 0, m.velocity.z * core.step_seconds()});
-    if (!m.step || !m.grounded || m.velocity.y > 0 || travel.length() < .001) return false;
-    Ref<KinematicCollision3D> obstacle;obstacle.instantiate();
-    Transform3D before = actor->get_global_transform();
-    if (!actor->test_move(before, travel, obstacle, actor->get_safe_margin(), true, 4)) return false;
-    bool blocked = false;
-    for (int i=0;i<obstacle->get_collision_count();++i)
-      blocked |= obstacle->get_normal(i).dot(travel) < -.0000001;
-    if (!blocked) return false;
-    double rise = m.height < .8 ? .20 : .55;
-    Ref<KinematicCollision3D> ceiling;ceiling.instantiate();
-    if (actor->test_move(before, Vector3(0,rise,0), ceiling)) rise = std::max(0.,double(ceiling->get_travel().y));
-    if (rise < .001) return false;
-    Transform3D raised=before;raised.origin.y+=rise;
-    if (actor->test_move(raised,travel)) return false;
-    raised.origin+=travel;
-    Ref<KinematicCollision3D> landing;landing.instantiate();
-    if (!actor->test_move(raised,Vector3(0,-rise-.05,0),landing) ||
-        Object::cast_to<CharacterBody3D>(landing->get_collider())) return false;
-    double tread = landing->get_position().y;
-    if (landing->get_normal().dot(Vector3(0,1,0)) < Math::cos(actor->get_floor_max_angle())) {
-      Vector3 into=-landing->get_normal().slide(Vector3(0,1,0)).normalized();
-      Vector3 edge=landing->get_position()+into*.02;
-      auto support=world_trace(cv(edge+Vector3(0,.05,0)),cv(edge-Vector3(0,.1,0)),m.actor);
-      if (!support.blocked || support.normal.y < Math::cos(actor->get_floor_max_angle())) return false;
-      tread=support.position.y;
-    }
-    if (tread-before.origin.y-.005>rise+.001) return false;
-    Vector3 target=raised.origin+landing->get_travel();
-    if (target.y-before.origin.y <= .00001 || target.y-before.origin.y > rise+.001) return false;
-    actor->set_global_position(target);
-    actor->set_velocity(Vector3(m.velocity.x,0,m.velocity.z));
-    return true;
+    return movement_step(actor, travel, m.height < .8 ? .20 : .55, 3);
   };
   if (!step()) actor->move_and_slide();
   if (m.step && !actor->is_on_floor())
@@ -909,13 +881,13 @@ Dictionary FPSAuthority::inspect(int64_t id) const {
   for (int n : c.xp)
     xp.push_back(n);
   cls["xp"] = xp;
-  int primary = 0, secondary = 0, utility = 0;
+  int primary = 0, primary3 = 0, secondary = 0, utility = 0;
   for (int i = 0; i < 4; ++i) {
-    primary |= c.primary_t2[i] << i;
+    primary |= c.primary_t2[i] << i;primary3 |= c.primary_t3[i]<<i;
     secondary |= c.secondary_t2[i] << i;
     utility |= c.utility_t2[i] << i;
   }
-  cls["primary"] = primary;
+  cls["primary"] = primary;cls["primary3"]=primary3;
   cls["secondary"] = secondary;
   cls["utility"] = utility;
   cls["cloak_ready"] = c.cloak_ready;
@@ -950,7 +922,7 @@ Dictionary FPSAuthority::inspect(int64_t id) const {
   d["clips"] = clips;
   d["ammo"] = ammo;
   Dictionary physical;
-  for (int w = 0; w < 12; ++w) {
+  for (int w = 0; w < int(cqauthority::WEAPON_COUNT); ++w) {
     const auto &q = p->physical[w];
     if (!q.initialised)
       continue;
@@ -1051,12 +1023,14 @@ bool FPSAuthority::configure_player(int64_t id, int64_t life,
       return false;
     c.xp[i] = xp[i];
   }
+  int primary3=d.get("primary3",0);
+  if(primary3&~15)return false;
   int primary = d.get("primary", 0), secondary = d.get("secondary", 0),
       utility = d.get("utility", 0);
   if ((primary | secondary | utility) & ~15)
     return false;
   for (int i = 0; i < 4; ++i) {
-    c.primary_t2[i] = primary & (1 << i);
+    c.primary_t2[i] = primary & (1 << i);c.primary_t3[i]=primary3&(1<<i);
     c.secondary_t2[i] = secondary & (1 << i);
     c.utility_t2[i] = utility & (1 << i);
   }
@@ -1203,4 +1177,41 @@ Dictionary FPSAuthority::prepare_shocktroop_test(int64_t id) {
   p->bot=false;p->staging=false;p->team=0;p->squad=0;p->hp=100;p->armor=100;
   p->invulnerable=0;p->yaw=0;p->cooldown=0;teleport(h,at);
   return inspect(id);
+}
+
+Dictionary FPSAuthority::prepare_vehicle_test(int64_t id) {
+  auto *root=world();
+  if(!on_owner() || advancing || !root || !bool(root->get_meta("cq_vehicle_test",false)) ||
+     !OS::get_singleton()->get_cmdline_user_args().has("--cq-vehicle-test") || id<=0)return {};
+  auto *p=core.find(id);if(!p)return {};
+  cqauthority::V anchor=p->spawn_position;
+  for(const auto &v:core.vehicles()) if(v.active && v.kind==cqauthority::VehicleKind::TRANSPORT && v.spawn_team==0) {anchor=v.spawn;break;}
+  if(root->has_meta("cq_vehicle_test_anchor"))anchor=cv(Vector3(root->get_meta("cq_vehicle_test_anchor")));
+  else root->set_meta("cq_vehicle_test_anchor",gv(anchor));
+  if(p->vehicle>=0) {
+    auto &old=const_cast<cqauthority::Vehicle&>(core.vehicles()[size_t(p->vehicle)]);
+    for(auto &h:old.seats)if(h.id==id)h={};if(old.pilot.id==id)old.pilot={};
+  }
+  std::array<bool,5> parked{};Array lineup;
+  for(const auto &source:core.vehicles()) {
+    int kind=int(source.kind);if(!source.active || parked[size_t(kind)])continue;
+    bool occupied=source.pilot.id && source.pilot.id!=id;
+    for(auto h:source.seats)occupied|=h.id&&h.id!=id;
+    if(occupied)continue;
+    auto &v=const_cast<cqauthority::Vehicle&>(source);parked[size_t(kind)]=true;
+    auto at=anchor+cqauthority::V{16,0,(kind-2)*12.};at.y=ground_height(at.x,at.z)+.06;
+    v.position=v.spawn=at;v.spawn_team=v.team=0;v.pilot={};v.seats={};v.yaw=v.spawn_yaw=0;
+    v.hp=cqauthority::vehicle_profile(v.kind).hp;v.speed=0;v.velocity={};v.fall_speed=0;v.respawn_at=0;
+    v.remaining=0;v.rounds=cqauthority::vehicle_profile(v.kind).capacity;v.next=v.reload_at=0;v.direction={0,0,-1};
+    v.normal={0,1,0};v.grounded=v.stable_ground=false;v.headlights=false;v.headlight_held=true;
+    v.visual_y=at.y+(v.kind==cqauthority::VehicleKind::LIGHT || v.kind==cqauthority::VehicleKind::HEAVY ? .25:0);
+    sync_vehicle(v);Dictionary row;row["kind"]=kind;row["hp"]=v.hp;row["position"]=gv(at);lineup.append(row);
+  }
+  auto at=anchor+cqauthority::V{26,0,0};at.y=ground_height(at.x,at.z)+.06;
+  core.clear_supply(p->handle);p->classes.xp.fill(7500);p->classes.primary_t3.fill(true);
+  p->classes.primary_t2.fill(false);p->classes.secondary_t2.fill(true);p->classes.utility_t2.fill(true);
+  p->classes.next=p->classes.role;p->dead=true;auto h=core.respawn(p->handle,at);p=core.resolve(h);if(!p)return {};
+  p->bot=false;p->staging=false;p->team=0;p->squad=0;p->hp=100;p->armor=p->classes.armor_limit();p->invulnerable=0;
+  p->yaw=1.5707963267948966;p->cooldown=0;p->spawn_position=at;teleport(h,at);
+  Dictionary result;result["player"]=inspect(id);result["vehicles"]=lineup;return result;
 }

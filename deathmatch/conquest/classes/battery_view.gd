@@ -34,7 +34,7 @@ func setup(arena,tanks) -> void:
 func lock_transport_view()->bool:
 	if not game.active:return false
 	var id:int=game.multiplayer.get_unique_id();var seated:int=service.key_for(id)
-	if seated<0 or service.view_row(seated).kind!="transport":return false
+	if seated<0 or service.view_row(seated).kind not in ["transport","bike"]:return false
 	var eye:Vector3=service.render_transport_eye(id,seated)
 	if game.is_vr():
 		if is_instance_valid(game.xr_rig) and is_instance_valid(game.xr_rig.head):
@@ -46,8 +46,11 @@ func lock_transport_view()->bool:
 func _process(delta:float)->void:
 	# Runs after the ordinary camera and XR rig updates, including while menus
 	# are open. Earlier seat assignment is overwritten by the rig's own process.
-	lock_transport_view()
+	var transport_seated:=lock_transport_view()
 	if game.is_vr() and game.xr_rig.transport_wheel:game.xr_rig.transport_wheel.update(delta)
+	# Menu and keyboard are top-level surfaces, updated earlier by the rig.
+	# Apply the final cabin translation/yaw before drawing them this frame.
+	if transport_seated and game.is_vr() and is_instance_valid(game.xr_rig.panel) and game.xr_rig.panel.visible:game.xr_rig.follow_menu()
 func create_view() -> void:
 	viewport=SubViewport.new();viewport.name="STBatteryScopeFeed";viewport.size=Vector2i(640,360);viewport.world_3d=game.get_world_3d();viewport.render_target_update_mode=SubViewport.UPDATE_DISABLED;viewport.audio_listener_enable_3d=false;add_child(viewport)
 	sensor=Camera3D.new();sensor.physics_interpolation_mode=Node.PHYSICS_INTERPOLATION_MODE_OFF;sensor.fov=75;sensor.near=.08;sensor.far=1600;sensor.cull_mask&=~PRIVATE_LAYER;viewport.add_child(sensor);sensor.make_current()
@@ -77,7 +80,7 @@ func update() -> void:
 	var row:Dictionary=service.view_row(key)
 	if is_instance_valid(game.viewmodel):game.viewmodel.hide()
 	if is_instance_valid(game.offhand_viewmodel):game.offhand_viewmodel.hide()
-	if row.kind=="transport":
+	if row.kind in ["transport","bike"]:
 		if game.is_vr() and is_instance_valid(game.xr_rig.gun):game.xr_rig.gun.hide()
 		lock_transport_view()
 		key=-1;return # Normal stereo/world camera shares the rendered cabin pose.
@@ -96,8 +99,8 @@ func update() -> void:
 		for axis in [Vector3.RIGHT,Vector3.UP]:
 			for sign in [-1.,1.]:mesh.surface_add_vertex(axis*sign*distance*.002);mesh.surface_add_vertex(axis*sign*distance*.006)
 		mesh.surface_end();reticle.show()
-		hidden_hull=service.models.get(key)
-		if is_instance_valid(hidden_hull):hidden_hull.hide()
+		# Stereo drivers need the bow/hull as a stable body-heading reference.
+		# Only handheld weapons are hidden; the real vehicle remains visible.
 		if is_instance_valid(game.xr_rig.gun):game.xr_rig.gun.hide()
 		return
 	if not viewport:create_view()

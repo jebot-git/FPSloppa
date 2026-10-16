@@ -1,7 +1,7 @@
 extends Node3D
 ## Cosmetic audio from accepted snapshots; no RPCs or authority changes.
 const ROOT:="res://deathmatch/audio/cq_field/"
-const SHOTS={0:"burst_pistol",1:"assault",2:"pistol",3:"smg",4:"carbine",5:"launcher",9:"pistol_suppressed",10:"beam",11:"guided_launcher"}
+const SHOTS={0:"burst_pistol",1:"assault",2:"pistol",3:"smg",4:"carbine",5:"launcher",9:"pistol_suppressed",10:"beam",11:"guided_launcher",12:"smg",13:"smg",14:"assault",15:"carbine",16:"beam"}
 const MAX_VOICES:=32
 const MAX_LOOPS:=10
 const VEHICLE_RANGE:=100.
@@ -140,7 +140,7 @@ func _process(delta:float)->void:
    if row.hp>old.hp and old.hp>0 and allow("repair:"+str(key),.65):play_cue("repair",row.position,-18,12)
   vehicle_seen[key]={"running":running,"hp":row.hp}
   if running:
-   var kind:String="engine_transport" if row.kind=="transport" else "engine_hover" if row.kind in ["light","heavy"] else "engine_heavy"
+   var kind:String="engine_transport" if row.kind=="transport" else "engine_hover" if row.kind in ["light","heavy","bike"] else "engine_heavy"
    set_loop("vehicle:"+str(key),kind,row.position+Vector3.UP,-18,VEHICLE_RANGE,wanted,lerpf(.85,1.3,clampf(absf(row.speed)/10,0,1)))
  for key in vehicle_seen.keys():
   if not game.battery_tanks.rows.has(key):vehicle_seen.erase(key)

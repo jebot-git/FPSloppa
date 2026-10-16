@@ -1,0 +1,90 @@
+{
+  "forest_day": {
+    "crowing_max": 0.00010720307182054967,
+    "poultry": {
+      "Crowd": {
+        "max": 0.0004968411521986127,
+        "peak_source_s": 48.48
+      },
+      "Livestock, farm animals, working animals": {
+        "max": 0.00462966738268733,
+        "peak_source_s": 83.52
+      },
+      "Fowl": {
+        "max": 0.004200723487883806,
+        "peak_source_s": 52.32
+      },
+      "Chicken, rooster": {
+        "max": 0.005101468879729509,
+        "peak_source_s": 52.32
+      },
+      "Crowing, cock-a-doodle-doo": {
+        "max": 0.00010720307182054967,
+        "peak_source_s": 51.84
+      },
+      "Crow": {
+        "max": 0.014672482386231422,
+        "peak_source_s": 48.0
+      },
+      "Microwave oven": {
+        "max": 0.003342965617775917,
+        "peak_source_s": 96.0
+      }
+    },
+    "hits": [],
+    "top": {
+      "Insect": 0.9981502294540405,
+      "Animal": 0.9977344274520874,
+      "Wild animals": 0.9958484172821045,
+      "Cricket": 0.9942173957824707,
+      "Snake": 0.7596458196640015,
+      "Environmental noise": 0.6640192866325378,
+      "Bell": 0.5502118468284607,
+      "Chime": 0.517194390296936
+    }
+  },
+  "forest_night": {
+    "crowing_max": 7.886871753726155e-05,
+    "poultry": {
+      "Crowd": {
+        "max": 0.00023759723990224302,
+        "peak_source_s": 88.32
+      },
+      "Livestock, farm animals, working animals": {
+        "max": 0.007887173444032669,
+        "peak_source_s": 77.28
+      },
+      "Fowl": {
+        "max": 0.0027994702104479074,
+        "peak_source_s": 63.36
+      },
+      "Chicken, rooster": {
+        "max": 0.0012967779766768217,
+        "peak_source_s": 89.76
+      },
+      "Crowing, cock-a-doodle-doo": {
+        "max": 7.886871753726155e-05,
+        "peak_source_s": 65.76
+      },
+      "Crow": {
+        "max": 0.00080961047206074,
+        "peak_source_s": 89.76
+      },
+      "Microwave oven": {
+        "max": 0.009683565236628056,
+        "peak_source_s": 17.76
+      }
+    },
+    "hits": [],
+    "top": {
+      "Insect": 0.9841356873512268,
+      "Cricket": 0.9840043783187866,
+      "Animal": 0.9664323925971985,
+      "Wild animals": 0.9619914889335632,
+      "Snake": 0.9415144920349121,
+      "Helicopter": 0.9135196805000305,
+      "Aircraft": 0.9076554775238037,
+      "Vehicle": 0.6998186111450195
+    }
+  }
+}

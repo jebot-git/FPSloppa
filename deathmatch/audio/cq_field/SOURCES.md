@@ -83,7 +83,7 @@ The five original WAVs supplied by the user as **CC0-1.0** replace the interim s
 | 619311__nicotep__ambiente_lacandon.wav | nicotep | [Freesound](https://freesound.org/people/nicotep/sounds/619311/) |
 | 276067__anne82__jungleathmo.wav | anne82 | [Freesound](https://freesound.org/people/anne82/sounds/276067/) |
 
-Daytime layers Peruvian daytime birds/frogs, Costa Rican birds/bugs, Lacandon ambience and a quiet jungleathmo bed. Nighttime layers the Peruvian frog recording with jungleathmo and Lacandon. All five supplied recordings are used across the pair. No music or synthetic replacement bed is added.
+Daytime layers Peruvian daytime birds/frogs, Lacandon ambience and a quiet jungleathmo bed. Nighttime layers the Peruvian frog recording with jungleathmo and Lacandon. The Costa Rican layer was removed after the live rooster report; its original and credit remain preserved. Four supplied recordings are used across the pair. No music or synthetic replacement bed is added.
 
 Source excerpts are band-limited, DC-corrected, level-matched and crossfaded into 128-second stereo stems. Audacity MCP applies the pinned per-layer gain ratios and exports stereo masters. Runtime finishing applies an eight-second equal-power tail/head overlap, quiet peak/RMS trim and 24 kHz stereo Vorbis encoding; each final loop is 120 seconds. Existing adaptive day/night/POI mixing, ambience slider and quiet runtime gains remain in effect.
 

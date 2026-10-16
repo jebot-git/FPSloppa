@@ -73,7 +73,7 @@ bool Core::configure_player(Handle h, const ClassState &state) {
       size_t(state.role) > 3 || size_t(state.next) > 3)
     return false;
   for (size_t i = 0; i < 4; ++i)
-    if (state.xp[i] < 0 || (state.primary_t2[i] && state.xp[i] < 2500) ||
+    if (state.xp[i] < 0 || (state.primary_t3[i] && state.xp[i] < 5000) || (state.primary_t2[i] && state.xp[i] < 2500) ||
         (state.secondary_t2[i] && state.xp[i] < 5000) ||
         (state.utility_t2[i] && state.xp[i] < 7500))
       return false;
@@ -130,7 +130,7 @@ void Core::spawn_class(Player &p) {
   p.grenade_primed = false;
   p.designation = {};
   int primary = c.weapon(false), secondary = c.weapon(true);
-  p.owned = uint16_t((1 << primary) | (1 << secondary));
+  p.owned = uint32_t((1 << primary) | (1 << secondary));
   if (c.role == Role::MEDIC || c.role == Role::TECHNICIAN) {
     p.owned |= 1 << 7;
     if (c.role == Role::TECHNICIAN || !c.replaces_box())
@@ -141,7 +141,7 @@ void Core::spawn_class(Player &p) {
   p.ammo = {};
   p.clips = {};
   p.physical = {};
-  for (int w = 0; w < 12; ++w)
+  for (int w = 0; w < int(WEAPON_COUNT); ++w)
     if (p.owned & (1 << w)) {
       auto &d = weapons()[w];
       if (d.ammo < 0)
@@ -536,12 +536,13 @@ void Core::utility(Player &p, Host &host) {
     }
     auto pose = weapon_pose(p);
     V direction = pose.basis.z * -1;
-    auto hit =
-        trace_hit(host, pose.origin, pose.origin + direction * 200, p.handle);
+    const bool strike = p.classes.role == Role::SHOCKTROOP && p.classes.equipped_t2;
+    auto hit = trace_hit(host, pose.apply(cq_geometry(8).muzzle*.65),
+        pose.apply(cq_geometry(8).muzzle*.65) + direction * (strike ? 2000. : 200.), p.handle);
     p.cooldown = .1;
     if (hit.blocked) {
       p.designation.active = true;
-      p.designation.start = pose.origin;
+      p.designation.start = pose.apply(cq_geometry(8).muzzle*.65);
       p.designation.position = hit.position;
       p.designation.direction = direction;
       p.designation.until = time_ + .45;
@@ -552,7 +553,7 @@ void Core::utility(Player &p, Host &host) {
           d.locking = true;
           d.target_at = time_;
           d.lock_position = hit.position;
-          d.lock_direction = direction;
+          d.lock_direction = std::hypot(direction.x,direction.z)>.05 ? direction : B::yaw(p.yaw).apply(V{0,0,-1});
         } else if ((d.lock_position - hit.position).length() > 8)
           d.locking = false;
         else if (time_ - d.target_at + 1e-5 >= 5)

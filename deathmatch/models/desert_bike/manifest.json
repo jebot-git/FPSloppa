@@ -1,0 +1,98 @@
+{
+  "source": {
+    "id": 10358,
+    "title": "Desert Bike",
+    "url": "https://blendswap.com/blend/10358",
+    "description": "Vehicle that I made for my short movie. I'm happy if you enjoy with this.",
+    "asset_type": "model_3d",
+    "asset_type_label": "3D Model",
+    "license": {
+      "key": "cc0",
+      "name": "CC0",
+      "url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "license_source": "uploader_declared"
+    },
+    "license_source": "uploader_declared",
+    "tags": [
+      "bike",
+      "low poly",
+      "vehicles"
+    ],
+    "category": {
+      "id": 19,
+      "name": "Vehicles",
+      "slug": "vehicles"
+    },
+    "author": {
+      "id": 1068,
+      "username": "Tumota",
+      "url": "https://blendswap.com/profile/1068"
+    },
+    "counts": {
+      "downloads": 81,
+      "likes": 6,
+      "comments": 6
+    },
+    "explicit": false,
+    "blender_versions": [
+      "2.6x"
+    ],
+    "size_bytes": 2190934,
+    "created_at": "2013-09-16T08:55:22Z",
+    "files": [
+      {
+        "id": 8773,
+        "format": "blender",
+        "format_label": "Blender",
+        "size_bytes": 2190934,
+        "software_version": "2.6x",
+        "render_engine": "blender_internal",
+        "render_engine_label": "Blender Internal",
+        "render_engine_version": null,
+        "filename": "Desert Bike.zip",
+        "position": 0
+      }
+    ],
+    "sha256": "5aafb89c849af6995a446979426459e17171a08ea65485a670619963196f015a",
+    "procured_via": "BlendSwap MCP"
+  },
+  "triangles": 5890,
+  "materials": 1,
+  "texture_size": [
+    1024,
+    1024
+  ],
+  "size": [
+    1.14,
+    1.25,
+    3.4
+  ],
+  "seat": [
+    0,
+    0.17,
+    0.15
+  ],
+  "eye_height": 1.65,
+  "steering_pivot": [
+    0,
+    0.99,
+    -0.47
+  ],
+  "grips": [
+    [
+      -0.43,
+      0,
+      0
+    ],
+    [
+      0.43,
+      0,
+      0
+    ]
+  ],
+  "maximum_steering_degrees": 35,
+  "hp": 50,
+  "forward_speed": 24,
+  "reverse_speed": 0,
+  "respawn_seconds": 120
+}

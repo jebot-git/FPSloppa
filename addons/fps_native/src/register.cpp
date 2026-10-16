@@ -3,8 +3,13 @@
 #include "codec.h"
 #include "backend.h"
 #include "authority.h"
+#include "world_runtime.h"
+#include "movement_runtime.h"
+#include "destruction_runtime.h"
 #ifndef FPS_SERVER
 #include "poses.h"
+#include "avatar_runtime.h"
+#include "audio_runtime.h"
 #endif
 using namespace godot;
 static void initialize(ModuleInitializationLevel level) {
@@ -12,8 +17,13 @@ static void initialize(ModuleInitializationLevel level) {
  GDREGISTER_CLASS(FPSCodec);
  GDREGISTER_CLASS(FPSBackend);
  GDREGISTER_CLASS(FPSAuthority);
+ GDREGISTER_CLASS(FPSWorld);
+ GDREGISTER_CLASS(FPSMovement);
+ GDREGISTER_CLASS(FPSDestruction);
 #ifndef FPS_SERVER
  GDREGISTER_CLASS(FPSPose);
+ GDREGISTER_CLASS(FPSAvatar);
+ GDREGISTER_CLASS(FPSAudio);
 #endif
 }
 static void terminate(ModuleInitializationLevel) {}

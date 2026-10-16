@@ -65,7 +65,16 @@ static func water_velocity(velocity: Vector3,wish: Vector3,max_speed: float,delt
 
 static func simulate(actor,direction:Vector3,slow:bool,delta:float,jump:bool,swim:Vector3) -> void:
 	var token:=Attribution.begin("movement.cs")
-	_attributed_simulate(actor,direction,slow,delta,jump,swim)
+	var result:Dictionary={}
+	if actor.native_movement:
+		result=actor.native_movement.simulate_cs(actor,direction,swim,PackedFloat64Array([actor.cs16_max_speed,actor.movement_speed(slow),actor.cs16_stamina,float(actor.jump_held),actor.view_offset]),delta,slow,jump,actor.in_water,actor.is_supported())
+	if result.is_empty():_attributed_simulate(actor,direction,slow,delta,jump,swim)
+	else:
+		Attribution.native_scope("query.movement.slide",int(result.slide_usec))
+		actor.cs16_stamina=result.stamina;actor.jump_held=result.jump_held;actor.stepped_last_frame=result.stepped;actor.view_offset=result.view_offset
+		actor.blast_velocity=Vector2.ZERO;actor.jump_queued=false;actor.floor_grace=0
+		if result.sound==1:actor.emit_movement_sound("jump",actor.global_position+Vector3.UP*.65)
+		elif result.sound==2:actor.emit_movement_sound("land",actor.global_position+Vector3.UP*.2)
 	Attribution.end(token)
 
 static func _attributed_simulate(actor,direction: Vector3,slow: bool,delta: float,jump: bool,swim: Vector3) -> void:

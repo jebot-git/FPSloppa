@@ -1,5 +1,5 @@
 extends RefCounted
-const PRIMARY=[[1,4],[9,10],[3,4],[5,11]]
+const PRIMARY=[[1,4,14],[9,10,16],[3,12,13],[5,11,15]]
 const ROLES=["shocktroop","scout","medic","technician"]
 static func equipped(game,id:int)->Array:
  if not game.classes.states.has(id) or not game.players.has(id):return []

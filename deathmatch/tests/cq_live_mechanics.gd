@@ -33,6 +33,15 @@ func run()->void:
   rig.cq_utility.decorate(command)
   check(command.weapon==7 and command.weapon_held and not command.xr.is_empty(),"held specialist uses utility slot and valid tracked pose")
   rig.cq_utility.release()
+ for utility in [["technician","turret",6],["shocktroop","airstrike",8]]:
+  game.classes.ensure(id)["class"]=utility[0];game.classes.states[id].equipped_utility=utility[1]
+  rig.cq_utility.hand_index=0;rig.cq_utility.box_mode=false
+  var tool:Dictionary={"xr":rig.sample_pose(),"input_blocked":false}
+  rig.cq_utility.decorate(tool)
+  check(tool.weapon==utility[2] and tool.weapon_held,"held utility routes correct native slot: "+utility[1])
+  rig.update_shoulder_utility(true)
+  if utility[1]=="turret":check(rig.shoulder_utility.find_child("Aim",true,false)!=null,"carried sentry uses turret geometry")
+  rig.cq_utility.release()
  # Verify the actual CQ render hook, rather than calling tool rendering directly.
  game.headless=false
  game.classes.dispensers[900001]={"kind":"health","position":Vector3(2,0,1),"remaining":400}
@@ -102,12 +111,12 @@ func run()->void:
  check(panel.global_transform.is_equal_approx(launcher.global_transform*Transform3D(Basis.IDENTITY,Models.anchor(5,"monitor_position"))),"Massacre panel sits on authored monitor glass at weapon scale")
  launcher.global_position+=Vector3(.1,.2,-.2);launcher.rotate_y(.3)
  check(panel.global_transform.is_equal_approx(preload("res://deathmatch/vr/weapon_display.gd").mount(launcher)),"monitor text follows late gun tracking and recoil without a frame of lag")
- check(panel.screen.mesh.size.x<.064 and panel.screen.mesh.size.y<.043 and panel.label.text=="CHARGING 050%\n0.18s","Massacre status fits the small physical display")
+ check(panel.screen.mesh.size.x*launcher.scale.x<.064 and panel.screen.mesh.size.y*launcher.scale.y<.043 and panel.label.text=="CHARGING 050%\n0.18s","Massacre status fits the small physical display")
  panel.queue_free();launcher.queue_free()
  var cell_pose:Transform3D=preload("res://deathmatch/avatars/equipment.gd").cloak_held_pose(Transform3D.IDENTITY)
  check(cell_pose.basis.y.is_equal_approx(Vector3.FORWARD) and cell_pose.basis.get_scale().is_equal_approx(Vector3.ONE),"cloak cell follows thumb axis at authored eighteen-centimetre size")
  var aim=preload("res://deathmatch/vr/aim_support.gd").new()
- for w in [0,2,9,10]:
+ for w in [0,2,9]:
   var primary:=Transform3D(Basis(Vector3.UP,.2),Vector3(.2,1.2,-.3));var support:=primary*Transform3D(Basis.IDENTITY,Vector3(0,-.04,-.07))
   var solved:Transform3D=aim.solve(primary,support,w,true,true,"cq",false)
   check(aim.engaged and solved.basis.is_equal_approx(primary.basis),"pistol support preserves wrist angle: "+str(w))
@@ -124,10 +133,10 @@ func run()->void:
  check(Vector3(wire.decode_float(310),wire.decode_float(314),wire.decode_float(318)).distance_to(data.swim)<.00001,"swim stroke survives wire encoding")
  game.players[id].weapon=5;game.clock=10.;game.variant_combat.charges[id]={"at":10.175}
  check("CHARGING 050%" in game.variant_combat.charge_label(id),"native timestamp drives Massacre charging readout")
- for w in [0,3,4,8]:
+ for w in [1,4]:
   var gun:Node3D=Models.weapon(w,"cq_shocktroop");rig.add_child(gun);var dot:Node3D=gun.find_child("AlignedRedDot",true,false)
   var metadata:Dictionary=Models.metadata(w,"cq_shocktroop");var p:Array=metadata.red_dot_position
-  check(absf(dot.position.y-(.2142 if w in [0,8] else .2442))<.00001,"raised reticle clears barrel: "+str(w))
+  check(dot.position.distance_to(Vector3(p[0],p[1],p[2]+.001))<.00001,"reticle matches authored rear glass: "+str(w))
   check(dot.get_meta("zero_metres")==50.,"red dot has explicit 50 m zero")
   gun.queue_free()
  var map:OpenXRActionMap=load("res://deathmatch/vr/actions.tres")

@@ -123,8 +123,8 @@ func setup(arena: Node, test_mode: bool=false) -> bool:
 	if not simulated:
 		get_viewport().physics_object_picking=false # VR menu pointers perform their own ray tests.
 		get_viewport().use_xr=true
-		# Full-rate PC shading keeps streamed headset imagery and the HUD clear.
-		get_viewport().vrs_mode=Viewport.VRS_XR if OS.has_feature("android") else Viewport.VRS_DISABLED
+		# Presentation preferences configure VRS once the rig is ready.
+		get_viewport().vrs_mode=Viewport.VRS_DISABLED
 		if xr.has_signal("session_begun"): xr.connect("session_begun",configure_refresh_rate)
 		print("XR_RUNTIME ",JSON.stringify(xr.get_system_info()))
 		configure_refresh_rate()
@@ -307,7 +307,7 @@ func weapon_pose() -> Transform3D:
 	var slot:int=game.local_state().get("weapon",game.desired_weapon)
 	if cq_hands and cq_hands.claims_hand(held,other.transform):valid=false
 	var supported:Transform3D=support_aim.solve(held,other.transform,slot,game.bindings.vr_pressed(self,"support"),valid,"cq" if cq_hands else "doom",cq_hands!=null)
-	return virtual_stock.solve(supported,other.transform,head.transform,slot,left_handed,valid and support_aim.engaged and virtual_stock_enabled and slot in [1,3,4,5,11],"cq",true) if cq_hands else supported
+	return virtual_stock.solve(supported,other.transform,head.transform,slot,left_handed,valid and support_aim.engaged and virtual_stock_enabled,"cq",true) if cq_hands else supported
 func follow_menu()->void:
 	panel.global_transform=global_transform*menu_mount
 	keyboard.global_transform=panel.global_transform*Transform3D(Basis(Vector3.RIGHT,-.2),Vector3(0,-1.0,.15))
@@ -332,7 +332,7 @@ func _process(delta: float) -> void:
 	left.visible=simulated or left.get_has_tracking_data()
 	right.visible=simulated or right.get_has_tracking_data()
 	for i in hand_animators.size():
-		hand_animators[i].curls=preload("res://deathmatch/vr/hand_input.gd").sample(left if i==0 else right)
+		hand_animators[i].curls=preload("res://deathmatch/vr/hand_input.gd").local_sample(left if i==0 else right,"left" if i==0 else "right")
 
 	var mine:=multiplayer.get_unique_id()
 	# During departure/shutdown a fighter can outlive the active player state.
@@ -370,7 +370,8 @@ func _process(delta: float) -> void:
 	if not game.has_method("draw_class_players") and actor and is_instance_valid(actor.avatar) and actor.avatar.has_method("hand_pose"):
 		actor.xr_pose=sample_pose();actor.avatar.target_xr_pose=actor.xr_pose
 		actor.avatar.stance=actor.stance;actor.avatar.aim_pitch=game.local_state().get("pitch",0.0)
-		actor.avatar._process(delta if actor.avatar.process_mode==Node.PROCESS_MODE_DISABLED and not actor.frozen else 0.0)
+		# Local tracked attachments must refresh immediately, including hidden bodies.
+		actor.avatar.advance_animation(delta if actor.avatar.process_mode==Node.PROCESS_MODE_DISABLED and not actor.frozen else 0.0)
 	shoulder_radio.update(not mounted and living and tracked_hands and focused and not game.menu_open and not scores and not blackout.visible)
 	update_shoulder_utility(living and (not mounted or repair_cabin_passenger()))
 	physical_actions.update(delta,not mounted and not shoulder_radio.held and living and tracked_hands and focused and not game.menu_open and not scores)
@@ -511,11 +512,16 @@ func sample_pose() -> Dictionary:
 	physical_origin.origin.y-=water_view_offset
 	var aim: XRController3D=left_aim if left_handed else right_aim
 	var hand: XRController3D=left if left_handed else right
-	var pose: Dictionary={"head":physical_origin*head.transform,"left":physical_origin*left.transform,"right":physical_origin*right.transform,"weapon":physical_origin*weapon_pose(),"left_handed":left_handed,"height":crouch_height}
+	var pose: Dictionary={"head":physical_origin*head.transform,"left":physical_origin*left.transform,"right":physical_origin*right.transform,"weapon":physical_origin*(weapon_kick.apply(weapon_pose()) if cq_hands else weapon_pose()),"left_handed":left_handed,"height":crouch_height}
 	var other_hand: XRController3D=right if left_handed else left
 	var other_aim: XRController3D=right_aim if left_handed else left_aim
 	if simulated or (other_hand.get_has_tracking_data() and other_aim.get_has_tracking_data()):
 		pose.offhand_weapon=physical_origin*Poses.held_weapon(other_hand.transform,other_aim.transform)
+	if transport_wheel and transport_wheel.is_bike() and transport_wheel.driver_key()>=0:
+		for i in 2:
+			if not transport_wheel.hands[i].is_empty():pose["left" if i==0 else "right"]=global_transform.affine_inverse()*hand_models[i].global_transform
+		pose.weapon=pose.left if left_handed else pose.right
+		if pose.has("offhand_weapon"):pose.offhand_weapon=pose.right if left_handed else pose.left
 	return Poses.validate(pose)
 
 func command(sequence: int) -> Dictionary:
@@ -639,7 +645,7 @@ func update_shoulder_utility(valid:bool) -> void:
 			shoulder_utility.global_transform=preload("res://deathmatch/avatars/equipment.gd").cloak_held_pose(cq_utility.hand().global_transform)
 		elif carried:
 			var aim:XRController3D=left_aim if cq_utility.hand_index==0 else right_aim
-			shoulder_utility.global_transform=Art.held_transform(Poses.held_weapon(cq_utility.hand().global_transform,aim.global_transform),7 if key in ["medical","engineering"] else 8,.65,"cq_"+rules.role(id))
+			shoulder_utility.global_transform=Art.held_transform(Poses.held_weapon(cq_utility.hand().global_transform,aim.global_transform),7 if key in ["medical","engineering"] else 6 if key=="turret" else 8,.65,"cq_"+rules.role(id))
 		else:
 			shoulder_utility.global_transform=cq_utility.tool_mount() if key in ["medical","engineering"] and cq_utility else shoulder_mount(false)
 			shoulder_utility.scale=shoulder_utility.get_meta("stowed_scale")
@@ -647,7 +653,7 @@ func update_shoulder_utility(valid:bool) -> void:
 func transport_seated()->bool:
 	if not game.has_method("draw_class_players"):return false
 	var key:int=game.battery_tanks.key_for(game.multiplayer.get_unique_id())
-	return key>=0 and game.battery_tanks.rows[key].kind=="transport"
+	return key>=0 and game.battery_tanks.rows[key].kind in ["transport","bike"]
 func repair_cabin_passenger()->bool:
 	return game.has_method("draw_class_players") and game.battery_tanks.can_repair_from_cabin(game.multiplayer.get_unique_id())
 func mounted_for_cq() -> bool:

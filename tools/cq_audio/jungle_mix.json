@@ -73,10 +73,6 @@
           "gain_db": -6
         },
         {
-          "source": "jungle_costa_rica",
-          "gain_db": -12
-        },
-        {
           "source": "jungle_lacandon",
           "gain_db": -16
         },
@@ -103,5 +99,8 @@
         }
       ]
     }
+  },
+  "excluded_layers": {
+    "jungle_costa_rica": "Removed from runtime mixes after rooster report; strongest poultry/crowing classifier response in supplied excerpts, around 38\u201343 seconds of original. Original retained unchanged."
   }
 }

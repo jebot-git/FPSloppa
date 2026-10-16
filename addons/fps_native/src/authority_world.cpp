@@ -31,7 +31,7 @@ bool FPSAuthority::configure_world(Node3D *node) {
   return true;
 }
 int FPSAuthority::attach_vehicle(int kind, CharacterBody3D *node, double yaw, int team) {
-  if (!on_owner() || advancing || kind < 0 || kind > 3 || !node ||
+  if (!on_owner() || advancing || kind < 0 || kind > 4 || !node ||
       !node->is_inside_tree() || !std::isfinite(yaw) ||
       entity_identities.count(uint64_t(node->get_instance_id())))
     return -1;
@@ -136,7 +136,7 @@ FPSAuthority::move_vehicle(const cqauthority::Vehicle &v,
   return {cv(node->get_global_position()),
           cv(node->get_velocity()),
           cv(normal),
-          y + (v.kind == cqauthority::VehicleKind::ROCKET || v.kind == cqauthority::VehicleKind::TRANSPORT ? 0 : .25),
+          y + (v.kind == cqauthority::VehicleKind::ROCKET || v.kind == cqauthority::VehicleKind::TRANSPORT || v.kind == cqauthority::VehicleKind::BIKE ? 0 : .25),
           node->is_on_floor(),
           stable};
 }

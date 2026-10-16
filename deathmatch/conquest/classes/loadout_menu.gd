@@ -30,7 +30,7 @@ func setup(arena,interface) -> void:
 			for row in rows:
 				var value=row.id if slot=="UTILITY" else row.weapon
 				var button:Button=hud.button(slot_page,"",select.bind(role,slot,value))
-				buttons.append({"button":button,"role":role,"slot":slot,"value":value,"xp":row.get("xp",0),"name":row.name if slot=="UTILITY" else game.armory.data(value).name,"tier":row.get("tier",1) if slot=="UTILITY" else 1 if row.xp==0 else 2})
+				buttons.append({"button":button,"role":role,"slot":slot,"value":value,"xp":row.get("xp",0),"name":row.name if slot=="UTILITY" else game.armory.data(value).name,"tier":row.get("tier",1) if slot=="UTILITY" else row.get("tier",1 if row.xp==0 else 2)})
 	hud.button(loadout,"REVIEW DEPLOYMENT",func():game.squads.open_map() if game.active else pages.navigate("cq_prepare"))
 	var preparation=pages.add_page("cq_prepare","PREPARE TO DEPLOY","home")
 	hud.button(preparation,"CLASS AND LOADOUT",func():pages.navigate("cq_classes"))

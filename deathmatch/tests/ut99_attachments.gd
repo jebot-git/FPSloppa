@@ -36,6 +36,20 @@ func run() -> void:
 			check(rig.equipment_socket(false).origin.x>0 if handed else rig.equipment_socket(false).origin.x<0,model+" utility on offhand shoulder")
 			rig.target_xr_pose={};rig._process(.02)
 			check(rig.left_handed==handed and rig.gun.position.distance_to(rig.hand_pose().origin)<.00001,model+" incapacitation preserves weapon handedness when tracking is cleared")
+		var neutral:Dictionary={"head":Transform3D(Basis.IDENTITY,Vector3(0,1.65,0)),"left":Transform3D(Basis.IDENTITY,Vector3(-.3,1.2,-.4)),"right":Transform3D(Basis.IDENTITY,Vector3(.3,1.2,-.4)),"weapon":Transform3D(Basis.IDENTITY,Vector3(.3,1.2,-.4))}
+		for yaw in [-PI/2,0.,PI/2,PI]:
+			var turn:=Transform3D(Basis(Vector3.UP,yaw),Vector3.ZERO)
+			rig.target_xr_pose=neutral.duplicate()
+			for key in neutral:rig.target_xr_pose[key]=turn*neutral[key]
+			rig._process(.2)
+			check((-rig.basis.z).distance_to(-turn.basis.z)<.0001,model+" avatar torso follows physical headset facing")
+			for key in neutral:
+				check((rig.transform*rig.local_xr_pose[key]).is_equal_approx(rig.target_xr_pose[key]),model+" facing preserves world tracked "+key)
+			check(rig.local_xr_pose.head.basis.is_equal_approx(Basis.IDENTITY),model+" head yaw is not applied twice by IK")
+		rig.dead=true;var death_yaw:float=rig.rotation.y;rig.target_xr_pose={};rig._process(.02)
+		check(is_equal_approx(rig.rotation.y,death_yaw),model+" death keeps final body facing")
+		rig.dead=false;rig._process(.02)
+		check(is_zero_approx(rig.rotation.y),model+" desktop facing returns to locomotion yaw without tracking")
 		rig.queue_free()
 	var detector:=Tpose.new();var h:=Transform3D(Basis.IDENTITY,Vector3(0,1.65,0));var l:=Vector3(-.7,1.35,0);var r:=Vector3(.7,1.35,0);var count:=0
 	for i in 150:

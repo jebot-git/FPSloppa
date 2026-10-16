@@ -9,16 +9,22 @@ sys.path.insert(0,str(ROOT/'tools'))
 from build_gameplay_native import require_build
 
 def main():
-    p=argparse.ArgumentParser(description=__doc__);p.add_argument('--output',type=Path,required=True);p.add_argument('--port',type=int,default=27779)
+    p=argparse.ArgumentParser(description=__doc__);p.add_argument('--output',type=Path,required=True);p.add_argument('--port',type=int,default=27779);p.add_argument('--selection-only',action='store_true')
     group=p.add_mutually_exclusive_group();group.add_argument('--check',action='store_true');group.add_argument('--xr',action='store_true')
-    roles=p.add_mutually_exclusive_group();roles.add_argument('--technician',action='store_true');roles.add_argument('--scout',action='store_true');roles.add_argument('--shocktroop',action='store_true');a=p.parse_args();out=a.output.resolve()
-    kind='technician' if a.technician else 'scout' if a.scout else 'shocktroop' if a.shocktroop else 'medic'
+    roles=p.add_mutually_exclusive_group();roles.add_argument('--vehicles',action='store_true');roles.add_argument('--technician',action='store_true');roles.add_argument('--scout',action='store_true');roles.add_argument('--shocktroop',action='store_true');roles.add_argument('--grass',action='store_true');a=p.parse_args();out=a.output.resolve()
+    if a.selection_only and not a.grass:p.error('--selection-only requires --grass')
+    kind='vehicle' if a.vehicles else 'grass' if a.grass else 'technician' if a.technician else 'scout' if a.scout else 'shocktroop' if a.shocktroop else 'medic'
     if out.exists() and any(out.iterdir()):p.error('Choose a new or empty output directory.')
     if not 1024<=a.port<=65535:p.error('Invalid local test port.')
     require_build('linux',server=True);out.mkdir(parents=True,exist_ok=True)
-    config=(ROOT/'tools/voxel_battle/medic_test.cfg').read_text().replace('local medic test','local '+kind+' test').replace('"27779"',f'"{a.port}"');(out/'server.cfg').write_text(config)
+    config=(ROOT/'tools/voxel_battle/medic_test.cfg').read_text().replace('local medic test','local '+kind+' test').replace('"27779"',f'"{a.port}"');
+    if a.vehicles:config=config.replace('sv_cq_maxclients "4"','sv_cq_maxclients "64"').replace('sv_cq_adaptive_tick "0"','sv_cq_adaptive_tick "1"')
+    (out/'server.cfg').write_text(config)
     base=['godot','--path',str(ROOT),'--script',f'res://tools/voxel_battle/{kind}_test.gd']
-    server_args=base[:1]+['--headless','--xr-mode','off']+base[1:]+['--','--server','--config',str(out/'server.cfg'),f'--cq-{kind}-test']
+    fixture_flags=['--cq-grass-test','--cq-shocktroop-test'] if a.grass else [f'--cq-{kind}-test']
+    if a.vehicles:fixture_flags+=['--cq-destruction']
+    if a.selection_only:fixture_flags+=['--grass-selection-only']
+    server_args=base[:1]+['--headless','--xr-mode','off']+base[1:]+['--','--server','--config',str(out/'server.cfg'),*fixture_flags]
     env=os.environ.copy();env['XDG_DATA_HOME']=str(out/'server-data');env['XDG_CACHE_HOME']=str(out/'server-cache')
     with (out/'server.log').open('w') as log:server=subprocess.Popen(server_args,env=env,stdout=log,stderr=subprocess.STDOUT,start_new_session=True)
     success=False
@@ -27,10 +33,14 @@ def main():
         while 'CQ_RESIDENT_READY' not in (out/'server.log').read_text():
             if server.poll() is not None or time.monotonic()>deadline:raise RuntimeError('Medic test server failed; inspect '+str(out/'server.log'))
             time.sleep(.2)
-        client=base[:1]+['--xr-mode','on','--rendering-method','forward_plus']+base[1:]+['--','--connect','127.0.0.1','--port',str(a.port),f'--cq-{kind}-test','--frame-stats','--analytics-output',str(out/'client-gameplay.jsonl')]
+        client=base[:1]+['--xr-mode','on','--rendering-method','forward_plus']+base[1:]+['--','--connect','127.0.0.1','--port',str(a.port),*fixture_flags,'--frame-stats','--analytics-output',str(out/'client-gameplay.jsonl')]
+        if a.grass:client=[arg for arg in client if arg!='--frame-stats']+['--grass-output',str(out/'takes')]
         runtime=os.environ.get('XR_RUNTIME_JSON',str(Path.home()/'.local/opt/wivrn-pro/share/openxr/1/openxr_wivrn_pro.json'))
         (out/'run-client.sh').write_text('#!/bin/sh\nexport XR_RUNTIME_JSON='+shlex.quote(runtime)+'\nexec '+shlex.join(client)+' >> '+shlex.quote(str(out/'client.log'))+' 2>&1\n');(out/'run-client.sh').chmod(0o755)
         info={'server_pid':server.pid,'address':f'127.0.0.1:{a.port}','scene':f'res://tools/voxel_battle/{kind}_test.tscn','medic_hp':35,'medic_armour':0,'patient_hp':1,'patient_incapacitated':True,'patient_bleedout_seconds':300,'reset':'F8 or RESET MEDIC TEST in the menu','client_launcher':str(out/'run-client.sh'),'output':str(out)}
+        if a.vehicles:
+            for key in ['medic_hp','medic_armour','patient_hp','patient_incapacitated','patient_bleedout_seconds']:info.pop(key,None)
+            info.update({'suite':'all vehicles, maximum current unlock level','class_levels':{'shocktroop':15,'scout':15,'medic':15,'technician':15},'vehicles':['rocket','light','heavy','transport','bike'],'destruction':True,'reset':'F8 or RESET VEHICLE TEST in the menu'})
         if a.technician:
             for key in ['medic_hp','medic_armour','patient_hp','patient_incapacitated','patient_bleedout_seconds']:info.pop(key,None)
             info.update({'class':'technician','primary_ammo':3,'secondary_ammo':1,'vehicle_hp':40,'reset':'F8 or RESET TECHNICIAN TEST in the menu'})
@@ -40,9 +50,15 @@ def main():
         if a.shocktroop:
             for key in ['medic_hp','medic_armour','patient_hp','patient_incapacitated','patient_bleedout_seconds']:info.pop(key,None)
             info.update({'class':'shocktroop','hp':100,'armour':100,'reset':'F8 or RESET SHOCKTROOP TEST in the menu'})
+        if a.grass:
+            for key in ['medic_hp','medic_armour','patient_hp','patient_incapacitated','patient_bleedout_seconds']:info.pop(key,None)
+            info.update({'suite':'grass A/B, eight conditions','reset':'F8 / RESET SHOCKTROOP TEST','controls':'F9 next condition; F10 start/stop; VR menu has matching buttons','capture':str(out/'takes')})
+        if a.selection_only:info.update({'suite':'grass selection only, identical populated drawing','reset':'No automatic reset; walk into grass before START TAKE','measurement':'selection compute only; GPU submissions held in both modes'})
         if a.check:
-            check=base[:1]+['--headless','--xr-mode','off']+base[1:]+['--','--connect','127.0.0.1','--port',str(a.port),f'--cq-{kind}-test',f'--{kind}-test-check',str(out/'check.json'),'--analytics-output',str(out/'client-gameplay.jsonl')]
+            check=base[:1]+(['--xr-mode','off'] if a.grass else ['--headless','--xr-mode','off'])+base[1:]+['--','--connect','127.0.0.1','--port',str(a.port),*fixture_flags,f'--{kind}-test-check',str(out/'check.json'),'--analytics-output',str(out/'client-gameplay.jsonl')]
+            if a.grass:check+=['--grass-output',str(out/'takes')]
             with (out/'client.log').open('w') as log:subprocess.run(check,stdout=log,stderr=subprocess.STDOUT,timeout=75,check=True)
+            if a.grass and 'SCRIPT ERROR' in (out/'client.log').read_text():raise RuntimeError('Grass smoke capture contains script errors; inspect '+str(out/'client.log'))
             info['check']=json.loads((out/'check.json').read_text());info['server_left_running']=False
         elif a.xr:
             with (out/'client.log').open('w') as log:

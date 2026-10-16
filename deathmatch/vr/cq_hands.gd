@@ -30,8 +30,8 @@ func claims_hand(primary:Transform3D,support:Transform3D)->bool:
  var weapon:=Art.held_transform(primary,w,Art.VR_SCALE,"cq_shocktroop")
  if rig.game.bindings.vr_pressed(rig,"offhand_fire") and support.origin.distance_to(weapon*Models.anchor(w,"magazine_anchor"))<.12:return true
  var rack:Vector3=weapon*(Models.anchor(w,"rack_anchor")+Vector3.BACK*.065*state.get("stroke",0.))
- var rack_top:Vector3=rack+weapon.basis.y.normalized()*(.08 if w in [2,3,9] else 0.)
- if (rig.game.bindings.vr_pressed(rig,"support") or rig.game.bindings.vr_pressed(rig,"offhand_fire")) and support.origin.distance_to(Geometry3D.get_closest_point_to_segment(support.origin,rack,rack_top))<.105 and support.origin.distance_to(weapon*Models.anchor(w,"rack_anchor"))<support.origin.distance_to(weapon*Models.anchor(w,"support_anchor")):return true
+ var rack_top:Vector3=rack+weapon.basis.y.normalized()*(.08 if w in [0,2,9] else 0.)
+ if Models.metadata(w,"cq_shocktroop").get("reload_kind","")!="pack" and (rig.game.bindings.vr_pressed(rig,"support") or rig.game.bindings.vr_pressed(rig,"offhand_fire")) and support.origin.distance_to(Geometry3D.get_closest_point_to_segment(support.origin,rack,rack_top))<.105 and support.origin.distance_to(weapon*Models.anchor(w,"rack_anchor"))<support.origin.distance_to(weapon*Models.anchor(w,"support_anchor")):return true
  var pose:Dictionary=rig.sample_raw_pose()
  return not pose.is_empty() and Hip.recovery_contains(pose,rig.origin.transform*support.origin)
 func mount(primary:bool)->Transform3D:

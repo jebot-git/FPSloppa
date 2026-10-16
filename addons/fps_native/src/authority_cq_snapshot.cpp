@@ -8,6 +8,14 @@ void Core::snapshot_cq() {
     for(const auto &p:players_)if(p.active){append(frame_,p.handle.id);append(frame_,p.handle.life);append(frame_,uint8_t(p.squad+1));real(frame_,p.combat_until);}
   }
   {
+    Section section(frame_,16);uint16_t count=0;for(const auto &p:players_)count+=p.active;append(frame_,count);
+    for(const auto &p:players_)if(p.active){
+      append(frame_,p.handle.id);append(frame_,p.handle.life);append(frame_,p.owned);
+      for(int w=12;w<int(WEAPON_COUNT);++w)append(frame_,uint16_t(p.clips[w]));
+      uint8_t mask=0;for(int i=0;i<4;++i)mask|=p.classes.primary_t3[i]<<i;append(frame_,mask);
+    }
+  }
+  {
     Section section(frame_, 5);
     uint16_t count = 0;
     for (auto &p : players_)

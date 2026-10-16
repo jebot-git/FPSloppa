@@ -14,6 +14,15 @@ var map
 var enabled:=false
 var graphics:=false
 var cells:Array=[]
+var native_destruction=preload("res://deathmatch/native/destruction.gd").create()
+var mesh_generation:=0
+var mesh_versions:Dictionary={}
+var mesh_job:Dictionary={}
+var native_mesh_sources:Dictionary={}
+var native_mesh_inputs:Dictionary={}
+var mesh_jobs_submitted:=0
+var mesh_jobs_discarded:=0
+var mesh_commit_usec:=0
 var integrity=Integrity.new()
 var collapsed:Dictionary={}
 var collapse_bodies:Dictionary={}
@@ -72,6 +81,7 @@ func setup(arena,world,draw:bool,experiment:bool=false)->void:
    if not bins.has(coord):bins[coord]=[]
    bins[coord].append(id)
  integrity.setup(map.layout,walls,cells)
+ if native_destruction:native_destruction.configure(cells,walls,integrity.buildings,integrity.cell_building,integrity.wall_building,topology,building_topology)
  for id in integrity.buildings.size():
   building_bodies[id]=[]
   for index in integrity.buildings[id].collision_rows:
@@ -81,12 +91,29 @@ func setup(arena,world,draw:bool,experiment:bool=false)->void:
   for id in integrity.buildings.size():
    var bounds:AABB=integrity.buildings[id].bounds;bounds.position+=Landscape.CENTERS[integrity.buildings[id].kind]
    if bounds.has_point(body.global_position):building_bodies[id].append(weakref(body));break
+ if native_destruction and graphics and map.structures:
+  # Decode immutable source buffers during loading, never in an impact frame.
+  for kind in map.structures.meshes.size():
+   native_mesh_sources[kind]=[map.structures.meshes[kind][0],map.structures.meshes[kind][1]]
+   native_mesh_inputs[kind]=[native_mesh_sources[kind][0].surface_get_arrays(0),native_mesh_sources[kind][1].surface_get_arrays(0)]
  prepare_assets()
  set_process(true)
 func nearest_point(bounds:AABB,p:Vector3)->Vector3:return p.clamp(bounds.position,bounds.end)
 func candidates(at:Vector3,damage:float,radius:float,visibility:bool=true)->PackedInt32Array:
  var result:=PackedInt32Array()
  if damage<60 or not at.is_finite() or not is_finite(radius) or radius<=0:return result
+ if native_destruction:
+  var ordered:PackedInt32Array=native_destruction.candidates(at,damage,radius,PackedInt32Array(broken.keys()),PackedInt32Array(collapsed.keys()))
+  for id in ordered:
+   if result.size()>=MAX_PER_IMPACT or broken.size()+result.size()>=MAX_BROKEN:break
+   var c:Dictionary=cells[id]
+   if visibility and map.wall_bodies.has(c.wall):
+    var excluded:Array[RID]=[map.wall_bodies[c.wall].get_rid()]
+    if colliders.has(c.wall):excluded.append(colliders[c.wall].get_rid())
+    var ray:=PhysicsRayQueryParameters3D.create(at+(c.position-at).normalized()*.08,c.position,1,excluded)
+    if not get_world_3d().direct_space_state.intersect_ray(ray).is_empty():continue
+   result.append(id)
+  return result
  var reach:float=clampf(radius*.18,.75,4.5)
  var near:Array=[];var nearby:Array=[]
  var coord:=Vector2i(floori(at.x/16.),floori(at.z/16.))
@@ -120,16 +147,18 @@ func apply_breaks(ids:PackedInt32Array,at:Vector3,animate:bool)->void:
  var changed:Dictionary={}
  for id in ids:
   if id<0 or id>=cells.size() or broken.has(id) or broken.size()>=MAX_BROKEN:continue
-  broken[id]=true;var cell:Dictionary=cells[id];changed[cell.wall]=true;dirty[cell.kind]=true
+  broken[id]=true;var cell:Dictionary=cells[id];changed[cell.wall]=true;dirty[cell.kind]=true;mesh_versions[cell.kind]=mesh_versions.get(cell.kind,0)+1
   if graphics and animate and not collapsed.has(integrity.cell_building.get(id,-1)):animate_cell(cell,at)
  if multiplayer.is_server():
   var affected:Dictionary={}
   for index in changed:
    if integrity.wall_building.has(index):affected[integrity.wall_building[index]]=true
   for id in affected:
-   if not collapsed.has(id) and integrity.status(id,broken).failed_floor>=0:collapse_building(id,animate)
+   if not collapsed.has(id) and structural_status(id).failed_floor>=0:collapse_building(id,animate)
  for index in changed:
   if not collapsed.has(integrity.wall_building.get(index,-1)):rebuild_collision(index)
+func structural_status(id:int)->Dictionary:
+ return native_destruction.status(id,PackedInt32Array(broken.keys())) if native_destruction else integrity.status(id,broken)
 func rebuild_collision(index:int)->void:
  if not map.wall_bodies.has(index):return
  var original:StaticBody3D=map.wall_bodies[index];original.collision_layer=0
@@ -143,6 +172,9 @@ func rebuild_collision(index:int)->void:
   var cell:Dictionary=cells[id];var shape:=BoxShape3D.new();shape.size=cell.size
   var node:=CollisionShape3D.new();node.shape=shape;node.position=cell.position;body.add_child(node);cell_shapes[id]=node
 func replace_mesh(source:ArrayMesh,kind:int,lod:int=0)->ArrayMesh:
+ if native_destruction:
+  var patched:Array=native_destruction.patch(source.surface_get_arrays(0),kind,lod,PackedInt32Array(broken.keys()),PackedInt32Array(collapsed.keys()))
+  return commit_patch(source,patched)
  var arrays:Array=source.surface_get_arrays(0).duplicate(true)
  var points:PackedVector3Array=arrays[Mesh.ARRAY_VERTEX];var indices:PackedInt32Array=arrays[Mesh.ARRAY_INDEX]
  var replacements:Array=[]
@@ -205,7 +237,42 @@ func replace_mesh(source:ArrayMesh,kind:int,lod:int=0)->ArrayMesh:
  var mesh:=ArrayMesh.new()
  mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES,arrays,[],{},source.surface_get_format(0))
  mesh.surface_set_material(0,source.surface_get_material(0));return mesh
+func commit_patch(source:ArrayMesh,arrays:Array)->ArrayMesh:
+ var mesh:=ArrayMesh.new()
+ mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES,arrays,[],{},source.surface_get_format(0))
+ mesh.surface_set_material(0,source.surface_get_material(0));return mesh
+static func patch_job(kernel,inputs:Array,kind:int,gone:PackedInt32Array,fallen:PackedInt32Array,result:Array)->void:
+ for lod in 2:result[lod]=kernel.patch(inputs[lod],kind,lod,gone,fallen)
+func flush_meshes_async()->void:
+ if not native_destruction:flush_meshes();return
+ if not graphics or not map.structures:dirty.clear();return
+ if not mesh_job.is_empty():
+  if not WorkerThreadPool.is_task_completed(mesh_job.task):return
+  WorkerThreadPool.wait_for_task_completion(mesh_job.task)
+  var finished:=mesh_job;mesh_job={}
+  if finished.generation==mesh_generation and finished.version==mesh_versions.get(finished.kind,0):
+   var started:=Time.get_ticks_usec()
+   for lod in 2:
+    var mesh:=commit_patch(finished.sources[lod],finished.result[lod])
+    map.structures.meshes[finished.kind][lod]=mesh;map.structures.groups[finished.kind][lod].multimesh.mesh=mesh
+   map.structures.meshes[finished.kind][2]=map.structures.meshes[finished.kind][1]
+   map.structures.groups[finished.kind][2].multimesh.mesh=map.structures.meshes[finished.kind][2]
+   map.structures.refresh_native_meshes()
+   map.structures.last_position=Vector3.INF;dirty.erase(finished.kind);mesh_commit_usec=Time.get_ticks_usec()-started
+  else:mesh_jobs_discarded+=1
+ if dirty.is_empty():return
+ var kind:int=dirty.keys()[0]
+ if not originals.has(kind):originals[kind]=map.structures.meshes[kind].duplicate()
+ var sources:Array=native_mesh_sources[kind]
+ var inputs:Array=native_mesh_inputs[kind]
+ var result:Array=[null,null]
+ mesh_job={"generation":mesh_generation,"version":mesh_versions.get(kind,0),"kind":kind,"sources":sources,"result":result}
+ mesh_job.task=WorkerThreadPool.add_task(patch_job.bind(native_destruction,inputs,kind,PackedInt32Array(broken.keys()),PackedInt32Array(collapsed.keys()),result),false,"native breach mesh")
+ mesh_jobs_submitted+=1
+func _exit_tree()->void:
+ if not mesh_job.is_empty():WorkerThreadPool.wait_for_task_completion(mesh_job.task)
 func flush_meshes()->void:
+ mesh_generation+=1 # Explicit synchronous flush invalidates any older worker output.
  if not graphics or not map.structures:dirty.clear();return
  var started:=Time.get_ticks_usec()
  for kind in dirty:
@@ -216,6 +283,7 @@ func flush_meshes()->void:
   # The solid silhouette proxy cannot display holes. Reuse patched middle LOD.
   map.structures.meshes[kind][2]=map.structures.meshes[kind][1]
   map.structures.groups[kind][2].multimesh.mesh=map.structures.meshes[kind][2]
+ map.structures.refresh_native_meshes()
  map.structures.last_position=Vector3.INF;dirty.clear();rebuild_usec=Time.get_ticks_usec()-started
 func prepare_assets()->void:
  var started:=Time.get_ticks_usec()
@@ -313,7 +381,7 @@ func collapse_building(id:int,animate:bool)->void:
  if graphics and animate:
   animate_collapse(building);collapse_effect(building)
  var visual_us:int=Time.get_ticks_usec()-visual_started
- dirty[building.kind]=true
+ dirty[building.kind]=true;mesh_versions[building.kind]=mesh_versions.get(building.kind,0)+1
  rubble[id].body.collision_layer=1
  if is_instance_valid(rubble[id].visual):rubble[id].visual.visible=true
  hide_fixtures(building)
@@ -349,6 +417,7 @@ func animate_collapse(building:Dictionary)->void:
  var node:MeshInstance3D=prepared[id];node.visible=true;node.rotation=Vector3.ZERO;node.global_position=origin
  collapse_visuals.append({"node":node,"origin":origin,"height":building.floors*Integrity.STOREY+1.5,"age":0.})
 func clear_state()->void:
+ mesh_generation+=1;mesh_versions.clear()
  for item in collapsed_fixtures:
   var group=item.group.get_ref()
   if is_instance_valid(group):group.multimesh.set_instance_transform(item.index,item.transform)
@@ -372,6 +441,7 @@ func clear_state()->void:
   for kind in originals:
    for lod in 3:
     map.structures.meshes[kind][lod]=originals[kind][lod];map.structures.groups[kind][lod].multimesh.mesh=originals[kind][lod]
+  map.structures.refresh_native_meshes()
   map.structures.last_position=Vector3.INF
  for item in shard_pool:item.node.visible=false
  for item in debris:
@@ -413,7 +483,7 @@ func _process(delta:float)->void:
  if not multiplayer.is_server() and game.active and not synced:
   next_request-=delta
   if next_request<=0 and multiplayer.get_peers().has(1):next_request=1.;request_state.rpc_id(1,game.map_epoch)
- flush_meshes();animated_this_frame=0
+ flush_meshes_async();animated_this_frame=0
  for item in debris:
   if not is_instance_valid(item.node):continue
   item.age+=delta;var t:float=item.age

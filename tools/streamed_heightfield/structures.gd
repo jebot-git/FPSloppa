@@ -17,6 +17,7 @@ var force_near := false
 var culling_enabled := true
 var view_distance := FAR_DISTANCE
 var previous_lods: Dictionary = {}
+var native_world=preload("res://deathmatch/native/world.gd").create()
 
 class Builder:
 	extends RefCounted
@@ -165,10 +166,42 @@ func setup() -> void:
 			add_child(group)
 			groups[kind].append(group)
 
+	if native_world:
+		var bounds:Array=[];var triangle_counts:Array=[]
+		for levels in meshes:
+			bounds.append(levels[0].get_aabb());var row:Array=[]
+			for mesh in levels:row.append(mesh.surface_get_array_index_len(0)/3)
+			triangle_counts.append(row)
+		native_world.buildings_configure(placements,bounds,triangle_counts,factory_base_offset)
+
+func refresh_native_meshes()->void:
+	if not native_world:return
+	var bounds:Array=[];var triangle_counts:Array=[]
+	for levels in meshes:
+		bounds.append(levels[0].get_aabb());var row:Array=[]
+		for mesh in levels:row.append(mesh.surface_get_array_index_len(0)/3)
+		triangle_counts.append(row)
+	native_world.buildings_refresh(bounds,triangle_counts)
+	last_position=Vector3.INF
+
+func reset_lods()->void:
+	previous_lods.clear()
+	if native_world:native_world.buildings_reset_lods()
+	last_position=Vector3.INF
+
 func update(camera: Camera3D) -> void:
 	if last_position == camera.global_position and last_rotation == camera.global_rotation: return
 	last_position = camera.global_position
 	last_rotation = camera.global_rotation
+	if native_world:
+		var selected:Dictionary=native_world.buildings_select(camera.global_position,camera.get_frustum(),culling_enabled and not camera.get_viewport().use_xr,force_near,view_distance)
+		counts=selected.counts;visible_sites=selected.visible_sites;triangles=selected.triangles
+		for kind in meshes.size():
+			for level in 3:
+				groups[kind][level].multimesh.buffer=selected.buffers[kind][level]
+				groups[kind][level].multimesh.visible_instance_count=counts[kind][level]
+				groups[kind][level].visible=counts[kind][level]>0
+		return
 	counts = []
 	for kind in meshes.size(): counts.append([0, 0, 0])
 	visible_sites = 0

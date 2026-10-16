@@ -16,7 +16,11 @@ var lod_meshes:Array=[]
 var ik_uniforms_active:=false
 var avatar_hash:=""
 var unarmed:=false
+var seated_bike:=false
+var seated_heading:=0.0
 var target_xr_pose:Dictionary={}
+var local_xr_pose:Dictionary={}
+var tracking_yaw:=0.0
 var left_handed:=false
 var speed:=0.0
 var movement:=Vector3.ZERO
@@ -49,12 +53,18 @@ var carried_radio:Node3D
 var utility_key:=""
 var time:=0.0
 var firing:=0.0
+var native_animation=preload("res://deathmatch/native/animation.gd").create()
+var native_bound:=false
+var native_batched:=false
+var native_batch_requested:=false
+var native_weapon_mounts:Array=[Vector3.ZERO,Vector3.ZERO]
 var selected_sequence:="" # Preview can select any original clip.
 func configure(data:Dictionary) -> void:
 	clips=data.clips;arm_profile=data.get("arm_profile",{})
 	lod_meshes=data.get("lod_meshes",[data.mesh,data.mesh,data.mesh])
 	visual=MeshInstance3D.new();visual.mesh=data.mesh;add_child(visual)
 	visual.cast_shadow=GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+	if native_animation:native_bound=native_animation.configure(self,clips,arm_profile,lod_meshes)
 func set_first_person(value:bool) -> void:
 	first_person=value
 	visible=not value # No head hiding, skeleton, body IK or expression channels.
@@ -69,6 +79,7 @@ func set_weapon(id:int,rules_override:String="") -> void:
 	gun=Art.weapon(id,2,rules);add_child(gun)
 	offhand_gun=Art.weapon(2) if id==2 and rules=="doom" else null
 	if offhand_gun:add_child(offhand_gun)
+	native_weapon_mounts=[Art.held_transform(Transform3D.IDENTITY,id,1.0,rules).origin,Art.held_transform(Transform3D.IDENTITY,2,1.0,rules).origin]
 func fire(_offhand:bool=false) -> void:firing=.3
 func hurt(_direction:Vector3,_amount:float) -> void:pass
 func choose_clip() -> Dictionary:
@@ -90,7 +101,36 @@ func choose_clip() -> Dictionary:
 	for clip in clips:
 		if str(clip.name).to_lower()!="all":return clip
 	return clips[0]
+func update_tracking_facing() -> void:
+	# Network yaw is the locomotion/reference-space yaw. Physical headset turns
+	# remain inside the XR pose and must also turn the vertex avatar's torso.
+	var yaw:float=tracking_yaw if dead else preload("res://deathmatch/vr/body_basis.gd").head_yaw(target_xr_pose,tracking_yaw)
+	if seated_bike and not dead:yaw=seated_heading-(get_parent_node_3d().global_rotation.y if get_parent_node_3d() else 0.)
+	if seated_bike and not dead:rotation.y=yaw
+	else:rotation.y+=yaw-tracking_yaw
+	tracking_yaw=yaw
+	local_xr_pose=target_xr_pose.duplicate()
+	var inverse:=Transform3D(Basis(Vector3.UP,-yaw),Vector3.ZERO)
+	for key in local_xr_pose:
+		if local_xr_pose[key] is Transform3D:local_xr_pose[key]=inverse*local_xr_pose[key]
+
+func _enter_tree()->void:
+	if native_batch_requested:_rejoin_native_batch.call_deferred()
+func _rejoin_native_batch()->void:
+	if is_inside_tree():preload("res://deathmatch/avatars/native_batch.gd").attach(self)
+func _exit_tree()->void:
+	if native_animation:native_animation.detach(self)
+	native_bound=false;native_batched=false
 func _process(delta:float) -> void:
+	if native_batched or native_batch_requested:return
+	advance_animation(delta)
+func advance_animation(delta:float)->void:
+	if native_animation:
+		if not native_bound:native_bound=native_animation.configure(self,clips,arm_profile,lod_meshes)
+		if native_bound and native_animation.advance_one(self,delta,get_viewport().get_camera_3d()):return
+	_process_reference(delta)
+func _process_reference(delta:float)->void:
+	update_tracking_facing()
 	if target_xr_pose.has("left_handed"):left_handed=target_xr_pose.left_handed
 	firing=maxf(0,firing-delta)
 	if dead:death_time+=delta
@@ -101,21 +141,22 @@ func _process(delta:float) -> void:
 	var frame:=minf(time*float(clip.fps),float(clip.count)-1) if dead else fposmod(time*float(clip.fps),float(clip.count))
 	var a:=floori(frame);var b:=mini(a+1,int(clip.count)-1) if dead else (a+1)%int(clip.count)
 	var frames:=Vector3(int(clip.start)+a,int(clip.start)+b,frame-a)
+	if seated_bike and not dead:frames=Vector3(arm_profile.get("reference_frame",0),arm_profile.get("reference_frame",0),0)
 	animation_frames=frames
-	visual.set_instance_shader_parameter("animation_frames",frames)
+	visual.set_instance_shader_parameter("animation_frames",Vector3(frames.x,frames.y,-1.) if seated_bike and not dead else frames)
 	update_lod(delta)
 	visual.scale=Vector3.ONE
 	visual.rotation=Vector3.ZERO
-	if stance=="prone" and not dead:
+	if stance=="prone" and not dead and not seated_bike:
 		visual.rotation.x=-PI/2;visual.position=Vector3(0,.3,.4)
 	else:visual.position=Vector3.ZERO
-	if not dead and stance=="crouch" and not (clip_name.to_lower().begins_with("duck") or clip_name.to_lower()=="crouch"):visual.scale.y=.65
+	if not dead and not seated_bike and stance=="crouch" and not (clip_name.to_lower().begins_with("duck") or clip_name.to_lower()=="crouch"):visual.scale.y=.65
 	arm_update_ms=0.0
 	tracked_arms_active=false
 	solved_arms.clear()
 	if ik_weight>0:
 		var arm_start:=Time.get_ticks_usec()
-		tracked_arms_active=IK.update(visual,arm_profile,target_xr_pose,frames,solved_arms,visual.transform)
+		tracked_arms_active=IK.update(visual,arm_profile,local_xr_pose,frames,solved_arms,visual.transform)
 		arm_update_ms=(Time.get_ticks_usec()-arm_start)/1000.0
 		ik_uniforms_active=true
 	elif ik_uniforms_active:
@@ -146,7 +187,7 @@ func hand_pose(offhand:bool=false) -> Transform3D:
 		var anchor:Dictionary=arm_profile.get("attachments",{}).get(side,{})
 		var solved:Vector3=solved_arms[side].fore*anchor.reference if not anchor.is_empty() else solved_arms[side].hand
 		native=native.lerp(solved,ik_weight)
-		if target_xr_pose.has(key):basis=visual.basis.inverse()*target_xr_pose[key].basis
+		if local_xr_pose.has(key):basis=visual.basis.inverse()*local_xr_pose[key].basis
 	return visual.transform*Transform3D(basis,native)
 func equipment_socket(mainhand:bool=false) -> Transform3D:
 	var left:bool=left_handed==mainhand

@@ -223,7 +223,7 @@ int Reload::sample(int geometry, int clip, int total, int capacity,
                 : geometry == 2 ? V{0, -.09, .02}
                                 : V{0, -.06, .02};
   if (cq_weapon >= 0) mag_point = cq_geometry(cq_weapon).magazine;
-  V direction = pack ? V{-1, 0, 0} : V{0, -1, 0};
+  V direction = cq_weapon >= 0 ? cq_geometry(cq_weapon).magazine_extract : pack ? V{-1, 0, 0} : V{0, -1, 0};
   bool close = (hand.origin - weapon.apply(mag_point * .65)).length() < .095;
   bool aligned = pose.offhand.basis.y.dot(pose.weapon.basis.y) > .10;
   if (eject_edge && mag && grab != Grab::RACK && grab != Grab::MAGAZINE) {
@@ -311,7 +311,8 @@ int Reload::sample(int geometry, int clip, int total, int capacity,
     V rack_end = rack_start + weapon.basis.y.unit() * (geometry == 2 ? .08 : 0);
     bool handguard = (geometry != 2 || cq_weapon >= 0) && (local - (cq_weapon >= 0 ? cq_geometry(cq_weapon).support : V{0, .015, -.15})).length() <
                                           (local - (cq_weapon >= 0 ? cq_geometry(cq_weapon).rack : V{.04, .09, .055})).length();
-    if (mag_pressed && mag && (hand.origin - weapon.apply(mag_point * .65)).length() < .105) {
+    if (mag_pressed && mag && (hand.origin - weapon.apply(mag_point * .65)).length() < .105 &&
+        (pack || (local - mag_point).length2() <= (local - rack_point).length2())) {
       grab = Grab::MAGAZINE;
       anchor = local;
       started = now;
