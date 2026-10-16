@@ -44,6 +44,9 @@ func offer(id: int) -> void:policy.rpc_id(id,enabled,choices(),allowed_modes,mat
 @rpc("authority","call_remote","reliable",0)
 func policy(allowed: bool,maps: Array,modes: Array=["dm"],matches: Array=[]) -> void:enabled=allowed;allowed_maps=maps;allowed_modes=modes;allowed_matches=matches
 func propose(kind: String,value: String="") -> void:
+	if game.get("native_session") and game.native_session.active:
+		if kind=="restart" or kind=="map" and value==game.current_map:game.native_session.link.send_control(22,{"vote":"restart"})
+		return
 	if multiplayer.is_server():start(multiplayer.get_unique_id(),kind,value)
 	else:request.rpc_id(1,kind,value)
 @rpc("any_peer","call_remote","reliable",0)
@@ -74,6 +77,7 @@ func start(id: int,kind: String,value: String) -> bool:
 	game._announcement.rpc(game.players[id].name+" called vote: "+action_title(kind,value))
 	evaluate();return true
 func vote(yes: bool) -> void:
+	if game.get("native_session") and game.native_session.active:game.native_session.link.send_control(22,{"cast":yes});return
 	if multiplayer.is_server():cast(multiplayer.get_unique_id(),yes)
 	else:cast_request.rpc_id(1,yes)
 @rpc("any_peer","call_remote","reliable",0)
@@ -104,6 +108,7 @@ func snapshot() -> Dictionary:
 	if ballot.is_empty():return {}
 	return {"title":"BALANCE TEAMS" if ballot.kind=="balance" else "MODE: "+ballot.value.to_upper() if ballot.kind=="mode" else "MATCH: "+ballot.value.replace("|"," / ") if ballot.kind=="match" else "LOADOUT: "+ballot.value.to_upper()+" (RESTART)" if ballot.kind=="loadout" else "MAP: "+ballot.value,"yes":ballot.votes.values().count(true),"no":ballot.votes.values().count(false),"needed":ballot.needed,"seconds":maxi(0,ceili(ballot.until-game.clock)),"voted":ballot.votes.keys(),"responses":ballot.votes.duplicate(),"eligible":ballot.eligible.duplicate()}
 func switch_team(team: int) -> void:
+	if game.get("native_session") and game.native_session.active:game.native_session.action(8,team);return
 	if multiplayer.is_server():change_team(multiplayer.get_unique_id(),team)
 	else:team_request.rpc_id(1,team)
 @rpc("any_peer","call_remote","reliable",0)

@@ -1163,7 +1163,8 @@ func _physics_process(delta: float) -> void:
 	ping_accumulator += delta
 	if ping_accumulator>1 and not multiplayer.is_server():
 		ping_accumulator = 0
-		_ping.rpc_id(1,Time.get_ticks_msec())
+		if get("native_session") and get("native_session").active:get("native_session").link.send_control(20,{"stamp":Time.get_ticks_msec()})
+		else:_ping.rpc_id(1,Time.get_ticks_msec())
 	for lift in lifts:
 		var phase := fmod(time_limit-round_left,10.0)
 		lift.node.position.y = lift.base + clampf((phase-2)/2,0,1)*float(lift.get("travel",1.65)) if phase<6 else lift.base+clampf((10-phase)/2,0,1)*float(lift.get("travel",1.65))

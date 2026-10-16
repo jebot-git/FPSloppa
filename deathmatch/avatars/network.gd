@@ -61,7 +61,8 @@ func _process(_delta: float) -> void:
 			next_offer = game.clock+3.2
 			offered = library.selected
 			if library.entries.has(offered):
-				if multiplayer.is_server(): accept_offer(mine,offered,library.entries[offered].size)
+				if game.get("native_session") and game.native_session.active:game.native_session.offer(offered)
+				elif multiplayer.is_server(): accept_offer(mine,offered,library.entries[offered].size)
 				else: _offer.rpc_id(1,offered,library.entries[offered].size)
 	# Map and avatar uploads share the arena bandwidth scheduler.
 	for peer in outgoing.keys():

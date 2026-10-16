@@ -13,8 +13,7 @@ AUTHORING={'.py','.cpp','.h','.o','.os','.a','.blend','.blend1','.kra','.zip','.
 EXTENSIONS=['addons/fps_native/fps_native.gdextension','addons/twovoip/twovoip.gdextension','addons/godot-steam-audio/bin/libgodot-steam-audio.gdextension','addons/godotopenxrvendors/plugin.gdextension']
 LIBRARIES={
  'Linux':['addons/fps_native/bin/libfpsloppa_native.so','addons/twovoip/libs/libtwovoip.linux.template_release.x86_64.so','addons/godot-steam-audio/bin/libgodot-steam-audio.linux.template_release.x86_64.so','addons/godot-steam-audio/bin/libphonon.so','addons/godotopenxrvendors/.bin/linux/template_release/x86_64/libgodotopenxrvendors.so'],
- 'Windows':['addons/fps_native/bin/libfpsloppa_native.dll','addons/twovoip/libs/libtwovoip.windows.template_release.x86_64.dll','addons/godot-steam-audio/bin/libgodot-steam-audio.windows.template_release.x86_64.dll','addons/godot-steam-audio/bin/phonon.dll','addons/godotopenxrvendors/.bin/windows/template_release/x86_64/libgodotopenxrvendors.dll'],
- 'Server':['addons/fps_native/bin/libfpsloppa_native.server.so','addons/twovoip/libs/libtwovoip.linux.template_release.x86_64.so']}
+ 'Windows':['addons/fps_native/bin/libfpsloppa_native.dll','addons/twovoip/libs/libtwovoip.windows.template_release.x86_64.dll','addons/godot-steam-audio/bin/libgodot-steam-audio.windows.template_release.x86_64.dll','addons/godot-steam-audio/bin/phonon.dll','addons/godotopenxrvendors/.bin/windows/template_release/x86_64/libgodotopenxrvendors.dll']}
 def digest(path):
  with Path(path).open('rb') as stream:return hashlib.file_digest(stream,'sha256').hexdigest()
 def allowed(path):
@@ -63,21 +62,20 @@ def main():
  if out.exists() and any(out.iterdir()):parser.error('Output must be new or empty')
  out.mkdir(parents=True,exist_ok=True)
  spec=importlib.util.spec_from_file_location('native_build',ROOT/'tools/build_gameplay_native.py');native=importlib.util.module_from_spec(spec);spec.loader.exec_module(native)
- native.require_portable_linux(native.require_build('linux',True));native.require_portable_linux(native.require_build('linux'));native.require_build('windows')
+ native.require_portable_linux(native.require_build('linux'));native.require_build('windows')
  version=(ROOT/'VERSION').read_text().strip();stage=out/'stage';stage.mkdir();selected=stage_graph(stage)
  # Runtime extension descriptors reference only the separately staged platform libraries.
  extension=(ROOT/'addons/fps_native/fps_native.gdextension.in').read_text()
  receipt={'version':version,'address':args.address,'port':args.port,'launcher':False,'platforms':{},'resources':len(selected)}
  project=(ROOT/'project.godot').read_text()
- for platform,template,binary in [('Server','linux_release.x86_64','cq-server'),('Linux','linux_release.x86_64','FPSloppaCQ.x86_64'),('Windows','windows_release_x86_64.exe','FPSloppaCQ.exe')]:
-  folder=out/platform;folder.mkdir();server=platform=='Server'
-  config=project.replace('run/main_scene="res://deathmatch/entry.tscn"','run/main_scene="res://tools/frontier_vps/'+('entry' if server else 'client_entry')+'.tscn"')
+ for platform,template,binary in [('Linux','linux_release.x86_64','FPSloppaCQ.x86_64'),('Windows','windows_release_x86_64.exe','FPSloppaCQ.exe')]:
+  folder=out/platform;folder.mkdir()
+  config=project.replace('run/main_scene="res://deathmatch/entry.tscn"','run/main_scene="res://tools/frontier_vps/client_entry.tscn"')
   config+='\n[cq]\ndefault_server="'+args.address+'"\ndefault_port='+str(args.port)+'\n'
-  if server:config=config.replace('openxr/enabled=true','openxr/enabled=false')
   (stage/'project.godot').write_text(config)
-  (stage/'addons/fps_native/fps_native.gdextension').write_text(extension.replace('bin/libfpsloppa_native.so','bin/libfpsloppa_native.server.so') if server else extension)
-  (stage/'.godot/extension_list.cfg').write_text('\n'.join('res://'+s for s in EXTENSIONS[:2])+'\n' if server else '\n'.join('res://'+s for s in EXTENSIONS)+'\n')
-  pack=folder/Path(binary).with_suffix('.pck') if platform=='Windows' else folder/('cq-server.pck' if server else 'FPSloppaCQ.pck')
+  (stage/'addons/fps_native/fps_native.gdextension').write_text(extension)
+  (stage/'.godot/extension_list.cfg').write_text('\n'.join('res://'+s for s in EXTENSIONS)+'\n')
+  pack=folder/Path(binary).with_suffix('.pck') if platform=='Windows' else folder/'FPSloppaCQ.pck'
   rows=[{'path':'res://'+p.relative_to(stage).as_posix(),'source':str(p)} for p in sorted(stage.rglob('*')) if p.is_file()]
   assert not any('/launcher/' in row['path'] for row in rows)
   manifest=out/'pack-manifest.json';manifest.write_text(json.dumps({'output':str(pack),'files':rows}))
@@ -94,15 +92,17 @@ def main():
   for source in (ROOT/'addons').rglob('*'):
    if source.is_file() and source.name.lower() in ['license','license.txt','license.md','copying','copying.txt','ofl.txt'] and 'build' not in str(source.relative_to(ROOT)):
     target=folder/'licenses'/source.relative_to(ROOT);target.parent.mkdir(parents=True,exist_ok=True);shutil.copy2(source,target)
-  if not server:
-   for label,mode in [('Desktop','off'),('VR','on')]:
-    if platform=='Linux':
-     script=folder/('Play-'+label+'.sh');script.write_text('#!/bin/sh\nset -eu\ncd -- "$(dirname -- "$0")"\nexec ./'+binary+' --xr-mode '+mode+' --rendering-method forward_plus "$@"\n');script.chmod(0o755)
-    else:(folder/('Play-'+label+'.cmd')).write_bytes(('@echo off\r\n"%~dp0'+binary+'" --xr-mode '+mode+' --rendering-method forward_plus %*\r\n').encode())
-   (folder/'README.txt').write_text('FPSloppa CQ '+version+'\nStart Play-Desktop or Play-VR. The game connects to '+args.address+':'+str(args.port)+' automatically.\nUse -- --connect HOST --port PORT after engine arguments to override.\nNo launcher or updater is included.\n')
+  for label,mode in [('Desktop','off'),('VR','on')]:
+   if platform=='Linux':
+    script=folder/('Play-'+label+'.sh');script.write_text('#!/bin/sh\nset -eu\ncd -- "$(dirname -- "$0")"\nexec ./'+binary+' --xr-mode '+mode+' --rendering-method forward_plus "$@"\n');script.chmod(0o755)
+   else:(folder/('Play-'+label+'.cmd')).write_bytes(('@echo off\r\n"%~dp0'+binary+'" --xr-mode '+mode+' --rendering-method forward_plus %*\r\n').encode())
+  (folder/'README.txt').write_text('FPSloppa CQ '+version+'\nStart Play-Desktop or Play-VR. The game connects to '+args.address+':'+str(args.port)+' automatically.\nUse -- --connect HOST --port PORT after engine arguments to override.\nNo launcher or updater is included.\n')
   hashes={p.relative_to(folder).as_posix():digest(p) for p in sorted(folder.rglob('*')) if p.is_file()}
   (folder/'release-sha256.json').write_text(json.dumps(hashes,indent=2)+'\n');receipt['platforms'][platform]={'files':len(hashes),'pack_bytes':pack.stat().st_size,'pack_sha256':digest(pack),'binary':binary}
   print('CQ_RELEASE_BUILT',platform,pack.stat().st_size,flush=True)
+ standalone_spec=importlib.util.spec_from_file_location('standalone_build',ROOT/'tools/build_standalone_server.py');standalone=importlib.util.module_from_spec(standalone_spec);standalone_spec.loader.exec_module(standalone)
+ native_receipt=standalone.package(ROOT/'native_server/build',ROOT/'native_server/cooked',out/'Server')
+ receipt['platforms']['Server']={'binary':'cq-server','runtime':'standalone-cpp','protocol':native_receipt['protocol'],'files':len(native_receipt['package_files'])}
  (out/'build.json').write_text(json.dumps(receipt,indent=2)+'\n')
  shutil.rmtree(stage);(out/'pack-manifest.json').unlink()
 if __name__=='__main__':main()

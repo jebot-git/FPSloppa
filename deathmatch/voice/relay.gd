@@ -47,7 +47,8 @@ static func valid_packet(data: PackedByteArray) -> bool:
 
 func send_packet(data: PackedByteArray) -> void:
 	sequence+=1
-	if multiplayer.is_server():relay(multiplayer.get_unique_id(),sequence,data,team_channel(),radio_scope())
+	if game.get("native_session") and game.native_session.active:game.native_session.voice(sequence,data,radio_scope())
+	elif multiplayer.is_server():relay(multiplayer.get_unique_id(),sequence,data,team_channel(),radio_scope())
 	else:submit.rpc_id(1,sequence,data,team_channel(),radio_scope())
 
 @rpc("any_peer","call_remote","unreliable",6)

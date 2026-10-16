@@ -1,0 +1,30 @@
+{
+  "runtime": "standalone-cpp",
+  "protocol": "fpsloppa-cq-native-1",
+  "files": 22,
+  "bytes": 145139020,
+  "godot_runtime_files": [],
+  "dependency_libraries": [
+    "libc",
+    "libm",
+    "libpthread",
+    "libdl"
+  ],
+  "world_receipt": {
+    "geometry.bin": {
+      "sha256": "28bcbe6bfffe22da3cf5a340b2345d9b81f4c36e114b8fd94c7591593c74dfa4",
+      "size": 8122500
+    },
+    "navigation.bin": {
+      "sha256": "a1b5a3be5a7ae71d8bdb88d2753945ffc75d67f5071bd66acf4cb08c300708ca",
+      "size": 29938592
+    },
+    "world.json": {
+      "sha256": "8cfb68fcfea3aee5f7f707f66f4ced291ce287f01e7b65807209f4ebba187cd0",
+      "size": 32311608
+    }
+  },
+  "binary_sha256": "6beca9c77a7ed985742f8ffa2dbc20f35dc829e323776b0dc3536017f731c714",
+  "package_path": "/tmp/cq-native-package-v2",
+  "load_test_note": "64-player and bot load reports use the preceding binary; final binary restores the reference CQ rule of no fixed time limit. Tick, transport, collision and gameplay code otherwise match."
+}

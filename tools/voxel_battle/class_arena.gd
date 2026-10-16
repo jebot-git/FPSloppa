@@ -1,6 +1,7 @@
 extends "res://tools/voxel_battle/arena.gd"
 ## Standalone playable class prototype; historical rendering benchmarks keep their own arena.
 var squads=preload("res://deathmatch/conquest/classes/squads.gd").new()
+var native_session=preload("res://deathmatch/native/standalone_client.gd").new()
 var resident=preload("res://deathmatch/native/cq_authority.gd").new()
 var battery_tanks=preload("res://deathmatch/conquest/classes/battery_tank.gd").new()
 var grass_audio
@@ -22,6 +23,7 @@ var spotted_markers=preload("res://deathmatch/conquest/classes/spotted_markers.g
 var spotting=preload("res://deathmatch/conquest/classes/spotting.gd").new()
 var classes=preload("res://deathmatch/conquest/classes/rules.gd").new()
 func _ready() -> void:
+	add_child(native_session);native_session.setup(self)
 	add_child(squads);squads.setup(self)
 	add_child(spotted_markers);spotted_markers.setup(self)
 	resident.name="ResidentCQ";add_child(resident);resident.setup(self)
@@ -70,6 +72,21 @@ func _ready() -> void:
 		preload("res://deathmatch/ui/cq/menu.gd").setup(hud)
 		preload("res://deathmatch/ui/cq/hud.gd").setup(hud)
 		squads.setup_ui(hud)
+func start_join(player_name:String,address:String,port:int,spectator:bool=false)->void:
+	weather.reset();resident.reset_client()
+	if OS.get_cmdline_user_args().has("--cq-legacy-transport"):super.start_join(player_name,address,port,spectator)
+	else:native_session.start(player_name,address,port,spectator)
+func disconnect_game(reason:String="Disconnected.")->void:
+	native_session.reset();resident.reset()
+	super.disconnect_game(reason)
+func _connected()->void:
+	if not native_session.active:super._connected()
+func request_suicide()->void:
+	if native_session.active:native_session.action(7)
+	else:super.request_suicide()
+func chat_send(message:String,team_only:bool=false)->void:
+	if native_session.active:native_session.link.send_control(9,{"text":message,"scope":2 if team_only else 0})
+	else:super.chat_send(message,team_only)
 func start_host(player_name:String,port:int,frags:int,minutes:int,training:bool,mode:String="tdm",weapon_rules:String="ut99") -> void:
 	super.start_host(player_name,port,frags,minutes,training,mode,weapon_rules)
 	votes.allowed_modes=["tdm"]
@@ -144,10 +161,6 @@ func _restart_round() -> void:
 	if resident.serving() and resident.core:resident.core.request_restart();return
 	if is_instance_valid(destruction):destruction.clear_state();destruction.revision+=1;destruction.publish()
 	super._restart_round()
-func start_join(player_name:String,address:String,port:int,spectator:bool=false) -> void:
-	weather.reset();resident.reset_client();super.start_join(player_name,address,port,spectator)
-func disconnect_game(reason:String="Disconnected.") -> void:
-	resident.reset();super.disconnect_game(reason)
 func refresh_resident_roster() -> void:
 	if resident.serving():resident.refresh_roster()
 func _request_use() -> void:
@@ -251,7 +264,8 @@ func draw_class_players() -> void:
 			tag.set_player_name(str(tag.get_meta("cq_prefix"))+players[id].name,team,tint)
 			tag.visible=spotting.visible(self,mine,id) and (friendly or not battery_tanks.mounted(id))
 func request_class(role:String) -> void:
-	if resident.serving():resident.action(multiplayer.get_unique_id(),5,resident.Presentation.ROLES.find(role))
+	if native_session.active:native_session.action(5,resident.Presentation.ROLES.find(role))
+	elif resident.serving():resident.action(multiplayer.get_unique_id(),5,resident.Presentation.ROLES.find(role))
 	elif multiplayer.is_server():classes.choose(multiplayer.get_unique_id(),role)
 	else:_cq_class.rpc_id(1,role)
 @rpc("any_peer","call_remote","reliable",0)
@@ -520,12 +534,14 @@ func on_player_died(id:int) -> void:
 	classes.downed.erase(id);classes.injecting.erase(id);classes.weapon_used(id)
 	grenades.on_death(id);variant_combat.cancel_player(id)
 
+static func map_sources()->Array:
+	var paths:Array=[]
+	for file in ["landscape","architecture","outer_architecture","hydrology","waterways","map","stair_ramps","water_contents","baked_lighting","jungle_sky","light_fixtures","weather_schedule","weather","grass_cover","destruction","structural_integrity","collapse_assets"]:paths.append("res://tools/voxel_battle/"+file+".gd")
+	paths.append_array(["res://experimental-assets/jungle/lighting/bake.json","res://experimental-assets/jungle/lighting/irradiance.png","res://experimental-assets/jungle/lighting/dawn.png","res://experimental-assets/jungle/lighting/skybox.png","res://tools/voxel_battle/baked_lighting.gdshaderinc","res://tools/voxel_battle/jungle_sky.gdshader","res://tools/voxel_battle/collapse_dust.gdshader","res://tools/voxel_battle/collapse_rubble.gdshader"])
+	return paths
 static func map_identity() -> String:
 	var digest:=HashingContext.new();digest.start(HashingContext.HASH_SHA256)
-	for file in ["landscape","architecture","outer_architecture","hydrology","waterways","map","stair_ramps","water_contents","baked_lighting","jungle_sky","light_fixtures","weather_schedule","weather","grass_cover","destruction","structural_integrity","collapse_assets"]:
-		digest.update(FileAccess.get_file_as_bytes("res://tools/voxel_battle/"+file+".gd"))
-	for path in ["res://experimental-assets/jungle/lighting/bake.json","res://experimental-assets/jungle/lighting/irradiance.png","res://experimental-assets/jungle/lighting/dawn.png","res://experimental-assets/jungle/lighting/skybox.png","res://tools/voxel_battle/baked_lighting.gdshaderinc","res://tools/voxel_battle/jungle_sky.gdshader","res://tools/voxel_battle/collapse_dust.gdshader","res://tools/voxel_battle/collapse_rubble.gdshader"]:
-		digest.update(FileAccess.get_file_as_bytes(path))
+	for path in map_sources():digest.update(FileAccess.get_file_as_bytes(path))
 	return digest.finish().hex_encode()
 func cq_ordnance_impact(at:Vector3,damage:float,radius:float)->void:
 	if is_instance_valid(destruction):destruction.impact(at,damage,radius)
@@ -588,7 +604,8 @@ func _damage_map_hit(hit:Dictionary,id:int,amount:float,kind:String="") -> void:
 		if variant_combat.active_projectile>=0:vehicle.set_meta("cq_direct_projectile",variant_combat.active_projectile)
 	super._damage_map_hit(hit,id,amount)
 func request_equipment(role_name:String,weapon:int,secondary:bool) -> void:
-	if resident.serving():resident.action(multiplayer.get_unique_id(),6,resident.Presentation.ROLES.find(role_name),int(secondary),weapon)
+	if native_session.active:native_session.action(6,resident.Presentation.ROLES.find(role_name),int(secondary),weapon)
+	elif resident.serving():resident.action(multiplayer.get_unique_id(),6,resident.Presentation.ROLES.find(role_name),int(secondary),weapon)
 	elif multiplayer.is_server():classes.choose_equipment(multiplayer.get_unique_id(),role_name,weapon,secondary)
 	else:_cq_equipment.rpc_id(1,role_name,weapon,secondary)
 @rpc("any_peer","call_remote","reliable",0)
@@ -631,7 +648,10 @@ func _cq_beam_impacts(start:Vector3,ends:PackedVector3Array,weapon:int,team:int)
 	if field_audio and not ends.is_empty():field_audio.play_cue("energy_impact",ends[0],-18,35)
 
 func request_utility(role_name:String,utility:String) -> void:
-	if resident.serving():resident.utility(multiplayer.get_unique_id(),role_name,utility)
+	if native_session.active:
+		var role:int=resident.Presentation.ROLES.find(role_name)
+		if role>=0:native_session.action(6,role,2,resident.Presentation.UTILITY[role].find(utility)+1)
+	elif resident.serving():resident.utility(multiplayer.get_unique_id(),role_name,utility)
 	elif multiplayer.is_server():classes.choose_utility(multiplayer.get_unique_id(),role_name,utility)
 	else:_cq_utility.rpc_id(1,role_name,utility)
 @rpc("any_peer","call_remote","reliable",0)

@@ -40,7 +40,8 @@ func request(pose:Dictionary={}) -> void:
 	var id:int=game.multiplayer.get_unique_id()
 	if not game.active or game.menu_open or not game.classes.alive(id):return
 	request_sequence+=1
-	if game.multiplayer.is_server():toggle(id,game.players[id].serial,game.map_epoch,request_sequence,pose)
+	if game.native_session.active:game.native_session.action(1)
+	elif game.multiplayer.is_server():toggle(id,game.players[id].serial,game.map_epoch,request_sequence,pose)
 	else:game._cq_nvg.rpc_id(1,game.players[id].serial,game.map_epoch,request_sequence,pose)
 func local_input(command:Dictionary) -> void:
 	var pressed:bool=false

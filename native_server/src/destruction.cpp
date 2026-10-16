@@ -1,0 +1,24 @@
+#include "destruction.h"
+namespace cqserver {
+Destruction::Destruction(World&w,cqauthority::Core&c,bool enabled):world_(w),core_(c),enabled_(enabled){
+ const auto&d=w.data().metadata.at("destruction");cell_building_.resize(d.at("cells").size(),-1);building_bodies_.resize(d.at("buildings").size());
+ for(size_t i=0;i<d["buildings"].size();++i){for(int cell:d["buildings"][i]["cells"])cell_building_.at(cell)=int(i);rubble_.push_back(w.add_boxes(d.at("rubble").at(i),false));}
+ const auto&bodies=w.data().metadata.at("bodies");for(size_t i=0;i<bodies.size();++i){int wall=bodies[i].value("wall",-1),building=bodies[i].value("building",-1);if(wall>=0)wall_bodies_[wall].push_back(i);if(building>=0)building_bodies_.at(building).push_back(i);}
+ // Prebuild replacement cells. Impact changes only broad-phase membership.
+ for(auto it=d["walls"].begin();it!=d["walls"].end();++it){Json rows=Json::array();for(int id:it.value().at("cells")){const auto&cell=d["cells"].at(id);rows.push_back({{"center",cell.at("position")},{"size",cell.at("size")}});}wall_cells_[std::stoi(it.key())]=w.add_boxes(rows,false,std::stoi(it.key()));}
+}
+bool Destruction::failed(int id)const{const auto&b=world_.data().metadata.at("destruction").at("buildings").at(id);for(const auto&story:b.at("stories")){double total=0,intact=0,side_total[4]={},side_intact[4]={};for(const auto&col:story){int side=col.at("side");double weight=col.at("weight");bool alive=true;for(int cell:col.at("cells"))if(broken_.count(cell)){alive=false;break;}total+=weight;side_total[side]+=weight;if(alive){intact+=weight;side_intact[side]+=weight;}}if(total>0&&intact/total<.45)return true;for(int a=0;a<2;++a)for(int c=2;c<4;++c)if(side_total[a]>0&&side_total[c]>0&&side_intact[a]/side_total[a]<.2&&side_intact[c]/side_total[c]<.2)return true;}return false;}
+void Destruction::rebuild_wall(int id){const auto&d=world_.data().metadata.at("destruction");for(auto body:wall_bodies_[id])world_.set_body(body,false);const auto&cells=d.at("walls").at(std::to_string(id)).at("cells");for(size_t i=0;i<cells.size();++i){int cell=cells[i];world_.set_extra_body(wall_cells_.at(id).at(i),!broken_.count(cell)&&!collapsed_.count(cell_building_.at(cell)));}}
+bool Destruction::impact(V at,double damage,double radius){if(!enabled_||damage<60||!std::isfinite(radius)||radius<=0||broken_.size()>=256)return false;const auto&d=world_.data().metadata.at("destruction");double reach=std::clamp(radius*.18,.75,4.5);std::vector<std::pair<double,int>>near;
+ for(size_t id=0;id<d.at("cells").size();++id){int b=cell_building_[id];if(b<0||broken_.count(int(id))||collapsed_.count(b))continue;const auto&c=d["cells"][id];V p=vec(c.at("position")),half=vec(c.at("size"))*.5;Bounds box{p-half,p+half};double distance=(box.nearest(at)-at).length();if(distance<=reach)near.emplace_back(distance,int(id));}
+ auto before=[](auto a,auto b){return std::abs(a.first-b.first)<std::max(.00001,.00001*std::abs(a.first))?a.second<b.second:a.first<b.first;};for(size_t i=1;i<near.size();++i){auto row=near[i];size_t j=i;while(j&&before(row,near[j-1])){near[j]=near[j-1];--j;}near[j]=row;}
+ std::set<int>changed,buildings;size_t count=0;for(auto entry:near){if(count>=6||broken_.size()>=256)break;int id=entry.second,wall=d["cells"][id].at("wall");V to=vec(d["cells"][id].at("position"));if(!world_.wall_visible(at,to,wall))continue;broken_.insert(id);changed.insert(wall);buildings.insert(cell_building_[id]);++count;}
+ if(!count)return false;last_impact_=at;for(int wall:changed){changed_walls_.insert(wall);rebuild_wall(wall);}
+ for(int b:buildings)if(!collapsed_.count(b)&&failed(b)){collapsed_.insert(b);for(auto body:building_bodies_[b])world_.set_body(body,false);for(int cell:d["buildings"][b]["cells"]){int wall=d["cells"][cell]["wall"];if(changed_walls_.count(wall))rebuild_wall(wall);}for(auto body:rubble_[b])world_.set_extra_body(body,true);
+  // Building bounds are authored in district-local coordinates; cells carry world positions.
+  const auto&building=d["buildings"][b];int first=building.at("cells").at(0);V offset=vec(d["cells"][first]["position"])-vec(d["cells"][first]["center"]);auto box=bounds(building.at("bounds"));core_.collapse_region(box.minimum+offset,box.maximum+offset,world_);
+ }++revision_;return true;
+}
+void Destruction::reset(uint32_t epoch){for(size_t i=0;i<world_.data().metadata.at("bodies").size();++i)world_.set_body(i,true);for(auto&entry:wall_cells_)for(auto body:entry.second)world_.set_extra_body(body,false);for(auto&row:rubble_)for(auto body:row)world_.set_extra_body(body,false);broken_.clear();collapsed_.clear();changed_walls_.clear();epoch_=epoch;++revision_;}
+Json Destruction::state()const{return {{"at",json(last_impact_)},{"animate",true},{"epoch",epoch_},{"revision",revision_},{"enabled",enabled_},{"broken",broken_},{"collapsed",collapsed_}};}
+}

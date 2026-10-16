@@ -202,12 +202,16 @@ func _part(map_epoch:int,tick:int,index:int,count:int,size:int,clock_origin:floa
  for part in pieces:packed.append_array(part)
  var frame:Dictionary=Codec.decode_frame(packed.decompress(raw_size,FileAccess.COMPRESSION_FASTLZ))
  if frame.is_empty() or frame.tick!=tick or not frame.has("mode"):return
- var state:Array=Presentation.project(frame,assembly_origin,map_epoch,game.time_limit)
+ receive_frame(frame,assembly_origin,map_epoch)
+func receive_frame(frame:Dictionary,clock_origin:float,map_epoch:int)->void:
+ if frame.is_empty() or not frame.has("mode"):return
+ var tick:int=frame.tick
+ var state:Array=Presentation.project(frame,clock_origin,map_epoch,game.time_limit)
  if state.is_empty():return
  var mine:int=game.multiplayer.get_unique_id()
  var was_staging:bool=client_frame.get("players",{}).get(mine,{}).get("staging",false)
  client_frame=frame
- enabled=true;received_tick=tick;epoch=map_epoch;origin=assembly_origin
+ enabled=true;received_tick=tick;epoch=map_epoch;origin=clock_origin
  state[11]=game.votes.view
  game.callv("_snapshot",state)
  if frame.players.has(mine):
@@ -285,7 +289,8 @@ func send_input(c:Dictionary)->void:
  var wire:Dictionary={"life":c.input_life,"seq":c.seq,"move":c.move,"yaw":c.yaw,"pitch":c.pitch,"weapon":c.weapon,"fire":c.fire,"jump":c.get("jump",false),"reload":c.get("reload",false),"slow":c.slow,"crouch":c.get("crouch",false),"prone":c.get("prone",false),"blocked":c.get("input_blocked",false),"view_time":float(c.get("view_time",-1.))-origin if c.get("view_time",-1.)>=0 else -1.}
  for key in ["xr","vr_device","room","swim","reload_grip","reload_trigger","offhand_fire","jetpack","cq_drag","melee","respawn","weapon_held","jump_event","jump_seq","jetpack_event","fire_event"]:
   if c.has(key):wire[key]=c[key]
- _packet.rpc_id(1,game.map_epoch,Codec.encode_input(wire))
+ if game.native_session.active:game.native_session.link.send_bytes(7,Codec.encode_input(wire),1,false)
+ else:_packet.rpc_id(1,game.map_epoch,Codec.encode_input(wire))
 @rpc("any_peer","call_remote","unreliable_ordered",1)
 func _packet(map_epoch:int,bytes:PackedByteArray)->void:
  if not serving() or not core or map_epoch!=epoch:return
@@ -333,6 +338,7 @@ func refresh_roster()->void:
   game.players[id].team=p.team;game.players[id].kills=p.kills;game.players[id].deaths=p.deaths;game.players[id].serial=p.life
 
 func request(kind:int,a:int=0,b:int=0,c:int=0)->void:
+ if game.native_session.active:game.native_session.action(kind,a,b,c);return
  var state:Dictionary=game.local_state()
  if state.is_empty():return
  request_sequence+=1

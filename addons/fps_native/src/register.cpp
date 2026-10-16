@@ -7,6 +7,7 @@
 #include "movement_runtime.h"
 #include "destruction_runtime.h"
 #ifndef FPS_SERVER
+#include "standalone_client.h"
 #include "poses.h"
 #include "avatar_runtime.h"
 #include "audio_runtime.h"
@@ -21,6 +22,8 @@ static void initialize(ModuleInitializationLevel level) {
  GDREGISTER_CLASS(FPSMovement);
  GDREGISTER_CLASS(FPSDestruction);
 #ifndef FPS_SERVER
+ GDREGISTER_CLASS(FPSClientPeer);
+ GDREGISTER_CLASS(FPSNativeClient);
  GDREGISTER_CLASS(FPSPose);
  GDREGISTER_CLASS(FPSAvatar);
  GDREGISTER_CLASS(FPSAudio);

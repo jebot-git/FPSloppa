@@ -18,11 +18,11 @@ def main():
   probe=subprocess.run(command+['--headless','--xr-mode','off','--','--release-resource-check'],env=probe_env,stdout=subprocess.PIPE,stderr=subprocess.STDOUT,text=True,timeout=90)
   (out/(platform.lower()+'-resources.log')).write_text(probe.stdout)
   assert probe.returncode==0 and 'RELEASE_RESOURCES PASS' in probe.stdout and 'SCRIPT ERROR' not in probe.stdout,platform+' VR resource validation failed'
- with (out/'server.log').open('w') as log:server=subprocess.Popen(['stdbuf','-oL','-eL',str(build/'Server/cq-server'),'--headless','--xr-mode','off','--','--server','--config',str(out/'server.cfg'),'--cq-destruction'],stdout=log,stderr=subprocess.STDOUT,env=env,start_new_session=True)
+ with (out/'server.log').open('w') as log:server=subprocess.Popen(['stdbuf','-oL','-eL',str(build/'Server/cq-server'),'--world',str(build/'Server/world'),'--state',str(out/'server-state'),'--config',str(out/'server.cfg')],stdout=log,stderr=subprocess.STDOUT,env=env,start_new_session=True)
  cases=[]
  try:
   deadline=time.monotonic()+150
-  while 'CQ_RESIDENT_READY' not in (out/'server.log').read_text():
+  while '"event":"ready"' not in (out/'server.log').read_text():
    if server.poll() is not None or time.monotonic()>deadline:raise RuntimeError('Packaged server startup failed')
    time.sleep(.1)
   for name,tracked in [('linux-desktop',False),('linux-tracked',True)]+([('windows-wine',False)] if a.wine else []):

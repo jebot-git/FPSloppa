@@ -37,7 +37,7 @@ func _process(delta:float)->void:
    seed_epoch=game.map_epoch
    if seed_value<0:seed_value=int(Crypto.new().generate_random_bytes(4).decode_u32(0)&0x7fffffff)
    seed_replies.clear()
- elif seed_epoch!=game.map_epoch and multiplayer.multiplayer_peer.get_connection_status()==MultiplayerPeer.CONNECTION_CONNECTED:
+ elif not (game.get("native_session") and game.native_session.active) and seed_epoch!=game.map_epoch and multiplayer.multiplayer_peer.get_connection_status()==MultiplayerPeer.CONNECTION_CONNECTED:
   request_after-=delta
   if request_after<=0:request_after=2.;_request_seed.rpc_id(1,game.map_epoch)
  var selected_seed:int=preview_seed if preview_seed>=0 else seed_value

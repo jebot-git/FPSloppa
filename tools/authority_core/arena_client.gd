@@ -14,11 +14,13 @@ var last_life:=0
 var first_team:=-1
 var observed_shots:=0
 var previous_shots:=0
+var steady_prediction:Dictionary={}
 var completed:=false
 func start_join(_player_name:String,address:String,port:int,spectator:bool=false)->void:super.start_join("Native QA",address,port,spectator)
 func _ready()->void:
  test_start=Time.get_ticks_msec();super._ready()
 func _local_command()->Dictionary:
+ local_yaw=.3;local_pitch=.6
  var c:Dictionary={"seq":sequence,"fly":0.,"move":Vector2(.1,-.2),"yaw":.3,"pitch":.6,"weapon":players.get(multiplayer.get_unique_id(),{}).get("weapon",4),"fire":phase>.5 and phase<1.5 or phase>3.8 and phase<5.,"slow":false,"respawn":false,"jump":false,"jetpack":phase>14 and phase<14.15,"reload":false,"reload_grip":false,"crouch":false,"prone":phase>5.2 and phase<6.5,"input_blocked":false,"room":Vector3.ZERO,"xr":{},"vr_device":tracked_test,"swim":Vector3.ZERO,"melee":false,"offhand_fire":false,"alt_fire":false}
  if not tracked_test:
   if phase>2.2 and phase<2.95:c.fire=true
@@ -43,7 +45,10 @@ func _physics_process(delta:float)->void:
   # Keep sending ordinary idle commands throughout, as in the load fixtures.
   var local_frame:Dictionary=resident.client_frame.get("players",{}).get(multiplayer.get_unique_id(),{})
   if not warm_start and not local_frame.is_empty() and not local_frame.staging:warm_start=now
-  if not live_start and warm_start and now-warm_start>=WARMUP_MS:live_start=now
+  if warm_start and now-warm_start>=2000 and not actions.has("prediction-reset"):
+   actions["prediction-reset"]=true;fighters[multiplayer.get_unique_id()].prediction.stats={"corrections":0,"resets":0,"max_error":0.0}
+  if not live_start and warm_start and now-warm_start>=WARMUP_MS:
+   steady_prediction=fighters[multiplayer.get_unique_id()].prediction.stats.duplicate(true);live_start=now
   phase=(now-live_start)/1000. if live_start else 0.
   var state:Dictionary=local_state();var mine:int=multiplayer.get_unique_id()
   if not state.is_empty():
@@ -78,5 +83,5 @@ func finish_test(timeout:bool=false)->void:
  if tracked_test and not observed.poses:failures.append("poses")
  if observed_shots<1:failures.append("shooting")
  if timeout:failures.append("timeout")
- var result:Dictionary={"tracked":tracked_test,"warmup_seconds":WARMUP_MS/1000.,"observed":observed,"shots":observed_shots,"tick":resident.received_tick,"failures":failures}
+ var result:Dictionary={"tracked":tracked_test,"warmup_seconds":WARMUP_MS/1000.,"observed":observed,"shots":observed_shots,"tick":resident.received_tick,"steady_prediction":steady_prediction,"prediction":fighters[multiplayer.get_unique_id()].prediction.stats.duplicate(true) if fighters.has(multiplayer.get_unique_id()) else {},"failures":failures}
  print("AUTHORITY_ARENA_CLIENT ",JSON.stringify(result));test_complete.emit(result)

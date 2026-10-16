@@ -144,3 +144,9 @@ __pycache__/
 
 # Download cache and Audacity intermediates (runtime assets carry source manifests).
 /tools/audio-sources/cq-field/
+
+# Pinned standalone server dependency cache and generated world/build data.
+/external-tools/cq-standalone/
+/native_server/build*/
+/native_server/cooked/
+/native_server/state/
