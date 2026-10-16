@@ -31,7 +31,7 @@ def dependencies():
             extracted=next(p for p in Path(temporary).iterdir() if p.is_dir());os.replace(extracted,target)
             (target/'.cq-source-sha256').write_text(row['sha256']+'\n')
 def source_hashes():
-    files=list((SOURCE/'src').glob('*'))+list((SOURCE/'vendor').glob('*'))+list((ROOT/'addons/fps_native/src').glob('authority*'))+[SOURCE/'CMakeLists.txt',SOURCE/'dependencies.json',ROOT/'addons/fps_native/src/cq_wire.h']
+    files=list((SOURCE/'src').glob('*'))+list((SOURCE/'vendor').glob('*'))+list((ROOT/'addons/fps_native/src').glob('authority*'))+[SOURCE/'CMakeLists.txt',SOURCE/'dependencies.json',ROOT/'addons/fps_native/src/cq_wire.h',ROOT/'addons/fps_native/src/snapshot_delta.h']
     return {p.relative_to(ROOT).as_posix():digest(p) for p in sorted(files) if p.is_file()}
 def verify(folder):
     receipt=json.loads((folder/'server-build.json').read_text())
@@ -87,7 +87,7 @@ def main():
         if a.cxx:command+=['-DCMAKE_CXX_COMPILER='+a.cxx]
         if a.cc:command+=['-DCMAKE_C_COMPILER='+a.cc]
         subprocess.run(command,check=True);subprocess.run(['cmake','--build',str(a.build_dir),'--target','cq-server','cq-server-tests','cq-load-client','-j',str(a.j)],check=True)
-        subprocess.run([str(a.build_dir/'cq-server-tests')],check=True)
+        subprocess.run(['ctest','--test-dir',str(a.build_dir),'--output-on-failure'],check=True)
         (a.build_dir/'build-receipt.json').write_text(json.dumps({'sha256':digest(a.build_dir/'cq-server'),'source_sha256':source_hashes()},indent=2)+'\n')
     if a.skip_build:require_build(a.build_dir)
     if a.cook:subprocess.run([a.godot,'--headless','--xr-mode','off','--path',str(ROOT),'--script','res://tools/standalone_server/cook_world.gd','--','--output',str(a.cooked),'--cq-destruction'],check=True)

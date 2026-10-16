@@ -2,16 +2,20 @@ extends RefCounted
 ## Authority-only state uses Godot's native scalar serializer. Tracker transforms
 ## retain compact quaternion storage; client input uses the stricter bounded codec.
 const LIMIT = 262144
-static func pack(value: Array) -> PackedByteArray:
+static func compression_for(snapshot:Array)->bool:
+	if snapshot.size()!=14 or not snapshot[10] is Dictionary:return false
+	var mode:Dictionary=snapshot[10];var kind:String=str(mode.get("kind",""))
+	return kind!="pve" and (kind=="cq" or mode.has("class_mode"))
+static func pack(value: Array, compression:bool=false) -> PackedByteArray:
 	var raw := var_to_bytes(value)
 	if raw.size()>LIMIT: return PackedByteArray()
-	var result := PackedByteArray(); result.resize(5); result[0]=2; result.encode_u32(1,raw.size())
-	result.append_array(raw.compress(FileAccess.COMPRESSION_FASTLZ)); return result
+	var result := PackedByteArray(); result.resize(5); result[0]=2 if compression else 3; result.encode_u32(1,raw.size())
+	result.append_array(raw.compress(FileAccess.COMPRESSION_FASTLZ) if compression else raw); return result
 static func unpack(packet: PackedByteArray) -> Variant:
-	if packet.size()<6 or packet.size()>LIMIT or packet[0]!=2: return null
+	if packet.size()<6 or packet.size()>LIMIT or packet[0] not in [2,3]: return null
 	var size:=packet.decode_u32(1)
 	if size<1 or size>LIMIT:return null
-	var raw:=packet.slice(5).decompress(size,FileAccess.COMPRESSION_FASTLZ)
+	var raw:=packet.slice(5).decompress(size,FileAccess.COMPRESSION_FASTLZ) if packet[0]==2 else packet.slice(5)
 	return bytes_to_var(raw) if raw.size()==size else null
 static func encode(value: Array) -> PackedByteArray:
 	# Player records are dense and latency-sensitive; compact their entire row.

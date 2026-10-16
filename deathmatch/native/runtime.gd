@@ -29,3 +29,14 @@ static func backend():
 		var args:=OS.get_cmdline_user_args();var index:=args.find("--native-workers")
 		backend_instance.set_workers(clampi(int(args[index+1]),1,10) if index>=0 and index+1<args.size() else 4)
 	return backend_instance
+
+# Exported CQ clients must not silently run a partial scripted fallback. Reference
+# selectors remain available in editor binaries for differential fixtures.
+static func cq_release_error()->String:
+	if OS.has_feature("editor"):return ""
+	for arg in OS.get_cmdline_user_args():
+		if arg.begins_with("--gdscript-"):return "Script reference paths require an editor build."
+	for type in ["FPSNativeClient","FPSClientSession","FPSClientServices","FPSRemoteInterpolation","FPSCodec","FPSMovement","FPSWorld","FPSDestruction","FPSAvatar","FPSAudio","FPSPose","FPSVRInteraction"]:
+		if not available(type):return "Missing native CQ capability: "+type
+	if not ClassDB.class_has_method("FPSWorld","weather_sample"):return "Rebuild the native weather runtime."
+	return ""

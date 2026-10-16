@@ -3,6 +3,8 @@ extends Node
 const PROTOCOL="fpsloppa-cq-native-1"
 const Codec=preload("res://deathmatch/native/authority_protocol.gd")
 var game
+var backend
+var services
 var link
 var active:=false
 var generation:=0
@@ -15,14 +17,26 @@ var download_queue:Array[String]=[]
 var upload:Dictionary={}
 var selected:=""
 var weather_seed:=0
-func setup(arena)->void:game=arena
+func _profile_path()->String:
+ var args:=OS.get_cmdline_user_args();var at:=args.find("--cq-profile-file")
+ return args[at+1] if at>=0 and at+1<args.size() else "user://cq_native_profiles.cfg"
+func setup(arena)->void:
+ game=arena
+ if not OS.get_cmdline_user_args().has("--gdscript-client-session") and preload("res://deathmatch/native/runtime.gd").available("FPSClientSession"):backend=ClassDB.instantiate("FPSClientSession")
+ if not OS.get_cmdline_user_args().has("--gdscript-client-session") and not OS.get_cmdline_user_args().has("--gdscript-client-services") and ClassDB.class_exists("FPSClientServices"):services=ClassDB.instantiate("FPSClientServices")
 func reset()->void:
  generation+=1;active=false
+ if backend:backend.reset()
+ if services:services.reset()
  if link:link.close()
  link=null;catalog.clear();requested_hash="";download.clear();download_queue.clear();upload.clear();sequence=0;selected=""
 func start(player_name:String,address:String,port:int,spectator:bool)->void:
  if game.active or game.loading.blocking:return
- if not preload("res://deathmatch/native/runtime.gd").available("FPSNativeClient"):game.status("Rebuild the native client extension to connect to standalone CQ.");return
+ var native_error:String=preload("res://deathmatch/native/runtime.gd").cq_release_error()
+ if not native_error.is_empty():game.status(native_error);return
+ if not services and not OS.get_cmdline_user_args().has("--gdscript-client-session") and not OS.get_cmdline_user_args().has("--gdscript-client-services"):game.status("Rebuild the native client services extension before connecting.");return
+ if not backend and not OS.get_cmdline_user_args().has("--gdscript-client-session"):game.status("Rebuild the native client session extension before connecting.");return
+ if not preload("res://deathmatch/native/runtime.gd").available("FPSNativeClient") or not ClassDB.class_has_method("FPSCodec","decode_authority_frame"):game.status("Rebuild the native client extension to connect to standalone CQ.");return
  reset();active=true;var attempt:=generation
  game.nickname=game.clean_name(player_name);game.joining_as_spectator=spectator
  game.loading.begin();game.menu_open=true
@@ -33,6 +47,11 @@ func start(player_name:String,address:String,port:int,spectator:bool)->void:
  game.map_loading=true
  if not game._load_map("voxel_jungle"):game.disconnect_game("Cannot prepare CQ map.");return
  game.map_loading=false
+ if services:
+  if services.configure(game.avatars.Library.CACHE,_profile_path())!=OK:game.disconnect_game("Cannot prepare avatar cache.");return
+  if services.resolve_start(address,clampi(port,1024,65535))!=OK:game.disconnect_game("Cannot resolve server.");return
+  game.status("Resolving server…")
+  return
  var host:=address.strip_edges()
  if not host.is_valid_ip_address():
   var query:=IP.resolve_hostname_queue_item(host,IP.TYPE_IPV4)
@@ -46,42 +65,75 @@ func start(player_name:String,address:String,port:int,spectator:bool)->void:
  if link.connect_host(host,clampi(port,1024,65535))!=OK:game.disconnect_game("Cannot connect to standalone CQ server.");return
  game.status("Connecting to %s…"%endpoint)
 func _process(_delta:float)->void:
- if not active or not link:return
+ if not active:return
+ if services and not link:
+  var connection:Dictionary=services.connection_poll()
+  if connection.has("error"):game.disconnect_game(connection.error);return
+  if not connection.get("ready",false):return
+  endpoint=connection.endpoint;link=ClassDB.instantiate("FPSNativeClient")
+  if link.connect_host(connection.address,connection.port)!=OK:game.disconnect_game("Cannot connect to standalone CQ server.");return
+  game.status("Connecting to %s…"%endpoint)
+ if not link:return
  for event in link.poll():
   if not active:return
   var data:Dictionary=event.get("data",{})
   match int(event.type):
    -1:game.disconnect_game("Standalone server disconnected.");return
    0:
-    var config:=ConfigFile.new();config.load("user://cq_native_profiles.cfg")
-    link.send_control(1,{"protocol":PROTOCOL,"map_sha256":game.map_sha,"name":game.nickname,"spectator":game.joining_as_spectator,"resume":config.get_value("sessions",endpoint,"")})
+    var token:=""
+    if services:token=services.resume_token()
+    else:
+     var config:=ConfigFile.new();config.load(_profile_path());token=config.get_value("sessions",endpoint,"")
+    link.send_control(1,{"snapshot_codec":link.snapshot_codec() if link.has_method("snapshot_codec") else "","protocol":PROTOCOL,"map_sha256":game.map_sha,"name":game.nickname,"spectator":game.joining_as_spectator,"resume":token})
    2:
+    if backend:
+     var admission:Dictionary=backend.welcome(data,game.map_sha)
+     if not admission.ok:game.disconnect_game(admission.error);return
     if data.get("protocol")!=PROTOCOL or data.get("map_sha256")!=game.map_sha:game.disconnect_game("Standalone server map/protocol mismatch.");return
     link.activate(int(data.id));game.multiplayer.multiplayer_peer=link.scene_peer()
     game.map_epoch=int(data.epoch);game.max_clients=int(data.capacity);game.clock=float(data.time);game.resident.epoch=game.map_epoch;game.resident.enabled=true
     game.time_limit=float(data.round_seconds);game.voice.policy(bool(data.voice),str(data.hostname));game.announcer.policy(false)
     weather_seed=int(data.weather_seed)
     _catalog(data.assets)
-    var config:=ConfigFile.new();config.load("user://cq_native_profiles.cfg");config.set_value("sessions",endpoint,data.resume);config.save("user://cq_native_profiles.cfg")
+    if services:
+     if services.save_resume(data.resume)!=OK:push_warning("Cannot persist CQ session profile.")
+    else:
+     var config:=ConfigFile.new();config.load(_profile_path());config.set_value("sessions",endpoint,data.resume);config.save(_profile_path())
     link.send_control(3,{})
    4:game.disconnect_game(data.get("reason","Connection rejected."));return
    5:_roster(data.players)
    6:
-    if game.active and not game.map_loading:game.resident.receive_frame(Codec.decode_frame(event.bytes),float(event.origin),game.map_epoch)
+    if game.active and not game.map_loading:game.resident.receive_frame(Codec.decode_frame(event.bytes) if OS.get_cmdline_user_args().has("--gdscript-cq-frames") else event.get("frame",{}),float(event.origin),game.map_epoch)
    9:game._announcement(str(data.name)+": "+str(data.text),true)
    10:
     var bytes:PackedByteArray=event.bytes
     if bytes.size()>=16:game.voice._receive_audio(bytes.decode_s64(0),bytes.decode_u32(8),bytes.slice(13),bytes[12]>0,bytes[12])
    12:
+    if services:
+     var error:String=services.transfer_control(12,data,Time.get_ticks_msec())
+     if not error.is_empty():game.disconnect_game(error);return
+     continue
     var hash:String=data.hash
     if hash!=requested_hash or not catalog.has(hash) or int(data.size)!=int(catalog[hash].size) or not download.is_empty():continue
     download={"hash":hash,"size":int(data.size),"bytes":PackedByteArray()}
    13:
+    if services:
+     var error:String=services.transfer_chunk(event.bytes,Time.get_ticks_msec())
+     if not error.is_empty():game.disconnect_game(error);return
+     continue
     var bytes:PackedByteArray=event.bytes
     if download.is_empty() or bytes.size()<4 or bytes.decode_u32(0)!=download.bytes.size() or download.bytes.size()+bytes.size()-4>download.size:game.disconnect_game("Invalid avatar transfer.");return
     download.bytes.append_array(bytes.slice(4))
-   14:_finish_avatar(data.hash)
+   14:
+    if services:
+     var error:String=services.transfer_control(14,data,Time.get_ticks_msec())
+     if not error.is_empty():game.disconnect_game(error);return
+    else:_finish_avatar(data.hash)
    16:
+    if services:
+     var error:String=services.transfer_control(16,data,Time.get_ticks_msec())
+     if not error.is_empty():game.disconnect_game(error);return
+     continue
     if data.get("busy",false) and upload.get("hash","")==data.hash:upload.retry=Time.get_ticks_msec()+2000
     elif data.get("upload",false) and upload.get("hash","")==data.hash:upload.allowed=true
     elif upload.get("hash","")==data.hash:
@@ -95,10 +147,29 @@ func _process(_delta:float)->void:
  if not active:return
  _transfers()
 func _catalog(rows:Array)->void:
+ if backend:
+  catalog=backend.catalog_update(rows)
+  if services:services.set_catalog(catalog)
+  return
  for row in rows:
   var hash:String=row.get("hash","")
   if game.avatars.Library.valid_hash(hash) and int(row.get("size",0))>=16 and int(row.get("size",0))<=25_000_000:catalog[hash]=row
 func _roster(rows:Array)->void:
+ if backend:
+  var pending:Array=services.pending_downloads() if services else download_queue
+  var plan:Dictionary=backend.roster_plan(rows,game.avatars.library.entries,pending,requested_hash,str(download.get("hash","")),game.players)
+  if not plan.ok:game.disconnect_game(plan.error);return
+  for id in plan.removed:game._peer_left(id);game.voice.remove_peer(id)
+  game.avatars.choices=plan.choices;game.avatars.library.pinned=plan.pinned
+  if services:services.queue_downloads(plan.downloads)
+  else:
+   for hash_value in plan.downloads:download_queue.append(hash_value)
+  game._roster(plan.rows)
+  game.weather._receive_seed(game.map_epoch,weather_seed)
+  for id in plan.choices:game.avatars.queue_avatar(id)
+  return
+ _roster_reference(rows)
+func _roster_reference(rows:Array)->void:
  var legacy:Array=[];var choices:Dictionary={}
  for row in rows:
   var id:=int(row.id);var hash:String=row.avatar
@@ -116,6 +187,9 @@ func action(kind:int,a:int=0,b:int=0,c:int=0)->void:
  if not active or not link:return
  var state:Dictionary=game.local_state()
  if state.is_empty():return
+ if backend:
+  for packet in backend.actions(kind,int(state.serial),a,b,c):link.send_control(8,packet)
+  return
  if kind==10:action(11,-1);action(12);return
  sequence+=1;link.send_control(8,{"life":int(state.serial),"seq":sequence,"kind":kind,"a":a,"b":b,"c":c})
 func voice(serial:int,bytes:PackedByteArray,scope:int)->void:
@@ -123,11 +197,27 @@ func voice(serial:int,bytes:PackedByteArray,scope:int)->void:
  var data:=PackedByteArray();data.resize(5);data.encode_u32(0,serial);data[4]=scope;data.append_array(bytes);link.send_bytes(10,data,2,false)
 func offer(hash:String)->void:
  if not link or not game.avatars.library.entries.has(hash):return
+ if services:
+  var row:Dictionary=game.avatars.library.entries[hash]
+  var error:String=services.offer(hash,row.path,int(row.size))
+  if not error.is_empty():game.status(error)
+  return
  if catalog.has(hash):link.send_control(17,{"hash":hash});return
  if not upload.is_empty():return
  var row:Dictionary=game.avatars.library.entries[hash]
  upload={"hash":hash,"path":row.path,"size":int(row.size),"offset":0,"allowed":false};link.send_control(15,{"hash":hash,"size":int(row.size)})
 func _transfers()->void:
+ if services:
+  for event in services.transfer_poll(Time.get_ticks_msec()):
+   if event.has("error"):game.disconnect_game(event.error);return
+   if event.has("installed"):
+    var info:Dictionary=event.installed;game.avatars.library.entries[info.hash]=info
+    for id in game.avatars.choices:
+     if game.avatars.choices[id].hash==info.hash:game.avatars.queue_avatar(id)
+   elif event.has("bytes"):services.upload_sent(link.send_bytes(int(event.type),event.bytes,int(event.channel),true)==OK)
+   else:
+    if link.send_control(int(event.type),event.data)!=OK:game.disconnect_game("Cannot send avatar transfer control.");return
+  return
  if not upload.is_empty() and upload.get("retry",0)>0 and Time.get_ticks_msec()>=upload.retry:
   upload.retry=0;link.send_control(15,{"hash":upload.hash,"size":upload.size})
  if requested_hash.is_empty() and download.is_empty() and not download_queue.is_empty():

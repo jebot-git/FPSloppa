@@ -1,0 +1,31 @@
+
+***Author Asia Carrera***
+http://www.asiacarrera.com
+
+Date: 06-29-2000
+Game: Unreal Tournament
+
+Info: 5 Female Commando Skins, Asia Black, Blue, Red, Green, and Gold (screenshots of each skin included)
+
+**Comments**
+ This is an expanded version of the 'AsiaBlueBlack' skins I released a month or so ago.  I was deluged with requests for skins using all the team colors, so here they are.  Because each skin is different from head to toe, you'll have to mix and match the team colors with the different faces (ie: team color 'Red' goes with the 'AsiaRed' face, etc.) to get the proper results for each botskin.  See the .jpgs included in this zipfile if you want to doublecheck yourself.
+
+
+**File List**
+FCommandoAsia.int
+FCommandoAsia.utx
+AsiaBlack.jpg
+AsiaBlue.jpg
+AsiaRed.jpg
+AsiaGreen.jpg
+AsiaGold.jpg
+Readme.txt
+
+**INSTALL Notes**
+   Put the  FCommandoAsia.utx  file in the Textures folder and the FCommandoAsia.int  file in the System Folder of  your Unreal Tournament Game.  
+   To share these skins when running a server, open UnrealTournament.ini  (in Unreal System folder), scroll down to the [Engine.GameEngine] heading and add this line to the list of shared package files:
+ServerPackages=FCommandoAsia
+   Then save it.  
+
+   Now go play!
+

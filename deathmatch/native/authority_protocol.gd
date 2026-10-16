@@ -2,7 +2,11 @@ extends RefCounted
 ## Versioned bounded wire for the resident core. Transport owns framing/compression.
 const MAX_FRAME:=1048576
 const MAX_PLAYERS:=128
+static var native_codec=preload("res://deathmatch/native/runtime.gd").codec()
 static func encode_input(c:Dictionary)->PackedByteArray:
+ if native_codec and native_codec.has_method("encode_authority_input") and not OS.get_cmdline_user_args().has("--gdscript-cq-input"):return native_codec.encode_authority_input(c)
+ return encode_input_reference(c)
+static func encode_input_reference(c:Dictionary)->PackedByteArray:
  var pose:Dictionary=c.get("xr",{});var tracked:=not pose.is_empty();var offhand:=tracked and pose.has("offhand_weapon")
  var redundant:bool=c.has("jump_event") or c.has("jetpack_event") or c.has("fire_event")
  var vr:bool=c.get("vr_device",tracked);var rewind:bool=c.has("view_time");var extended:bool=c.get("offhand_fire",false) or c.get("reload_trigger",false) or c.get("reload_grip",false) or c.has("weapon_held") or vr or tracked or c.get("jetpack",false) or rewind or c.get("cq_drag",false) or c.get("melee",false) or c.get("respawn",false) or redundant
@@ -35,6 +39,9 @@ static func _vector(bytes:PackedByteArray,offset:int)->Vector3:
 static func _transform(bytes:PackedByteArray,offset:int)->Transform3D:
  return Transform3D(Basis(_vector(bytes,offset),_vector(bytes,offset+12),_vector(bytes,offset+24)),_vector(bytes,offset+36))
 static func decode_frame(bytes:PackedByteArray)->Dictionary:
+ if native_codec and native_codec.has_method("decode_authority_frame") and not OS.get_cmdline_user_args().has("--gdscript-cq-frames"):return native_codec.decode_authority_frame(bytes)
+ return decode_frame_reference(bytes)
+static func decode_frame_reference(bytes:PackedByteArray)->Dictionary:
  if bytes.size()<14 or bytes.size()>MAX_FRAME:return {}
  var magic:=bytes.slice(0,4).get_string_from_ascii()
  if magic!="CQA1" and magic!="CQA2" and magic!="CQA3":return {}

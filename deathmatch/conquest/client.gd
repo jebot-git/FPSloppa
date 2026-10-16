@@ -89,4 +89,4 @@ func membership(rows: Array) -> void:
 	if game.players.has(mine) and mine not in visible:visible.append(mine)
 	for id in game.fighters:
 		game.fighters[id].visible=id in visible
-		if id not in visible:game.fighters[id].collision_layer=0;game.remote_interpolation.tracks.erase(id)
+		if id not in visible:game.fighters[id].collision_layer=0;game.remote_interpolation.erase(id)

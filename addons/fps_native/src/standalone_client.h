@@ -5,6 +5,7 @@
 #include <godot_cpp/classes/e_net_packet_peer.hpp>
 #include <godot_cpp/variant/dictionary.hpp>
 #include <vector>
+#include "snapshot_delta.h"
 // Scene/UI compatibility only. Network traffic belongs to FPSNativeClient.
 class FPSClientPeer:public godot::MultiplayerPeerExtension {
  GDCLASS(FPSClientPeer,godot::MultiplayerPeerExtension)
@@ -38,10 +39,12 @@ class FPSNativeClient:public godot::RefCounted {
  GDCLASS(FPSNativeClient,godot::RefCounted)
  godot::Ref<godot::ENetConnection>host_;godot::Ref<godot::ENetPacketPeer>remote_;godot::Ref<FPSClientPeer>scene_peer_;
  int64_t assembly_=-1,received_=-1;uint32_t raw_size_=0,packed_size_=0,epoch_=0;double origin_=0;size_t parts_received_=0;
+ bool delta_enabled_=false;cqsnapshot::History history_;
  std::vector<godot::PackedByteArray>parts_;
  godot::Array decode(const godot::PackedByteArray&);
 protected:static void _bind_methods();
 public:
+ godot::String snapshot_codec()const{return "row-xor-fastlz-v3";}
  godot::Error connect_host(const godot::String&,int);
  godot::Array poll();
  godot::Error send_control(int,const godot::Dictionary&);

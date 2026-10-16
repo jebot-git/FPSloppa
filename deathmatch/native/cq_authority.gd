@@ -1,5 +1,5 @@
 extends Node
-## Default dedicated CQ host. Godot owns admission/assets/transport/Jolt; C++ owns gameplay.
+## Legacy host adapter plus CQ frontend presentation. Production authority is cq-server.
 const Runtime=preload("res://deathmatch/native/runtime.gd")
 const Codec=preload("res://deathmatch/native/authority_protocol.gd")
 const Metadata=preload("res://deathmatch/native/cq_metadata.gd")
@@ -209,7 +209,12 @@ func receive_frame(frame:Dictionary,clock_origin:float,map_epoch:int)->void:
  var state:Array=Presentation.project(frame,clock_origin,map_epoch,game.time_limit)
  if state.is_empty():return
  var mine:int=game.multiplayer.get_unique_id()
- var was_staging:bool=client_frame.get("players",{}).get(mine,{}).get("staging",false)
+ var session=game.get("native_session") if "native_session" in game else null
+ var plan:Dictionary={}
+ if session and session.active and session.backend:
+  plan=session.backend.accept_frame(frame,clock_origin,map_epoch)
+  if not plan.accepted:return
+ var was_staging:bool=bool(plan.was_staging) if not plan.is_empty() else client_frame.get("players",{}).get(mine,{}).get("staging",false)
  client_frame=frame
  enabled=true;received_tick=tick;epoch=map_epoch;origin=clock_origin
  state[11]=game.votes.view
@@ -220,15 +225,20 @@ func receive_frame(frame:Dictionary,clock_origin:float,map_epoch:int)->void:
   if was_staging and not local.get("staging",false) and game.fighters.has(mine):
    var actor=game.fighters[mine];actor.prediction.clear();actor.position=local.position;actor.velocity=Vector3.ZERO;actor.reset_view();game.desired_weapon=local.weapon
    if game.is_vr():game.xr_rig.on_spawn()
- if not deployment_offered:
+ if (bool(plan.deployment_offer) if not plan.is_empty() else not deployment_offered):
   deployment_offered=true
   if OS.get_cmdline_user_args().has("--authority-client-report"):request(10)
   elif game.loadout_menu:game.loadout_menu.begin_deployment()
- if frame.mode.intermission>0 and frame.mode.epoch!=last_round:game._round_end_gong(map_epoch);last_round=frame.mode.epoch
- effects(frame)
- for id in frame.players:
-  var p:Dictionary=frame.players[id]
-  if p.dead and game.fighters.has(id) and not death_effects.has(str(id)+":"+str(p.life)):death_fx(id,p.life,p.position+Vector3.UP,p.gibbed,Vector3.UP,100,0,"",false)
+ if (bool(plan.round_end) if not plan.is_empty() else frame.mode.intermission>0 and frame.mode.epoch!=last_round):game._round_end_gong(map_epoch);last_round=frame.mode.epoch
+ effects({"events":plan.events} if not plan.is_empty() else frame)
+ if not plan.is_empty():
+  for row in plan.deaths:
+   var id:int=row.id;var p:Dictionary=row.player
+   if game.fighters.has(id):death_fx(id,p.life,p.position+Vector3.UP,p.gibbed,Vector3.UP,100,0,"",false)
+ else:
+  for id in frame.players:
+   var p:Dictionary=frame.players[id]
+   if p.dead and game.fighters.has(id) and not death_effects.has(str(id)+":"+str(p.life)):death_fx(id,p.life,p.position+Vector3.UP,p.gibbed,Vector3.UP,100,0,"",false)
 func effects(frame:Dictionary)->void:
  for seq in frame.get("events",{}):
   if seq<=last_event:continue

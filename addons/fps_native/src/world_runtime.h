@@ -65,6 +65,8 @@ protected:
   static void _bind_methods();
 
 public:
+  static Dictionary weather_sample(int64_t seed,double seconds);
+  static Dictionary weather_lightning(int64_t seed,double seconds);
   void grass_load(Vector2i coord, const PackedVector4Array &rows,
                   const PackedByteArray &kinds, AABB bounds);
   void grass_evict(Vector2i coord);

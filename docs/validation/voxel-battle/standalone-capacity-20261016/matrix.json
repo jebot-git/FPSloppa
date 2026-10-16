@@ -1,0 +1,142 @@
+[
+  {
+    "players": 64,
+    "configured_hz": 30,
+    "passed": true,
+    "checks": {
+      "server_exit": true,
+      "client_exit": true,
+      "admitted": true,
+      "tick_rate": true,
+      "snapshots": true,
+      "no_rejections": true,
+      "no_overflow": true,
+      "no_disconnect": true,
+      "four_classes_firing": true
+    },
+    "actual_hz": 29.999767959044778,
+    "callback_us": {
+      "max": 4693.5650000000005,
+      "mean": 1625.9402177777783,
+      "p50": 1522.879,
+      "p95": 2490.502,
+      "p99": 3074.366
+    },
+    "shots_by_class": [
+      1080,
+      336,
+      2560,
+      44
+    ],
+    "accepted_inputs": 230312,
+    "resource": {
+      "peak_rss_mib": 324.2421875,
+      "mean_cpu_one_core_percent": 13.680557360574607
+    }
+  },
+  {
+    "players": 64,
+    "configured_hz": 60,
+    "passed": true,
+    "checks": {
+      "server_exit": true,
+      "client_exit": true,
+      "admitted": true,
+      "tick_rate": true,
+      "snapshots": true,
+      "no_rejections": true,
+      "no_overflow": true,
+      "no_disconnect": true,
+      "four_classes_firing": true
+    },
+    "actual_hz": 59.99982099003409,
+    "callback_us": {
+      "max": 3960.697,
+      "mean": 1503.0033123611126,
+      "p50": 1435.8680000000002,
+      "p95": 2221.7920000000004,
+      "p99": 2787.109
+    },
+    "shots_by_class": [
+      1200,
+      323,
+      2400,
+      42
+    ],
+    "accepted_inputs": 460697,
+    "resource": {
+      "peak_rss_mib": 324.3828125,
+      "mean_cpu_one_core_percent": 18.810245023575785
+    }
+  },
+  {
+    "players": 128,
+    "configured_hz": 30,
+    "passed": true,
+    "checks": {
+      "server_exit": true,
+      "client_exit": true,
+      "admitted": true,
+      "tick_rate": true,
+      "snapshots": true,
+      "no_rejections": true,
+      "no_overflow": true,
+      "no_disconnect": true,
+      "four_classes_firing": true
+    },
+    "actual_hz": 29.999038625309026,
+    "callback_us": {
+      "max": 9324.535,
+      "mean": 2984.170263333326,
+      "p50": 2686.411,
+      "p95": 5303.986,
+      "p99": 6783.486
+    },
+    "shots_by_class": [
+      2160,
+      756,
+      4480,
+      69
+    ],
+    "accepted_inputs": 460524,
+    "resource": {
+      "peak_rss_mib": 368.85546875,
+      "mean_cpu_one_core_percent": 32.93763051766842
+    }
+  },
+  {
+    "players": 128,
+    "configured_hz": 60,
+    "passed": true,
+    "checks": {
+      "server_exit": true,
+      "client_exit": true,
+      "admitted": true,
+      "tick_rate": true,
+      "snapshots": true,
+      "no_rejections": true,
+      "no_overflow": true,
+      "no_disconnect": true,
+      "four_classes_firing": true
+    },
+    "actual_hz": 59.997212678991986,
+    "callback_us": {
+      "max": 8653.799,
+      "mean": 2578.5697679166715,
+      "p50": 2361.879,
+      "p95": 4370.58,
+      "p99": 5943.3589999999995
+    },
+    "shots_by_class": [
+      2400,
+      882,
+      4160,
+      59
+    ],
+    "accepted_inputs": 921218,
+    "resource": {
+      "peak_rss_mib": 383.2578125,
+      "mean_cpu_one_core_percent": 40.83880940367184
+    }
+  }
+]

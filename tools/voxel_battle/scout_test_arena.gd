@@ -29,7 +29,7 @@ func _process(delta:float)->void:
  if resident.serving() or not active or resident.client_frame.is_empty():return
  var mine:int=multiplayer.get_unique_id()
  if not fixture_ready and clock>=fixture_request_at:
-  fixture_request_at=clock+1.;_reset_scout_test.rpc_id(1,map_epoch)
+  fixture_request_at=clock+1.;request_scout_reset()
  var state:Dictionary=resident.client_frame.players.get(mine,{})
  var allies:Array=resident.client_frame.players.keys().filter(func(id):return id<0 and resident.client_frame.players[id]["class"].role==3)
  if state.is_empty() or state["class"].role!=1 or allies.is_empty():return
@@ -41,7 +41,7 @@ func _process(delta:float)->void:
   if xr_rig:xr_rig.calibration_pending=false;xr_rig.recenter()
   menu_open=false
   if hud:
-   hud.show_menu(false);hud.button(hud.menu_pages.pages.home,"RESET SCOUT TEST",func():_reset_scout_test.rpc_id(1,map_epoch))
+   hud.show_menu(false);hud.button(hud.menu_pages.pages.home,"RESET SCOUT TEST",func():request_scout_reset())
   print("CQ_SCOUT_TEST_CLIENT_READY ",JSON.stringify({"primary":state.weapon,"utility":"cloak","technician":preview_technician,"technician_distance_xz":Vector2(technician.position.x-state.position.x,technician.position.z-state.position.z).length()}))
  var args:=OS.get_cmdline_user_args();var index:=args.find("--scout-test-check")
  if index>=0 and not fixture_checks_done:
@@ -70,6 +70,9 @@ func draw_class_tools()->void:
    var offset:Vector3=_shot_solution(multiplayer.get_unique_id()).origin-solution.origin
    for index in range(preview_points.size()-4,preview_points.size()):preview_points[index]+=offset
  preview_mesh=line_visual(preview_points,Color(.4,1,.8,.85),preview_mesh,.012)
+func request_scout_reset()->void:
+ if native_session.active:native_session.link.send_control(22,{"fixture":"scout","epoch":map_epoch})
+ else:_reset_scout_test.rpc_id(1,map_epoch)
 @rpc("any_peer","call_remote","reliable",0)
 func _reset_scout_test(epoch:int)->void:
  if not resident.serving() or epoch!=map_epoch or clock<fixture_reset_at:return
@@ -84,7 +87,7 @@ func _reset_scout_test(epoch:int)->void:
  print("CQ_SCOUT_TEST_READY ",JSON.stringify({"scout":id,"technician":technician,"technician_position":row.technician.position}))
 func _unhandled_input(event:InputEvent)->void:
  if event is InputEventKey and event.pressed and not event.echo and event.physical_keycode==KEY_F8 and active and not resident.serving():
-  _reset_scout_test.rpc_id(1,map_epoch);return
+  request_scout_reset();return
  super._unhandled_input(event)
 func finish_check(code:int)->void:
  disconnect_game();await get_tree().process_frame;get_tree().quit(code)

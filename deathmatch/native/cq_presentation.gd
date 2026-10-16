@@ -5,7 +5,11 @@ const PRIMARY=[4,9,3,5]
 const ADVANCED=[1,10,12,11]
 const THIRD=[14,16,13,15]
 const UTILITY=[["jetpack","airstrike"],["recon","recon_drone"],["medical","healing_grenade"],["engineering","turret"]]
+static var native_codec=preload("res://deathmatch/native/runtime.gd").codec()
 static func project(frame:Dictionary,origin:float,epoch:int,duration:float)->Array:
+ if native_codec and native_codec.has_method("project_authority_frame") and not OS.get_cmdline_user_args().has("--gdscript-cq-presentation"):return native_codec.project_authority_frame(frame,origin,epoch,duration)
+ return project_reference(frame,origin,epoch,duration)
+static func project_reference(frame:Dictionary,origin:float,epoch:int,duration:float)->Array:
  var mode:Dictionary={"kind":"tdm","scores":frame.mode.scores,"bases":[],"flags":[],"hill":Vector3.ZERO,"owner":-1,"friendly_fire":false,"announcer":false,"weapon_rules":"ut99","locomotion":{},"movement_ack":{},"ordnance":{},"cq_points":{"scores":frame.mode.scores,"winner":frame.mode.winner},"class_mode":{"clock":origin+frame.mode.time,"lighting_time":frame.mode.lighting_time}}
  var players:Array=[];var shots:Array=[];var watermark:=-1
  for id in frame.players:

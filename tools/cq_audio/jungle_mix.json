@@ -62,6 +62,20 @@
       "overlap": 8,
       "highpass": 180,
       "phase": 43.0
+    },
+    "daytime_insects": {
+      "author": "hdfreema",
+      "license": "CC0-1.0",
+      "page": "https://freesound.org/people/hdfreema/sounds/333221/",
+      "file": "night.mp3",
+      "sha256": "7429a4e5b023514f9d9ec313d0ec3d3304e69525b1d3689378d9809d4635128a",
+      "start": 60,
+      "seconds": 128,
+      "overlap": 0,
+      "highpass": 1800,
+      "lowpass": 8500,
+      "phase": 0.0,
+      "source_quality": "Freesound public HQ MP3 preview; existing cached source"
     }
   },
   "mixes": {
@@ -69,18 +83,11 @@
       "rms_dbfs": -32,
       "layers": [
         {
-          "source": "jungle_peru_day",
+          "source": "daytime_insects",
           "gain_db": -6
-        },
-        {
-          "source": "jungle_lacandon",
-          "gain_db": -16
-        },
-        {
-          "source": "jungle_anne82",
-          "gain_db": -22
         }
-      ]
+      ],
+      "edit": "Daytime bird-call layers removed following repeated rooster report. Insect-only replacement from hdfreema CC0 recording, 60\u2013188s; Audacity MCP 1.8kHz high-pass / 8.5kHz low-pass, 8s equal-power loop join, RMS matched to previous -32dBFS."
     },
     "night": {
       "rms_dbfs": -34,
@@ -101,6 +108,9 @@
     }
   },
   "excluded_layers": {
-    "jungle_costa_rica": "Removed from runtime mixes after rooster report; strongest poultry/crowing classifier response in supplied excerpts, around 38\u201343 seconds of original. Original retained unchanged."
+    "jungle_costa_rica": "Removed from runtime mixes after rooster report; strongest poultry/crowing classifier response in supplied excerpts, around 38\u201343 seconds of original. Original retained unchanged.",
+    "jungle_peru_day": "Excluded from daytime after repeated crowing report; original recording and nighttime mix retained.",
+    "jungle_lacandon": "Excluded from daytime after repeated crowing report; original recording and nighttime mix retained.",
+    "jungle_anne82": "Excluded from daytime after repeated crowing report; original recording and nighttime mix retained."
   }
 }

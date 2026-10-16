@@ -91,14 +91,7 @@ func run():
   var rows:Array=preload("res://tools/voxel_battle/collapse_assets.gd").rubble_rows(building,game.match_mode.objectives.sites)
   for row in rows:row.center+=Landscape.CENTERS[building.kind]
   rubble.append(value(rows))
- var avatars:Array=[]
- for filename in DirAccess.get_files_at("res://deathmatch/avatars/models/base"):
-  if not filename.ends_with(".utavatar"):continue
-  var source:="res://deathmatch/avatars/models/base/"+filename
-  var parsed:=preload("res://deathmatch/avatars/ut_format.gd").read(source);assert(not parsed.has("error"))
-  var hash_value:=FileAccess.get_sha256(source);var bytes:=FileAccess.get_file_as_bytes(source)
-  FileAccess.open(output+"/avatars/"+hash_value+".utavatar",FileAccess.WRITE).store_buffer(bytes)
-  avatars.append({"hash":hash_value,"size":bytes.size(),"filename":filename,"reach":parsed.manifest.get("ik_profile",{})})
+ var avatars:Array=preload("res://tools/standalone_server/bundled_avatars.gd").cook(output)
  var bins_source:Dictionary={};var source_paths:Array=["res://tools/voxel_battle/landscape.gd","res://tools/voxel_battle/architecture.gd","res://tools/voxel_battle/outer_architecture.gd","res://tools/voxel_battle/hydrology.gd","res://tools/voxel_battle/jungle_navigation.gd","res://tools/voxel_battle/structural_integrity.gd","res://tools/voxel_battle/collapse_assets.gd","res://deathmatch/weapons/cq/manifest.json"]
  for path in game.map_sources():source_paths.append(path)
  for path in source_paths:bins_source[path]=FileAccess.get_sha256(path)

@@ -1,0 +1,55 @@
+{
+  "suites": [
+    {
+      "suite": "native_vr_interaction",
+      "checks": 16949,
+      "failures": []
+    },
+    {
+      "suite": "native_weather",
+      "checks": 26101,
+      "failures": []
+    },
+    {
+      "suite": "cq_stock_foveation",
+      "checks": 23,
+      "failures": []
+    },
+    {
+      "suite": "native_client_services",
+      "checks": 121,
+      "failures": []
+    },
+    {
+      "suite": "native_client_session",
+      "checks": 1207,
+      "failures": []
+    },
+    {
+      "suite": "native_client_state",
+      "checks": 239,
+      "failures": []
+    },
+    {
+      "suite": "native_client_protocol",
+      "checks": 221,
+      "failures": []
+    },
+    {
+      "suite": "native_client_presentation",
+      "checks": 106,
+      "failures": []
+    },
+    {
+      "suite": "native_remote_interpolation",
+      "checks": 13211,
+      "failures": []
+    },
+    {
+      "suite": "native_network_packing",
+      "checks": 26925,
+      "failures": []
+    }
+  ],
+  "checks": 85103
+}

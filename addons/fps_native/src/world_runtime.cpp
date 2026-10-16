@@ -449,6 +449,8 @@ Dictionary FPSWorld::buildings_select(Vector3 position, const Array &planes,
   return result;
 }
 void FPSWorld::_bind_methods() {
+  ClassDB::bind_static_method("FPSWorld",D_METHOD("weather_sample","seed","seconds"),&FPSWorld::weather_sample);
+  ClassDB::bind_static_method("FPSWorld",D_METHOD("weather_lightning","seed","seconds"),&FPSWorld::weather_lightning);
   ClassDB::bind_method(
       D_METHOD("grass_contains", "point", "tile_side", "world_extent"),
       &FPSWorld::grass_contains);
@@ -500,4 +502,32 @@ void FPSWorld::_bind_methods() {
                        &FPSWorld::terrain_samples);
   ClassDB::bind_method(D_METHOD("terrain_surface", "x", "z"),
                        &FPSWorld::terrain_surface);
+}
+
+namespace {
+uint64_t weather_hash(int64_t seed,int64_t index){
+ uint64_t n=(uint64_t(seed)^((uint64_t(index)+104729u)*374761393u))&0x7fffffffu;
+ n=((n^(n>>13))*1274126177u)&0x7fffffffu;return (n^(n>>16))&0x7fffffffu;
+}
+int weather_mode(int64_t seed,int64_t index){auto roll=weather_hash(seed,index+1)%100;return roll<40?0:roll<60?1:roll<85?2:3;}
+Vector4 weather_profile(int64_t seed,int64_t index){
+ static const Vector4 profiles[]={{.00012,0,0,0},{.006,0,.5,0},{.0018,.65,.8,0},{.0032,1,1,1}};
+ static const Vector2 fog[]={{.00006,.00028},{.0025,.01},{.0007,.003},{.0014,.005}},rain[]={{0,0},{0,0},{.25,.85},{.65,1}};
+ int mode=weather_mode(seed,index);Vector4 result=profiles[mode];
+ double f=double(weather_hash(seed,index*3+200001)%65536)/65535.,r=double(weather_hash(seed,index*3+200002)%65536)/65535.;
+ result.x=fog[mode].x+(fog[mode].y-fog[mode].x)*f;result.y=rain[mode].x+(rain[mode].y-rain[mode].x)*r;return result;
+}
+}
+Dictionary FPSWorld::weather_sample(int64_t seed,double seconds){
+ double t=std::max(0.,seconds)-(120.+double(weather_hash(seed,0)%720));int64_t index=int64_t(std::floor(t/1200.));
+ int current=weather_mode(seed,index),previous=index>=0?weather_mode(seed,index-1):current;
+ double phase=std::fmod(t,1200.);if(phase<0)phase+=1200.;double blend=index>=0?std::clamp(phase/45.,0.,1.):1.;blend=blend*blend*(3.-2.*blend);
+ Vector4 target=weather_profile(seed,index),prior=index>=0?weather_profile(seed,index-1):target;
+ Dictionary result;result["mode"]=current;result["previous"]=previous;result["blend"]=blend;result["opportunity"]=index;result["target"]=target;result["values"]=prior.lerp(target,blend);return result;
+}
+Dictionary FPSWorld::weather_lightning(int64_t seed,double seconds){
+ int64_t index=int64_t(std::floor(std::max(0.,seconds)/20.));auto value=weather_hash(seed,index+500001);
+ double at=index*20.+2.+double(value%8000)/1000.,age=seconds-at;
+ double flash=std::max(0.,1.-std::abs(age-.045)/.045)+.6*std::max(0.,1.-std::abs(age-.21)/.09);
+ Dictionary result;result["id"]=index;result["at"]=at;result["flash"]=flash;result["angle"]=double(value%6283)/1000.;result["distance"]=250.+double(value%450);return result;
 }

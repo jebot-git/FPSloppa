@@ -10,11 +10,14 @@ class FPSCodec : public RefCounted {
 protected:
  static void _bind_methods();
 public:
+ Array project_authority_frame(const Dictionary &frame,double origin,int64_t epoch,double duration) const;
+ PackedByteArray encode_authority_input(const Dictionary &command) const;
+ Dictionary decode_authority_frame(const PackedByteArray &bytes) const;
  bool validate_authority_frame(const PackedByteArray &bytes,int expected,int64_t tick) const;
  PackedByteArray encode(const Variant &value) const;
  PackedByteArray pack_input(const Dictionary &command) const;
  Array encode_records(const Array &records) const;
- Dictionary pack_records(const Array &records,const Array &header) const;
+ Dictionary pack_records(const Array &records,const Array &header,bool compression=false) const;
  Variant decode(const PackedByteArray &bytes) const;
 };
 }

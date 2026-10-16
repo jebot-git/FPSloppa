@@ -538,6 +538,7 @@ static func map_sources()->Array:
 	var paths:Array=[]
 	for file in ["landscape","architecture","outer_architecture","hydrology","waterways","map","stair_ramps","water_contents","baked_lighting","jungle_sky","light_fixtures","weather_schedule","weather","grass_cover","destruction","structural_integrity","collapse_assets"]:paths.append("res://tools/voxel_battle/"+file+".gd")
 	paths.append_array(["res://experimental-assets/jungle/lighting/bake.json","res://experimental-assets/jungle/lighting/irradiance.png","res://experimental-assets/jungle/lighting/dawn.png","res://experimental-assets/jungle/lighting/skybox.png","res://tools/voxel_battle/baked_lighting.gdshaderinc","res://tools/voxel_battle/jungle_sky.gdshader","res://tools/voxel_battle/collapse_dust.gdshader","res://tools/voxel_battle/collapse_rubble.gdshader"])
+	paths.append_array(preload("res://tools/voxel_battle/rock_cover.gd").sources())
 	return paths
 static func map_identity() -> String:
 	var digest:=HashingContext.new();digest.start(HashingContext.HASH_SHA256)

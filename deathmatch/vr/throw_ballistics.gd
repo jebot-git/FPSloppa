@@ -1,7 +1,10 @@
 extends RefCounted
 const MAX_SPEED:=40.0
 const GRAVITY:=20.0
+static func native_enabled()->bool:
+	return preload("res://deathmatch/native/runtime.gd").available("FPSVRInteraction") and not OS.get_cmdline_user_args().has("--gdscript-vr-interactions")
 static func launch(hand_velocity: Vector3) -> Vector3:
+	if native_enabled():return ClassDB.class_call_static("FPSVRInteraction","launch",hand_velocity)
 	if not hand_velocity.is_finite():return Vector3.ZERO
 	var bounded:=hand_velocity.limit_length(12)
 	# Preserve gentle drops; deliberate swings receive enough gain for ranged
@@ -9,12 +12,14 @@ static func launch(hand_velocity: Vector3) -> Vector3:
 	var gain:=lerpf(1.0,4.8,clampf((bounded.length()-.65)/1.35,0,1))
 	return (bounded*gain).limit_length(MAX_SPEED)
 static func guided(pose: Dictionary,hand_velocity: Vector3) -> Vector3:
+	if native_enabled():return ClassDB.class_call_static("FPSVRInteraction","guided",pose.weapon,hand_velocity) if pose.has("weapon") else launch(hand_velocity)
 	var velocity:=launch(hand_velocity)
 	if velocity.length()<.8 or not pose.has("weapon"):return velocity
 	# Free-hand aim supplies direction, throwing motion supplies power.
 	# All physical grenade authorities share this rule; gentle drops stay physical.
 	return -pose.weapon.basis.z.normalized()*velocity.length()
 static func arc(space: PhysicsDirectSpaceState3D,start: Vector3,velocity: Vector3,duration: float,gravity: float=GRAVITY) -> PackedVector3Array:
+	if native_enabled():return ClassDB.class_call_static("FPSVRInteraction","arc",space,start,velocity,duration,gravity)
 	var result:=PackedVector3Array([start])
 	# Reuse one sweep query across the preview; only its transform/motion change.
 	var query:=PhysicsShapeQueryParameters3D.new();var sphere:=SphereShape3D.new();sphere.radius=.12

@@ -25,7 +25,12 @@ static func profile_at(seed_value:int,index:int)->Vector4:
  profile.x=lerpf(FOG_RANGES[mode].x,FOG_RANGES[mode].y,fog)
  profile.y=lerpf(RAIN_RANGES[mode].x,RAIN_RANGES[mode].y,rain)
  return profile
+static func native_enabled()->bool:
+ return preload("res://deathmatch/native/runtime.gd").available("FPSWorld") and ClassDB.class_has_method("FPSWorld","weather_sample") and not OS.get_cmdline_user_args().has("--gdscript-weather")
 static func sample(seed_value:int,seconds:float)->Dictionary:
+ if native_enabled():return ClassDB.class_call_static("FPSWorld","weather_sample",seed_value,seconds)
+ return sample_reference(seed_value,seconds)
+static func sample_reference(seed_value:int,seconds:float)->Dictionary:
  var t:=maxf(0,seconds)-change_offset(seed_value)
  var index:=floori(t/DAY_SECONDS)
  var current:=mode_at(seed_value,index)
@@ -35,6 +40,9 @@ static func sample(seed_value:int,seconds:float)->Dictionary:
  var prior:=profile_at(seed_value,index-1) if index>=0 else target
  return {"mode":current,"previous":previous,"blend":blend,"opportunity":index,"target":target,"values":prior.lerp(target,blend)}
 static func lightning(seed_value:int,seconds:float)->Dictionary:
+ if native_enabled():return ClassDB.class_call_static("FPSWorld","weather_lightning",seed_value,seconds)
+ return lightning_reference(seed_value,seconds)
+static func lightning_reference(seed_value:int,seconds:float)->Dictionary:
  var index:=floori(maxf(0,seconds)/20.)
  var value:=hash_value(seed_value,index+500001)
  var strike_at:=index*20.+2.+float(value%8000)/1000.

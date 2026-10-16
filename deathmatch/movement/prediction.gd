@@ -29,6 +29,11 @@ func remember(sequence: int,position: Vector3,velocity: Vector3,height: float=-1
 	while reference_samples.size()>CAPACITY:reference_samples.erase(reference_samples.keys()[0])
 
 func reconcile(actor,sequence: int,position: Vector3,velocity: Vector3,height: float=-1.0,grounded: bool=false,jetpack: Dictionary={},stamina:float=-1.0) -> void:
+	if native_motion and native_motion.has_method("prediction_reconcile") and not OS.get_cmdline_user_args().has("--gdscript-reconciliation"):
+		native_motion.prediction_reconcile(actor,sequence,position,velocity,height,grounded,jetpack,stamina,actor.CS16.JUMP_STAMINA);return
+	reconcile_reference(actor,sequence,position,velocity,height,grounded,jetpack,stamina)
+
+func reconcile_reference(actor,sequence:int,position:Vector3,velocity:Vector3,height:float=-1.0,grounded:bool=false,jetpack:Dictionary={},stamina:float=-1.0)->void:
 	if native_motion:
 		var result:Dictionary=native_motion.prediction_begin(actor,sequence,position,velocity,grounded)
 		if result.is_empty():return

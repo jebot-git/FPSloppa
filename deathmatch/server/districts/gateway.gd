@@ -325,7 +325,7 @@ func replicate(state: Array) -> void:
 		if id<0 or o.phase!="active" or not workers.has(o.zone):continue
 		var snapshot:=scoped(state,id)
 		if o.baseline:
-			var bytes:=Codec.pack(snapshot)
+			var bytes:=Codec.pack(snapshot,Codec.compression_for(snapshot))
 			if bytes.is_empty():fail("District baseline too large");return
 			game._cq_baseline.rpc_id(id,game.map_epoch,o.generation,bytes);o.baseline=false;stats.baselines+=1
 		if not streams.has(id):streams[id]=Replication.new()

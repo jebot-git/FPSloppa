@@ -401,6 +401,8 @@ void FPSMovement::prediction_finish(int64_t sequence, Vector3 correction,
   }
 }
 void FPSMovement::_bind_methods() {
+  ClassDB::bind_method(D_METHOD("snapshot_apply_fields","rows","players","fighters","mine","clock"),&FPSMovement::snapshot_apply_fields);
+  ClassDB::bind_method(D_METHOD("prediction_reconcile","actor","sequence","position","velocity","height","grounded","jetpack","stamina","max_stamina"),&FPSMovement::prediction_reconcile);
   ClassDB::bind_method(D_METHOD("prediction_clear"),
                        &FPSMovement::prediction_clear);
   ClassDB::bind_method(D_METHOD("prediction_remember", "sequence", "position",

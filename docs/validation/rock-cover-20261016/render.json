@@ -1,0 +1,114 @@
+{
+  "batches": 202,
+  "capture_resolution": [
+    1152,
+    720
+  ],
+  "cpu": "Intel(R) N95",
+  "gpu": "Intel(R) Graphics (ADL-N)",
+  "renderer": "forward_plus",
+  "reported_texture_size": [
+    921,
+    576
+  ],
+  "requested_window_size": [
+    1280,
+    720
+  ],
+  "rocks": 225,
+  "rows": [
+    {
+      "position": [
+        -369.864013671875,
+        68.9369888305664,
+        -216.320877075195
+      ],
+      "tag": "outcrop",
+      "with_rocks": {
+        "draw_calls": 65.0,
+        "frame": {
+          "max_ms": 8.885,
+          "p50_ms": 7.996,
+          "p95_ms": 8.71
+        },
+        "primitives": 203103.0,
+        "render_cpu": {
+          "max_ms": 3.59699988365173,
+          "p50_ms": 0.810999989509583,
+          "p95_ms": 1.34399998188019
+        },
+        "render_gpu": {
+          "max_ms": 6.42700004577637,
+          "p50_ms": 6.07200002670288,
+          "p95_ms": 6.40899991989136
+        }
+      },
+      "without_rocks": {
+        "draw_calls": 48.0,
+        "frame": {
+          "max_ms": 10.879,
+          "p50_ms": 8.132,
+          "p95_ms": 8.955
+        },
+        "primitives": 202064.0,
+        "render_cpu": {
+          "max_ms": 1.55099999904633,
+          "p50_ms": 0.754999995231628,
+          "p95_ms": 1.04799997806549
+        },
+        "render_gpu": {
+          "max_ms": 6.45599985122681,
+          "p50_ms": 6.15500020980835,
+          "p95_ms": 6.42700004577637
+        }
+      }
+    },
+    {
+      "position": [
+        -559.015930175781,
+        27.5799999237061,
+        -564.774475097656
+      ],
+      "tag": "river",
+      "with_rocks": {
+        "draw_calls": 67.0,
+        "frame": {
+          "max_ms": 9.181,
+          "p50_ms": 7.426,
+          "p95_ms": 8.019
+        },
+        "primitives": 84038.0,
+        "render_cpu": {
+          "max_ms": 3.69400000572205,
+          "p50_ms": 0.810000002384186,
+          "p95_ms": 1.10500001907349
+        },
+        "render_gpu": {
+          "max_ms": 5.74700021743774,
+          "p50_ms": 5.43100023269653,
+          "p95_ms": 5.71600008010864
+        }
+      },
+      "without_rocks": {
+        "draw_calls": 53.0,
+        "frame": {
+          "max_ms": 10.485,
+          "p50_ms": 7.212,
+          "p95_ms": 8.063
+        },
+        "primitives": 83409.0,
+        "render_cpu": {
+          "max_ms": 3.81200003623962,
+          "p50_ms": 0.73199999332428,
+          "p95_ms": 0.961000025272369
+        },
+        "render_gpu": {
+          "max_ms": 5.80200004577637,
+          "p50_ms": 5.41900014877319,
+          "p95_ms": 5.75099992752075
+        }
+      }
+    }
+  ],
+  "scope": "Settled full-map renderer, paired fixed-view 100-frame samples after 25 warmup frames; rock visibility only changes. No avatars, networking or gameplay. Development machine only; no target-machine FPS claim."
+}

@@ -1,0 +1,171 @@
+{
+  "cases": [
+    {
+      "players": 64,
+      "configured_hz": 30,
+      "achieved_hz": 29.999767959044778,
+      "passed": true,
+      "mean_tick_ms": 1.6259402177777784,
+      "p95_tick_ms": 2.4905019999999998,
+      "p99_tick_ms": 3.074366,
+      "max_tick_ms": 4.693565,
+      "p95_interval_ms": 34.08556699999998,
+      "max_interval_ms": 34.388534000001414,
+      "cpu_one_core_percent": 13.680557360574607,
+      "peak_rss_mib": 324.2421875,
+      "minimum_snapshot_hz": 19.999649527075785,
+      "max_snapshot_gap_ms": 71.14831499999852,
+      "accepted_inputs": 230312,
+      "shots": 4020,
+      "payload_mbit_s": 129.14694347960267,
+      "old_mean_tick_ms": 6.98432611111111,
+      "old_p95_tick_ms": 14.793,
+      "old_cpu_one_core_percent": 30.82128571546232,
+      "old_peak_rss_mib": 438.1015625,
+      "mean_tick_reduction_percent": 76.72015607645912
+    },
+    {
+      "players": 64,
+      "configured_hz": 60,
+      "achieved_hz": 59.99982099003409,
+      "passed": true,
+      "mean_tick_ms": 1.5030033123611126,
+      "p95_tick_ms": 2.221792,
+      "p99_tick_ms": 2.787109,
+      "max_tick_ms": 3.960697,
+      "p95_interval_ms": 17.394822999989405,
+      "max_interval_ms": 17.808932999997747,
+      "cpu_one_core_percent": 18.810245023575785,
+      "peak_rss_mib": 324.3828125,
+      "minimum_snapshot_hz": 19.999695722060515,
+      "max_snapshot_gap_ms": 54.474904000002766,
+      "accepted_inputs": 460697,
+      "shots": 3965,
+      "payload_mbit_s": 131.73832909093068,
+      "old_mean_tick_ms": 4.41098583530065,
+      "old_p95_tick_ms": 9.403,
+      "old_cpu_one_core_percent": 41.48908494955259,
+      "old_peak_rss_mib": 442.30859375,
+      "mean_tick_reduction_percent": 65.92590934360439
+    },
+    {
+      "players": 128,
+      "configured_hz": 30,
+      "achieved_hz": 29.999038625309026,
+      "passed": true,
+      "mean_tick_ms": 2.984170263333326,
+      "p95_tick_ms": 5.303986,
+      "p99_tick_ms": 6.783486,
+      "max_tick_ms": 9.324535,
+      "p95_interval_ms": 34.15055499999653,
+      "max_interval_ms": 41.652149999997334,
+      "cpu_one_core_percent": 32.93763051766842,
+      "peak_rss_mib": 368.85546875,
+      "minimum_snapshot_hz": 19.97760491396096,
+      "max_snapshot_gap_ms": 104.96237600000313,
+      "accepted_inputs": 460524,
+      "shots": 7465,
+      "payload_mbit_s": 464.44539545474527,
+      "old_mean_tick_ms": 14.7715890030547,
+      "old_p95_tick_ms": 35.067,
+      "old_cpu_one_core_percent": 55.41756990542525,
+      "old_peak_rss_mib": 442.1171875,
+      "mean_tick_reduction_percent": 79.79790621905191
+    },
+    {
+      "players": 128,
+      "configured_hz": 60,
+      "achieved_hz": 59.997212678991986,
+      "passed": true,
+      "mean_tick_ms": 2.5785697679166715,
+      "p95_tick_ms": 4.37058,
+      "p99_tick_ms": 5.943358999999999,
+      "max_tick_ms": 8.653799000000001,
+      "p95_interval_ms": 18.752378999998598,
+      "max_interval_ms": 39.43232399999985,
+      "cpu_one_core_percent": 40.83880940367184,
+      "peak_rss_mib": 383.2578125,
+      "minimum_snapshot_hz": 19.983572114379974,
+      "max_snapshot_gap_ms": 110.50915400000072,
+      "accepted_inputs": 921218,
+      "shots": 7501,
+      "payload_mbit_s": 470.476591896478,
+      "old_mean_tick_ms": null,
+      "old_p95_tick_ms": null
+    }
+  ],
+  "details": [
+    {
+      "case": "64/30",
+      "historical_source": "docs/validation/voxel-battle/resident-cq-complete-20261014/vps/64-normal/server.json",
+      "shots_by_class": [
+        1080,
+        336,
+        2560,
+        44
+      ],
+      "phase_mean_ms": {
+        "movement_us": 0.8852408697222217,
+        "combat_us": 0.4043507769444437,
+        "mode_us": 0.0023644780555555503,
+        "encoding_us": 0.05959129055555556,
+        "jolt_update_us": 0.11313762666666649,
+        "publication_us": 0.1559677980555556
+      }
+    },
+    {
+      "case": "64/60",
+      "historical_source": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-64-60-final/server.json",
+      "shots_by_class": [
+        1200,
+        323,
+        2400,
+        42
+      ],
+      "phase_mean_ms": {
+        "movement_us": 0.8758774080555543,
+        "combat_us": 0.3971600669444445,
+        "mode_us": 0.002468045000000015,
+        "encoding_us": 0.0304507797222222,
+        "jolt_update_us": 0.1125081741666667,
+        "publication_us": 0.07957060111111114
+      }
+    },
+    {
+      "case": "128/30",
+      "historical_source": "docs/validation/voxel-battle/capacity-128-60hz-20261015/load-20261015-128-reload/server.json",
+      "shots_by_class": [
+        2160,
+        756,
+        4480,
+        69
+      ],
+      "phase_mean_ms": {
+        "movement_us": 1.5815489036111168,
+        "combat_us": 0.685531749722222,
+        "mode_us": 0.0027231127777777725,
+        "encoding_us": 0.09760130916666673,
+        "jolt_update_us": 0.20827847305555575,
+        "publication_us": 0.39720250388888884
+      }
+    },
+    {
+      "case": "128/60",
+      "historical_source": null,
+      "shots_by_class": [
+        2400,
+        882,
+        4160,
+        59
+      ],
+      "phase_mean_ms": {
+        "movement_us": 1.5336388800000007,
+        "combat_us": 0.6329135218055549,
+        "mode_us": 0.002376533333333343,
+        "encoding_us": 0.04950849208333333,
+        "jolt_update_us": 0.13924466625000015,
+        "publication_us": 0.20908361458333338
+      }
+    }
+  ]
+}

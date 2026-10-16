@@ -1,0 +1,271 @@
+<?xml version="1.0"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-GB" lang="en-GB"><head><title></title><meta name="keywords" content="Advanced Model Support, AMS, Unreal Tournament, UT, mod, modification, plugin player model, PPM, Paradox Productions, Psychic_313" /><meta name="description" value="Advanced Model Support is a free modification for Unreal Tournament enabling the use of
+new custom models. Modellers who use AMS in their models benefit from easy scripting with full support
+for custom skins, greater team-colour versatility than Epic's TournamentPlayer and SkeletalPlayer
+classes, and support for scripted skins allowing experienced skinners to alter the model's display
+settings. AMS also includes Epic skeletal animations from the Playstation 2 version of UT, both Male and
+Female versions, meaning AMS models shouldn't need Bonus Pack 4. UT players should download the basic AMS
+package, and modellers should download the SDK as well." /><style>
+.eg { border: thin solid blue; color: #003; background-color: #ccf }
+.bad { border: thin solid red; color: #300; background-color: #fcc }
+.linux { border: thin solid yellow; color: #330; background-color: #ffc }
+.strike { text-decoration:line-through; }
+img.f {float:left;clear:all}
+dt {font-weight: bold; color: #006}
+</style><meta name="Author" value="Simon McVittie" /></head><body><div class="t">
+
+<h1 class="hd">Advanced Model Support version 110</h1>
+<h3>by Simon &quot;Psychic_313&quot; McVittie</h3>
+<img title="[Advanced Model Support 110 banner]" src="ams110.jpg" width="343" height="82" alt="[Advanced Model Support 110 banner]"></img>
+
+<blockquote>"If you are a UT player and enjoy custom models, this is a mandatory item for getting the
+most out of your eye candy in UT."<br />
+-- rogue13, <a href="http://www.polycount.com" title="external link: http://www.polycount.com">Polycount</a></blockquote>
+
+<h3>Mod description</h3>
+<p>Advanced Model Support is a free modification for Unreal Tournament enabling the use of
+new custom models. Modellers who use AMS in their models benefit from easy scripting with full support
+for custom skins, greater team-colour versatility than Epic's TournamentPlayer and SkeletalPlayer
+classes, and support for scripted skins allowing experienced skinners to alter the model's display
+settings. AMS also includes Epic skeletal animations from the Playstation 2 version of UT, both Male and
+Female versions, meaning AMS models shouldn't need Bonus Pack 4. UT players should download the basic AMS
+package, and modellers should download the SDK as well.</p>
+
+<p>If you are a modeller and want to link your model to Advanced Model Support, please
+download the Advanced Models SDK, or read it online - see below. The SDK contains tutorials and
+template scripts relevant to player model authors and mod teams; some simple demonstration models
+are also available.</p>
+
+
+
+<h3>AMSDK</h3>
+
+<p>The Advanced Models SDK is available to download or read online here:
+<a title="http://www.pseudorandom.co.uk/paradox/ams/sdk/index.shtml" href="http://www.pseudorandom.co.uk/paradox/ams/sdk/index.shtml">AMSDK Index</a>.</p>
+
+<h3>Installation and requirements</h3>
+<p>This mod requires Unreal Tournament, upgraded to version 436 or later
+(download the patch from
+<a href="http://www.unrealtournament.com" title="external link: http://www.unrealtournament.com">www.unrealtournament.com</a> or a
+mirror download like <a href="http://www.fileplanet.com" title="external link: http://www.fileplanet.com">File Planet</a>,
+<a href="http://www.unrealcenter.com" title="external link: http://www.unrealcenter.com">UnrealCenter</a> or 
+<a href="http://www.unreality.dk" title="external link: http://www.unreality.dk">Unreality</a>).</p>
+
+<h4>UMOD version</h4>
+
+<h5>Windows users</h5>
+<p>Unzip with <a href="http://www.winzip.com" title="external link: http://www.winzip.com">Winzip</a>, 
+<a href="http://www.powerarchiver.com" title="external link: http://www.powerarchiver.com">Power Archiver</a> or similar, and 
+double-click the UMOD. Unreal Tournament version 436 is required.</p>
+<p>If you have problems with UMOD files, try these pages:</p>
+<ul>
+<li><a href="http://www.planetunreal.com/umodwizard/umodfaq.htm" title="external link: http://www.planetunreal.com/umodwizard/umodfaq.htm">http://www.planetunreal.com/umodwizard/umodfaq.htm</a></li>
+<li><a title="http://www.pseudorandom.co.uk/paradox/unreal/utmodsfaq.shtml" href="http://www.pseudorandom.co.uk/paradox/unreal/utmodsfaq.shtml">http://www.pseudorandom.co.uk/paradox/unreal/utmodsfaq.htm</a></li>
+</ul>
+<p>Also, make sure you have the required UT patch installed.</p>
+<h5>Mac users</h5>
+<p>Unzip with InfoZip, Stuffit Expander or another suitable program, then
+install the UMOD with the UMOD reader distributed with Mac UT.</p>
+<h5>Linux users</h5>
+<p><a href="http://umodpack.sf.net" title="external link: http://umodpack.sf.net">UMODPack</a> can read zipped UMOD files
+directly. However, unless UMODPack has been updated since I wrote this, it
+assumes your copy of UT is version 400. Verify that you have UT v436 (e.g.
+by running it and looking at the right end of the menu bar) and edit the
+System/Manifest.ini file (usually /usr/local/games/ut/System/Manifest.ini) to
+reflect the version of &quot;UnrealTournament&quot; you have installed. I assume that 
+anyone who can get OpenGL and games working on Linux will be intelligent enough
+to realise that faking your version number if you <b>don't</b> have v436 is
+A Bad Thing&trade;.</p>
+
+<h4>Non-UMOD version</h4>
+<p>There is no non-UMOD version. This is deliberate - the non-UMOD Bonus Pack 4
+caused no end of problems. Do not make or distribute one (actually, under the
+license I've used, it is illegal to do so).</p>
+
+<h4>Server installation</h4>
+
+<p>Install as described above, then check the [Engine.GameEngine] section of
+System\UnrealTournament.ini. You <b>must</b> have the following line:</p>
+
+<p><tt>ServerPackages=AdvancedModelSupport</tt></p>
+
+<h3>hnFAQ (hopefully not frequently asked questions)</h3>
+
+<dl>
+<dt>How do I install it?</dt>
+<dt>The UMOD doesn't work!</dt>
+<dt>The UMOD says I need &quot;Unrealtournament 436&quot;. What's a 436?</dt>
+<dd>See &quot;Installation&quot; above.</dd>
+
+<dt>I installed Advanced Model Support and there doesn't seem to be any 
+difference in UT.</dt>
+<dd>AMS doesn't do a lot on its own - it's mostly behind-the-scenes stuff. 
+However, you can now install some cool models which you couldn't before. In 
+version 102+ you also get a menu item (which doesn't do a whole lot) and some 
+extra key bindings under Preferences/Controls (all except Challenge Taunt are 
+actually basic UT features, but Epic forgot to include them in the basic 
+list).</dd>
+
+<dt>I bound a key to the new Challenge taunt, but it doesn't do anything.</dt>
+<dd>It only works on models which have a Challenge animation sequence. This means
+models which use the built-in Epic male skeletal animations, or models where
+the animator has added a fifth taunt.</dd>
+
+<dt>I bound a key to Third Person, but in third person view I don't get a crosshair.</dt>
+<dt>In third person view my model is in the way when I try to aim.</dt>
+<dt>I get put back in first person view when I die.</dt>
+<dd>Epic wrote it like that. These are features, not bugs. Third person is just 
+for cool screenshots, not for actual gameplay...</dd>
+
+<dt>I installed AMS and a couple of models, but they won't work in multiplayer!
+Why not?</dt>
+<dd><p>To let players use any mod online (this includes models, skins, voices 
+and Advanced Model Support) the server admin must have added them to their 
+server's ServerPackages list. Unfortunately, anyone joining a game will be 
+forced to download any of the ServerPackages they don't have, even if nobody is 
+currently using that mod! This is frustrating for the players, and takes up 
+bandwidth from the server (leaving less for the actual gameplay), so admins are 
+reluctant to do this except for certain very popular models (Bonus Pack 1 is
+installed on about 50% of servers, in my experience, and BP 4 on about 10%).</p>
+
+<p>UsAaR33 is working on a mod to make model and skin support act a bit more 
+like Quake-engine games (Q3, Half-Life) where any model or skin you don't have 
+appears as some default model, so server admins will only need to install this 
+mod and players will be able to use any skin or model (of course, the less 
+popular your skin, the more likely the other players are to not have it and see 
+you as a default model like Male Soldier anyway). Look out for a mod called 
+&quot;Valhalla Avatar&quot; - at the time of writing (23 September 2001), it's not quite 
+finished but is available as a private beta test.</p></dd>
+
+</dl>
+
+<h3>Known issues:</h3>
+<p><i>All issues involving Player Setup also apply to Configure Individual 
+Bots, as the two windows are basically the same from an Unrealscript point of
+view.</i></p>
+<ul>
+<li>Version 100 of this mod, which was only available for a few hours and 
+wasn't widely publicised, is incompatible. Version 101 was released to fix 
+sound bugs (missing player sounds), while later versions fixed more bugs. 
+If you have network problems, please make sure other players do have version 
+101 or later installed (preferably 110).</li>
+<li>If you select an Advanced Model Support model, then select a non-AMS 
+skeletal model (this includes Bonus Pack 4 and its fixed versions, as well as 
+earlier versions of Wraithguard and Space Warrior), the animations may get 
+screwed up. Close and reopen Player Setup to fix this. This is Epic's bug, not 
+mine. All of these models will work fine in-game.</li>
+<li>The last few AMS bots (or other custom bots) you installed may not show up 
+in the bot class list, due to a hard-coded limit for this list (32 classes). 
+This is Epic's bug, not mine. To work around this, uninstall some models you 
+don't use, or use a mod like XBots or EnhancedUT to set up your bots.</li>
+<li>If skinners do very strange things to the model's display settings using 
+scripted skins, these strange settings may &quot;infect&quot; other models which are 
+subsequently selected in Player Setup. This only applies to very strange 
+effects, so you're unlikely to see it in practice, and it won't happen in-game. 
+As before, closing and re-opening Player Setup will fix this.</li>
+<li>If you use the Advanced Model Support menu item to disable &quot;Player Setup 
+safe mode&quot;, this &quot;infection&quot; will occur with even more effects. Certain display 
+properties do not take effect in Player Setup, to avoid the bug described 
+above, unless &quot;Player Setup safe mode&quot; is disabled using the AMS menu item. 
+These include Fatness, Style (translucency), and the Unlit and No Smoothing 
+effects.</li>
+<li>The AMS mod menu item will move to the Options menu if you install 
+EnhancedUT (at the time of writing, this is another unfinished UsAaR33 mod). 
+This is a feature, not a bug.</li>
+<li>The button with the URL of my website seems to cause occasional GPFs on 
+some UT installs. Use at your own risk.</li>
+</ul>
+<h3>Changes since version 102</h3>
+<ul>
+<li>The &quot;go to website&quot; button works, at least under Windows with IE. I
+haven't tested with Mac UT since I don't have a Mac, and it shouldn't work 
+under Linux anyway.</li>
+<li>AMS is not available as a direct download from pseudorandom.co.uk. This is because 
+I was transferring a stupid amount of data, two thirds of which was AMS. Please 
+use mirrors; they are <i>designed</i> to cope with large numbers of downloads.</li>
+<li>The replacement INT file for 102 has been included, so the extra key binds 
+do show up correctly in a normal v110 install. Do not use the 102 INT file - 
+other stuff has also been added to the v110 INT.</li>
+<li>This will almost certainly be the final version of AMS for UT.</li>
+</ul>
+<h3>Changes since version 101</h3>
+<ul>
+<li>Scripted skins get the chance to clean up after themselves, which should 
+have happened in 1.01 but didn't thanks to a couple of missing lines of code 
+(thanks to UsAaR33 for pointing that out).</li>
+<li>AMS now has a mod menu item with which you can set the behaviour of Player 
+Setup or go to the AMS web page.</li>
+<li>AMS now alters Space Marine 40K, if you're using it, to fix a minor typo in 
+the sound effects. One of the pain sounds was spelt wrong and didn't play. It 
+does now.</li>
+<li>You get some extra key bindings in the Preferences screen. These are mostly 
+basic UT features which Epic didn't include an automatic key binding for.</li>
+<li>Certain models have a new taunt called Challenge. This is not available on 
+the Voice menu, only by binding a key to it. This only works for some models 
+(models which use the built-in AMS Male animation set, such as Space Marine 
+v2.01, Wraithguard II, and hopefully future models). This is an Epic feature, 
+not an AMS one - I just made it more accessible.</li>
+</ul>
+
+<h3>Contact details</h3>
+<h4>Tech support</h4>
+<p>I am very unlikely to respond to requests for help in future. Read this file first. 
+Then read it again. If you still have problems, look at the AMS web page, 
+<a title="http://www.pseudorandom.co.uk/paradox/ams/ams.shtml" href="http://www.pseudorandom.co.uk/paradox/ams/ams.shtml">http://www.pseudorandom.co.uk/paradox/ams</a>,
+and my UT Mods FAQ, 
+<a title="http://www.pseudorandom.co.uk/paradox/unreal/utmodsfaq.shtml" href="http://www.pseudorandom.co.uk/paradox/unreal/utmodsfaq.shtml">http://www.pseudorandom.co.uk/paradox/unreal/utmodsfaq.shtml</a>.
+I probably wouldn't be able to tell you any more than these pages do anyway...</p>
+<h4>Anything else</h4>
+<p>For contact details, have a look at this page: 
+<a title="http://www.pseudorandom.co.uk/ps/contact.shtml" href="http://www.pseudorandom.co.uk/ps/contact.shtml">http://www.pseudorandom.co.uk/ps/contact.shtml</a>.
+</p>
+
+<h3>Credits and copyright</h3>
+<dl>
+<dt>UnrealScript</dt>
+<dd>Coded by Simon &quot;Psychic_313&quot; McVittie.</dd>
+<dd>Original code copyright &copy; Simon McVittie, 2001.</dd>
+<dd>Elements copyright &copy; Epic Games, Inc., 1999-2000.</dd>
+<dt>Concept</dt>
+<dd>Psychic_313 and James Green</dd>
+<dt>Animations</dt>
+<dd>Unreal Tournament for Playstation 2 animations by James Green and 
+James Edwards, copyright &copy; Epic Games, Inc., 2000.</dd>
+</dl>
+<h3>Thanks</h3>
+<p>Big thanks to James Green for animations and expertise, UsAaR33 for cunning 
+ideas and online testing, Josh of ravensite.net for attempting to test online 
+(MS Internet Connection Sharing + UT servers == bad), Richard &quot;tla&quot; Smith for 
+suggesting class-based skins, and everyone at 
+<a href="http://www.epicknights.com/" title="external link: http://www.epicknights.com/">EpicKnights</a> for their enthusiasm.</p>
+
+<h3>Trademarks and permissions</h3>
+<p>You may distribute this mod if and only if said distribution is under the following 
+conditions:</p>
+<ul>
+<li>All distribution must be on a not-for-profit basis (charging for this 
+content is not allowed)</li>
+<li>The entire <b>unmodified</b> ZIP file must be distributed, including this 
+file and the complete UMOD file. Note that this specifically prevents you from
+distributing a modified UMOD, a non-UMOD version, or any modified version of 
+the U file. To check whether your copy is unmodified, see the AMS page on
+www.pseudorandom.co.uk.</li>
+<li>Large-scale distributors (mirror downloads, CDs) <b>must</b> inform 
+simon at pseudorandom.co.uk, including (if applicable) the download location. 
+By mirroring this file you agree that the author may link to your mirror.</li>
+</ul>
+<p>Parts of Advanced Model Support may be incorporated into other mods 
+according to the terms indicated in the source code and SDK.</p>
+<p>Unreal is a trademark of Epic Games, Inc. Windows is a registered trademark 
+of Microsoft Corporation. Linux is a trademark of Linus Torvalds. All other 
+trademarks mentioned are hereby acknowledged to be the property of their 
+respective owners.</p>
+<p>THIS MOD IS PROVIDED &quot;AS-IS&quot; WITH ABSOLUTELY NO WARRANTY, EXPRESS OR 
+IMPLIED. THE AUTHORS ACCEPT NO RESPONSIBILITY FOR DAMAGE, INCONVENIENCE OR 
+OTHER PROBLEMS, WITHOUT LIMITATION, CAUSED BY THIS MOD, EVEN IF THEY HAVE BEEN 
+ADVISED OF THE POSSIBILITY OF SUCH PROBLEMS.</p>
+
+</div><hr /><address>
+Simon McVittie, <a href="http://www.pseudorandom.co.uk/">http://www.pseudorandom.co.uk/</a></address></body></html>

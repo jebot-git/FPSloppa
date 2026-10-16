@@ -4,6 +4,7 @@ const Codec = preload("res://deathmatch/network/snapshot_codec.gd")
 var native_packer=preload("res://deathmatch/network/codec.gd").native_codec
 var native_packing_enabled=not OS.get_cmdline_user_args().has("--gdscript-network-packing")
 const BUDGET = 1100 # Leaves room for the Godot RPC and transport envelope.
+var compression_enabled:=false # CQ opts in; all other modes, including PvE, send raw envelopes.
 var async_encoder
 var async_token:=0
 var sequence := 0
@@ -25,6 +26,7 @@ func reset() -> void:
 
 func packets(snapshot: Array) -> Dictionary:
 	if epoch != snapshot[9]: reset(); epoch = snapshot[9]
+	compression_enabled=Codec.compression_for(snapshot)
 	sequence += 1
 	var records:Array=_records(snapshot)
 	var result:Dictionary={"normal":[],"large":[]};var encoded_records:Array=[]
@@ -94,7 +96,7 @@ func poll_packets() -> Array:
 
 func _pack_records(records: Array,header: Array,result: Dictionary) -> void:
 	if native_packing_enabled and native_packer and native_packer.has_method("pack_records"):
-		var packed:Dictionary=native_packer.pack_records(records,header)
+		var packed:Dictionary=native_packer.pack_records(records,header,compression_enabled)
 		result.normal.append_array(packed.normal);result.large.append_array(packed.large)
 		stats.large_records+=packed.large.size()
 		if packed.invalid:push_error("Snapshot record exceeds codec limit")
@@ -111,7 +113,7 @@ func _pack_records_reference(records: Array,header: Array,result: Dictionary) ->
 		var low:=0;var high:=remaining+1
 		var accepted:=PackedByteArray()
 		while true:
-			var bytes:=Codec.pack([header[0],header[1],header[2],records.slice(cursor,cursor+count)])
+			var bytes:=Codec.pack([header[0],header[1],header[2],records.slice(cursor,cursor+count)],compression_enabled)
 			if not bytes.is_empty() and bytes.size()<=BUDGET:
 				low=count;accepted=bytes
 				if low==remaining:break

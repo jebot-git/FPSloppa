@@ -90,3 +90,8 @@ Source excerpts are band-limited, DC-corrected, level-matched and crossfaded int
 Audacity's track-properties gain command did not change the actual audio gain in this installation. The final masters instead use verified `effect_amplify` ratios; exports correlate above 0.999 with the intended weighted source mix. Intermediate drafts are not used by the game.
 
 Copy the five original WAVs into ignored `tools/audio-sources/cq-field/`, then run `python3 tools/cq_audio/reauthor_jungle.py`. `--stems DIRECTORY` prepares the editable layers; `--master-dir DIRECTORY` consumes Audacity's `forest_day.wav` and `forest_night.wav` exports. The ordinary field-audio build invokes this pass last, so rebuilding does not restore the old synthesized ambience. [Audition, verification and Audacity receipt](../../../docs/audio/cq-jungle-20261015/README.md).
+
+
+## Daytime rooster correction, 2026-10-16
+
+The daytime mix now excludes Peruvian daytime birds, Lacandon and jungleathmo after the repeated rooster report. It uses an insect-focused excerpt of hdfreema's [Night Crickets Back Porch](https://freesound.org/people/hdfreema/sounds/333221/), CC0, from the already cached public HQ MP3 preview. Source 60–188s is filtered in Audacity MCP and crossfaded to 120s. The night mix is unchanged. This section supersedes the daytime layering description above. [Current audition and verification](../../../docs/audio/cq-jungle-20261016/README.md). Use `reauthor_jungle.py --period day` to rebuild only daytime.

@@ -151,6 +151,7 @@ var input_paused_until:=0.0
 var next_network_health:=0.0
 var bandwidth = preload("res://deathmatch/network/bandwidth.gd").new()
 var replication = preload("res://deathmatch/network/replication.gd").new()
+var client_state_motion=preload("res://deathmatch/native/movement.gd").create()
 var remote_interpolation = preload("res://deathmatch/network/interpolation.gd").new()
 var input_delivery = preload("res://deathmatch/network/input_delivery.gd").new()
 var fire_delivery = preload("res://deathmatch/network/fire_delivery.gd").new()
@@ -695,31 +696,11 @@ func _broadcast_roster() -> void:
 @rpc("authority","call_local","reliable",0)
 func _roster(data: Array) -> void:
 	if map_loading and not multiplayer.is_server(): return
-	var keep: Array = []
-	for row in data:
-		var id: int = row[0]
-		keep.append(id)
-		if not players.has(id):
-			players[id] = _new_state(row[1],id)
-			players[id].color = row[2]
-			players[id].spectator=row[5]
-			players[id].dead=row[5]
-			players[id].team=row[6] if row.size()>6 else -1
-			_create_fighter(id)
-			fighters[id].position = row[3]
-			players[id].yaw = row[4]
-			if id==multiplayer.get_unique_id(): local_yaw = row[4]
-		if row.size()>6:
-			players[id].team=row[6]
-			var team: int=row[6]
-			if fighters[id].label:
-				fighters[id].set_nametag(players[id].name,team,match_mode.COLORS[team] if team>=0 else COLORS[players[id].color])
-	for id in players.keys():
-		if not keep.has(id):
-			fighters[id].queue_free()
-			fighters.erase(id)
-			players.erase(id)
-			remote_interpolation.tracks.erase(id)
+	var session=get("native_session") if "native_session" in self else null
+	var native_membership:bool=session!=null and session.active and session.backend!=null
+	if native_membership:
+		if not session.backend.apply_roster(self,data,match_mode.COLORS,COLORS,multiplayer.get_unique_id()):disconnect_game("Invalid native roster application.");return
+	else:_roster_membership_reference(data)
 	var mine := multiplayer.get_unique_id()
 	if players.has(mine) and not camera and not headless and not is_vr():
 		camera = Camera3D.new()
@@ -749,12 +730,40 @@ func _roster(data: Array) -> void:
 		if avatars.choices.has(id): avatars.queue_avatar(id)
 	if not multiplayer.is_server() and cq_client.enabled:cq_client.membership(cq_client.visible.map(func(id):return [id]))
 
+func _roster_membership_reference(data:Array)->void:
+	var keep: Array = []
+	for row in data:
+		var id: int = row[0]
+		keep.append(id)
+		if not players.has(id):
+			players[id] = _new_state(row[1],id)
+			players[id].color = row[2]
+			players[id].spectator=row[5]
+			players[id].dead=row[5]
+			players[id].team=row[6] if row.size()>6 else -1
+			_create_fighter(id)
+			fighters[id].position = row[3]
+			players[id].yaw = row[4]
+			if id==multiplayer.get_unique_id(): local_yaw = row[4]
+		if row.size()>6:
+			players[id].team=row[6]
+			var team: int=row[6]
+			if fighters[id].label:
+				fighters[id].set_nametag(players[id].name,team,match_mode.COLORS[team] if team>=0 else COLORS[players[id].color])
+	for id in players.keys():
+		if not keep.has(id):
+			fighters[id].queue_free()
+			fighters.erase(id)
+			players.erase(id)
+			remote_interpolation.erase(id)
+
+
 func _peer_left(id: int) -> void:
 	if is_instance_valid(district_gateway):district_gateway.remove(id)
 	lobby.remove_peer(id)
 	if id<0 and is_instance_valid(bots):bots.brains.erase(id)
 	replication.cached.clear()
-	input_delivery.guards.erase(id); remote_interpolation.tracks.erase(id); bandwidth.peers.erase(id)
+	input_delivery.guards.erase(id); remote_interpolation.erase(id); bandwidth.peers.erase(id)
 	server_log.record("peer_departure_stage",{"peer":id,"stage":server_log.join_stages.get(id,{}),"admitted":players.has(id)})
 	server_log.join_stages.erase(id)
 	chainsaw.contact_at.erase(id)
@@ -1193,6 +1202,7 @@ func _interpolate_remote_players(delta: float) -> void:
 	var view: float=remote_interpolation.advance(clock)
 	if view>=0:remote_view_time=view
 	elif snapshot_view_time>=0:remote_view_time=snapshot_view_time
+	if remote_interpolation.apply(fighters,mine,delta):return
 	for id in fighters:
 		if id==mine: continue
 		var sample: Dictionary=remote_interpolation.sample(id)
@@ -2025,6 +2035,8 @@ func _snapshot(data: Array,items: PackedByteArray,remaining: float,pause: float,
 	frag_limit = limit
 	time_limit = duration
 	var mine := multiplayer.get_unique_id()
+	var native_remote_samples:bool=not multiplayer.is_server() and remote_interpolation.push_rows(data,mode_state.get("sample_time",{}),server_time,clock,mine,fighters)
+	var native_client_fields:bool=not multiplayer.is_server() and client_state_motion!=null and client_state_motion.has_method("snapshot_apply_fields") and not OS.get_cmdline_user_args().has("--gdscript-client-state") and client_state_motion.snapshot_apply_fields(data,players,fighters,mine,clock)
 	for row in data:
 		var id: int = row[0]
 		if not fighters.has(id): continue
@@ -2032,16 +2044,17 @@ func _snapshot(data: Array,items: PackedByteArray,remaining: float,pause: float,
 		var actor = fighters[id]
 		actor.configure_jetpack(jetpack_allowed_for(id) and not lobby.active() and not row[7] and not row[20] and pause<=0)
 		if not multiplayer.is_server():
-			s.merge({"yaw":row[3],"pitch":row[4],"hp":row[5],"armor":row[6],"dead":row[7],"weapon":row[8],"ammo":row[9],"owned":row[10],"kills":row[11],"deaths":row[12],"ping":row[13],"serial":row[14],"cooldown":row[17],"offhand_cooldown":row[19],"spectator":row[20]},true)
-			var old_blast:Vector2=actor.blast_velocity
-			actor.blast_velocity=row[21] if row.size()>21 else Vector2.ZERO
-			if id!=mine:
-				actor.velocity.x+=actor.blast_velocity.x-old_blast.x;actor.velocity.z+=actor.blast_velocity.y-old_blast.y
-			s.respawn_at = clock+row[15]
-			s.invulnerable = clock+1 if row[16] else 0
-			actor.target = row[1]
-			actor.target_yaw = row[3]
-			if id!=mine:
+			if not native_client_fields:
+				s.merge({"yaw":row[3],"pitch":row[4],"hp":row[5],"armor":row[6],"dead":row[7],"weapon":row[8],"ammo":row[9],"owned":row[10],"kills":row[11],"deaths":row[12],"ping":row[13],"serial":row[14],"cooldown":row[17],"offhand_cooldown":row[19],"spectator":row[20]},true)
+				var old_blast:Vector2=actor.blast_velocity
+				actor.blast_velocity=row[21] if row.size()>21 else Vector2.ZERO
+				if id!=mine:
+					actor.velocity.x+=actor.blast_velocity.x-old_blast.x;actor.velocity.z+=actor.blast_velocity.y-old_blast.y
+				s.respawn_at = clock+row[15]
+				s.invulnerable = clock+1 if row[16] else 0
+				actor.target = row[1]
+				actor.target_yaw = row[3]
+			if id!=mine and not native_remote_samples:
 				remote_interpolation.push(id,float(mode_state.get("sample_time",{}).get(id,server_time)),row[1],row[2],row[3],row[14],clock)
 			if id==mine and actor.spawn_serial==row[14]:
 				if handle_vehicle_player(id,0.0):

@@ -1,0 +1,37 @@
+{
+  "source": "tools/audio-sources/cq-field/night.mp3",
+  "source_sha256": "7429a4e5b023514f9d9ec313d0ec3d3304e69525b1d3689378d9809d4635128a",
+  "source_excerpt_seconds": [
+    60,
+    188
+  ],
+  "preparation": "ffmpeg extracts 128 seconds at 24 kHz stereo to an offline WAV; original unchanged",
+  "audacity_mcp_commands": [
+    {
+      "tool": "project_import_audio",
+      "file": "forest_day_insects.selection.wav"
+    },
+    {
+      "tool": "select_all"
+    },
+    {
+      "tool": "effect_high_pass_filter",
+      "frequency": 1800,
+      "rolloff": "dB12"
+    },
+    {
+      "tool": "effect_low_pass_filter",
+      "frequency": 8500,
+      "rolloff": "dB12"
+    },
+    {
+      "tool": "project_export_audio",
+      "file": "forest_day_insects.audacity.wav",
+      "channels": 2
+    }
+  ],
+  "export_seconds": 128,
+  "export_sha256": "f37ef57851620cd212c61e460bd00ece51dde6acee6cc8cfbfa8faff0262fe20",
+  "finishing": "reauthor_jungle.py --period day --master-dir tools/audio-sources/cq-field/edited/jungle/audacity-day; 8-second equal-power join, DC removal, -32dBFS target RMS, 24kHz stereo Vorbis",
+  "runtime_sha256": "25b74233cdc75770e3e0ed707c5ce4be8f18f30881a1686e3eefec797e723a75"
+}

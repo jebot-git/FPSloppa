@@ -1,0 +1,32 @@
+{
+	"failures": [],
+	"observed": {
+		"dead": true,
+		"destruction": true,
+		"gibbed": true,
+		"grenade_flying": true,
+		"grenade_selected": true,
+		"jetpack": true,
+		"native": true,
+		"nvg": true,
+		"poses": true,
+		"respawn": true,
+		"squad": true,
+		"team_change": true,
+		"team_presentation": true
+	},
+	"prediction": {
+		"corrections": 25,
+		"max_error": 0.801612436771393,
+		"resets": 0
+	},
+	"shots": 17,
+	"steady_prediction": {
+		"corrections": 1,
+		"max_error": 0.200663536787033,
+		"resets": 0
+	},
+	"tick": 5241,
+	"tracked": true,
+	"warmup_seconds": 8.0
+}

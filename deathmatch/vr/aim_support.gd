@@ -1,9 +1,23 @@
 extends RefCounted
+var native = ClassDB.instantiate("FPSVRInteraction") if preload("res://deathmatch/native/runtime.gd").available("FPSVRInteraction") and not OS.get_cmdline_user_args().has("--gdscript-vr-interactions") else null
 # Changes orientation only. The firing origin and all weapon rules remain shared.
-var engaged:=false
-var last_weapon:=-1
-var blend:=0.0
+var engaged:=false:
+	get:return native.engaged if native else engaged
+	set(value):
+		if native:native.engaged=value
+		else:engaged=value
+var last_weapon:=-1:
+	get:return native.last_weapon if native else last_weapon
+	set(value):
+		if native:native.last_weapon=value
+		else:last_weapon=value
+var blend:=0.0:
+	get:return native.blend if native else blend
+	set(value):
+		if native:native.blend=value
+		else:blend=value
 func advance(delta:float) -> void:
+	if native:native.advance(delta);return
 	blend=move_toward(blend,1.0 if engaged else 0.0,delta/0.08)
 static func supports(weapon:int,rules:String) -> bool:
 	match rules:
@@ -15,6 +29,14 @@ static func supports(weapon:int,rules:String) -> bool:
 	return weapon in [1,3,4,5,6,7,8,9]
 func reset() -> void:engaged=false;last_weapon=-1;blend=0.0
 func solve(primary: Transform3D, support: Transform3D, weapon: int, holding: bool, valid: bool,rules: String="doom",smooth:bool=false) -> Transform3D:
+	if native:
+		var anchor:=Vector3.FORWARD*.32
+		if rules=="tribes":anchor=Vector3(0,.035,-.25)*.65
+		elif rules=="cq":anchor=preload("res://deathmatch/conquest/classes/models.gd").anchor(weapon,"support_anchor")*.65
+		elif rules=="cs16":
+			var models=preload("res://deathmatch/conquest/classes/reload_geometry.gd")
+			anchor=(models.support(weapon)-models.grip(weapon))*.65
+		return native.aim(primary,support,weapon,holding,valid,rules,smooth,anchor)
 	if weapon!=last_weapon:engaged=false;last_weapon=weapon;blend=0.0
 	if not supports(weapon,rules) or not holding or not valid:engaged=false;blend=0.0;return primary
 	var offset:=support.origin-primary.origin

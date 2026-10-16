@@ -5,6 +5,7 @@ const SIDE:=230.4 # 768 cells at .3 metres
 const BORDER:=3.0
 static func cache_path(map) -> String:
 	var version:=FileAccess.get_sha256("res://tools/voxel_battle/jungle_navigation.gd")+FileAccess.get_sha256("res://tools/voxel_battle/map.gd")
+	for source in preload("res://tools/voxel_battle/rock_cover.gd").sources():version+=FileAccess.get_sha256(source)
 	return map.collision_cache_path().replace("heightmap","navigation-chunks").replace(".res","-%s.scn"%version.sha256_text().left(8))
 static func build(map) -> Node3D:
 	var path:=cache_path(map)

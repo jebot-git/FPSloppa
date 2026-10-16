@@ -158,7 +158,8 @@ void FPSBackend::encode_loop(){
     if(found!=cache.end()&&found->second.first==bytes&&time-found->second.second<1.)continue;cache[native_key]={bytes,time};}
    filtered.append(bytes);
   }
-  Dictionary result=codec->pack_records(filtered,task.header);result["token"]=task.token;result["epoch"]=epoch;result["sequence"]=task.header[1];result["time"]=time;result["encode_usec"]=int64_t(std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::steady_clock::now()-began).count());
+  bool compression=false,pve=false;for(int i=0;i<task.records.size();++i){Array row=task.records[i];if(row.size()<3||int64_t(row[0])!=1)continue;String key=row[1];if(key=="class_mode")compression=true;else if(key=="kind"){String kind=row[2];compression=compression||kind=="cq";pve=kind=="pve";}}compression=compression&&!pve;
+  Dictionary result=codec->pack_records(filtered,task.header,compression);result["token"]=task.token;result["epoch"]=epoch;result["sequence"]=task.header[1];result["time"]=time;result["encode_usec"]=int64_t(std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::steady_clock::now()-began).count());
   {std::lock_guard<std::mutex> lock(encode_mutex);encoding=false;completed.push_back(result);}
  }
 }

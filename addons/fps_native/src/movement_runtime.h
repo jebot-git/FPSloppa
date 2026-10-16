@@ -25,6 +25,8 @@ protected:
   static void _bind_methods();
 
 public:
+  bool snapshot_apply_fields(const Array&,const Dictionary&,const Dictionary&,int64_t mine,double clock) const;
+  void prediction_reconcile(CharacterBody3D*,int64_t sequence,Vector3 position,Vector3 velocity,double height,bool grounded,const Dictionary &jetpack,double stamina,double max_stamina);
   void prediction_clear();
   void prediction_remember(int64_t sequence, Vector3 position, Vector3 velocity,
                            double height, const Dictionary &jetpack,

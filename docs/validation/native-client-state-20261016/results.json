@@ -1,0 +1,135 @@
+{
+  "cq-native_remote_interpolation.log": {
+    "checks": 13211,
+    "failures": [],
+    "timings": [
+      {
+        "native_us": 13.366,
+        "players": 64,
+        "reference_us": 214.648
+      },
+      {
+        "native_us": 27.02,
+        "players": 128,
+        "reference_us": 411.438
+      }
+    ]
+  },
+  "cq-native_client_presentation.log": {
+    "checks": 106,
+    "failures": [],
+    "timings": [
+      {
+        "native_us": 2705.08333333333,
+        "players": 64,
+        "reference_us": 2700.13333333333
+      },
+      {
+        "native_us": 5137.76666666667,
+        "players": 128,
+        "reference_us": 5399.98333333333
+      }
+    ]
+  },
+  "cq-client-state-tracked.json": {
+    "failures": [],
+    "observed": {
+      "dead": true,
+      "destruction": true,
+      "gibbed": true,
+      "grenade_flying": true,
+      "grenade_selected": true,
+      "jetpack": true,
+      "native": true,
+      "nvg": true,
+      "poses": true,
+      "respawn": true,
+      "squad": true,
+      "team_change": true,
+      "team_presentation": true
+    },
+    "prediction": {
+      "corrections": 24,
+      "max_error": 1.27833008766174,
+      "resets": 0
+    },
+    "shots": 17,
+    "steady_prediction": {
+      "corrections": 0,
+      "max_error": 0.153422310948372,
+      "resets": 0
+    },
+    "tick": 2562,
+    "tracked": true,
+    "warmup_seconds": 8.0
+  },
+  "cq-client-state-desktop.json": {
+    "failures": [],
+    "observed": {
+      "dead": true,
+      "destruction": true,
+      "gibbed": true,
+      "grenade_flying": true,
+      "grenade_selected": true,
+      "jetpack": true,
+      "native": true,
+      "nvg": true,
+      "poses": false,
+      "respawn": true,
+      "squad": true,
+      "team_change": true,
+      "team_presentation": true
+    },
+    "prediction": {
+      "corrections": 40,
+      "max_error": 1.68599355220795,
+      "resets": 0
+    },
+    "shots": 17,
+    "steady_prediction": {
+      "corrections": 0,
+      "max_error": 0.0666532218456268,
+      "resets": 0
+    },
+    "tick": 6831,
+    "tracked": false,
+    "warmup_seconds": 8.0
+  },
+  "cq-client-state-remote-clients.json": {
+    "active": 2,
+    "benchmark": false,
+    "clients": 2,
+    "disconnects": 0,
+    "frames": 880,
+    "input_hz": 30,
+    "inputs": 1318,
+    "maximum_snapshot_gap": 0.05316561700000122,
+    "maximum_steady_snapshot_gap": 0.05316561700000122,
+    "minimum_snapshot_hz": 20.000360608779722,
+    "minimum_steady_snapshot_hz": 20.00056505549196,
+    "peers": [
+      {
+        "distance": 107.25950839856425,
+        "frames": 440,
+        "hz": 20.000360608779722,
+        "id": 4,
+        "inputs": 659,
+        "max_gap": 0.05316561700000122
+      },
+      {
+        "distance": 1.4209445029096492,
+        "frames": 440,
+        "hz": 20.000360608779722,
+        "id": 3,
+        "inputs": 659,
+        "max_gap": 0.05316561700000122
+      }
+    ],
+    "rejects": 0,
+    "seconds": 22.0,
+    "tracked": true,
+    "validated_frames": 880,
+    "warmup_seconds": 5,
+    "welcomed": 2
+  }
+}

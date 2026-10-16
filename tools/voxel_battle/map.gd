@@ -24,6 +24,7 @@ var wall_bodies:Dictionary={}
 var spawn_positions: Array[Vector3]=[]
 var routes: Array[Vector3]=[]
 var waterways
+var rock_cover
 var lighting
 func build(graphics: bool, physics: bool=true, baking:bool=false) -> void:
 	physics_enabled=physics
@@ -76,6 +77,7 @@ func build(graphics: bool, physics: bool=true, baking:bool=false) -> void:
 			label.visible=false;label.font_size=64;label.pixel_size=.035;label.billboard=BaseMaterial3D.BILLBOARD_ENABLED;add_child(label)
 		environment=Scenery.new();add_child(environment);environment.setup(terrain)
 		grass=Grass.new();add_child(grass);grass.setup(terrain)
+	rock_cover=preload("res://tools/voxel_battle/rock_cover.gd").new();rock_cover.name="RockCover";add_child(rock_cover);rock_cover.setup(graphics,physics)
 	waterways=preload("res://tools/voxel_battle/waterways.gd").new();add_child(waterways);waterways.build(self,graphics,physics)
 	if graphics and not baking:
 		for variants in environment.variants.values():
@@ -159,5 +161,6 @@ func navigation_source_chunk(bounds: AABB,heights: PackedFloat32Array) -> Naviga
 			for row in collision_rows.get(Vector2i(x,z),[]):
 				if row.kind==2:continue
 				data.add_mesh_array(trunks[row.kind],Transform3D(Basis(Vector3.UP,row.angle).scaled(Vector3.ONE*row.scale),row.position+Vector3.UP*8.5*row.scale))
+	if rock_cover!=null:rock_cover.navigation_source(data,bounds)
 	if waterways!=null:waterways.navigation_source(data,bounds)
 	return data

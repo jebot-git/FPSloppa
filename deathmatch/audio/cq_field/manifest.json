@@ -2,33 +2,24 @@
   "forest_day": {
     "file": "forest_day.ogg",
     "sources": [
-      "jungle_peru_day",
-      "jungle_lacandon",
-      "jungle_anne82"
+      "daytime_insects"
     ],
     "loop": true,
     "seconds": 120.0,
     "rate": 24000,
     "channels": 2,
-    "peak_dbfs": -12.504281997680664,
-    "rms_dbfs": -35.38631820678711,
-    "sha256": "a7d2664ecbb6b744a3b78f16f1656070c713afb1be7b9a354663c909850576eb",
-    "edit": "User-selected CC0 WAV source set; rooster-bearing Costa Rican layer excluded, band-limited, level-matched excerpts, equal-power source overlaps, pinned multitrack gains, 8 s equal-power end/start overlap, DC removal, quiet peak/RMS trim; recipe tools/cq_audio/jungle_mix.json",
+    "peak_dbfs": -17.237529754638672,
+    "rms_dbfs": -31.316390991210938,
+    "sha256": "25b74233cdc75770e3e0ed707c5ce4be8f18f30881a1686e3eefec797e723a75",
+    "edit": "Daytime bird-call layers removed following repeated rooster report. Insect-only replacement from hdfreema CC0 recording, 60\u2013188s; Audacity MCP 1.8kHz high-pass / 8.5kHz low-pass, 8s equal-power loop join, RMS matched to previous -32dBFS.",
     "layers": [
       {
-        "source": "jungle_peru_day",
+        "source": "daytime_insects",
         "gain_db": -6
-      },
-      {
-        "source": "jungle_lacandon",
-        "gain_db": -16
-      },
-      {
-        "source": "jungle_anne82",
-        "gain_db": -22
       }
     ],
-    "recipe_sha256": "b63ab7693bc325f00c9067e13cc48627d930a3f88a559a6cf9eaede2d85f1891"
+    "recipe_sha256": "91f6a259e6fd1f7fb1ccc362c39b011abaf9396c7380ad821115727625fb8875",
+    "authoring_master_sha256": "f37ef57851620cd212c61e460bd00ece51dde6acee6cc8cfbfa8faff0262fe20"
   },
   "forest_night": {
     "file": "forest_night.ogg",

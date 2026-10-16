@@ -261,8 +261,8 @@ func _physics_process(_delta:float)->void:
    if animation_sequence%600==5 and player_role==1:_action.rpc_id(1,life,sequence,0)
    if animation_sequence%600==15 and player_role==2:_action.rpc_id(1,life,sequence,2)
    if animation_sequence%600==20 and player_role==2:_action.rpc_id(1,life,sequence,3)
-func tracked_command(c:Dictionary)->void:
- var left:bool=multiplayer.get_unique_id()%2==1;var step:=fmod(animation_phase,300.0)
+func tracked_command(c:Dictionary,left_override:int=-1)->void:
+ var left:bool=multiplayer.get_unique_id()%2==1 if left_override<0 else left_override==1;var step:=fmod(animation_phase,300.0)
  var basis:=Basis(Vector3.RIGHT,.6);var base:=Vector3(-.3 if left else .3,1.1,-.3)
  var geometry:int=12 if player_weapon in [5,11] else 2 if player_weapon in [2,9,3] else 7
  var mag_anchor:Vector3=Reload.MAG_POINTS[geometry];var rack_anchor:=Vector3(.04,.09,.055)

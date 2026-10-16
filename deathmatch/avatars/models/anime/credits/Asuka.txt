@@ -1,0 +1,95 @@
+June 30, 2002
+============================================================================================
+
+Model Name:                 Asuka beta 1.0
+Installation directory:     UnrealTournament/directory
+Author, Skin Author:        Gotham & UDS
+Email Address:              satellitegarden@yahoo.com
+Website:                    http://home.earthlink.net/~exciter
+
+Model description:          This model is based on the Evangelion characters Rei & Asuka.
+                            
+                            Rei is extremely timid, shy & at times almost seems withdrawn
+                            from the world around her. All of Rei's personnel records have
+                            been erased, & there is no trail leading to her past.
+                            Rei is also a by-product of the human instrumentality project,
+                            artificially created & implanted with the soul of Yui Ikari.
+
+                            Asuka is the bright girl of the bunch with fiery red hair & a
+                            temper to match. Pilot of the first official Evangelion Unit-02,
+                            Asuka is probably the only Eva pilot who actually enjoys & takes
+                            pride in being a pilot.
+                           
+                            This character is my interpretation of Asuka in a heavly
+                            modified costume. The intention was to use one model and make
+                            many skins of different anime characters in one package.
+
+============================================================================================
+
+Specs:
+Polys:                      1181
+Vertices:                   618
+Skins:                      Default w/team colors
+Chat icon:                  Yes
+VoicePack:                  No
+Frames of Animation:        None
+Custom sounds:              Yes
+Custom HUD doll:            Yes
+Bot support:                Yes
+AMS:                        Yes
+Editors used:               3DS Max 4, Sound Forge, Photoshop 6.0, UnrealED, & NotePad.
+Build/Animation time:       30 Hours
+
+============================================================================================
+
+Other info:      	
+
+This is one of my first UT modeling projects. I am just learning how to model so I apologize
+for any messy construction. For this project I used Tom Woof's Manga Babe model that I
+downloaded for free in high polygon. I will be releasing new models and skins as I learn
+more & more about the process. If anyone is interested in making new skins for this model or
+in teaming up & doing some projects just contact me. There were a couple of obstacles with
+this model including getting the shoulders to deform correctly with the default animations.
+The next release of Asuka will proably be for UT2003 & should contain a custom voicepack,
+new skins, a higher polycount, & new improvements. 
+
+============================================================================================
+
+Play Information:          Asuka beta 1.0 for UnrealTournament
+		  	
+Known Bugs:                Please report any bugs to satellitegarden@yahoo.com
+                           Any bugs should be fixed by the next release.
+
+============================================================================================
+
+Installation instructions:
+
+To use this model you need the Advanced Model Support mod & UnrealTournament version 436
+or later. AMS can be downloaded at www.pseudorandom.co.uk
+
+Extract the "Asuka.umod file from the zip file, & run it by double-clicking it.
+All files should be automatically placed in their proper UT directories.
+Select Team Anime from the player setup then start a practice session.
+
+For Lan games or Dedicated servers:
+
+Open the unrealtourament.ini in the system directory of UnrealTournament & add these
+lines under the [Engine.GameEngine] where you see ServerPackages= Close & save.
+The umod file should automatically place the serverpackages in the unrealtourament.ini
+Also don't forget that both the server & client must have the model installed.
+
+ServerPackages=Asuka
+ServerPackages=AsukaSkins
+
+============================================================================================
+
+Thanks goes to:       All the web resources like, Polycount, Identity Crisis, Epicknights,
+                      Paradox Productions & more . Also all the tools, utilities, plugins,
+                      & tutorials that were made.
+
+Acknowledgements:     Many thanks to Tom Woof the original author of Manga Babes who was
+                      very cool for giving me permission to recreate and use his model
+                      in low polygon form.
+
+============================================================================================
+Unreal Tournament © 1999 Epic Games Inc.

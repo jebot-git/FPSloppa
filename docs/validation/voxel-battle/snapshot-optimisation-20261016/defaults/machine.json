@@ -1,0 +1,16 @@
+{
+  "platform": "Linux-6.8.0-146-generic-x86_64-with-glibc2.39",
+  "cpu": "AMD EPYC-Milan Processor",
+  "logical_cpus": 12,
+  "date_utc": "2026-10-16T09:39:44Z",
+  "seconds": 60,
+  "warmup_seconds": 8,
+  "loopback": true,
+  "rendering": false,
+  "stress": false,
+  "destruction": true,
+  "adaptive": true,
+  "tracked": true,
+  "snapshot_mode": "both",
+  "client_group_size": 4
+}

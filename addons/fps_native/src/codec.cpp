@@ -1,5 +1,7 @@
 #include "codec.h"
 #include "authority_protocol.h"
+#include "client_frame.h"
+#include "client_presentation.h"
 #include <godot_cpp/core/class_db.hpp>
 #include <godot_cpp/variant/array.hpp>
 #include <godot_cpp/variant/dictionary.hpp>
@@ -121,10 +123,13 @@ struct Reader {
 };
 }
 void FPSCodec::_bind_methods(){
+ ClassDB::bind_method(D_METHOD("project_authority_frame","frame","origin","epoch","duration"),&FPSCodec::project_authority_frame);
+ ClassDB::bind_method(D_METHOD("encode_authority_input","command"),&FPSCodec::encode_authority_input);
+ ClassDB::bind_method(D_METHOD("decode_authority_frame","bytes"),&FPSCodec::decode_authority_frame);
  ClassDB::bind_method(D_METHOD("validate_authority_frame","bytes","expected","tick"),&FPSCodec::validate_authority_frame);
  ClassDB::bind_method(D_METHOD("pack_input","command"),&FPSCodec::pack_input);
  ClassDB::bind_method(D_METHOD("encode_records","records"),&FPSCodec::encode_records);
- ClassDB::bind_method(D_METHOD("pack_records","records","header"),&FPSCodec::pack_records);
+ ClassDB::bind_method(D_METHOD("pack_records","records","header","compression"),&FPSCodec::pack_records,DEFVAL(false));
  ClassDB::bind_method(D_METHOD("encode","value"),&FPSCodec::encode);
  ClassDB::bind_method(D_METHOD("decode","bytes"),&FPSCodec::decode);
 }
@@ -138,3 +143,7 @@ Variant FPSCodec::decode(const PackedByteArray &bytes) const{
 }
 
 bool FPSCodec::validate_authority_frame(const PackedByteArray& bytes,int expected,int64_t tick)const{return cqauthority::validate_frame(bytes.ptr(),bytes.size(),expected,tick);}
+
+Dictionary FPSCodec::decode_authority_frame(const PackedByteArray&bytes)const{return cqclient::decode_frame(bytes);}
+
+Array FPSCodec::project_authority_frame(const Dictionary&frame,double origin,int64_t epoch,double duration)const{return cqclient::project_frame(frame,origin,epoch,duration);}

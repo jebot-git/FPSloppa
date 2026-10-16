@@ -1,12 +1,17 @@
 extends RefCounted
+var native = ClassDB.instantiate("FPSVRInteraction") if preload("res://deathmatch/native/runtime.gd").available("FPSVRInteraction") and not OS.get_cmdline_user_args().has("--gdscript-vr-interactions") else null
 ## Tracking-space motion excludes virtual locomotion, turning and room rebasing.
 var previous: Array[Vector3]=[]
 var travel: Array[float]=[0.0,0.0]
-var thrust:=Vector3.ZERO
-var strength:=0.0
+var thrust:=Vector3.ZERO:
+	get:return native.get_thrust() if native else thrust
+var strength:=0.0:
+	get:return native.get_strength() if native else strength
 func reset() -> void:
+	if native:native.swim_reset();return
 	previous.clear();travel=[0.0,0.0];thrust=Vector3.ZERO;strength=0.0
 func sample(head: Transform3D,left: Vector3,right: Vector3,dt: float,allowed: bool) -> Vector3:
+	if native:return native.swim(head,left,right,dt,allowed)
 	if not allowed or dt<=0 or dt>.1 or not head.is_finite() or not left.is_finite() or not right.is_finite():reset();return thrust
 	var hands: Array[Vector3]=[left-head.origin,right-head.origin]
 	if previous.is_empty():previous=hands;return thrust

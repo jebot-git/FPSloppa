@@ -6,13 +6,13 @@ class Legacy extends Replication:
 		var batch: Array=[]
 		for record in records:
 			var trial:=batch.duplicate();trial.append(record)
-			var encoded:=Codec.pack([header[0],header[1],header[2],trial])
+			var encoded:=Codec.pack([header[0],header[1],header[2],trial],compression_enabled)
 			if encoded.size()>BUDGET and not batch.is_empty():
-				result.normal.append(Codec.pack([header[0],header[1],header[2],batch]));batch=[record]
-				encoded=Codec.pack([header[0],header[1],header[2],batch])
+				result.normal.append(Codec.pack([header[0],header[1],header[2],batch],compression_enabled));batch=[record]
+				encoded=Codec.pack([header[0],header[1],header[2],batch],compression_enabled)
 			else:batch=trial
 			if encoded.size()>BUDGET:result.large.append(encoded);stats.large_records+=1;batch=[]
-		if not batch.is_empty():result.normal.append(Codec.pack([header[0],header[1],header[2],batch]))
+		if not batch.is_empty():result.normal.append(Codec.pack([header[0],header[1],header[2],batch],compression_enabled))
 var failures: Array=[]
 var checks:=0
 func check(ok: bool,label: String) -> void:

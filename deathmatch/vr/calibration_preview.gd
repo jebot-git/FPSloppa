@@ -9,6 +9,7 @@ var status:Label
 var stock:Button
 var confirmed:=false
 var hands:Array=[]
+var facing_yaw:=0.0
 func setup(arena)->void:
  game=arena
  var image:=TextureRect.new();image.custom_minimum_size=Vector2(320,220);image.expand_mode=TextureRect.EXPAND_IGNORE_SIZE;image.stretch_mode=TextureRect.STRETCH_KEEP_ASPECT_CENTERED;image.flip_h=true;add_child(image)
@@ -44,7 +45,7 @@ func _process(_delta:float)->void:
   if preview:stage.add_child(preview);preview.preview_mode=0;preview.distance_ik_enabled=false
  if not is_instance_valid(preview):status.text="Select a local skin to preview.";return
  if game.is_vr():
-  var pose:Dictionary=game.xr_rig.sample_pose()
+  var pose:Dictionary=front_facing_pose(game.xr_rig.sample_pose())
   preview.target_xr_pose=pose;preview.left_handed=game.xr_rig.left_handed
   if hands.is_empty():
    for source in game.xr_rig.hand_models:
@@ -57,3 +58,15 @@ func _process(_delta:float)->void:
 func refresh_stock()->void:
  var on:bool=game.xr_rig.virtual_stock_enabled if game.is_vr() else preload("res://deathmatch/vr/preferences.gd").read_settings().virtual_stock
  stock.set_pressed_no_signal(on);stock.text="VIRTUAL STOCK: "+("ON" if on else "OFF")
+
+func front_facing_pose(source:Dictionary)->Dictionary:
+ # Normalize only the private preview. Keep height, pitch, roll, reach and metadata;
+ # every tracked transform uses the same rigid frame, including weapons and hands.
+ var pose:=source.duplicate()
+ if not source.get("head") is Transform3D:return pose
+ facing_yaw=preload("res://deathmatch/vr/body_basis.gd").head_yaw(source,facing_yaw)
+ var head:Transform3D=source.head
+ var inverse:=Transform3D(Basis(Vector3.UP,facing_yaw),Vector3(head.origin.x,0,head.origin.z)).affine_inverse()
+ for key in pose:
+  if pose[key] is Transform3D:pose[key]=inverse*pose[key]
+ return pose

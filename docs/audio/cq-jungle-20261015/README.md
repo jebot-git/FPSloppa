@@ -11,3 +11,6 @@ Initially, four daytime and three nighttime stems were mixed and exported throug
 Verification includes original-file hashes, exported-master correlation with the intended layer gains, finite samples, stereo loop-boundary continuity, DC offset, clipping headroom, and imported Godot streams loaded from an isolated PCK. [Stereo quality](quality-stereo.json) and [pack check](pack.log). The complete field-audio quality check passed 51 assets. No new headset playback or remote deployment was performed for this audio pass; the new beds take effect on the next client launch.
 
 The rooster correction rebuilds the runtime beds directly from the pinned gains, excluding the entire Costa Rican layer rather than suppressing a frequency band shared with wildlife. Automated [source and final-loop scans](../../validation/voxel-battle/live-release-20261015/audio/) support that choice but are not a listening guarantee. Both loops pass the 51-asset quality check. The earlier Audacity receipt describes the initial five-source pass; current recipe and manifest hashes identify the revised mixes.
+
+
+2026-10-16: The daytime bird mix described above has been superseded after the user still heard rooster calls. [Current insect-focused daytime replacement](../cq-jungle-20261016/README.md). Nighttime remains as described here.

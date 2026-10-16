@@ -65,3 +65,46 @@ native_server/build/cq-load-client native_server/cooked/world.json 17777 64 30 r
 The load tool sends ordinary player input and validates received CQA3 snapshots. It reports admission, disconnects, movement, snapshot cadence and gaps, including a separate steady-state window after five seconds. It does not render avatars or claim to emulate client GPU load. Native bot tests additionally exercise server-side planning/combat. Use the actual arena desktop/tracked fixtures for end-to-end frontend verification.
 
 The Jolt host is independently implemented; shared gameplay does not imply bit-identical Godot CharacterBody movement. Compare client prediction corrections on the target device, especially stairs, crowded doorways, room-scale movement and vehicles. Heightfield/grass parity, real admission and movement, destruction invariants and gameplay fixtures are checked separately.
+
+Synthetic fixed-rate capacity matrix: cook the tracked-hand/reload input cycle with
+`godot --headless --xr-mode off --path . --script tools/standalone_server/cook_benchmark_inputs.gd`.
+Build `cq-server` and `cq-load-client`, then put both executables, the cooked `world/`
+(including `benchmark-inputs.bin`) in a separate benchmark directory. Run
+`python3 tools/standalone_server/run_matrix.py --bundle /path/to/benchmark --output /new/results --seconds 120`.
+This runs 64/128 participants at fixed 30/60 Hz, with an eight-second admission warm-up,
+four current T1 classes, tracked reload poses, normal ammunition and no rendering.
+Adaptive tick and destruction are disabled for comparison with the historical fixture.
+The explicit `--benchmark-players 128` server option requires a loopback bind and raises
+only that process's capacity/team/squad limits. Normal configuration remains capped at 64.
+Reports include callback/phase distributions, input rejection/overflow, class shot counts,
+per-peer snapshot delivery and process CPU/RSS. Timing excludes admission and warm-up;
+CPU samples include transport handling outside the simulation callback. Loopback delivery
+does not establish Internet bandwidth/latency capacity or human-match combat load.
+
+CQ snapshots negotiate `snapshot_codec="row-xor-fastlz-v3"` in HELLO/WELCOME.
+Clients without this capability receive independent FastLZ snapshots. New clients
+acknowledge only validated, completely reconstructed frames. The server uses only
+acknowledged baselines in its bounded eight-frame history; missing baselines request
+an independent snapshot, with periodic keyframes as a second recovery path.
+Delta records match players/entities by identity, reference unchanged records, XOR
+changed records, and apply FastLZ to the result. Codec reconstruction is lossless.
+The shared authority frame is parsed once per publication. Avatar/controller pose
+detail enters relevance at 128m and leaves at 160m; remote physical reload detail is
+limited to the equipped weapon within that range. The local player's complete
+physical reload state and coarse player/tactical/long-range state remain present.
+This is detail relevance, not enemy position secrecy or complete spatial interest management.
+`sv_cq_snapshot_delta` and `sv_cq_snapshot_relevance` independently enable these
+features (both default to 1). Benchmark `--snapshot-mode full|relevance|delta|both`
+selects the corresponding combination. These settings trade compression CPU and
+baseline memory for bandwidth; see the snapshot validation report for measured costs.
+Snapshot preparation uses a soft budget of half the current tick duration. Once
+that budget is reached, remaining recipients receive a shared independent full
+snapshot. Priority rotates every publication. This bounds repeated per-peer codec
+work while maintaining delivery; it can send more detail and consume more bandwidth
+under pressure. `snapshot_budget_fallbacks` counts these recipient deliveries.
+
+More than 64 ready connections use the original shared full-snapshot broadcast
+path. Personalised snapshot processing is limited to the 64-player production
+target; `snapshot_shared_population_frames` records the experimental population
+fallback. This deliberately preserves 128-player simulation capacity while further
+compression scaling work remains.

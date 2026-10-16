@@ -1,0 +1,102 @@
+[
+  {
+    "case": "64-30",
+    "passed": true,
+    "checks": {
+      "server_exit": true,
+      "client_exit": true,
+      "admitted": true,
+      "tick_rate": true,
+      "snapshots": true,
+      "no_rejections": true,
+      "no_overflow": true,
+      "no_disconnect": true,
+      "four_classes_firing": true
+    },
+    "hz": 29.999272201906763,
+    "callback_us": {
+      "max": 18855.242000000002,
+      "mean": 4940.973195555555,
+      "p50": 5108.118,
+      "p95": 11004.181999999999,
+      "p99": 15650.105000000001
+    },
+    "payload_mbit_s": 46.47535815007838,
+    "cpu_one_core_percent": 21.03939366559876
+  },
+  {
+    "case": "64-60",
+    "passed": true,
+    "checks": {
+      "server_exit": true,
+      "client_exit": true,
+      "admitted": true,
+      "tick_rate": true,
+      "snapshots": true,
+      "no_rejections": true,
+      "no_overflow": true,
+      "no_disconnect": true,
+      "four_classes_firing": true
+    },
+    "hz": 59.999478933025216,
+    "callback_us": {
+      "max": 18915.514000000003,
+      "mean": 3092.126566111107,
+      "p50": 1479.1190000000001,
+      "p95": 8483.309,
+      "p99": 13817.539
+    },
+    "payload_mbit_s": 48.768966064694986,
+    "cpu_one_core_percent": 25.826609492543668
+  },
+  {
+    "case": "128-30",
+    "passed": false,
+    "checks": {
+      "server_exit": true,
+      "client_exit": true,
+      "admitted": true,
+      "tick_rate": false,
+      "snapshots": true,
+      "no_rejections": true,
+      "no_overflow": true,
+      "no_disconnect": true,
+      "four_classes_firing": true
+    },
+    "hz": 29.415996248166977,
+    "callback_us": {
+      "max": 61673.139,
+      "mean": 16251.888783286136,
+      "p50": 17726.485,
+      "p95": 39330.484,
+      "p99": 50975.71
+    },
+    "payload_mbit_s": 178.81658566680358,
+    "cpu_one_core_percent": 61.814002845266025
+  },
+  {
+    "case": "128-60",
+    "passed": false,
+    "checks": {
+      "server_exit": true,
+      "client_exit": true,
+      "admitted": true,
+      "tick_rate": false,
+      "snapshots": false,
+      "no_rejections": true,
+      "no_overflow": true,
+      "no_disconnect": true,
+      "four_classes_firing": true
+    },
+    "hz": 57.04139348354965,
+    "callback_us": {
+      "max": 77272.61200000001,
+      "mean": 9496.393158802046,
+      "p50": 2542.523,
+      "p95": 31084.911,
+      "p99": 53300.111999999994
+    },
+    "payload_mbit_s": 196.71764794486782,
+    "cpu_one_core_percent": 69.77886465312089
+  }
+]

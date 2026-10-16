@@ -4,6 +4,11 @@ const MAX_BYTES:=25_000_000
 static func integer(value:Variant,low:int,high:int) -> bool:
 	return (value is int or value is float) and is_finite(float(value)) and value==floor(float(value)) and value>=low and value<=high
 static func read(path:String) -> Dictionary:
+	if ClassDB.class_exists("FPSClientServices") and not OS.get_cmdline_user_args().has("--gdscript-avatar-format"):
+		return ClassDB.class_call_static("FPSClientServices","avatar_read",path)
+	return read_reference(path)
+
+static func read_reference(path:String) -> Dictionary:
 	var f:=FileAccess.open(path,FileAccess.READ)
 	if not f:return {"error":"Cannot open avatar."}
 	var size:=f.get_length()
@@ -95,7 +100,12 @@ static func read(path:String) -> Dictionary:
 	if width!=m.skin_width or height!=m.skin_height:return {"error":"Skin dimensions differ from manifest."}
 	return {"manifest":m,"positions":raw,"skin":skin,"size":size}
 static func inspect(path:String) -> Dictionary:
-	var decoded:=read(path)
+	if ClassDB.class_exists("FPSClientServices") and not OS.get_cmdline_user_args().has("--gdscript-avatar-format"):
+		return ClassDB.class_call_static("FPSClientServices","avatar_inspect",path,"")
+	return inspect_reference(path)
+
+static func inspect_reference(path:String) -> Dictionary:
+	var decoded:=read_reference(path)
 	if decoded.has("error"):return decoded
 	var m:Dictionary=decoded.manifest
 	var reach:Dictionary=m.get("ik_profile",{}).duplicate(true)

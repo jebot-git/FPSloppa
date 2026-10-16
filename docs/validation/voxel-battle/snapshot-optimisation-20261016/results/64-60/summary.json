@@ -1,0 +1,35 @@
+{
+  "players": 64,
+  "configured_hz": 60,
+  "passed": true,
+  "checks": {
+    "server_exit": true,
+    "client_exit": true,
+    "admitted": true,
+    "tick_rate": true,
+    "snapshots": true,
+    "no_rejections": true,
+    "no_overflow": true,
+    "no_disconnect": true,
+    "four_classes_firing": true
+  },
+  "actual_hz": 59.99988225973105,
+  "callback_us": {
+    "max": 12721.903999999999,
+    "mean": 3043.6069641666736,
+    "p50": 1539.3600000000001,
+    "p95": 8389.487,
+    "p99": 11176.614
+  },
+  "shots_by_class": [
+    1200,
+    378,
+    2400,
+    39
+  ],
+  "accepted_inputs": 460551,
+  "resource": {
+    "peak_rss_mib": 373.25,
+    "mean_cpu_one_core_percent": 25.443007328584034
+  }
+}

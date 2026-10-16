@@ -6,11 +6,11 @@ using namespace godot;
 namespace {
 constexpr int64_t LIMIT=262144;
 constexpr int64_t BUDGET=1100;
-PackedByteArray envelope(const PackedByteArray &raw,uint8_t version){
+PackedByteArray envelope(const PackedByteArray &raw,uint8_t version,bool compression=true){
  PackedByteArray result;
  if(raw.is_empty()||raw.size()>LIMIT)return result;
- result.resize(5);result.set(0,version);result.encode_u32(1,raw.size());
- result.append_array(raw.compress(0)); // Godot COMPRESSION_FASTLZ, same as reference.
+ result.resize(5);result.set(0,compression?version:3);result.encode_u32(1,raw.size());
+ result.append_array(compression?raw.compress(0):raw); // Godot COMPRESSION_FASTLZ, same as reference.
  return result;
 }
 Dictionary dictionary(const Dictionary &d,const char *key){
@@ -42,7 +42,7 @@ PackedByteArray FPSCodec::pack_input(const Dictionary &command) const{
  }
  return bytes;
 }
-Dictionary FPSCodec::pack_records(const Array &records,const Array &header) const{
+Dictionary FPSCodec::pack_records(const Array &records,const Array &header,bool compression) const{
  Array normal,large;Dictionary result;result["normal"]=normal;result["large"]=large;result["invalid"]=false;
  if(header.size()!=3||records.size()>32768){result["invalid"]=true;return result;}
  Array message;message.resize(4);
@@ -54,7 +54,7 @@ Dictionary FPSCodec::pack_records(const Array &records,const Array &header) cons
   PackedByteArray accepted;
   while(true){
    message[3]=records.slice(cursor,cursor+count);
-   PackedByteArray bytes=envelope(UtilityFunctions::var_to_bytes(message),2);
+   PackedByteArray bytes=envelope(UtilityFunctions::var_to_bytes(message),2,compression);
    if(!bytes.is_empty()&&bytes.size()<=BUDGET){
     low=count;accepted=bytes;
     if(low==remaining)break;
