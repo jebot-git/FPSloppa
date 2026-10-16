@@ -40,6 +40,8 @@ static func weapon(id:int,rules:String) -> Node3D:
 	if id==5 and not node.find_child("InsertedAmmo",true,false):
 		var ammo:=ammunition(node,id);node.add_child(ammo);ammo.name="InsertedAmmo";ammo.position=Vector3(-.08,.015,.02)
 
+	if data.get("guidance_monitor",false):
+		var display=load("res://deathmatch/vr/weapon_display.gd").new();node.add_child(display);display.setup(node)
 	if data.get("scope_monitor",false):
 		var monitor=preload("res://deathmatch/conquest/classes/scout_monitor.gd").new();node.add_child(monitor);monitor.setup(node,data)
 	if data.get("aim_laser",false):

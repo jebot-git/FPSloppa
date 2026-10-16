@@ -13,7 +13,6 @@ var carried:Node3D
 var ammo_weapon:=-1
 var ammo_readout:Label3D
 var chamber_readout:Label3D
-var weapon_readout:Node3D
 var previous:Dictionary={}
 var cloak=preload("res://deathmatch/vr/cq_cloak.gd").new()
 var debris:Array=[]
@@ -78,10 +77,6 @@ func update(delta:float,valid:bool)->void:
    rig.feedback(.25,.06,true)
    while debris.size()>4:debris.pop_front().node.queue_free()
  cloak.update(valid and game.classes.cloaked(mine),rig.hand_models+[rig.gun,rig.shoulder_utility,carried]+holsters.values().map(func(h):return h.node))
- var show_panel:bool=valid and w==5 and is_instance_valid(rig.gun) and rig.gun.visible
- if show_panel and not is_instance_valid(weapon_readout):
-  weapon_readout=preload("res://deathmatch/vr/weapon_display.gd").new();add_child(weapon_readout);weapon_readout.setup()
- if is_instance_valid(weapon_readout):weapon_readout.update_display(rig.gun,game.variant_combat.charge_label(mine).trim_suffix(" · "),game.variant_combat.charges.has(mine),show_panel)
  previous=state.duplicate();previous.weapon=w
  if not valid and is_instance_valid(carried):carried.hide()
  if not valid and is_instance_valid(ammo_readout):ammo_readout.hide();chamber_readout.hide()

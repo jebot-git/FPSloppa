@@ -92,7 +92,7 @@ func fire(id:int,alternate:bool=false,_charge:float=0.0) -> bool:
 		if w in [10,16]:game._cq_beam_impacts.rpc(solution.origin,PackedVector3Array([hit.position]),w,s.team)
 		else:game._impacts.rpc(solution.origin,PackedVector3Array([hit.position]),w)
 	else:
-		var extra:Dictionary={"vehicle_target":lock.get("target","") if lock.get("ready",false) and lock.get("life",-1)==s.serial else "","guided_team":s.team} if w==11 else {}
+		var extra:Dictionary={"vehicle_target":lock.get("target","") if lock.get("ready",false) and lock.get("life",-1)==s.serial else "","guided_team":s.team,"owner_life":s.serial} if w==11 else {}
 		launch(id,w,solution.origin,direction,extra)
 	return true
 func launch_blast(id:int) -> void:

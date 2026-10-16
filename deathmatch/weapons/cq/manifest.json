@@ -215,7 +215,7 @@
     "reload_kind": "handle"
   },
   "massacre": {
-    "triangles": 2954,
+    "triangles": 2930,
     "materials": 1,
     "textures": 1,
     "texture_size": [
@@ -260,16 +260,7 @@
     "finish": "gunmetal",
     "construction": "source silhouette; authored open magazine well and independent reload parts",
     "source": "massacre/Massacre.obj",
-    "reload_kind": "pack",
-    "monitor_position": [
-      0.0,
-      0.26334241032600403,
-      -0.00699999975040555
-    ],
-    "monitor_size": [
-      0.088,
-      0.058
-    ]
+    "reload_kind": "pack"
   },
   "repair_kit": {
     "triangles": 984,
@@ -1147,7 +1138,22 @@
     "finish": "gunmetal",
     "construction": "source silhouette; authored open magazine well and independent reload parts",
     "source": "akira.blend",
-    "reload_kind": "pack"
+    "reload_kind": "pack",
+    "guidance_monitor": true,
+    "monitor_position": [
+      0.0,
+      0.1611161,
+      -0.10653
+    ],
+    "monitor_size": [
+      0.046,
+      0.046
+    ],
+    "monitor_rotation": [
+      0.0,
+      0.0,
+      0.0
+    ]
   },
   "smg_t2": {
     "triangles": 2001,

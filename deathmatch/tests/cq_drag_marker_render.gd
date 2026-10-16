@@ -53,11 +53,11 @@ func run():
  var hidden:=await capture("/tmp/cq-cabin-display-fixes/drag-covered.png")
  check(not markers.points[2].visible and amber(hidden)==0,"world cover hides the medic handle")
  game.active=false;markers.draw(game);body.hide();wall.queue_free()
- var launcher:Node3D=preload("res://deathmatch/conquest/classes/models.gd").weapon(5,"cq_technician");map.add_child(launcher)
- var panel=preload("res://deathmatch/vr/weapon_display.gd").new();map.add_child(panel);panel.setup();panel.update_display(launcher,"CHARGING 050% · 0.18s",true,true)
- game.camera.position=Vector3(0,.245,.13);game.camera.look_at(preload("res://deathmatch/conquest/classes/models.gd").anchor(5,"monitor_position"));game.camera.fov=35
+ var launcher:Node3D=preload("res://deathmatch/conquest/classes/models.gd").weapon(11,"cq_technician");map.add_child(launcher)
+ var panel=launcher.get_node("GuidanceMonitor");panel.update_guidance(launcher,{"elapsed":.75},{},0.)
+ game.camera.position=Vector3(0,.168,.06);game.camera.look_at(preload("res://deathmatch/conquest/classes/models.gd").anchor(11,"monitor_position"));game.camera.fov=35
  await process_frame;await process_frame
- var display:=await capture("/tmp/cq-cabin-display-fixes/massacre-display.png")
- check(panel.viewport.size==Vector2i(320,200) and panel.label.text=="CHARGING 050%\n0.18s","Massacre status is rendered inside a bounded monitor texture")
- check(amber(display)>30,"charging message is visible on authored monitor glass")
+ var display:=await capture("/tmp/cq-cabin-display-fixes/guided-launcher-display.png")
+ check(panel.viewport.size==Vector2i(320,320) and panel.label.text=="ACQUIRING\n050%\nHOLD AIM","T2 acquisition status is rendered inside a bounded monitor texture")
+ check(amber(display)>30,"acquisition message is visible on authored monitor glass")
  print("CQ_DRAG_DISPLAY_RENDER ",JSON.stringify({"checks":checks,"failures":failures}));quit(0 if failures.is_empty() else 1)

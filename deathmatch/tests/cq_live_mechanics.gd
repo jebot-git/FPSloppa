@@ -105,14 +105,14 @@ func run()->void:
  check(not game.medic_drag_points.points.has(patient_id),"revival removes the medic drag handle")
  rig.global_transform=marker_rig_pose
  game.fighters[patient_id].queue_free();game.fighters.erase(patient_id);game.players.erase(patient_id);game.classes.states.erase(patient_id)
- var panel=preload("res://deathmatch/vr/weapon_display.gd").new();rig.add_child(panel);panel.setup()
- var launcher:Node3D=Models.weapon(5,"cq_technician");rig.add_child(launcher);launcher.scale=Vector3.ONE*.65
- panel.update_display(launcher,"CHARGING 050% · 0.18s",true,true)
- check(panel.global_transform.is_equal_approx(launcher.global_transform*Transform3D(Basis.IDENTITY,Models.anchor(5,"monitor_position"))),"Massacre panel sits on authored monitor glass at weapon scale")
+ var launcher:Node3D=Models.weapon(11,"cq_technician");rig.add_child(launcher);launcher.scale=Vector3.ONE*.65
+ var panel=launcher.get_node("GuidanceMonitor")
+ panel.update_guidance(launcher,{"elapsed":.75},{},0.)
+ check(panel.global_transform.is_equal_approx(launcher.global_transform*Transform3D(Basis.IDENTITY,Models.anchor(11,"monitor_position"))),"T2 guidance panel sits on authored monitor glass at weapon scale")
  launcher.global_position+=Vector3(.1,.2,-.2);launcher.rotate_y(.3)
  check(panel.global_transform.is_equal_approx(preload("res://deathmatch/vr/weapon_display.gd").mount(launcher)),"monitor text follows late gun tracking and recoil without a frame of lag")
- check(panel.screen.mesh.size.x*launcher.scale.x<.064 and panel.screen.mesh.size.y*launcher.scale.y<.043 and panel.label.text=="CHARGING 050%\n0.18s","Massacre status fits the small physical display")
- panel.queue_free();launcher.queue_free()
+ check(panel.screen.mesh.size.x*launcher.scale.x<.064 and panel.screen.mesh.size.y*launcher.scale.y<.043 and panel.label.text=="ACQUIRING\n050%\nHOLD AIM","T2 status fits the physical monitor bezel")
+ launcher.queue_free()
  var cell_pose:Transform3D=preload("res://deathmatch/avatars/equipment.gd").cloak_held_pose(Transform3D.IDENTITY)
  check(cell_pose.basis.y.is_equal_approx(Vector3.FORWARD) and cell_pose.basis.get_scale().is_equal_approx(Vector3.ONE),"cloak cell follows thumb axis at authored eighteen-centimetre size")
  var aim=preload("res://deathmatch/vr/aim_support.gd").new()

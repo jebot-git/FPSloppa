@@ -272,7 +272,6 @@ def build(job):
  if key=='burst_rifle':muzzle.z=(1.55-grip.z)*scale
  if key=='railgun':muzzle.z=(1.37-grip.z)*scale
  if key=='energy_minigun':muzzle.z=(0-grip.z)*scale
- monitor=None
  parts=[body]+moving_parts;mag=Vector((0,0,0));mag_direction=Vector((0,0,-1));mag_rotation=Matrix.Identity(3)
  rack=Vector((.045,max(.07,muzzle.y*.22),muzzle.z))
  if kind!='tool':
@@ -322,9 +321,7 @@ def build(job):
    slide=bpy.data.objects.new('SlidingBolt',mesh);bpy.context.collection.objects.link(slide);parts.append(slide)
   bm.free()
  # Preserve the built-in scope for the burst rifle and scout. Others get a reused red dot.
- if key=='massacre':
-  monitor=Vector((0,.02,hi.z+.035));parts.append(cube('ChargeDisplayFrame',monitor,(.10,.025,.07)))
-  parts.append(cube('ChargeDisplayPedestal',(0,.03,hi.z-.025),(.035,.035,.10)));monitor.y-=.013
+ # The T1 salvo launcher has no screen or display pedestal.
 
  scope=kind=='scope' or key=='scout_pistol'
  mount_z=muzzle.z+.04
@@ -354,7 +351,8 @@ def build(job):
  raw=(OUT/(key+'.glb')).read_bytes();gltf=json.loads(raw[20:20+struct.unpack_from('<I',raw,12)[0]])
  total=sum(gltf['accessors'][p['indices']]['count']//3 for mesh in gltf['meshes'] for p in mesh['primitives'])
  data=dict(triangles=total,materials=1,textures=1,texture_size=[1024,1024],muzzle=game(muzzle),magazine_anchor=game(mag),magazine_extract=game(mag_direction),magazine_layout='model specific',rack_anchor=game(rack),support_anchor=game(support),red_dot_position=game(sight),red_dot=key in ['assault_rifle','burst_rifle'],sight_zero_metres=50,optimization_pending=False,triangle_budget=budget,finish='gunmetal',construction='source silhouette; authored open magazine well and independent reload parts',source=filename,reload_kind='slide' if kind=='pistol' else 'pack' if kind=='pack' else 'handle')
- if monitor is not None:data.update(monitor_position=game(monitor),monitor_size=[.088,.058])
+ # Flush inset readout on the source T2 rear-facing monitor, inside its bezel.
+ if key=='guided_launcher':data.update(guidance_monitor=True,monitor_position=[0.,.1611161,-.10653],monitor_size=[.046,.046],monitor_rotation=[0.,0.,0.])
  if scope:data.update(scope_rear=game(Vector((0,-.07,hi.z-.018))),scope_front=game(Vector((0,.06,hi.z-.018))),scope_radius=.035,zoom_steps=[1.5] if kind=='scope' else [1.5,3.,6.])
  if key=='scout_pistol':
   rear=Vector((0,(-1.99-grip.y)*scale,(1.68-grip.z)*scale));front=Vector((0,(3.62-grip.y)*scale,rear.z))

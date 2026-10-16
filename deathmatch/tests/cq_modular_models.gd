@@ -19,6 +19,6 @@ func run() -> void:
 		if id in [1,9,10]:
 			var optic=preload("res://deathmatch/vr/sniper_scope.gd").new();root.add_child(optic);optic.attach(model)
 			check(optic.lens!=null and optic.zoom_steps==([1.5] if id==1 else [1.5,3.0,6.0] if id==9 else [2.0,4.0,8.0]),"Weapon %d has functional configured scope"%id);optic.free()
-		if id in [5,11]:check(model.find_child("GuidanceMonitor",true,false)!=null,"Weapon %d has integrated monitor readout"%id)
+		if id in [5,11]:check((model.find_child("GuidanceMonitor",true,false)!=null)==(id==11),"Only the T2 launcher has an integrated monitor readout")
 		model.free()
 	print("CQ_MODULAR_MODELS_RESULT ",JSON.stringify(failures));quit(0 if failures.is_empty() else 1)

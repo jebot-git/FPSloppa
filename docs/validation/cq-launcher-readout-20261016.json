@@ -1,0 +1,17 @@
+{
+  "change": "T2 integrated lock and missile remaining-flight display; T1 screen removed",
+  "validation": {
+    "launcher_display_checks": 23,
+    "renderer_checks": 5,
+    "hand_tracking": "passed",
+    "arena_parse": "passed",
+    "live_mechanics_default_fixture": {
+      "checks": 52,
+      "failures": []
+    },
+    "production_profile_fixture": "Not completed: assumes a local fighter exists on the headless CQ host; aborts at cq_live_mechanics.gd:56. No physical HMD test."
+  },
+  "renders": "test-results/weapon-sources/vr-held-20261016/gallery.html",
+  "render_command": "DISPLAY=:0 Godot --xr-mode off --audio-driver Dummy --path . --script tools/cq_assets/preview_vr_weapons.gd",
+  "countdown": "Latest active own T2 missile in current player life; replicated remaining seconds minus client visual age, cleared on removal/expiry; not an impact ETA."
+}
